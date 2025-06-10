@@ -73,6 +73,7 @@ func New(basePath string) *Server {
 // Init initializes the server and the template engine.
 func (s *Server) Init() {
 	// System routes
+	s.AddRoute("/api", s.infoRoutes())
 	s.AddRoute("/api/sys", s.sysRoutes())
 	s.AddRoute("/logger", s.loggerRoutes())
 
@@ -189,6 +190,25 @@ func (s *Server) Redirect(w http.ResponseWriter, r *http.Request, ref ...string)
 // Log returns a log entry including the request ID.
 func (s *Server) Log(r *http.Request) *slog.Logger {
 	return slog.With(slog.String("@id", s.GetReqID(r)))
+}
+
+// infoRoutes returns the route returning the service information.
+func (s *Server) infoRoutes() http.Handler {
+	r := chi.NewRouter()
+
+	type serviceInfo struct {
+		Version string `json:"version"`
+	}
+
+	r.Options("/", func(w http.ResponseWriter, r *http.Request) {
+		res := serviceInfo{
+			Version: configs.Version(),
+		}
+
+		s.Render(w, r, 200, res)
+	})
+
+	return r
 }
 
 // sysRoutes returns the route returning some system
