@@ -16,6 +16,7 @@ import (
 	"os"
 	"os/signal"
 	"strconv"
+	"strings"
 	"syscall"
 	"time"
 
@@ -89,16 +90,6 @@ func runServer(_ context.Context, args []string) error {
 		return err
 	}
 
-	srv := &http.Server{
-		Addr: net.JoinHostPort(
-			configs.Config.Server.Host,
-			strconv.Itoa(configs.Config.Server.Port),
-		),
-		Handler:           s.Router,
-		MaxHeaderBytes:    1 << 20,
-		ReadHeaderTimeout: time.Second * 5,
-	}
-
 	if err := bus.Load(); err != nil {
 		return err
 	}
@@ -133,15 +124,53 @@ func runServer(_ context.Context, args []string) error {
 		}()
 	}
 
+	srv := &http.Server{
+		Handler:           s.Router,
+		MaxHeaderBytes:    1 << 20,
+		ReadHeaderTimeout: time.Second * 5,
+	}
+	var serveURL string
+
 	// Start the HTTP server
 	go func() {
-		ln, err := net.Listen("tcp", srv.Addr)
-		if err != nil {
-			fatal("cannot start the server", err)
+		var ln net.Listener
+		host := configs.Config.Server.Host
+		if strings.HasPrefix(host, "unix:") {
+			listenPath := strings.TrimPrefix(host, "unix:")
+			unixAddr, err := net.ResolveUnixAddr("unix", listenPath)
+			if err != nil {
+				fatal("failed to parse listen address "+host, err)
+			}
+			srv.Addr = unixAddr.Name
+			ln, err = net.ListenUnix("unix", unixAddr)
+			if err != nil {
+				fatal("failed to listen on "+host, err)
+			}
+			serveURL = unixAddr.String()
+		} else {
+			srv.Addr = net.JoinHostPort(
+				configs.Config.Server.Host,
+				strconv.Itoa(configs.Config.Server.Port),
+			)
+			var err error
+			ln, err = net.Listen("tcp", srv.Addr)
+			if err != nil {
+				fatal("cannot start the server", err)
+			}
+
+			listenURL := url.URL{
+				Scheme: "http",
+				Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+				Path:   s.BasePath,
+			}
+			if listenURL.Hostname() == "0.0.0.0" || listenURL.Hostname() == "127.0.0.1" {
+				listenURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
+			}
+			serveURL = listenURL.String()
 		}
 
 		ready <- true
-		if err = srv.Serve(ln); err != nil {
+		if err := srv.Serve(ln); err != nil {
 			if err == http.ErrServerClosed {
 				slog.Info("stopping server...")
 				return
@@ -152,15 +181,7 @@ func runServer(_ context.Context, args []string) error {
 
 	// Server is ready to accept requests
 	<-ready
-	listenURL := url.URL{
-		Scheme: "http",
-		Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
-		Path:   s.BasePath,
-	}
-	if listenURL.Hostname() == "0.0.0.0" || listenURL.Hostname() == "127.0.0.1" {
-		listenURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
-	}
-	slog.Info("server started", slog.String("url", listenURL.String()))
+	slog.Info("server started", slog.String("url", serveURL))
 
 	// Server shutdown
 	<-stop
