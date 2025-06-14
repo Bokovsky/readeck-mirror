@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-25 07:51+0000\n"
+"PO-Revision-Date: 2025-06-14 11:26+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -859,7 +861,7 @@ msgstr "Importer et exporter"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Flux Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1155,10 +1157,8 @@ msgid "Note: upload the ZIP file directly, not its contents"
 msgstr "Note : envoyez le fichier ZIP tel quel, pas son contenu"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Importez les liens d'un fichier CSV"
+msgstr "Importez les liens depuis un export Readwise"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1166,44 +1166,49 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Déposez un fichier d'export de votre compte Readwise ci-dessous\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Quelles informations sont importées"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Titre de l'article, URL et la date de création"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "Le statut archivé d'un article,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" comme label Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Quand les tags contiennent \"%s\", le bookmark sera ajouté aux favoris "
+"Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "Ce qui n'est pas importé :"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "La progression de lecture et le statut lu,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Les articles envoyés à Readwise Reader par e-mail,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Documents envoyés directement comme les fichiers PDF ou EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1283,7 +1288,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Importer votre collection Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1766,9 +1771,10 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Si vous prévoyez d'envoyer des e-books à un appareil Kindle, vous devez autoriser\n"
+"          Si vous prévoyez d'envoyer des e-books à un appareil Kindle, vous "
+"devez autoriser\n"
 "l'adresse e-mail suivante dans votre compte Kindle :\n"
-"        "
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -1988,7 +1994,7 @@ msgstr "Clé API invalide"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV Readwise Reader"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
