@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
 "PO-Revision-Date: 2025-06-15 12:58+0000\n"
-"Last-Translator: potetotown <potetotown@noreply.codeberg.org>\n"
+"Last-Translator: radixm46 <radixm46@noreply.codeberg.org>\n"
 "Language-Team: Japanese <https://translate.codeberg.org/projects/readeck/"
 "application/ja/>\n"
 "Language: ja_JP\n"
@@ -1873,15 +1873,15 @@ msgstr ""
 
 #: internal/bookmarks/routes/forms_bookmarks.go:382
 msgid "Article"
-msgstr ""
+msgstr "記事"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:383
 msgid "Picture"
-msgstr ""
+msgstr "画像"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:384
 msgid "Video"
-msgstr ""
+msgstr "動画"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:391
 msgctxt "status"
