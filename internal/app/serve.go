@@ -135,8 +135,7 @@ func runServer(_ context.Context, args []string) error {
 	go func() {
 		var ln net.Listener
 		host := configs.Config.Server.Host
-		if strings.HasPrefix(host, "unix:") {
-			listenPath := strings.TrimPrefix(host, "unix:")
+		if listenPath, ok := strings.CutPrefix(host, "unix:"); ok {
 			unixAddr, err := net.ResolveUnixAddr("unix", listenPath)
 			if err != nil {
 				fatal("failed to parse listen address "+host, err)
