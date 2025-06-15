@@ -15,6 +15,7 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
+	"slices"
 	"strconv"
 	"strings"
 	"syscall"
@@ -120,7 +121,7 @@ func runServer(_ context.Context, args []string) error {
 	if startBus {
 		go func() {
 			bus.Tasks().Start()
-			slog.Info("workers started")
+			slog.Info("workers started", slog.Int("num", configs.Config.Extractor.NumWorkers))
 		}()
 	}
 
@@ -129,7 +130,7 @@ func runServer(_ context.Context, args []string) error {
 		MaxHeaderBytes:    1 << 20,
 		ReadHeaderTimeout: time.Second * 5,
 	}
-	var serveURL string
+	var listenURL *url.URL
 
 	// Start the HTTP server
 	go func() {
@@ -145,7 +146,7 @@ func runServer(_ context.Context, args []string) error {
 			if err != nil {
 				fatal("failed to listen on "+host, err)
 			}
-			serveURL = unixAddr.String()
+			listenURL = &url.URL{Scheme: "unix", Opaque: unixAddr.Name}
 		} else {
 			srv.Addr = net.JoinHostPort(
 				configs.Config.Server.Host,
@@ -157,15 +158,7 @@ func runServer(_ context.Context, args []string) error {
 				fatal("cannot start the server", err)
 			}
 
-			listenURL := url.URL{
-				Scheme: "http",
-				Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
-				Path:   s.BasePath,
-			}
-			if listenURL.Hostname() == "0.0.0.0" || listenURL.Hostname() == "127.0.0.1" {
-				listenURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
-			}
-			serveURL = listenURL.String()
+			listenURL = &url.URL{Scheme: "tcp", Host: srv.Addr}
 		}
 
 		ready <- true
@@ -180,7 +173,22 @@ func runServer(_ context.Context, args []string) error {
 
 	// Server is ready to accept requests
 	<-ready
-	slog.Info("server started", slog.String("url", serveURL))
+	if listenURL.Scheme == "unix" {
+		slog.Info("server started", slog.String("addr", listenURL.String()))
+	} else {
+		serverURL := &url.URL{
+			Scheme: "http",
+			Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+			Path:   s.BasePath,
+		}
+		if slices.Contains([]string{"0.0.0.0", "127.0.0.1", "::", "::1"}, serverURL.Hostname()) {
+			serverURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
+		}
+		slog.Info("server started",
+			slog.String("addr", listenURL.String()),
+			slog.String("url", serverURL.String()),
+		)
+	}
 
 	// Server shutdown
 	<-stop
