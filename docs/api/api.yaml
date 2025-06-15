@@ -75,6 +75,7 @@ security:
   - bearer: []
 
 tags:
+  - name: info
   - name: user profile
   - name: bookmarks
   - name: bookmark export
@@ -86,6 +87,12 @@ tags:
   - name: dev tools
 
 paths:
+  /info:
+    get:
+      tags: [info]
+      $merge:
+        - "info/routes.yaml#.info"
+
   /auth:
     post:
       tags: [user profile]

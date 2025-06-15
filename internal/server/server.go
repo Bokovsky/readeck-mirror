@@ -73,7 +73,7 @@ func New(basePath string) *Server {
 // Init initializes the server and the template engine.
 func (s *Server) Init() {
 	// System routes
-	s.AddRoute("/api", s.infoRoutes())
+	s.AddRoute("/api/info", s.infoRoutes())
 	s.AddRoute("/api/sys", s.sysRoutes())
 	s.AddRoute("/logger", s.loggerRoutes())
 
@@ -196,13 +196,26 @@ func (s *Server) Log(r *http.Request) *slog.Logger {
 func (s *Server) infoRoutes() http.Handler {
 	r := chi.NewRouter()
 
-	type serviceInfo struct {
-		Version string `json:"version"`
+	type versionInfo struct {
+		Canonical string `json:"canonical"`
+		Release   string `json:"release"`
+		Build     string `json:"build"`
 	}
 
-	r.Options("/", func(w http.ResponseWriter, r *http.Request) {
+	type serviceInfo struct {
+		Version versionInfo `json:"version"`
+	}
+
+	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
+		canonical := configs.Version()
+		release, build, _ := strings.Cut(canonical, "-")
+
 		res := serviceInfo{
-			Version: configs.Version(),
+			Version: versionInfo{
+				Canonical: canonical,
+				Release:   release,
+				Build:     build,
+			},
 		}
 
 		s.Render(w, r, 200, res)
