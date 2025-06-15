@@ -6,6 +6,7 @@
 - extract fediverse:creator metadata as author
 - feeds for any bookmark list
 - Readwise Reader CSV import, by [@mislav](https://codeberg.org/mislav)
+- listen on unix domain sockets, by [@noctux](https://codeberg.org/noctux)
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
