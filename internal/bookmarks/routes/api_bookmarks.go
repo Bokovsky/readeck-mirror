@@ -711,10 +711,9 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 			orderging := goqu.Case().Value(goqu.C("uid").Table("b"))
 			for i, x := range ids {
-				orderging = orderging.When(x, i)
+				orderging = orderging.When(x, goqu.Cast(goqu.V(i), "NUMERIC"))
 			}
 			ds = ds.Order(orderging.Asc())
-
 		}
 
 		ds = ds.
