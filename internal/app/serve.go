@@ -22,6 +22,8 @@ import (
 	"time"
 
 	"github.com/cristalhq/acmd"
+	"golang.org/x/net/http2"
+	"golang.org/x/net/http2/h2c"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/docs"
@@ -159,6 +161,13 @@ func runServer(_ context.Context, args []string) error {
 			}
 
 			listenURL = &url.URL{Scheme: "tcp", Host: srv.Addr}
+		}
+
+		// Wrap http/2 h2c
+		h2 := &http2.Server{}
+		srv.Handler = h2c.NewHandler(srv.Handler, h2)
+		if err := http2.ConfigureServer(srv, h2); err != nil {
+			fatal("cannot configure server", err)
 		}
 
 		ready <- true
