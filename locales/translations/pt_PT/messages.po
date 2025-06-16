@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-30 14:58+0000\n"
+"PO-Revision-Date: 2025-06-17 07:58+0000\n"
 "Last-Translator: Ninguem <ninguem@noreply.codeberg.org>\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
+"projects/readeck/application/pt_PT/>\n"
 "Language: pt_PT\n"
-"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -427,8 +429,9 @@ msgid ""
 "            directly from your browser!"
 msgstr ""
 "\n"
-"            Com a extensão do navegador, pode gravar páginas, imagens e seleções\n"
-"            diretamente do navegador!"
+"            Com a extensão do navegador, pode gravar páginas, imagens e "
+"seleções\n"
+"            diretamente no navegador!"
 
 #: assets/templates/bookmarks/base.jet.html:98
 #: assets/templates/bookmarks/index.jet.html:99
@@ -488,7 +491,7 @@ msgstr "Por %s"
 #: assets/templates/bookmarks/components/sidebar.jet.html:69
 #: assets/templates/emails/bookmark.jet.html:27
 #: assets/templates/epub/bookmark.jet.html:45
-#, fuzzy, python-format
+#, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
 msgstr[0] "Cerca de %d minuto lido"
@@ -686,7 +689,7 @@ msgstr "Desfazer"
 #: assets/templates/bookmarks/components/actions.jet.html:58
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
-msgstr "Download EPUB"
+msgstr "Descarregar EPUB"
 
 #: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Share by Link"
@@ -720,7 +723,7 @@ msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] ""
+msgstr[1] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -867,7 +870,7 @@ msgstr "Importar links e artigos"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Feed Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -895,11 +898,11 @@ msgstr "Hifenização"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr "Envia o conteúdo deste favorito na mensagem."
+msgstr "Enviar o conteúdo deste marcador na mensagem."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr "Envia este favorito como um ficheiro EPUB em anexo."
+msgstr "Enviar este marcador como um ficheiro EPUB em anexo."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
@@ -1015,7 +1018,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Carrega um ficheiro CSV do Instapaper ou qualquer outro CSV que respeite o formato especificado abaixo.\n"
+"    Carregar um ficheiro CSV do Instapaper ou qualquer outro CSV que "
+"respeite o formato especificado abaixo.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1170,10 +1174,8 @@ msgstr "Nota: carregue o ficheiro ZIP diretamente, não o seu conteúdo"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Importar ligações de um ficheiro CSV"
+msgstr "Importar ligações de um ficheiro CSV do Readwise"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1181,44 +1183,50 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Carregue um ficheiro CSV exportado da sua conta do leitor Readwise em "
+"baixo.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Que informações são importadas"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Título do artigo, URL e quando foi registado primeiro"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "O estado arquivado do artigo"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" como etiqueta Readeck"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Quando um documento contém \"%s\", o marcador será adicionado aos favoritos "
+"do Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "O que não é importado:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Estado de visualização do artigo e progressão de leitura,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Artigos enviados para o Readeck via email,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Documentos carregados como PDF ou EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1298,7 +1306,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Importe a sua biblioteca do Readwise"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1790,9 +1798,9 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Se planeia enviar e-books para dispositivos Kindle, deve aprovar\n"
-"        o seguinte endereço de email junto da sua conta Kindle:\n"
-"        "
+"          Se planeia enviar e-books para dispositivos Kindle, deve aprovar\n"
+"o seguinte endereço de email junto da sua conta Kindle:\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -1885,9 +1893,8 @@ msgstr "Como usar"
 
 # | msgid "Create a new API token"
 #: assets/templates/profile/token.jet.html:98
-#, fuzzy
 msgid "As a Bearer Token"
-msgstr "Crie um novo token API"
+msgstr "Como um token API"
 
 #: assets/templates/profile/token.jet.html:100
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
@@ -2020,7 +2027,7 @@ msgstr "Chave API inválida"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV do Readwise"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
@@ -2449,7 +2456,7 @@ msgstr "%a %b %e %H:%M:%S %y"
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr "%d,/%m, /%Y"
+msgstr "%d/%m/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
