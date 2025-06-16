@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-26 05:49+0000\n"
-"Last-Translator: elmau <elmau@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-06-17 07:58+0000\n"
+"Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
+"application/es/>\n"
 "Language: es_ES\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -236,7 +238,7 @@ msgstr "¿Olvidó su contraseña?"
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:76
 msgid "Welcome to Readeck!"
-msgstr "Le damos la bienvenida a Readeck."
+msgstr "¡Le damos la bienvenida a Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
@@ -428,7 +430,7 @@ msgid ""
 msgstr ""
 "\n"
 "            Con la extensión, puede guardar páginas, imágenes y selecciones\n"
-"            directamente desde el navegador."
+"            ¡Directamente desde el navegador!"
 
 #: assets/templates/bookmarks/base.jet.html:98
 #: assets/templates/bookmarks/index.jet.html:99
@@ -718,7 +720,7 @@ msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
 msgstr[0] "%d min"
-msgstr[1] "%d min"
+msgstr[1] "%d mins"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -865,7 +867,7 @@ msgstr "Importar y exportar"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Feed Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1172,10 +1174,8 @@ msgstr "Nota: cargue el archivo ZIP directamente, no su contenido"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Importar enlaces desde un archivo CSV"
+msgstr "Importar enlaces desde el CSV exportado de Readwise Reader"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1183,44 +1183,50 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Cargue un archivo CSV exportado desde su cuenta de Readwise Reader a "
+"continuación.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Qué información es importada"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Título de artículo, URL, y cuando fue guardado por primera vez"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "El estado archivado de un artículo,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" como etiquetas de Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Cuando la etiqueta del documento contenga \"%s\", el marcador será agregado "
+"a sus favoritos de Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "Lo que no se importa:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Progreso de lectura del artículo y estado visto,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Artículos reenviados a Readwise Reader por correo electrónico,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Documentos cargados, como PDF o EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1300,7 +1306,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Importe su biblioteca de Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1791,9 +1797,10 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Si tiene previsto enviar libros electrónicos a un dispositivo Kindle, debe aprobar\n"
-"        la siguiente dirección de correo electrónico en su cuenta Kindle:\n"
-"        "
+"          Si tiene previsto enviar libros electrónicos a un dispositivo "
+"Kindle, debe aprobar la\n"
+"          siguiente dirección de correo electrónico en su cuenta Kindle:\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -2018,7 +2025,7 @@ msgstr "Clave de API no válida"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV de Readwise Reader"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
