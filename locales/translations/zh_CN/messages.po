@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-26 05:49+0000\n"
+"PO-Revision-Date: 2025-06-15 12:58+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -857,7 +859,7 @@ msgstr "导入和导出"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Atom 订阅源"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1157,10 +1159,8 @@ msgid "Note: upload the ZIP file directly, not its contents"
 msgstr "注意：直接上传 ZIP 文件，而不是其内容"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "从 CSV 文件导入链接"
+msgstr "从 Readwise Reader 导出的 CSV 文件导入链接"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1168,44 +1168,47 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    请在下方上传从您的 Readwise Reader 账号导出的 CSV 文件。\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "会导入哪些信息"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "文章标题、URL 和首次保存时间，"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "文章的归档状态，"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "“%s”作为 Readeck 标签，"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
+msgstr "当文档标签包含“%s”时，书签将添加到 Readeck 收藏。"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "不导入哪些信息："
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "文章阅读进度和已读状态，"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "通过电子邮件转发到 Readwise Reader 的文章，"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "已上传的文档，例如 PDF 或 EPUB。"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1285,7 +1288,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "导入您的 Readwise Reader 库"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1772,9 +1775,9 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        如果您打算向 Kindle 设备发送电子书，您必须\n"
-"        在您的 Kindle 账号中批准以下电子邮件地址：\n"
-"        "
+"          如果您打算向 Kindle 设备发送电子书，您必须\n"
+"          在您的 Kindle 账号中批准以下电子邮件地址：\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -1994,7 +1997,7 @@ msgstr "无效的 API 密钥"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "Readwise Reader CSV 文件"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"

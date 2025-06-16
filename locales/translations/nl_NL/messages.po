@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-26 05:49+0000\n"
+"PO-Revision-Date: 2025-06-15 12:58+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/"
+"application/nl/>\n"
 "Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -863,7 +865,7 @@ msgstr "Importeren en exporteren"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Atomfeed"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1170,10 +1172,8 @@ msgstr "Let op: upload het zipbestand, dus niet de inhoud daarvan"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Links importeren uit csv-bestand"
+msgstr "Links importeren uit Readwise Reader-csv-bestand"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1181,44 +1181,49 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Upload hieronder een csv-bestand uit Readwise Reader.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Welke informatie wordt geïmporteerd"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Artikelnaam, url en eerste keer opslaan,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "Archiefstatus van een artikel,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "‘%s’ als Readeck-labels,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Als een document het label ‘%s’ bevat, wordt de bladwijzer toegevoegd aan de "
+"Readeck-favorieten."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "Wat niet wordt geïmporteerd:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Leesvoortgang en -status,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Artikelen die doorgestuurd zijn via e-mail,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Geüploade documenten, zoals pdf- en epub-bestanden."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1298,7 +1303,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Readwise Reader-bibliotheek importeren"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1790,9 +1795,10 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Als je van plan bent om e-boeken naar een Kindle-apparaat te versturen,\n"
+"          Als je van plan bent om e-boeken naar een Kindle-apparaat te "
+"versturen,\n"
 "        dan moet je eerst dit e-mailadres bevestigen via je Kindle-account:\n"
-"        "
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -2015,7 +2021,7 @@ msgstr "De api-sleutel is ongeldig"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "Readwise Reader-csv"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
