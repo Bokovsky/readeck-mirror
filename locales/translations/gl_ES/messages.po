@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-14 12:52+0200\n"
-"PO-Revision-Date: 2025-05-27 06:01+0000\n"
+"PO-Revision-Date: 2025-06-17 07:58+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
+"application/gl/>\n"
 "Language: gl_ES\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -861,7 +863,7 @@ msgstr "Importar e exportar"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Canle Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1160,10 +1162,8 @@ msgid "Note: upload the ZIP file directly, not its contents"
 msgstr "Nota: sube o ficheiro ZIP directamente, non o seu contido"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
-#| msgid "Import Links from a CSV File"
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Importa ligazóns desde un ficheiro CSV"
+msgstr "Importa ligazóns desde exportación CSV de Readwise Reader"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1171,44 +1171,49 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Subir un ficheiro CSV exportado desde a conta Readwise Reader.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "A información a importar"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Título do artigo, URL, e cando se gardou,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "O estado arquivado dun artigo,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "«%s» como etiquetas en Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Cando a etiqueta dun documento contén «%s», o marcador será engadido aos "
+"Favoritos en Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "O que non se imporatará:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "O progreso na lectura e estado de visto,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Os artigos reenviados a Readwise Reader por correo,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Os documentos subidos como PDFs ou EPUBs."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:32
@@ -1288,7 +1293,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/index.jet.html:36
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Importa a túa bliblioteca Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:40
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1998,7 +2003,7 @@ msgstr "Clave API non válida"
 
 #: internal/bookmarks/importer/readwise.go:133
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV de Readwise Reader"
 
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
