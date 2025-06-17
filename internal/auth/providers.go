@@ -106,8 +106,13 @@ func Init(providers ...Provider) func(next http.Handler) http.Handler {
 			}
 			r = setRequestProvider(r, provider)
 
-			// Always set a anonymous user
-			r = SetRequestAuthInfo(r, &Info{User: &users.User{}})
+			// Always set a anonymous user and empty provider.
+			// It's overridden later by the authentication when
+			// entering the [Required] handler.
+			r = SetRequestAuthInfo(r, &Info{
+				User:     &users.User{},
+				Provider: &ProviderInfo{},
+			})
 
 			next.ServeHTTP(w, r)
 		})

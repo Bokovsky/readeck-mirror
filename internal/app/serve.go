@@ -15,7 +15,6 @@ import (
 	"net/url"
 	"os"
 	"os/signal"
-	"slices"
 	"strconv"
 	"strings"
 	"syscall"
@@ -190,7 +189,8 @@ func runServer(_ context.Context, args []string) error {
 			Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
 			Path:   s.BasePath,
 		}
-		if slices.Contains([]string{"0.0.0.0", "127.0.0.1", "::", "::1"}, serverURL.Hostname()) {
+		switch serverURL.Hostname() {
+		case "0.0.0.0", "127.0.0.1", "::", "::1":
 			serverURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)
 		}
 		slog.Info("server started",

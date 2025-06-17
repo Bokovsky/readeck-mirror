@@ -52,10 +52,6 @@ func New(h *securecookie.Handler, r *http.Request) (*Session, error) {
 		IsNew:   true,
 	}
 
-	// New session, we set the [Payload.LastUpdate] to now
-	// in order to invalidate the HTTP cache.
-	s.Payload.LastUpdate = time.Now()
-
 	err := s.handler.Load(r, s.Payload)
 	if err == nil {
 		s.IsNew = false
