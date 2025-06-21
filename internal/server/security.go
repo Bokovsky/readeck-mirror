@@ -16,6 +16,7 @@ import (
 	"strings"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 	"codeberg.org/readeck/readeck/pkg/http/forwarded"
 	"codeberg.org/readeck/readeck/pkg/http/permissionspolicy"
@@ -203,7 +204,7 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		policy := getDefaultCSP()
 		policy.Add("script-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
 		policy.Add("style-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
-		policy.Add("report-uri", s.AbsoluteURL(r, "/logger/csp-report").String())
+		policy.Add("report-uri", urls.AbsoluteURL(r, "/logger/csp-report").String())
 
 		policy.Write(w.Header())
 		permissionspolicy.DefaultPolicy.Write(w.Header())
@@ -259,12 +260,12 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		redir := s.AbsoluteURL(r, "/login")
+		redir := urls.AbsoluteURL(r, "/login")
 
 		// Add the current path as a redirect query parameter
 		// to the login route
 		q := redir.Query()
-		q.Add("r", s.CurrentPath(r))
+		q.Add("r", urls.CurrentPath(r))
 		redir.RawQuery = q.Encode()
 
 		w.Header().Set("Location", redir.String())

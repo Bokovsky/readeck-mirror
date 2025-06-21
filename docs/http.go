@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
@@ -161,7 +162,7 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
-		"readeck-instance://", h.srv.AbsoluteURL(r, "/").String(),
+		"readeck-instance://", urls.AbsoluteURL(r, "/").String(),
 	)
 	buf := new(bytes.Buffer)
 	repl.WriteString(buf, contents.String())
@@ -175,7 +176,7 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 		"HTML":     buf,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},
+		{tr.Gettext("Documentation"), urls.AbsoluteURL(r, "/docs", tag, "/").String()},
 		{f.Title},
 	})
 
@@ -254,7 +255,7 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		"DiskUsage":   diskUsageVal,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tag, "/").String()},
+		{tr.Gettext("Documentation"), urls.AbsoluteURL(r, "/docs", tag, "/").String()},
 		{tr.Gettext("About Readeck")},
 	})
 
@@ -272,7 +273,7 @@ func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
-		"__BASE_URI__", h.srv.AbsoluteURL(r, "/api").String(),
+		"__BASE_URI__", urls.AbsoluteURL(r, "/api").String(),
 	)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -289,10 +290,10 @@ func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 
 	tr := h.srv.Locale(r)
 	ctx := server.TC{
-		"Schema": h.srv.AbsoluteURL(r, "/docs/api.json"),
+		"Schema": urls.AbsoluteURL(r, "/docs/api.json"),
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Documentation"), h.srv.AbsoluteURL(r, "/docs", tr.Tag.String(), "/").String()},
+		{tr.Gettext("Documentation"), urls.AbsoluteURL(r, "/docs", tr.Tag.String(), "/").String()},
 		{"API"},
 	})
 

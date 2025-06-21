@@ -29,6 +29,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/utils"
@@ -56,7 +57,7 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 	bl.Items = make([]bookmarkItem, len(bl.items))
 	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(api.srv, r, item, ".")
+		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
 	api.srv.SendPaginationHeaders(w, r, bl.Pagination)
@@ -66,7 +67,7 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 	bl := r.Context().Value(ctxBookmarkSyncListKey{}).(bookmarkSyncList)
 
-	urlPrefix := api.srv.AbsoluteURL(r, "./..").String()
+	urlPrefix := urls.AbsoluteURL(r, "./..").String()
 	for _, item := range bl {
 		item.Href = urlPrefix + item.ID
 	}
@@ -76,7 +77,7 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 // bookmarkInfo renders a given bookmark items in JSON.
 func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
-	item := newBookmarkItem(api.srv, r, b, "./..")
+	item := newBookmarkItem(r, b, "./..")
 	item.Errors = b.Errors
 	if err := item.setEmbed(); err != nil {
 		api.srv.Log(r).Error("", slog.Any("err", err))
@@ -97,7 +98,7 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
-	bi := newBookmarkItem(api.srv, r, b, "")
+	bi := newBookmarkItem(r, b, "")
 	buf, err := bi.getArticle()
 	if err != nil {
 		api.srv.Log(r).Error("", slog.Any("err", err))
@@ -133,7 +134,7 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 
 	ctx := converter.WithURLReplacer(context.Background(), func(b *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
-			return api.srv.AbsoluteURL(r, "/bm", b.FilePath, name).String()
+			return urls.AbsoluteURL(r, "/bm", b.FilePath, name).String()
 		}
 	})
 
@@ -148,7 +149,7 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	switch chi.URLParam(r, "format") {
 	case "epub":
 		exp := converter.NewEPUBExporter(
-			api.srv.AbsoluteURL(r, "/"),
+			urls.AbsoluteURL(r, "/"),
 			api.srv.TemplateVars(r),
 		)
 		if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
@@ -162,8 +163,8 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 		fallthrough
 	case "md":
 		exporter = converter.NewMarkdownExporter(
-			api.srv.AbsoluteURL(r, "/"),
-			api.srv.AbsoluteURL(r, "/bm/"),
+			urls.AbsoluteURL(r, "/"),
+			urls.AbsoluteURL(r, "/bm/"),
 		)
 	}
 
@@ -211,10 +212,10 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add(
 		"Location",
-		api.srv.AbsoluteURL(r, ".", b.UID).String(),
+		urls.AbsoluteURL(r, ".", b.UID).String(),
 	)
 	w.Header().Add("bookmark-id", b.UID)
-	server.NewLink(api.srv.AbsoluteURL(r, "/bookmarks", b.UID).String()).
+	server.NewLink(urls.AbsoluteURL(r, "/bookmarks", b.UID).String()).
 		WithRel("alternate").
 		WithType("text/html").
 		Write(w)
@@ -240,11 +241,11 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	updated["href"] = api.srv.AbsoluteURL(r).String()
+	updated["href"] = urls.AbsoluteURL(r).String()
 
 	// On a turbo request, we'll return the updated components.
 	if api.srv.IsTurboRequest(r) {
-		item := newBookmarkItem(api.srv, r, b, "./..")
+		item := newBookmarkItem(r, b, "./..")
 
 		_, withTitle := updated["title"]
 		_, withLabels := updated["labels"]
@@ -335,7 +336,7 @@ func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
 
 // labelList returns the list of all labels.
 func (api *apiRouter) labelList(w http.ResponseWriter, r *http.Request) {
-	base := api.srv.AbsoluteURL(r, "/api/bookmarks")
+	base := urls.AbsoluteURL(r, "/api/bookmarks")
 	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
 	for _, item := range labels {
 		item.setURLs(base)
@@ -361,7 +362,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		api.srv.Status(w, r, http.StatusNotFound)
 		return
 	}
-	res.setURLs(api.srv.AbsoluteURL(r, "/api/bookmarks"))
+	res.setURLs(urls.AbsoluteURL(r, "/api/bookmarks"))
 
 	api.srv.Render(w, r, http.StatusOK, res)
 }
@@ -422,7 +423,7 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bi := newBookmarkItem(api.srv, r, b, "")
+	bi := newBookmarkItem(r, b, "")
 	annotation, err := f.addToBookmark(&bi)
 	if err != nil {
 		if errors.As(err, &annotate.ErrAnotate) {
@@ -436,7 +437,7 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Add("Location", api.srv.AbsoluteURL(r, ".", annotation.ID).String())
+	w.Header().Add("Location", urls.AbsoluteURL(r, ".", annotation.ID).String())
 	api.srv.Render(w, r, http.StatusCreated, annotation)
 }
 
@@ -527,7 +528,7 @@ func (api *apiRouter) withBookmark(next http.Handler) http.Handler {
 		}
 
 		w.Header().Add("bookmark-id", b.UID)
-		server.NewLink(api.srv.AbsoluteURL(r, "/bookmarks", b.UID).String()).
+		server.NewLink(urls.AbsoluteURL(r, "/bookmarks", b.UID).String()).
 			WithRel("alternate").
 			WithType("text/html").
 			Write(w)
@@ -838,7 +839,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 		}
 		res.Items = make([]annotationItem, len(res.items))
 		for i, item := range res.items {
-			res.Items[i] = newAnnotationItem(api.srv, r, item)
+			res.Items[i] = newAnnotationItem(r, item)
 		}
 
 		ctx := context.WithValue(r.Context(), ctxAnnotationListKey{}, res)
@@ -895,7 +896,7 @@ func (api *apiRouter) withShareLink(next http.Handler) http.Handler {
 		}
 
 		info := linkShareInfo{
-			URL:     api.srv.AbsoluteURL(r, "/@b", rr).String(),
+			URL:     urls.AbsoluteURL(r, "/@b", rr).String(),
 			Expires: expires,
 			Title:   b.Title,
 			ID:      b.UID,
@@ -1010,11 +1011,11 @@ type bookmarkFile struct {
 }
 
 // newBookmarkItem builds a BookmarkItem from a Bookmark instance.
-func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, base string) bookmarkItem {
+func newBookmarkItem(r *http.Request, b *bookmarks.Bookmark, base string) bookmarkItem {
 	res := bookmarkItem{
 		Bookmark:      b,
 		ID:            b.UID,
-		Href:          s.AbsoluteURL(r, base, b.UID).String(),
+		Href:          urls.AbsoluteURL(r, base, b.UID).String(),
 		Created:       b.Created,
 		Updated:       b.Updated,
 		State:         b.State,
@@ -1041,7 +1042,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 		Resources:     make(map[string]*bookmarkFile),
 		Links:         b.Links,
 
-		baseURL:       s.AbsoluteURL(r, "/"),
+		baseURL:       urls.AbsoluteURL(r, "/"),
 		annotationTag: "rd-annotation",
 		annotationCallback: func(id string, n *html.Node, index int, color string) {
 			if index == 0 {
@@ -1056,7 +1057,7 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 	}
 
 	// Set a relative media base URL when we're not querying the API.
-	if !strings.HasPrefix(r.URL.EscapedPath(), s.AbsoluteURL(r, "/api/").EscapedPath()) {
+	if !strings.HasPrefix(r.URL.EscapedPath(), urls.AbsoluteURL(r, "/api/").EscapedPath()) {
 		res.baseURL.Scheme = ""
 		res.baseURL.Host = ""
 	}
@@ -1104,14 +1105,14 @@ func newBookmarkItem(s *server.Server, r *http.Request, b *bookmarks.Bookmark, b
 	}
 
 	if v, ok := b.Files["props"]; ok {
-		res.Resources["props"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
+		res.Resources["props"] = &bookmarkFile{Src: urls.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
 	}
 	if v, ok := b.Files["log"]; ok {
-		res.Resources["log"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
+		res.Resources["log"] = &bookmarkFile{Src: urls.AbsoluteURL(r, base, b.UID, "x", v.Name).String()}
 	}
 	if _, ok := b.Files["article"]; ok {
 		res.HasArticle = true
-		res.Resources["article"] = &bookmarkFile{Src: s.AbsoluteURL(r, base, b.UID, "article").String()}
+		res.Resources["article"] = &bookmarkFile{Src: urls.AbsoluteURL(r, base, b.UID, "article").String()}
 	}
 
 	return res
@@ -1269,15 +1270,15 @@ type annotationItem struct {
 	BookmarkSiteName string    `json:"bookmark_site_name"`
 }
 
-func newAnnotationItem(s *server.Server, r *http.Request, a *bookmarks.AnnotationQueryResult) annotationItem {
+func newAnnotationItem(r *http.Request, a *bookmarks.AnnotationQueryResult) annotationItem {
 	res := annotationItem{
 		ID:               a.ID,
-		Href:             s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
+		Href:             urls.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
 		Text:             a.Text,
 		Created:          time.Time(a.Created),
 		Color:            a.Color,
 		BookmarkID:       a.Bookmark.UID,
-		BookmarkHref:     s.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID).String(),
+		BookmarkHref:     urls.AbsoluteURL(r, "/api/bookmarks", a.Bookmark.UID).String(),
 		BookmarkURL:      a.Bookmark.URL,
 		BookmarkTitle:    a.Bookmark.Title,
 		BookmarkSiteName: a.Bookmark.SiteName,

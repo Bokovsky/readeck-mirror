@@ -15,6 +15,7 @@ import (
 	"github.com/google/uuid"
 
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
@@ -31,7 +32,7 @@ func New(srv *server.Server, r *http.Request, options ...func(*opds.Feed)) *Cata
 		Links: []opds.Link{
 			{
 				Rel:      "start",
-				Href:     srv.AbsoluteURL(r, "/opds").String(),
+				Href:     urls.AbsoluteURL(r, "/opds").String(),
 				TypeLink: opds.OPDSTypeNavigation,
 			},
 		},
@@ -39,7 +40,7 @@ func New(srv *server.Server, r *http.Request, options ...func(*opds.Feed)) *Cata
 		Author: []opds.Author{
 			{
 				Name: "Readeck",
-				URI:  srv.AbsoluteURL(r, "/").String(),
+				URI:  urls.AbsoluteURL(r, "/").String(),
 			},
 		},
 	}

@@ -14,6 +14,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
@@ -30,7 +31,7 @@ func (s *Server) InitSession() (err error) {
 	// Create the session handler
 	sessionHandler = securecookie.NewHandler(
 		securecookie.Key(configs.Keys.SessionKey()),
-		securecookie.WithPath(path.Join(s.BasePath)),
+		securecookie.WithPath(path.Join(urls.Prefix())),
 		securecookie.WithMaxAge(configs.Config.Server.Session.MaxAge),
 		securecookie.WithName(configs.Config.Server.Session.CookieName),
 	)

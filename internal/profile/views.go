@@ -14,6 +14,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -118,7 +119,7 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 		"Form": f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
 		{tr.Gettext("Password")},
 	})
 	v.srv.RenderTemplate(w, r, 200, "profile/password", ctx)
@@ -162,7 +163,7 @@ func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 		"Tokens":     tl.Items,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
 		{tr.Gettext("API Tokens")},
 	})
 
@@ -222,8 +223,8 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		"Form":    f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
-		{tr.Gettext("API Tokens"), v.srv.AbsoluteURL(r, "/profile/tokens").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("API Tokens"), urls.AbsoluteURL(r, "/profile/tokens").String()},
 		{ti.UID},
 	})
 

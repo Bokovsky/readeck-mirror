@@ -271,7 +271,7 @@ func NewTestApp(t *testing.T) *TestApp {
 	startEventManager()
 
 	// Init test server
-	ta.Srv = server.New(configs.Config.Server.Prefix)
+	ta.Srv = server.New()
 	err = app.InitServer(ta.Srv)
 	if err != nil {
 		t.Fatal(err)
@@ -377,7 +377,7 @@ func (c *Client) Request(req *http.Request) *Response {
 	w := httptest.NewRecorder()
 
 	// Perform request
-	c.app.Srv.Router.ServeHTTP(w, req)
+	c.app.Srv.ServeHTTP(w, req)
 
 	// Update cookies from response
 	//nolint:bodyclose

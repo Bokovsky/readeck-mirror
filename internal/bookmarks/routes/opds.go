@@ -14,6 +14,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
@@ -54,7 +55,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Bookmarks")),
-		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
+		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
 			links := h.srv.GetPaginationLinks(r, bl.Pagination)
@@ -71,7 +72,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 				catalog.WithBookEntry(
 					id, b.Title,
-					h.srv.AbsoluteURL(r, "/api/bookmarks", b.UID, "article.epub").String(),
+					urls.AbsoluteURL(r, "/api/bookmarks", b.UID, "article.epub").String(),
 					issued, b.Created, b.Updated,
 					b.SiteName, b.Lang, b.Description,
 				)(feed)
@@ -99,7 +100,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle(tr.Gettext("Readeck Bookmark Collections")),
-		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
+		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
 			links := h.srv.GetPaginationLinks(r, cl.Pagination)
@@ -110,7 +111,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 			for _, item := range cl.items {
 				catalog.WithNavEntry(
 					item.Name, lastUpdate,
-					h.srv.AbsoluteURL(r, ".", item.UID).String(),
+					urls.AbsoluteURL(r, ".", item.UID).String(),
 				)(feed)
 			}
 		},
@@ -136,20 +137,20 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := catalog.New(h.srv, r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Collection: %s", item.Name)),
-		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
+		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
 			id, _ := base58.DecodeUUID(item.UID)
 			catalog.WithBookEntry(
 				id, tr.Gettext("Collection ebook - %s", item.Name),
-				h.srv.AbsoluteURL(r, "/api/bookmarks", "export.epub?collection="+item.UID+"&sort=created").String(),
+				urls.AbsoluteURL(r, "/api/bookmarks", "export.epub?collection="+item.UID+"&sort=created").String(),
 				item.Created, item.Created, item.Updated,
 				"Readeck", "", "",
 			)(feed)
 
 			catalog.WithNavEntry(
 				tr.Gettext("Browse collection: %s", item.Name), lastUpdate,
-				h.srv.AbsoluteURL(r, "../../bookmarks", "all?collection="+item.UID).String(),
+				urls.AbsoluteURL(r, "../../bookmarks", "all?collection="+item.UID).String(),
 			)(feed)
 		},
 	)

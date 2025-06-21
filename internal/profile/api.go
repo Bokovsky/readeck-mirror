@@ -17,6 +17,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -244,7 +245,7 @@ func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base strin
 	return tokenItem{
 		Token:     t,
 		ID:        t.UID,
-		Href:      s.AbsoluteURL(r, base, t.UID).String(),
+		Href:      urls.AbsoluteURL(r, base, t.UID).String(),
 		Created:   t.Created,
 		LastUsed:  t.LastUsed,
 		Expires:   t.Expires,

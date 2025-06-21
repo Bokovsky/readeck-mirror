@@ -13,6 +13,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -51,7 +52,7 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 	ul := r.Context().Value(ctxUserListKey{}).(userList)
 	ul.Items = make([]userItem, len(ul.items))
 	for i, item := range ul.items {
-		ul.Items[i] = newUserItem(h.srv, r, item, ".")
+		ul.Items[i] = newUserItem(r, item, ".")
 	}
 
 	ctx := server.TC{
@@ -89,7 +90,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 		"Form": f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Users"), h.srv.AbsoluteURL(r, "/admin/users").String()},
+		{tr.Gettext("Users"), urls.AbsoluteURL(r, "/admin/users").String()},
 		{tr.Gettext("New User")},
 	})
 	h.srv.RenderTemplate(w, r, 200, "/admin/user_create", ctx)
@@ -98,7 +99,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	tr := h.srv.Locale(r)
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
-	item := newUserItem(h.srv, r, u, "./..")
+	item := newUserItem(r, u, "./..")
 
 	f := users.NewUserForm(h.srv.Locale(r))
 	f.SetUser(u)
@@ -129,7 +130,7 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 		"Form": f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Users"), h.srv.AbsoluteURL(r, "/admin/users").String()},
+		{tr.Gettext("Users"), urls.AbsoluteURL(r, "/admin/users").String()},
 		{item.Username},
 	})
 

@@ -17,6 +17,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -123,7 +124,7 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 	ul := r.Context().Value(ctxUserListKey{}).(userList)
 	ul.Items = make([]userItem, len(ul.items))
 	for i, item := range ul.items {
-		ul.Items[i] = newUserItem(api.srv, r, item, ".")
+		ul.Items[i] = newUserItem(r, item, ".")
 	}
 
 	api.srv.SendPaginationHeaders(w, r, ul.Pagination)
@@ -132,7 +133,7 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 
 func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
-	item := newUserItem(api.srv, r, u, "./..")
+	item := newUserItem(r, u, "./..")
 	item.Settings = u.Settings
 
 	api.srv.Render(w, r, http.StatusOK, item)
@@ -152,7 +153,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", u.UID).String())
+	w.Header().Set("Location", urls.AbsoluteURL(r, ".", u.UID).String())
 	api.srv.TextMessage(w, r, http.StatusCreated, "User created")
 }
 
@@ -210,10 +211,10 @@ type userItem struct {
 	IsDeleted bool                `json:"is_deleted"`
 }
 
-func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) userItem {
+func newUserItem(r *http.Request, u *users.User, base string) userItem {
 	return userItem{
 		ID:        u.UID,
-		Href:      s.AbsoluteURL(r, base, u.UID).String(),
+		Href:      urls.AbsoluteURL(r, base, u.UID).String(),
 		Created:   u.Created,
 		Updated:   u.Updated,
 		Username:  u.Username,

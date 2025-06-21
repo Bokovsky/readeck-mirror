@@ -18,6 +18,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/http/csrf"
 	"codeberg.org/readeck/readeck/pkg/http/securecookie"
@@ -45,7 +46,7 @@ func (s *Server) Csrf(next http.Handler) http.Handler {
 			securecookie.Key(configs.Keys.CSRFKey()),
 			securecookie.WithMaxAge(0),
 			securecookie.WithName(csrfCookieName),
-			securecookie.WithPath(path.Join(s.BasePath)),
+			securecookie.WithPath(path.Join(urls.Prefix())),
 			securecookie.WithTTL(false),
 		),
 		csrf.WithFieldName(csrfFieldName),

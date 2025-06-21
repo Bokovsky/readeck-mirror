@@ -13,6 +13,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -24,8 +25,8 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 
 	if trackID != "" {
 		ctx.SetBreadcrumbs([][2]string{
-			{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
-			{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},
+			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
+			{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 			{tr.Gettext("Progress")},
 		})
 		ctx["TrackID"] = trackID
@@ -33,7 +34,7 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 		ctx["Progress"], _ = importer.NewImportProgress(trackID)
 	} else {
 		ctx.SetBreadcrumbs([][2]string{
-			{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
+			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
 			{tr.Gettext("Import")},
 		})
 	}
@@ -64,8 +65,8 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Form"] = f
 	ctx.SetBreadcrumbs([][2]string{
-		{"Bookmarks", h.srv.AbsoluteURL(r, "/bookmarks").String()},
-		{tr.Gettext("Import"), h.srv.AbsoluteURL(r, "/bookmarks/import").String()},
+		{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
+		{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 		{adapter.Name(tr)},
 	})
 

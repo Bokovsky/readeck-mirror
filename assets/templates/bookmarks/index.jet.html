@@ -183,7 +183,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         <div class="bookmark-filters--actions mt-4">
           <button class="btn btn-primary">{{ pgettext("action", "Search") }}</button>
           {{ if .Filters.IsActive() -}}
-            <a href="{{ urlFor() }}?bf=1" class="btn btn-default rounded text-center">{{ gettext("Reset search") }}</a>
+            <a href="{{ urlFor(`?bf=1`) }}" class="btn btn-default rounded text-center">{{ gettext("Reset search") }}</a>
             <a href="{{ urlFor(`/bookmarks/collections/add`)}}?{{ .Filters.GetQueryString() }}"
               class="col-span-2 btn-outlined btn-primary font-semibold rounded text-center">{{ yield icon(name="o-plus") }}
               {{ gettext("Create a collection") }}</a>

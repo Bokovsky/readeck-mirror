@@ -13,6 +13,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -78,7 +79,7 @@ func (api *apiRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Add(
 		"Location",
-		api.srv.AbsoluteURL(r, "./..", trackID).String(),
+		urls.AbsoluteURL(r, "./..", trackID).String(),
 	)
 	api.srv.TextMessage(w, r, http.StatusAccepted, "import started")
 }

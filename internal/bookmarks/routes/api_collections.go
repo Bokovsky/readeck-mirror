@@ -18,6 +18,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -31,7 +32,7 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 
 	cl.Items = make([]collectionItem, len(cl.items))
 	for i, item := range cl.items {
-		cl.Items[i] = newCollectionItem(api.srv, r, item, ".")
+		cl.Items[i] = newCollectionItem(r, item, ".")
 	}
 
 	api.srv.SendPaginationHeaders(w, r, cl.Pagination)
@@ -40,7 +41,7 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	item := newCollectionItem(api.srv, r, c, "./..")
+	item := newCollectionItem(r, c, "./..")
 
 	api.srv.Render(w, r, http.StatusOK, item)
 }
@@ -60,7 +61,7 @@ func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", c.UID).String())
+	w.Header().Set("Location", urls.AbsoluteURL(r, ".", c.UID).String())
 	api.srv.TextMessage(w, r, http.StatusCreated, "Collection created")
 }
 
@@ -201,11 +202,11 @@ type collectionItem struct {
 	RangeEnd   string        `json:"range_end"`
 }
 
-func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collection, base string) collectionItem {
+func newCollectionItem(r *http.Request, c *bookmarks.Collection, base string) collectionItem {
 	return collectionItem{
 		Collection: c,
 		ID:         c.UID,
-		Href:       s.AbsoluteURL(r, base, c.UID).String(),
+		Href:       urls.AbsoluteURL(r, base, c.UID).String(),
 		Created:    c.Created,
 		Updated:    c.Updated,
 		Name:       c.Name,

@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
@@ -88,7 +89,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 	bl.Items = make([]bookmarkItem, len(bl.items))
 	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
 	tr := h.srv.Locale(r)
@@ -128,7 +129,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 	user := auth.GetRequestUser(r)
-	item := newBookmarkItem(h.srv, r, b, "../bookmarks")
+	item := newBookmarkItem(r, b, "../bookmarks")
 	if err := item.setEmbed(); err != nil {
 		h.srv.Log(r).Error("", slog.Any("err", err))
 	}
@@ -278,7 +279,7 @@ func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
-	base := h.srv.AbsoluteURL(r, "/bookmarks")
+	base := urls.AbsoluteURL(r, "/bookmarks")
 	base.Scheme = ""
 	base.Host = ""
 	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
@@ -314,7 +315,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 			}
 
 			// We can't use redirect here, since we must escape the label
-			redir := h.srv.AbsoluteURL(r, "/bookmarks/labels/")
+			redir := urls.AbsoluteURL(r, "/bookmarks/labels/")
 			redir.Path += url.QueryEscape(f.Get("name").String())
 			w.Header().Set("Location", redir.String())
 			w.WriteHeader(http.StatusSeeOther)
@@ -325,7 +326,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 
 	bl.Items = make([]bookmarkItem, len(bl.items))
 	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -354,7 +355,7 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// We can't use redirect here, since we must escape the label
-	redir := h.srv.AbsoluteURL(r, "/bookmarks/labels/")
+	redir := urls.AbsoluteURL(r, "/bookmarks/labels/")
 	redir.Path += url.QueryEscape(label)
 	w.Header().Set("Location", redir.String())
 	w.WriteHeader(http.StatusSeeOther)
@@ -405,7 +406,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			if !found || err != nil {
 				status = http.StatusNotFound
 			} else {
-				item := newBookmarkItem(h.srv, r, bu.Bookmark, "../@b")
+				item := newBookmarkItem(r, bu.Bookmark, "../@b")
 				if err := item.setEmbed(); err != nil {
 					h.srv.Error(w, r, err)
 					return

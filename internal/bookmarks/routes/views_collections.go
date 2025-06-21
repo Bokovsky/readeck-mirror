@@ -18,7 +18,7 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
 	cl.Items = make([]collectionItem, len(cl.items))
 	for i, item := range cl.items {
-		cl.Items[i] = newCollectionItem(h.srv, r, item, ".")
+		cl.Items[i] = newCollectionItem(r, item, ".")
 	}
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -51,7 +51,7 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
 	bl.Items = make([]bookmarkItem, len(bl.items))
 	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -64,7 +64,7 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 
 func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	item := newCollectionItem(h.srv, r, c, "./..")
+	item := newCollectionItem(r, c, "./..")
 
 	f := newCollectionForm(h.srv.Locale(r), r)
 	f.setCollection(c)
@@ -87,7 +87,7 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
 	bl.Items = make([]bookmarkItem, len(bl.items))
 	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(h.srv, r, item, ".")
+		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)

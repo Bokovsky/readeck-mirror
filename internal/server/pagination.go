@@ -11,6 +11,7 @@ import (
 	"net/url"
 	"strconv"
 
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -132,7 +133,7 @@ func (p Pagination) GetPageLinks() []PageLink {
 // NewPagination creates a new Pagination instance base on the current request.
 func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagination {
 	p := Pagination{
-		URL:         s.AbsoluteURL(r),
+		URL:         urls.AbsoluteURL(r),
 		Limit:       limit,
 		Offset:      offset,
 		TotalCount:  count,
@@ -160,7 +161,7 @@ func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagina
 
 // GetPaginationLinks returns a list of Link instances suitable for pagination.
 func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
-	uri := s.AbsoluteURL(r)
+	uri := urls.AbsoluteURL(r)
 	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
 	lastOffset := int(pages-1) * p.Limit
 	prevOffset := p.Offset - p.Limit

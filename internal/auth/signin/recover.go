@@ -21,6 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -116,7 +117,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		}
 
 		mailTc := server.TC{
-			"SiteURL":   h.srv.AbsoluteURL(r, "/"),
+			"SiteURL":   urls.AbsoluteURL(r, "/"),
 			"EmailAddr": f.Get("email").String(),
 		}
 		code := base58.NewUUID()
@@ -125,7 +126,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			mailTc["RecoverLink"] = h.srv.AbsoluteURL(r, "/login/recover", code)
+			mailTc["RecoverLink"] = urls.AbsoluteURL(r, "/login/recover", code)
 		}
 
 		msg, err := email.NewMsg(

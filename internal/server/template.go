@@ -15,6 +15,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/templates"
 	"codeberg.org/readeck/readeck/pkg/glob"
 	"codeberg.org/readeck/readeck/pkg/http/csrf"
@@ -96,7 +97,7 @@ func (s *Server) initTemplates() {
 		name := args.Get(0).String()
 		r := args.Runtime().Resolve("request").Interface().(*http.Request)
 
-		return reflect.ValueOf(s.AssetURL(r, name))
+		return reflect.ValueOf(urls.PathOnly(urls.AssetURL(r, name)))
 	})
 	views.AddGlobalFunc("urlFor", func(args jet.Arguments) reflect.Value {
 		parts := make([]string, args.NumOfArguments())
@@ -105,11 +106,11 @@ func (s *Server) initTemplates() {
 		}
 
 		r := args.Runtime().Resolve("request").Interface().(*http.Request)
-		return reflect.ValueOf(s.AbsoluteURL(r, parts...).EscapedPath())
+		return reflect.ValueOf(urls.PathOnly(urls.AbsoluteURL(r, parts...)))
 	})
 	views.AddGlobalFunc("pathIs", func(args jet.Arguments) reflect.Value {
 		r := args.Runtime().Resolve("request").Interface().(*http.Request)
-		cp := "/" + strings.TrimPrefix(r.URL.Path, s.BasePath)
+		cp := "/" + strings.TrimPrefix(r.URL.Path, urls.Prefix())
 		for i := 0; i < args.NumOfArguments(); i++ {
 			if glob.Glob(fmt.Sprintf("%v", args.Get(i)), cp) {
 				return reflect.ValueOf(true)
@@ -139,10 +140,10 @@ func (s *Server) TemplateVars(r *http.Request) jet.VarMap {
 	session := s.GetSession(r)
 
 	return make(jet.VarMap).
-		Set("basePath", s.BasePath).
+		Set("basePath", urls.Prefix()).
 		Set("csrfName", csrfFieldName).
 		Set("csrfToken", csrf.Token(r)).
-		Set("currentPath", s.CurrentPath(r)).
+		Set("currentPath", urls.CurrentPath(r)).
 		Set("isTurbo", s.IsTurboRequest(r)).
 		Set("request", r).
 		Set("cspNonce", cspNonce).

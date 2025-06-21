@@ -17,7 +17,7 @@ import (
 )
 
 func TestInitRequest(t *testing.T) {
-	s := server.New("/")
+	s := server.New()
 	configs.InitConfiguration()
 
 	tests := []struct {

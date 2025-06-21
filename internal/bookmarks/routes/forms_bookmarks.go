@@ -30,6 +30,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/timetoken"
@@ -691,14 +692,14 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 	case "html":
 		exporter = converter.NewHTMLEmailExporter(
 			f.Get("email").String(),
-			srv.AbsoluteURL(r, "/"),
+			urls.AbsoluteURL(r, "/"),
 			srv.TemplateVars(r),
 			options...,
 		)
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
-			srv.AbsoluteURL(r, "/"),
+			urls.AbsoluteURL(r, "/"),
 			srv.TemplateVars(r),
 			options...,
 		)

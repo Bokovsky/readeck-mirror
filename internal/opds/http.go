@@ -17,6 +17,7 @@ import (
 	bookmark_routes "codeberg.org/readeck/readeck/internal/bookmarks/routes"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
@@ -53,26 +54,26 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle("Readeck"),
 		catalog.WithUpdated(lastUpdate),
-		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
+		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithNavEntry(
 			tr.Gettext("Unread Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/unread").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/unread").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Archived Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/archives").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/archives").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Favorite Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/favorites").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/favorites").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("All Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/all").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/all").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Bookmark Collections"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/collections").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/collections").String(),
 			func(e *opds.Entry) {
 				e.Links[0].TypeLink = opds.OPDSTypeNavigation
 			},

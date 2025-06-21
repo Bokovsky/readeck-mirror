@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"net/http"
 
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"github.com/go-chi/chi/v5"
 )
 
@@ -43,7 +44,7 @@ type webManifestIcon struct {
 func (s *Server) manifestRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
-		topURL := s.AbsoluteURL(r, "/")
+		topURL := urls.AbsoluteURL(r, "/")
 
 		w.Header().Set("Content-Type", "application/manifest+json; charset=utf-8")
 		s.Render(w, r, http.StatusOK, webManifest{
@@ -67,25 +68,25 @@ func (s *Server) manifestRoutes() http.Handler {
 			DisplayOverride:           []string{"standalone"},
 			Icons: []webManifestIcon{
 				{
-					SRC:     s.AssetURL(r, "img/fi/android-chrome-192x192.png"),
+					SRC:     urls.PathOnly(urls.AssetURL(r, "img/fi/android-chrome-192x192.png")),
 					Sizes:   "192x192",
 					Type:    "image/png",
 					Purpose: "any",
 				},
 				{
-					SRC:     s.AssetURL(r, "img/fi/android-chrome-512x512.png"),
+					SRC:     urls.PathOnly(urls.AssetURL(r, "img/fi/android-chrome-512x512.png")),
 					Sizes:   "512x512",
 					Type:    "image/png",
 					Purpose: "any",
 				},
 				{
-					SRC:     s.AssetURL(r, "img/fi/favicon.svg"),
+					SRC:     urls.PathOnly(urls.AssetURL(r, "img/fi/favicon.svg")),
 					Sizes:   "any",
 					Type:    "image/svg+xml",
 					Purpose: "any",
 				},
 				{
-					SRC:     s.AssetURL(r, "img/logo-maskable.svg"),
+					SRC:     urls.PathOnly(urls.AssetURL(r, "img/logo-maskable.svg")),
 					Sizes:   "any",
 					Type:    "image/svg+xml",
 					Purpose: "maskable",
