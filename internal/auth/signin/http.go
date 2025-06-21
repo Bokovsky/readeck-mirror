@@ -33,8 +33,8 @@ func newAuthHandler(s *server.Server) *authHandler {
 	// Non authenticated routes
 	r := chi.NewRouter()
 	r.Use(
-		s.WithSession(),
-		s.Csrf,
+		server.WithSession(),
+		server.Csrf,
 	)
 
 	h := &authHandler{r, s}
@@ -42,7 +42,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 	r.Get("/", h.login)
 	r.Post("/", h.login)
 
-	r.With(s.WithPermission("email", "send")).Route("/recover", func(r chi.Router) {
+	r.With(server.WithPermission("email", "send")).Route("/recover", func(r chi.Router) {
 		r.Get("/", h.recover)
 		r.Post("/", h.recover)
 		r.Get("/{code}", h.recover)
@@ -52,8 +52,8 @@ func newAuthHandler(s *server.Server) *authHandler {
 	// Authenticated routes
 	ar := chi.NewRouter()
 	ar.Use(
-		s.WithSession(),
-		s.WithRedirectLogin,
+		server.WithSession(),
+		server.WithRedirectLogin,
 		auth.Required,
 	)
 	s.AddRoute("/logout", ar)
@@ -64,7 +64,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 }
 
 func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
-	f := newLoginForm(h.srv.Locale(r))
+	f := newLoginForm(server.Locale(r))
 
 	if r.Method == http.MethodGet {
 		// Set the redirect value from the query string
@@ -78,13 +78,13 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 			user := checkUser(f)
 			if user != nil {
 				// User is authenticated, let's carry on
-				sess := h.srv.GetSession(r)
+				sess := server.GetSession(r)
 				sess.Payload.User = user.ID
 				sess.Payload.Seed = user.Seed
 				sess.Save(w, r)
 
 				// Renew CSRF token
-				h.srv.RenewCsrf(w, r)
+				server.RenewCsrf(w, r)
 
 				// Get redirection from a form "redirect" parameter
 				// Since it goes to Redirect(), it will be sanitized there
@@ -94,7 +94,7 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 					redir = "/"
 				}
 
-				h.srv.Redirect(w, r, redir)
+				server.Redirect(w, r, redir)
 				return
 			}
 			// we must set the content type to avoid the
@@ -105,18 +105,17 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "/auth/login", server.TC{
+	server.RenderTemplate(w, r, http.StatusOK, "/auth/login", server.TC{
 		"Form": f,
 	})
 }
 
 func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 	// Clear session
-	sess := h.srv.GetSession(r)
+	sess := server.GetSession(r)
 	sess.Clear(w, r)
 
 	// Renew CSRF token
-	h.srv.RenewCsrf(w, r)
-
-	h.srv.Redirect(w, r, "/login")
+	server.RenewCsrf(w, r)
+	server.Redirect(w, r, "/login")
 }

@@ -65,12 +65,12 @@ func SetupRoutes(s *server.Server) {
 
 	// Document routes
 	// docHandler serves the document and requires authentication
-	docHandler := handler.With(s.AuthenticatedRouter(s.WithRedirectLogin).Middlewares()...)
+	docHandler := handler.With(server.AuthenticatedRouter(server.WithRedirectLogin).Middlewares()...)
 	for tag, section := range manifest.Sections {
 		for _, f := range section.Files {
 			// Document
 			docHandler.With(
-				s.WithPermission("docs", "read"),
+				server.WithPermission("docs", "read"),
 				handler.withFile(f),
 				handler.withSection(tag, section),
 			).Get("/"+f.Route, handler.serveDocument)
@@ -78,7 +78,7 @@ func SetupRoutes(s *server.Server) {
 			// Aliases
 			for _, alias := range f.Aliases {
 				docHandler.With(
-					s.WithPermission("docs", "read"),
+					server.WithPermission("docs", "read"),
 				).Get("/"+alias, handler.serveRedirect(routePrefix+"/"+f.Route))
 			}
 		}
@@ -87,22 +87,22 @@ func SetupRoutes(s *server.Server) {
 	// Changelog route
 	f := manifest.Files["changelog"]
 	docHandler.With(
-		s.WithPermission("system", "read"),
+		server.WithPermission("system", "read"),
 		handler.withFile(f),
 	).Get("/changelog", handler.serveDocument)
 
 	// About page
 	docHandler.With(
-		s.WithPermission("system", "read"),
+		server.WithPermission("system", "read"),
 	).Get("/about", handler.serveAbout)
 
 	// Main redirection (TODO: do something with user language when we have translations)
-	docHandler.With(s.WithPermission("docs", "read")).Get("/", handler.localeRedirect)
-	docHandler.With(s.WithPermission("docs", "read")).Get("/{path}", handler.localeRedirect)
+	docHandler.With(server.WithPermission("docs", "read")).Get("/", handler.localeRedirect)
+	docHandler.With(server.WithPermission("docs", "read")).Get("/{path}", handler.localeRedirect)
 
 	// API documentation
 	docHandler.With(
-		s.WithPermission("docs", "read"),
+		server.WithPermission("docs", "read"),
 	).Group(func(r chi.Router) {
 		r.Get("/api", handler.serveAPIDocs)
 		r.Get("/api.json", handler.serveAPISchema)
@@ -115,14 +115,14 @@ func (h *helpHandlers) withFile(f *File) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if f == nil {
-				h.srv.Status(w, r, http.StatusNotFound)
+				server.Status(w, r, http.StatusNotFound)
 				return
 			}
 
 			ctx := context.WithValue(r.Context(), ctxFileKey{}, f)
 
-			h.srv.WriteEtag(w, r, f)
-			h.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+			server.WriteEtag(w, r, f)
+			server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
@@ -142,7 +142,7 @@ func (h *helpHandlers) getSection(r *http.Request) (*Section, string) {
 		return section, r.Context().Value(ctxLanguageKey{}).(string)
 	}
 
-	tag := h.srv.Locale(r).Tag.String()
+	tag := server.Locale(r).Tag.String()
 	if _, ok := manifest.Sections[tag]; !ok {
 		tag = "en-US"
 	}
@@ -154,7 +154,7 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 
 	fd, err := Files.Open(f.File)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	defer fd.Close()
@@ -180,14 +180,14 @@ func (h *helpHandlers) serveDocument(w http.ResponseWriter, r *http.Request) {
 		{f.Title},
 	})
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/index", ctx)
+	server.RenderTemplate(w, r, http.StatusOK, "docs/index", ctx)
 }
 
 func (h *helpHandlers) serveStatic(w http.ResponseWriter, r *http.Request) {
 	f, _ := r.Context().Value(ctxFileKey{}).(*File)
 	fd, err := Files.Open(f.File)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	defer fd.Close()
@@ -196,31 +196,31 @@ func (h *helpHandlers) serveStatic(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *helpHandlers) localeRedirect(w http.ResponseWriter, r *http.Request) {
-	tag := h.srv.Locale(r).Tag.String()
+	tag := server.Locale(r).Tag.String()
 	if _, ok := manifest.Sections[tag]; !ok {
 		tag = "en-US"
 	}
 
-	h.srv.Redirect(w, r, routePrefix+"/"+tag+"/"+chi.URLParam(r, "path"))
+	server.Redirect(w, r, routePrefix+"/"+tag+"/"+chi.URLParam(r, "path"))
 }
 
 func (h *helpHandlers) serveRedirect(to string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-		h.srv.Redirect(w, r, to)
+		server.Redirect(w, r, to)
 	}
 }
 
 func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 	fp, err := assets.Open("licenses/licenses.toml")
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	licenses := map[string][]licenseInfo{}
 	dec := json.NewDecoder(toml.New(fp))
 	if err = dec.Decode(&licenses); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	slices.SortFunc(licenses["licenses"], func(a, b licenseInfo) int {
@@ -229,12 +229,12 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 
 	dbUsageVal, err := db.Driver().DiskUsage()
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	diskUsageVal, err := bookmarks.Bookmarks.DiskUsage()
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -259,13 +259,13 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		{tr.Gettext("About Readeck")},
 	})
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/about", ctx)
+	server.RenderTemplate(w, r, http.StatusOK, "docs/about", ctx)
 }
 
 func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
 	fd, err := Files.Open("api.json")
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	defer fd.Close()
@@ -288,7 +288,7 @@ func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 	policy.Set("style-src", csp.ReportSample, csp.Self, csp.UnsafeInline)
 	policy.Write(w.Header())
 
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 	ctx := server.TC{
 		"Schema": urls.AbsoluteURL(r, "/docs/api.json"),
 	}
@@ -297,5 +297,5 @@ func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 		{"API"},
 	})
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", ctx)
+	server.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", ctx)
 }

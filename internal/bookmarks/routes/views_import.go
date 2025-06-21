@@ -18,7 +18,7 @@ import (
 )
 
 func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request) {
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 	trackID := chi.URLParam(r, "trackID")
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
@@ -39,20 +39,20 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 		})
 	}
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/import/index", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/import/index", ctx)
 }
 
 func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 	source := chi.URLParam(r, "source")
 	if source == "" {
-		h.srv.Status(w, r, http.StatusNotFound)
+		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
 	adapter := importer.LoadAdapter(source)
 	if adapter == nil {
-		h.srv.Status(w, r, http.StatusNotFound)
+		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
@@ -79,37 +79,37 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 			data, err = adapter.Params(f)
 		}
 		if err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
 		if !f.IsValid() {
-			h.srv.RenderTemplate(w, r, http.StatusUnprocessableEntity, templateName, ctx)
+			server.RenderTemplate(w, r, http.StatusUnprocessableEntity, templateName, ctx)
 			return
 		}
 
 		ignoreDuplicates := f.Get("ignore_duplicates").(forms.TypedField[bool]).V()
 
 		// Create the import task
-		trackID := importer.GetTrackID(h.srv.GetReqID(r))
+		trackID := importer.GetTrackID(server.GetReqID(r))
 		err = importer.ImportBookmarksTask.Run(trackID, importer.ImportParams{
 			Source:          source,
 			Data:            data,
 			UserID:          auth.GetRequestUser(r).ID,
-			RequestID:       h.srv.GetReqID(r),
+			RequestID:       server.GetReqID(r),
 			AllowDuplicates: !ignoreDuplicates,
 			Label:           f.Get("label").String(),
 			Archive:         f.Get("archive").(forms.TypedField[bool]).V(),
 			MarkRead:        f.Get("mark_read").(forms.TypedField[bool]).V(),
 		})
 		if err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
-		h.srv.Redirect(w, r, "./..", trackID)
+		server.Redirect(w, r, "./..", trackID)
 		return
 	}
 
-	h.srv.RenderTemplate(w, r, 200, templateName, ctx)
+	server.RenderTemplate(w, r, 200, templateName, ctx)
 }

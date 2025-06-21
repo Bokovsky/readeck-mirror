@@ -54,7 +54,7 @@ func (r *random) GetLastModified() []time.Time {
 
 // randomSvg sends an SVG image with a gradient. The gradient's color
 // is based on the name.
-func randomSvg(s *server.Server) http.Handler {
+func randomSvg() http.Handler {
 	withHashCode := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			name := chi.URLParam(r, "name")
@@ -66,13 +66,13 @@ func randomSvg(s *server.Server) http.Handler {
 			rd := newRandom(data)
 			ctx := context.WithValue(r.Context(), ctxNameKey{}, rd)
 
-			s.WriteEtag(w, r, rd)
-			s.WriteLastModified(w, r, rd)
+			server.WriteEtag(w, r, rd)
+			server.WriteLastModified(w, r, rd)
 			csp.Policy{
 				"base-uri":    {csp.None},
 				"default-src": {csp.None},
 			}.Write(w.Header())
-			s.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+			server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 

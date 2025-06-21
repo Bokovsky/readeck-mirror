@@ -672,7 +672,7 @@ func newShareForm(tr forms.Translator) *shareForm {
 	}
 }
 
-func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmarks.Bookmark) (err error) {
+func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
@@ -693,14 +693,14 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 		exporter = converter.NewHTMLEmailExporter(
 			f.Get("email").String(),
 			urls.AbsoluteURL(r, "/"),
-			srv.TemplateVars(r),
+			server.TemplateVars(r),
 			options...,
 		)
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
 			urls.AbsoluteURL(r, "/"),
-			srv.TemplateVars(r),
+			server.TemplateVars(r),
 			options...,
 		)
 	}

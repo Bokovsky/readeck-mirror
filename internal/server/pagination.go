@@ -44,8 +44,8 @@ func (f *PaginationForm) SetLimit(v int) {
 }
 
 // GetPageParams returns the pagination parameters from the query string.
-func (s *Server) GetPageParams(r *http.Request, defaultLimit int) *PaginationForm {
-	f := newPaginationForm(s.Locale(r))
+func GetPageParams(r *http.Request, defaultLimit int) *PaginationForm {
+	f := newPaginationForm(Locale(r))
 	f.Get("limit").Set(0)
 	f.Get("offset").Set(0)
 	forms.BindURL(f, r)
@@ -131,7 +131,7 @@ func (p Pagination) GetPageLinks() []PageLink {
 }
 
 // NewPagination creates a new Pagination instance base on the current request.
-func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagination {
+func NewPagination(r *http.Request, count, limit, offset int) Pagination {
 	p := Pagination{
 		URL:         urls.AbsoluteURL(r),
 		Limit:       limit,
@@ -160,7 +160,7 @@ func (s *Server) NewPagination(r *http.Request, count, limit, offset int) Pagina
 }
 
 // GetPaginationLinks returns a list of Link instances suitable for pagination.
-func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
+func GetPaginationLinks(r *http.Request, p Pagination) []Link {
 	uri := urls.AbsoluteURL(r)
 	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
 	lastOffset := int(pages-1) * p.Limit
@@ -189,14 +189,14 @@ func (s *Server) GetPaginationLinks(r *http.Request, p Pagination) []Link {
 }
 
 // SendPaginationHeaders compute and set the pagination headers.
-func (s *Server) SendPaginationHeaders(
+func SendPaginationHeaders(
 	w http.ResponseWriter, r *http.Request,
 	p Pagination,
 ) {
 	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
 	page := int(math.Floor(float64(p.Offset)/float64(p.Limit))) + 1
 
-	for _, link := range s.GetPaginationLinks(r, p) {
+	for _, link := range GetPaginationLinks(r, p) {
 		link.Write(w)
 	}
 

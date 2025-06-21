@@ -126,7 +126,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 			"Item":      b,
 			"Resources": resources,
 		}
-		if err := tpl.Execute(buf, e.srv.TemplateVars(r), tc); err != nil {
+		if err := tpl.Execute(buf, server.TemplateVars(r), tc); err != nil {
 			return err
 		}
 		feed.Entries[i].Content = &atom.Content{

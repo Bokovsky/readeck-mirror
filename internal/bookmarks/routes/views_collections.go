@@ -24,11 +24,11 @@ func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Collections"] = cl.Items
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/collection_list", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection_list", ctx)
 }
 
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm(h.srv.Locale(r), r)
+	f := newCollectionForm(server.Locale(r), r)
 
 	switch r.Method {
 	case http.MethodGet:
@@ -39,9 +39,9 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 		if f.IsValid() {
 			c, err := f.createCollection(auth.GetRequestUser(r).ID)
 			if err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
-				h.srv.Redirect(w, r, "./..", c.UID)
+				server.Redirect(w, r, "./..", c.UID)
 				return
 			}
 		}
@@ -59,25 +59,25 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 	ctx["Bookmarks"] = bl.Items
 	ctx["Form"] = f
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/collection_create", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection_create", ctx)
 }
 
 func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	item := newCollectionItem(r, c, "./..")
 
-	f := newCollectionForm(h.srv.Locale(r), r)
+	f := newCollectionForm(server.Locale(r), r)
 	f.setCollection(c)
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if _, err := f.updateCollection(c); err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
-				tr := h.srv.Locale(r)
-				h.srv.AddFlash(w, r, "success", tr.Gettext("Collection updated."))
-				h.srv.Redirect(w, r, c.UID+"?edit=1")
+				tr := server.Locale(r)
+				server.AddFlash(w, r, "success", tr.Gettext("Collection updated."))
+				server.Redirect(w, r, c.UID+"?edit=1")
 				return
 			}
 		}
@@ -97,11 +97,11 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	ctx["Pagination"] = bl.Pagination
 	ctx["Bookmarks"] = bl.Items
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/collection", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection", ctx)
 }
 
 func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionDeleteForm(h.srv.Locale(r))
+	f := newCollectionDeleteForm(server.Locale(r))
 	f.Get("_to").Set("/bookmarks/collections")
 	forms.Bind(f, r)
 
@@ -109,12 +109,12 @@ func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 
 	// This update forces cache invalidation
 	if err := c.Update(map[string]interface{}{}); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	if err := f.trigger(c); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
-	h.srv.Redirect(w, r, f.Get("_to").String())
+	server.Redirect(w, r, f.Get("_to").String())
 }

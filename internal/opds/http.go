@@ -28,10 +28,10 @@ type opdsRouter struct {
 
 // SetupRoutes adds the OPDS catalog HTTP routes.
 func SetupRoutes(s *server.Server) {
-	h := &opdsRouter{s.AuthenticatedRouter(), s}
+	h := &opdsRouter{server.AuthenticatedRouter(), s}
 
 	h.Use(middleware.GetHead)
-	h.With(s.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
+	h.With(server.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
 		r.Get("/", h.mainCatalog)
 		r.Route("/bookmarks", bookmark_routes.NewOPDSRouteHandler(s))
 	})
@@ -44,13 +44,13 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
-	c := catalog.New(h.srv, r,
+	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle("Readeck"),
 		catalog.WithUpdated(lastUpdate),
@@ -81,6 +81,6 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := c.Render(w, r); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 	}
 }

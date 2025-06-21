@@ -18,7 +18,7 @@ type (
 
 // LoadLocale is a middleware that loads the correct locale for the current user.
 // It defaults to English if no user is connected or no language is set.
-func (s *Server) LoadLocale(next http.Handler) http.Handler {
+func LoadLocale(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user := auth.GetRequestUser(r)
 		lang := "en-US"
@@ -37,7 +37,7 @@ func (s *Server) LoadLocale(next http.Handler) http.Handler {
 }
 
 // Locale returns the current user's locale.
-func (s *Server) Locale(r *http.Request) *locales.Locale {
+func Locale(r *http.Request) *locales.Locale {
 	if t, ok := r.Context().Value(ctxLocaleKey{}).(*locales.Locale); ok {
 		return t
 	}

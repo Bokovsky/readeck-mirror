@@ -17,7 +17,6 @@ import (
 )
 
 func TestInitRequest(t *testing.T) {
-	s := server.New()
 	configs.InitConfiguration()
 
 	tests := []struct {
@@ -204,7 +203,7 @@ func TestInitRequest(t *testing.T) {
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			h := s.InitRequest(http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {}))
+			h := server.InitRequest(http.HandlerFunc(func(_ http.ResponseWriter, _ *http.Request) {}))
 
 			r, _ := http.NewRequest("GET", "/", nil)
 			r.Host = "test.local"

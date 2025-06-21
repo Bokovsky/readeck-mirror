@@ -27,7 +27,7 @@ type (
 var sessionHandler *securecookie.Handler
 
 // InitSession creates the session handler.
-func (s *Server) InitSession() (err error) {
+func InitSession() (err error) {
 	// Create the session handler
 	sessionHandler = securecookie.NewHandler(
 		securecookie.Key(configs.Keys.SessionKey()),
@@ -41,7 +41,7 @@ func (s *Server) InitSession() (err error) {
 
 // WithSession initialize a session handler that will be available
 // on the included routes.
-func (s *Server) WithSession() func(next http.Handler) http.Handler {
+func WithSession() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Store session
@@ -82,7 +82,7 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 // GetSession returns the session currently stored in context.
 // It will panic (on purpose) if the route is not using the
 // WithSession() middleware.
-func (s *Server) GetSession(r *http.Request) *sessions.Session {
+func GetSession(r *http.Request) *sessions.Session {
 	if sess, ok := r.Context().Value(ctxSessionKey{}).(*sessions.Session); ok {
 		return sess
 	}
@@ -90,15 +90,15 @@ func (s *Server) GetSession(r *http.Request) *sessions.Session {
 }
 
 // AddFlash saves a flash message in the session.
-func (s *Server) AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
-	session := s.GetSession(r)
+func AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
+	session := GetSession(r)
 	session.AddFlash(typ, msg)
 	return session.Save(w, r)
 }
 
 // Flashes returns the flash messages retrieved from the session
 // in the session middleware.
-func (s *Server) Flashes(r *http.Request) []sessions.FlashMessage {
+func Flashes(r *http.Request) []sessions.FlashMessage {
 	if msgs := r.Context().Value(ctxFlashKey{}); msgs != nil {
 		return msgs.([]sessions.FlashMessage)
 	}

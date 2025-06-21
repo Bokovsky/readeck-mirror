@@ -24,17 +24,17 @@ type adminViews struct {
 }
 
 func newAdminViews(api *adminAPI) *adminViews {
-	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
+	r := server.AuthenticatedRouter(server.WithRedirectLogin)
 	h := &adminViews{r, api}
 
-	r.With(api.srv.WithPermission("admin:users", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("admin:users", "read")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Get("/", h.main)
 		r.With(api.withUserList).Get("/users", h.userList)
 		r.Get("/users/add", h.userCreate)
 		r.With(api.withUser).Get("/users/{uid:[a-zA-Z0-9]{18,22}}", h.userInfo)
 	})
 
-	r.With(api.srv.WithPermission("admin:users", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("admin:users", "write")).Group(func(r chi.Router) {
 		r.Post("/users/add", h.userCreate)
 		r.With(api.withUser).Post("/users/{uid:[a-zA-Z0-9]{18,22}}", h.userInfo)
 		r.With(api.withUser).Post("/users/{uid:[a-zA-Z0-9]{18,22}}/delete", h.userDelete)
@@ -44,11 +44,11 @@ func newAdminViews(api *adminAPI) *adminViews {
 }
 
 func (h *adminViews) main(w http.ResponseWriter, r *http.Request) {
-	h.srv.Redirect(w, r, "./users")
+	server.Redirect(w, r, "./users")
 }
 
 func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 	ul := r.Context().Value(ctxUserListKey{}).(userList)
 	ul.Items = make([]userItem, len(ul.items))
 	for i, item := range ul.items {
@@ -63,12 +63,12 @@ func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 		{tr.Gettext("Users")},
 	})
 
-	h.srv.RenderTemplate(w, r, 200, "/admin/user_list", ctx)
+	server.RenderTemplate(w, r, 200, "/admin/user_list", ctx)
 }
 
 func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
-	tr := h.srv.Locale(r)
-	f := users.NewUserForm(h.srv.Locale(r))
+	tr := server.Locale(r)
+	f := users.NewUserForm(server.Locale(r))
 	f.Get("group").Set("user")
 
 	if r.Method == http.MethodPost {
@@ -76,10 +76,10 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 		if f.IsValid() {
 			u, err := f.CreateUser()
 			if err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
-				h.srv.AddFlash(w, r, "success", tr.Gettext("User created."))
-				h.srv.Redirect(w, r, "./..", u.UID)
+				server.AddFlash(w, r, "success", tr.Gettext("User created."))
+				server.Redirect(w, r, "./..", u.UID)
 				return
 			}
 		}
@@ -93,15 +93,15 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 		{tr.Gettext("Users"), urls.AbsoluteURL(r, "/admin/users").String()},
 		{tr.Gettext("New User")},
 	})
-	h.srv.RenderTemplate(w, r, 200, "/admin/user_create", ctx)
+	server.RenderTemplate(w, r, 200, "/admin/user_create", ctx)
 }
 
 func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	item := newUserItem(r, u, "./..")
 
-	f := users.NewUserForm(h.srv.Locale(r))
+	f := users.NewUserForm(server.Locale(r))
 	f.SetUser(u)
 
 	if r.Method == http.MethodPost {
@@ -109,16 +109,16 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 
 		if f.IsValid() {
 			if _, err := f.UpdateUser(u); err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Refresh session if same user
 				if auth.GetRequestUser(r).ID == u.ID {
-					sess := h.srv.GetSession(r)
+					sess := server.GetSession(r)
 					sess.Payload.User = u.ID
 					sess.Payload.Seed = u.Seed
 				}
-				h.srv.AddFlash(w, r, "success", tr.Gettext("User updated."))
-				h.srv.Redirect(w, r, u.UID)
+				server.AddFlash(w, r, "success", tr.Gettext("User updated."))
+				server.Redirect(w, r, u.UID)
 				return
 			}
 		}
@@ -134,23 +134,23 @@ func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 		{item.Username},
 	})
 
-	h.srv.RenderTemplate(w, r, 200, "/admin/user", ctx)
+	server.RenderTemplate(w, r, 200, "/admin/user", ctx)
 }
 
 func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteForm(h.srv.Locale(r))
+	f := newDeleteForm(server.Locale(r))
 	f.Get("_to").Set("/admin/users")
 	forms.Bind(f, r)
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	if u.ID == auth.GetRequestUser(r).ID {
-		h.srv.Error(w, r, errSameUser)
+		server.Err(w, r, errSameUser)
 		return
 	}
 
 	if err := f.trigger(u); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
-	h.srv.Redirect(w, r, f.Get("_to").String())
+	server.Redirect(w, r, f.Get("_to").String())
 }

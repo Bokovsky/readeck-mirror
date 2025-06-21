@@ -225,7 +225,7 @@ func runServer(_ context.Context, args []string) error {
 // InitServer setups all the routes.
 func InitServer(s *server.Server) error {
 	// Init session store
-	if err := s.InitSession(); err != nil {
+	if err := server.InitSession(); err != nil {
 		return err
 	}
 

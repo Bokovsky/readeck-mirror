@@ -40,23 +40,23 @@ func New() *Server {
 
 	s.Use(
 		middleware.Recoverer,
-		s.InitRequest,
+		InitRequest,
 		middleware.RequestID,
 		Logger(),
 		metrics.Middleware,
-		s.SetSecurityHeaders,
-		s.CompressResponse,
-		s.WithCacheControl,
-		s.CannonicalPaths,
+		SetSecurityHeaders,
+		CompressResponse,
+		WithCacheControl,
+		CannonicalPaths,
 		auth.Init(
 			&auth.TokenAuthProvider{},
 			&auth.SessionAuthProvider{
-				GetSession:          s.GetSession,
-				UnauthorizedHandler: s.unauthorizedHandler,
+				GetSession:          GetSession,
+				UnauthorizedHandler: unauthorizedHandler,
 			},
 		),
-		s.LoadLocale,
-		s.ErrorPages,
+		LoadLocale,
+		ErrorPages,
 	)
 
 	return s
@@ -65,31 +65,31 @@ func New() *Server {
 // Init initializes the server and the template engine.
 func (s *Server) Init() {
 	// System routes
-	s.AddRoute("/api/info", s.infoRoutes())
-	s.AddRoute("/api/sys", s.sysRoutes())
-	s.AddRoute("/logger", s.loggerRoutes())
+	s.AddRoute("/api/info", infoRoutes())
+	s.AddRoute("/api/sys", sysRoutes())
+	s.AddRoute("/logger", loggerRoutes())
 
 	// web manifest
-	s.AddRoute("/manifest.webmanifest", s.manifestRoutes())
+	s.AddRoute("/manifest.webmanifest", manifestRoutes())
 
 	// Init templates
-	s.initTemplates()
+	initTemplates()
 }
 
 // AuthenticatedRouter returns a chi.Router instance
 // with middlewares to force authentication.
-func (s *Server) AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Router {
+func AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Router {
 	r := chi.NewRouter()
 
 	r.Use(middlewares...)
 	r.Use(
-		s.WithSession(),
+		WithSession(),
 		auth.Required,
-		s.LoadLocale,
-		s.Csrf,
+		LoadLocale,
+		Csrf,
 		// It's already in the main router but this one will be called first and have
 		// the current user information
-		s.ErrorPages,
+		ErrorPages,
 	)
 
 	return r
@@ -101,27 +101,8 @@ func (s *Server) AddRoute(pattern string, handler http.Handler) {
 	s.Mount(path.Join(urls.Prefix(), pattern), handler)
 }
 
-// IsTurboRequest returns true when the request was made with
-// an x-turbo header.
-func (s *Server) IsTurboRequest(r *http.Request) bool {
-	return r.Header.Get("x-turbo") == "1"
-}
-
-// Redirect yields a 303 redirection with a location header.
-// The given "ref" values are joined togegher with the server's base path
-// to provide a full absolute URL.
-func (s *Server) Redirect(w http.ResponseWriter, r *http.Request, ref ...string) {
-	w.Header().Set("Location", urls.AbsoluteURL(r, ref...).String())
-	w.WriteHeader(http.StatusSeeOther)
-}
-
-// Log returns a log entry including the request ID.
-func (s *Server) Log(r *http.Request) *slog.Logger {
-	return slog.With(slog.String("@id", s.GetReqID(r)))
-}
-
 // infoRoutes returns the route returning the service information.
-func (s *Server) infoRoutes() http.Handler {
+func infoRoutes() http.Handler {
 	r := chi.NewRouter()
 
 	type versionInfo struct {
@@ -146,7 +127,7 @@ func (s *Server) infoRoutes() http.Handler {
 			},
 		}
 
-		s.Render(w, r, 200, res)
+		Render(w, r, 200, res)
 	})
 
 	return r
@@ -154,9 +135,9 @@ func (s *Server) infoRoutes() http.Handler {
 
 // sysRoutes returns the route returning some system
 // information.
-func (s *Server) sysRoutes() http.Handler {
-	r := s.AuthenticatedRouter()
-	r.Use(s.WithPermission("system", "read"))
+func sysRoutes() http.Handler {
+	r := AuthenticatedRouter()
+	r.Use(WithPermission("system", "read"))
 
 	type memInfo struct {
 		Alloc      uint64 `json:"alloc"`
@@ -190,12 +171,14 @@ func (s *Server) sysRoutes() http.Handler {
 		usage := storageInfo{}
 		usage.Database, err = db.Driver().DiskUsage()
 		if err != nil {
-			s.Error(w, r, err)
+			Err(w, r, err)
+			return
 		}
 
 		usage.Bookmarks, err = bookmarks.Bookmarks.DiskUsage()
 		if err != nil {
-			s.Error(w, r, err)
+			Err(w, r, err)
+			return
 		}
 
 		res := sysInfo{
@@ -215,20 +198,31 @@ func (s *Server) sysRoutes() http.Handler {
 			DiskUsage: usage,
 		}
 
-		s.Render(w, r, 200, res)
+		Render(w, r, 200, res)
 	})
 
 	return r
 }
 
-func (s *Server) loggerRoutes() http.Handler {
+func loggerRoutes() http.Handler {
 	r := chi.NewRouter()
-	r.Post("/csp-report", s.cspReport)
+	r.Post("/csp-report", cspReportHandler)
 
 	return r
 }
 
+// IsTurboRequest returns true when the request was made with
+// an x-turbo header.
+func IsTurboRequest(r *http.Request) bool {
+	return r.Header.Get("x-turbo") == "1"
+}
+
 // GetReqID returns the request ID.
-func (s *Server) GetReqID(r *http.Request) string {
+func GetReqID(r *http.Request) string {
 	return middleware.GetReqID(r.Context())
+}
+
+// Log returns a log entry including the request ID.
+func Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", GetReqID(r)))
 }

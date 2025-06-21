@@ -41,13 +41,13 @@ type webManifestIcon struct {
 	Purpose string `json:"purpose"`
 }
 
-func (s *Server) manifestRoutes() http.Handler {
+func manifestRoutes() http.Handler {
 	r := chi.NewRouter()
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		topURL := urls.AbsoluteURL(r, "/")
 
 		w.Header().Set("Content-Type", "application/manifest+json; charset=utf-8")
-		s.Render(w, r, http.StatusOK, webManifest{
+		Render(w, r, http.StatusOK, webManifest{
 			Name:                      fmt.Sprintf("Readeck (%s)", r.URL.Hostname()),
 			ShortName:                 "Readeck",
 			Description:               "Save interesting articles, long read, pictures, videos. Read or revisit them later.",

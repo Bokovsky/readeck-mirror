@@ -30,7 +30,7 @@ func NewOPDSRouteHandler(s *server.Server) func(r chi.Router) {
 	return func(r chi.Router) {
 		h := &opdsRouter{r, newAPIRouter(s)}
 
-		r.With(h.srv.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
 			r.With(h.withCollectionFilters, h.withBookmarkList).Get("/all", h.bookmarkList)
 			r.With(h.withBookmarkFilters, h.withBookmarkList).
 				Get("/{filter:(unread|archives|favorites)}", h.bookmarkList)
@@ -45,20 +45,20 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
-	c := catalog.New(h.srv, r,
+	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Bookmarks")),
 		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
-			links := h.srv.GetPaginationLinks(r, bl.Pagination)
+			links := server.GetPaginationLinks(r, bl.Pagination)
 			for _, x := range links {
 				catalog.WithLink(opds.OPDSTypeAcquisistion, x.Rel, x.URL)(feed)
 			}
@@ -81,7 +81,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := c.Render(w, r); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 	}
 }
 
@@ -90,20 +90,20 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
-	c := catalog.New(h.srv, r,
+	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle(tr.Gettext("Readeck Bookmark Collections")),
 		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithUpdated(lastUpdate),
 		func(feed *opds.Feed) {
-			links := h.srv.GetPaginationLinks(r, cl.Pagination)
+			links := server.GetPaginationLinks(r, cl.Pagination)
 			for _, x := range links {
 				catalog.WithLink(opds.OPDSTypeAcquisistion, x.Rel, x.URL)(feed)
 			}
@@ -118,7 +118,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := c.Render(w, r); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 	}
 }
 
@@ -127,14 +127,14 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
 	item := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	c := catalog.New(h.srv, r,
+	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Collection: %s", item.Name)),
 		catalog.WithURL(urls.AbsoluteURL(r).String()),
@@ -156,6 +156,6 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := c.Render(w, r); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 	}
 }

@@ -21,10 +21,10 @@ type cookbookViews struct {
 }
 
 func newCookbookViews(api *cookbookAPI) *cookbookViews {
-	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
+	r := server.AuthenticatedRouter(server.WithRedirectLogin)
 	v := &cookbookViews{r, api}
 
-	r.With(api.srv.WithPermission("cookbook", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.namedTemplateView("prose"))
 		r.Get("/ui", v.uiView)
 		r.Get("/{name}", v.templateView)
@@ -37,12 +37,12 @@ func (v *cookbookViews) templateView(w http.ResponseWriter, r *http.Request) {
 	template := "cookbook/" + chi.URLParam(r, "name")
 	_, err := server.GetTemplate(template)
 	if err != nil {
-		v.srv.Log(r).Error("can't load template", slog.Any("err", err))
-		v.srv.Status(w, r, http.StatusNotFound)
+		server.Log(r).Error("can't load template", slog.Any("err", err))
+		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	v.srv.RenderTemplate(w, r, 200, template, nil)
+	server.RenderTemplate(w, r, 200, template, nil)
 }
 
 func (v *cookbookViews) namedTemplateView(name string) func(w http.ResponseWriter, r *http.Request) {
@@ -62,7 +62,7 @@ func (v *cookbookViews) uiView(w http.ResponseWriter, r *http.Request) {
 		"FormErr": ef,
 	}
 
-	v.srv.RenderTemplate(w, r, 200, "cookbook/ui", ctx)
+	server.RenderTemplate(w, r, 200, "cookbook/ui", ctx)
 }
 
 func newCookbookForm() *forms.Form {

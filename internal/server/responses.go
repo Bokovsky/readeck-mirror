@@ -12,6 +12,7 @@ import (
 	"net/http"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 )
 
 // Message is used by the server's Message() method.
@@ -64,12 +65,12 @@ func (l Link) Write(w http.ResponseWriter) {
 }
 
 // Render converts any value to JSON and sends the response.
-func (s *Server) Render(w http.ResponseWriter, r *http.Request, status int, value interface{}) {
+func Render(w http.ResponseWriter, r *http.Request, status int, value interface{}) {
 	b := &bytes.Buffer{}
 	enc := json.NewEncoder(b)
 	enc.SetEscapeHTML(false)
 	if err := enc.Encode(value); err != nil {
-		s.Log(r).Error("encoding error", slog.Any("err", err))
+		Log(r).Error("encoding error", slog.Any("err", err))
 		http.Error(w, http.StatusText(500), 500)
 		return
 	}
@@ -83,34 +84,42 @@ func (s *Server) Render(w http.ResponseWriter, r *http.Request, status int, valu
 	w.Write(b.Bytes())
 }
 
-// Message sends a JSON formatted message response.
-func (s *Server) Message(w http.ResponseWriter, r *http.Request, message *Message) {
-	s.Render(w, r, message.Status, message)
+// Msg sends a JSON formatted message response.
+func Msg(w http.ResponseWriter, r *http.Request, message *Message) {
+	Render(w, r, message.Status, message)
 
 	// Log errors only in dev mode
 	if message.Status >= 400 && configs.Config.Main.DevMode {
-		s.Log(r).Warn(message.Message, slog.Any("message", message))
+		Log(r).Warn(message.Message, slog.Any("message", message))
 	}
 }
 
-// TextMessage sends a JSON formatted message response with a status and a message.
-func (s *Server) TextMessage(w http.ResponseWriter, r *http.Request, status int, msg string) {
-	s.Message(w, r, &Message{
+// TextMsg sends a JSON formatted message response with a status and a message.
+func TextMsg(w http.ResponseWriter, r *http.Request, status int, msg string) {
+	Msg(w, r, &Message{
 		Status:  status,
 		Message: msg,
 	})
 }
 
 // Status sends a text plain response with the given status code.
-func (s *Server) Status(w http.ResponseWriter, _ *http.Request, status int) {
+func Status(w http.ResponseWriter, _ *http.Request, status int) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Header().Set("X-Content-Type-Options", "nosniff")
 	w.WriteHeader(status)
 	fmt.Fprintln(w, http.StatusText(status))
 }
 
-// Error sends an HTTP 500 and log the given error.
-func (s *Server) Error(w http.ResponseWriter, r *http.Request, err error) {
-	s.Log(r).Error("server error", slog.Any("err", err))
-	s.Status(w, r, 500)
+// Err sends an HTTP 500 and log the given error.
+func Err(w http.ResponseWriter, r *http.Request, err error) {
+	Log(r).Error("server error", slog.Any("err", err))
+	Status(w, r, 500)
+}
+
+// Redirect yields a 303 redirection with a location header.
+// The given "ref" values are joined togegher with the server's base path
+// to provide a full absolute URL.
+func Redirect(w http.ResponseWriter, r *http.Request, ref ...string) {
+	w.Header().Set("Location", urls.AbsoluteURL(r, ref...).String())
+	w.WriteHeader(http.StatusSeeOther)
 }

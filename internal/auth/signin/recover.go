@@ -88,7 +88,7 @@ func (f *recoverForm) delCode(code string) error {
 }
 
 func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
-	f := newRecoverForm(h.srv.Locale(r))
+	f := newRecoverForm(server.Locale(r))
 	f.Get("step").Set(0)
 
 	tc := server.TC{
@@ -107,7 +107,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 		defer func() {
 			if err != nil {
-				h.srv.Log(r).Error("recover step 0", slog.Any("err", err))
+				server.Log(r).Error("recover step 0", slog.Any("err", err))
 				f.AddErrors("", forms.ErrUnexpected)
 			}
 		}()
@@ -135,17 +135,17 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			"[Readeck] Password Recovery",
 			email.WithMDTemplate(
 				"/emails/recover.jet.md",
-				h.srv.TemplateVars(r),
+				server.TemplateVars(r),
 				mailTc,
 			),
 		)
 		if err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
 		if err = email.Sender.SendEmail(msg); err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
@@ -164,7 +164,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 		user, err = users.Users.GetOne(goqu.C("id").Eq(userID))
 		if err != nil {
 			tc["Error"] = "Invalid recovery code"
-			h.srv.Log(r).Error("get user", slog.Any("err", err))
+			server.Log(r).Error("get user", slog.Any("err", err))
 			return
 		}
 
@@ -179,7 +179,7 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 		defer func() {
 			if err != nil {
-				h.srv.Log(r).Error("password update", slog.Any("err", err))
+				server.Log(r).Error("password update", slog.Any("err", err))
 				f.AddErrors("", forms.ErrUnexpected)
 			}
 		}()
@@ -227,5 +227,5 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "/auth/recover", tc)
+	server.RenderTemplate(w, r, http.StatusOK, "/auth/recover", tc)
 }

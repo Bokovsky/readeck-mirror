@@ -14,7 +14,6 @@ import (
 
 	"github.com/google/uuid"
 
-	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/bleach"
 	"codeberg.org/readeck/readeck/pkg/opds"
@@ -26,7 +25,7 @@ type Catalog struct {
 }
 
 // New creates a new catalog with some prepared information.
-func New(srv *server.Server, r *http.Request, options ...func(*opds.Feed)) *Catalog {
+func New(r *http.Request, options ...func(*opds.Feed)) *Catalog {
 	feed := &opds.Feed{
 		FeedType: opds.OPDSTypeNavigation,
 		Links: []opds.Link{

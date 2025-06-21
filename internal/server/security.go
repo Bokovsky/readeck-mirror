@@ -103,7 +103,7 @@ func GetRemoteInfo(r *http.Request) *RemoteInfo {
 //
 // It also checks the validity of the host header when the server
 // is not running in dev mode.
-func (s *Server) InitRequest(next http.Handler) http.Handler {
+func InitRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// First, always remove the port from RenoteAddr
 		r.RemoteAddr, _, _ = net.SplitHostPort(r.RemoteAddr)
@@ -156,8 +156,8 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 		// Check host
 		if !configs.Config.Main.DevMode {
 			if err := checkHost(r); err != nil {
-				s.Log(r).Error("server error", slog.Any("err", err))
-				s.Status(w, r, http.StatusBadRequest)
+				Log(r).Error("server error", slog.Any("err", err))
+				Status(w, r, http.StatusBadRequest)
 				return
 			}
 		}
@@ -194,7 +194,7 @@ func GetCSPHeader(r *http.Request) csp.Policy {
 }
 
 // SetSecurityHeaders adds some headers to improve client side security.
-func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
+func SetSecurityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var nonce string
 		if nonce = r.Header.Get("x-turbo-nonce"); nonce == "" {
@@ -220,11 +220,11 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 	})
 }
 
-func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
+func cspReportHandler(w http.ResponseWriter, r *http.Request) {
 	report := cspReport{}
 	dec := json.NewDecoder(r.Body)
 	if err := dec.Decode(&report); err != nil {
-		s.Log(r).Error("server error", slog.Any("err", err))
+		Log(r).Error("server error", slog.Any("err", err))
 		return
 	}
 
@@ -232,7 +232,7 @@ func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
 	for k, v := range report.Report {
 		attrs = append(attrs, slog.Any(k, v))
 	}
-	s.Log(r).WithGroup("report").LogAttrs(
+	Log(r).WithGroup("report").LogAttrs(
 		context.Background(),
 		slog.LevelWarn,
 		"CSP violation",
@@ -244,7 +244,7 @@ func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
 
 // unauthorizedHandler is a handler used by the session authentication provider.
 // It sends different responses based on the context.
-func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
+func unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 	unauthorizedCtx, _ := r.Context().Value(ctxUnauthorizedKey{}).(int)
 
 	switch unauthorizedCtx {
@@ -256,7 +256,7 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "Unauthorized")
 	case unauthorizedRedir:
 		if !configs.Config.Commissioned {
-			s.Redirect(w, r, "/onboarding")
+			Redirect(w, r, "/onboarding")
 			return
 		}
 
@@ -274,7 +274,7 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // WithRedirectLogin sets the unauthorized handler to redirect to the login page.
-func (s *Server) WithRedirectLogin(next http.Handler) http.Handler {
+func WithRedirectLogin(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := context.WithValue(r.Context(), ctxUnauthorizedKey{}, unauthorizedRedir)
 		next.ServeHTTP(w, r.WithContext(ctx))

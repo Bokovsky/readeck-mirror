@@ -31,18 +31,18 @@ func newAuthAPI(s *server.Server) *authAPI {
 // auth performs the user authentication with its username and
 // password and then, returns a token tied to this user.
 func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
-	f := newTokenLoginForm(api.srv.Locale(r))
+	f := newTokenLoginForm(server.Locale(r))
 
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusBadRequest, f)
+		server.Render(w, r, http.StatusBadRequest, f)
 		return
 	}
 
 	user := checkUser(f)
 	if !f.IsValid() || user == nil {
-		api.srv.Message(w, r, &server.Message{
+		server.Msg(w, r, &server.Message{
 			Status:  http.StatusForbidden,
 			Message: errInvalidLogin.Error(),
 		})
@@ -60,17 +60,17 @@ func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := tokens.Tokens.Create(t); err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	token, err := tokens.EncodeToken(t.UID)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	api.srv.Render(w, r, http.StatusCreated, tokenReturn{
+	server.Render(w, r, http.StatusCreated, tokenReturn{
 		UID:   t.UID,
 		Token: token,
 	})

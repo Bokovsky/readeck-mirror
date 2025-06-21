@@ -56,12 +56,12 @@ func SetupRoutes(s *server.Server) {
 
 // newAPIRouter returns an apiRouter with all the routes set up.
 func newAPIRouter(s *server.Server) *apiRouter {
-	r := s.AuthenticatedRouter()
+	r := server.AuthenticatedRouter()
 
 	api := &apiRouter{r, s}
 
 	// Bookmark API
-	r.With(api.srv.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
 		r.With(
 			api.withBookmarkOrdering,
 			api.withCollectionFilters,
@@ -74,13 +74,13 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
 			r.Get("/annotations", api.bookmarkAnnotations)
-			r.With(api.srv.WithPermission("api:bookmarks", "export")).Route(
+			r.With(server.WithPermission("api:bookmarks", "export")).Route(
 				"/share", func(r chi.Router) {
 					r.With(
 						api.withShareLink,
 					).Get("/link", api.bookmarkShareLink)
 					r.With(
-						api.srv.WithPermission("email", "send"),
+						server.WithPermission("email", "send"),
 						api.withShareEmail,
 					).Post("/email", api.bookmarkShareEmail)
 				})
@@ -91,7 +91,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Get("/", api.annotationList)
 		})
 
-		r.With(api.srv.WithPermission("api:bookmarks", "export")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks", "export")).Group(func(r chi.Router) {
 			r.With(
 				api.withFixedLimit(25),
 				api.withCollectionFilters,
@@ -114,7 +114,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 		})
 	})
 
-	r.With(api.srv.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
 		r.Post("/", api.bookmarkCreate)
 		r.With(api.withBookmark).Group(func(r chi.Router) {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.bookmarkUpdate)
@@ -129,12 +129,12 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 	// Collection API
 	r.Route("/collections", func(r chi.Router) {
-		r.With(api.srv.WithPermission("api:bookmarks:collections", "read")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks:collections", "read")).Group(func(r chi.Router) {
 			r.With(api.withColletionList).Get("/", api.collectionList)
 			r.With(api.withCollection).Get("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionInfo)
 		})
 
-		r.With(api.srv.WithPermission("api:bookmarks:collections", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks:collections", "write")).Group(func(r chi.Router) {
 			r.Post("/", api.collectionCreate)
 			r.With(api.withCollection).Patch("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionUpdate)
 			r.With(api.withCollection).Delete("/{uid:[a-zA-Z0-9]{18,22}}", api.collectionDelete)
@@ -143,7 +143,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 	// Import API
 	r.Route("/import", func(r chi.Router) {
-		r.With(api.srv.WithPermission("api:bookmarks:import", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks:import", "write")).Group(func(r chi.Router) {
 			r.Get("/{trackID:[a-zA-Z0-9]{18,22}}", api.bookmaksImportStatus)
 			r.Post("/{source}", api.bookmarksImport)
 		})
@@ -154,12 +154,12 @@ func newAPIRouter(s *server.Server) *apiRouter {
 
 // newViewsRouter returns a viewRouter with all the routes set up.
 func newViewsRouter(api *apiRouter) *viewsRouter {
-	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
+	r := server.AuthenticatedRouter(server.WithRedirectLogin)
 
 	h := &viewsRouter{r, api}
 
 	// Bookmark and label views
-	r.With(h.srv.WithPermission("bookmarks", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("bookmarks", "read")).Group(func(r chi.Router) {
 		r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 			r.With(
 				api.withBookmarkOrdering,
@@ -172,17 +172,17 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 			).Get("/{filter:(unread|archives|favorites|articles|videos|pictures)}", h.bookmarkList)
 
 			r.With(
-				api.srv.WithCustomErrorTemplate(404, "/bookmarks/bookmark_missing"),
+				server.WithCustomErrorTemplate(404, "/bookmarks/bookmark_missing"),
 				api.withBookmark,
 			).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 				r.Get("/", h.bookmarkInfo)
-				r.With(h.srv.WithPermission("bookmarks", "export")).Route(
+				r.With(server.WithPermission("bookmarks", "export")).Route(
 					"/share", func(r chi.Router) {
 						r.With(
 							api.withShareLink,
 						).Get("/link", h.bookmarkShareLink)
 						r.With(
-							api.srv.WithPermission("email", "send"),
+							server.WithPermission("email", "send"),
 							api.withShareEmail,
 						).Route("/email", func(r chi.Router) {
 							r.Get("/", h.bookmarkShareEmail)
@@ -200,7 +200,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 		})
 	})
 
-	r.With(h.srv.WithPermission("bookmarks", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("bookmarks", "write")).Group(func(r chi.Router) {
 		r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 			r.With(api.withBookmarkList).Post("/", h.bookmarkList)
 			r.With(api.withBookmark).Group(func(r chi.Router) {
@@ -216,7 +216,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 
 	// Collection views
 	r.Route("/collections", func(r chi.Router) {
-		r.With(h.srv.WithPermission("bookmarks:collections", "read")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("bookmarks:collections", "read")).Group(func(r chi.Router) {
 			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 				r.With(api.withColletionList).Get("/", h.collectionList)
 				r.With(
@@ -228,7 +228,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 			})
 		})
 
-		r.With(h.srv.WithPermission("bookmarks:collections", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("bookmarks:collections", "write")).Group(func(r chi.Router) {
 			r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 				r.With(api.withBookmarkList).Get("/add", h.collectionCreate)
 				r.With(api.withBookmarkList).Post("/add", h.collectionCreate)
@@ -246,7 +246,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 
 	// Import views
 	r.Route("/import", func(r chi.Router) {
-		r.With(h.srv.WithPermission("bookmarks:import", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("bookmarks:import", "write")).Group(func(r chi.Router) {
 			r.With(h.withBaseContext).Group(func(r chi.Router) {
 				r.Get("/", h.bookmarksImportMain)
 				r.Get("/{trackID:[a-zA-Z0-9]{18,22}}", h.bookmarksImportMain)

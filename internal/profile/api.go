@@ -34,20 +34,20 @@ type profileAPI struct {
 
 // newProfileAPI returns a SettingAPI with its routes set up.
 func newProfileAPI(s *server.Server) *profileAPI {
-	r := s.AuthenticatedRouter()
+	r := server.AuthenticatedRouter()
 	api := &profileAPI{r, s}
 
-	r.With(api.srv.WithPermission("api:profile", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", api.profileInfo)
 		r.With(api.withTokenList).Get("/tokens", api.tokenList)
 	})
 
-	r.With(api.srv.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
 		r.Put("/password", api.passwordUpdate)
 	})
 
-	r.With(api.srv.WithPermission("api:profile:tokens", "delete")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:profile:tokens", "delete")).Group(func(r chi.Router) {
 		r.With(api.withToken).Delete("/tokens/{uid}", api.tokenDelete)
 	})
 
@@ -99,43 +99,43 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 		res.Provider.Roles = []string{info.User.Group}
 	}
 
-	api.srv.Render(w, r, 200, res)
+	server.Render(w, r, 200, res)
 }
 
 // profileUpdate updates the current user profile information.
 func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
-	f := newProfileForm(api.srv.Locale(r))
+	f := newProfileForm(server.Locale(r))
 	f.setUser(user)
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	updated, err := f.updateUser(user)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	api.srv.Render(w, r, 200, updated)
+	server.Render(w, r, 200, updated)
 }
 
 // passwordUpdate updates the current user's password.
 func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newPasswordForm(api.srv.Locale(r))
+	f := newPasswordForm(server.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	user := auth.GetRequestUser(r)
 	if err := f.updatePassword(user); err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -146,9 +146,9 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := tokenList{}
 
-		pf := api.srv.GetPageParams(r, 30)
+		pf := server.GetPageParams(r, 30)
 		if pf == nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
@@ -163,24 +163,24 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 		count, err := ds.ClearOrder().ClearLimit().ClearOffset().Count()
 		if err != nil {
 			if errors.Is(err, tokens.ErrNotFound) {
-				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
+				server.TextMsg(w, r, http.StatusNotFound, "not found")
 			} else {
-				api.srv.Error(w, r, err)
+				server.Err(w, r, err)
 			}
 			return
 		}
 
 		items := []*tokens.Token{}
 		if err := ds.ScanStructs(&items); err != nil {
-			api.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
+		res.Pagination = server.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		res.Items = make([]tokenItem, len(items))
 		for i, item := range items {
-			res.Items[i] = newTokenItem(api.srv, r, item, ".")
+			res.Items[i] = newTokenItem(r, item, ".")
 		}
 
 		ctx := context.WithValue(r.Context(), ctxTokenListKey{}, res)
@@ -196,11 +196,11 @@ func (api *profileAPI) withToken(next http.Handler) http.Handler {
 			goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 		)
 		if err != nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
-		item := newTokenItem(api.srv, r, t, ".")
+		item := newTokenItem(r, t, ".")
 		ctx := context.WithValue(r.Context(), ctxtTokenKey{}, item)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -209,14 +209,14 @@ func (api *profileAPI) withToken(next http.Handler) http.Handler {
 func (api *profileAPI) tokenList(w http.ResponseWriter, r *http.Request) {
 	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
 
-	api.srv.SendPaginationHeaders(w, r, tl.Pagination)
-	api.srv.Render(w, r, http.StatusOK, tl.Items)
+	server.SendPaginationHeaders(w, r, tl.Pagination)
+	server.Render(w, r, http.StatusOK, tl.Items)
 }
 
 func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
 	if err := ti.Delete(); err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -241,7 +241,7 @@ type tokenItem struct {
 	Roles     []string   `json:"roles"`
 }
 
-func newTokenItem(s *server.Server, r *http.Request, t *tokens.Token, base string) tokenItem {
+func newTokenItem(r *http.Request, t *tokens.Token, base string) tokenItem {
 	return tokenItem{
 		Token:     t,
 		ID:        t.UID,

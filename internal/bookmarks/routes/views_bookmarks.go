@@ -37,7 +37,7 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		count, err := bookmarks.Bookmarks.CountAll(auth.GetRequestUser(r))
 		if err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
@@ -52,7 +52,7 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 }
 
 func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
-	f := newCreateForm(h.srv.Locale(r), auth.GetRequestUser(r).ID, h.srv.GetReqID(r))
+	f := newCreateForm(server.Locale(r), auth.GetRequestUser(r).ID, server.GetReqID(r))
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["MaybeSearch"] = false
 
@@ -61,15 +61,15 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if b, err := f.createBookmark(); err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
 				redir := []string{"/bookmarks"}
-				if h.srv.IsTurboRequest(r) {
+				if server.IsTurboRequest(r) {
 					redir = append(redir, "unread")
 				} else {
 					redir = append(redir, b.UID)
 				}
-				h.srv.Redirect(w, r, redir...)
+				server.Redirect(w, r, redir...)
 				return
 
 			}
@@ -92,7 +92,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		bl.Items[i] = newBookmarkItem(r, item, ".")
 	}
 
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
 	ctx["Form"] = f
 	ctx["Pagination"] = bl.Pagination
@@ -123,7 +123,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	}
 	ctx["PageTitle"] = title
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/index", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/index", ctx)
 }
 
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
@@ -131,7 +131,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	user := auth.GetRequestUser(r)
 	item := newBookmarkItem(r, b, "../bookmarks")
 	if err := item.setEmbed(); err != nil {
-		h.srv.Log(r).Error("", slog.Any("err", err))
+		server.Log(r).Error("", slog.Any("err", err))
 	}
 	item.Errors = b.Errors
 
@@ -141,14 +141,14 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	var err error
 	ctx["HTML"], err = item.getArticle()
 	if err != nil {
-		h.srv.Log(r).Error("", slog.Any("err", err))
+		server.Log(r).Error("", slog.Any("err", err))
 	}
 
 	// Load bookmark debug information if the user needs them.
 	if user.Settings.DebugInfo {
 		c, err := b.OpenContainer()
 		if err != nil && !os.IsNotExist(err) {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
@@ -175,22 +175,22 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 		policy.Write(w.Header())
 	}
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/bookmark", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/bookmark", ctx)
 }
 
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newUpdateForm(h.srv.Locale(r))
+	f := newUpdateForm(server.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		h.srv.Render(w, r, http.StatusBadRequest, f)
+		server.Render(w, r, http.StatusBadRequest, f)
 		return
 	}
 
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
 
 	if _, err := f.update(b); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -199,21 +199,21 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		redir = f.Get("_to").String()
 	}
 
-	h.srv.Redirect(w, r, redir)
+	server.Redirect(w, r, redir)
 }
 
 func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
-	f := newDeleteForm(h.srv.Locale(r))
+	f := newDeleteForm(server.Locale(r))
 	forms.Bind(f, r)
 
 	if err := b.Update(map[string]interface{}{}); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	if err := f.trigger(b); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -222,7 +222,7 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 		redir = f.Get("_to").String()
 	}
 
-	h.srv.Redirect(w, r, redir)
+	server.Redirect(w, r, redir)
 }
 
 func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
@@ -235,14 +235,14 @@ func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) 
 		"ID":      info.ID,
 	}
 
-	if h.srv.IsTurboRequest(r) {
-		h.srv.RenderTurboStream(w, r,
+	if server.IsTurboRequest(r) {
+		server.RenderTurboStream(w, r,
 			"/bookmarks/components/share_link", "replace",
 			"bookmark-share-"+info.ID, info, nil)
 		return
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_share_link", ctx)
+	server.RenderTemplate(w, r, http.StatusCreated, "bookmarks/bookmark_share_link", ctx)
 }
 
 func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
@@ -268,14 +268,14 @@ func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request)
 		tc["Sent"] = info.Error == nil && info.Form.IsValid()
 	}
 
-	if h.srv.IsTurboRequest(r) {
-		h.srv.RenderTurboStream(w, r,
+	if server.IsTurboRequest(r) {
+		server.RenderTurboStream(w, r,
 			"/bookmarks/components/share_email", "replace",
 			"bookmark-share-"+info.ID, tc, nil)
 		return
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "bookmarks/bookmark_share_email", tc)
+	server.RenderTemplate(w, r, http.StatusOK, "bookmarks/bookmark_share_email", tc)
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
@@ -290,7 +290,7 @@ func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Labels"] = labels
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/labels", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/labels", ctx)
 }
 
 func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
@@ -298,19 +298,19 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
 
 	if bl.Pagination.TotalCount == 0 {
-		h.srv.Status(w, r, http.StatusNotFound)
+		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
 	// POST, update label name
 	if r.Method == http.MethodPost {
-		f := newLabelForm(h.srv.Locale(r))
+		f := newLabelForm(server.Locale(r))
 		forms.Bind(f, r)
 
 		if f.IsValid() {
 			_, err := bookmarks.Bookmarks.RenameLabel(auth.GetRequestUser(r), label, f.Get("name").String())
 			if err != nil {
-				h.srv.Error(w, r, err)
+				server.Err(w, r, err)
 				return
 			}
 
@@ -335,7 +335,7 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 	ctx["Bookmarks"] = bl.Items
 	ctx["IsDeleted"] = tasks.DeleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
 }
 
 func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
@@ -343,14 +343,14 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	label := r.Context().Value(ctxLabelKey{}).(string)
 
 	if bl.Pagination.TotalCount == 0 {
-		h.srv.Status(w, r, http.StatusNotFound)
+		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	f := newLabelDeleteForm(h.srv.Locale(r))
+	f := newLabelDeleteForm(server.Locale(r))
 	forms.Bind(f, r)
 	if err := f.trigger(auth.GetRequestUser(r), label); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -364,13 +364,13 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
 	al := r.Context().Value(ctxAnnotationListKey{}).(annotationList)
 
-	h.srv.SendPaginationHeaders(w, r, al.Pagination)
+	server.SendPaginationHeaders(w, r, al.Pagination)
 
 	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
 	ctx["Pagination"] = al.Pagination
 	ctx["Annotations"] = al.Items
 
-	h.srv.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", ctx)
 }
 
 func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
@@ -378,8 +378,8 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 		data := chi.URLParam(r, "id")
 		id, expires, err := bookmarks.DecodeID(data)
 		if err != nil {
-			h.srv.Log(r).Warn("shared bookmark", slog.Any("err", err))
-			h.srv.Status(w, r, 404)
+			server.Log(r).Warn("shared bookmark", slog.Any("err", err))
+			server.Status(w, r, 404)
 			return
 		}
 
@@ -408,7 +408,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			} else {
 				item := newBookmarkItem(r, bu.Bookmark, "../@b")
 				if err := item.setEmbed(); err != nil {
-					h.srv.Error(w, r, err)
+					server.Err(w, r, err)
 					return
 				}
 				ct["Username"] = bu.User.Username
@@ -417,8 +417,8 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 				w.Header().Add("readeck-original", item.URL)
 				server.NewLink(item.URL).WithRel("original").Write(w)
 				server.NewLink(item.URL).WithRel("cite-as").Write(w)
-				h.srv.WriteLastModified(w, r, bu.Bookmark)
-				h.srv.WriteEtag(w, r, bu.Bookmark)
+				server.WriteLastModified(w, r, bu.Bookmark)
+				server.WriteEtag(w, r, bu.Bookmark)
 			}
 		} else {
 			status = http.StatusGone
@@ -427,7 +427,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 		ct["Status"] = status
 
 		ctx := context.WithValue(r.Context(), ctxBaseContextKey{}, ct)
-		h.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+		server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
@@ -439,7 +439,7 @@ func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
 		item := ct["Item"].(bookmarkItem)
 		article, err := item.getArticle()
 		if err != nil {
-			h.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
@@ -457,5 +457,5 @@ func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
 		policy.Write(w.Header())
 	}
 
-	h.srv.RenderTemplate(w, r, status, "bookmarks/bookmark_public", ct)
+	server.RenderTemplate(w, r, status, "bookmarks/bookmark_public", ct)
 }
