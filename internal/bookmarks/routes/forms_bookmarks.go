@@ -30,7 +30,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/searchstring"
 	"codeberg.org/readeck/readeck/internal/server"
-	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/timetoken"
@@ -692,14 +691,11 @@ func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err er
 	case "html":
 		exporter = converter.NewHTMLEmailExporter(
 			f.Get("email").String(),
-			urls.AbsoluteURL(r, "/"),
-			server.TemplateVars(r),
 			options...,
 		)
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
-			urls.AbsoluteURL(r, "/"),
 			server.TemplateVars(r),
 			options...,
 		)
@@ -711,7 +707,7 @@ func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err er
 		return
 	}
 
-	if err = exporter.Export(context.Background(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
+	if err = exporter.Export(r.Context(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
 		f.AddErrors("", forms.ErrUnexpected)
 		return
 	}

@@ -10,17 +10,16 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"path"
 	"strings"
 	"time"
 
-	"github.com/CloudyKit/jet/v6"
 	"github.com/google/uuid"
 
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/epub"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
@@ -30,23 +29,19 @@ var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
 // EPUBExporter is a content exporter that produces EPUB files.
 type EPUBExporter struct {
 	HTMLConverter
-	baseURL      *url.URL
-	templateVars jet.VarMap
-	Collection   *bookmarks.Collection
+	Collection *bookmarks.Collection
 }
 
 // NewEPUBExporter returns a new [EPUBExporter] instance.
-func NewEPUBExporter(baseURL *url.URL, templateVars jet.VarMap) EPUBExporter {
+func NewEPUBExporter() EPUBExporter {
 	return EPUBExporter{
 		HTMLConverter: HTMLConverter{},
-		baseURL:       baseURL,
-		templateVars:  templateVars,
 	}
 }
 
 // Export implements [Exporter].
 // It writes an EPUB file on the provided [io.Writer].
-func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+func (e EPUBExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	// Define a title, date, siteName and filename
 	title := "Readeck Bookmarks"
 	date := time.Now()
@@ -94,7 +89,7 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, _ *http.Request, 
 		}
 	})
 	for _, b := range bookmarkList {
-		if err = m.addBookmark(ctx, e, b, e.templateVars); err != nil {
+		if err = m.addBookmark(ctx, r, e, b); err != nil {
 			return err
 		}
 	}
@@ -136,7 +131,7 @@ func (m *epubMaker) addStylesheet() error {
 }
 
 // addBookmark adds a bookmark, with all its resources, to the epub file.
-func (m *epubMaker) addBookmark(ctx context.Context, e EPUBExporter, b *bookmarks.Bookmark, vars jet.VarMap) (err error) {
+func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExporter, b *bookmarks.Bookmark) (err error) {
 	var c *bookmarks.BookmarkContainer
 	if c, err = b.OpenContainer(); err != nil {
 		return
@@ -206,10 +201,10 @@ func (m *epubMaker) addBookmark(ctx context.Context, e EPUBExporter, b *bookmark
 	tc := map[string]any{
 		"HTML":      html,
 		"Item":      b,
-		"ItemURL":   e.baseURL.JoinPath("bookmarks", b.UID),
+		"ItemURL":   urls.AbsoluteURL(r, "/bookmarks", b.UID),
 		"Resources": resources,
 	}
-	if err := tpl.Execute(buf, vars, tc); err != nil {
+	if err := tpl.Execute(buf, server.TemplateVars(r), tc); err != nil {
 		return err
 	}
 

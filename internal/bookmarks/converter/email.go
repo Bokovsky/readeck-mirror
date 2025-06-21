@@ -10,7 +10,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/url"
 	"path"
 	"strings"
 	"time"
@@ -21,6 +20,8 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/email"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
@@ -28,20 +29,16 @@ import (
 // HTMLEmailExporter is a content exporter that send bookmarks by emails.
 type HTMLEmailExporter struct {
 	HTMLConverter
-	to           string
-	baseURL      *url.URL
-	templateVars jet.VarMap
-	cidPrefix    string
-	options      []email.MessageOption
+	to        string
+	cidPrefix string
+	options   []email.MessageOption
 }
 
 // NewHTMLEmailExporter returns a new [HTMLEmailExporter] instance.
-func NewHTMLEmailExporter(to string, baseURL *url.URL, templateVars jet.VarMap, options ...email.MessageOption) HTMLEmailExporter {
+func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailExporter {
 	return HTMLEmailExporter{
 		HTMLConverter: HTMLConverter{},
 		to:            to,
-		baseURL:       baseURL,
-		templateVars:  templateVars,
 		cidPrefix:     base58.NewUUID(),
 		options:       options,
 	}
@@ -50,10 +47,10 @@ func NewHTMLEmailExporter(to string, baseURL *url.URL, templateVars jet.VarMap, 
 // Export implements [Exporter].
 // It create an email with a text/plan and text/html version and attaches images
 // as inline resources.
-func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, _ *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	b := bookmarkList[0]
 
-	tc, err := e.getTemplateContext(ctx, b)
+	tc, err := e.getTemplateContext(ctx, r, b)
 	if err != nil {
 		return err
 	}
@@ -67,7 +64,7 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, _ *http.Requ
 			e.options,
 			email.WithHTMLTemplate(
 				"/emails/bookmark",
-				e.templateVars,
+				server.TemplateVars(r),
 				tc,
 			),
 		)...,
@@ -119,7 +116,7 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, _ *http.Requ
 	return email.Sender.SendEmail(msg)
 }
 
-func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.Bookmark) (map[string]any, error) {
+func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, r *http.Request, b *bookmarks.Bookmark) (map[string]any, error) {
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
 			return "cid:" + e.cidPrefix + "." + path.Base(name)
@@ -140,7 +137,7 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.
 		"HTML":    html,
 		"Item":    b,
 		"Image":   image,
-		"SiteURL": e.baseURL.String(),
+		"SiteURL": urls.AbsoluteURL(r, "/").String(),
 	}, nil
 }
 
@@ -148,16 +145,14 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.
 // by emails.
 type EPUBEmailExporter struct {
 	to           string
-	baseURL      *url.URL
 	templateVars jet.VarMap
 	options      []email.MessageOption
 }
 
 // NewEPUBEmailExporter returns an [NewEPUBEmailExporter] instance.
-func NewEPUBEmailExporter(to string, baseURL *url.URL, templateVars jet.VarMap, options ...email.MessageOption) EPUBEmailExporter {
+func NewEPUBEmailExporter(to string, templateVars jet.VarMap, options ...email.MessageOption) EPUBEmailExporter {
 	return EPUBEmailExporter{
 		to:           to,
-		baseURL:      baseURL,
 		templateVars: templateVars,
 		options:      options,
 	}
@@ -179,7 +174,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 				e.templateVars,
 				map[string]any{
 					"Item":    b,
-					"SiteURL": e.baseURL.String(),
+					"SiteURL": urls.AbsoluteURL(r, "/").String(),
 				},
 			),
 		)...,
@@ -189,7 +184,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 	}
 
 	w := new(bytes.Buffer)
-	ee := NewEPUBExporter(e.baseURL, e.templateVars)
+	ee := NewEPUBExporter()
 	if err := ee.Export(ctx, w, r, []*bookmarks.Bookmark{b}); err != nil {
 		return err
 	}

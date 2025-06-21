@@ -148,10 +148,7 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	var exporter converter.Exporter
 	switch chi.URLParam(r, "format") {
 	case "epub":
-		exp := converter.NewEPUBExporter(
-			urls.AbsoluteURL(r, "/"),
-			server.TemplateVars(r),
-		)
+		exp := converter.NewEPUBExporter()
 		if collection, ok := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection); ok {
 			exp.Collection = collection
 		}
