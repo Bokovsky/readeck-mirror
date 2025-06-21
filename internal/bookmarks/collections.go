@@ -6,6 +6,9 @@ package bookmarks
 
 import (
 	"errors"
+	"hash"
+	"io"
+	"strconv"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -123,8 +126,8 @@ func (c *Collection) Delete() error {
 	return err
 }
 
-// GetSumStrings returns the string used to generate the etag
+// UpdateEtag returns the string used to generate the etag
 // of the collection(s).
-func (c *Collection) GetSumStrings() []string {
-	return []string{c.UID, c.Updated.String()}
+func (c *Collection) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, c.UID+strconv.FormatInt(c.Updated.UTC().UnixNano(), 10))
 }

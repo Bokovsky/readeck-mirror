@@ -7,6 +7,8 @@ package assets
 import (
 	"context"
 	"fmt"
+	"hash"
+	"io"
 	"math/rand/v2"
 	"net/http"
 	"strconv"
@@ -42,8 +44,8 @@ func newRandom(data uint64) *random {
 	return &random{rand.New(rand.NewPCG(data, data))} //nolint:gosec
 }
 
-func (r *random) GetSumStrings() []string {
-	return []string{configs.BuildTime().String(), strconv.Itoa(r.Int())}
+func (r *random) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, configs.BuildTime().String()+strconv.Itoa(r.Int()))
 }
 
 func (r *random) GetLastModified() []time.Time {
@@ -53,8 +55,6 @@ func (r *random) GetLastModified() []time.Time {
 // randomSvg sends an SVG image with a gradient. The gradient's color
 // is based on the name.
 func randomSvg(s *server.Server) http.Handler {
-	r := chi.NewRouter()
-
 	withHashCode := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			name := chi.URLParam(r, "name")
@@ -76,7 +76,7 @@ func randomSvg(s *server.Server) http.Handler {
 		})
 	}
 
-	r.With(withHashCode).Get("/", func(w http.ResponseWriter, r *http.Request) {
+	return withHashCode(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rd := r.Context().Value(ctxNameKey{}).(*random)
 
 		w.Header().Set("Content-Type", "image/svg+xml")
@@ -87,8 +87,7 @@ func randomSvg(s *server.Server) http.Handler {
 			rd.Perm(70)[1]+20,  // bottom saturation
 			randomCircles(rd),
 		)
-	})
-	return r
+	}))
 }
 
 func randomCircles(r *random) string {

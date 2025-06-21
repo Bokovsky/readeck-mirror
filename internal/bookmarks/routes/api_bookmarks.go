@@ -8,6 +8,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"hash"
 	"io"
 	"log/slog"
 	"net/http"
@@ -35,17 +36,17 @@ import (
 )
 
 type (
-	ctxAnnotationListKey    struct{}
-	ctxBookmarkKey          struct{}
-	ctxBookmarkListKey      struct{}
-	ctxBookmarkListTagerKey struct{}
-	ctxBookmarkOrderKey     struct{}
-	ctxBookmarkSyncListKey  struct{}
-	ctxLabelKey             struct{}
-	ctxLabelListKey         struct{}
-	ctxSharedInfoKey        struct{}
-	ctxFiltersKey           struct{}
-	ctxDefaultLimitKey      struct{}
+	ctxAnnotationListKey     struct{}
+	ctxBookmarkKey           struct{}
+	ctxBookmarkListKey       struct{}
+	ctxBookmarkListTaggerKey struct{}
+	ctxBookmarkOrderKey      struct{}
+	ctxBookmarkSyncListKey   struct{}
+	ctxLabelKey              struct{}
+	ctxLabelListKey          struct{}
+	ctxSharedInfoKey         struct{}
+	ctxFiltersKey            struct{}
+	ctxDefaultLimitKey       struct{}
 )
 
 // bookmarkList renders a paginated list of the connected
@@ -757,14 +758,14 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 		ctx := filterForm.saveContext(r.Context())
 		ctx = context.WithValue(ctx, ctxBookmarkListKey{}, res)
 
-		tagers := []server.Etager{res}
-		t, ok := r.Context().Value(ctxBookmarkListTagerKey{}).([]server.Etager)
+		taggers := []server.Etagger{res}
+		t, ok := r.Context().Value(ctxBookmarkListTaggerKey{}).([]server.Etagger)
 		if ok {
-			tagers = append(tagers, t...)
+			taggers = append(taggers, t...)
 		}
 
 		if r.Method == http.MethodGet {
-			api.srv.WriteEtag(w, r, tagers...)
+			api.srv.WriteEtag(w, r, taggers...)
 		}
 		api.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -788,8 +789,8 @@ func (api *apiRouter) withBookmarkSyncList(next http.Handler) http.Handler {
 		}
 
 		ctx := context.WithValue(r.Context(), ctxBookmarkSyncListKey{}, res)
-		tagers := []server.Etager{res}
-		api.srv.WriteEtag(w, r, tagers...)
+		taggers := []server.Etagger{res}
+		api.srv.WriteEtag(w, r, taggers...)
 
 		api.srv.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})
@@ -949,13 +950,10 @@ type bookmarkList struct {
 	Items      []bookmarkItem
 }
 
-func (bl bookmarkList) GetSumStrings() []string {
-	r := []string{}
+func (bl bookmarkList) UpdateEtag(h hash.Hash) {
 	for i := range bl.items {
-		r = append(r, bl.items[i].Updated.String(), bl.items[i].UID)
+		io.WriteString(h, bl.items[i].UID+strconv.FormatInt(bl.items[i].Updated.UTC().Unix(), 10))
 	}
-
-	return r
 }
 
 // bookmarkItem is a serialized bookmark instance that can
@@ -1221,13 +1219,10 @@ func (bi *bookmarkItem) setEmbed() error {
 
 type bookmarkSyncList []*bookmarkSyncItem
 
-func (bl bookmarkSyncList) GetSumStrings() []string {
-	r := []string{}
-	for i := range bl {
-		r = append(r, bl[i].Updated.String(), bl[i].ID)
+func (bl bookmarkSyncList) UpdateEtag(h hash.Hash) {
+	for _, b := range bl {
+		io.WriteString(h, b.ID+strconv.FormatInt(b.Updated.UTC().Unix(), 10))
 	}
-
-	return r
 }
 
 type bookmarkSyncItem struct {

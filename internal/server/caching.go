@@ -5,7 +5,8 @@
 package server
 
 import (
-	"hash/crc64"
+	"hash"
+	"hash/fnv"
 	"net/http"
 	"sort"
 	"strconv"
@@ -16,10 +17,9 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 )
 
-// Etager must provides a function that returns a list of
-// strings used to build an etag header.
-type Etager interface {
-	GetSumStrings() []string
+// Etagger must provides a function that can update a [hash.Hash].
+type Etagger interface {
+	UpdateEtag(hash.Hash)
 }
 
 // LastModer must provides a function that returns a list
@@ -37,15 +37,15 @@ const (
 )
 
 // WriteEtag adds an Etag header to the response, based on
-// the values sent by GetSumStrings. The build date is always
+// the values from UpdateEtag. The build date is always
 // included.
-func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etager) {
+func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etagger) {
 	if len(taggers) == 0 {
 		w.Header().Del("Etag")
 		return
 	}
 
-	h := crc64.New(crc64.MakeTable(crc64.ISO))
+	h := fnv.New64()
 	h.Write([]byte(strconv.FormatInt(configs.BuildTime().Unix(), 10)))
 
 	if user := auth.GetRequestUser(r); user.ID != 0 {
@@ -55,10 +55,11 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 		taggers = append(taggers, sess)
 	}
 
-	for _, tager := range taggers {
-		for _, x := range tager.GetSumStrings() {
-			h.Write([]byte(x))
+	for _, tagger := range taggers {
+		if tagger == nil {
+			continue
 		}
+		tagger.UpdateEtag(h)
 	}
 
 	w.Header().Set("Etag", strconv.FormatUint(h.Sum64(), 16))
@@ -74,6 +75,9 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 
 	mtimes := []time.Time{configs.BuildTime()}
 	for _, m := range moders {
+		if m == nil {
+			continue
+		}
 		mtimes = append(mtimes, m.GetLastModified()...)
 	}
 

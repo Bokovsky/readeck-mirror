@@ -10,11 +10,14 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
+	"hash"
+	"io"
 	"log/slog"
 	"os"
 	"path"
 	"path/filepath"
 	"slices"
+	"strconv"
 	"strings"
 	"time"
 
@@ -537,10 +540,10 @@ func (b *Bookmark) replaceLabel(oldLabel, newLabel string) {
 	b.Labels = slices.Compact(b.Labels)
 }
 
-// GetSumStrings returns the string used to generate the etag
+// UpdateEtag returns the string used to generate the etag
 // of the bookmark(s).
-func (b *Bookmark) GetSumStrings() []string {
-	return []string{b.UID, b.Updated.String()}
+func (b *Bookmark) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, b.UID+strconv.FormatInt(b.Updated.UTC().UnixNano(), 10))
 }
 
 // GetLastModified returns the last modified times.
