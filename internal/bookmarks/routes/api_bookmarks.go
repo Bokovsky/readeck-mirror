@@ -138,7 +138,7 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 		}
 	})
 
-	if err := converter.NewAtomExporter(api.srv).Export(ctx, w, r, bl.items); err != nil {
+	if err := converter.NewAtomExporter().Export(ctx, w, r, bl.items); err != nil {
 		server.Err(w, r, err)
 	}
 }

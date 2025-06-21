@@ -23,14 +23,12 @@ import (
 // AtomExporter is an [Exporter] that produces an Atom feed.
 type AtomExporter struct {
 	HTMLConverter
-	srv *server.Server
 }
 
 // NewAtomExporter return a new [AtomExporter] instance.
-func NewAtomExporter(srv *server.Server) AtomExporter {
+func NewAtomExporter() AtomExporter {
 	return AtomExporter{
 		HTMLConverter: HTMLConverter{},
-		srv:           srv,
 	}
 }
 
