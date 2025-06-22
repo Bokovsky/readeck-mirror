@@ -405,7 +405,7 @@ func newFilterForm(tr forms.Translator) *filterForm {
 // newContextFilterForm returns an instance of filterForm. If one already
 // exists in the given context, it's reused, otherwise it returns a new one.
 func newContextFilterForm(c context.Context, tr forms.Translator) *filterForm {
-	ff, ok := c.Value(ctxFiltersKey{}).(*filterForm)
+	ff, ok := checkFilterForm(c)
 	if !ok {
 		ff = newFilterForm(tr)
 	}
@@ -463,12 +463,6 @@ func (f *filterForm) Validate() {
 			_ = field.UnmarshalValues([]string{v})
 		}
 	}
-}
-
-// saveContext returns a context containing this filterForm.
-// It can be retrieved using newContextFilterForm().
-func (f *filterForm) saveContext(c context.Context) context.Context {
-	return context.WithValue(c, ctxFiltersKey{}, f)
 }
 
 func (f *filterForm) IsActive() bool {

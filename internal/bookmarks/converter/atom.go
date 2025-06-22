@@ -14,6 +14,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/atom"
@@ -22,18 +23,18 @@ import (
 
 // AtomExporter is an [Exporter] that produces an Atom feed.
 type AtomExporter struct {
-	HTMLConverter
+	dataset.HTMLConverter
 }
 
 // NewAtomExporter return a new [AtomExporter] instance.
 func NewAtomExporter() AtomExporter {
 	return AtomExporter{
-		HTMLConverter: HTMLConverter{},
+		HTMLConverter: dataset.HTMLConverter{},
 	}
 }
 
 // Export implements [Exporter].
-func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*dataset.Bookmark) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", atom.MimeType)
 	}
@@ -111,7 +112,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 		}
 
 		buf := new(bytes.Buffer)
-		html, err := e.GetArticle(ctx, b)
+		html, err := e.GetArticle(ctx, b.Bookmark)
 		if err != nil {
 			return err
 		}

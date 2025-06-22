@@ -5,7 +5,6 @@
 package routes
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -20,15 +19,12 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
-)
-
-type (
-	ctxBaseContextKey struct{}
 )
 
 const listDefaultLimit = 36
@@ -45,16 +41,15 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 			"Count": count,
 		}
 
-		ctx := context.WithValue(r.Context(), ctxBaseContextKey{}, c)
-
+		ctx := withBaseContext(r.Context(), c)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
 func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	f := newCreateForm(server.Locale(r), auth.GetRequestUser(r).ID, server.GetReqID(r))
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["MaybeSearch"] = false
+	tc := getBaseContext(r.Context())
+	tc["MaybeSearch"] = false
 
 	// POST => create a new bookmark
 	if r.Method == http.MethodPost {
@@ -78,30 +73,25 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		// If the URL is not valid, set MaybeSearch so we can suggest it later
 		if len(f.Get("url").Errors()) > 0 && errors.Is(f.Get("url").Errors()[0], forms.ErrInvalidURL) {
 			// User entered a wrong URL, we can mark it.
-			ctx["MaybeSearch"] = true
+			tc["MaybeSearch"] = true
 		}
 
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
 	// Retrieve the bookmark list
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-
-	bl.Items = make([]bookmarkItem, len(bl.items))
-	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(r, item, ".")
-	}
+	bl := getBookmarkList(r.Context())
 
 	tr := server.Locale(r)
 
-	ctx["Form"] = f
-	ctx["Pagination"] = bl.Pagination
-	ctx["Bookmarks"] = bl.Items
-	ctx["Filters"] = newContextFilterForm(r.Context(), tr)
+	tc["Form"] = f
+	tc["Pagination"] = bl.Pagination
+	tc["Bookmarks"] = bl.Items
+	tc["Filters"] = newContextFilterForm(r.Context(), tr)
 	title := tr.Gettext("All your Bookmarks")
 
-	if filters, ok := r.Context().Value(ctxFiltersKey{}).(*filterForm); ok {
-		ctx["Filters"] = filters
+	if filters, ok := checkFilterForm(r.Context()); ok {
+		tc["Filters"] = filters
 		if filters.IsActive() {
 			title = tr.Gettext("Bookmark Search")
 		} else {
@@ -121,31 +111,30 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 	}
-	ctx["PageTitle"] = title
+	tc["PageTitle"] = title
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/index", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/index", tc)
 }
 
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
-	user := auth.GetRequestUser(r)
-	item := newBookmarkItem(r, b, "../bookmarks")
-	if err := item.setEmbed(); err != nil {
+	b := getBookmark(r.Context())
+	item := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+	if err := item.SetEmbed(); err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
 	}
 	item.Errors = b.Errors
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Item"] = item
+	tc := getBaseContext(r.Context())
+	tc["Item"] = item
 
 	var err error
-	ctx["HTML"], err = item.getArticle()
+	tc["HTML"], err = item.GetArticle()
 	if err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
 	}
 
 	// Load bookmark debug information if the user needs them.
-	if user.Settings.DebugInfo {
+	if auth.GetRequestUser(r).Settings.DebugInfo {
 		c, err := b.OpenContainer()
 		if err != nil && !os.IsNotExist(err) {
 			server.Err(w, r, err)
@@ -160,9 +149,9 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 				"_log":   "log",
 			} {
 				if r, err := c.GetFile(x); err != nil {
-					ctx[k] = err.Error()
+					tc[k] = err.Error()
 				} else {
-					ctx[k] = string(r)
+					tc[k] = string(r)
 				}
 			}
 		}
@@ -175,7 +164,7 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 		policy.Write(w.Header())
 	}
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/bookmark", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/bookmark", tc)
 }
 
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
@@ -187,7 +176,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+	b := getBookmark(r.Context())
 
 	if _, err := f.update(b); err != nil {
 		server.Err(w, r, err)
@@ -203,7 +192,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
-	b := r.Context().Value(ctxBookmarkKey{}).(*bookmarks.Bookmark)
+	b := getBookmark(r.Context())
 	f := newDeleteForm(server.Locale(r))
 	forms.Bind(f, r)
 
@@ -226,8 +215,7 @@ func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(linkShareInfo)
-
+	info := getSharedLink(r.Context())
 	ctx := server.TC{
 		"URL":     info.URL,
 		"Expires": info.Expires,
@@ -246,7 +234,7 @@ func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) 
 }
 
 func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request) {
-	info := r.Context().Value(ctxSharedInfoKey{}).(emailShareInfo)
+	info := getSharedEmail(r.Context())
 	tc := server.TC{
 		"Form":  info.Form,
 		"Title": info.Title,
@@ -279,23 +267,15 @@ func (h *viewsRouter) bookmarkShareEmail(w http.ResponseWriter, r *http.Request)
 }
 
 func (h *viewsRouter) labelList(w http.ResponseWriter, r *http.Request) {
-	base := urls.AbsoluteURL(r, "/bookmarks")
-	base.Scheme = ""
-	base.Host = ""
-	labels := r.Context().Value(ctxLabelListKey{}).([]*labelItem)
-	for _, item := range labels {
-		item.setURLs(base)
-	}
+	tc := getBaseContext(r.Context())
+	tc["Labels"] = getLabelList(r.Context())
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Labels"] = labels
-
-	server.RenderTemplate(w, r, 200, "/bookmarks/labels", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/labels", tc)
 }
 
 func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	label := r.Context().Value(ctxLabelKey{}).(string)
+	bl := getBookmarkList(r.Context())
+	label := getLabel(r.Context())
 
 	if bl.Pagination.TotalCount == 0 {
 		server.Status(w, r, http.StatusNotFound)
@@ -324,23 +304,18 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	bl.Items = make([]bookmarkItem, len(bl.items))
-	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(r, item, ".")
-	}
+	tc := getBaseContext(r.Context())
+	tc["Label"] = label
+	tc["Pagination"] = bl.Pagination
+	tc["Bookmarks"] = bl.Items
+	tc["IsDeleted"] = tasks.DeleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Label"] = label
-	ctx["Pagination"] = bl.Pagination
-	ctx["Bookmarks"] = bl.Items
-	ctx["IsDeleted"] = tasks.DeleteLabelTask.IsRunning(fmt.Sprintf("%d@%s", auth.GetRequestUser(r).ID, label))
-
-	server.RenderTemplate(w, r, 200, "/bookmarks/label", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/label", tc)
 }
 
 func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	label := r.Context().Value(ctxLabelKey{}).(string)
+	bl := getBookmarkList(r.Context())
+	label := getLabel(r.Context())
 
 	if bl.Pagination.TotalCount == 0 {
 		server.Status(w, r, http.StatusNotFound)
@@ -362,15 +337,15 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) annotationList(w http.ResponseWriter, r *http.Request) {
-	al := r.Context().Value(ctxAnnotationListKey{}).(annotationList)
+	al := getAnnotationList(r.Context())
 
 	server.SendPaginationHeaders(w, r, al.Pagination)
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Pagination"] = al.Pagination
-	ctx["Annotations"] = al.Items
+	tc := getBaseContext(r.Context())
+	tc["Pagination"] = al.Pagination
+	tc["Annotations"] = al.Items
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/annotation_list", tc)
 }
 
 func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
@@ -406,8 +381,8 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			if !found || err != nil {
 				status = http.StatusNotFound
 			} else {
-				item := newBookmarkItem(r, bu.Bookmark, "../@b")
-				if err := item.setEmbed(); err != nil {
+				item := dataset.NewBookmark(server.WithRequest(r.Context(), r), bu.Bookmark)
+				if err := item.SetEmbed(); err != nil {
 					server.Err(w, r, err)
 					return
 				}
@@ -426,24 +401,24 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 
 		ct["Status"] = status
 
-		ctx := context.WithValue(r.Context(), ctxBaseContextKey{}, ct)
+		ctx := withBaseContext(r.Context(), ct)
 		server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
 func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
-	ct := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	status := ct["Status"].(int)
+	tc := getBaseContext(r.Context())
+	status := tc["Status"].(int)
 
 	if status == http.StatusOK {
-		item := ct["Item"].(bookmarkItem)
-		article, err := item.getArticle()
+		item := tc["Item"].(*dataset.Bookmark)
+		article, err := item.GetArticle()
 		if err != nil {
 			server.Err(w, r, err)
 			return
 		}
 
-		ct["HTML"] = article
+		tc["HTML"] = article
 
 		// Harden CSP
 		policy := server.GetCSPHeader(r).Clone()
@@ -457,5 +432,5 @@ func (h *publicViewsRouter) get(w http.ResponseWriter, r *http.Request) {
 		policy.Write(w.Header())
 	}
 
-	server.RenderTemplate(w, r, status, "bookmarks/bookmark_public", ct)
+	server.RenderTemplate(w, r, status, "bookmarks/bookmark_public", tc)
 }

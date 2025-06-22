@@ -9,22 +9,17 @@ import (
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 func (h *viewsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
-	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
-	cl.Items = make([]collectionItem, len(cl.items))
-	for i, item := range cl.items {
-		cl.Items[i] = newCollectionItem(r, item, ".")
-	}
+	cl := getCollectionList(r.Context())
+	tc := getBaseContext(r.Context())
+	tc["Collections"] = cl.Items
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Collections"] = cl.Items
-
-	server.RenderTemplate(w, r, 200, "/bookmarks/collection_list", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection_list", tc)
 }
 
 func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
@@ -48,23 +43,19 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	bl.Items = make([]bookmarkItem, len(bl.items))
-	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(r, item, ".")
-	}
+	bl := getBookmarkList(r.Context())
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Pagination"] = bl.Pagination
-	ctx["Bookmarks"] = bl.Items
-	ctx["Form"] = f
+	tc := getBaseContext(r.Context())
+	tc["Pagination"] = bl.Pagination
+	tc["Bookmarks"] = bl.Items
+	tc["Form"] = f
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/collection_create", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection_create", tc)
 }
 
 func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	item := newCollectionItem(r, c, "./..")
+	c := getCollection(r.Context())
+	item := dataset.NewCollection(server.WithRequest(r.Context(), r), c)
 
 	f := newCollectionForm(server.Locale(r), r)
 	f.setCollection(c)
@@ -84,20 +75,16 @@ func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
-	bl.Items = make([]bookmarkItem, len(bl.items))
-	for i, item := range bl.items {
-		bl.Items[i] = newBookmarkItem(r, item, ".")
-	}
+	bl := getBookmarkList(r.Context())
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Editing"] = r.URL.Query().Get("edit") == "1"
-	ctx["Item"] = item
-	ctx["Form"] = f
-	ctx["Pagination"] = bl.Pagination
-	ctx["Bookmarks"] = bl.Items
+	tc := getBaseContext(r.Context())
+	tc["Editing"] = r.URL.Query().Get("edit") == "1"
+	tc["Item"] = item
+	tc["Form"] = f
+	tc["Pagination"] = bl.Pagination
+	tc["Bookmarks"] = bl.Items
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/collection", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/collection", tc)
 }
 
 func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
@@ -105,7 +92,7 @@ func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 	f.Get("_to").Set("/bookmarks/collections")
 	forms.Bind(f, r)
 
-	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
+	c := getCollection(r.Context())
 
 	// This update forces cache invalidation
 	if err := c.Update(map[string]interface{}{}); err != nil {

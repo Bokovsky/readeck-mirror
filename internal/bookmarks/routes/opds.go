@@ -49,7 +49,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bl := r.Context().Value(ctxBookmarkListKey{}).(bookmarkList)
+	bl := getBookmarkList(r.Context())
 	tr := server.Locale(r)
 
 	c := catalog.New(r,
@@ -63,7 +63,7 @@ func (h *opdsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 				catalog.WithLink(opds.OPDSTypeAcquisistion, x.Rel, x.URL)(feed)
 			}
 
-			for _, b := range bl.items {
+			for _, b := range bl.Items {
 				id, _ := base58.DecodeUUID(b.UID)
 				issued := b.Created
 				if b.Published != nil && !b.Published.IsZero() {
@@ -94,7 +94,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
+	cl := getCollectionList(r.Context())
 	tr := server.Locale(r)
 
 	c := catalog.New(r,
@@ -108,7 +108,7 @@ func (h *opdsRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 				catalog.WithLink(opds.OPDSTypeAcquisistion, x.Rel, x.URL)(feed)
 			}
 
-			for _, item := range cl.items {
+			for _, item := range cl.Items {
 				catalog.WithNavEntry(
 					item.Name, lastUpdate,
 					urls.AbsoluteURL(r, ".", item.UID).String(),
@@ -133,7 +133,7 @@ func (h *opdsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 
 	tr := server.Locale(r)
 
-	item := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
+	item := getCollection(r.Context())
 	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeAcquisistion),
 		catalog.WithTitle(tr.Gettext("Readeck Collection: %s", item.Name)),

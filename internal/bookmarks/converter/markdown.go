@@ -28,11 +28,17 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
+
+type ctxExportTypeKey struct{}
+
+var withExportType, checkExportType = ctxr.WithChecker[string](ctxExportTypeKey{})
 
 var html2md = converter.NewConverter(
 	converter.WithPlugins(
@@ -45,7 +51,7 @@ var html2md = converter.NewConverter(
 
 // MarkdownExporter is an content exporter that produces markdown.
 type MarkdownExporter struct {
-	HTMLConverter
+	dataset.HTMLConverter
 }
 
 type mdMeta struct {
@@ -58,12 +64,10 @@ type mdMeta struct {
 	Labels    []string `yaml:"labels,omitempty"`
 }
 
-type ctxExportTypeKey struct{}
-
 // NewMarkdownExporter returns a new [MarkdownExporter] instance.
 func NewMarkdownExporter() MarkdownExporter {
 	return MarkdownExporter{
-		HTMLConverter: HTMLConverter{},
+		HTMLConverter: dataset.HTMLConverter{},
 	}
 }
 
@@ -72,7 +76,7 @@ func NewMarkdownExporter() MarkdownExporter {
 // If the request contains "Accept: multipart/alternative", it returns a multipart response
 // that contains images for the exported bookmarks.
 func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
-	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
+	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
 	ctx = server.WithRequest(ctx, r)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
@@ -92,7 +96,7 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 	}
 
 	for i, b := range bookmarkList {
-		c := WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
+		c := dataset.WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
 			return func(name string) string {
 				return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, name).String()
 			}
@@ -114,10 +118,10 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 		w.Header().Set("Content-Type", `multipart/alternative; boundary="`+mp.Boundary()+`"`)
 	}
 
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
+	ctx = withExportType(ctx, "multipart")
 
 	for _, b := range bookmarkList {
 		if err := func() error {
@@ -183,10 +187,10 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 		))
 	}
 
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
+	ctx = withExportType(ctx, "multipart")
 
 	if _, err := zw.Create(basePath + "/"); err != nil {
 		return err
@@ -261,7 +265,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 }
 
 func (e MarkdownExporter) getImageURL(ctx context.Context, b *bookmarks.Bookmark, name string) string {
-	if s, _ := ctx.Value(ctxExportTypeKey{}).(string); s == "multipart" {
+	if s, _ := checkExportType(ctx); s == "multipart" {
 		return b.UID + "-" + path.Base(name)
 	}
 	return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, "img", path.Base(name)).String()

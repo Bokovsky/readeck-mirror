@@ -19,6 +19,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
@@ -28,7 +29,7 @@ import (
 
 // HTMLEmailExporter is a content exporter that send bookmarks by emails.
 type HTMLEmailExporter struct {
-	HTMLConverter
+	dataset.HTMLConverter
 	to        string
 	cidPrefix string
 	options   []email.MessageOption
@@ -37,7 +38,7 @@ type HTMLEmailExporter struct {
 // NewHTMLEmailExporter returns a new [HTMLEmailExporter] instance.
 func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailExporter {
 	return HTMLEmailExporter{
-		HTMLConverter: HTMLConverter{},
+		HTMLConverter: dataset.HTMLConverter{},
 		to:            to,
 		cidPrefix:     base58.NewUUID(),
 		options:       options,
@@ -118,7 +119,7 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 }
 
 func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.Bookmark) (map[string]any, error) {
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
 			return "cid:" + e.cidPrefix + "." + path.Base(name)
 		}

@@ -21,25 +21,25 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 	tr := server.Locale(r)
 	trackID := chi.URLParam(r, "trackID")
 
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
+	tc := getBaseContext(r.Context())
 
 	if trackID != "" {
-		ctx.SetBreadcrumbs([][2]string{
+		tc.SetBreadcrumbs([][2]string{
 			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
 			{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 			{tr.Gettext("Progress")},
 		})
-		ctx["TrackID"] = trackID
-		ctx["Running"] = importer.ImportBookmarksTask.IsRunning(trackID)
-		ctx["Progress"], _ = importer.NewImportProgress(trackID)
+		tc["TrackID"] = trackID
+		tc["Running"] = importer.ImportBookmarksTask.IsRunning(trackID)
+		tc["Progress"], _ = importer.NewImportProgress(trackID)
 	} else {
-		ctx.SetBreadcrumbs([][2]string{
+		tc.SetBreadcrumbs([][2]string{
 			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
 			{tr.Gettext("Import")},
 		})
 	}
 
-	server.RenderTemplate(w, r, 200, "/bookmarks/import/index", ctx)
+	server.RenderTemplate(w, r, 200, "/bookmarks/import/index", tc)
 }
 
 func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
@@ -62,9 +62,9 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	)
 
 	templateName := "/bookmarks/import/form-" + source
-	ctx := r.Context().Value(ctxBaseContextKey{}).(server.TC)
-	ctx["Form"] = f
-	ctx.SetBreadcrumbs([][2]string{
+	tc := getBaseContext(r.Context())
+	tc["Form"] = f
+	tc.SetBreadcrumbs([][2]string{
 		{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
 		{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 		{adapter.Name(tr)},
@@ -84,7 +84,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		}
 
 		if !f.IsValid() {
-			server.RenderTemplate(w, r, http.StatusUnprocessableEntity, templateName, ctx)
+			server.RenderTemplate(w, r, http.StatusUnprocessableEntity, templateName, tc)
 			return
 		}
 
@@ -111,5 +111,5 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	server.RenderTemplate(w, r, 200, templateName, ctx)
+	server.RenderTemplate(w, r, 200, templateName, tc)
 }

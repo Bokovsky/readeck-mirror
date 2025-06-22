@@ -18,6 +18,7 @@ import (
 
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/epub"
@@ -28,14 +29,14 @@ var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
 
 // EPUBExporter is a content exporter that produces EPUB files.
 type EPUBExporter struct {
-	HTMLConverter
+	dataset.HTMLConverter
 	Collection *bookmarks.Collection
 }
 
 // NewEPUBExporter returns a new [EPUBExporter] instance.
 func NewEPUBExporter() EPUBExporter {
 	return EPUBExporter{
-		HTMLConverter: HTMLConverter{},
+		HTMLConverter: dataset.HTMLConverter{},
 	}
 }
 
@@ -83,7 +84,7 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 		m.Close() //nolint:errcheck
 	}()
 
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
 			return "./Images/" + path.Base(name)
 		}
