@@ -159,10 +159,7 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 		r.Header.Set("Accept", "application/zip")
 		fallthrough
 	case "md":
-		exporter = converter.NewMarkdownExporter(
-			urls.AbsoluteURL(r, "/"),
-			urls.AbsoluteURL(r, "/bm/"),
-		)
+		exporter = converter.NewMarkdownExporter()
 	}
 
 	if exporter == nil {

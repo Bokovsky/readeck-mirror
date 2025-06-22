@@ -14,7 +14,6 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
-	"net/url"
 	"path"
 	"strings"
 	"time"
@@ -29,6 +28,7 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
@@ -45,8 +45,6 @@ var html2md = converter.NewConverter(
 // MarkdownExporter is an content exporter that produces markdown.
 type MarkdownExporter struct {
 	HTMLConverter
-	baseURL      *url.URL
-	mediaBaseURL *url.URL
 }
 
 type mdMeta struct {
@@ -62,11 +60,9 @@ type mdMeta struct {
 var ctxExportTypeKey = contextKey{"export-type"}
 
 // NewMarkdownExporter returns a new [MarkdownExporter] instance.
-func NewMarkdownExporter(baseURL *url.URL, mediaBaseURL *url.URL) MarkdownExporter {
+func NewMarkdownExporter() MarkdownExporter {
 	return MarkdownExporter{
 		HTMLConverter: HTMLConverter{},
-		baseURL:       baseURL,
-		mediaBaseURL:  mediaBaseURL,
 	}
 }
 
@@ -80,15 +76,15 @@ func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Reque
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
 	case "application/zip":
-		return e.exportZip(ctx, w, bookmarkList)
+		return e.exportZip(ctx, w, r, bookmarkList)
 	case "multipart/alternative":
-		return e.exportMultipart(ctx, w, bookmarkList)
+		return e.exportMultipart(ctx, w, r, bookmarkList)
 	default:
-		return e.exportTextOnly(ctx, w, bookmarkList)
+		return e.exportTextOnly(ctx, w, r, bookmarkList)
 	}
 }
 
-func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 	}
@@ -96,20 +92,20 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 	for i, b := range bookmarkList {
 		c := WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
 			return func(name string) string {
-				return e.mediaBaseURL.JoinPath(b.FilePath, name).String()
+				return urls.AbsoluteURL(r, "/bm", b.FilePath, name).String()
 			}
 		})
 		if i > 0 {
 			fmt.Fprint(w, "\n------------------------------------------------------------\nn") //nolint:errcheck
 		}
-		if err := e.writeArticle(c, w, b, len(bookmarkList) == 1); err != nil {
+		if err := e.writeArticle(c, w, r, b, len(bookmarkList) == 1); err != nil {
 			slog.Error("export", slog.Any("err", err))
 		}
 	}
 	return nil
 }
 
-func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {
@@ -134,7 +130,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 			if err != nil {
 				return err
 			}
-			if err := e.writeArticle(ctx, part, b, true); err != nil {
+			if err := e.writeArticle(ctx, part, r, b, true); err != nil {
 				return err
 			}
 
@@ -147,7 +143,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 			// Fetch the image
 			if img, ok := b.Files["image"]; ok {
 				if z, ok := bc.Lookup(img.Name); ok {
-					z.Name = e.getImageURL(ctx, b, z.Name)
+					z.Name = e.getImageURL(ctx, r, b, z.Name)
 					if err := e.writeResource(mp, z, b); err != nil {
 						return err
 					}
@@ -171,7 +167,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 	return nil
 }
 
-func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	zw := zip.NewWriter(w)
 	defer zw.Close() //nolint:errcheck
 
@@ -226,7 +222,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 			if err != nil {
 				return err
 			}
-			if err := e.writeArticle(ctx, fd, b, true); err != nil {
+			if err := e.writeArticle(ctx, fd, r, b, true); err != nil {
 				return err
 			}
 
@@ -239,7 +235,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 			// Copy the image
 			if img, ok := b.Files["image"]; ok {
 				if z, ok := bc.Lookup(img.Name); ok {
-					if err := copyFromZip(z, root+"/"+e.getImageURL(ctx, b, z.Name)); err != nil {
+					if err := copyFromZip(z, root+"/"+e.getImageURL(ctx, r, b, z.Name)); err != nil {
 						return err
 					}
 				}
@@ -262,15 +258,15 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 	return nil
 }
 
-func (e MarkdownExporter) getImageURL(ctx context.Context, b *bookmarks.Bookmark, name string) string {
+func (e MarkdownExporter) getImageURL(ctx context.Context, r *http.Request, b *bookmarks.Bookmark, name string) string {
 	if s, _ := ctx.Value(ctxExportTypeKey).(string); s == "multipart" {
 		return b.UID + "-" + path.Base(name)
 	}
-	return e.mediaBaseURL.JoinPath(b.FilePath, "img", path.Base(name)).String()
+	return urls.AbsoluteURL(r, "/bm", b.FilePath, "img", path.Base(name)).String()
 }
 
-func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *bookmarks.Bookmark, withMeta bool) error {
-	r, err := e.GetArticle(ctx, b)
+func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, r *http.Request, b *bookmarks.Bookmark, withMeta bool) error {
+	reader, err := e.GetArticle(ctx, b)
 	if err != nil {
 		return err
 	}
@@ -300,14 +296,14 @@ func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *book
 	fmt.Fprintf(intro, "# %s\n\n", b.Title)
 
 	if img, ok := b.Files["image"]; ok {
-		fmt.Fprintf(intro, "![](%s)\n\n", e.getImageURL(ctx, b, img.Name))
+		fmt.Fprintf(intro, "![](%s)\n\n", e.getImageURL(ctx, r, b, img.Name))
 	}
 
 	if b.DocumentType == "video" {
 		fmt.Fprintf(intro, "[Video on %s](%s)\n\n", b.SiteName, b.URL)
 	}
 
-	md, err := html2md.ConvertReader(r)
+	md, err := html2md.ConvertReader(reader)
 	if err != nil {
 		return err
 	}
