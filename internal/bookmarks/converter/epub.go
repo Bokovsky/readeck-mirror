@@ -221,7 +221,7 @@ func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExpo
 	tc := map[string]any{
 		"HTML":      html,
 		"Item":      b,
-		"ItemURL":   urls.AbsoluteURL(r, "/bookmarks", b.UID),
+		"ItemURL":   urls.AbsoluteURL(r, "/bookmarks", b.UID).String(),
 		"Resources": resources,
 	}
 	if err := tpl.Execute(buf, server.TemplateVars(r), tc); err != nil {
