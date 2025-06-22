@@ -14,11 +14,14 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/bleach"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/http/linkheader"
 )
 
 type ctxExtractLinksKey struct{}
+
+var withExtractLinks, checkExtractLinks = ctxr.WithChecker[bookmarks.BookmarkLinks](ctxExtractLinksKey{})
 
 // OriginalLinkProcessor looks for a rel=original link in HTTP headers.
 // If it finds one, it sets the extracted URL to the original one.
@@ -133,14 +136,14 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 		return a.URL == b.URL
 	})
 
-	m.Extractor.Context = context.WithValue(m.Extractor.Context, ctxExtractLinksKey{}, links)
+	m.Extractor.Context = withExtractLinks(m.Extractor.Context, links)
 	return next
 }
 
 // GetExtractedLinks returns the extracted link list previously
 // stored in the extractor context.
 func GetExtractedLinks(ctx context.Context) bookmarks.BookmarkLinks {
-	if links, ok := ctx.Value(ctxExtractLinksKey{}).(bookmarks.BookmarkLinks); ok {
+	if links, ok := checkExtractLinks(ctx); ok {
 		return links
 	}
 	return bookmarks.BookmarkLinks{}

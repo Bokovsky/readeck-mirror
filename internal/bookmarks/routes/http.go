@@ -67,9 +67,7 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			api.withCollectionFilters,
 			api.withBookmarkList,
 		).Get("/", api.bookmarkList)
-		r.With(
-			api.withBookmarkSyncList,
-		).Get("/sync", api.bookmarkSyncList)
+		r.Get("/sync", api.bookmarkSyncList)
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
@@ -101,10 +99,10 @@ func newAPIRouter(s *server.Server) *apiRouter {
 				api.withoutPagination,
 				api.withBookmarkOrdering,
 				api.withCollectionFilters,
-				api.withBookmarkList,
+				api.withBookmarkSeq,
 			).Get("/export.{format}", api.bookmarkExport)
 			r.With(
-				api.withBookmark,
+				api.withBookmarkSeq,
 			).Get("/{uid:[a-zA-Z0-9]{18,22}}/article.{format}", api.bookmarkExport)
 		})
 

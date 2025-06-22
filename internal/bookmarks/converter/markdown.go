@@ -28,11 +28,17 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
+
+type ctxExportTypeKey struct{}
+
+var withExportType, checkExportType = ctxr.WithChecker[string](ctxExportTypeKey{})
 
 var html2md = converter.NewConverter(
 	converter.WithPlugins(
@@ -45,7 +51,7 @@ var html2md = converter.NewConverter(
 
 // MarkdownExporter is an content exporter that produces markdown.
 type MarkdownExporter struct {
-	HTMLConverter
+	dataset.HTMLConverter
 }
 
 type mdMeta struct {
@@ -58,69 +64,88 @@ type mdMeta struct {
 	Labels    []string `yaml:"labels,omitempty"`
 }
 
-type ctxExportTypeKey struct{}
-
 // NewMarkdownExporter returns a new [MarkdownExporter] instance.
 func NewMarkdownExporter() MarkdownExporter {
 	return MarkdownExporter{
-		HTMLConverter: HTMLConverter{},
+		HTMLConverter: dataset.HTMLConverter{},
 	}
 }
 
-// Export implement [Exporter].
+// IterExport implement [IterExporter].
 // It can write text only articles (the default) separated by an horizontal rule.
 // If the request contains "Accept: multipart/alternative", it returns a multipart response
 // that contains images for the exported bookmarks.
-func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
-	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
+func (e MarkdownExporter) IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
+	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
 	ctx = server.WithRequest(ctx, r)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
 	case "application/zip":
-		return e.exportZip(ctx, w, bookmarkList)
+		return e.exportZip(ctx, w, bookmarkSeq)
 	case "multipart/alternative":
-		return e.exportMultipart(ctx, w, bookmarkList)
+		return e.exportMultipart(ctx, w, bookmarkSeq)
 	default:
-		return e.exportTextOnly(ctx, w, bookmarkList)
+		return e.exportTextOnly(ctx, w, bookmarkSeq)
 	}
 }
 
-func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookmarkSeq *dataset.BookmarkIterator) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/markdown; charset=utf-8")
 	}
 
-	for i, b := range bookmarkList {
-		c := WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
-			return func(name string) string {
-				return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, name).String()
-			}
-		})
+	count, err := bookmarkSeq.Count()
+	if err != nil {
+		return err
+	}
+
+	r := server.GetRequest(ctx)
+	ctx = dataset.WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
+		return func(name string) string {
+			return urls.AbsoluteURL(r, "/bm", b.FilePath, name).String()
+		}
+	})
+
+	i := 0
+	for b, err := range bookmarkSeq.Items {
+		if err != nil {
+			slog.Error("export", slog.Any("err", err))
+			i++
+			continue
+		}
 		if i > 0 {
 			fmt.Fprint(w, "\n------------------------------------------------------------\nn") //nolint:errcheck
 		}
-		if err := e.writeArticle(c, w, b, len(bookmarkList) == 1); err != nil {
+
+		if err = e.writeArticle(ctx, w, b, count == 1); err != nil {
 			slog.Error("export", slog.Any("err", err))
 		}
+		i++
 	}
+
 	return nil
 }
 
-func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkSeq *dataset.BookmarkIterator) error {
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", `multipart/alternative; boundary="`+mp.Boundary()+`"`)
 	}
 
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
+	ctx = withExportType(ctx, "multipart")
 
-	for _, b := range bookmarkList {
-		if err := func() error {
+	for b, err := range bookmarkSeq.Items {
+		if err != nil {
+			slog.Error("export", slog.Any("err", err))
+			continue
+		}
+
+		if err = func() error {
 			slug := utils.Slug(b.Title)
 			part, err := mp.CreatePart(textproto.MIMEHeader{
 				"BaseName":            []string{slug},
@@ -169,7 +194,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 	return nil
 }
 
-func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkList []*bookmarks.Bookmark) error {
+func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkSeq *dataset.BookmarkIterator) error {
 	zw := zip.NewWriter(w)
 	defer zw.Close() //nolint:errcheck
 
@@ -183,10 +208,10 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 		))
 	}
 
-	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
+	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
+	ctx = withExportType(ctx, "multipart")
 
 	if _, err := zw.Create(basePath + "/"); err != nil {
 		return err
@@ -206,7 +231,12 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 		return err
 	}
 
-	for _, b := range bookmarkList {
+	for b, err := range bookmarkSeq.Items {
+		if err != nil {
+			slog.Error("export", slog.Any("err", err))
+			continue
+		}
+
 		d, _ := idna.ToASCII(b.Site)
 		root := fmt.Sprintf("%s/%s-%s-%s",
 			basePath,
@@ -214,7 +244,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 			strings.ReplaceAll(d, ".", "-"),
 			b.UID,
 		)
-		if err := func() error {
+		if err = func() error {
 			if _, err := zw.Create(root + "/"); err != nil {
 				return err
 			}
@@ -260,15 +290,15 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 	return nil
 }
 
-func (e MarkdownExporter) getImageURL(ctx context.Context, b *bookmarks.Bookmark, name string) string {
-	if s, _ := ctx.Value(ctxExportTypeKey{}).(string); s == "multipart" {
+func (e MarkdownExporter) getImageURL(ctx context.Context, b *dataset.Bookmark, name string) string {
+	if s, _ := checkExportType(ctx); s == "multipart" {
 		return b.UID + "-" + path.Base(name)
 	}
 	return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, "img", path.Base(name)).String()
 }
 
-func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *bookmarks.Bookmark, withMeta bool) error {
-	reader, err := e.GetArticle(ctx, b)
+func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *dataset.Bookmark, withMeta bool) error {
+	reader, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
 		return err
 	}
@@ -314,7 +344,7 @@ func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *book
 	return err
 }
 
-func (e MarkdownExporter) writeResource(mp *multipart.Writer, resource *zip.File, b *bookmarks.Bookmark) error {
+func (e MarkdownExporter) writeResource(mp *multipart.Writer, resource *zip.File, b *dataset.Bookmark) error {
 	r, err := resource.Open()
 	if err != nil {
 		return err

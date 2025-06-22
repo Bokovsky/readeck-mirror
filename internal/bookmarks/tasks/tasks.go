@@ -432,7 +432,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 			return next
 		}
 
-		links, ok := m.Extractor.Context.Value(ctxExtractLinksKey{}).(bookmarks.BookmarkLinks)
+		links, ok := checkExtractLinks(m.Extractor.Context)
 		if !ok {
 			return next
 		}

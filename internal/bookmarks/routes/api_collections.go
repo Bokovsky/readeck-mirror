@@ -5,44 +5,29 @@
 package routes
 
 import (
-	"context"
 	"errors"
 	"net/http"
-	"time"
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
-	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-type (
-	ctxCollectionListKey struct{}
-	ctxCollectionKey     struct{}
-)
-
 func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
-	cl := r.Context().Value(ctxCollectionListKey{}).(collectionList)
-
-	cl.Items = make([]collectionItem, len(cl.items))
-	for i, item := range cl.items {
-		cl.Items[i] = newCollectionItem(r, item, ".")
-	}
-
+	cl := getCollectionList(r.Context())
 	server.SendPaginationHeaders(w, r, cl.Pagination)
 	server.Render(w, r, http.StatusOK, cl.Items)
 }
 
 func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	item := newCollectionItem(r, c, "./..")
-
+	c := getCollection(r.Context())
+	item := dataset.NewCollection(server.WithRequest(r.Context(), r), c)
 	server.Render(w, r, http.StatusOK, item)
 }
 
@@ -66,7 +51,7 @@ func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
+	c := getCollection(r.Context())
 
 	f := newCollectionForm(server.Locale(r), r)
 	f.setCollection(c)
@@ -87,7 +72,7 @@ func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
-	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
+	c := getCollection(r.Context())
 	if err := c.Delete(); err != nil {
 		server.Err(w, r, err)
 		return
@@ -98,8 +83,6 @@ func (api *apiRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		res := collectionList{}
-
 		pf := server.GetPageParams(r, 30)
 		if pf == nil {
 			server.Status(w, r, http.StatusNotFound)
@@ -119,9 +102,8 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
-		var count int64
-		var err error
-		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
+		res, err := dataset.NewCollectionList(server.WithRequest(r.Context(), r), ds)
+		if err != nil {
 			if errors.Is(err, bookmarks.ErrCollectionNotFound) {
 				server.TextMsg(w, r, http.StatusNotFound, "not found")
 			} else {
@@ -130,16 +112,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.items = []*bookmarks.Collection{}
-		if err := ds.ScanStructs(&res.items); err != nil {
-			server.Err(w, r, err)
-			return
-		}
-
-		res.Pagination = server.NewPagination(r, int(count), pf.Limit(), pf.Offset())
-
-		ctx := context.WithValue(r.Context(), ctxCollectionListKey{}, res)
-
+		ctx := withCollectionList(r.Context(), res)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -157,76 +130,13 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 			return
 		}
 
-		ctx := context.WithValue(r.Context(), ctxCollectionKey{}, c)
-		ctx = context.WithValue(ctx, ctxBookmarkListTaggerKey{}, []server.Etagger{c})
+		ctx := withCollection(r.Context(), c)
+		ctx = withBookmarkListTaggers(ctx, []server.Etagger{c})
 
-		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
-			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
+		if _, ok := checkBookmarkOrder(ctx); !ok {
+			ctx = withBookmarkOrder(ctx, orderExpressionList{goqu.T("b").Col("created").Desc()})
 		}
 
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
-}
-
-type collectionList struct {
-	items      []*bookmarks.Collection
-	Pagination server.Pagination
-	Items      []collectionItem
-}
-
-type collectionItem struct {
-	*bookmarks.Collection `json:"-"`
-
-	ID        string    `json:"id"`
-	Href      string    `json:"href"`
-	Created   time.Time `json:"created"`
-	Updated   time.Time `json:"updated"`
-	Name      string    `json:"name"`
-	IsPinned  bool      `json:"is_pinned"`
-	IsDeleted bool      `json:"is_deleted"`
-
-	// Filters
-	Search     string        `json:"search"`
-	Title      string        `json:"title"`
-	Author     string        `json:"author"`
-	Site       string        `json:"site"`
-	Type       types.Strings `json:"type"`
-	Labels     string        `json:"labels"`
-	ReadStatus types.Strings `json:"read_status"`
-	IsMarked   *bool         `json:"is_marked"`
-	IsArchived *bool         `json:"is_archived"`
-	IsLoaded   *bool         `json:"is_loaded"`
-	HasErrors  *bool         `json:"has_errors"`
-	HasLabels  *bool         `json:"has_labels"`
-	RangeStart string        `json:"range_start"`
-	RangeEnd   string        `json:"range_end"`
-}
-
-func newCollectionItem(r *http.Request, c *bookmarks.Collection, base string) collectionItem {
-	return collectionItem{
-		Collection: c,
-		ID:         c.UID,
-		Href:       urls.AbsoluteURL(r, base, c.UID).String(),
-		Created:    c.Created,
-		Updated:    c.Updated,
-		Name:       c.Name,
-		IsPinned:   c.IsPinned,
-		IsDeleted:  tasks.DeleteCollectionTask.IsRunning(c.ID),
-
-		// Filters
-		Search:     c.Filters.Search,
-		Title:      c.Filters.Title,
-		Author:     c.Filters.Author,
-		Site:       c.Filters.Site,
-		Type:       c.Filters.Type,
-		Labels:     c.Filters.Labels,
-		ReadStatus: c.Filters.ReadStatus,
-		IsMarked:   c.Filters.IsMarked,
-		IsArchived: c.Filters.IsArchived,
-		IsLoaded:   c.Filters.IsLoaded,
-		HasErrors:  c.Filters.HasErrors,
-		HasLabels:  c.Filters.HasLabels,
-		RangeStart: c.Filters.RangeStart,
-		RangeEnd:   c.Filters.RangeEnd,
-	}
 }

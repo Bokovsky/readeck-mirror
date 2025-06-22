@@ -13,6 +13,7 @@ import (
 	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -39,7 +40,7 @@ func newAnnotationForm(tr forms.Translator) *annotationForm {
 	)}
 }
 
-func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnnotation, error) {
+func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.BookmarkAnnotation, error) {
 	annotation := &bookmarks.BookmarkAnnotation{
 		ID:            base58.NewUUID(),
 		StartSelector: f.Get("start_selector").String(),
@@ -51,7 +52,7 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnn
 	}
 
 	// Try to insert the new annotation
-	reader, err := bi.getArticle()
+	reader, err := bi.GetArticle()
 	if err != nil {
 		return nil, err
 	}
@@ -64,9 +65,9 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnn
 
 	// Add annotation and store its text content
 	contents := &strings.Builder{}
-	err = annotation.AddToNode(root, bi.annotationTag, func(n *html.Node, index int) {
+	err = annotation.AddToNode(root, bi.AnnotationTag, func(n *html.Node, index int) {
 		contents.WriteString(n.FirstChild.Data)
-		bi.annotationCallback(annotation.ID, n, index, annotation.Color)
+		bi.AnnotationCallback(annotation.ID, n, index, annotation.Color)
 	})
 	if err != nil {
 		return nil, err
@@ -81,7 +82,7 @@ func (f *annotationForm) addToBookmark(bi *bookmarkItem) (*bookmarks.BookmarkAnn
 	}
 
 	b.Annotations.Add(annotation)
-	b.Annotations.Sort(root, bi.annotationTag)
+	b.Annotations.Sort(root, bi.AnnotationTag)
 
 	err = b.Update(map[string]interface{}{
 		"annotations": b.Annotations,

@@ -25,6 +25,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/email"
@@ -405,7 +406,7 @@ func newFilterForm(tr forms.Translator) *filterForm {
 // newContextFilterForm returns an instance of filterForm. If one already
 // exists in the given context, it's reused, otherwise it returns a new one.
 func newContextFilterForm(c context.Context, tr forms.Translator) *filterForm {
-	ff, ok := c.Value(ctxFiltersKey{}).(*filterForm)
+	ff, ok := checkFilterForm(c)
 	if !ok {
 		ff = newFilterForm(tr)
 	}
@@ -463,12 +464,6 @@ func (f *filterForm) Validate() {
 			_ = field.UnmarshalValues([]string{v})
 		}
 	}
-}
-
-// saveContext returns a context containing this filterForm.
-// It can be retrieved using newContextFilterForm().
-func (f *filterForm) saveContext(c context.Context) context.Context {
-	return context.WithValue(c, ctxFiltersKey{}, f)
 }
 
 func (f *filterForm) IsActive() bool {
@@ -696,7 +691,6 @@ func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err er
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
-			server.TemplateVars(r),
 			options...,
 		)
 	}
@@ -707,7 +701,15 @@ func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err er
 		return
 	}
 
-	if err = exporter.Export(r.Context(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
+	if err = exporter.Export(
+		r.Context(), nil, r,
+		&dataset.BookmarkList{
+			Count: 1,
+			Items: []*dataset.Bookmark{
+				dataset.NewBookmark(server.WithRequest(r.Context(), r), b),
+			},
+		},
+	); err != nil {
 		f.AddErrors("", forms.ErrUnexpected)
 		return
 	}
