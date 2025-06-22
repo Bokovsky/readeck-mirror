@@ -37,9 +37,10 @@ type BookmarkList struct {
 
 // BookmarkIterator is an iterator over [Bookmark] results.
 type BookmarkIterator struct {
-	Pagination server.Pagination
-	Items      scanner.Iterator[Bookmark]
-	ds         *goqu.SelectDataset
+	counted bool
+	count   int64
+	Items   scanner.Iterator[Bookmark]
+	ds      *goqu.SelectDataset
 }
 
 // NewBookmarkIterator returns a [BookmarkIterator] instance.
@@ -51,12 +52,22 @@ func NewBookmarkIterator(ctx context.Context, ds *goqu.SelectDataset) *BookmarkI
 }
 
 // Count returns the number of elements contained in the dataset.
-func (bi BookmarkIterator) Count() (int64, error) {
-	return bi.ds.ClearOrder().ClearLimit().ClearOffset().Count()
+func (bi *BookmarkIterator) Count() (int64, error) {
+	var err error
+	if !bi.counted {
+		bi.count, err = bi.ds.ClearOrder().ClearLimit().ClearOffset().Count()
+		bi.counted = true
+	}
+
+	return bi.count, err
 }
 
 // UpdateEtag implements [server.Etagger] interface.
 func (bi BookmarkIterator) UpdateEtag(h hash.Hash) {
+	if bi.ds == nil {
+		return
+	}
+
 	rs, err := bi.ds.Select("b.uid", "b.updated").Executor().Query()
 	if err != nil {
 		return
@@ -110,6 +121,23 @@ func NewBookmarkList(ctx context.Context, ds *goqu.SelectDataset) (*BookmarkList
 func (bl BookmarkList) UpdateEtag(h hash.Hash) {
 	for _, item := range bl.Items {
 		item.UpdateEtag(h)
+	}
+}
+
+// ToIterator convert the list to a [BookmarkIterator].
+// Since the result is not bound to a request, its UpdateEtag method
+// won't do anything.
+func (bl BookmarkList) ToIterator() *BookmarkIterator {
+	return &BookmarkIterator{
+		counted: true,
+		count:   int64(len(bl.Items)),
+		Items: func(yield func(*Bookmark, error) bool) {
+			for _, b := range bl.Items {
+				if !yield(b, nil) {
+					return
+				}
+			}
+		},
 	}
 }
 

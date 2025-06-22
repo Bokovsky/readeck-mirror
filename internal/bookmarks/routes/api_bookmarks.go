@@ -122,15 +122,16 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 		}
 	})
 
-	if err := converter.NewAtomExporter().Export(ctx, w, r, bl.Items); err != nil {
+	if err := converter.NewAtomExporter().Export(ctx, w, r, bl); err != nil {
 		server.Err(w, r, err)
 	}
 }
 
 // bookmarkExport renders a list of bookmarks in the requested export format.
 func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
-	var exporter converter.Exporter
-	switch chi.URLParam(r, "format") {
+	var exporter converter.IterExporter
+	format := chi.URLParam(r, "format")
+	switch format {
 	case "epub":
 		exp := converter.NewEPUBExporter()
 		if collection, ok := checkCollection(r.Context()); ok {
@@ -147,29 +148,22 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if exporter == nil {
+		server.TextMsg(w, r, http.StatusNotAcceptable, "unknow format: "+format)
+		return
+	}
+
+	seq := getBookmarkIterator(r.Context())
+	count, err := seq.Count()
+	if err != nil {
+		server.Err(w, r, err)
+		return
+	}
+	if count == 0 {
 		server.Status(w, r, http.StatusNotFound)
 		return
 	}
 
-	var items []*bookmarks.Bookmark
-	// Bookmark list or just one item
-	if bl, ok := checkBookmarkList(r.Context()); ok {
-		// TODO: refactor export
-		for _, x := range bl.Items {
-			items = append(items, x.Bookmark)
-		}
-	} else {
-		if b, ok := checkBookmark(r.Context()); ok {
-			items = []*bookmarks.Bookmark{b}
-		}
-	}
-
-	if len(items) == 0 {
-		server.Status(w, r, http.StatusNotFound)
-		return
-	}
-
-	if err := exporter.Export(r.Context(), w, r, items); err != nil {
+	if err := exporter.IterExport(r.Context(), w, r, seq); err != nil {
 		server.Err(w, r, err)
 	}
 }
@@ -719,6 +713,41 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 		ctx = withBookmarkListDS(ctx, ds)
 
 		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+func (api *apiRouter) withBookmarkSeq(next http.Handler) http.Handler {
+	serve := func(w http.ResponseWriter, r *http.Request, ds *goqu.SelectDataset) {
+		res := dataset.NewBookmarkIterator(server.WithRequest(r.Context(), r), ds)
+		ctx := withBookmarkIterator(r.Context(), res)
+
+		taggers := []server.Etagger{res}
+		if t, ok := checkBookmarkListTaggers(r.Context()); ok {
+			taggers = append(taggers, t...)
+		}
+
+		if r.Method == http.MethodGet {
+			server.WriteEtag(w, r, taggers...)
+		}
+
+		server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+	}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		uid := chi.URLParam(r, "uid")
+		if uid != "" {
+			ds := bookmarks.Bookmarks.Query().Where(
+				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+				goqu.C("uid").Table("b").Eq(uid),
+			)
+			serve(w, r, ds)
+			return
+		}
+
+		api.withBookmarkListSelectDataset(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			ds := getBookmarkListDS(r.Context())
+			serve(w, r, ds)
+		})).ServeHTTP(w, r)
 	})
 }
 

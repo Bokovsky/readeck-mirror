@@ -12,6 +12,8 @@ import (
 	"sort"
 	"time"
 
+	"github.com/google/uuid"
+
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
@@ -34,7 +36,7 @@ func NewAtomExporter() AtomExporter {
 }
 
 // Export implements [Exporter].
-func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*dataset.Bookmark) error {
+func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", atom.MimeType)
 	}
@@ -46,7 +48,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 	}
 
 	mtimes := []time.Time{configs.BuildTime()}
-	for _, b := range bookmarkList {
+	for _, b := range bookmarkList.Items {
 		mtimes = append(mtimes, b.Updated)
 	}
 	sort.Slice(mtimes, func(i, j int) bool {
@@ -55,7 +57,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 
 	feed := &atom.Feed{
 		Xmlns:    atom.NS,
-		ID:       "urn:uuid:",
+		ID:       uuid.NewSHA1(uuid.NameSpaceURL, []byte(selfURL)).URN(),
 		Title:    "Readeck",
 		Subtitle: "Readeck's Bookmarks",
 		Updated:  atom.Time(mtimes[0]),
@@ -74,13 +76,13 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 		Icon: urls.AssetURL(r, "img/fi/favicon.ico").String(),
 	}
 
-	feed.Entries = make([]*atom.Entry, len(bookmarkList))
+	feed.Entries = make([]*atom.Entry, len(bookmarkList.Items))
 
-	for i, b := range bookmarkList {
+	for i, b := range bookmarkList.Items {
 		id, _ := base58.DecodeUUID(b.UID)
 
 		feed.Entries[i] = &atom.Entry{
-			ID:        "urn:uuid:" + id.String(),
+			ID:        id.URN(),
 			Title:     b.Title,
 			Updated:   atom.Time(b.Updated),
 			Published: atom.Time(b.Created),

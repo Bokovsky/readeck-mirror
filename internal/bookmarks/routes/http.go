@@ -99,10 +99,10 @@ func newAPIRouter(s *server.Server) *apiRouter {
 				api.withoutPagination,
 				api.withBookmarkOrdering,
 				api.withCollectionFilters,
-				api.withBookmarkList,
+				api.withBookmarkSeq,
 			).Get("/export.{format}", api.bookmarkExport)
 			r.With(
-				api.withBookmark,
+				api.withBookmarkSeq,
 			).Get("/{uid:[a-zA-Z0-9]{18,22}}/article.{format}", api.bookmarkExport)
 		})
 

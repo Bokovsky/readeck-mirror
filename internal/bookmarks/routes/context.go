@@ -26,6 +26,7 @@ var withBaseContext, getBaseContext, checkBaseContext = ctxr.WithAll[server.TC](
 type (
 	ctxAnnotationListKey     struct{}
 	ctxBookmarkKey           struct{}
+	ctxBookmarkIteratorKey   struct{}
 	ctxBookmarkListDsKey     struct{}
 	ctxBookmarkListKey       struct{}
 	ctxBookmarkListTaggerKey struct{}
@@ -41,6 +42,7 @@ type (
 var (
 	withAnnotationList, getAnnotationList                = ctxr.WithGetter[*dataset.AnnotationList](ctxAnnotationListKey{})
 	withBookmark, getBookmark, checkBookmark             = ctxr.WithAll[*bookmarks.Bookmark](ctxBookmarkKey{})
+	withBookmarkIterator, getBookmarkIterator            = ctxr.WithGetter[*dataset.BookmarkIterator](ctxBookmarkIteratorKey{})
 	withBookmarkListDS, getBookmarkListDS                = ctxr.WithGetter[*goqu.SelectDataset](ctxBookmarkListDsKey{})
 	withBookmarkList, getBookmarkList, checkBookmarkList = ctxr.WithAll[*dataset.BookmarkList](ctxBookmarkListKey{})
 	withBookmarkListTaggers, checkBookmarkListTaggers    = ctxr.WithChecker[[]server.Etagger](ctxBookmarkListTaggerKey{})

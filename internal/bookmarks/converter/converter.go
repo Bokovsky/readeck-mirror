@@ -10,10 +10,15 @@ import (
 	"io"
 	"net/http"
 
-	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 )
 
 // Exporter describes a bookmarks exporter.
 type Exporter interface {
-	Export(ctx context.Context, w io.Writer, r *http.Request, bookmarks []*bookmarks.Bookmark) error
+	Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error
+}
+
+// IterExporter describes a bookmarks exporter that works with an iterator.
+type IterExporter interface {
+	IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error
 }

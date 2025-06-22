@@ -14,7 +14,6 @@ import (
 	"strings"
 	"time"
 
-	"github.com/CloudyKit/jet/v6"
 	"github.com/wneessen/go-mail"
 
 	"codeberg.org/readeck/readeck/configs"
@@ -48,9 +47,12 @@ func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailEx
 // Export implements [Exporter].
 // It create an email with a text/plan and text/html version and attaches images
 // as inline resources.
-func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
 	ctx = server.WithRequest(ctx, r)
-	b := bookmarkList[0]
+	if l := len(bookmarkList.Items); l != 1 {
+		return fmt.Errorf("HTMLEmailExporter can only export one bookmark. Got %d", l)
+	}
+	b := bookmarkList.Items[0]
 
 	tc, err := e.getTemplateContext(ctx, b)
 	if err != nil {
@@ -118,13 +120,13 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 	return email.Sender.SendEmail(msg)
 }
 
-func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.Bookmark) (map[string]any, error) {
+func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *dataset.Bookmark) (map[string]any, error) {
 	ctx = dataset.WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
 			return "cid:" + e.cidPrefix + "." + path.Base(name)
 		}
 	})
-	html, err := e.GetArticle(ctx, b)
+	html, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
 		return nil, err
 	}
@@ -146,24 +148,26 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.
 // EPUBEmailExporter is a content exporter that send converted bookmarks as EPUB attachment
 // by emails.
 type EPUBEmailExporter struct {
-	to           string
-	templateVars jet.VarMap
-	options      []email.MessageOption
+	to      string
+	options []email.MessageOption
 }
 
 // NewEPUBEmailExporter returns an [NewEPUBEmailExporter] instance.
-func NewEPUBEmailExporter(to string, templateVars jet.VarMap, options ...email.MessageOption) EPUBEmailExporter {
+func NewEPUBEmailExporter(to string, options ...email.MessageOption) EPUBEmailExporter {
 	return EPUBEmailExporter{
-		to:           to,
-		templateVars: templateVars,
-		options:      options,
+		to:      to,
+		options: options,
 	}
 }
 
 // Export implements [Exporter].
 // It create an email with the bookmark's EPUB file attached to it.
-func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
-	b := bookmarkList[0]
+func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
+	ctx = server.WithRequest(ctx, r)
+	if l := len(bookmarkList.Items); l != 1 {
+		return fmt.Errorf("EPUBEmailExporter can only export one bookmark. Got %d", l)
+	}
+	b := bookmarkList.Items[0]
 
 	msg, err := email.NewMsg(
 		configs.Config.Email.FromNoReply.String(),
@@ -173,7 +177,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 			e.options,
 			email.WithMDTemplate(
 				"/emails/bookmark_epub.jet.md",
-				e.templateVars,
+				server.TemplateVars(server.GetRequest(ctx)),
 				map[string]any{
 					"Item":    b,
 					"SiteURL": urls.AbsoluteURL(r, "/").String(),
@@ -187,7 +191,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 
 	w := new(bytes.Buffer)
 	ee := NewEPUBExporter()
-	if err := ee.Export(ctx, w, r, []*bookmarks.Bookmark{b}); err != nil {
+	if err := ee.IterExport(ctx, w, r, bookmarkList.ToIterator()); err != nil {
 		return err
 	}
 	if err := msg.AttachReader(fmt.Sprintf(

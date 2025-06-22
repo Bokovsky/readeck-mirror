@@ -25,8 +25,6 @@ import (
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
 
-var uuidURL = uuid.Must(uuid.Parse("6ba7b811-9dad-11d1-80b4-00c04fd430c8"))
-
 // EPUBExporter is a content exporter that produces EPUB files.
 type EPUBExporter struct {
 	dataset.HTMLConverter
@@ -40,9 +38,9 @@ func NewEPUBExporter() EPUBExporter {
 	}
 }
 
-// Export implements [Exporter].
+// IterExport implements [IterExporter].
 // It writes an EPUB file on the provided [io.Writer].
-func (e EPUBExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+func (e EPUBExporter) IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
 	// Define a title, date, siteName and filename
 	title := "Readeck Bookmarks"
 	date := time.Now()
@@ -50,32 +48,16 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 	if e.Collection != nil {
 		title = e.Collection.Name
 		siteName = "Readeck Collection"
-	} else if len(bookmarkList) == 1 {
-		title = bookmarkList[0].Title
-		date = bookmarkList[0].Created
-		siteName = bookmarkList[0].SiteName
 	}
 
-	id := ""
-	for _, x := range bookmarkList {
-		id += x.UID
-	}
-
-	if w, ok := w.(http.ResponseWriter); ok {
-		w.Header().Set("Content-Type", "application/epub+zip")
-		w.Header().Set("Content-Disposition", fmt.Sprintf(
-			`attachment; filename="%s-%s.epub"`,
-			date.Format(time.DateOnly),
-			utils.Slug(strings.TrimSuffix(utils.ShortText(title, 40), "...")),
-		))
-	}
-
-	m, err := newEpubMaker(w, uuid.NewSHA1(uuidURL, []byte(id)))
-	if err != nil {
-		return err
-	}
+	id := uuid.NewSHA1(uuid.NameSpaceURL, []byte(urls.AbsoluteURL(r, "").String()))
+	var m *epubMaker
+	var err error
 
 	defer func() {
+		if m == nil {
+			return
+		}
 		if err == nil {
 			m.SetTitle(title)
 			m.SetCreator(siteName)
@@ -89,10 +71,47 @@ func (e EPUBExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 			return "./Images/" + path.Base(name)
 		}
 	})
-	for _, b := range bookmarkList {
+
+	count, err := bookmarkSeq.Count()
+	if err != nil {
+		return err
+	}
+	i := 0
+	for b, err := range bookmarkSeq.Items {
+		if err != nil {
+			return err
+		}
+
+		// Only one bookmark? Set a title
+		if e.Collection == nil && count == 1 {
+			title = b.Title
+			date = b.Created
+			siteName = b.SiteName
+		}
+
+		// Send header before first item
+		if w, ok := w.(http.ResponseWriter); ok && i == 0 {
+			w.Header().Set("Content-Type", "application/epub+zip")
+			w.Header().Set("Content-Disposition", fmt.Sprintf(
+				`attachment; filename="%s-%s.epub"`,
+				date.Format(time.DateOnly),
+				utils.Slug(strings.TrimSuffix(utils.ShortText(title, 40), "...")),
+			))
+		}
+
+		// Only now can we create the epubMaker.
+		if i == 0 {
+			m, err = newEpubMaker(w, id)
+			if err != nil {
+				return err
+			}
+		}
+
 		if err = m.addBookmark(ctx, r, e, b); err != nil {
 			return err
 		}
+
+		i++
 	}
 
 	return nil
@@ -132,7 +151,7 @@ func (m *epubMaker) addStylesheet() error {
 }
 
 // addBookmark adds a bookmark, with all its resources, to the epub file.
-func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExporter, b *bookmarks.Bookmark) (err error) {
+func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExporter, b *dataset.Bookmark) (err error) {
 	var c *bookmarks.BookmarkContainer
 	if c, err = b.OpenContainer(); err != nil {
 		return
@@ -191,7 +210,7 @@ func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExpo
 	}
 
 	buf := new(bytes.Buffer)
-	html, err := e.GetArticle(ctx, b)
+	html, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
 		return err
 	}
