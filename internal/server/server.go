@@ -9,7 +9,6 @@ package server
 import (
 	"log/slog"
 	"net/http"
-	"net/url"
 	"os"
 	"path"
 	"runtime"
@@ -19,52 +18,45 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
-	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/metrics"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 )
 
 // Server is a wrapper around chi router.
 type Server struct {
-	Router   *chi.Mux
-	BasePath string
+	*chi.Mux
 }
 
 // New create a new server. Routes must be added manually before
 // calling ListenAndServe.
-func New(basePath string) *Server {
-	basePath = path.Clean("/" + basePath)
-	if !strings.HasSuffix(basePath, "/") {
-		basePath += "/"
-	}
-
+func New() *Server {
 	s := &Server{
-		Router:   chi.NewRouter(),
-		BasePath: basePath,
+		chi.NewRouter(),
 	}
 
-	s.Router.Use(
+	s.Use(
 		middleware.Recoverer,
-		s.InitRequest,
+		InitRequest,
 		middleware.RequestID,
 		Logger(),
 		metrics.Middleware,
-		s.SetSecurityHeaders,
-		s.CompressResponse,
-		s.WithCacheControl,
-		s.CannonicalPaths,
+		SetSecurityHeaders,
+		CompressResponse,
+		WithCacheControl,
+		CannonicalPaths,
 		auth.Init(
 			&auth.TokenAuthProvider{},
 			&auth.SessionAuthProvider{
-				GetSession:          s.GetSession,
-				UnauthorizedHandler: s.unauthorizedHandler,
+				GetSession:          GetSession,
+				UnauthorizedHandler: unauthorizedHandler,
 			},
 		),
-		s.LoadLocale,
-		s.ErrorPages,
+		LoadLocale,
+		ErrorPages,
 	)
 
 	return s
@@ -73,31 +65,31 @@ func New(basePath string) *Server {
 // Init initializes the server and the template engine.
 func (s *Server) Init() {
 	// System routes
-	s.AddRoute("/api/info", s.infoRoutes())
-	s.AddRoute("/api/sys", s.sysRoutes())
-	s.AddRoute("/logger", s.loggerRoutes())
+	s.AddRoute("/api/info", infoRoutes())
+	s.AddRoute("/api/sys", sysRoutes())
+	s.AddRoute("/logger", loggerRoutes())
 
 	// web manifest
-	s.AddRoute("/manifest.webmanifest", s.manifestRoutes())
+	s.AddRoute("/manifest.webmanifest", manifestRoutes())
 
 	// Init templates
-	s.initTemplates()
+	initTemplates()
 }
 
 // AuthenticatedRouter returns a chi.Router instance
 // with middlewares to force authentication.
-func (s *Server) AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Router {
+func AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Router {
 	r := chi.NewRouter()
 
 	r.Use(middlewares...)
 	r.Use(
-		s.WithSession(),
+		WithSession(),
 		auth.Required,
-		s.LoadLocale,
-		s.Csrf,
+		LoadLocale,
+		Csrf,
 		// It's already in the main router but this one will be called first and have
 		// the current user information
-		s.ErrorPages,
+		ErrorPages,
 	)
 
 	return r
@@ -106,94 +98,11 @@ func (s *Server) AuthenticatedRouter(middlewares ...func(http.Handler) http.Hand
 // AddRoute adds a new route to the server, prefixed with
 // the BasePath.
 func (s *Server) AddRoute(pattern string, handler http.Handler) {
-	s.Router.Mount(path.Join(s.BasePath, pattern), handler)
-}
-
-// AbsoluteURL resolve the absolute URL for the given ref path parts.
-// If the ref starts with "./", it will resolve relative to the current
-// URL.
-func (s *Server) AbsoluteURL(r *http.Request, parts ...string) *url.URL {
-	// First deal with parts
-	for i, p := range parts {
-		if i == 0 && strings.HasPrefix(p, "./") {
-			p = "."
-		}
-		if i > 0 {
-			parts[i] = strings.TrimLeft(p, "/")
-		}
-	}
-
-	pathName := strings.Join(parts, "/")
-
-	cur, _ := r.URL.Parse("")
-
-	p, _ := url.Parse(pathName) // Never let a full URL pass in the parts
-	pathName = p.Path
-
-	// If the url is relative, we need a final slash on the original path
-	if strings.HasPrefix(pathName, "./") && !strings.HasSuffix(cur.Path, "/") {
-		cur.Path += "/"
-	}
-
-	// If the url is absolute, we must prepend the basePath
-	if strings.HasPrefix(pathName, "/") {
-		pathName = s.BasePath + pathName[1:]
-	}
-
-	// Append query string if any
-	if p.RawQuery != "" {
-		pathName += "?" + p.RawQuery
-	}
-
-	var u *url.URL
-	var err error
-	if u, err = url.Parse(pathName); err != nil {
-		return r.URL
-	}
-
-	return cur.ResolveReference(u)
-}
-
-// CurrentPath returns the path of the current request
-// after striping the server's base path. This value
-// can later be used in the AbsoluteURL
-// or Redirect functions.
-func (s *Server) CurrentPath(r *http.Request) string {
-	p := strings.TrimPrefix(r.URL.Path, s.BasePath)
-	p = "/" + p
-	if r.URL.RawQuery != "" {
-		p += "?" + r.URL.RawQuery
-	}
-
-	return p
-}
-
-// AssetURL returns the real URL for a given asset.
-func (s *Server) AssetURL(r *http.Request, name string) string {
-	return s.AbsoluteURL(r, "/assets", assets.AssetMap()[name]).Path
-}
-
-// IsTurboRequest returns true when the request was made with
-// an x-turbo header.
-func (s *Server) IsTurboRequest(r *http.Request) bool {
-	return r.Header.Get("x-turbo") == "1"
-}
-
-// Redirect yields a 303 redirection with a location header.
-// The given "ref" values are joined togegher with the server's base path
-// to provide a full absolute URL.
-func (s *Server) Redirect(w http.ResponseWriter, r *http.Request, ref ...string) {
-	w.Header().Set("Location", s.AbsoluteURL(r, ref...).String())
-	w.WriteHeader(http.StatusSeeOther)
-}
-
-// Log returns a log entry including the request ID.
-func (s *Server) Log(r *http.Request) *slog.Logger {
-	return slog.With(slog.String("@id", s.GetReqID(r)))
+	s.Mount(path.Join(urls.Prefix(), pattern), handler)
 }
 
 // infoRoutes returns the route returning the service information.
-func (s *Server) infoRoutes() http.Handler {
+func infoRoutes() http.Handler {
 	r := chi.NewRouter()
 
 	type versionInfo struct {
@@ -218,7 +127,7 @@ func (s *Server) infoRoutes() http.Handler {
 			},
 		}
 
-		s.Render(w, r, 200, res)
+		Render(w, r, 200, res)
 	})
 
 	return r
@@ -226,9 +135,9 @@ func (s *Server) infoRoutes() http.Handler {
 
 // sysRoutes returns the route returning some system
 // information.
-func (s *Server) sysRoutes() http.Handler {
-	r := s.AuthenticatedRouter()
-	r.Use(s.WithPermission("system", "read"))
+func sysRoutes() http.Handler {
+	r := AuthenticatedRouter()
+	r.Use(WithPermission("system", "read"))
 
 	type memInfo struct {
 		Alloc      uint64 `json:"alloc"`
@@ -262,12 +171,14 @@ func (s *Server) sysRoutes() http.Handler {
 		usage := storageInfo{}
 		usage.Database, err = db.Driver().DiskUsage()
 		if err != nil {
-			s.Error(w, r, err)
+			Err(w, r, err)
+			return
 		}
 
 		usage.Bookmarks, err = bookmarks.Bookmarks.DiskUsage()
 		if err != nil {
-			s.Error(w, r, err)
+			Err(w, r, err)
+			return
 		}
 
 		res := sysInfo{
@@ -287,20 +198,31 @@ func (s *Server) sysRoutes() http.Handler {
 			DiskUsage: usage,
 		}
 
-		s.Render(w, r, 200, res)
+		Render(w, r, 200, res)
 	})
 
 	return r
 }
 
-func (s *Server) loggerRoutes() http.Handler {
+func loggerRoutes() http.Handler {
 	r := chi.NewRouter()
-	r.Post("/csp-report", s.cspReport)
+	r.Post("/csp-report", cspReportHandler)
 
 	return r
 }
 
+// IsTurboRequest returns true when the request was made with
+// an x-turbo header.
+func IsTurboRequest(r *http.Request) bool {
+	return r.Header.Get("x-turbo") == "1"
+}
+
 // GetReqID returns the request ID.
-func (s *Server) GetReqID(r *http.Request) string {
+func GetReqID(r *http.Request) string {
 	return middleware.GetReqID(r.Context())
+}
+
+// Log returns a log entry including the request ID.
+func Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", GetReqID(r)))
 }

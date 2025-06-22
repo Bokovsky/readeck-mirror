@@ -14,7 +14,6 @@ import (
 	"mime/multipart"
 	"net/http"
 	"net/textproto"
-	"net/url"
 	"path"
 	"strings"
 	"time"
@@ -29,6 +28,8 @@ import (
 	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
@@ -45,8 +46,6 @@ var html2md = converter.NewConverter(
 // MarkdownExporter is an content exporter that produces markdown.
 type MarkdownExporter struct {
 	HTMLConverter
-	baseURL      *url.URL
-	mediaBaseURL *url.URL
 }
 
 type mdMeta struct {
@@ -59,14 +58,12 @@ type mdMeta struct {
 	Labels    []string `yaml:"labels,omitempty"`
 }
 
-var ctxExportTypeKey = contextKey{"export-type"}
+type ctxExportTypeKey struct{}
 
 // NewMarkdownExporter returns a new [MarkdownExporter] instance.
-func NewMarkdownExporter(baseURL *url.URL, mediaBaseURL *url.URL) MarkdownExporter {
+func NewMarkdownExporter() MarkdownExporter {
 	return MarkdownExporter{
 		HTMLConverter: HTMLConverter{},
-		baseURL:       baseURL,
-		mediaBaseURL:  mediaBaseURL,
 	}
 }
 
@@ -76,6 +73,7 @@ func NewMarkdownExporter(baseURL *url.URL, mediaBaseURL *url.URL) MarkdownExport
 // that contains images for the exported bookmarks.
 func (e MarkdownExporter) Export(ctx context.Context, w io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
 	ctx = WithAnnotationTag(ctx, "rd-annotation", nil)
+	ctx = server.WithRequest(ctx, r)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
@@ -96,7 +94,7 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 	for i, b := range bookmarkList {
 		c := WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
 			return func(name string) string {
-				return e.mediaBaseURL.JoinPath(b.FilePath, name).String()
+				return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, name).String()
 			}
 		})
 		if i > 0 {
@@ -119,7 +117,7 @@ func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, book
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
+	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
 
 	for _, b := range bookmarkList {
 		if err := func() error {
@@ -188,7 +186,7 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return path.Base
 	})
-	ctx = context.WithValue(ctx, ctxExportTypeKey, "multipart")
+	ctx = context.WithValue(ctx, ctxExportTypeKey{}, "multipart")
 
 	if _, err := zw.Create(basePath + "/"); err != nil {
 		return err
@@ -263,14 +261,14 @@ func (e MarkdownExporter) exportZip(ctx context.Context, w io.Writer, bookmarkLi
 }
 
 func (e MarkdownExporter) getImageURL(ctx context.Context, b *bookmarks.Bookmark, name string) string {
-	if s, _ := ctx.Value(ctxExportTypeKey).(string); s == "multipart" {
+	if s, _ := ctx.Value(ctxExportTypeKey{}).(string); s == "multipart" {
 		return b.UID + "-" + path.Base(name)
 	}
-	return e.mediaBaseURL.JoinPath(b.FilePath, "img", path.Base(name)).String()
+	return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, "img", path.Base(name)).String()
 }
 
 func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *bookmarks.Bookmark, withMeta bool) error {
-	r, err := e.GetArticle(ctx, b)
+	reader, err := e.GetArticle(ctx, b)
 	if err != nil {
 		return err
 	}
@@ -307,7 +305,7 @@ func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *book
 		fmt.Fprintf(intro, "[Video on %s](%s)\n\n", b.SiteName, b.URL)
 	}
 
-	md, err := html2md.ConvertReader(r)
+	md, err := html2md.ConvertReader(reader)
 	if err != nil {
 		return err
 	}

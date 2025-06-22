@@ -8,6 +8,7 @@ package docs
 import (
 	"embed"
 	"encoding/json"
+	"hash"
 	"io/fs"
 	"net/http"
 )
@@ -43,9 +44,9 @@ type Manifest struct {
 
 var manifest *Manifest
 
-// GetSumStrings implements the Etager interface.
-func (f *File) GetSumStrings() []string {
-	return []string{f.Etag}
+// UpdateEtag implements the [server.Etagger] interface.
+func (f *File) UpdateEtag(h hash.Hash) {
+	h.Write([]byte(f.Etag))
 }
 
 func init() {

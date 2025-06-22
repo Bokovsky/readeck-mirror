@@ -7,6 +7,8 @@ package assets
 import (
 	"context"
 	"fmt"
+	"hash"
+	"io"
 	"math/rand/v2"
 	"net/http"
 	"strconv"
@@ -42,8 +44,8 @@ func newRandom(data uint64) *random {
 	return &random{rand.New(rand.NewPCG(data, data))} //nolint:gosec
 }
 
-func (r *random) GetSumStrings() []string {
-	return []string{configs.BuildTime().String(), strconv.Itoa(r.Int())}
+func (r *random) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, configs.BuildTime().String()+strconv.Itoa(r.Int()))
 }
 
 func (r *random) GetLastModified() []time.Time {
@@ -52,9 +54,7 @@ func (r *random) GetLastModified() []time.Time {
 
 // randomSvg sends an SVG image with a gradient. The gradient's color
 // is based on the name.
-func randomSvg(s *server.Server) http.Handler {
-	r := chi.NewRouter()
-
+func randomSvg() http.Handler {
 	withHashCode := func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			name := chi.URLParam(r, "name")
@@ -66,17 +66,17 @@ func randomSvg(s *server.Server) http.Handler {
 			rd := newRandom(data)
 			ctx := context.WithValue(r.Context(), ctxNameKey{}, rd)
 
-			s.WriteEtag(w, r, rd)
-			s.WriteLastModified(w, r, rd)
+			server.WriteEtag(w, r, rd)
+			server.WriteLastModified(w, r, rd)
 			csp.Policy{
 				"base-uri":    {csp.None},
 				"default-src": {csp.None},
 			}.Write(w.Header())
-			s.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
+			server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 
-	r.With(withHashCode).Get("/", func(w http.ResponseWriter, r *http.Request) {
+	return withHashCode(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		rd := r.Context().Value(ctxNameKey{}).(*random)
 
 		w.Header().Set("Content-Type", "image/svg+xml")
@@ -87,8 +87,7 @@ func randomSvg(s *server.Server) http.Handler {
 			rd.Perm(70)[1]+20,  // bottom saturation
 			randomCircles(rd),
 		)
-	})
-	return r
+	}))
 }
 
 func randomCircles(r *random) string {

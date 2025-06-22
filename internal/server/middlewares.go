@@ -18,6 +18,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 	"codeberg.org/readeck/readeck/pkg/http/csrf"
 	"codeberg.org/readeck/readeck/pkg/http/securecookie"
@@ -39,20 +40,20 @@ var acceptOffers = []string{
 var csrfHandler *csrf.Handler
 
 // Csrf setup the CSRF protection.
-func (s *Server) Csrf(next http.Handler) http.Handler {
+func Csrf(next http.Handler) http.Handler {
 	csrfHandler = csrf.NewCSRFHandler(
 		securecookie.NewHandler(
 			securecookie.Key(configs.Keys.CSRFKey()),
 			securecookie.WithMaxAge(0),
 			securecookie.WithName(csrfCookieName),
-			securecookie.WithPath(path.Join(s.BasePath)),
+			securecookie.WithPath(path.Join(urls.Prefix())),
 			securecookie.WithTTL(false),
 		),
 		csrf.WithFieldName(csrfFieldName),
 		csrf.WithErrorHandler(func(w http.ResponseWriter, r *http.Request) {
 			err := csrf.GetError(r)
-			s.Log(r).Warn("CSRF error", slog.Any("err", err))
-			s.Status(w, r, http.StatusForbidden)
+			Log(r).Warn("CSRF error", slog.Any("err", err))
+			Status(w, r, http.StatusForbidden)
 		}),
 	)
 
@@ -69,7 +70,7 @@ func (s *Server) Csrf(next http.Handler) http.Handler {
 }
 
 // RenewCsrf generate a new CSRF protection token.
-func (s *Server) RenewCsrf(w http.ResponseWriter, r *http.Request) {
+func RenewCsrf(w http.ResponseWriter, r *http.Request) {
 	if csrfHandler != nil {
 		_, _ = csrfHandler.Renew(w, r)
 	}
@@ -80,13 +81,13 @@ func (s *Server) RenewCsrf(w http.ResponseWriter, r *http.Request) {
 //
 // In the RBAC configuration, the user's group is the subject, the
 // given "obj" is the object and "act" is the action.
-func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Handler {
+func WithPermission(obj, act string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			u := auth.GetRequestUser(r)
 			ok := auth.HasPermission(r, obj, act)
 
-			logger := s.Log(r).With(
+			logger := Log(r).With(
 				slog.String("user", u.Username),
 				slog.String("sub", u.Group),
 				slog.String("obj", obj),
@@ -113,7 +114,7 @@ func (s *Server) WithPermission(obj, act string) func(next http.Handler) http.Ha
 
 // CannonicalPaths cleans the URL path and removes trailing slashes.
 // It returns a 308 redirection so any form will pass through.
-func (s *Server) CannonicalPaths(next http.Handler) http.Handler {
+func CannonicalPaths(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var p string
 		rctx := chi.RouteContext(r.Context())
@@ -143,7 +144,7 @@ func (s *Server) CannonicalPaths(next http.Handler) http.Handler {
 
 // CompressResponse returns a gzipped response for some content types.
 // It uses gzhttp that provides a BREACH mittigation.
-func (s *Server) CompressResponse(next http.Handler) http.Handler {
+func CompressResponse(next http.Handler) http.Handler {
 	w, err := gzhttp.NewWrapper(
 		gzhttp.CompressionLevel(5),
 		gzhttp.ContentTypes([]string{
@@ -167,12 +168,11 @@ func (s *Server) CompressResponse(next http.Handler) http.Handler {
 //
 // Conditions are: response status must be >= 400, its content-type
 // is text/plain and it has some content.
-func (s *Server) ErrorPages(next http.Handler) http.Handler {
+func ErrorPages(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		wi := &responseWriterInterceptor{
 			ResponseWriter: w,
 			r:              r,
-			srv:            s,
 			accept:         accept.NegotiateContentType(r.Header, acceptOffers, "text/html"),
 			errorTemplates: make(map[int]string),
 		}
@@ -184,7 +184,6 @@ func (s *Server) ErrorPages(next http.Handler) http.Handler {
 type responseWriterInterceptor struct {
 	http.ResponseWriter
 	r              *http.Request
-	srv            *Server
 	accept         string
 	contentType    string
 	statusCode     int
@@ -242,7 +241,7 @@ func (w *responseWriterInterceptor) Write(c []byte) (int, error) {
 			tpl = "/error"
 		}
 
-		w.srv.RenderTemplate(w.ResponseWriter, w.r, 0, tpl, ctx)
+		RenderTemplate(w.ResponseWriter, w.r, 0, tpl, ctx)
 	default:
 		return w.ResponseWriter.Write([]byte(http.StatusText(w.statusCode)))
 	}
@@ -252,7 +251,7 @@ func (w *responseWriterInterceptor) Write(c []byte) (int, error) {
 
 // WithCustomErrorTemplate registers a custom template for an error rendered as HTML.
 // It must be set before any middleware that would trigger an HTTP error.
-func (s *Server) WithCustomErrorTemplate(status int, template string) func(next http.Handler) http.Handler {
+func WithCustomErrorTemplate(status int, template string) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			if w, ok := w.(*responseWriterInterceptor); ok {

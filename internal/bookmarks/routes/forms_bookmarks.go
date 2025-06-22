@@ -671,7 +671,7 @@ func newShareForm(tr forms.Translator) *shareForm {
 	}
 }
 
-func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmarks.Bookmark) (err error) {
+func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
@@ -691,15 +691,12 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 	case "html":
 		exporter = converter.NewHTMLEmailExporter(
 			f.Get("email").String(),
-			srv.AbsoluteURL(r, "/"),
-			srv.TemplateVars(r),
 			options...,
 		)
 	case "epub":
 		exporter = converter.NewEPUBEmailExporter(
 			f.Get("email").String(),
-			srv.AbsoluteURL(r, "/"),
-			srv.TemplateVars(r),
+			server.TemplateVars(r),
 			options...,
 		)
 	}
@@ -710,7 +707,7 @@ func (f *shareForm) sendBookmark(r *http.Request, srv *server.Server, b *bookmar
 		return
 	}
 
-	if err = exporter.Export(context.Background(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
+	if err = exporter.Export(r.Context(), nil, r, []*bookmarks.Bookmark{b}); err != nil {
 		f.AddErrors("", forms.ErrUnexpected)
 		return
 	}

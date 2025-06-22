@@ -40,10 +40,10 @@ type cookbookAPI struct {
 // newCookbookAPI returns a CookbokAPI with all the routes
 // set up.
 func newCookbookAPI(s *server.Server) *cookbookAPI {
-	r := s.AuthenticatedRouter()
+	r := server.AuthenticatedRouter()
 
 	api := &cookbookAPI{Router: r, srv: s}
-	r.With(api.srv.WithPermission("api:cookbook", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:cookbook", "read")).Group(func(r chi.Router) {
 		r.Get("/urls", api.urlList)
 		r.Get("/extract", api.extract)
 		r.Post("/extract", api.extract)
@@ -89,7 +89,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	f.bind(r)
 
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
@@ -101,7 +101,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	ex, err := extract.New(
 		f.Get("url").String(),
 		extract.SetLogger(slog.Default(),
-			slog.String("@id", api.srv.GetReqID(r)),
+			slog.String("@id", server.GetReqID(r)),
 		),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
 		extract.SetProxyList(proxyList),
@@ -127,7 +127,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(api.srv.Log(r))...,
+			bookmarks.GetContentScripts(server.Log(r))...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
@@ -210,7 +210,7 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		res.Links = append(res.Links, link)
 	}
 
-	api.srv.Render(w, r, 200, res)
+	server.Render(w, r, 200, res)
 }
 
 func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
@@ -255,10 +255,10 @@ func (api *cookbookAPI) urlList(w http.ResponseWriter, r *http.Request) {
 		return nil
 	})
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
-	api.srv.Render(w, r, http.StatusOK, urls)
+	server.Render(w, r, http.StatusOK, urls)
 }
 
 type extractImg struct {

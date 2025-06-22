@@ -67,9 +67,10 @@ linters:
         - fmt.Fprintf(net/http.ResponseWriter)
         - fmt.Fprintln(net/http.ResponseWriter)
         - io.Copy(net/http.ResponseWriter)
+        - io.WriteString(hash.Hash)
         - io.WriteString(net/http.ResponseWriter)
         - (*strings.Replacer).WriteString(net/http.ResponseWriter)
-        - (*codeberg.org/readeck/readeck/internal/server.Server).AddFlash
+        - codeberg.org/readeck/readeck/internal/server.AddFlash
         - (*codeberg.org/readeck/readeck/internal/sessions.Session).Save
         - (net/http.File).Close
         - (*archive/zip.ReadCloser).Close

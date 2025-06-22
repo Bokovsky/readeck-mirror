@@ -373,6 +373,11 @@ func InitConfiguration() {
 		}
 	}
 
+	Config.Server.Prefix = path.Clean("/" + Config.Server.Prefix)
+	if !strings.HasSuffix(Config.Server.Prefix, "/") {
+		Config.Server.Prefix += "/"
+	}
+
 	// Load encryption and signing keys
 	loadKeys()
 

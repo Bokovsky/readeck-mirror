@@ -5,20 +5,22 @@
 package server
 
 import (
-	"context"
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/locales"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 )
 
 type (
 	ctxLocaleKey struct{}
 )
 
+var withLocale, getLocale = ctxr.WithChecker[*locales.Locale](ctxLocaleKey{})
+
 // LoadLocale is a middleware that loads the correct locale for the current user.
 // It defaults to English if no user is connected or no language is set.
-func (s *Server) LoadLocale(next http.Handler) http.Handler {
+func LoadLocale(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user := auth.GetRequestUser(r)
 		lang := "en-US"
@@ -31,14 +33,14 @@ func (s *Server) LoadLocale(next http.Handler) http.Handler {
 		}
 
 		tr = locales.LoadTranslation(lang)
-		ctx := context.WithValue(r.Context(), ctxLocaleKey{}, tr)
+		ctx := withLocale(r.Context(), tr)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
 // Locale returns the current user's locale.
-func (s *Server) Locale(r *http.Request) *locales.Locale {
-	if t, ok := r.Context().Value(ctxLocaleKey{}).(*locales.Locale); ok {
+func Locale(r *http.Request) *locales.Locale {
+	if t, ok := getLocale(r.Context()); ok {
 		return t
 	}
 	return locales.LoadTranslation("en-US")

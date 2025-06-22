@@ -18,6 +18,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -31,77 +32,77 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 
 	cl.Items = make([]collectionItem, len(cl.items))
 	for i, item := range cl.items {
-		cl.Items[i] = newCollectionItem(api.srv, r, item, ".")
+		cl.Items[i] = newCollectionItem(r, item, ".")
 	}
 
-	api.srv.SendPaginationHeaders(w, r, cl.Pagination)
-	api.srv.Render(w, r, http.StatusOK, cl.Items)
+	server.SendPaginationHeaders(w, r, cl.Pagination)
+	server.Render(w, r, http.StatusOK, cl.Items)
 }
 
 func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
-	item := newCollectionItem(api.srv, r, c, "./..")
+	item := newCollectionItem(r, c, "./..")
 
-	api.srv.Render(w, r, http.StatusOK, item)
+	server.Render(w, r, http.StatusOK, item)
 }
 
 func (api *apiRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCollectionForm(api.srv.Locale(r), r)
+	f := newCollectionForm(server.Locale(r), r)
 
 	forms.Bind(f, r)
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	c, err := f.createCollection(auth.GetRequestUser(r).ID)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", c.UID).String())
-	api.srv.TextMessage(w, r, http.StatusCreated, "Collection created")
+	w.Header().Set("Location", urls.AbsoluteURL(r, ".", c.UID).String())
+	server.TextMsg(w, r, http.StatusCreated, "Collection created")
 }
 
 func (api *apiRouter) collectionUpdate(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 
-	f := newCollectionForm(api.srv.Locale(r), r)
+	f := newCollectionForm(server.Locale(r), r)
 	f.setCollection(c)
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	updated, err := f.updateCollection(c)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	api.srv.Render(w, r, http.StatusOK, updated)
+	server.Render(w, r, http.StatusOK, updated)
 }
 
 func (api *apiRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 	c := r.Context().Value(ctxCollectionKey{}).(*bookmarks.Collection)
 	if err := c.Delete(); err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	api.srv.Status(w, r, http.StatusNoContent)
+	server.Status(w, r, http.StatusNoContent)
 }
 
 func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := collectionList{}
 
-		pf := api.srv.GetPageParams(r, 30)
+		pf := server.GetPageParams(r, 30)
 		if pf == nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
@@ -122,20 +123,20 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 		var err error
 		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
 			if errors.Is(err, bookmarks.ErrCollectionNotFound) {
-				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
+				server.TextMsg(w, r, http.StatusNotFound, "not found")
 			} else {
-				api.srv.Error(w, r, err)
+				server.Err(w, r, err)
 			}
 			return
 		}
 
 		res.items = []*bookmarks.Collection{}
 		if err := ds.ScanStructs(&res.items); err != nil {
-			api.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
+		res.Pagination = server.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		ctx := context.WithValue(r.Context(), ctxCollectionListKey{}, res)
 
@@ -152,12 +153,12 @@ func (api *apiRouter) withCollection(next http.Handler) http.Handler {
 			goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 		)
 		if err != nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
 		ctx := context.WithValue(r.Context(), ctxCollectionKey{}, c)
-		ctx = context.WithValue(ctx, ctxBookmarkListTagerKey{}, []server.Etager{c})
+		ctx = context.WithValue(ctx, ctxBookmarkListTaggerKey{}, []server.Etagger{c})
 
 		if ctx.Value(ctxBookmarkOrderKey{}) == nil {
 			ctx = context.WithValue(ctx, ctxBookmarkOrderKey{}, orderExpressionList{goqu.T("b").Col("created").Desc()})
@@ -201,11 +202,11 @@ type collectionItem struct {
 	RangeEnd   string        `json:"range_end"`
 }
 
-func newCollectionItem(s *server.Server, r *http.Request, c *bookmarks.Collection, base string) collectionItem {
+func newCollectionItem(r *http.Request, c *bookmarks.Collection, base string) collectionItem {
 	return collectionItem{
 		Collection: c,
 		ID:         c.UID,
-		Href:       s.AbsoluteURL(r, base, c.UID).String(),
+		Href:       urls.AbsoluteURL(r, base, c.UID).String(),
 		Created:    c.Created,
 		Updated:    c.Updated,
 		Name:       c.Name,

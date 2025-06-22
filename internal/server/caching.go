@@ -5,7 +5,8 @@
 package server
 
 import (
-	"hash/crc64"
+	"hash"
+	"hash/fnv"
 	"net/http"
 	"sort"
 	"strconv"
@@ -16,10 +17,9 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 )
 
-// Etager must provides a function that returns a list of
-// strings used to build an etag header.
-type Etager interface {
-	GetSumStrings() []string
+// Etagger must provides a function that can update a [hash.Hash].
+type Etagger interface {
+	UpdateEtag(hash.Hash)
 }
 
 // LastModer must provides a function that returns a list
@@ -37,28 +37,29 @@ const (
 )
 
 // WriteEtag adds an Etag header to the response, based on
-// the values sent by GetSumStrings. The build date is always
+// the values from UpdateEtag. The build date is always
 // included.
-func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etager) {
+func WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Etagger) {
 	if len(taggers) == 0 {
 		w.Header().Del("Etag")
 		return
 	}
 
-	h := crc64.New(crc64.MakeTable(crc64.ISO))
+	h := fnv.New64()
 	h.Write([]byte(strconv.FormatInt(configs.BuildTime().Unix(), 10)))
 
 	if user := auth.GetRequestUser(r); user.ID != 0 {
 		taggers = append(taggers, user)
 	}
-	if sess := s.GetSession(r); sess != nil {
+	if sess := GetSession(r); sess != nil {
 		taggers = append(taggers, sess)
 	}
 
-	for _, tager := range taggers {
-		for _, x := range tager.GetSumStrings() {
-			h.Write([]byte(x))
+	for _, tagger := range taggers {
+		if tagger == nil {
+			continue
 		}
+		tagger.UpdateEtag(h)
 	}
 
 	w.Header().Set("Etag", strconv.FormatUint(h.Sum64(), 16))
@@ -66,7 +67,7 @@ func (s *Server) WriteEtag(w http.ResponseWriter, r *http.Request, taggers ...Et
 
 // WriteLastModified adds a Last-Modified headers using the most
 // recent date of GetLastModified and the build date.
-func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moders ...LastModer) {
+func WriteLastModified(w http.ResponseWriter, r *http.Request, moders ...LastModer) {
 	if len(moders) == 0 {
 		w.Header().Del("Last-Modified")
 		return
@@ -74,13 +75,16 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 
 	mtimes := []time.Time{configs.BuildTime()}
 	for _, m := range moders {
+		if m == nil {
+			continue
+		}
 		mtimes = append(mtimes, m.GetLastModified()...)
 	}
 
 	if user := auth.GetRequestUser(r); user.ID != 0 {
 		mtimes = append(mtimes, user.GetLastModified()...)
 	}
-	if sess := s.GetSession(r); sess != nil {
+	if sess := GetSession(r); sess != nil {
 		mtimes = append(mtimes, sess.GetLastModified()...)
 	}
 
@@ -92,7 +96,7 @@ func (s *Server) WriteLastModified(w http.ResponseWriter, r *http.Request, moder
 }
 
 // WithCacheControl sends the global caching headers.
-func (s *Server) WithCacheControl(next http.Handler) http.Handler {
+func WithCacheControl(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Cache-Control", "private")
 		w.Header().Add("Vary", "Accept")
@@ -104,7 +108,7 @@ func (s *Server) WithCacheControl(next http.Handler) http.Handler {
 // Last-Modified headers are sent with the response. If the
 // request has the correspondign cache header and theys match
 // the request stops with a 304.
-func (s *Server) WithCaching(next http.Handler) http.Handler {
+func WithCaching(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet && r.Method != http.MethodHead {
 			next.ServeHTTP(w, r)
@@ -118,7 +122,7 @@ func (s *Server) WithCaching(next http.Handler) http.Handler {
 
 		// Cancel the caching headers when there are messages.
 		// It prevents the message to stay on the page forever.
-		if len(s.Flashes(r)) > 0 {
+		if len(Flashes(r)) > 0 {
 			w.Header().Del("Last-Modified")
 			w.Header().Del("Etag")
 		}

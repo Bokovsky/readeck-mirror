@@ -17,6 +17,7 @@ import (
 	bookmark_routes "codeberg.org/readeck/readeck/internal/bookmarks/routes"
 	"codeberg.org/readeck/readeck/internal/opds/catalog"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/opds"
 )
 
@@ -27,10 +28,10 @@ type opdsRouter struct {
 
 // SetupRoutes adds the OPDS catalog HTTP routes.
 func SetupRoutes(s *server.Server) {
-	h := &opdsRouter{s.AuthenticatedRouter(), s}
+	h := &opdsRouter{server.AuthenticatedRouter(), s}
 
 	h.Use(middleware.GetHead)
-	h.With(s.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
+	h.With(server.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
 		r.Get("/", h.mainCatalog)
 		r.Route("/bookmarks", bookmark_routes.NewOPDSRouteHandler(s))
 	})
@@ -43,36 +44,36 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 		goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 	)
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	tr := h.srv.Locale(r)
+	tr := server.Locale(r)
 
-	c := catalog.New(h.srv, r,
+	c := catalog.New(r,
 		catalog.WithFeedType(opds.OPDSTypeNavigation),
 		catalog.WithTitle("Readeck"),
 		catalog.WithUpdated(lastUpdate),
-		catalog.WithURL(h.srv.AbsoluteURL(r).String()),
+		catalog.WithURL(urls.AbsoluteURL(r).String()),
 		catalog.WithNavEntry(
 			tr.Gettext("Unread Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/unread").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/unread").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Archived Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/archives").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/archives").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Favorite Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/favorites").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/favorites").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("All Bookmarks"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/all").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/all").String(),
 		),
 		catalog.WithNavEntry(
 			tr.Gettext("Bookmark Collections"), lastUpdate,
-			h.srv.AbsoluteURL(r, ".", "bookmarks/collections").String(),
+			urls.AbsoluteURL(r, ".", "bookmarks/collections").String(),
 			func(e *opds.Entry) {
 				e.Links[0].TypeLink = opds.OPDSTypeNavigation
 			},
@@ -80,6 +81,6 @@ func (h *opdsRouter) mainCatalog(w http.ResponseWriter, r *http.Request) {
 	)
 
 	if err := c.Render(w, r); err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 	}
 }

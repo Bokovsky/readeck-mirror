@@ -15,6 +15,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/atom"
 	"codeberg.org/readeck/readeck/pkg/base58"
 )
@@ -22,14 +23,12 @@ import (
 // AtomExporter is an [Exporter] that produces an Atom feed.
 type AtomExporter struct {
 	HTMLConverter
-	srv *server.Server
 }
 
 // NewAtomExporter return a new [AtomExporter] instance.
-func NewAtomExporter(srv *server.Server) AtomExporter {
+func NewAtomExporter() AtomExporter {
 	return AtomExporter{
 		HTMLConverter: HTMLConverter{},
-		srv:           srv,
 	}
 }
 
@@ -39,8 +38,8 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 		w.Header().Set("Content-Type", atom.MimeType)
 	}
 
-	selfURL := e.srv.AbsoluteURL(r).String()
-	htmlURL := e.srv.AbsoluteURL(r, "/bookmarks").String()
+	selfURL := urls.AbsoluteURL(r).String()
+	htmlURL := urls.AbsoluteURL(r, "/bookmarks").String()
 	if len(r.URL.Query()) > 0 {
 		htmlURL += "?" + r.URL.Query().Encode()
 	}
@@ -71,7 +70,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 				Type: "text/html",
 			},
 		},
-		Icon: e.srv.AbsoluteURL(r, "/", e.srv.AssetURL(r, "img/fi/favicon.ico")).String(),
+		Icon: urls.AssetURL(r, "img/fi/favicon.ico").String(),
 	}
 
 	feed.Entries = make([]*atom.Entry, len(bookmarkList))
@@ -86,7 +85,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 			Published: atom.Time(b.Created),
 			Links: []*atom.Link{
 				{
-					Href: e.srv.AbsoluteURL(r, "/bookmarks", b.UID).String(),
+					Href: urls.AbsoluteURL(r, "/bookmarks", b.UID).String(),
 					Rel:  "alternate",
 					Type: "text/html",
 				},
@@ -104,7 +103,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 		for k, v := range b.Files {
 			if k == "image" && (b.DocumentType == "photo" || b.DocumentType == "video") {
 				resources[k] = &bookmarks.BookmarkFile{
-					Name: e.srv.AbsoluteURL(r, "/bm", b.FilePath, v.Name).String(),
+					Name: urls.AbsoluteURL(r, "/bm", b.FilePath, v.Name).String(),
 					Type: v.Type,
 					Size: v.Size,
 				}
@@ -125,7 +124,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 			"Item":      b,
 			"Resources": resources,
 		}
-		if err := tpl.Execute(buf, e.srv.TemplateVars(r), tc); err != nil {
+		if err := tpl.Execute(buf, server.TemplateVars(r), tc); err != nil {
 			return err
 		}
 		feed.Entries[i].Content = &atom.Content{

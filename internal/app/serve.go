@@ -38,6 +38,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/opds"
 	"codeberg.org/readeck/readeck/internal/profile"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/videoplayer"
 )
 
@@ -87,7 +88,7 @@ func runServer(_ context.Context, args []string) error {
 	}
 
 	// Prepare HTTP server
-	s := server.New(configs.Config.Server.Prefix)
+	s := server.New()
 	if err := InitServer(s); err != nil {
 		return err
 	}
@@ -127,7 +128,7 @@ func runServer(_ context.Context, args []string) error {
 	}
 
 	srv := &http.Server{
-		Handler:           s.Router,
+		Handler:           s,
 		MaxHeaderBytes:    1 << 20,
 		ReadHeaderTimeout: time.Second * 5,
 	}
@@ -187,7 +188,7 @@ func runServer(_ context.Context, args []string) error {
 		serverURL := &url.URL{
 			Scheme: "http",
 			Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
-			Path:   s.BasePath,
+			Path:   urls.Prefix(),
 		}
 		switch serverURL.Hostname() {
 		case "0.0.0.0", "127.0.0.1", "::", "::1":
@@ -224,7 +225,7 @@ func runServer(_ context.Context, args []string) error {
 // InitServer setups all the routes.
 func InitServer(s *server.Server) error {
 	// Init session store
-	if err := s.InitSession(); err != nil {
+	if err := server.InitSession(); err != nil {
 		return err
 	}
 

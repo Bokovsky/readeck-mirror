@@ -9,6 +9,8 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
+	"hash"
+	"io"
 	"log/slog"
 	"math/rand/v2"
 	"strconv"
@@ -152,12 +154,9 @@ func (u *User) Delete() error {
 	return err
 }
 
-// GetSumStrings implements Etager interface.
-func (u *User) GetSumStrings() []string {
-	return []string{
-		strconv.Itoa(u.ID),
-		strconv.FormatInt(u.Updated.Unix(), 10),
-	}
+// UpdateEtag implements [server.Etagger] interface.
+func (u *User) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, u.UID+strconv.FormatInt(u.Updated.UTC().UnixNano(), 10))
 }
 
 // GetLastModified implements LastModer interface.

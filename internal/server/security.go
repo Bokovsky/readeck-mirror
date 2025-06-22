@@ -16,6 +16,8 @@ import (
 	"strings"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 	"codeberg.org/readeck/readeck/pkg/http/forwarded"
 	"codeberg.org/readeck/readeck/pkg/http/permissionspolicy"
@@ -26,6 +28,13 @@ type (
 	ctxCSPKey          struct{}
 	ctxUnauthorizedKey struct{}
 	ctxRemoteInfoKey   struct{}
+)
+
+var (
+	withCSPNonce, getCSPNonce         = ctxr.WithChecker[string](ctxCSPNonceKey{})
+	withCSP, getCSP                   = ctxr.WithChecker[csp.Policy](ctxCSPKey{})
+	withUnauthorized, getUnauthorized = ctxr.WithChecker[int](ctxUnauthorizedKey{})
+	withRemoteInfo, getRemoteInfo     = ctxr.WithChecker[*RemoteInfo](ctxRemoteInfoKey{})
 )
 
 const (
@@ -90,7 +99,7 @@ func checkHost(r *http.Request) error {
 
 // GetRemoteInfo returns the [*RemoteInfo] instance stored in the request's context.
 func GetRemoteInfo(r *http.Request) *RemoteInfo {
-	if hi, ok := r.Context().Value(ctxRemoteInfoKey{}).(*RemoteInfo); ok {
+	if hi, ok := getRemoteInfo(r.Context()); ok {
 		return hi
 	}
 	return &RemoteInfo{}
@@ -102,7 +111,7 @@ func GetRemoteInfo(r *http.Request) *RemoteInfo {
 //
 // It also checks the validity of the host header when the server
 // is not running in dev mode.
-func (s *Server) InitRequest(next http.Handler) http.Handler {
+func InitRequest(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		// First, always remove the port from RenoteAddr
 		r.RemoteAddr, _, _ = net.SplitHostPort(r.RemoteAddr)
@@ -150,13 +159,13 @@ func (s *Server) InitRequest(next http.Handler) http.Handler {
 			}
 		}
 
-		*r = *r.WithContext(context.WithValue(r.Context(), ctxRemoteInfoKey{}, remoteInfo))
+		*r = *r.WithContext(withRemoteInfo(r.Context(), remoteInfo))
 
 		// Check host
 		if !configs.Config.Main.DevMode {
 			if err := checkHost(r); err != nil {
-				s.Log(r).Error("server error", slog.Any("err", err))
-				s.Status(w, r, http.StatusBadRequest)
+				Log(r).Error("server error", slog.Any("err", err))
+				Status(w, r, http.StatusBadRequest)
 				return
 			}
 		}
@@ -186,14 +195,14 @@ func getDefaultCSP() csp.Policy {
 
 // GetCSPHeader extracts the current CSPHeader from the request's context.
 func GetCSPHeader(r *http.Request) csp.Policy {
-	if c, ok := r.Context().Value(ctxCSPKey{}).(csp.Policy); ok {
+	if c, ok := getCSP(r.Context()); ok {
 		return c
 	}
 	return getDefaultCSP()
 }
 
 // SetSecurityHeaders adds some headers to improve client side security.
-func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
+func SetSecurityHeaders(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		var nonce string
 		if nonce = r.Header.Get("x-turbo-nonce"); nonce == "" {
@@ -203,7 +212,7 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		policy := getDefaultCSP()
 		policy.Add("script-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
 		policy.Add("style-src", fmt.Sprintf("'nonce-%s'", nonce), csp.UnsafeInline)
-		policy.Add("report-uri", s.AbsoluteURL(r, "/logger/csp-report").String())
+		policy.Add("report-uri", urls.AbsoluteURL(r, "/logger/csp-report").String())
 
 		policy.Write(w.Header())
 		permissionspolicy.DefaultPolicy.Write(w.Header())
@@ -213,17 +222,17 @@ func (s *Server) SetSecurityHeaders(next http.Handler) http.Handler {
 		w.Header().Add("X-XSS-Protection", "1; mode=block")
 		w.Header().Add("X-Robots-Tag", "noindex, nofollow, noarchive")
 
-		ctx := context.WithValue(r.Context(), ctxCSPNonceKey{}, nonce)
-		ctx = context.WithValue(ctx, ctxCSPKey{}, policy)
+		ctx := withCSPNonce(r.Context(), nonce)
+		ctx = withCSP(ctx, policy)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
 
-func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
+func cspReportHandler(w http.ResponseWriter, r *http.Request) {
 	report := cspReport{}
 	dec := json.NewDecoder(r.Body)
 	if err := dec.Decode(&report); err != nil {
-		s.Log(r).Error("server error", slog.Any("err", err))
+		Log(r).Error("server error", slog.Any("err", err))
 		return
 	}
 
@@ -231,7 +240,7 @@ func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
 	for k, v := range report.Report {
 		attrs = append(attrs, slog.Any(k, v))
 	}
-	s.Log(r).WithGroup("report").LogAttrs(
+	Log(r).WithGroup("report").LogAttrs(
 		context.Background(),
 		slog.LevelWarn,
 		"CSP violation",
@@ -243,8 +252,8 @@ func (s *Server) cspReport(w http.ResponseWriter, r *http.Request) {
 
 // unauthorizedHandler is a handler used by the session authentication provider.
 // It sends different responses based on the context.
-func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
-	unauthorizedCtx, _ := r.Context().Value(ctxUnauthorizedKey{}).(int)
+func unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
+	unauthorizedCtx, _ := getUnauthorized(r.Context())
 
 	switch unauthorizedCtx {
 	case unauthorizedDefault:
@@ -255,16 +264,16 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "Unauthorized")
 	case unauthorizedRedir:
 		if !configs.Config.Commissioned {
-			s.Redirect(w, r, "/onboarding")
+			Redirect(w, r, "/onboarding")
 			return
 		}
 
-		redir := s.AbsoluteURL(r, "/login")
+		redir := urls.AbsoluteURL(r, "/login")
 
 		// Add the current path as a redirect query parameter
 		// to the login route
 		q := redir.Query()
-		q.Add("r", s.CurrentPath(r))
+		q.Add("r", urls.CurrentPath(r))
 		redir.RawQuery = q.Encode()
 
 		w.Header().Set("Location", redir.String())
@@ -273,9 +282,9 @@ func (s *Server) unauthorizedHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // WithRedirectLogin sets the unauthorized handler to redirect to the login page.
-func (s *Server) WithRedirectLogin(next http.Handler) http.Handler {
+func WithRedirectLogin(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		ctx := context.WithValue(r.Context(), ctxUnauthorizedKey{}, unauthorizedRedir)
+		ctx := withUnauthorized(r.Context(), unauthorizedRedir)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }

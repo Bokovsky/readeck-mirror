@@ -65,7 +65,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          class="link ml-auto">{{ yield icon(name="o-help") }}
         {{ gettext("Documentation") }}</a>
       </p>
-      <form action="{{ urlFor() }}?edit=1" method="post">
+      <form action="{{ urlFor(`?edit=1`) }}" method="post">
         {{ yield formErrors(form=.Form) }}
         {{ yield csrfField() }}
 

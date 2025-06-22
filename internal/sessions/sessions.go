@@ -8,6 +8,8 @@
 package sessions
 
 import (
+	"hash"
+	"io"
 	"net/http"
 	"strconv"
 	"time"
@@ -75,9 +77,9 @@ func (s *Session) AddFlash(typ, msg string) {
 	s.Payload.Flashes = append(s.Payload.Flashes, FlashMessage{typ, msg})
 }
 
-// GetSumStrings implements Etager interface.
-func (s *Session) GetSumStrings() []string {
-	return []string{strconv.FormatInt(s.Payload.LastUpdate.Unix(), 10)}
+// UpdateEtag implements [server.Etagger] interface.
+func (s *Session) UpdateEtag(h hash.Hash) {
+	io.WriteString(h, strconv.FormatInt(s.Payload.LastUpdate.UTC().UnixNano(), 10))
 }
 
 // GetLastModified implement LastModer interface.

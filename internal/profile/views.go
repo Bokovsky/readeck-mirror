@@ -14,6 +14,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -25,26 +26,26 @@ type profileViews struct {
 
 // newProfileViews returns an new instance of ProfileViews.
 func newProfileViews(api *profileAPI) *profileViews {
-	r := api.srv.AuthenticatedRouter(api.srv.WithRedirectLogin)
+	r := server.AuthenticatedRouter(server.WithRedirectLogin)
 	v := &profileViews{r, api}
 
-	r.With(api.srv.WithPermission("profile", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.userProfile)
 		r.Get("/password", v.userPassword)
 	})
 
-	r.With(api.srv.WithPermission("profile", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
 		r.Post("/session", v.userSession)
 	})
 
-	r.With(api.srv.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
 		r.With(api.withTokenList).Get("/tokens", v.tokenList)
 		r.With(api.withToken).Get("/tokens/{uid}", v.tokenInfo)
 	})
 
-	r.With(api.srv.WithPermission("profile:tokens", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("profile:tokens", "write")).Group(func(r chi.Router) {
 		r.Post("/tokens", v.tokenCreate)
 		r.With(api.withToken).Post("/tokens/{uid}", v.tokenInfo)
 		r.With(api.withToken).Post("/tokens/{uid}/delete", v.tokenDelete)
@@ -55,23 +56,23 @@ func newProfileViews(api *profileAPI) *profileViews {
 
 // userProfile handles GET and POST requests on /profile.
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
-	tr := v.srv.Locale(r)
+	tr := server.Locale(r)
 	user := auth.GetRequestUser(r)
-	f := newProfileForm(v.srv.Locale(r))
+	f := newProfileForm(server.Locale(r))
 	f.setUser(user)
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if _, err := f.updateUser(user); err != nil {
-				v.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does that already.
-				sess := v.srv.GetSession(r)
+				sess := server.GetSession(r)
 				sess.Payload.Seed = user.Seed
-				v.srv.AddFlash(w, r, "success", tr.Gettext("Profile updated."))
-				v.srv.Redirect(w, r, "profile")
+				server.AddFlash(w, r, "success", tr.Gettext("Profile updated."))
+				server.Redirect(w, r, "profile")
 				return
 			}
 		}
@@ -86,12 +87,12 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 		{tr.Gettext("Profile")},
 	})
 
-	v.srv.RenderTemplate(w, r, 200, "profile/index", ctx)
+	server.RenderTemplate(w, r, 200, "profile/index", ctx)
 }
 
 // userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
-	tr := v.srv.Locale(r)
+	tr := server.Locale(r)
 	f := newPasswordForm(tr)
 
 	if r.Method == http.MethodPost {
@@ -100,14 +101,14 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if err := f.updatePassword(user); err != nil {
-				v.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// Set the new seed in the session.
 				// We needn't save the session since AddFlash does it already.
-				sess := v.srv.GetSession(r)
+				sess := server.GetSession(r)
 				sess.Payload.Seed = user.Seed
-				v.srv.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
-				v.srv.Redirect(w, r, "password")
+				server.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
+				server.Redirect(w, r, "password")
 				return
 			}
 		}
@@ -118,10 +119,10 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 		"Form": f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
 		{tr.Gettext("Password")},
 	})
-	v.srv.RenderTemplate(w, r, 200, "profile/password", ctx)
+	server.RenderTemplate(w, r, 200, "profile/password", ctx)
 }
 
 // userSession handles changes of user session preferences.
@@ -130,43 +131,43 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
 	p, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider)
 	if !ok {
-		v.srv.TextMessage(w, r, http.StatusBadRequest, "invalid authentication provider")
+		server.TextMsg(w, r, http.StatusBadRequest, "invalid authentication provider")
 		return
 	}
 
-	f := newSessionPrefForm(v.srv.Locale(r))
+	f := newSessionPrefForm(server.Locale(r))
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
-		v.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	sess := p.GetSession(r)
 	updated, err := f.updateSession(sess.Payload)
 	if err != nil {
-		v.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
 	sess.Save(w, r)
-	v.srv.Render(w, r, http.StatusOK, updated)
+	server.Render(w, r, http.StatusOK, updated)
 }
 
 func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
 	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
-	tr := v.srv.Locale(r)
+	tr := server.Locale(r)
 
 	ctx := server.TC{
 		"Pagination": tl.Pagination,
 		"Tokens":     tl.Items,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
 		{tr.Gettext("API Tokens")},
 	})
 
-	v.srv.RenderTemplate(w, r, 200, "profile/token_list", ctx)
+	server.RenderTemplate(w, r, 200, "profile/token_list", ctx)
 }
 
 func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
@@ -175,22 +176,22 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 		IsEnabled:   true,
 		Application: "internal",
 	}
-	tr := v.srv.Locale(r)
+	tr := server.Locale(r)
 	if err := tokens.Tokens.Create(t); err != nil {
-		v.srv.Log(r).Error("server error", slog.Any("err", err))
-		v.srv.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your token."))
-		v.srv.Redirect(w, r, "tokens")
+		server.Log(r).Error("server error", slog.Any("err", err))
+		server.AddFlash(w, r, "error", tr.Gettext("An error occurred while creating your token."))
+		server.Redirect(w, r, "tokens")
 		return
 	}
 
-	v.srv.AddFlash(w, r, "success", tr.Gettext("New token created."))
-	v.srv.Redirect(w, r, ".", t.UID)
+	server.AddFlash(w, r, "success", tr.Gettext("New token created."))
+	server.Redirect(w, r, ".", t.UID)
 }
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
-	tr := v.srv.Locale(r)
+	tr := server.Locale(r)
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-	f := newTokenForm(v.srv.Locale(r), auth.GetRequestUser(r))
+	f := newTokenForm(server.Locale(r), auth.GetRequestUser(r))
 
 	if r.Method == http.MethodGet {
 		f.setToken(ti.Token)
@@ -200,10 +201,10 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		forms.Bind(f, r)
 		if f.IsValid() {
 			if err := f.updateToken(ti.Token); err != nil {
-				v.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
-				v.srv.AddFlash(w, r, "success", tr.Gettext("Token was updated."))
-				v.srv.Redirect(w, r, ti.UID)
+				server.AddFlash(w, r, "success", tr.Gettext("Token was updated."))
+				server.Redirect(w, r, ti.UID)
 				return
 			}
 		}
@@ -212,7 +213,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 
 	token, err := tokens.EncodeToken(ti.UID)
 	if err != nil {
-		v.srv.Status(w, r, http.StatusInternalServerError)
+		server.Status(w, r, http.StatusInternalServerError)
 		return
 	}
 
@@ -222,24 +223,24 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		"Form":    f,
 	}
 	ctx.SetBreadcrumbs([][2]string{
-		{tr.Gettext("Profile"), v.srv.AbsoluteURL(r, "/profile").String()},
-		{tr.Gettext("API Tokens"), v.srv.AbsoluteURL(r, "/profile/tokens").String()},
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("API Tokens"), urls.AbsoluteURL(r, "/profile/tokens").String()},
 		{ti.UID},
 	})
 
-	v.srv.RenderTemplate(w, r, 200, "profile/token", ctx)
+	server.RenderTemplate(w, r, 200, "profile/token", ctx)
 }
 
 func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
-	f := newDeleteTokenForm(v.srv.Locale(r))
+	f := newDeleteTokenForm(server.Locale(r))
 	f.Get("_to").Set("/profile/tokens")
 	forms.Bind(f, r)
 
 	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
 
 	if err := f.trigger(ti.Token); err != nil {
-		v.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
-	v.srv.Redirect(w, r, f.Get("_to").String())
+	server.Redirect(w, r, f.Get("_to").String())
 }

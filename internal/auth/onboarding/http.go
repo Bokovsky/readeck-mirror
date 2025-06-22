@@ -27,8 +27,8 @@ func SetupRoutes(s *server.Server) {
 
 	r := chi.NewRouter()
 	r.Use(
-		s.WithSession(),
-		s.Csrf,
+		server.WithSession(),
+		server.Csrf,
 	)
 
 	h := &viewHandler{r, s}
@@ -45,33 +45,33 @@ type viewHandler struct {
 func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 	count, err := users.Users.Count()
 	if err != nil {
-		h.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 	if count > 0 {
 		// Double check that there's no user yet.
-		h.srv.Redirect(w, r, "/login")
+		server.Redirect(w, r, "/login")
 		return
 	}
 
-	f := newOnboardingForm(h.srv.Locale(r))
+	f := newOnboardingForm(server.Locale(r))
 
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
-			user, err := f.createUser(h.srv.Locale(r).Tag.String())
+			user, err := f.createUser(server.Locale(r).Tag.String())
 			if err != nil {
-				h.srv.Log(r).Error("", slog.Any("err", err))
+				server.Log(r).Error("", slog.Any("err", err))
 			} else {
 				// All good, create a new session for the user
 				configs.Config.Commissioned = true
 
-				sess := h.srv.GetSession(r)
+				sess := server.GetSession(r)
 				sess.Payload.User = user.ID
 				sess.Payload.Seed = user.Seed
 				sess.Save(w, r)
 
-				h.srv.Redirect(w, r, "/")
+				server.Redirect(w, r, "/")
 				return
 			}
 		}
@@ -82,5 +82,5 @@ func (h *viewHandler) onboarding(w http.ResponseWriter, r *http.Request) {
 		"Form": f,
 	}
 
-	h.srv.RenderTemplate(w, r, http.StatusOK, "auth/onboarding", ctx)
+	server.RenderTemplate(w, r, http.StatusOK, "auth/onboarding", ctx)
 }

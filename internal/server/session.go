@@ -5,7 +5,6 @@
 package server
 
 import (
-	"context"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -14,7 +13,9 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
@@ -23,14 +24,19 @@ type (
 	ctxFlashKey   struct{}
 )
 
+var (
+	withSession, getSession             = ctxr.WithChecker[*sessions.Session](ctxSessionKey{})
+	withFlashMessages, getFlashMessages = ctxr.WithChecker[[]sessions.FlashMessage](ctxFlashKey{})
+)
+
 var sessionHandler *securecookie.Handler
 
 // InitSession creates the session handler.
-func (s *Server) InitSession() (err error) {
+func InitSession() (err error) {
 	// Create the session handler
 	sessionHandler = securecookie.NewHandler(
 		securecookie.Key(configs.Keys.SessionKey()),
-		securecookie.WithPath(path.Join(s.BasePath)),
+		securecookie.WithPath(path.Join(urls.Prefix())),
 		securecookie.WithMaxAge(configs.Config.Server.Session.MaxAge),
 		securecookie.WithName(configs.Config.Server.Session.CookieName),
 	)
@@ -40,7 +46,7 @@ func (s *Server) InitSession() (err error) {
 
 // WithSession initialize a session handler that will be available
 // on the included routes.
-func (s *Server) WithSession() func(next http.Handler) http.Handler {
+func WithSession() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Store session
@@ -51,7 +57,7 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 
 			// Add session to context
 			ctx := r.Context()
-			ctx = context.WithValue(ctx, ctxSessionKey{}, session)
+			ctx = withSession(ctx, session)
 
 			// If auth provider is not [auth.SessionAuthProvider], we're done
 			if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); !ok {
@@ -68,7 +74,7 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 			// Pop messages and store then. We must do it before
 			// anything is sent to the client.
 			flashes := session.Flashes()
-			ctx = context.WithValue(ctx, ctxFlashKey{}, flashes)
+			ctx = withFlashMessages(ctx, flashes)
 			if len(flashes) > 0 {
 				session.Save(w, r)
 			}
@@ -81,25 +87,25 @@ func (s *Server) WithSession() func(next http.Handler) http.Handler {
 // GetSession returns the session currently stored in context.
 // It will panic (on purpose) if the route is not using the
 // WithSession() middleware.
-func (s *Server) GetSession(r *http.Request) *sessions.Session {
-	if sess, ok := r.Context().Value(ctxSessionKey{}).(*sessions.Session); ok {
+func GetSession(r *http.Request) *sessions.Session {
+	if sess, ok := getSession(r.Context()); ok {
 		return sess
 	}
 	return nil
 }
 
 // AddFlash saves a flash message in the session.
-func (s *Server) AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
-	session := s.GetSession(r)
+func AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
+	session := GetSession(r)
 	session.AddFlash(typ, msg)
 	return session.Save(w, r)
 }
 
 // Flashes returns the flash messages retrieved from the session
 // in the session middleware.
-func (s *Server) Flashes(r *http.Request) []sessions.FlashMessage {
-	if msgs := r.Context().Value(ctxFlashKey{}); msgs != nil {
-		return msgs.([]sessions.FlashMessage)
+func Flashes(r *http.Request) []sessions.FlashMessage {
+	if msgs, ok := getFlashMessages(r.Context()); ok && msgs != nil {
+		return msgs
 	}
 	return make([]sessions.FlashMessage, 0)
 }

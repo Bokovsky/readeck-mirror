@@ -29,7 +29,7 @@ var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)
 // SetupRoutes setup the static asset routes on /assets.
 func SetupRoutes(s *server.Server) {
 	s.AddRoute("/assets", serveAssets())
-	s.AddRoute("/assets/rnd/{name}.svg", randomSvg(s))
+	s.AddRoute("/assets/rnd/{name}.svg", randomSvg())
 }
 
 func serveAssets() http.HandlerFunc {

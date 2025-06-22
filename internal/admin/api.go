@@ -17,6 +17,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -33,15 +34,15 @@ type adminAPI struct {
 }
 
 func newAdminAPI(s *server.Server) *adminAPI {
-	r := s.AuthenticatedRouter()
+	r := server.AuthenticatedRouter()
 	api := &adminAPI{r, s}
 
-	r.With(api.srv.WithPermission("api:admin:users", "read")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:admin:users", "read")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Get("/users", api.userList)
 		r.With(api.withUser).Get("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userInfo)
 	})
 
-	r.With(api.srv.WithPermission("api:admin:users", "write")).Group(func(r chi.Router) {
+	r.With(server.WithPermission("api:admin:users", "write")).Group(func(r chi.Router) {
 		r.With(api.withUserList).Post("/users", api.userCreate)
 		r.With(api.withUser).Patch("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userUpdate)
 		r.With(api.withUser).Delete("/users/{uid:[a-zA-Z0-9]{18,22}}", api.userDelete)
@@ -54,9 +55,9 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		res := userList{}
 
-		pf := api.srv.GetPageParams(r, 50)
+		pf := server.GetPageParams(r, 50)
 		if pf == nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
@@ -69,20 +70,20 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 		var err error
 		if count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
 			if errors.Is(err, users.ErrNotFound) {
-				api.srv.TextMessage(w, r, http.StatusNotFound, "not found")
+				server.TextMsg(w, r, http.StatusNotFound, "not found")
 			} else {
-				api.srv.Error(w, r, err)
+				server.Err(w, r, err)
 			}
 			return
 		}
 
 		res.items = []*users.User{}
 		if err = ds.ScanStructs(&res.items); err != nil {
-			api.srv.Error(w, r, err)
+			server.Err(w, r, err)
 			return
 		}
 
-		res.Pagination = api.srv.NewPagination(r, int(count), pf.Limit(), pf.Offset())
+		res.Pagination = server.NewPagination(r, int(count), pf.Limit(), pf.Offset())
 
 		ctx := context.WithValue(r.Context(), ctxUserListKey{}, res)
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -97,7 +98,7 @@ func (api *adminAPI) withUser(next http.Handler) http.Handler {
 			goqu.C("uid").Eq(userid),
 		)
 		if err != nil {
-			api.srv.Status(w, r, http.StatusNotFound)
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
 
@@ -123,57 +124,57 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 	ul := r.Context().Value(ctxUserListKey{}).(userList)
 	ul.Items = make([]userItem, len(ul.items))
 	for i, item := range ul.items {
-		ul.Items[i] = newUserItem(api.srv, r, item, ".")
+		ul.Items[i] = newUserItem(r, item, ".")
 	}
 
-	api.srv.SendPaginationHeaders(w, r, ul.Pagination)
-	api.srv.Render(w, r, http.StatusOK, ul.Items)
+	server.SendPaginationHeaders(w, r, ul.Pagination)
+	server.Render(w, r, http.StatusOK, ul.Items)
 }
 
 func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
-	item := newUserItem(api.srv, r, u, "./..")
+	item := newUserItem(r, u, "./..")
 	item.Settings = u.Settings
 
-	api.srv.Render(w, r, http.StatusOK, item)
+	server.Render(w, r, http.StatusOK, item)
 }
 
 func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm(api.srv.Locale(r))
+	f := users.NewUserForm(server.Locale(r))
 	forms.Bind(f, r)
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	u, err := f.CreateUser()
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
 
-	w.Header().Set("Location", api.srv.AbsoluteURL(r, ".", u.UID).String())
-	api.srv.TextMessage(w, r, http.StatusCreated, "User created")
+	w.Header().Set("Location", urls.AbsoluteURL(r, ".", u.UID).String())
+	server.TextMsg(w, r, http.StatusCreated, "User created")
 }
 
 func (api *adminAPI) userUpdate(w http.ResponseWriter, r *http.Request) {
-	f := users.NewUserForm(api.srv.Locale(r))
+	f := users.NewUserForm(server.Locale(r))
 
 	u := r.Context().Value(ctxUserKey{}).(*users.User)
 	f.SetUser(u)
 
 	forms.Bind(f, r)
 	if !f.IsValid() {
-		api.srv.Render(w, r, http.StatusUnprocessableEntity, f)
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
 	updated, err := f.UpdateUser(u)
 	if err != nil {
-		api.srv.Error(w, r, err)
+		server.Err(w, r, err)
 		return
 	}
-	api.srv.Render(w, r, http.StatusOK, updated)
+	server.Render(w, r, http.StatusOK, updated)
 }
 
 func (api *adminAPI) userDelete(w http.ResponseWriter, r *http.Request) {
@@ -181,15 +182,15 @@ func (api *adminAPI) userDelete(w http.ResponseWriter, r *http.Request) {
 
 	err := api.deleteUser(r, u)
 	if err == nil {
-		api.srv.Status(w, r, http.StatusNoContent)
+		server.Status(w, r, http.StatusNoContent)
 		return
 	}
 	if errors.Is(err, errSameUser) {
-		api.srv.TextMessage(w, r, http.StatusConflict, err.Error())
+		server.TextMsg(w, r, http.StatusConflict, err.Error())
 		return
 	}
 
-	api.srv.Error(w, r, err)
+	server.Err(w, r, err)
 }
 
 type userList struct {
@@ -210,10 +211,10 @@ type userItem struct {
 	IsDeleted bool                `json:"is_deleted"`
 }
 
-func newUserItem(s *server.Server, r *http.Request, u *users.User, base string) userItem {
+func newUserItem(r *http.Request, u *users.User, base string) userItem {
 	return userItem{
 		ID:        u.UID,
-		Href:      s.AbsoluteURL(r, base, u.UID).String(),
+		Href:      urls.AbsoluteURL(r, base, u.UID).String(),
 		Created:   u.Created,
 		Updated:   u.Updated,
 		Username:  u.Username,
