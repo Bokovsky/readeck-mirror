@@ -182,7 +182,7 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := exporter.Export(context.Background(), w, r, items); err != nil {
+	if err := exporter.Export(r.Context(), w, r, items); err != nil {
 		server.Err(w, r, err)
 	}
 }

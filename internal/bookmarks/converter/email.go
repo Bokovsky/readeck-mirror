@@ -48,9 +48,10 @@ func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailEx
 // It create an email with a text/plan and text/html version and attaches images
 // as inline resources.
 func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList []*bookmarks.Bookmark) error {
+	ctx = server.WithRequest(ctx, r)
 	b := bookmarkList[0]
 
-	tc, err := e.getTemplateContext(ctx, r, b)
+	tc, err := e.getTemplateContext(ctx, b)
 	if err != nil {
 		return err
 	}
@@ -116,7 +117,7 @@ func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 	return email.Sender.SendEmail(msg)
 }
 
-func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, r *http.Request, b *bookmarks.Bookmark) (map[string]any, error) {
+func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *bookmarks.Bookmark) (map[string]any, error) {
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
 			return "cid:" + e.cidPrefix + "." + path.Base(name)
@@ -137,7 +138,7 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, r *http.Reque
 		"HTML":    html,
 		"Item":    b,
 		"Image":   image,
-		"SiteURL": urls.AbsoluteURL(r, "/").String(),
+		"SiteURL": urls.AbsoluteURL(server.GetRequest(ctx), "/").String(),
 	}, nil
 }
 

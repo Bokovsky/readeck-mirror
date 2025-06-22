@@ -133,7 +133,7 @@ func initTemplates() {
 // TemplateVars returns the default variables set for a template
 // in the request's context.
 func TemplateVars(r *http.Request) jet.VarMap {
-	cspNonce, _ := r.Context().Value(ctxCSPNonceKey{}).(string)
+	cspNonce, _ := getCSPNonce(r.Context())
 	tr := Locale(r)
 
 	user := auth.GetRequestUser(r)

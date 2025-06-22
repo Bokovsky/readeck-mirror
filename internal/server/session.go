@@ -5,7 +5,6 @@
 package server
 
 import (
-	"context"
 	"errors"
 	"log/slog"
 	"net/http"
@@ -16,12 +15,18 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 type (
 	ctxSessionKey struct{}
 	ctxFlashKey   struct{}
+)
+
+var (
+	withSession, getSession             = ctxr.WithChecker[*sessions.Session](ctxSessionKey{})
+	withFlashMessages, getFlashMessages = ctxr.WithChecker[[]sessions.FlashMessage](ctxFlashKey{})
 )
 
 var sessionHandler *securecookie.Handler
@@ -52,7 +57,7 @@ func WithSession() func(next http.Handler) http.Handler {
 
 			// Add session to context
 			ctx := r.Context()
-			ctx = context.WithValue(ctx, ctxSessionKey{}, session)
+			ctx = withSession(ctx, session)
 
 			// If auth provider is not [auth.SessionAuthProvider], we're done
 			if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); !ok {
@@ -69,7 +74,7 @@ func WithSession() func(next http.Handler) http.Handler {
 			// Pop messages and store then. We must do it before
 			// anything is sent to the client.
 			flashes := session.Flashes()
-			ctx = context.WithValue(ctx, ctxFlashKey{}, flashes)
+			ctx = withFlashMessages(ctx, flashes)
 			if len(flashes) > 0 {
 				session.Save(w, r)
 			}
@@ -83,7 +88,7 @@ func WithSession() func(next http.Handler) http.Handler {
 // It will panic (on purpose) if the route is not using the
 // WithSession() middleware.
 func GetSession(r *http.Request) *sessions.Session {
-	if sess, ok := r.Context().Value(ctxSessionKey{}).(*sessions.Session); ok {
+	if sess, ok := getSession(r.Context()); ok {
 		return sess
 	}
 	return nil
@@ -99,8 +104,8 @@ func AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
 // Flashes returns the flash messages retrieved from the session
 // in the session middleware.
 func Flashes(r *http.Request) []sessions.FlashMessage {
-	if msgs := r.Context().Value(ctxFlashKey{}); msgs != nil {
-		return msgs.([]sessions.FlashMessage)
+	if msgs, ok := getFlashMessages(r.Context()); ok && msgs != nil {
+		return msgs
 	}
 	return make([]sessions.FlashMessage, 0)
 }
