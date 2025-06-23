@@ -47,7 +47,7 @@ jobs:
         run: |
           tar cf - \
           --exclude="ftr-site-config" \
-          --exclude="data*" \
+          --exclude="./data*" \
           --exclude="node_modules" \
           ./ | tar xf - -C /workspace/workdir
 
