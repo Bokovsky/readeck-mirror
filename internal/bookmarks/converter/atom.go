@@ -21,7 +21,13 @@ import (
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/atom"
 	"codeberg.org/readeck/readeck/pkg/base58"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 )
+
+type ctxAtomStylesheetKey struct{}
+
+// WithAtomStylesheet sets an XSL stylesheet URL to the context.
+var WithAtomStylesheet, checkAtomStylesheet = ctxr.WithChecker[string](ctxAtomStylesheetKey{})
 
 // AtomExporter is an [Exporter] that produces an Atom feed.
 type AtomExporter struct {
@@ -58,7 +64,7 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 	feed := &atom.Feed{
 		Xmlns:    atom.NS,
 		ID:       uuid.NewSHA1(uuid.NameSpaceURL, []byte(selfURL)).URN(),
-		Title:    "Readeck",
+		Title:    "Readeck's Bookmarks",
 		Subtitle: "Readeck's Bookmarks",
 		Updated:  atom.Time(mtimes[0]),
 		Link: []*atom.Link{
@@ -74,6 +80,11 @@ func (e AtomExporter) Export(ctx context.Context, w io.Writer, r *http.Request, 
 			},
 		},
 		Icon: urls.AssetURL(r, "img/fi/favicon.ico").String(),
+	}
+
+	// Add stylesheet if any
+	if s, ok := checkAtomStylesheet(ctx); ok {
+		feed.Stylesheet = s
 	}
 
 	feed.Entries = make([]*atom.Entry, len(bookmarkList.Items))
