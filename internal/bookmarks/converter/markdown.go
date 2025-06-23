@@ -49,7 +49,7 @@ var html2md = converter.NewConverter(
 	),
 )
 
-// MarkdownExporter is an content exporter that produces markdown.
+// MarkdownExporter is a content exporter that produces markdown.
 type MarkdownExporter struct {
 	dataset.HTMLConverter
 }

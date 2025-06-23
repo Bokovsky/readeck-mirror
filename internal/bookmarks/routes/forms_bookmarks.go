@@ -313,6 +313,36 @@ func (f *deleteForm) trigger(b *bookmarks.Bookmark) error {
 	return tasks.DeleteBookmarkTask.Run(b.ID, b.ID)
 }
 
+type syncListForm struct {
+	*forms.Form
+}
+
+func newSyncListForm(tr forms.Translator) *syncListForm {
+	return &syncListForm{
+		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewDatetimeField("since"),
+		),
+	}
+}
+
+type syncForm struct {
+	*forms.Form
+}
+
+func newSyncForm(tr forms.Translator) *syncForm {
+	return &syncForm{
+		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewTextListField("id"),
+			forms.NewBooleanField("with_json"),
+			forms.NewBooleanField("with_html"),
+			forms.NewBooleanField("with_resources"),
+			forms.NewTextField("resource_prefix"),
+		),
+	}
+}
+
 type labelForm struct {
 	*forms.Form
 }
