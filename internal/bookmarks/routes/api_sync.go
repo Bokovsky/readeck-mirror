@@ -13,6 +13,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -27,16 +28,25 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ds := bookmarks.Bookmarks.Query().
-		Select("b.uid", "b.updated").
-		Where(goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID)).
-		Order(
-			goqu.I("updated").Desc(),
-			goqu.I("created").Desc(),
-		)
+		Select("b.uid", goqu.C("updated").Table("b").As("time"), goqu.V("update").As("type")).
+		Where(goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID))
 
 	if !f.Get("since").IsEmpty() {
-		ds = ds.Where(goqu.C("updated").Gte(f.Get("since").Value()))
+		// When querying with ?since=, we perform a union with bookmark_removed
+		// to build some kind of update/delete log.
+		ds = ds.Where(goqu.C("updated").Table("b").Gte(f.Get("since").(*forms.DatetimeField).V().UTC()))
+		ds = ds.Union(
+			db.Q().
+				From(goqu.T(bookmarks.TableNameRemoved).As("b")).
+				Select("b.uid", goqu.C("deleted").Table("b").As("time"), goqu.V("delete").As("type")).
+				Where(
+					goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
+					goqu.C("deleted").Table("b").Gte(f.Get("since").(*forms.DatetimeField).V().UTC()),
+				),
+		)
 	}
+
+	ds = ds.Order(goqu.C("time").Desc())
 
 	bl, err := dataset.NewBookmarkSyncList(r.Context(), ds)
 	if err != nil {
@@ -44,7 +54,11 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	server.Render(w, r, http.StatusOK, bl)
+	server.WriteEtag(w, r, bl)
+	server.WriteLastModified(w, r, bl)
+	if !server.HandleCaching(w, r) {
+		server.Render(w, r, http.StatusOK, bl)
+	}
 }
 
 func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
