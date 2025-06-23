@@ -29,6 +29,7 @@ var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)
 // SetupRoutes setup the static asset routes on /assets.
 func SetupRoutes(s *server.Server) {
 	s.AddRoute("/assets", serveAssets())
+	s.AddRoute("/assets/feed.xsl", serverFeedXsl())
 	s.AddRoute("/assets/rnd/{name}.svg", randomSvg())
 }
 
@@ -48,6 +49,19 @@ func serveAssets() http.HandlerFunc {
 
 		fs.ServeHTTP(w, r2)
 	}
+}
+
+func serverFeedXsl() http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			server.WriteLastModified(w, r, nil)
+			server.WriteEtag(w, r, nil)
+			server.WithCaching(next).ServeHTTP(w, r)
+		})
+	}(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/xml")
+		server.RenderTemplate(w, r, http.StatusOK, "xsl/feed.jet.xsl", nil)
+	}))
 }
 
 var canditateEncodings = [][2]string{

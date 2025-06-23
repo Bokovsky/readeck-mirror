@@ -52,7 +52,9 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request,
 		return
 	}
 
-	w.Header().Set("content-type", "text/html; charset=utf-8")
+	if w.Header().Get("content-type") == "" {
+		w.Header().Set("content-type", "text/html; charset=utf-8")
+	}
 	w.WriteHeader(status)
 
 	if err = t.Execute(w, TemplateVars(r), ctx); err != nil {

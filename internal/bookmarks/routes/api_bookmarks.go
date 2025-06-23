@@ -28,6 +28,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/annotate"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/http/csp"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
@@ -121,6 +122,18 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 			return urls.AbsoluteURL(r, "/bm", b.FilePath, name).String()
 		}
 	})
+
+	if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); ok {
+		// Add an XSL stylesheet.
+		ctx = converter.WithAtomStylesheet(ctx, urls.PathOnly(urls.AbsoluteURL(r, "/assets/feed.xsl")))
+
+		// The stylesheet is considered a script by browsers,
+		// so we need to relax the CSP for it to work.
+		policy := server.GetCSPHeader(r).Clone()
+		policy.Set("style-src", csp.Self)
+		policy.Set("script-src", csp.Self)
+		policy.Write(w.Header())
+	}
 
 	if err := converter.NewAtomExporter().Export(ctx, w, r, bl); err != nil {
 		server.Err(w, r, err)

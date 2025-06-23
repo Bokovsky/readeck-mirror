@@ -8,6 +8,7 @@ package atom
 
 import (
 	"encoding/xml"
+	"fmt"
 	"io"
 	"time"
 )
@@ -15,8 +16,8 @@ import (
 const (
 	// NS is the Atom namespace.
 	NS = "http://www.w3.org/2005/Atom"
-	// MimeType is the Atom mime type.
-	MimeType = "application/atom+xml"
+	// MimeType is the Atom mime type. We use application/xml here so it can be showd in a browser.
+	MimeType = "application/xml"
 )
 
 // Time returns an RFC3339 formatted time.
@@ -90,6 +91,7 @@ type Link struct {
 type Feed struct {
 	XMLName     xml.Name `xml:"feed"`
 	Xmlns       string   `xml:"xmlns,attr"`
+	Stylesheet  string   `xml:"-"`
 	Title       string   `xml:"title"`   // required
 	ID          string   `xml:"id"`      // required
 	Updated     string   `xml:"updated"` // required
@@ -106,9 +108,18 @@ type Feed struct {
 
 // WriteXML writes the Atom feed as XML into the given [io.Writer].
 func (f *Feed) WriteXML(w io.Writer) error {
-	if _, err := w.Write([]byte(xml.Header[:len(xml.Header)-1])); err != nil {
+	if _, err := io.WriteString(w, xml.Header); err != nil {
 		return err
 	}
+
+	if f.Stylesheet != "" {
+		if _, err := fmt.Fprintf(w,
+			`<?xml-stylesheet type="text/xsl" href="%s"?>`+"\n", f.Stylesheet,
+		); err != nil {
+			return err
+		}
+	}
+
 	e := xml.NewEncoder(w)
 	e.Indent("", "  ")
 	return e.Encode(f)

@@ -27,7 +27,7 @@ const varPalette = (name) => {
 var config = {
   content: [
     "src/**/*.js",
-    "../assets/templates/**/*.jet.html",
+    "../assets/templates/**/*.jet.*",
   ],
   darkMode: "class",
   theme: {
