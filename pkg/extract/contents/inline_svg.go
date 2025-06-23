@@ -29,6 +29,12 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 		buf := new(bytes.Buffer)
 		buf.WriteString(`<?xml version="1.0" encoding="UTF-8"?>`)
 		buf.WriteString("\n")
+
+		// Ensure that the element is recognized as SVG by XML-compatible parsers
+		if dom.GetAttribute(n, "xmlns") == "" {
+			dom.SetAttribute(n, "xmlns", "http://www.w3.org/2000/svg")
+		}
+
 		err := html.Render(buf, n)
 		if err != nil {
 			m.Log().Error("", slog.Any("err", err))
