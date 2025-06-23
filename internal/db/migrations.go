@@ -99,4 +99,5 @@ var migrationList = []migrationEntry{
 	newMigrationEntry(17, "user_uid", migrations.M17useruid),
 	newMigrationEntry(18, "auth_last_used", applyMigrationFile("18_auth_last_used.sql")),
 	newMigrationEntry(19, "bookmark_text_normalization", migrations.M19bookmarkTextNormalization),
+	newMigrationEntry(20, "bookmark_removed", applyMigrationFile("20_bookmark_removed.sql")),
 }

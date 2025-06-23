@@ -49,6 +49,8 @@ const (
 const (
 	// TableName is the bookmark table name in database.
 	TableName = "bookmark"
+	// TableNameRemoved is the removed bookmarks table name in database.
+	TableNameRemoved = "bookmark_removed"
 )
 
 // StateNames returns a string with the state name.
