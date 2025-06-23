@@ -5,6 +5,7 @@ go 1.24
 toolchain go1.24.4
 
 require (
+	codeberg.org/readeck/go-readability v0.0.0-20250624161939-2b59a52ff7d6
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.3.3
 	github.com/antchfx/htmlquery v1.3.4
@@ -22,7 +23,6 @@ require (
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
-	github.com/go-shiori/go-readability v0.0.0-20250217085726-9f5bf5ca7612
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.17
