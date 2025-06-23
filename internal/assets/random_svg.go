@@ -5,7 +5,6 @@
 package assets
 
 import (
-	"context"
 	"fmt"
 	"hash"
 	"io"
@@ -21,8 +20,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
-
-type ctxNameKey struct{}
 
 const svgGradient = `<?xml version="1.0" encoding="UTF-8"?>` +
 	`<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1024 576" width="1024" height="576">` +
@@ -54,40 +51,34 @@ func (r *random) GetLastModified() []time.Time {
 
 // randomSvg sends an SVG image with a gradient. The gradient's color
 // is based on the name.
-func randomSvg() http.Handler {
-	withHashCode := func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			name := chi.URLParam(r, "name")
-			data := uint64(0)
-			for _, b := range []byte(name) {
-				data = (data << 8) | uint64(b)
-			}
-
-			rd := newRandom(data)
-			ctx := context.WithValue(r.Context(), ctxNameKey{}, rd)
-
-			server.WriteEtag(w, r, rd)
-			server.WriteLastModified(w, r, rd)
-			csp.Policy{
-				"base-uri":    {csp.None},
-				"default-src": {csp.None},
-			}.Write(w.Header())
-			server.WithCaching(next).ServeHTTP(w, r.WithContext(ctx))
-		})
+func randomSvg(w http.ResponseWriter, r *http.Request) {
+	name := chi.URLParam(r, "name")
+	data := uint64(0)
+	for _, b := range []byte(name) {
+		data = (data << 8) | uint64(b)
 	}
 
-	return withHashCode(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		rd := r.Context().Value(ctxNameKey{}).(*random)
+	rd := newRandom(data)
 
-		w.Header().Set("Content-Type", "image/svg+xml")
-		fmt.Fprintf(w, svgGradient,
-			rd.Perm(30)[0]+10,  // top color
-			rd.Perm(55)[0]+20,  // top saturation
-			rd.Perm(30)[0]+190, // bottom color
-			rd.Perm(70)[1]+20,  // bottom saturation
-			randomCircles(rd),
-		)
-	}))
+	server.WriteEtag(w, r, rd)
+	server.WriteLastModified(w, r, rd)
+	csp.Policy{
+		"base-uri":    {csp.None},
+		"default-src": {csp.None},
+	}.Write(w.Header())
+
+	if server.HandleCaching(w, r) {
+		return
+	}
+
+	w.Header().Set("Content-Type", "image/svg+xml")
+	fmt.Fprintf(w, svgGradient,
+		rd.Perm(30)[0]+10,  // top color
+		rd.Perm(55)[0]+20,  // top saturation
+		rd.Perm(30)[0]+190, // bottom color
+		rd.Perm(70)[1]+20,  // bottom saturation
+		randomCircles(rd),
+	)
 }
 
 func randomCircles(r *random) string {

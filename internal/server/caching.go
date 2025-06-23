@@ -104,30 +104,36 @@ func WithCacheControl(next http.Handler) http.Handler {
 	})
 }
 
-// WithCaching is a middleware that checks if an Etag and/or a
-// Last-Modified headers are sent with the response. If the
-// request has the correspondign cache header and theys match
-// the request stops with a 304.
+// HandleCaching checks it an Etag and/or a Last-Modified headers
+// are sent with the response. If the request has the corresponding
+// cache header and they match, the response then sends a 304
+// status and this function returns true.
+func HandleCaching(w http.ResponseWriter, r *http.Request) bool {
+	if r.Method != http.MethodGet && r.Method != http.MethodHead {
+		return false
+	}
+
+	if checkIfMatch(w, r)|checkIfModifiedSince(w, r) == checkTrue {
+		writeNotModified(w)
+		return true
+	}
+
+	// Cancel the caching headers when there are messages.
+	// It prevents the message to stay on the page forever.
+	if len(Flashes(r)) > 0 {
+		w.Header().Del("Last-Modified")
+		w.Header().Del("Etag")
+	}
+
+	return false
+}
+
+// WithCaching is a middleware that checks the cache headers using [HandleCaching].
 func WithCaching(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.Method != http.MethodGet && r.Method != http.MethodHead {
+		if !HandleCaching(w, r) {
 			next.ServeHTTP(w, r)
-			return
 		}
-
-		if checkIfMatch(w, r)|checkIfModifiedSince(w, r) == checkTrue {
-			writeNotModified(w)
-			return
-		}
-
-		// Cancel the caching headers when there are messages.
-		// It prevents the message to stay on the page forever.
-		if len(Flashes(r)) > 0 {
-			w.Header().Del("Last-Modified")
-			w.Header().Del("Etag")
-		}
-
-		next.ServeHTTP(w, r)
 	})
 }
 
