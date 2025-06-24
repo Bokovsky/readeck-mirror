@@ -14,6 +14,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -368,6 +369,80 @@ func TestFileAdapters(t *testing.T) {
 				expected := []bookmarkItem{
 					{"https://www.startpage.com/", time.Date(2020, time.May, 4, 14, 12, 42, 0, time.UTC), types.Strings{"search"}, false},
 					{"https://www.linuxserver.io/", time.Date(2020, time.May, 16, 9, 30, 18, 0, time.UTC), types.Strings{"linux", "docker"}, false},
+				}
+				require.Equal(expected, items)
+			},
+		},
+		{
+			importer.LoadAdapter("linkwarden"),
+			func() []byte {
+				return []byte("  ")
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("linkwarden"),
+			func() []byte {
+				return []byte("[]")
+			},
+			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
+				require.False(f.IsValid())
+				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
+			},
+		},
+		{
+			importer.LoadAdapter("linkwarden"),
+			func() []byte {
+				r, err := os.Open("fixtures/linkwarden.json")
+				if err != nil {
+					panic(err)
+				}
+				buf := new(bytes.Buffer)
+				if _, err = io.Copy(buf, r); err != nil {
+					panic(err)
+				}
+				return buf.Bytes()
+			},
+			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
+				require.True(f.IsValid())
+				adapter := test.adapter.(importer.ImportWorker)
+				err := adapter.LoadData(data)
+				require.NoError(err)
+
+				type bookmarkItem struct {
+					Link     string
+					Title    string
+					Created  time.Time
+					Labels   types.Strings
+					IsMarked bool
+				}
+				items := []bookmarkItem{}
+
+				for {
+					item, err := adapter.Next()
+					if err == io.EOF {
+						break
+					}
+					require.NoError(err)
+					bi := bookmarkItem{Link: item.URL()}
+					meta, err := item.(importer.BookmarkEnhancer).Meta()
+					require.NoError(err)
+
+					bi.Title = meta.Title
+					bi.Created = meta.Created
+					bi.Labels = meta.Labels
+					bi.IsMarked = meta.IsMarked
+
+					items = append(items, bi)
+				}
+
+				expected := []bookmarkItem{
+					{Link: "https://www.the-reframe.com/the-neighborhood/", Title: "The Neighborhood - by A.R. Moxon - The Reframe", Created: time.Date(2025, time.June, 24, 5, 24, 31, 751000000, time.UTC), Labels: types.Strings{"label b"}, IsMarked: true},
+					{Link: "https://www.youtube.com/watch?v=Wp8ux8Xlj48", Title: "You're Living On An Ant Planet - YouTube", Created: time.Date(2025, time.June, 24, 5, 25, 23, 231000000, time.UTC), Labels: types.Strings{"label a"}, IsMarked: false},
+					{Link: "https://upload.wikimedia.org/wikipedia/commons/1/15/King's_Cross_Western_Concourse.jpg", Title: "", Created: time.Date(2025, time.June, 24, 5, 26, 24, 397000000, time.UTC), Labels: types.Strings{"label a"}, IsMarked: false},
 				}
 				require.Equal(expected, items)
 			},

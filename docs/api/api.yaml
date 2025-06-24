@@ -305,16 +305,6 @@ paths:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.collectionDelete"
 
-  /bookmarks/import/text:
-    post:
-      tags: [bookmarks import]
-      $merge:
-        - "traits.yaml#.authenticated"
-        - "traits.yaml#.validator"
-        - "traits.yaml#.deferred"
-        - "bookmarks/routes.yaml#.importMultipartGeneric"
-        - "bookmarks/routes.yaml#.importTextFile"
-
   /bookmarks/import/browser:
     post:
       tags: [bookmarks import]
@@ -325,6 +315,36 @@ paths:
         - "bookmarks/routes.yaml#.importMultipartGeneric"
         - "bookmarks/routes.yaml#.importBrowserBookmarks"
 
+  /bookmarks/import/csv:
+    post:
+      tags: [bookmarks import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "bookmarks/routes.yaml#.importMultipartGeneric"
+        - "bookmarks/routes.yaml#.importCSV"
+
+  /bookmarks/import/goodlinks:
+    post:
+      tags: [bookmarks import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "bookmarks/routes.yaml#.importMultipartGeneric"
+        - "bookmarks/routes.yaml#.importGoodLinks"
+
+  /bookmarks/import/linkwarden:
+    post:
+      tags: [bookmarks import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "bookmarks/routes.yaml#.importMultipartGeneric"
+        - "bookmarks/routes.yaml#.importLinkwarden"
+
   /bookmarks/import/pocket-file:
     post:
       tags: [bookmarks import]
@@ -334,6 +354,26 @@ paths:
         - "traits.yaml#.deferred"
         - "bookmarks/routes.yaml#.importMultipartGeneric"
         - "bookmarks/routes.yaml#.importPocket"
+
+  /bookmarks/import/readwise:
+    post:
+      tags: [bookmarks import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "bookmarks/routes.yaml#.importMultipartGeneric"
+        - "bookmarks/routes.yaml#.importReadwise"
+
+  /bookmarks/import/text:
+    post:
+      tags: [bookmarks import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "bookmarks/routes.yaml#.importMultipartGeneric"
+        - "bookmarks/routes.yaml#.importTextFile"
 
   /bookmarks/import/wallabag:
     post:

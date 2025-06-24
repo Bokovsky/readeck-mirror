@@ -15,9 +15,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/araddon/dateparse"
+
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
-	"github.com/araddon/dateparse"
 )
 
 type csvAdapter struct {

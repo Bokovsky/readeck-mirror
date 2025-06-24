@@ -2,6 +2,7 @@
   "o-bookmarks":    "node_modules/boxicons/svg/solid/bxs-bookmarks.svg",
   "o-csv":          "node_modules/boxicons/svg/solid/bxs-spreadsheet.svg",
   "o-goodlink":     "node_modules/boxicons/svg/solid/bxs-star.svg",
+  "o-linkwarden":   "media/img/logo-linkwarden.svg",
   "o-omnivore":     "media/img/logo-omnivore.svg",
   "o-pocket":       "node_modules/boxicons/svg/logos/bxl-pocket.svg",
   "o-wallabag":     "media/img/logo-wallabag.svg",
