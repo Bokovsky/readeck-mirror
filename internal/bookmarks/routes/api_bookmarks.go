@@ -41,24 +41,6 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	server.Render(w, r, http.StatusOK, bl.Items)
 }
 
-func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
-	ds := bookmarks.Bookmarks.Query().
-		Select("b.uid", "b.updated").
-		Where(goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID)).
-		Order(
-			goqu.I("updated").Desc(),
-			goqu.I("created").Desc(),
-		)
-
-	bl, err := dataset.NewBookmarkSyncList(r.Context(), ds)
-	if err != nil {
-		server.Err(w, r, err)
-		return
-	}
-
-	server.Render(w, r, http.StatusOK, bl)
-}
-
 // bookmarkInfo renders a given bookmark items in JSON.
 func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := getBookmark(r.Context())

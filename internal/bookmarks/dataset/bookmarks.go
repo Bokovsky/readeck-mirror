@@ -203,8 +203,8 @@ func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
 		Bookmark:      b,
 		ID:            b.UID,
 		Href:          bookmarkURL.String(),
-		Created:       b.Created,
-		Updated:       b.Updated,
+		Created:       b.Created.UTC(),
+		Updated:       b.Updated.UTC(),
 		State:         b.State,
 		Loaded:        b.State != bookmarks.StateLoading,
 		URL:           b.URL,
@@ -411,23 +411,34 @@ func NewBookmarkSyncList(_ context.Context, ds *goqu.SelectDataset) (BookmarkSyn
 		if err != nil {
 			return nil, err
 		}
+		b.Time = b.Time.UTC()
 		res = append(res, b)
 	}
 
 	return res, nil
 }
 
-// UpdateEtag implement [server.Etagger].
+// GetLastModified implements [server.LastModer].
+func (bsl BookmarkSyncList) GetLastModified() []time.Time {
+	res := []time.Time{}
+	for _, b := range bsl {
+		res = append(res, b.Time)
+	}
+	return res
+}
+
+// UpdateEtag implements [server.Etagger].
 func (bsl BookmarkSyncList) UpdateEtag(h hash.Hash) {
 	for _, b := range bsl {
-		io.WriteString(h, b.ID+strconv.FormatInt(b.Updated.UTC().UnixNano(), 10))
+		io.WriteString(h, b.ID+strconv.FormatInt(b.Time.UTC().UnixNano(), 10))
 	}
 }
 
 // BookmarkSync represent a bookmark's ID and last update time.
 type BookmarkSync struct {
-	ID      string    `json:"id" db:"uid"`
-	Updated time.Time `json:"updated" db:"updated"`
+	ID   string    `json:"id" db:"uid"`
+	Time time.Time `json:"time" db:"time"`
+	Type string    `json:"type" db:"type"`
 }
 
 // SharedLink contains the publicly shared bookmark information.

@@ -67,7 +67,6 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			api.withCollectionFilters,
 			api.withBookmarkList,
 		).Get("/", api.bookmarkList)
-		r.Get("/sync", api.bookmarkSyncList)
 		r.With(api.withBookmark).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
@@ -104,6 +103,11 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.With(
 				api.withBookmarkSeq,
 			).Get("/{uid:[a-zA-Z0-9]{18,22}}/article.{format}", api.bookmarkExport)
+		})
+
+		r.Route("/sync", func(r chi.Router) {
+			r.Get("/", api.bookmarkSyncList)
+			r.Post("/", api.bookmarkSync)
 		})
 
 		r.Route("/labels", func(r chi.Router) {

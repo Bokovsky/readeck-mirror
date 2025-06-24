@@ -8,6 +8,7 @@
 - Readwise Reader CSV import, by [@mislav](https://codeberg.org/mislav)
 - listen on unix domain sockets, by [@noctux](https://codeberg.org/noctux)
 - Linkwarden import adapter
+- synchronization API
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
@@ -24,6 +25,9 @@
 - headers sent when fetching
 - send a `referer` header when fetching favicon or a page's image
 - hide bookmark description when it exists at the begining of the article
+
+### Deprecated
+- markdown export in multipart is replaced by the sync API and will be removed in the the next version
 
 ## [0.19.2] - 2025-05-29
 ### Fixed

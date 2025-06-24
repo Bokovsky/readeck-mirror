@@ -91,6 +91,16 @@ CREATE INDEX bookmark_updated_idx ON "bookmark" (updated DESC);
 CREATE INDEX bookmark_url_idx ON "bookmark" (url);
 CREATE INDEX bookmark_initial_url_idx ON "bookmark" (initial_url);
 
+CREATE TABLE IF NOT EXISTS bookmark_removed (
+    uid     text     NOT NULL,
+    user_id integer  NOT NULL,
+    deleted datetime NOT NULL,
+
+    CONSTRAINT fk_bookmark_removed_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE INDEX bookmark_removed_deleted_idx ON "bookmark_removed" (deleted DESC);
+
 CREATE VIRTUAL TABLE IF NOT EXISTS bookmark_idx USING fts5(
     tokenize='unicode61 remove_diacritics 2',
     content='bookmark',
@@ -135,6 +145,12 @@ CREATE TRIGGER IF NOT EXISTS bookmark_ad AFTER DELETE ON bookmark BEGIN
         bookmark_idx, rowid, catchall, title, description, text, site, author, label
     ) VALUES (
         'delete', old.id, 'oooooo', old.title, old.description, old.text, old.site, old.authors, old.labels
+    );
+
+    INSERT INTO bookmark_removed(
+        uid, user_id, deleted
+    ) VALUES (
+        old.uid, old.user_id, datetime('now', 'subsec')
     );
 END;
 

@@ -84,6 +84,7 @@ tags:
   - name: bookmark highlights
   - name: bookmark collections
   - name: bookmarks import
+  - name: bookmarks sync
   - name: dev tools
 
 paths:
@@ -125,9 +126,16 @@ paths:
 
   /bookmarks/sync:
     get:
-      tags: [bookmarks]
+      tags: [bookmarks sync]
       $merge:
         - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "bookmarks/routes.yaml#.syncList"
+    post:
+      tags: [bookmarks sync]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
         - "bookmarks/routes.yaml#.sync"
 
   /bookmarks/{id}:

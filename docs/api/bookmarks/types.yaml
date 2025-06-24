@@ -165,25 +165,58 @@ schemas:
             type: integer
             description: Image width
 
-  bookmarkSync:
+  bookmarkSyncList:
     type: object
     properties:
       id:
         type: string
         format: short-uid
         description: Bookmark's ID
-      href:
-        type: string
-        format: uri
-        description: Link to the bookmark info
-      created:
+      time:
         type: string
         format: date-time
         description: Creation date
-      updated:
+      type:
         type: string
-        format: date-time
-        description: Last update
+        description: Update type
+        enum: ["update", "delete"]
+
+  bookmarkSyncParams:
+    type: object
+    properties:
+      id:
+        type: array
+        items:
+          type: string
+        description: List of bookmark ID
+      with_json:
+        type: boolean
+        default: false
+        description: Include a JSON payload for each returned bookmark.
+        examples:
+          - true
+      with_html:
+        type: boolean
+        default: false
+        description: Include the HTML article for each returned bookmark.
+      with_markdown:
+        type: boolean
+        default: false
+        description: Include the bookmark converted to Markdown.
+      with_resources:
+        type: boolean
+        default: false
+      resource_prefix:
+        type: string
+        description: |
+          A prefix added to resource URLs in HTML parts.
+
+          Each image link in the HTML content will have this prefix added. To include the
+          bookmark ID, use the `%` placeholder.
+        examples:
+          - "%/img"
+          - images
+
 
   bookmarkInfo:
     allOf:
