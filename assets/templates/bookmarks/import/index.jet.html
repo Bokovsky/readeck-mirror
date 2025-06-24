@@ -26,37 +26,88 @@ SPDX-License-Identifier: AGPL-3.0-only
     Here you can import your existing bookmark collection from various sources into Readeck.
   `) }}</p>
 
-  {{- yield list() content -}}
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/text`) }}">
-      {{ yield icon(name="o-file", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import Links from a Text File") }}
-    </a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/readwise`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-readwise", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your Readwise Reader Library") }}
-    </a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/browser`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-bookmarks", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your Browser's Bookmarks, Pinboard, Instapaper") }}
-    </a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/csv`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-csv", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import Links from a CSV File and Instapaper") }}
-    </a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/goodlinks`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-goodlink", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your GoodLinks Articles") }}
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/omnivore`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-omnivore", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your Omnivore Articles") }}</a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/pocket-file`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-pocket", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your Pocket Articles") }}</a>
-    <a class="flex items-center gap-2 p-4 link hf:bg-gray-100" href="{{ urlFor(`/bookmarks/import/wallabag`) }}">
-      {{ yield icon(src="img/logos.svg", name="o-wallabag", class="text-gray-600", svgClass="inline-block h-6 w-6") }}
-      {{ gettext("Import your Wallabag Articles") }}
+  {{- adapters := slice(
+    map(
+      "name", "browser",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-bookmarks",
+      "title", "Browser",
+      "desc", gettext("Import your Browser's Bookmarks, Pinboard, Instapaper"),
+    ),
+    map(
+      "name", "csv",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-csv",
+      "title", "CSV",
+      "desc", gettext("Import Links from a CSV File and Instapaper"),
+    ),
+    map(
+      "name", "goodlinks",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-goodlink",
+      "title", "GoodLinks",
+      "desc", gettext("Import your GoodLinks Articles"),
+    ),
+    map(
+      "name", "linkwarden",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-linkwarden",
+      "title", "Linkwarden",
+      "desc", gettext("Import your Linkwarden Bookmarks"),
+    ),
+    map(
+      "name", "omnivore",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-omnivore",
+      "title", "Omnivore",
+      "desc", gettext("Import your Omnivore Articles"),
+    ),
+    map(
+      "name", "pocket-file",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-pocket",
+      "title", "Pocket",
+      "desc", gettext("Import your Pocket Articles"),
+    ),
+    map(
+      "name", "readwise",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-readwise",
+      "title", "Readwise",
+      "desc", gettext("Import your Readwise Reader Library"),
+    ),
+    map(
+      "name", "text",
+      "iconSrc", "",
+      "iconName", "o-file",
+      "title", "Text",
+      "desc", gettext("Import Links from a Text File"),
+    ),
+    map(
+      "name", "wallabag",
+      "iconSrc", "img/logos.svg",
+      "iconName", "o-wallabag",
+      "title", "Wallabag",
+      "desc", gettext("Import your Wallabag Articles"),
+    ),
+  ) -}}
+
+  <div class="grid grid-cols-3 gap-6 max-lg:grid-cols-2 max-md:grid-cols-1">
+  {{- range adapters -}}
+    <a class="
+     flex flex-col border rounded-lg items-center gap-4 p-4
+     link hf:shadow-sm hf:bg-gray-100/50 group"
+     href="{{ urlFor(`/bookmarks/import`, .name)}}"
+    >
+      {{ yield icon(src=.iconSrc, name=.iconName, class="text-gray-600 group-hf:text-gray-800", svgClass="inline-block h-10 w-10") }}
+      <span class="grow flex flex-col gap-1 items-center text-center">
+        <strong>{{ .title }}</strong>
+        <span class="text-app-fg">{{ .desc }}</span>
+      </span>
     </a>
   {{- end -}}
+  </div>
+
 {{- end -}}
 
 {{- end -}}

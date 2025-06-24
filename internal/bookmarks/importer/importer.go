@@ -26,13 +26,14 @@ import (
 )
 
 const (
-	importText       = "text"
-	importCSV        = "csv"
-	importReadwise   = "readwise"
 	importBrowser    = "browser"
+	importCSV        = "csv"
 	importGoodLinks  = "goodlinks"
+	importLinkwarden = "linkwarden"
 	importOmnivore   = "omnivore"
 	importPocketFile = "pocket-file"
+	importReadwise   = "readwise"
+	importText       = "text"
 	importWallabag   = "wallabag"
 )
 
@@ -130,20 +131,22 @@ func (b urlBookmarkItem) URL() string {
 // LoadAdapter returns an import loader based on a given name.
 func LoadAdapter(name string) ImportLoader {
 	switch name {
-	case importText:
-		return &textAdapter{}
-	case importCSV:
-		return &csvAdapter{}
-	case importReadwise:
-		return &readwiseAdapter{}
 	case importBrowser:
 		return &browserAdapter{}
+	case importCSV:
+		return &csvAdapter{}
 	case importGoodLinks:
 		return &goodlinksAdapter{}
+	case importLinkwarden:
+		return &linkwardenAdapter{}
 	case importOmnivore:
 		return &omnivoreAPIAdapter{}
 	case importPocketFile:
 		return &pocketFileAdapter{}
+	case importReadwise:
+		return &readwiseAdapter{}
+	case importText:
+		return &textAdapter{}
 	case importWallabag:
 		return &wallabagAdapter{}
 	default:

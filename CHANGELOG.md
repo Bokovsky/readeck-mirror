@@ -7,6 +7,7 @@
 - feeds for any bookmark list
 - Readwise Reader CSV import, by [@mislav](https://codeberg.org/mislav)
 - listen on unix domain sockets, by [@noctux](https://codeberg.org/noctux)
+- Linkwarden import adapter
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
