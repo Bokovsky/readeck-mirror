@@ -15,7 +15,7 @@ require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/casbin/casbin/v2 v2.108.0
 	github.com/cristalhq/acmd v0.12.0
-	github.com/dop251/goja v0.0.0-20250531102226-cb187b08699c
+	github.com/dop251/goja v0.0.0-20250624190929-4d26883d182a
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.9
@@ -94,7 +94,7 @@ require (
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	modernc.org/libc v1.66.0 // indirect
+	modernc.org/libc v1.66.1 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 )
