@@ -9,6 +9,15 @@ body:
       value: |
         Thanks for contributing to Readeck! ❤️
 
+  - type: textarea
+    id: what
+    attributes:
+      label: Summary?
+      description: |
+        Tell us what your contribution does, the problem it solves or the new feature it brings.
+    validations:
+      required: true
+
   - type: checkboxes
     id: noai
     attributes:
@@ -19,15 +28,6 @@ body:
       options:
         - label: I didn't use any AI tool to produce this contribution.
           required: true
-
-  - type: textarea
-    id: what
-    attributes:
-      label: Summary?
-      description: |
-        Tell us what your contribution does, the problem it solves or the new feature it brings.
-    validations:
-      required: true
 
   - type: checkboxes
     id: tests
