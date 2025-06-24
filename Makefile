@@ -173,8 +173,8 @@ serve:
 		--build.bin "dist/readeck" \
 		--build.args_bin "serve" \
 		--build.exclude_dir "" \
-		--build.include_dir "assets,configs,docs,locales,internal,pkg" \
-		--build.include_ext "go,html,json,js,md,po,tmpl,toml,xsl" \
+		--build.include_dir "assets,configs,docs/api,docs/assets,locales,internal,pkg" \
+		--build.include_ext "go,html,json,js,mo,tmpl,toml,xsl" \
 		--build.delay 2000
 
 # Watch the docs/src folder and rebuild the documentation
@@ -188,9 +188,9 @@ docs-watch:
 		--build.bin "" \
 		--build.exclude_dir "" \
 		--build.include_file "CHANGELOG.md" \
-		--build.include_dir "docs/src,docs/api" \
-		--build.include_ext "md,png,svg,json,yaml" \
-		--build.delay 200
+		--build.include_dir "docs/src/en-US,docs/translations,docs/api" \
+		--build.include_ext "md,png,po,svg,json,yaml" \
+		--build.delay 100
 
 # Starts the watcher on the web folder.
 .PHONY: web-watch
