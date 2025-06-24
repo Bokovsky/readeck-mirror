@@ -144,26 +144,6 @@ list:
             items:
               $ref: "#/components/schemas/bookmarkSummary"
 
-# GET /bookmarks/sync
-sync:
-  summary: Bookmark Sync List
-  description: |
-    This route returns a non-paginated list of all bookmarks. It contains
-    a minimal set of information that can serve to synchronize new, updated
-    or removed items on an offline list.
-
-    The list is ordered by `updated` and `created` dates.
-
-  responses:
-    '200':
-      description: Item list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/bookmarkSync"
-
 # POST /bookmarks
 create:
   summary: Bookmark Create
@@ -298,6 +278,116 @@ shareEmail:
         application/json:
           schema:
             $ref: "#/components/schemas/message"
+
+# GET /bookmarks/sync
+syncList:
+  summary: Bookmark Sync List
+  description: |
+    This route returns a non-paginated list of all bookmarks order by last update dates.
+
+    You can retrieve only bookmarks updated and deleted since a given date by using the
+    `since` parameter. Please note that without the parameter, it only returns updated
+    bookmarks.
+
+  parameters:
+    - name: since
+      in: query
+      description: A datetime to retrieve updated and deleted IDs including and after this value.
+      schema:
+        type: string
+        format: date-time
+
+  responses:
+    '200':
+      description: Item list
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/bookmarkSyncList"
+
+# POST /bookmarks/sync
+sync:
+  summary: Bookmark Sync
+  description: |
+    This then returns a `multipart/mixed` response with all the bookmarks passed in `id` (or all of them if unset).
+
+    Here is an example:
+
+    ```
+    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+    Content-Disposition: attachment; filename="info.json"
+    Content-Type: application/json; charset=utf-8
+    Date: 2025-06-20T17:10:22+02:00
+    Filename: info.json
+    Type: json
+
+    ..content
+
+    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+    Content-Disposition: attachment; filename="index.html"
+    Content-Type: text/html; charset=utf-8
+    Date: 2025-06-20T12:53:47+02:00
+    Filename: index.html
+    Type: html
+
+    ...content
+
+    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+    Content-Disposition: attachment; filename="VnopmpKQ3CmQ6apY9mgDws/images/image.jpeg"
+    Content-Type: image/jpeg
+    Filename: image.jpeg
+    Path: VnopmpKQ3CmQ6apY9mgDws/images/image.jpeg
+    Type: resource
+
+    ...content
+
+    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+    Content-Disposition: attachment; filename="VnopmpKQ3CmQ6apY9mgDws/images/Wj66qLatSeikPc31FwvqyS.jpg"
+    Content-Type: image/jpeg
+    Filename: Wj66qLatSeikPc31FwvqyS.jpg
+    Path: VnopmpKQ3CmQ6apY9mgDws/images/Wj66qLatSeikPc31FwvqyS.jpg
+    Type: resource
+
+    ...content
+
+    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b--
+    ```
+
+
+    For each bookmark, there will be entries with a `Type` header:
+
+    - a `Type: json` entry, controlled by `with_json`. It contains the same output as an API bookmark information.
+    - a `Type: html` entry, controlled by `with_html`. It contains the HTML content (article), if any.
+    - several `Type: resource` entries, controlled by `with_resources`. Each entry is a resource (icon, images, article images).
+
+    Each entry has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.
+
+    Each `Type: resource` entry contains a `Path` header that's based on the `resource_prefix`
+    parameter.
+
+    The response's content is a stream and should be processed while the data is coming, part by
+    part.
+
+  requestBody:
+    content:
+      application/json:
+        schema:
+          $ref: "#/components/schemas/bookmarkSyncParams"
+
+  responses:
+    '200':
+      description: Item list
+      content:
+        multipart/mixed:
+          schema:
+            type: string
+            format: binary
 
 # GET /bookmarks/labels
 labels:
