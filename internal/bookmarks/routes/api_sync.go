@@ -85,6 +85,7 @@ func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
 	if err := converter.NewSyncExporter(
 		converter.WithSyncJSON(f.Get("with_json").(*forms.BooleanField).V()),
 		converter.WithSyncHTML(f.Get("with_html").(*forms.BooleanField).V()),
+		converter.WithSyncMarkdown(f.Get("with_markdown").(*forms.BooleanField).V()),
 		converter.WithSyncResources(f.Get("with_resources").(*forms.BooleanField).V()),
 		converter.WithSyncResourcePrefix(f.Get("resource_prefix").String()),
 	).IterExport(r.Context(), w, r, seq); err != nil {

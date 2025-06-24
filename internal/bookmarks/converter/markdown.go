@@ -128,6 +128,8 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 }
 
 func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkSeq *dataset.BookmarkIterator) error {
+	server.Log(server.GetRequest(ctx)).Warn("multipart/alternative markdown export is deprecated and will be removed in the next version")
+
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
 	if w, ok := w.(http.ResponseWriter); ok {

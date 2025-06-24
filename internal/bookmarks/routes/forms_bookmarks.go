@@ -337,6 +337,7 @@ func newSyncForm(tr forms.Translator) *syncForm {
 			forms.NewTextListField("id"),
 			forms.NewBooleanField("with_json"),
 			forms.NewBooleanField("with_html"),
+			forms.NewBooleanField("with_markdown"),
 			forms.NewBooleanField("with_resources"),
 			forms.NewTextField("resource_prefix"),
 		),

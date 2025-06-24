@@ -199,6 +199,10 @@ schemas:
         type: boolean
         default: false
         description: Include the HTML article for each returned bookmark.
+      with_markdown:
+        type: boolean
+        default: false
+        description: Include the bookmark converted to Markdown.
       with_resources:
         type: boolean
         default: false

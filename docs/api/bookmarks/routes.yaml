@@ -364,6 +364,7 @@ sync:
 
     - a `Type: json` entry, controlled by `with_json`. It contains the same output as an API bookmark information.
     - a `Type: html` entry, controlled by `with_html`. It contains the HTML content (article), if any.
+    - a `Type: markdown` entry, controlled by `with_markdown`. It contains the bookmark converted to Markdown.
     - several `Type: resource` entries, controlled by `with_resources`. Each entry is a resource (icon, images, article images).
 
     Each entry has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.

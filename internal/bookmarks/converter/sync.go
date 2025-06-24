@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"mime/multipart"
 	"net/http"
@@ -18,6 +19,7 @@ import (
 	"time"
 
 	"github.com/gabriel-vasile/mimetype"
+	"gopkg.in/yaml.v3"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
@@ -33,6 +35,7 @@ type SyncExporter struct {
 	dataset.HTMLConverter
 	withJSON       bool
 	withHTML       bool
+	withMarkdown   bool
 	withResources  bool
 	resourcePrefix string
 }
@@ -48,6 +51,13 @@ func WithSyncJSON(v bool) SyncOption {
 func WithSyncHTML(v bool) SyncOption {
 	return func(e *SyncExporter) {
 		e.withHTML = v
+	}
+}
+
+// WithSyncMarkdown enables or disables markdown export.
+func WithSyncMarkdown(v bool) SyncOption {
+	return func(e *SyncExporter) {
+		e.withMarkdown = v
 	}
 }
 
@@ -106,6 +116,11 @@ func (e SyncExporter) IterExport(ctx context.Context, w io.Writer, _ *http.Reque
 				return err
 			}
 		}
+		if e.withMarkdown {
+			if err = e.writeMarkdown(ctx, mp, b); err != nil {
+				return err
+			}
+		}
 		if e.withResources {
 			if err = e.writeResources(ctx, mp, b); err != nil {
 				return err
@@ -159,6 +174,60 @@ func (e SyncExporter) writeHTML(ctx context.Context, mp *multipart.Writer, b *da
 	}
 
 	_, err = io.Copy(part, reader)
+	return err
+}
+
+func (e SyncExporter) writeMarkdown(ctx context.Context, mp *multipart.Writer, b *dataset.Bookmark) error {
+	part, err := mp.CreatePart(textproto.MIMEHeader{
+		"Bookmark-Id":         []string{b.UID},
+		"Type":                []string{"markdown"},
+		"Content-Type":        []string{"text/markdown; charset=utf-8"},
+		"Filename":            []string{"index.md"},
+		"Content-Disposition": []string{`attachment; filename="index.md"`},
+		"Date":                []string{b.Created.Format(time.RFC3339)},
+	})
+	if err != nil {
+		return err
+	}
+
+	intro := new(bytes.Buffer)
+	intro.WriteString("---\n")
+	meta := mdMeta{
+		Title:   b.Title,
+		Saved:   b.Created.Format(time.DateOnly),
+		Website: b.Site,
+		Source:  b.URL,
+		Authors: b.Authors,
+		Labels:  b.Labels,
+	}
+	if b.Published != nil {
+		meta.Published = b.Published.Format(time.DateOnly)
+	}
+	enc := yaml.NewEncoder(intro)
+	enc.SetIndent(0)
+	if err = enc.Encode(meta); err != nil {
+		return err
+	}
+	intro.WriteString("---\n\n")
+
+	if img, ok := b.Files["image"]; ok {
+		fmt.Fprintf(intro, "![](%s)\n\n", e.urlReplacer(b.Bookmark)(path.Base(img.Name)))
+	}
+
+	if b.DocumentType == "video" {
+		fmt.Fprintf(intro, "[Video on %s](%s)\n\n", b.SiteName, b.URL)
+	}
+
+	reader, err := e.GetArticle(ctx, b.Bookmark)
+	if err != nil {
+		return err
+	}
+	md, err := html2md.ConvertReader(reader)
+	if err != nil {
+		return err
+	}
+
+	_, err = io.Copy(part, io.MultiReader(intro, bytes.NewReader(md), bytes.NewReader([]byte("\n"))))
 	return err
 }
 
