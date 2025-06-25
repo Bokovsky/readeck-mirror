@@ -35,6 +35,7 @@ require (
 	github.com/mangoumbrella/goldmark-figure v1.3.0
 	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/phsym/console-slog v0.3.1
+	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.22.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
@@ -82,7 +83,6 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.65.0 // indirect
 	github.com/prometheus/procfs v0.16.1 // indirect
