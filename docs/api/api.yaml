@@ -79,12 +79,12 @@ tags:
   - name: user profile
   - name: bookmarks
   - name: bookmark export
+  - name: bookmark sync
   - name: bookmark sharing
   - name: bookmark labels
   - name: bookmark highlights
   - name: bookmark collections
-  - name: bookmarks import
-  - name: bookmarks sync
+  - name: bookmark import
   - name: dev tools
 
 paths:
@@ -126,13 +126,13 @@ paths:
 
   /bookmarks/sync:
     get:
-      tags: [bookmarks sync]
+      tags: [bookmark sync]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
         - "bookmarks/routes.yaml#.syncList"
     post:
-      tags: [bookmarks sync]
+      tags: [bookmark sync]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -315,7 +315,7 @@ paths:
 
   /bookmarks/import/browser:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -325,7 +325,7 @@ paths:
 
   /bookmarks/import/csv:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -335,7 +335,7 @@ paths:
 
   /bookmarks/import/goodlinks:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -345,7 +345,7 @@ paths:
 
   /bookmarks/import/linkwarden:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -355,7 +355,7 @@ paths:
 
   /bookmarks/import/pocket-file:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -365,7 +365,7 @@ paths:
 
   /bookmarks/import/readwise:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -375,7 +375,7 @@ paths:
 
   /bookmarks/import/text:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
@@ -385,7 +385,7 @@ paths:
 
   /bookmarks/import/wallabag:
     post:
-      tags: [bookmarks import]
+      tags: [bookmark import]
       $merge:
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
