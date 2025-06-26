@@ -1,0 +1,6 @@
+title,url,time_added,cursor,tags,status
+Example.net,https://example.net/,1684913522,,,unread
+Example.net,https://example.org/#test,1684913346,,tag1|tag2,unread
+,ftp://example.net/,1684913346,,tag2,unread
+Example.net,https://example.net/#foo,1684913522,,,unread
+Read article,https://example.org/read,1712037544,,,archive

@@ -5,11 +5,10 @@
 package importer_test
 
 import (
-	"archive/zip"
 	"bytes"
 	"context"
-	"encoding/csv"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
@@ -22,6 +21,7 @@ import (
 	"time"
 
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks/importer"
@@ -29,627 +29,685 @@ import (
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
-type adapterTest struct {
-	adapter importer.ImportLoader
-	data    func() []byte
-	assert  func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte)
+var fixtureFS = os.DirFS("fixtures")
+
+type fileOpener interface {
+	Read([]byte) (int, error)
+	Close() error
 }
 
-func TestFileAdapters(t *testing.T) {
-	t.Setenv("TZ", "Europe/Paris")
+type fileLoader interface {
+	Open() (fileOpener, error)
+}
 
-	tests := []adapterTest{
-		{
-			importer.LoadAdapter("text"),
-			func() []byte {
-				return []byte("foo\n")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("text"),
-			func() []byte {
-				return []byte(`
-				https://example.org/#test
-				https://example.net/
-				test
-				####
-				ftp://example.net/
-				https://example.net/#foo
-				`)
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
+type fixtureFile string
 
-				items := []string{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					items = append(items, item.URL())
-				}
-				require.Equal([]string{
-					"https://example.net/",
-					"https://example.org/",
-				}, items)
-			},
-		},
-		{
-			importer.LoadAdapter("browser"),
-			func() []byte {
-				return []byte("  ")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("browser"),
-			func() []byte {
-				return []byte(`
-				<!DOCTYPE NETSCAPE-Bookmark-file-1>
-				<!-- This is an automatically generated file.
-					It will be read and overwritten.
-					DO NOT EDIT! -->
-				<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
-				<TITLE>Bookmarks</TITLE>
-				<H1>Bookmarks</H1>
-				<DL><p>
-					<DT><H3 ADD_DATE="1624868914" LAST_MODIFIED="0" PERSONAL_TOOLBAR_FOLDER="true">Bookmarks bar</H3>
-					<DL><p>
-						<DT><A HREF="https://www.mozilla.org/en-US/firefox/central/" ADD_DATE="1576652979" ICON="data:image/png;base64,iVBORw0KGgoAAAANSUh">Getting Started</A>
-						<DT><A HREF="http://blog.mozilla.com/" ADD_DATE="1601411565" TAGS="mozilla,blog , test " TOREAD="0">Mozilla News</A>
-					</DL><p>
-					<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Imported</H3>
-					<DL><p>
-						<DT><H3 ADD_DATE="1713598064" LAST_MODIFIED="0">Misc</H3>
-						<DL><p>
-							<DT><A HREF="https://example.net/#test" ADD_DATE="1385462299">Example.net</A>
-							<DT><A HREF="https://example.org/" ADD_DATE="1354273529">Example.org</A>
-							<DT><A HREF="ftp://example.net/" ADD_DATE="1361299010">FTP</A>
-							<DT><A HREF="https://example.org/#test" ADD_DATE="1354273529">Example.org</A>
-						</DL>
-					</DL><p>
-				</DL><p>
-				`)
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
+func (filename fixtureFile) Open() (fileOpener, error) {
+	return fixtureFS.Open(string(filename))
+}
 
-				type bookmarkItem struct {
-					Link       string
-					Title      string
-					Created    time.Time
-					Labels     types.Strings
-					IsArchived bool
-				}
-				items := []bookmarkItem{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
+type dataFile string
 
-					bi.Title = meta.Title
-					bi.Created = meta.Created
-					bi.Labels = meta.Labels
-					bi.IsArchived = meta.IsArchived
+func (data dataFile) Open() (fileOpener, error) {
+	return io.NopCloser(strings.NewReader(string(data))), nil
+}
 
-					items = append(items, bi)
-				}
+func loadFile(t *testing.T, file fileLoader, adapter importer.ImportLoader) (forms.Binder, []importer.BookmarkImporter) {
+	require := require.New(t)
+	fl, err := file.Open()
+	require.NoError(err)
+	defer fl.Close() //nolint:errcheck
 
-				expected := []bookmarkItem{
-					{"https://example.org/", "Example.org", time.Date(2012, 11, 30, 11, 5, 29, 0, time.UTC), types.Strings{}, false},
-					{"https://example.net/", "Example.net", time.Date(2013, 11, 26, 10, 38, 19, 0, time.UTC), types.Strings{}, false},
-					{"http://blog.mozilla.com/", "Mozilla News", time.Date(2020, 9, 29, 20, 32, 45, 0, time.UTC), types.Strings{"mozilla", "blog", "test"}, true},
-					{"https://www.mozilla.org/en-US/firefox/central/", "Getting Started", time.Date(2019, 12, 18, 7, 9, 39, 0, time.UTC), types.Strings{}, false},
-				}
-				require.Equal(expected, items)
-			},
-		},
-		{
-			importer.LoadAdapter("csv"),
-			func() []byte {
-				return []byte(" ")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("csv"),
-			func() []byte {
-				return []byte("url,title")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("csv"),
-			func() []byte {
-				return []byte("{}")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("csv"),
-			func() []byte {
-				return []byte(`url,title` + "\n" + `https://example.net/,test,123`)
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("csv"),
-			func() []byte {
-				return []byte(
-					`url,title,created,folder,labels` + "\n" +
-						`https://www.startpage.com/,"Site Title",,,` + "\n" +
-						`https://www.linuxserver.io/,"Some Title",2025-02-01 15:21:43,"archive","[""test label"",""label B""]"`,
-				)
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
+	body := new(bytes.Buffer)
+	writer := multipart.NewWriter(body)
+	part, _ := writer.CreateFormFile("data", "data")
+	_, _ = io.Copy(part, fl)
+	writer.Close() //nolint:errcheck
 
-				type bookmarkItem struct {
-					Link       string
-					Title      string
-					Created    time.Time
-					Labels     types.Strings
-					IsArchived bool
-				}
-				items := []bookmarkItem{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
+	req, _ := http.NewRequest(http.MethodPost, "/", body)
+	req.Header.Set("Content-Type", writer.FormDataContentType())
 
-					bi.Title = meta.Title
-					bi.Created = meta.Created
-					bi.IsArchived = meta.IsArchived
-					bi.Labels = meta.Labels
+	f := importer.NewImportForm(context.Background(), adapter)
+	forms.Bind(f, req)
 
-					items = append(items, bi)
-				}
-
-				expected := []bookmarkItem{
-					{"https://www.linuxserver.io/", "Some Title", time.Date(2025, time.February, 1, 15, 21, 43, 0, time.UTC), types.Strings{"test label", "label B"}, true},
-					{"https://www.startpage.com/", "Site Title", time.Time{}, nil, false},
-				}
-				require.Equal(expected, items)
-			},
-		},
-		{
-			importer.LoadAdapter("readwise"),
-			func() []byte {
-				return []byte(
-					`Title,URL,ID,Document tags,Saved date,Reading progress,Location,Seen` + "\n" +
-						`,https://www.startpage.com/,,,2025-01-20 22:13:02.447000+00:00,,archive,` + "\n" +
-						`,mailto:reader-forwarded-email/7346231d78e747bf19a52a9da1585e71,,,,,feed,` + "\n" +
-						`"Some Title",https://www.linuxserver.io/,,"[""don't"", 'favorite', 'peanut, butter']",2022-12-05 12:42:10+00:00,,,` + "\n",
-				)
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
-
-				type bookmarkItem struct {
-					Link       string
-					Title      string
-					Created    time.Time
-					Labels     types.Strings
-					IsArchived bool
-					IsFavorite bool
-				}
-				items := []bookmarkItem{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
-
-					bi.Title = meta.Title
-					bi.Created = meta.Created
-					bi.IsArchived = meta.IsArchived
-					bi.IsFavorite = meta.IsMarked
-					bi.Labels = meta.Labels
-
-					items = append(items, bi)
-				}
-
-				expected := []bookmarkItem{
-					{"https://www.linuxserver.io/", "Some Title", time.Date(2022, time.December, 5, 12, 42, 10, 0, time.UTC), types.Strings{"don't", "peanut, butter"}, false, true},
-					{"https://www.startpage.com/", "", time.Date(2025, time.January, 20, 22, 13, 2, 447000000, time.UTC), nil, true, false},
-				}
-				require.Equal(expected, items)
-			},
-		},
-		{
-			importer.LoadAdapter("goodlinks"),
-			func() []byte {
-				return []byte("  ")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("goodlinks"),
-			func() []byte {
-				return []byte(`
-				[{
-					"title": "Shodan",
-					"url": "https:\/\/www.startpage.com\/",
-					"tags": ["search"],
-					"starred": false,
-					"summary": "Search engine of the Internet.",
-					"originalURL": "https:\/\/www.startpage.com",
-					"addedAt": 1588601562
-				}, {
-					"title": "Home | LinuxServer.io",
-					"url": "https:\/\/www.linuxserver.io\/",
-					"starred": false,
-					"originalURL": "https:\/\/www.linuxserver.io",
-					"addedAt": 1589621418,
-					"tags": ["linux", "docker"],
-					"summary": "We are a group of like-minded enthusiasts from across the world who build and maintain the largest collection of Docker images on the web, and at our core are the principles behind Free and Open Source Software. Our primary goal is to provide easy-to-use and streamlined Docker images with clear and concise documentation."
-				}
-				]
-				`)
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
-
-				type bookmarkItem struct {
-					Link     string
-					Created  time.Time
-					Labels   types.Strings
-					IsMarked bool
-				}
-				items := []bookmarkItem{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
-
-					bi.Created = meta.Created
-					bi.Labels = meta.Labels
-					bi.IsMarked = meta.IsMarked
-
-					items = append(items, bi)
-				}
-
-				expected := []bookmarkItem{
-					{"https://www.startpage.com/", time.Date(2020, time.May, 4, 14, 12, 42, 0, time.UTC), types.Strings{"search"}, false},
-					{"https://www.linuxserver.io/", time.Date(2020, time.May, 16, 9, 30, 18, 0, time.UTC), types.Strings{"linux", "docker"}, false},
-				}
-				require.Equal(expected, items)
-			},
-		},
-		{
-			importer.LoadAdapter("linkwarden"),
-			func() []byte {
-				return []byte("  ")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("linkwarden"),
-			func() []byte {
-				return []byte("[]")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("linkwarden"),
-			func() []byte {
-				r, err := os.Open("fixtures/linkwarden.json")
-				if err != nil {
-					panic(err)
-				}
-				buf := new(bytes.Buffer)
-				if _, err = io.Copy(buf, r); err != nil {
-					panic(err)
-				}
-				return buf.Bytes()
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
-
-				type bookmarkItem struct {
-					Link     string
-					Title    string
-					Created  time.Time
-					Labels   types.Strings
-					IsMarked bool
-				}
-				items := []bookmarkItem{}
-
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
-
-					bi.Title = meta.Title
-					bi.Created = meta.Created
-					bi.Labels = meta.Labels
-					bi.IsMarked = meta.IsMarked
-
-					items = append(items, bi)
-				}
-
-				expected := []bookmarkItem{
-					{Link: "https://www.the-reframe.com/the-neighborhood/", Title: "The Neighborhood - by A.R. Moxon - The Reframe", Created: time.Date(2025, time.June, 24, 5, 24, 31, 751000000, time.UTC), Labels: types.Strings{"label b"}, IsMarked: true},
-					{Link: "https://www.youtube.com/watch?v=Wp8ux8Xlj48", Title: "You're Living On An Ant Planet - YouTube", Created: time.Date(2025, time.June, 24, 5, 25, 23, 231000000, time.UTC), Labels: types.Strings{"label a"}, IsMarked: false},
-					{Link: "https://upload.wikimedia.org/wikipedia/commons/1/15/King's_Cross_Western_Concourse.jpg", Title: "", Created: time.Date(2025, time.June, 24, 5, 26, 24, 397000000, time.UTC), Labels: types.Strings{"label a"}, IsMarked: false},
-				}
-				require.Equal(expected, items)
-			},
-		},
-		{
-			importer.LoadAdapter("pocket-file"),
-			func() []byte {
-				return []byte("  ")
-			},
-			func(_ *adapterTest, require *require.Assertions, f forms.Binder, _ []byte) {
-				require.False(f.IsValid())
-				require.EqualError(f.Get("data").Errors(), "Empty or invalid import file")
-			},
-		},
-		{
-			importer.LoadAdapter("pocket-file"),
-			func() []byte {
-				b := &bytes.Buffer{}
-				w := zip.NewWriter(b)
-				f, _ := w.Create("part_000000.csv")
-				cw := csv.NewWriter(f)
-				_ = cw.Write([]string{"title", "url", "time_added", "cursor", "tags", "status"})
-				_ = cw.Write([]string{"Example.net", "https://example.net/", "1684913522", "", "", "unread"})
-				_ = cw.Write([]string{"Example.net", "https://example.org/#test", "1684913346", "", "tag1|tag2", "unread"})
-				_ = cw.Write([]string{"", "ftp://example.net/", "1684913346", "", "tag2", "unread"})
-				_ = cw.Write([]string{"Example.net", "https://example.net/#foo", "1684913522", "", "", "unread"})
-				_ = cw.Write([]string{"Read article", "https://example.org/read", "1712037544", "", "", "archive"})
-				cw.Flush()
-
-				_ = w.Close()
-
-				return b.Bytes()
-			},
-			func(test *adapterTest, require *require.Assertions, f forms.Binder, data []byte) {
-				require.True(f.IsValid())
-				adapter := test.adapter.(importer.ImportWorker)
-				err := adapter.LoadData(data)
-				require.NoError(err)
-
-				type bookmarkItem struct {
-					Link       string
-					Title      string
-					Created    time.Time
-					Labels     types.Strings
-					IsArchived bool
-				}
-				items := []bookmarkItem{}
-				for {
-					item, err := adapter.Next()
-					if err == io.EOF {
-						break
-					}
-					require.NoError(err)
-					bi := bookmarkItem{Link: item.URL()}
-					meta, err := item.(importer.BookmarkEnhancer).Meta()
-					require.NoError(err)
-
-					bi.Title = meta.Title
-					bi.Created = meta.Created
-					bi.Labels = meta.Labels
-					bi.IsArchived = meta.IsArchived
-
-					items = append(items, bi)
-				}
-
-				expected := []bookmarkItem{
-					{"https://example.org/", "Example.net", time.Date(2023, time.May, 24, 7, 29, 6, 0, time.UTC), types.Strings{"tag1", "tag2"}, false},
-					{"https://example.net/", "Example.net", time.Date(2023, time.May, 24, 7, 32, 2, 0, time.UTC), types.Strings{}, false},
-					{"https://example.org/read", "Read article", time.Date(2024, time.April, 2, 5, 59, 4, 0, time.UTC), types.Strings{}, true},
-				}
-				require.Equal(expected, items)
-			},
-		},
+	if !f.IsValid() {
+		return f, nil
 	}
+
+	data, err := adapter.Params(f)
+	require.NoError(err)
+
+	if !f.IsValid() {
+		return f, nil
+	}
+
+	err = adapter.(importer.ImportWorker).LoadData(data)
+	require.NoError(err)
+
+	res := []importer.BookmarkImporter{}
+	for {
+		bi, err := adapter.(importer.ImportWorker).Next()
+		if errors.Is(err, io.EOF) {
+			break
+		}
+		require.NoError(err)
+		res = append(res, bi)
+	}
+
+	return f, res
+}
+
+type fileTest struct {
+	file      fileLoader
+	formError string
+	expected  string
+}
+
+type bookmarkItem struct {
+	URL  string
+	Meta *importer.BookmarkMeta
+}
+
+func testFileAdapter(t *testing.T, adapterName string, tests []fileTest) {
+	t.Setenv("TZ", "Europe/Paris")
 
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
-			body := &bytes.Buffer{}
-			writer := multipart.NewWriter(body)
-			part, _ := writer.CreateFormFile("data", "data")
-			_, _ = part.Write(test.data())
-			writer.Close() //nolint:errcheck
+			require := require.New(t)
+			adapter := importer.LoadAdapter(adapterName)
+			f, items := loadFile(t, test.file, adapter)
 
-			r, _ := http.NewRequest(http.MethodPost, "/", body)
-			r.Header.Set("Content-Type", writer.FormDataContentType())
+			if test.formError != "" {
+				require.Equal(test.formError, f.Get("data").Errors().Error())
+			} else {
+				require.Empty(f.Get("data").Errors().Error())
+				require.True(f.IsValid())
+			}
 
-			f := importer.NewImportForm(context.Background(), test.adapter)
-			forms.Bind(f, r)
+			var err error
+			res := make([]bookmarkItem, len(items))
+			for i, x := range items {
+				v := bookmarkItem{URL: x.URL()}
+				if x, ok := x.(importer.BookmarkEnhancer); ok {
+					v.Meta, err = x.Meta()
+					require.NoError(err)
+				}
+				res[i] = v
+			}
 
-			data, err := test.adapter.Params(f)
-			require.NoError(t, err)
-			test.assert(&test, require.New(t), f, data)
+			buf := new(bytes.Buffer)
+			enc := json.NewEncoder(buf)
+			enc.SetIndent("", "  ")
+			require.NoError(enc.Encode(res))
+
+			if !assert.JSONEq(t, test.expected, buf.String()) {
+				t.Log(buf.String())
+				t.FailNow()
+			}
 		})
 	}
 }
 
-func TestWallabagImporter(t *testing.T) {
-	t.Setenv("TZ", "Europe/Paris")
-
-	adapter := importer.LoadAdapter("wallabag")
-	f := importer.NewImportForm(context.Background(), adapter)
-	_ = f.Get("url").UnmarshalValues([]string{"https://wallabag/"})
-	_ = f.Get("username").UnmarshalValues([]string{"user"})
-	_ = f.Get("password").UnmarshalValues([]string{"pass"})
-	_ = f.Get("client_id").UnmarshalValues([]string{"client_id"})
-	_ = f.Get("client_secret").UnmarshalValues([]string{"client_secret"})
-	f.Bind()
-
-	httpmock.Activate()
-	defer httpmock.DeactivateAndReset()
-
-	httpmock.RegisterResponder("POST", "/oauth/v2/token", httpmock.NewJsonResponderOrPanic(
-		http.StatusOK,
-		map[string]string{
-			"access_token": "1234",
+func TestBrowser(t *testing.T) {
+	testFileAdapter(t, "browser", []fileTest{
+		{
+			dataFile(""),
+			"field is required",
+			"[]",
 		},
-	))
-
-	httpmock.RegisterRegexpResponder("GET", regexp.MustCompile(`^/api/entries\?`), func(r *http.Request) (*http.Response, error) {
-		page, _ := strconv.Atoi(r.URL.Query().Get("page"))
-
-		var next map[string]string
-		if page < 5 {
-			q := r.URL.Query()
-			q.Set("page", strconv.Itoa(page+1))
-			r.URL.RawQuery = q.Encode()
-			next = map[string]string{
-				"href": r.URL.String(),
-			}
-		}
-
-		response := map[string]any{
-			"_links": map[string]any{
-				"next": next,
-			},
-		}
-
-		items := []map[string]any{}
-		for _, x := range []string{"a", "b", "c"} {
-			items = append(items, map[string]any{
-				"is_archived":     0,
-				"is_starred":      0,
-				"title":           fmt.Sprintf("Article %d/%s", page, x),
-				"url":             fmt.Sprintf("https://example.net/%d/article-%s", page, x),
-				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
-				"created_at":      "2024-01-02 12:23:43",
-				"published_at":    "2022-01-02 12:23:43",
-				"published_by":    []string{},
-				"language":        "en",
-				"tags":            []string{},
-				"preview_picture": fmt.Sprintf("https://example.net/picture-%d%s.webp", page, x),
-				"headers":         map[string]string{},
-			})
-		}
-		response["_embedded"] = map[string]any{
-			"items": items,
-		}
-
-		return httpmock.NewJsonResponse(200, response)
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("browser.html"),
+			"",
+			`[
+				{
+					"URL": "https://example.org/",
+					"Meta": {
+						"Title": "Example.org",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2012-11-30T11:05:29Z"
+					}
+				},
+				{
+					"URL": "https://example.net/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2013-11-26T10:38:19Z"
+					}
+				},
+				{
+					"URL": "http://blog.mozilla.com/",
+					"Meta": {
+						"Title": "Mozilla News",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"mozilla",
+							"blog",
+							"test"
+						],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2020-09-29T20:32:45Z"
+					}
+				},
+				{
+					"URL": "https://www.mozilla.org/en-US/firefox/central/",
+					"Meta": {
+						"Title": "Getting Started",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2019-12-18T07:09:39Z"
+					}
+				}
+			]`,
+		},
 	})
-
-	require := require.New(t)
-
-	data, err := adapter.Params(f)
-	require.NoError(err)
-	require.True(f.IsValid())
-	require.JSONEq(`{"url":"https://wallabag","token":"1234"}`, string(data))
-
-	worker := adapter.(importer.ImportWorker)
-	err = worker.LoadData(data)
-	require.NoError(err)
-
-	i := 0
-	letters := []string{"a", "b", "c"}
-	for {
-		item, err := worker.Next()
-		if err == io.EOF {
-			break
-		}
-		require.NoError(err)
-
-		page := 1 + i/3
-		x := letters[i%3]
-		i++
-
-		require.Equal(fmt.Sprintf("https://example.net/%d/article-%s", page, x), item.URL())
-		bi, err := item.(importer.BookmarkEnhancer).Meta()
-		require.NoError(err)
-
-		require.Equal(fmt.Sprintf("Article %d/%s", page, x), bi.Title)
-		require.Equal(time.Date(2024, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Created)
-		require.Equal(time.Date(2022, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Published)
-
-		resources := item.(importer.BookmarkResourceProvider).Resources()
-		require.Len(resources, 1)
-
-		require.Equal(
-			fmt.Sprintf(
-				`<html><head><meta property="og:image" content="https://example.net/picture-%d%s.webp"/></head><body><p>some content %d - %s</p></body></html>`,
-				page, x, page, x,
-			),
-			string(resources[0].Data),
-		)
-	}
 }
 
-func TestOmnivoreImporter(t *testing.T) {
+func TestCSV(t *testing.T) {
+	testFileAdapter(t, "csv", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			dataFile("url,title"),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			dataFile("{}"),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			dataFile("url,title\n" + "https://example.net/,test,123\n"),
+			"",
+			`[
+				{
+					"URL": "https://example.net/",
+					"Meta": {
+						"Title": "test",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": null,
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "0001-01-01T00:00:00Z"
+					}
+				}
+			]`,
+		},
+		{
+			fixtureFile("csv-simple.csv"),
+			"",
+			`[
+				{
+					"URL": "https://www.linuxserver.io/",
+					"Meta": {
+						"Title": "Some Title",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"test label",
+							"label B"
+						],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2025-02-01T15:21:43Z"
+					}
+				},
+				{
+					"URL": "https://www.startpage.com/",
+					"Meta": {
+						"Title": "Site Title",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": null,
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "0001-01-01T00:00:00Z"
+					}
+				}
+			]`,
+		},
+		{
+			fixtureFile("csv-instapaper.csv"),
+			"",
+			`[
+				{
+					"URL": "https://www.newyorker.com/business/currency/the-gnu-manifesto-turns-thirty",
+					"Meta": {
+						"Title": "Richard Stallman’s GNU Manifesto Turns Thirty | The New Yorker",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": null,
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-06-20T23:08:30Z"
+					}
+				},
+				{
+					"URL": "https://css-irl.info/dont-forget-the-lang-attribute/",
+					"Meta": {
+						"Title": "CSS { In Real Life } | Don’t Forget the “lang” Attribute",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": null,
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2021-12-21T10:01:19Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
+func TestGoodLinks(t *testing.T) {
+	testFileAdapter(t, "goodlinks", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("goodlinks.json"),
+			"",
+			`[
+				{
+					"URL": "https://www.startpage.com/",
+					"Meta": {
+						"Title": "Shodan",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"search"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2020-05-04T14:12:42Z"
+					}
+				},
+				{
+					"URL": "https://www.linuxserver.io/",
+					"Meta": {
+						"Title": "Home | LinuxServer.io",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"linux",
+							"docker"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2020-05-16T09:30:18Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
+func TestLinkwarden(t *testing.T) {
+	testFileAdapter(t, "linkwarden", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			dataFile("[]"),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("linkwarden.json"),
+			"",
+			`[
+				{
+					"URL": "https://www.the-reframe.com/the-neighborhood/",
+					"Meta": {
+						"Title": "The Neighborhood - by A.R. Moxon - The Reframe",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"label b"
+						],
+						"IsArchived": false,
+						"IsMarked": true,
+						"Created": "2025-06-24T05:24:31.751Z"
+					}
+				},
+				{
+					"URL": "https://www.youtube.com/watch?v=Wp8ux8Xlj48",
+					"Meta": {
+						"Title": "You're Living On An Ant Planet - YouTube",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"label a"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2025-06-24T05:25:23.231Z"
+					}
+				},
+				{
+					"URL": "https://upload.wikimedia.org/wikipedia/commons/1/15/King's_Cross_Western_Concourse.jpg",
+					"Meta": {
+						"Title": "",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"label a"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2025-06-24T05:26:24.397Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
+func TestPocket(t *testing.T) {
+	testFileAdapter(t, "pocket-file", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("pocket.zip"),
+			"",
+			`[
+				{
+					"URL": "https://example.org/read",
+					"Meta": {
+						"Title": "Read article",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2024-04-02T05:59:04Z"
+					}
+				},
+				{
+					"URL": "https://example.org/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"tag1",
+							"tag2"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:29:06Z"
+					}
+				},
+				{
+					"URL": "https://example.net/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:32:02Z"
+					}
+				}
+			]`,
+		},
+		{
+			fixtureFile("pocket_part.csv"),
+			"",
+			`[
+				{
+					"URL": "https://example.org/read",
+					"Meta": {
+						"Title": "Read article",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2024-04-02T05:59:04Z"
+					}
+				},
+				{
+					"URL": "https://example.org/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"tag1",
+							"tag2"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:29:06Z"
+					}
+				},
+				{
+					"URL": "https://example.net/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:32:02Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
+func TestReadwise(t *testing.T) {
+	testFileAdapter(t, "readwise", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("readwise.csv"),
+			"",
+			`[
+				{
+					"URL": "https://www.linuxserver.io/",
+					"Meta": {
+						"Title": "Some Title",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"don't",
+							"peanut, butter"
+						],
+						"IsArchived": false,
+						"IsMarked": true,
+						"Created": "2022-12-05T12:42:10Z"
+					}
+				},
+				{
+					"URL": "https://www.startpage.com/",
+					"Meta": {
+						"Title": "",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": null,
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2025-01-20T22:13:02.447Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
+func TestText(t *testing.T) {
+	testFileAdapter(t, "text", []fileTest{
+		{
+			dataFile("foo\n"),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("text.txt"),
+			"",
+			`[
+				{
+					"URL": "https://example.net/",
+					"Meta": null
+				},
+				{
+					"URL": "https://example.org/",
+					"Meta": null
+				}
+			]`,
+		},
+	})
+}
+
+func TestOmnivore(t *testing.T) {
 	t.Setenv("TZ", "Europe/Paris")
 
 	httpmock.Activate()
@@ -822,4 +880,114 @@ func TestOmnivoreImporter(t *testing.T) {
 			)
 		}
 	})
+}
+
+func TestWallabag(t *testing.T) {
+	t.Setenv("TZ", "Europe/Paris")
+
+	adapter := importer.LoadAdapter("wallabag")
+	f := importer.NewImportForm(context.Background(), adapter)
+	_ = f.Get("url").UnmarshalValues([]string{"https://wallabag/"})
+	_ = f.Get("username").UnmarshalValues([]string{"user"})
+	_ = f.Get("password").UnmarshalValues([]string{"pass"})
+	_ = f.Get("client_id").UnmarshalValues([]string{"client_id"})
+	_ = f.Get("client_secret").UnmarshalValues([]string{"client_secret"})
+	f.Bind()
+
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("POST", "/oauth/v2/token", httpmock.NewJsonResponderOrPanic(
+		http.StatusOK,
+		map[string]string{
+			"access_token": "1234",
+		},
+	))
+
+	httpmock.RegisterRegexpResponder("GET", regexp.MustCompile(`^/api/entries\?`), func(r *http.Request) (*http.Response, error) {
+		page, _ := strconv.Atoi(r.URL.Query().Get("page"))
+
+		var next map[string]string
+		if page < 5 {
+			q := r.URL.Query()
+			q.Set("page", strconv.Itoa(page+1))
+			r.URL.RawQuery = q.Encode()
+			next = map[string]string{
+				"href": r.URL.String(),
+			}
+		}
+
+		response := map[string]any{
+			"_links": map[string]any{
+				"next": next,
+			},
+		}
+
+		items := []map[string]any{}
+		for _, x := range []string{"a", "b", "c"} {
+			items = append(items, map[string]any{
+				"is_archived":     0,
+				"is_starred":      0,
+				"title":           fmt.Sprintf("Article %d/%s", page, x),
+				"url":             fmt.Sprintf("https://example.net/%d/article-%s", page, x),
+				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
+				"created_at":      "2024-01-02 12:23:43",
+				"published_at":    "2022-01-02 12:23:43",
+				"published_by":    []string{},
+				"language":        "en",
+				"tags":            []string{},
+				"preview_picture": fmt.Sprintf("https://example.net/picture-%d%s.webp", page, x),
+				"headers":         map[string]string{},
+			})
+		}
+		response["_embedded"] = map[string]any{
+			"items": items,
+		}
+
+		return httpmock.NewJsonResponse(200, response)
+	})
+
+	require := require.New(t)
+
+	data, err := adapter.Params(f)
+	require.NoError(err)
+	require.True(f.IsValid())
+	require.JSONEq(`{"url":"https://wallabag","token":"1234"}`, string(data))
+
+	worker := adapter.(importer.ImportWorker)
+	err = worker.LoadData(data)
+	require.NoError(err)
+
+	i := 0
+	letters := []string{"a", "b", "c"}
+	for {
+		item, err := worker.Next()
+		if err == io.EOF {
+			break
+		}
+		require.NoError(err)
+
+		page := 1 + i/3
+		x := letters[i%3]
+		i++
+
+		require.Equal(fmt.Sprintf("https://example.net/%d/article-%s", page, x), item.URL())
+		bi, err := item.(importer.BookmarkEnhancer).Meta()
+		require.NoError(err)
+
+		require.Equal(fmt.Sprintf("Article %d/%s", page, x), bi.Title)
+		require.Equal(time.Date(2024, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Created)
+		require.Equal(time.Date(2022, time.January, 2, 12, 23, 43, 0, time.UTC), bi.Published)
+
+		resources := item.(importer.BookmarkResourceProvider).Resources()
+		require.Len(resources, 1)
+
+		require.Equal(
+			fmt.Sprintf(
+				`<html><head><meta property="og:image" content="https://example.net/picture-%d%s.webp"/></head><body><p>some content %d - %s</p></body></html>`,
+				page, x, page, x,
+			),
+			string(resources[0].Data),
+		)
+	}
 }

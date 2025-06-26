@@ -1,0 +1,6 @@
+https://example.org/#test
+https://example.net/
+test
+####
+ftp://example.net/
+https://example.net/#foo
