@@ -189,6 +189,20 @@ schemas:
         items:
           type: string
         description: List of bookmark ID
+      sort:
+        type: array
+        items:
+          type: string
+          enum:
+            - created
+            - -created
+            - updated
+            - -updated
+        description: |
+          Sorting parameters
+
+          Defaults to `[updated]`
+
       with_json:
         type: boolean
         default: false

@@ -5,9 +5,11 @@
 package routes
 
 import (
+	"context"
 	"net/http"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
@@ -62,7 +64,14 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
-	f := newSyncForm(server.Locale(r))
+	of := newOrderForm("sort", map[string]exp.Orderable{
+		"updated": goqu.C("updated"),
+		"created": goqu.C("created"),
+	})
+	f := forms.Join(context.Background(),
+		newSyncForm(server.Locale(r)),
+		of,
+	)
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -74,7 +83,11 @@ func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 		).
-		Order(goqu.C("created").Asc())
+		Order(goqu.C("updated").Asc())
+
+	if order := of.toOrderedExpressions(); order != nil {
+		ds = ds.Order(order...)
+	}
 
 	ids := f.Get("id").(*forms.TextListField).V()
 	if len(ids) > 0 {
