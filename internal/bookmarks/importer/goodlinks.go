@@ -5,18 +5,19 @@
 package importer
 
 import (
-	"context"
-	"encoding/json"
-	"io"
 	"time"
 
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
+var (
+	_ ImportWorker     = (*goodlinksAdapter)(nil)
+	_ BookmarkEnhancer = (*goodlinksItem)(nil)
+)
+
 type goodlinksAdapter struct {
-	idx   int
-	Items []goodlinksItem `json:"items"`
+	jsonBaseAdapter[[]*goodlinksItem, *goodlinksItem]
 }
 
 type goodlinksItem struct {
@@ -25,6 +26,18 @@ type goodlinksItem struct {
 	AddedAt float64       `json:"addedAt"`
 	Tags    types.Strings `json:"tags"`
 	Starred bool          `json:"starred"`
+}
+
+func newGoodlinksAdapter() *goodlinksAdapter {
+	return &goodlinksAdapter{
+		jsonBaseAdapter: jsonBaseAdapter[[]*goodlinksItem, *goodlinksItem]{
+			loadItems: loadGoodlinksItems,
+		},
+	}
+}
+
+func (adapter *goodlinksAdapter) Name(tr forms.Translator) string {
+	return tr.Gettext("GoodLinks Export File")
 }
 
 func (bi *goodlinksItem) URL() string {
@@ -40,47 +53,8 @@ func (bi *goodlinksItem) Meta() (*BookmarkMeta, error) {
 	}, nil
 }
 
-func (adapter *goodlinksAdapter) Name(tr forms.Translator) string {
-	return tr.Gettext("GoodLinks Export File")
-}
-
-func (adapter *goodlinksAdapter) Form() forms.Binder {
-	return forms.Must(
-		context.Background(),
-		forms.NewFileField("data", forms.Required),
-	)
-}
-
-func (adapter *goodlinksAdapter) Params(form forms.Binder) ([]byte, error) {
-	if !form.IsValid() {
-		return nil, nil
-	}
-
-	reader, err := form.Get("data").(*forms.FileField).V().Open()
-	if err != nil {
-		return nil, err
-	}
-	defer reader.Close() //nolint:errcheck
-
-	dec := json.NewDecoder(reader)
-	err = dec.Decode(&adapter.Items)
-	if err != nil {
-		form.AddErrors("data", errInvalidFile)
-		return nil, nil
-	}
-
-	return json.Marshal(adapter)
-}
-
-func (adapter *goodlinksAdapter) LoadData(data []byte) error {
-	return json.Unmarshal(data, adapter)
-}
-
-func (adapter *goodlinksAdapter) Next() (BookmarkImporter, error) {
-	if adapter.idx+1 > len(adapter.Items) {
-		return nil, io.EOF
-	}
-
-	adapter.idx++
-	return &adapter.Items[adapter.idx-1], nil
+func loadGoodlinksItems(gi *[]*goodlinksItem) ([]*goodlinksItem, error) {
+	// Goodlinks exports a list of items, so it's very easy to convert directly
+	// from and to the same [goodlinksItem] list.
+	return *gi, nil
 }

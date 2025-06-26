@@ -120,7 +120,7 @@ func testFileAdapter(t *testing.T, adapterName string, tests []fileTest) {
 			if test.formError != "" {
 				require.Equal(test.formError, f.Get("data").Errors().Error())
 			} else {
-				require.Equal("", f.Get("data").Errors().Error())
+				require.Empty(f.Get("data").Errors().Error())
 				require.True(f.IsValid())
 			}
 

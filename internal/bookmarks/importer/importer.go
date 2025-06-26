@@ -138,9 +138,9 @@ func LoadAdapter(name string) ImportLoader {
 	case importCSV:
 		return newCsvAdapter()
 	case importGoodLinks:
-		return &goodlinksAdapter{}
+		return newGoodlinksAdapter()
 	case importLinkwarden:
-		return &linkwardenAdapter{}
+		return newLinkwardenAdapter()
 	case importOmnivore:
 		return &omnivoreAPIAdapter{}
 	case importPocketFile:
