@@ -175,7 +175,7 @@ schemas:
       time:
         type: string
         format: date-time
-        description: Creation date
+        description: Last update date and time
       type:
         type: string
         description: Update type
