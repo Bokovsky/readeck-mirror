@@ -119,6 +119,9 @@ func testFileAdapter(t *testing.T, adapterName string, tests []fileTest) {
 
 			if test.formError != "" {
 				require.Equal(test.formError, f.Get("data").Errors().Error())
+			} else {
+				require.Equal("", f.Get("data").Errors().Error())
+				require.True(f.IsValid())
 			}
 
 			var err error
@@ -506,6 +509,66 @@ func TestPocket(t *testing.T) {
 		},
 		{
 			fixtureFile("pocket.zip"),
+			"",
+			`[
+				{
+					"URL": "https://example.org/read",
+					"Meta": {
+						"Title": "Read article",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2024-04-02T05:59:04Z"
+					}
+				},
+				{
+					"URL": "https://example.org/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"tag1",
+							"tag2"
+						],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:29:06Z"
+					}
+				},
+				{
+					"URL": "https://example.net/",
+					"Meta": {
+						"Title": "Example.net",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2023-05-24T07:32:02Z"
+					}
+				}
+			]`,
+		},
+		{
+			fixtureFile("pocket_part.csv"),
 			"",
 			`[
 				{

@@ -7,6 +7,7 @@ package importer
 import (
 	"archive/zip"
 	"encoding/csv"
+	"errors"
 	"io"
 	"iter"
 	"net/url"
@@ -64,13 +65,22 @@ func pocketOpenFile(fo forms.FileOpener) (iter.Seq2[*csv.Reader, error], error) 
 	}
 	defer r.Close() //nolint:errcheck
 
-	return func(yield func(*csv.Reader, error) bool) {
-		zr, err := zip.NewReader(r.(io.ReaderAt), fo.Size())
-		if err != nil {
-			yield(nil, err)
-			return
+	// Try to open the zipfile now
+	zr, err := zip.NewReader(r.(io.ReaderAt), fo.Size())
+	if err != nil {
+		if errors.Is(err, zip.ErrFormat) {
+			// The user might have submitted the csv file after
+			// manual decompression. Let's fallback to it then.
+			return csvOpenFile(fo)
 		}
 
+		// This errors is not fatal, hence the simple yield.
+		return func(yield func(*csv.Reader, error) bool) {
+			yield(nil, err)
+		}, nil
+	}
+
+	return func(yield func(*csv.Reader, error) bool) {
 		// In the absence of any specification, we'll consider that any CSV file contains bookmarks.
 		for _, file := range zr.File {
 			if !strings.HasSuffix(file.Name, ".csv") {
