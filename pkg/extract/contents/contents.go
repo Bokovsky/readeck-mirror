@@ -78,7 +78,6 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		// Note: even if readability is disable, we must perform some pre and post processing
 		// tasks.
 
-		discardPictureSources(m.Dom)
 		fixNoscriptImages(m.Dom)
 		convertPictureNodes(m.Dom, m)
 
@@ -277,24 +276,6 @@ func removeEmbeds(top *html.Node) {
 	dom.RemoveNodes(dom.GetAllNodesWithTag(top, "object", "embed", "iframe", "video", "audio"), nil)
 }
 
-// discardPictureSources removes picture>source element with no type or a type
-// that's not present in [acceptedImages].
-func discardPictureSources(top *html.Node) {
-	for _, p := range dom.GetElementsByTagName(top, "picture") {
-		toRemove := []*html.Node{}
-		for _, s := range dom.GetElementsByTagName(p, "source") {
-			mt, _, _ := strings.Cut(dom.GetAttribute(s, "type"), ";")
-			if _, ok := acceptedImages[strings.TrimSpace(mt)]; !ok {
-				toRemove = append(toRemove, s)
-			}
-		}
-
-		for _, n := range toRemove {
-			p.RemoveChild(n)
-		}
-	}
-}
-
 func fixNoscriptImages(top *html.Node) {
 	// A bug in readability prevents us to extract images.
 	// It does move the noscript content when it's a single image
@@ -365,6 +346,11 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 		set := []string{}
 		sources := dom.GetElementsByTagName(node, "source")
 		for _, n := range sources {
+			mt, _, _ := strings.Cut(dom.GetAttribute(n, "type"), ";")
+			if _, ok := acceptedImages[strings.TrimSpace(mt)]; !ok {
+				continue
+			}
+
 			if dom.HasAttribute(n, "srcset") {
 				set = append(set, dom.GetAttribute(n, "srcset"))
 			}
