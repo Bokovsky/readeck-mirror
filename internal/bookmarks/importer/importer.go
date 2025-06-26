@@ -45,6 +45,8 @@ var (
 	ErrNoAdapter = errors.New("no adapter")
 
 	errInvalidFile = forms.Gettext("Empty or invalid import file")
+
+	errSchemeNotAllowed = errors.New("scheme not allowed")
 )
 
 var allowedSchemes = []string{"http", "https"}
@@ -134,7 +136,7 @@ func LoadAdapter(name string) ImportLoader {
 	case importBrowser:
 		return &browserAdapter{}
 	case importCSV:
-		return &csvAdapter{}
+		return newCsvAdapter()
 	case importGoodLinks:
 		return &goodlinksAdapter{}
 	case importLinkwarden:
@@ -142,9 +144,9 @@ func LoadAdapter(name string) ImportLoader {
 	case importOmnivore:
 		return &omnivoreAPIAdapter{}
 	case importPocketFile:
-		return &pocketFileAdapter{}
+		return newPocketAdapter()
 	case importReadwise:
-		return &readwiseAdapter{}
+		return newReadwiseAdapter()
 	case importText:
 		return &textAdapter{}
 	case importWallabag:
