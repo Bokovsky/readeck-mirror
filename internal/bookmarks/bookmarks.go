@@ -118,9 +118,11 @@ func (m *BookmarkManager) Create(bookmark *Bookmark) error {
 		return errors.New("no bookmark user")
 	}
 
-	bookmark.Created = time.Now()
-	bookmark.Updated = bookmark.Created
 	bookmark.UID = base58.NewUUID()
+	bookmark.Updated = time.Now().UTC()
+	if bookmark.Created.IsZero() {
+		bookmark.Created = bookmark.Updated
+	}
 
 	if bookmark.InitialURL == "" {
 		bookmark.InitialURL = bookmark.URL
@@ -444,7 +446,7 @@ func (b *Bookmark) Update(v interface{}) error {
 
 // Save updates all the bookmark values.
 func (b *Bookmark) Save() error {
-	b.Updated = time.Now()
+	b.Updated = time.Now().UTC()
 	return b.Update(b)
 }
 

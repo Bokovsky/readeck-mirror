@@ -75,6 +75,7 @@ func newCreateForm(tr forms.Translator, userID int, requestID string) *createFor
 			),
 			forms.NewTextField("title", forms.Trim),
 			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
+			forms.NewDatetimeField("created", forms.Trim),
 			forms.NewBooleanField("feature_find_main"),
 			forms.NewFileListField("resource"),
 		),
@@ -166,6 +167,10 @@ func (f *createForm) createBookmark() (b *bookmarks.Bookmark, err error) {
 		b.Labels = f.Get("labels").(forms.TypedField[[]string]).V()
 		slices.Sort(b.Labels)
 		b.Labels = slices.Compact(b.Labels)
+	}
+
+	if !f.Get("created").IsNil() {
+		b.Created = f.Get("created").(*forms.DatetimeField).V().UTC()
 	}
 
 	defer func() {

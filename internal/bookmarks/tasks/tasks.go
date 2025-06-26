@@ -348,7 +348,7 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 			return next
 		}
 
-		b.Updated = time.Now()
+		b.Updated = time.Now().UTC()
 		b.URL = drop.UnescapedURL()
 		b.State = bookmarks.StateLoaded
 		b.Domain = drop.Domain

@@ -173,7 +173,6 @@ func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var err error
 	b, err := f.createBookmark()
 	if err != nil {
 		server.Err(w, r, err)

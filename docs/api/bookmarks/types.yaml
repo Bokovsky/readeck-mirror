@@ -285,6 +285,13 @@ schemas:
         items:
           type: string
         description: List of labels to set to the bookmark
+      created:
+        type: string
+        format: date-time
+        description: |
+          Creation date
+
+          This is optional and defaults to the current time.
 
   bookmarkUpdate:
     properties:

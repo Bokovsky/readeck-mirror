@@ -55,6 +55,10 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		forms.Bind(f, r)
 		if f.IsValid() {
+			f.Get("created").Set(nil)
+			f.Get("feature_find_main").Set(nil)
+			f.Get("resource").Set(nil)
+
 			if b, err := f.createBookmark(); err != nil {
 				server.Log(r).Error("", slog.Any("err", err))
 			} else {
