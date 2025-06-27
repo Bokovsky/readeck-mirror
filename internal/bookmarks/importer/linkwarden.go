@@ -60,7 +60,7 @@ func newLinkwardenAdapter() *linkwardenAdapter {
 }
 
 func (adapter *linkwardenAdapter) Name(tr forms.Translator) string {
-	return tr.Gettext("Linkwarden Export File")
+	return "Linkwarden"
 }
 
 func (bi *linkwardenItem) URL() string {

@@ -363,6 +363,13 @@ def update(_):
 
         catalog.update(template)
 
+        # Remove previous id in fuzzy matches because of a bug with
+        # weblate.
+        for k, v in catalog._messages.items():
+            if not v.fuzzy:
+                continue
+            catalog._messages[k].previous_id = []
+
         with po_file.open("wb") as fp:
             write_po(
                 fp,

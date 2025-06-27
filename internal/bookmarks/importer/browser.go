@@ -126,7 +126,7 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 	}
 
 	if len(adapter.Items) == 0 {
-		form.AddErrors("data", forms.Gettext("Empty or invalid import file"))
+		form.AddErrors("data", errInvalidFile)
 		return nil, nil
 	}
 
