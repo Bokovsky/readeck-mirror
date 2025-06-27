@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-14 12:52+0200\n"
+"POT-Creation-Date: 2025-06-27 08:51+0200\n"
 "PO-Revision-Date: 2025-06-24 04:58+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
-"application/cs/>\n"
 "Language: cs_CZ\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -118,8 +116,8 @@ msgstr "Další"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
-#: internal/admin/views.go:92 internal/admin/views.go:132
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:63
+#: internal/admin/views.go:93 internal/admin/views.go:133
 msgid "Users"
 msgstr "Uživatelé"
 
@@ -134,6 +132,7 @@ msgstr "Uživatel bude za několik sekund odebrán"
 #: assets/templates/bookmarks/import/form-browser.jet.html:49
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-readwise.jet.html:35
@@ -170,7 +169,7 @@ msgstr "Skupina"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:123
 msgid "Password"
 msgstr "Heslo"
 
@@ -191,7 +190,7 @@ msgstr "Uložit"
 msgid "Delete this user"
 msgstr "Odstranit tohoto uživatele"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
 msgid "New User"
 msgstr "Nový uživatel"
 
@@ -387,17 +386,17 @@ msgid "Favorites"
 msgstr "Oblíbené"
 
 #: assets/templates/bookmarks/base.jet.html:48
-#: internal/bookmarks/routes/views_bookmarks.go:115
+#: internal/bookmarks/routes/views_bookmarks.go:110
 msgid "Articles"
 msgstr "Články"
 
 #: assets/templates/bookmarks/base.jet.html:54
-#: internal/bookmarks/routes/views_bookmarks.go:119
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Videos"
 msgstr "Videa"
 
 #: assets/templates/bookmarks/base.jet.html:60
-#: internal/bookmarks/routes/views_bookmarks.go:117
+#: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Pictures"
 msgstr "Obrázky"
 
@@ -567,8 +566,8 @@ msgstr "Filtry"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
-#: docs/http.go:295
+#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
+#: docs/http.go:296
 msgid "Documentation"
 msgstr "Dokumentace"
 
@@ -586,7 +585,7 @@ msgid "New Collection"
 msgstr "Nová sbírka"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
-#: internal/opds/http.go:74
+#: internal/opds/http.go:75
 msgid "Bookmark Collections"
 msgstr "Sbírky záložek"
 
@@ -979,6 +978,7 @@ msgstr "Pokyny pro Chrome"
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-csv.jet.html:27
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:27
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-readwise.jet.html:27
 #: assets/templates/bookmarks/import/form-text.jet.html:28
@@ -996,6 +996,7 @@ msgstr "Přidá popisek k odkazům na základě jejich nadpisu sekce"
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-readwise.jet.html:34
@@ -1095,8 +1096,24 @@ msgstr ""
 "    Nahrajte soubor JSON získaný z Vaší GoodLinks aplikace.\n"
 "  "
 
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
+#, fuzzy
+msgid "Import Bookmarks from a Linkwarden export file"
+msgstr "Importovat odkazy z exportního souboru GoodLinks"
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
+#, fuzzy
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your Linkwarden app.\n"
+"  "
+msgstr ""
+"\n"
+"    Nahrajte soubor JSON získaný z Vaší GoodLinks aplikace.\n"
+"  "
+
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:51
+#: assets/templates/bookmarks/import/index.jet.html:63
 msgid "Import your Omnivore Articles"
 msgstr "Importovat Vaše články z Omnivore"
 
@@ -1125,7 +1142,7 @@ msgid "API Key"
 msgstr "Klíč API"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:54
+#: assets/templates/bookmarks/import/index.jet.html:70
 msgid "Import your Pocket Articles"
 msgstr "Importovat články z Pocketu"
 
@@ -1207,9 +1224,7 @@ msgstr "„%s“ jako štítky Readecku,"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
-"Pokud značka dokumentu obsahuje „%s“, bude záložka přidána do oblíbených "
-"položek Readecku."
+msgstr "Pokud značka dokumentu obsahuje „%s“, bude záložka přidána do oblíbených položek Readecku."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
@@ -1228,7 +1243,7 @@ msgid "Uploaded documents such as PDFs or EPUB."
 msgstr "Nahrané dokumenty, například PDF nebo EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:32
+#: assets/templates/bookmarks/import/index.jet.html:84
 msgid "Import Links from a Text File"
 msgstr "Importovat z textového souboru"
 
@@ -1245,7 +1260,7 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:57
+#: assets/templates/bookmarks/import/index.jet.html:91
 msgid "Import your Wallabag Articles"
 msgstr "Importovat články z Wallabagu"
 
@@ -1303,22 +1318,43 @@ msgstr ""
 "    Zde můžete do Readecku importovat svou stávající sbírku záložek z různých zdrojů.\n"
 "  "
 
-#: assets/templates/bookmarks/import/index.jet.html:36
-msgid "Import your Readwise Reader Library"
-msgstr "Importujte svou Readwise Reader knihovnu"
+#: assets/templates/bookmarks/import/index.jet.html:34
+#: internal/bookmarks/importer/browser.go:51
+msgid "Browser Bookmarks"
+msgstr "Záložky prohlížeče"
 
-#: assets/templates/bookmarks/import/index.jet.html:40
+#: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importovat záložky prohlížeče, Pinboard, Instapaper"
 
+# | msgid "File"
+#: assets/templates/bookmarks/import/index.jet.html:41
+#: internal/bookmarks/importer/csv.go:55
+msgid "CSV File"
+msgstr "Soubor CSV"
+
 # | msgid "Import Links from a Text File"
-#: assets/templates/bookmarks/import/index.jet.html:44
+#: assets/templates/bookmarks/import/index.jet.html:42
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "Import odkazů ze souboru CSV a Instapaper"
 
-#: assets/templates/bookmarks/import/index.jet.html:48
+#: assets/templates/bookmarks/import/index.jet.html:49
 msgid "Import your GoodLinks Articles"
 msgstr "Importování článků GoodLinks"
+
+#: assets/templates/bookmarks/import/index.jet.html:56
+#, fuzzy
+msgid "Import your Linkwarden Bookmarks"
+msgstr "Importovat záložky"
+
+#: assets/templates/bookmarks/import/index.jet.html:77
+msgid "Import your Readwise Reader Library"
+msgstr "Importujte svou Readwise Reader knihovnu"
+
+#: assets/templates/bookmarks/import/index.jet.html:83
+#: internal/bookmarks/importer/text.go:24
+msgid "Text File"
+msgstr "Textový soubor"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
@@ -1486,7 +1522,7 @@ msgstr ""
 "  Do štítku můžete nastavit cokoliv, včetně emotikonů!\n"
 
 #: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:258
+#: assets/templates/docs/base.jet.html:27 docs/http.go:259
 msgid "About Readeck"
 msgstr "O Readecku"
 
@@ -1731,14 +1767,14 @@ msgstr "Změnit barevné téma"
 msgid "Settings"
 msgstr "Nastavení"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
-#: internal/profile/views.go:121 internal/profile/views.go:165
-#: internal/profile/views.go:225
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:87
+#: internal/profile/views.go:122 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
-#: internal/profile/views.go:226
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:167
+#: internal/profile/views.go:227
 msgid "API Tokens"
 msgstr "Tokeny API"
 
@@ -1798,8 +1834,7 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Pokud plánujete odesílat e-knihy do zařízení Kindle, musíte v "
-"rámci\n"
+"          Pokud plánujete odesílat e-knihy do zařízení Kindle, musíte v rámci\n"
 "          svého účtu Kindle schválit následující e-mailové adresy:\n"
 "          "
 
@@ -1955,11 +1990,11 @@ msgstr "Naposledy použito: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Tento token bude za několik sekund odebrán."
 
-#: internal/admin/views.go:80
+#: internal/admin/views.go:81
 msgid "User created."
 msgstr "Uživatel byl vytvořen."
 
-#: internal/admin/views.go:119
+#: internal/admin/views.go:120
 msgid "User updated."
 msgstr "Uživatel byl aktualizován."
 
@@ -1988,47 +2023,25 @@ msgstr "Administrátor : Pouze ke čtení"
 msgid "Admin : Write Only"
 msgstr "Administrátor : Pouze k zápisu"
 
-#: internal/bookmarks/importer/browser.go:51
-msgid "Browser Bookmarks"
-msgstr "Záložky prohlížeče"
-
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
 msgstr "Nelze přečíst obsah HTML"
 
-#: internal/bookmarks/importer/browser.go:129
-#: internal/bookmarks/importer/csv.go:142
-#: internal/bookmarks/importer/csv.go:153
-#: internal/bookmarks/importer/csv.go:158
-#: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:46
-#: internal/bookmarks/importer/readwise.go:157
-#: internal/bookmarks/importer/readwise.go:168
-#: internal/bookmarks/importer/readwise.go:175
-#: internal/bookmarks/importer/readwise.go:183
-msgid "Empty or invalid import file"
-msgstr "Prázdný nebo neplatný soubor importu"
-
-# | msgid "File"
-#: internal/bookmarks/importer/csv.go:118
-msgid "CSV File"
-msgstr "Soubor CSV"
-
-#: internal/bookmarks/importer/goodlinks.go:44
+#: internal/bookmarks/importer/goodlinks.go:40
 msgid "GoodLinks Export File"
 msgstr "Soubor GoodLinks Export"
+
+#: internal/bookmarks/importer/importer.go:47
+msgid "Empty or invalid import file"
+msgstr "Prázdný nebo neplatný soubor importu"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
 msgstr "Neplatný klíč API"
 
-#: internal/bookmarks/importer/readwise.go:133
+#: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
 msgstr "CSV z Readwise Reader"
-
-#: internal/bookmarks/importer/text.go:24
-msgid "Text File"
-msgstr "Textový soubor"
 
 #: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
@@ -2042,145 +2055,145 @@ msgstr "Neplatné přihlašovací údaje"
 msgid "No access token found"
 msgstr "Nebyl nalezen žádný token pro přístup"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:140
+#: internal/bookmarks/routes/forms_bookmarks.go:142
 msgid "Unable to process input data"
 msgstr "Nelze zpracovat vstupní data"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:382
+#: internal/bookmarks/routes/forms_bookmarks.go:419
 msgid "Article"
 msgstr "Článek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:383
+#: internal/bookmarks/routes/forms_bookmarks.go:420
 msgid "Picture"
 msgstr "Obrázek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:384
+#: internal/bookmarks/routes/forms_bookmarks.go:421
 msgid "Video"
 msgstr "Video"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:391
+#: internal/bookmarks/routes/forms_bookmarks.go:428
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Nezobrazené"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:392
+#: internal/bookmarks/routes/forms_bookmarks.go:429
 msgctxt "status"
 msgid "In-Progress"
 msgstr "Probíhající"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:393
+#: internal/bookmarks/routes/forms_bookmarks.go:430
 msgctxt "status"
 msgid "Completed"
 msgstr "Dokončené"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:626
+#: internal/bookmarks/routes/forms_bookmarks.go:657
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Přidané, nejnovější první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:627
+#: internal/bookmarks/routes/forms_bookmarks.go:658
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Přidané, nejstarší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:628
+#: internal/bookmarks/routes/forms_bookmarks.go:659
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Zveřejněno, nejnovější první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:629
+#: internal/bookmarks/routes/forms_bookmarks.go:660
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Zveřejněno, nejstarší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:630
+#: internal/bookmarks/routes/forms_bookmarks.go:661
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Nadpis, od A do Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:631
+#: internal/bookmarks/routes/forms_bookmarks.go:662
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Nadpis, od Z do A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:632
+#: internal/bookmarks/routes/forms_bookmarks.go:663
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Název stránky, od A do Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:633
+#: internal/bookmarks/routes/forms_bookmarks.go:664
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Název stránky, od Z do A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:634
+#: internal/bookmarks/routes/forms_bookmarks.go:665
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Délka, nejkratší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:635
+#: internal/bookmarks/routes/forms_bookmarks.go:666
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Délka, nejdelší první"
 
-#: internal/bookmarks/routes/opds.go:56
+#: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
 msgstr "Záložky Readecku"
 
-#: internal/bookmarks/routes/opds.go:101
+#: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
 msgstr "Sbírky záložek Readecku"
 
-#: internal/bookmarks/routes/opds.go:138
+#: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Sbírka Readecku: %s"
 
-#: internal/bookmarks/routes/opds.go:144
+#: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "E-kniha sbírky – %s"
 
-#: internal/bookmarks/routes/opds.go:151
+#: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Procházet sbírku: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:100
+#: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
 msgstr "Všechny vaše záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:105
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
 msgstr "Vyhledávání záložek"
 
-#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
 msgid "Unread Bookmarks"
 msgstr "Nepřečtené záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
 msgid "Archived Bookmarks"
 msgstr "Archivované záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
 msgstr "Oblíbené záložky"
 
-#: internal/bookmarks/routes/views_collections.go:79
+#: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
 msgstr "Sbírka byla aktualizována."
 
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69
 msgid "Import"
 msgstr "Import"
 
-#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
 msgstr "Průběh"
 
-#: internal/opds/http.go:70
+#: internal/opds/http.go:71
 msgid "All Bookmarks"
 msgstr "Všechny záložky"
 
@@ -2192,23 +2205,23 @@ msgstr "neplatné uživatelské jméno a/nebo e-mail"
 msgid "invalid password"
 msgstr "neplatné heslo"
 
-#: internal/profile/views.go:73
+#: internal/profile/views.go:74
 msgid "Profile updated."
 msgstr "Profil byl aktualizován."
 
-#: internal/profile/views.go:109
+#: internal/profile/views.go:110
 msgid "Your password was changed."
 msgstr "Vaše heslo bylo změněno."
 
-#: internal/profile/views.go:181
+#: internal/profile/views.go:182
 msgid "An error occurred while creating your token."
 msgstr "Při vytváření vašeho tokenu se vyskytla chyba."
 
-#: internal/profile/views.go:186
+#: internal/profile/views.go:187
 msgid "New token created."
 msgstr "Nový token byl vytvořen."
 
-#: internal/profile/views.go:205
+#: internal/profile/views.go:206
 msgid "Token was updated."
 msgstr "Token byl aktualizován."
 
@@ -2577,3 +2590,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Heslo bylo aktualizováno."
+

@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-14 12:52+0200\n"
+"POT-Creation-Date: 2025-06-27 08:51+0200\n"
 "PO-Revision-Date: 2025-06-17 07:58+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
-"application/gl/>\n"
 "Language: gl_ES\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -118,8 +116,8 @@ msgstr "Seguinte"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:62
-#: internal/admin/views.go:92 internal/admin/views.go:132
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:63
+#: internal/admin/views.go:93 internal/admin/views.go:133
 msgid "Users"
 msgstr "Usuarias"
 
@@ -134,6 +132,7 @@ msgstr "Eliminarase a usuaria nuns segundos"
 #: assets/templates/bookmarks/import/form-browser.jet.html:49
 #: assets/templates/bookmarks/import/form-csv.jet.html:35
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:35
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:44
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
 #: assets/templates/bookmarks/import/form-readwise.jet.html:35
@@ -170,7 +169,7 @@ msgstr "Grupo"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:122
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:123
 msgid "Password"
 msgstr "Contrasinal"
 
@@ -191,7 +190,7 @@ msgstr "Gardar"
 msgid "Delete this user"
 msgstr "Eliminar esta usuaria"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:93
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
 msgid "New User"
 msgstr "Nova usuaria"
 
@@ -387,17 +386,17 @@ msgid "Favorites"
 msgstr "Favoritos"
 
 #: assets/templates/bookmarks/base.jet.html:48
-#: internal/bookmarks/routes/views_bookmarks.go:115
+#: internal/bookmarks/routes/views_bookmarks.go:110
 msgid "Articles"
 msgstr "Artigos"
 
 #: assets/templates/bookmarks/base.jet.html:54
-#: internal/bookmarks/routes/views_bookmarks.go:119
+#: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Videos"
 msgstr "Vídeos"
 
 #: assets/templates/bookmarks/base.jet.html:60
-#: internal/bookmarks/routes/views_bookmarks.go:117
+#: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Pictures"
 msgstr "Imaxes"
 
@@ -567,8 +566,8 @@ msgstr "Filtros"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:178 docs/http.go:257
-#: docs/http.go:295
+#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
+#: docs/http.go:296
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -586,7 +585,7 @@ msgid "New Collection"
 msgstr "Nova colección"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
-#: internal/opds/http.go:74
+#: internal/opds/http.go:75
 msgid "Bookmark Collections"
 msgstr "Coleccións de marcadores"
 
@@ -975,6 +974,7 @@ msgstr "Instrucións para Chrome"
 #: assets/templates/bookmarks/import/form-browser.jet.html:34
 #: assets/templates/bookmarks/import/form-csv.jet.html:27
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:27
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-readwise.jet.html:27
 #: assets/templates/bookmarks/import/form-text.jet.html:28
@@ -992,6 +992,7 @@ msgstr "Engade unha etiqueta ás ligazóns, en función dos títulos de sección
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:43
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
 #: assets/templates/bookmarks/import/form-readwise.jet.html:34
@@ -1085,8 +1086,24 @@ msgstr ""
 "    Subir un ficheiro JSON obtido na túa app GoodLinks.\n"
 "  "
 
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
+#, fuzzy
+msgid "Import Bookmarks from a Linkwarden export file"
+msgstr "Importar ligazóns desde un ficheiro exportado desde GoodLinks"
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
+#, fuzzy
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your Linkwarden app.\n"
+"  "
+msgstr ""
+"\n"
+"    Subir un ficheiro JSON obtido na túa app GoodLinks.\n"
+"  "
+
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:51
+#: assets/templates/bookmarks/import/index.jet.html:63
 msgid "Import your Omnivore Articles"
 msgstr "Importar artigos de Omnivore"
 
@@ -1115,7 +1132,7 @@ msgid "API Key"
 msgstr "Clave API"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:54
+#: assets/templates/bookmarks/import/index.jet.html:70
 msgid "Import your Pocket Articles"
 msgstr "Importar artigos desde Pocket"
 
@@ -1195,9 +1212,7 @@ msgstr "«%s» como etiquetas en Readeck,"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
-"Cando a etiqueta dun documento contén «%s», o marcador será engadido aos "
-"Favoritos en Readeck."
+msgstr "Cando a etiqueta dun documento contén «%s», o marcador será engadido aos Favoritos en Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
@@ -1216,7 +1231,7 @@ msgid "Uploaded documents such as PDFs or EPUB."
 msgstr "Os documentos subidos como PDFs ou EPUBs."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:32
+#: assets/templates/bookmarks/import/index.jet.html:84
 msgid "Import Links from a Text File"
 msgstr "Importar ligazóns desde un ficheiro de texto"
 
@@ -1233,7 +1248,7 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
-#: assets/templates/bookmarks/import/index.jet.html:57
+#: assets/templates/bookmarks/import/index.jet.html:91
 msgid "Import your Wallabag Articles"
 msgstr "Importar artigos desde Wallabag"
 
@@ -1291,21 +1306,41 @@ msgstr ""
 "    Aquí podes importar en Readeck a túa colección de marcadores desde varias orixes.\n"
 "  "
 
-#: assets/templates/bookmarks/import/index.jet.html:36
-msgid "Import your Readwise Reader Library"
-msgstr "Importa a túa bliblioteca Readwise Reader"
+#: assets/templates/bookmarks/import/index.jet.html:34
+#: internal/bookmarks/importer/browser.go:51
+msgid "Browser Bookmarks"
+msgstr "Marcadores do Navegador"
 
-#: assets/templates/bookmarks/import/index.jet.html:40
+#: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importa os Marcadores do navegador, Pinboard, Instapaper"
 
-#: assets/templates/bookmarks/import/index.jet.html:44
+#: assets/templates/bookmarks/import/index.jet.html:41
+#: internal/bookmarks/importer/csv.go:55
+msgid "CSV File"
+msgstr "Ficheiro CSV"
+
+#: assets/templates/bookmarks/import/index.jet.html:42
 msgid "Import Links from a CSV File and Instapaper"
 msgstr "Importa ligazóns desde un ficheiro CSV e Instapaper"
 
-#: assets/templates/bookmarks/import/index.jet.html:48
+#: assets/templates/bookmarks/import/index.jet.html:49
 msgid "Import your GoodLinks Articles"
 msgstr "Importa os artigos desde GoodLinks"
+
+#: assets/templates/bookmarks/import/index.jet.html:56
+#, fuzzy
+msgid "Import your Linkwarden Bookmarks"
+msgstr "Importa os teus Marcadores"
+
+#: assets/templates/bookmarks/import/index.jet.html:77
+msgid "Import your Readwise Reader Library"
+msgstr "Importa a túa bliblioteca Readwise Reader"
+
+#: assets/templates/bookmarks/import/index.jet.html:83
+#: internal/bookmarks/importer/text.go:24
+msgid "Text File"
+msgstr "Ficheiro de texto"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
@@ -1469,7 +1504,7 @@ msgstr ""
 "  Podes escribir o que queiras na etiqueta, incluso emojis!\n"
 
 #: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:258
+#: assets/templates/docs/base.jet.html:27 docs/http.go:259
 msgid "About Readeck"
 msgstr "Sobre Readeck"
 
@@ -1714,14 +1749,14 @@ msgstr "Cambiar a cor do decorado"
 msgid "Settings"
 msgstr "Axustes"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:86
-#: internal/profile/views.go:121 internal/profile/views.go:165
-#: internal/profile/views.go:225
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:87
+#: internal/profile/views.go:122 internal/profile/views.go:166
+#: internal/profile/views.go:226
 msgid "Profile"
 msgstr "Perfil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:166
-#: internal/profile/views.go:226
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:167
+#: internal/profile/views.go:227
 msgid "API Tokens"
 msgstr "Tokens da API"
 
@@ -1936,11 +1971,11 @@ msgstr "Último uso: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Nuns segundos vaise eliminar o token."
 
-#: internal/admin/views.go:80
+#: internal/admin/views.go:81
 msgid "User created."
 msgstr "Creouse a usuaria."
 
-#: internal/admin/views.go:119
+#: internal/admin/views.go:120
 msgid "User updated."
 msgstr "Actualizouse a usuaria."
 
@@ -1968,46 +2003,25 @@ msgstr "Admin: Só lectura"
 msgid "Admin : Write Only"
 msgstr "Admin: Só escritura"
 
-#: internal/bookmarks/importer/browser.go:51
-msgid "Browser Bookmarks"
-msgstr "Marcadores do Navegador"
-
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
 msgstr "Non se puido ler o contido HTML"
 
-#: internal/bookmarks/importer/browser.go:129
-#: internal/bookmarks/importer/csv.go:142
-#: internal/bookmarks/importer/csv.go:153
-#: internal/bookmarks/importer/csv.go:158
-#: internal/bookmarks/importer/csv.go:167
-#: internal/bookmarks/importer/importer.go:46
-#: internal/bookmarks/importer/readwise.go:157
-#: internal/bookmarks/importer/readwise.go:168
-#: internal/bookmarks/importer/readwise.go:175
-#: internal/bookmarks/importer/readwise.go:183
-msgid "Empty or invalid import file"
-msgstr "Ficheiro de importación non válido ou baleiro"
-
-#: internal/bookmarks/importer/csv.go:118
-msgid "CSV File"
-msgstr "Ficheiro CSV"
-
-#: internal/bookmarks/importer/goodlinks.go:44
+#: internal/bookmarks/importer/goodlinks.go:40
 msgid "GoodLinks Export File"
 msgstr "Ficheiro de exportación GoodLinks"
+
+#: internal/bookmarks/importer/importer.go:47
+msgid "Empty or invalid import file"
+msgstr "Ficheiro de importación non válido ou baleiro"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
 msgstr "Clave API non válida"
 
-#: internal/bookmarks/importer/readwise.go:133
+#: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
 msgstr "CSV de Readwise Reader"
-
-#: internal/bookmarks/importer/text.go:24
-msgid "Text File"
-msgstr "Ficheiro de texto"
 
 #: internal/bookmarks/importer/wallabag.go:242
 msgid "Invalid URL"
@@ -2021,145 +2035,145 @@ msgstr "Credenciais incorrectas"
 msgid "No access token found"
 msgstr "Non hai token de acceso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:140
+#: internal/bookmarks/routes/forms_bookmarks.go:142
 msgid "Unable to process input data"
 msgstr "Non se puideron procesar os datos"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:382
+#: internal/bookmarks/routes/forms_bookmarks.go:419
 msgid "Article"
 msgstr "Artigo"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:383
+#: internal/bookmarks/routes/forms_bookmarks.go:420
 msgid "Picture"
 msgstr "Imaxe"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:384
+#: internal/bookmarks/routes/forms_bookmarks.go:421
 msgid "Video"
 msgstr "Vídeo"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:391
+#: internal/bookmarks/routes/forms_bookmarks.go:428
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Sen ver"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:392
+#: internal/bookmarks/routes/forms_bookmarks.go:429
 msgctxt "status"
 msgid "In-Progress"
 msgstr "En proceso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:393
+#: internal/bookmarks/routes/forms_bookmarks.go:430
 msgctxt "status"
 msgid "Completed"
 msgstr "Completado"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:626
+#: internal/bookmarks/routes/forms_bookmarks.go:657
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Engadido, máis recente primeiro"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:627
+#: internal/bookmarks/routes/forms_bookmarks.go:658
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Engadido, máis antigo primeiro"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:628
+#: internal/bookmarks/routes/forms_bookmarks.go:659
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Publicado, máis recente primeiro"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:629
+#: internal/bookmarks/routes/forms_bookmarks.go:660
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Publicado, máis antigo primeiro"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:630
+#: internal/bookmarks/routes/forms_bookmarks.go:661
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Título, A a Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:631
+#: internal/bookmarks/routes/forms_bookmarks.go:662
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Título, Z a A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:632
+#: internal/bookmarks/routes/forms_bookmarks.go:663
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Nome da web, A a Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:633
+#: internal/bookmarks/routes/forms_bookmarks.go:664
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Nome da web, Z a A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:634
+#: internal/bookmarks/routes/forms_bookmarks.go:665
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Duración, máis curto primeiro"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:635
+#: internal/bookmarks/routes/forms_bookmarks.go:666
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Duración, máis longo primeiro"
 
-#: internal/bookmarks/routes/opds.go:56
+#: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
 msgstr "Marcadores de Readeck"
 
-#: internal/bookmarks/routes/opds.go:101
+#: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
 msgstr "Coleccións de Marcadores Readeck"
 
-#: internal/bookmarks/routes/opds.go:138
+#: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
 msgstr "Colección Readeck: %s"
 
-#: internal/bookmarks/routes/opds.go:144
+#: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
 msgstr "eBook da colección - %s"
 
-#: internal/bookmarks/routes/opds.go:151
+#: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
 msgstr "Explorar colección: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:100
+#: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
 msgstr "Todos os Marcadores"
 
-#: internal/bookmarks/routes/views_bookmarks.go:105
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
 msgstr "Buscar marcador"
 
-#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:58
+#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
 msgid "Unread Bookmarks"
 msgstr "Marcadores sen ler"
 
-#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:62
+#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
 msgid "Archived Bookmarks"
 msgstr "Marcadores arquivados"
 
-#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:66
+#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
 msgstr "Marcadores favoritos"
 
-#: internal/bookmarks/routes/views_collections.go:79
+#: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
 msgstr "Actualizouse a colección."
 
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69
 msgid "Import"
 msgstr "Importar"
 
-#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
 msgstr "Progreso"
 
-#: internal/opds/http.go:70
+#: internal/opds/http.go:71
 msgid "All Bookmarks"
 msgstr "Todos os marcadores"
 
@@ -2171,23 +2185,23 @@ msgstr "identificador e/ou correo non válidos"
 msgid "invalid password"
 msgstr "contrasinal non válido"
 
-#: internal/profile/views.go:73
+#: internal/profile/views.go:74
 msgid "Profile updated."
 msgstr "Perfil actualizado."
 
-#: internal/profile/views.go:109
+#: internal/profile/views.go:110
 msgid "Your password was changed."
 msgstr "Cambiouse o contrasinal."
 
-#: internal/profile/views.go:181
+#: internal/profile/views.go:182
 msgid "An error occurred while creating your token."
 msgstr "Houbo un fallo ao crear o token."
 
-#: internal/profile/views.go:186
+#: internal/profile/views.go:187
 msgid "New token created."
 msgstr "Creouse o novo token."
 
-#: internal/profile/views.go:205
+#: internal/profile/views.go:206
 msgid "Token was updated."
 msgstr "Actualizouse o token."
 
@@ -2524,3 +2538,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Actualizouse o contrasinal."
+
