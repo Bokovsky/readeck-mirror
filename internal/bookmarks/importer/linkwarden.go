@@ -59,7 +59,7 @@ func newLinkwardenAdapter() *linkwardenAdapter {
 	}
 }
 
-func (adapter *linkwardenAdapter) Name(tr forms.Translator) string {
+func (adapter *linkwardenAdapter) Name(_ forms.Translator) string {
 	return "Linkwarden"
 }
 
