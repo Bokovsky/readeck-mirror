@@ -49,11 +49,7 @@ func (h *adminViews) main(w http.ResponseWriter, r *http.Request) {
 
 func (h *adminViews) userList(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
-	ul := r.Context().Value(ctxUserListKey{}).(userList)
-	ul.Items = make([]userItem, len(ul.items))
-	for i, item := range ul.items {
-		ul.Items[i] = newUserItem(r, item, ".")
-	}
+	ul := getUserList(r.Context())
 
 	ctx := server.TC{
 		"Pagination": ul.Pagination,
@@ -98,8 +94,8 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 
 func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
-	u := r.Context().Value(ctxUserKey{}).(*users.User)
-	item := newUserItem(r, u, "./..")
+	u := getUser(r.Context())
+	item := newUserItem(server.WithRequest(r.Context(), r), u)
 
 	f := users.NewUserForm(server.Locale(r))
 	f.SetUser(u)
@@ -142,7 +138,7 @@ func (h *adminViews) userDelete(w http.ResponseWriter, r *http.Request) {
 	f.Get("_to").Set("/admin/users")
 	forms.Bind(f, r)
 
-	u := r.Context().Value(ctxUserKey{}).(*users.User)
+	u := getUser(r.Context())
 	if u.ID == auth.GetRequestUser(r).ID {
 		server.Err(w, r, errSameUser)
 		return
