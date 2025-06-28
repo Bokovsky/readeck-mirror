@@ -153,9 +153,9 @@ type rawSpec struct {
 	fn       func(*html.Node) (string, string)
 }
 
-func extMeta(k, v string, trim int) func(*html.Node) (string, string) {
+func extMeta(k, v, sep string) func(*html.Node) (string, string) {
 	return func(n *html.Node) (string, string) {
-		k := strings.TrimSpace(dom.GetAttribute(n, k)[trim:])
+		_, k, _ := strings.Cut(strings.TrimSpace(dom.GetAttribute(n, k)), sep)
 		v := strings.TrimSpace(dom.GetAttribute(n, v))
 
 		// Some attributes may contain HTML, we don't want that
@@ -188,30 +188,34 @@ var specList = []rawSpec{
 		@name='keywords' or
 		@name='language' or
 		@name='subtitle'
-	]`, extMeta("name", "content", 0)},
+	]`, extMeta("name", "content", "")},
 
 	// Dublin Core
 	{"dc", `//meta[@content][
 		starts-with(@name, 'DC.') or
 		starts-with(@name, 'dc.')
-	]`, extMeta("name", "content", 3)},
+	]`, extMeta("name", "content", ".")},
 
 	// Facebook opengraph
 	{
 		"graph", "//meta[@content][starts-with(@property, 'og:')]",
-		extMeta("property", "content", 3),
+		extMeta("property", "content", ":"),
+	},
+	{
+		"graph", "//meta[@content][starts-with(@name, 'og:')]",
+		extMeta("name", "content", ":"),
 	},
 
 	// Twitter cards
 	{
 		"twitter", "//meta[@content][starts-with(@name, 'twitter:')]",
-		extMeta("name", "content", 8),
+		extMeta("name", "content", ":"),
 	},
 
 	// Schema.org meta tags
 	{
 		"schema", "//meta[@content][@itemprop]",
-		extMeta("itemprop", "content", 0),
+		extMeta("itemprop", "content", ""),
 	},
 
 	// Schema.org author in content
@@ -225,14 +229,14 @@ var specList = []rawSpec{
 	// Fediverse meta tags
 	{
 		"fediverse", "//meta[@content][starts-with(@name, 'fediverse:')]",
-		extMeta("name", "content", 10),
+		extMeta("name", "content", ":"),
 	},
 
 	// Header links (excluding icons and stylesheets)
 	{"link", `//link[@href][@rel][
-		not(contains(@rel, 'icon')) and
+		not(contains(translate(@rel, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'icon')) and
 		not(contains(@rel, 'stylesheet'))
-	]`, extMeta("rel", "href", 0)},
+	]`, extMeta("rel", "href", "")},
 }
 
 // ParseMeta parses page metadata.
