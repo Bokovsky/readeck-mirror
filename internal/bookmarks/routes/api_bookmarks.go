@@ -90,6 +90,21 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Set link headers for all article's resources.
+	c, err := b.OpenContainer()
+	if err != nil {
+		server.Log(r).Error("", slog.Any("err", err))
+	}
+	defer c.Close() //nolint:errchec
+
+	for _, x := range c.ListResources() {
+		server.NewLink(
+			urls.AbsoluteURL(r, "/bm", b.FilePath, x.Name).String(),
+		).
+			WithRel("media").
+			Write(w)
+	}
+
 	w.Header().Set("Content-Length", strconv.Itoa(buf.Len()))
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
