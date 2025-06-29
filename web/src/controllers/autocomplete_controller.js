@@ -20,6 +20,8 @@ export default class extends Controller {
     url: String,
     minLength: Number,
     delay: {type: Number, default: 300},
+    multiple: Boolean,
+    quotes: Boolean,
   }
 
   connect() {
@@ -43,6 +45,7 @@ export default class extends Controller {
       this.inputTarget.focus()
     }
 
+    this.element.dataset.initial = this.inputTarget.value
     this.readyValue = true
   }
 
@@ -141,16 +144,24 @@ export default class extends Controller {
     const textValue =
       selected.getAttribute("data-autocomplete-label") ||
       selected.textContent.trim()
-    const value = selected.getAttribute("data-autocomplete-value") || textValue
-    this.inputTarget.value = textValue
+    let value = selected.getAttribute("data-autocomplete-value") || textValue
+    if (this.quotesValue && /[ "\\]/.test(value)) {
+      value = `"${value.replace(/("|\\)/g, "\\$1")}"`
+    }
 
     if (this.hasHiddenTarget) {
       this.hiddenTarget.value = value
       this.hiddenTarget.dispatchEvent(new Event("input"))
       this.hiddenTarget.dispatchEvent(new Event("change"))
     } else {
-      this.inputTarget.value = value
+      if (this.multipleValue) {
+        value = [this.element.dataset.initial, value]
+          .filter((x) => !!x)
+          .join(" ")
+      }
     }
+    this.inputTarget.value = value
+    this.element.dataset.initial = value
 
     this.inputTarget.focus()
     this.hideAndRemoveOptions()
@@ -188,8 +199,19 @@ export default class extends Controller {
   onInputChange = () => {
     this.element.removeAttribute("value")
     if (this.hasHiddenTarget) this.hiddenTarget.value = ""
+    let query = this.inputTarget.value.trim()
 
-    const query = this.inputTarget.value.trim()
+    if (query.length < this.element.dataset.initial.length) {
+      // When removing characters, change initial value
+      this.element.dataset.initial = query
+    }
+
+    if (this.multipleValue) {
+      if (query.startsWith(this.element.dataset.initial)) {
+        query = query.substring(this.element.dataset.initial.length)
+        query = query.trim()
+      }
+    }
     if (query && query.length >= this.minLengthValue) {
       this.fetchResults(query)
     } else {
@@ -222,8 +244,11 @@ export default class extends Controller {
     const url = this.buildURL(query)
     try {
       this.element.dispatchEvent(new CustomEvent("loadstart"))
-      const html = await this.doFetch(url)
-      this.replaceResults(html)
+
+      const rsp = await fetch(url)
+      const items = await rsp.json()
+      this.replaceResults(items)
+
       this.element.dispatchEvent(new CustomEvent("load"))
       this.element.dispatchEvent(new CustomEvent("loadend"))
     } catch (error) {
@@ -242,23 +267,24 @@ export default class extends Controller {
     return url.toString()
   }
 
-  doFetch = async (url) => {
-    const response = await fetch(url, this.optionsForFetch())
-    return (await response.json())
-      .map((x) => {
-        return `<li role="option">${x.name}</li>`
-      })
-      .join("")
-  }
-
-  replaceResults(html) {
-    this.resultsTarget.innerHTML = html
-    this.identifyOptions()
-    if (this.options.length > 0) {
-      this.open()
-    } else {
-      this.close()
+  replaceResults = async (items) => {
+    while (this.resultsTarget.firstChild) {
+      this.resultsTarget.removeChild(this.resultsTarget.lastChild)
     }
+
+    if (items.length == 0) {
+      this.close()
+      return
+    }
+
+    this.open()
+    for (let x of items) {
+      const e = document.createElement("li")
+      e.setAttribute("role", "option")
+      e.appendChild(document.createTextNode(x))
+      this.resultsTarget.appendChild(e)
+    }
+    this.identifyOptions()
   }
 
   open() {
@@ -312,10 +338,6 @@ export default class extends Controller {
 
   get selectedClassesOrDefault() {
     return this.hasSelectedClass ? this.selectedClasses : ["active"]
-  }
-
-  optionsForFetch() {
-    return {headers: {"X-Requested-With": "XMLHttpRequest"}} // override if you need
   }
 }
 

@@ -27,6 +27,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/searchstring"
@@ -347,6 +348,92 @@ func newSyncForm(tr forms.Translator) *syncForm {
 			forms.NewTextField("resource_prefix"),
 		),
 	}
+}
+
+type autocompleteHelperForm struct {
+	*forms.Form
+}
+
+func newPropLookupForm(tr forms.Translator) *autocompleteHelperForm {
+	return &autocompleteHelperForm{
+		Form: forms.Must(
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewTextField("type", forms.Required, forms.Choices(
+				forms.Choice("author", "author"),
+				forms.Choice("label", "label"),
+				forms.Choice("site", "site"),
+				forms.Choice("title", "title"),
+			)),
+			forms.NewTextField("q", forms.Trim, forms.Required),
+		),
+	}
+}
+
+func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDataset {
+	q := strings.ReplaceAll(f.Get("q").String(), "*", "%")
+
+	switch f.Get("type").String() {
+	case "author":
+		return exp.JSONStringsDataset(db.Q().
+			From(goqu.T(bookmarks.TableName).As("b")).
+			Select(goqu.C("authors").Table("b")),
+			"name",
+		).
+			Distinct().
+			Where(
+				goqu.C("user_id").Table("b").Eq(user.ID),
+				goqu.C("name").ILike(q),
+			).
+			Prepared(true)
+	case "label":
+		return exp.JSONStringsDataset(db.Q().
+			From(goqu.T(bookmarks.TableName).As("b")).
+			Select(goqu.C("labels").Table("b")),
+			"name",
+		).
+			Distinct().
+			Where(
+				goqu.C("user_id").Table("b").Eq(user.ID),
+				goqu.C("name").ILike(q),
+			).
+			Prepared(true)
+	case "site":
+		d1 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+			Select(
+				goqu.C("domain"),
+			).
+			Distinct().
+			Where(
+				goqu.C("user_id").Table("b").Eq(user.ID),
+				goqu.I("domain").ILike(q),
+			)
+		d2 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+			Select(
+				goqu.C("site_name"),
+			).
+			Distinct().
+			Where(
+				goqu.C("user_id").Table("b").Eq(user.ID),
+				goqu.I("site_name").ILike(q),
+			)
+
+		return d1.Union(d2).Prepared(true)
+	case "title":
+		return db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+			Select(
+				goqu.C("title"),
+			).
+			Distinct().
+			Where(
+				goqu.C("user_id").Table("b").Eq(user.ID),
+				goqu.C("title").Table("b").ILike(q),
+				goqu.C("title").Table("b").Neq(""),
+			).
+			Order(goqu.C("title").Asc()).
+			Prepared(true)
+	}
+
+	return nil
 }
 
 type labelForm struct {
