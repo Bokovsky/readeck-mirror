@@ -2,6 +2,7 @@
 
 ## [unrelease]
 ### Added
+- label autocomplete in filter form
 - share by link and email API documentation
 - extract fediverse:creator metadata as author
 - feeds for any bookmark list
