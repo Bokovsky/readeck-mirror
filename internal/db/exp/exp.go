@@ -6,6 +6,8 @@
 package exp
 
 import (
+	"fmt"
+
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
 )
@@ -36,6 +38,49 @@ func JSONArrayLength(dialect goqu.SQLDialect, identifier exp.IdentifierExpressio
 				When(goqu.Func("json_valid", identifier), identifier).
 				Else(goqu.V("[]")),
 		)
+	}
+
+	return nil
+}
+
+// JSONStringsDataset returns a dataset with all the values from a given string list column in a table.
+// The input [*goqu.SelectDataset] must contain exactly one From() clause and exactly one
+// Select() clause, which are the table and columnd it operates one.
+func JSONStringsDataset(ds *goqu.SelectDataset, name string) *goqu.SelectDataset {
+	f := ds.GetClauses().From().Columns()
+	c := ds.GetClauses().Select().Columns()
+
+	if len(f) != 1 {
+		panic(`"From" clause must contain exactly one element`)
+	}
+	if len(c) != 1 {
+		panic(`"Select" clause must contain exactly one element`)
+	}
+
+	switch ds.Dialect().Dialect() {
+	case "postgres":
+		return ds.Select(
+			goqu.C(name),
+		).
+			From(
+				f[0],
+				goqu.Func("jsonb_array_elements_text",
+					goqu.Case().
+						Value(goqu.Func("jsonb_typeof", c[0])).
+						When(goqu.L("'array'"), c[0]).
+						Else(goqu.L("'[]'")),
+				).As(name),
+			).
+			Order(goqu.C(name).Asc())
+	case "sqlite3":
+		return ds.Select(
+			goqu.C("value").As(name),
+		).From(
+			f[0],
+			goqu.Func("json_each", c[0]).As("string_values"),
+		).
+			Where(goqu.C("value").Table("string_values").Neq(nil)).
+			Order(goqu.L(fmt.Sprintf("`%s` COLLATE UNICODE", name)).Asc())
 	}
 
 	return nil

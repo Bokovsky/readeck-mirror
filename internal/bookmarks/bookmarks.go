@@ -206,40 +206,17 @@ func (m *BookmarkManager) GetLastUpdate(expressions ...goqu.Expression) (time.Ti
 // GetLabels returns a dataset that returns all the tags
 // defined in the bookmark table.
 func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
-	switch db.Driver().Dialect() {
-	case "postgres":
-		return db.Q().Select(
+	return exp.JSONStringsDataset(
+		db.Q().
+			From(goqu.T(TableName).As("b")).
+			Select(goqu.C("labels").Table("b")),
+		"name",
+	).
+		SelectAppend(
 			goqu.COUNT(goqu.C("id").Table("b")).As("count"),
-			goqu.C("name"),
 		).
-			From(
-				goqu.T(TableName).As("b"),
-				goqu.L(`jsonb_array_elements_text(
-					case jsonb_typeof(b.labels)
-					when 'array' then b.labels
-					else '[]' end
-					)`).As("name"),
-			).
-			GroupBy(goqu.C("name")).
-			Order(goqu.C("name").Asc()).
-			Prepared(true)
-	case "sqlite3":
-		return db.Q().
-			Select(
-				goqu.COUNT(goqu.C("id").Table("b")).As("count"),
-				goqu.C("value").Table("l").As("name"),
-			).
-			From(
-				goqu.T(TableName).As("b"),
-				goqu.Func("json_each", goqu.C("labels").Table("b")).As("l"),
-			).
-			Where(goqu.C("value").Table("l").Neq(nil)).
-			GroupBy(goqu.C("name")).
-			Order(goqu.L("`name` COLLATE UNICODE").Asc()).
-			Prepared(true)
-	}
-
-	return nil
+		GroupBy(goqu.C("name")).
+		Prepared(true)
 }
 
 // GetAnnotations returns a SelectDataset that can be used to select all
