@@ -318,6 +318,25 @@ func (api *apiRouter) bookmarkResource(w http.ResponseWriter, r *http.Request) {
 	fs.ServeHTTP(w, r2)
 }
 
+func (api *apiRouter) autocompleteHelper(w http.ResponseWriter, r *http.Request) {
+	f := newPropLookupForm(server.Locale(r))
+	forms.BindURL(f, r)
+	if !f.IsValid() {
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	values := []string{}
+	ds := f.getQuerySet(auth.GetRequestUser(r))
+	if ds != nil {
+		if err := ds.ScanVals(&values); err != nil {
+			server.Err(w, r, err)
+			return
+		}
+	}
+	server.Render(w, r, http.StatusOK, values)
+}
+
 // labelList returns the list of all labels.
 func (api *apiRouter) labelList(w http.ResponseWriter, r *http.Request) {
 	labels := getLabelList(r.Context())

@@ -114,6 +114,8 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.With(api.withLabelList).Get("/", api.labelList)
 			r.With(api.withLabel).Get("/{label}", api.labelInfo)
 		})
+
+		r.Get("/@complete", api.autocompleteHelper)
 	})
 
 	r.With(server.WithPermission("api:bookmarks", "write")).Group(func(r chi.Router) {
