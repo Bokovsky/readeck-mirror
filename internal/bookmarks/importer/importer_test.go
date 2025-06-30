@@ -925,6 +925,10 @@ func TestWallabag(t *testing.T) {
 
 		items := []map[string]any{}
 		for _, x := range []string{"a", "b", "c"} {
+			headers := map[string]string{}
+			if x == "c" {
+				headers["content-type"] = "text/html; charset=koi8-r"
+			}
 			items = append(items, map[string]any{
 				"is_archived":     0,
 				"is_starred":      0,
@@ -937,7 +941,7 @@ func TestWallabag(t *testing.T) {
 				"language":        "en",
 				"tags":            []string{},
 				"preview_picture": fmt.Sprintf("https://example.net/picture-%d%s.webp", page, x),
-				"headers":         map[string]string{},
+				"headers":         headers,
 			})
 		}
 		response["_embedded"] = map[string]any{
@@ -989,5 +993,11 @@ func TestWallabag(t *testing.T) {
 			),
 			string(resources[0].Data),
 		)
+
+		for key, value := range resources[0].Headers {
+			if strings.EqualFold(key, "content-type") {
+				require.NotContains(value, "charset=")
+			}
+		}
 	}
 }
