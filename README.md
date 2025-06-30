@@ -105,9 +105,13 @@ Readeck is distributed as a single binary file. Using it is almost as easy as a 
 Once Readeck has started, it is accessible at: \
 **[http://localhost:8000/](http://localhost:8000/)**
 
+### Installation from source code
+
+Installing from source can be useful to try out unreleased Readeck versions, or to set up a development environment for contributing code. For more information, see the [development documentation](https://readeck.org/en/docs/dev).
+
 ### Installation for production
 
-More documentation is coming but if you already know how deploy containers or new services on a server (ie. with systemd), it should be quite straightforward.
+If you already know how to deploy containers on a server, installing Readeck for production should be quite straightforward. As for deploying to Linux servers with systemd and NGINX reverse proxy, see the [deployment guide](https://readeck.org/en/docs/deploy).
 
 ## FAQ
 
@@ -187,6 +191,10 @@ Unlike many modern web applications, Readeck is not a single page application bu
 Readeck is written in [Go](https://go.dev/) and all its content is rendered server side with some interactivity brought by [Stimulus](https://stimulus.hotwired.dev/) and [Turbo](https://turbo.hotwired.dev/).
 
 This has proven to be a great combination when performance really matters.
+
+### Contributing
+
+Readeck's simple stack means that the barrier to entry is relatively low when it comes to contributing to the Readeck project. Contributions are welcome by filing issues, participating in community discussions, submitting translations, and proposing changes to the source code. For more information, see the [documentation on contributing](https://readeck.org/en/contribute).
 
 ## License
 
