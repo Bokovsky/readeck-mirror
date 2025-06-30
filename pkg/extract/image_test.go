@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package extract
+package extract_test
 
 import (
 	"bytes"
@@ -11,23 +11,26 @@ import (
 	"net/url"
 	"testing"
 
-	"codeberg.org/readeck/readeck/pkg/img"
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
+	. "codeberg.org/readeck/readeck/pkg/extract/testing" //revive:disable:dot-imports
+	"codeberg.org/readeck/readeck/pkg/img"
 )
 
 func TestRemoteImage(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "/bogus", newFileResponder("images/bogus"))
+	httpmock.RegisterResponder("GET", "/bogus", NewFileResponder("images/bogus"))
 	httpmock.RegisterResponder("GET", "/404", httpmock.NewJsonResponderOrPanic(404, ""))
 	httpmock.RegisterResponder("GET", "/error", httpmock.NewErrorResponder(errors.New("HTTP")))
 
 	formats := []string{"jpeg", "png", "gif", "ico", "bmp"}
 	for _, name := range formats {
 		name = "/img." + name
-		httpmock.RegisterResponder("GET", name, newFileResponder("images/"+name))
+		httpmock.RegisterResponder("GET", name, NewFileResponder("images/"+name))
 	}
 
 	t.Run("RemoteImage", func(t *testing.T) {
@@ -45,7 +48,7 @@ func TestRemoteImage(t *testing.T) {
 
 			for _, x := range tests {
 				t.Run(x.name, func(t *testing.T) {
-					ri, err := NewRemoteImage(x.path, nil)
+					ri, err := extract.NewRemoteImage(x.path, nil)
 					require.Nil(t, ri)
 					if ri != nil {
 						defer ri.Close() //nolint:errcheck
@@ -57,7 +60,7 @@ func TestRemoteImage(t *testing.T) {
 
 		for _, format := range formats {
 			t.Run(format, func(t *testing.T) {
-				ri, err := NewRemoteImage("/img."+format, nil)
+				ri, err := extract.NewRemoteImage("/img."+format, nil)
 				require.NoError(t, err)
 				defer ri.Close() //nolint:errcheck
 				require.Equal(t, format, ri.Format())
@@ -66,7 +69,7 @@ func TestRemoteImage(t *testing.T) {
 
 		t.Run("fit", func(t *testing.T) {
 			assert := require.New(t)
-			ri, _ := NewRemoteImage("/img.png", nil)
+			ri, _ := extract.NewRemoteImage("/img.png", nil)
 			defer ri.Close() //nolint:errcheck
 
 			w := ri.Width()
@@ -99,7 +102,7 @@ func TestRemoteImage(t *testing.T) {
 			for _, x := range tests {
 				t.Run(x.format, func(t *testing.T) {
 					assert := require.New(t)
-					ri, err := NewRemoteImage(x.path, nil)
+					ri, err := extract.NewRemoteImage(x.path, nil)
 					assert.NoError(err)
 					defer func() {
 						if err := ri.Close(); err != nil {
@@ -123,25 +126,25 @@ func TestPicture(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "/img", newFileResponder("images/img.png"))
+	httpmock.RegisterResponder("GET", "/img", NewFileResponder("images/img.png"))
 
 	base, _ := url.Parse("http://x/index.html")
 
 	t.Run("URL error", func(t *testing.T) {
-		p, err := NewPicture("/\b0x7f", base)
+		p, err := extract.NewPicture("/\b0x7f", base)
 		require.Nil(t, p)
 		require.Error(t, err)
 	})
 
 	t.Run("HTTP error", func(t *testing.T) {
-		p, _ := NewPicture("/nowhere", base)
+		p, _ := extract.NewPicture("/nowhere", base)
 		err := p.Load(nil, 100, "")
 		require.Error(t, err)
 	})
 
 	t.Run("Load", func(t *testing.T) {
 		assert := require.New(t)
-		p, _ := NewPicture("/img", base)
+		p, _ := extract.NewPicture("/img", base)
 
 		assert.Empty(p.Encoded())
 

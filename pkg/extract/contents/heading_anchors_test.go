@@ -2,50 +2,32 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package contents
+package contents_test
 
 import (
 	"io"
-	"net/http"
 	"os"
 	"strings"
 	"testing"
 
-	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/jarcoal/httpmock"
 	"github.com/pmezard/go-difflib/difflib"
 	"github.com/stretchr/testify/require"
-)
 
-func newFileResponder(fixturePath string) httpmock.Responder {
-	return func(r *http.Request) (*http.Response, error) {
-		f, err := os.Open(fixturePath)
-		if err != nil {
-			return nil, err
-		}
-		fs, err := f.Stat()
-		if err != nil {
-			return nil, err
-		}
-		return &http.Response{
-			Request:       r,
-			StatusCode:    200,
-			Body:          f,
-			Header:        http.Header{"Content-Type": {"text/html"}},
-			ContentLength: fs.Size(),
-		}, nil
-	}
-}
+	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/contents"
+	. "codeberg.org/readeck/readeck/pkg/extract/testing" //revive:disable:dot-imports
+)
 
 func TestExtractor_StripHeadingAnchors(t *testing.T) {
 	assert := require.New(t)
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "/page1", newFileResponder("test-fixtures/heading_anchors.html"))
+	httpmock.RegisterResponder("GET", "/page1", NewHTMLResponder(200, "heading_anchors.html"))
 
 	ex, _ := extract.New("http://example.net/page1")
-	ex.AddProcessors(StripHeadingAnchors)
+	ex.AddProcessors(contents.StripHeadingAnchors)
 	ex.Run()
 	assert.Empty(ex.Errors())
 

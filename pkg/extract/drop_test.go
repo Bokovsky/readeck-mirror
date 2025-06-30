@@ -2,7 +2,7 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package extract
+package extract_test
 
 import (
 	"errors"
@@ -11,6 +11,9 @@ import (
 
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
+	. "codeberg.org/readeck/readeck/pkg/extract/testing" //revive:disable:dot-imports
 )
 
 func TestDrop(t *testing.T) {
@@ -19,36 +22,36 @@ func TestDrop(t *testing.T) {
 
 	httpmock.RegisterResponder("GET", "/404", httpmock.NewJsonResponderOrPanic(404, ""))
 	httpmock.RegisterResponder("GET", "/error", httpmock.NewErrorResponder(errors.New("HTTP")))
-	httpmock.RegisterResponder("GET", "/ioerror", newIOErrorResponder(200,
+	httpmock.RegisterResponder("GET", "/ioerror", NewIOErrorResponder(200,
 		map[string]string{"content-type": "text/html; charset=UTF-8"}))
 	httpmock.RegisterResponder("GET", "/ch1",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "text/html; charset=UTF-8"},
 			"html/ch1.html"))
 	httpmock.RegisterResponder("GET", "/ch1-nocharset",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "text/html"},
 			"html/ch1.html"))
 	httpmock.RegisterResponder("GET", "/ch1-notype",
-		newContentResponder(200, nil, "html/ch1.html"))
+		NewContentResponder(200, nil, "html/ch1.html"))
 	httpmock.RegisterResponder("GET", "/ch2",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "text/html; charset=ISO-8859-15"},
 			"html/ch2.html"))
 	httpmock.RegisterResponder("GET", "/ch2-detect",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "text/html"},
 			"html/ch2.html"))
 	httpmock.RegisterResponder("GET", "/ch3",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "application/xhtml+xml; charset=EUC-JP"},
 			"html/ch3.html"))
 	httpmock.RegisterResponder("GET", "/ch3-detect",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "application/xhtml+xml"},
 			"html/ch3.html"))
 	httpmock.RegisterResponder("GET", "/ch4-detect",
-		newContentResponder(200,
+		NewContentResponder(200,
 			map[string]string{"content-type": "text/html"},
 			"html/ch4.html"))
 
@@ -66,7 +69,7 @@ func TestDrop(t *testing.T) {
 
 		for _, x := range tests {
 			t.Run(x.name, func(t *testing.T) {
-				d := NewDrop(x.url)
+				d := extract.NewDrop(x.url)
 				err := d.Load(nil)
 				if err == nil {
 					t.Fatal("error is nil")
@@ -112,7 +115,7 @@ func TestDrop(t *testing.T) {
 
 		for _, x := range tests {
 			t.Run(x.src, func(t *testing.T) {
-				d := NewDrop(mustParse(x.src))
+				d := extract.NewDrop(mustParse(x.src))
 				require.Equal(t, x.res, d.UnescapedURL())
 				require.Equal(t, x.dom, d.Domain)
 			})
@@ -141,7 +144,7 @@ func TestDrop(t *testing.T) {
 		for _, x := range tests {
 			t.Run(x.path, func(t *testing.T) {
 				assert := require.New(t)
-				d := NewDrop(mustParse("http://x/" + x.path))
+				d := extract.NewDrop(mustParse("http://x/" + x.path))
 
 				err := d.Load(nil)
 				assert.NoError(err)
@@ -162,7 +165,7 @@ func TestDrop(t *testing.T) {
 func TestDropAuthors(t *testing.T) {
 	assert := require.New(t)
 	uri, _ := url.Parse("/")
-	d := NewDrop(uri)
+	d := extract.NewDrop(uri)
 
 	assert.Equal([]string{}, d.Authors)
 
@@ -188,7 +191,7 @@ func TestDropAuthors(t *testing.T) {
 
 func TestDropMeta(t *testing.T) {
 	assert := require.New(t)
-	m := DropMeta{}
+	m := extract.DropMeta{}
 	m.Add("meta1", "foo")
 
 	assert.Equal([]string{"foo"}, m.Lookup("meta1"))

@@ -1,29 +1,22 @@
-// SPDX-FileCopyrightText: © 2020 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package extract
+// Package testing provides some tools for fixture loading as HTTP mock responses.
+package testing
 
 import (
 	"errors"
 	"io"
 	"net/http"
-	"net/url"
 	"os"
 	"path"
 
 	"github.com/jarcoal/httpmock"
 )
 
-func mustParse(src string) *url.URL {
-	u, err := url.Parse(src)
-	if err != nil {
-		panic(err)
-	}
-	return u
-}
-
-func newFileResponder(name string) httpmock.Responder {
+// NewFileResponder returns a mock response for a file in test-fixtures.
+func NewFileResponder(name string) httpmock.Responder {
 	fd, err := os.Open(path.Join("test-fixtures", name))
 	if err != nil {
 		panic(err)
@@ -38,7 +31,8 @@ func newFileResponder(name string) httpmock.Responder {
 	return httpmock.NewBytesResponder(200, data)
 }
 
-func newContentResponder(status int, headers map[string]string, name string) httpmock.Responder {
+// NewContentResponder returns a mock response for a file, with extra headers.
+func NewContentResponder(status int, headers map[string]string, name string) httpmock.Responder {
 	return func(req *http.Request) (*http.Response, error) {
 		fd, err := os.Open(path.Join("test-fixtures", name))
 		if err != nil {
@@ -60,8 +54,9 @@ func newContentResponder(status int, headers map[string]string, name string) htt
 	}
 }
 
-func newHTMLResponder(status int, name string) httpmock.Responder {
-	return newContentResponder(
+// NewHTMLResponder returns a mock response with an HTML content-type.
+func NewHTMLResponder(status int, name string) httpmock.Responder {
+	return NewContentResponder(
 		status,
 		map[string]string{"content-type": "text/html"},
 		name)
@@ -77,7 +72,8 @@ func (errReader) Close() error {
 	return nil
 }
 
-func newIOErrorResponder(status int, headers map[string]string) httpmock.Responder {
+// NewIOErrorResponder returns a mock response with a faulty body.
+func NewIOErrorResponder(status int, headers map[string]string) httpmock.Responder {
 	return func(req *http.Request) (*http.Response, error) {
 		rsp := httpmock.NewBytesResponse(status, []byte{})
 		for k, v := range headers {

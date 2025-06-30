@@ -2,26 +2,38 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package extract
+package extract_test
 
 import (
 	"context"
 	"errors"
+	"net/url"
 	"strconv"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
 	"github.com/stretchr/testify/require"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
+	. "codeberg.org/readeck/readeck/pkg/extract/testing" //revive:disable:dot-imports
 )
 
+func mustParse(src string) *url.URL {
+	u, err := url.Parse(src)
+	if err != nil {
+		panic(err)
+	}
+	return u
+}
+
 func TestErrors(t *testing.T) {
-	errlist := Error{errors.New("err1"), errors.New("err2")}
+	errlist := extract.Error{errors.New("err1"), errors.New("err2")}
 	require.Equal(t, "err1, err2", errlist.Error())
 }
 
 func TestURLList(t *testing.T) {
 	assert := require.New(t)
-	list := URLList{}
+	list := extract.URLList{}
 	list.Add(mustParse("http://example.net/main"))
 
 	assert.True(list.IsPresent(mustParse("http://example.net/main")))
@@ -33,14 +45,14 @@ func TestURLList(t *testing.T) {
 
 func TestExtractor(t *testing.T) {
 	t.Run("new with error", func(t *testing.T) {
-		ex, err := New("http://example.net/\b0x7f", nil)
+		ex, err := extract.New("http://example.net/\b0x7f", nil)
 		require.Nil(t, ex)
 		require.Contains(t, err.Error(), "invalid control")
 	})
 
 	t.Run("new", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/#frag", nil)
+		ex, _ := extract.New("http://example.net/#frag", nil)
 		assert.Equal("http://example.net/", ex.URL.String())
 		assert.Len(ex.Drops(), 1)
 
@@ -48,7 +60,7 @@ func TestExtractor(t *testing.T) {
 		assert.Equal(drop, ex.Drops()[0])
 		assert.Equal("http://example.net/", drop.URL.String())
 
-		assert.IsType(NewClient(), ex.Client())
+		assert.IsType(extract.NewClient(), ex.Client())
 		assert.Empty(ex.Errors())
 
 		ex.AddError(errors.New("err1"))
@@ -57,7 +69,7 @@ func TestExtractor(t *testing.T) {
 
 	t.Run("drops", func(t *testing.T) {
 		assert := require.New(t)
-		ex := Extractor{}
+		ex := extract.Extractor{}
 		assert.Nil(ex.Drop())
 
 		ex.AddDrop(mustParse("http://example.net/"))
@@ -81,13 +93,13 @@ func TestExtractorRun(t *testing.T) {
 	defer httpmock.DeactivateAndReset()
 
 	httpmock.RegisterResponder("GET", "/404", httpmock.NewJsonResponderOrPanic(404, ""))
-	httpmock.RegisterResponder("GET", "/page1", newHTMLResponder(200, "html/ex1.html"))
-	httpmock.RegisterResponder("GET", `=~^/loop/\d+`, newHTMLResponder(200, "html/ex1.html"))
+	httpmock.RegisterResponder("GET", "/page1", NewHTMLResponder(200, "html/ex1.html"))
+	httpmock.RegisterResponder("GET", `=~^/loop/\d+`, NewHTMLResponder(200, "html/ex1.html"))
 
 	ctxBodyKey := &struct{}{}
 
-	p1 := func(m *ProcessMessage, next Processor) Processor {
-		if m.Step() != StepBody {
+	p1 := func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepBody {
 			return next
 		}
 
@@ -95,8 +107,8 @@ func TestExtractorRun(t *testing.T) {
 		return next
 	}
 
-	p2a := func(m *ProcessMessage, next Processor) Processor {
-		if m.Step() != StepBody {
+	p2a := func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepBody {
 			return next
 		}
 
@@ -105,8 +117,8 @@ func TestExtractorRun(t *testing.T) {
 		return next
 	}
 
-	p2b := func(m *ProcessMessage, next Processor) Processor {
-		if m.Step() != StepBody {
+	p2b := func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepBody {
 			return next
 		}
 
@@ -115,8 +127,8 @@ func TestExtractorRun(t *testing.T) {
 		return next
 	}
 
-	p3 := func(m *ProcessMessage, next Processor) Processor {
-		if m.Step() != StepBody {
+	p3 := func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepBody {
 			return next
 		}
 
@@ -133,13 +145,13 @@ func TestExtractorRun(t *testing.T) {
 		return next
 	}
 
-	loopProcessor := func() Processor {
+	loopProcessor := func() extract.Processor {
 		// Simulates the case of a page managing to force a processor into infinite
 		// redirections to a new content page.
 		iterations := 200
 		i := 0
-		return func(m *ProcessMessage, next Processor) Processor {
-			if m.Step() != StepDom {
+		return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+			if m.Step() != extract.StepDom {
 				return next
 			}
 
@@ -157,11 +169,11 @@ func TestExtractorRun(t *testing.T) {
 		}
 	}
 
-	tooManyDropProcessor := func() Processor {
+	tooManyDropProcessor := func() extract.Processor {
 		iterations := 200
 		i := 0
-		return func(m *ProcessMessage, next Processor) Processor {
-			if m.Step() != StepFinish {
+		return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+			if m.Step() != extract.StepFinish {
 				return next
 			}
 			if i >= iterations {
@@ -177,7 +189,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("simple", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/page1", nil)
+		ex, _ := extract.New("http://example.net/page1", nil)
 		ex.Run()
 		assert.Empty(ex.Errors())
 		assert.Contains(string(ex.Drop().Body), "Otters have long, slim bodies")
@@ -185,7 +197,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("load error", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/404", nil)
+		ex, _ := extract.New("http://example.net/404", nil)
 		ex.Run()
 		assert.Len(ex.Errors(), 1)
 		assert.Equal("cannot load resource", ex.Errors().Error())
@@ -193,7 +205,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("process body", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/page1", nil)
+		ex, _ := extract.New("http://example.net/page1", nil)
 		ex.AddProcessors(p1)
 		ex.Run()
 		assert.Empty(ex.Errors())
@@ -202,7 +214,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("process passing values", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/page1", nil)
+		ex, _ := extract.New("http://example.net/page1", nil)
 		ex.AddProcessors(p2a, p2b)
 		ex.Run()
 		assert.Empty(ex.Errors())
@@ -211,7 +223,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("process add drop", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/page1", nil)
+		ex, _ := extract.New("http://example.net/page1", nil)
 		ex.AddProcessors(p3)
 		ex.Run()
 		assert.Empty(ex.Errors())
@@ -222,7 +234,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("too many redirects", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/loop/0", nil)
+		ex, _ := extract.New("http://example.net/loop/0", nil)
 		ex.AddProcessors(loopProcessor())
 		ex.Run()
 		assert.Len(ex.Errors(), 1)
@@ -235,7 +247,7 @@ func TestExtractorRun(t *testing.T) {
 
 	t.Run("too many pages", func(t *testing.T) {
 		assert := require.New(t)
-		ex, _ := New("http://example.net/loop/0", nil)
+		ex, _ := extract.New("http://example.net/loop/0", nil)
 		ex.AddProcessors(tooManyDropProcessor())
 		ex.Run()
 		assert.Len(ex.Errors(), 1)
