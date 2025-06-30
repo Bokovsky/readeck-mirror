@@ -96,6 +96,8 @@ func (s ProcessStep) String() string {
 	case 4:
 		return "finish"
 	case 5:
+		return "postprocess"
+	case 6:
 		return "done"
 	}
 
