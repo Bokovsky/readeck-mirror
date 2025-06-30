@@ -154,7 +154,7 @@ func (tm *TaskManager) onTask(e Event) {
 		tm.queue <- func() {
 			defer func() {
 				if r := recover(); r != nil {
-					l.Error("task error", slog.Any("err", err))
+					l.Error("task error", slog.Any("recover", r))
 				}
 				// The payload can be removed when we're done.
 				if err := tm.delPayload(&op); err != nil {
