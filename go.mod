@@ -15,7 +15,7 @@ require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/casbin/casbin/v2 v2.108.0
 	github.com/cristalhq/acmd v0.12.0
-	github.com/dop251/goja v0.0.0-20250624190929-4d26883d182a
+	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.9
@@ -71,7 +71,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/google/pprof v0.0.0-20250607225305-033d6d78b36a // indirect
+	github.com/google/pprof v0.0.0-20250629210550-e611ec304b22 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/itchyny/timefmt-go v0.1.6 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
@@ -94,7 +94,7 @@ require (
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	modernc.org/libc v1.66.1 // indirect
+	modernc.org/libc v1.66.2 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 )
