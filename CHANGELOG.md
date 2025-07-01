@@ -18,6 +18,11 @@
 - YouTube video embeds are now preserved as a thumbnail that links to the original video, by [@mislav](https://codeberg.org/mislav)
 - HTTP cache couldn't work with an API token
 - timezone related tests would fail with a TZ env var, by [@mislav](https://codeberg.org/mislav)
+- archive lossless WebP images as PNG instead of JPEG
+- archive inline SVGs without an XML namespace, by [@mislav](https://codeberg.org/mislav)
+- prevent AVIF images from interfering with fetching of alternative image sources
+- more permissive Open Graph metadata scanning
+- correct encoding for imported Wallabag articles that were originally non-UTF8, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - documentation extracted to gettext
@@ -27,6 +32,8 @@
 - headers sent when fetching
 - send a `referer` header when fetching favicon or a page's image
 - hide bookmark description when it exists at the begining of the article
+- increase sharpness of archived images on high-resolution ("2x") displays, by [@mislav](https://codeberg.org/mislav)
+- strip links from self-linking heading elements, by [@mislav](https://codeberg.org/mislav)
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version
