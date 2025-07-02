@@ -131,9 +131,9 @@ func (p Pagination) GetPageLinks() []PageLink {
 }
 
 // NewPagination creates a new Pagination instance base on the current request.
-func NewPagination(r *http.Request, count, limit, offset int) Pagination {
+func NewPagination(ctx context.Context, count, limit, offset int) Pagination {
 	p := Pagination{
-		URL:         urls.AbsoluteURL(r),
+		URL:         urls.AbsoluteURLContext(ctx),
 		Limit:       limit,
 		Offset:      offset,
 		TotalCount:  count,

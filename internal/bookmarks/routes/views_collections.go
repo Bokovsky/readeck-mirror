@@ -55,7 +55,7 @@ func (h *viewsRouter) collectionCreate(w http.ResponseWriter, r *http.Request) {
 
 func (h *viewsRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := getCollection(r.Context())
-	item := dataset.NewCollection(server.WithRequest(r.Context(), r), c)
+	item := dataset.NewCollection(r.Context(), c)
 
 	f := newCollectionForm(server.Locale(r), r)
 	f.setCollection(c)

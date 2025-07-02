@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/metrics"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 // Server is a wrapper around chi router.
@@ -40,7 +41,7 @@ func New() *Server {
 
 	s.Use(
 		middleware.Recoverer,
-		InitRequest,
+		InitRequest(),
 		middleware.RequestID,
 		Logger(),
 		metrics.Middleware,
@@ -74,6 +75,20 @@ func (s *Server) Init() {
 
 	// Init templates
 	initTemplates()
+}
+
+// InitRequest returns a midleware that sets the absolute request URL
+// and adds it to its context.
+func InitRequest() func(next http.Handler) http.Handler {
+	h := chi.Middlewares{}
+	if configs.Config.Server.BaseURL != nil {
+		h = append(h, request.InitBaseURL(configs.Config.Server.BaseURL.URL))
+	}
+	h = append(h, request.InitRequest(configs.TrustedProxies()...))
+
+	return func(next http.Handler) http.Handler {
+		return h.Handler(next)
+	}
 }
 
 // AuthenticatedRouter returns a chi.Router instance

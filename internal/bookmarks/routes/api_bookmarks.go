@@ -44,7 +44,7 @@ func (api *apiRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 // bookmarkInfo renders a given bookmark items in JSON.
 func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := getBookmark(r.Context())
-	item := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+	item := dataset.NewBookmark(r.Context(), b)
 	if err := item.SetEmbed(); err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
 	}
@@ -65,7 +65,7 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	b := getBookmark(r.Context())
 
-	bi := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+	bi := dataset.NewBookmark(r.Context(), b)
 	buf, err := bi.GetArticle()
 	if err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
@@ -229,7 +229,7 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 	// On a turbo request, we'll return the updated components.
 	if server.IsTurboRequest(r) {
-		item := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+		item := dataset.NewBookmark(r.Context(), b)
 
 		_, withTitle := updated["title"]
 		_, withLabels := updated["labels"]
@@ -362,7 +362,7 @@ func (api *apiRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 		server.Status(w, r, http.StatusNotFound)
 		return
 	}
-	dataset.NewLabel(server.WithRequest(r.Context(), r), res)
+	dataset.NewLabel(r.Context(), res)
 	server.Render(w, r, http.StatusOK, res)
 }
 
@@ -422,7 +422,7 @@ func (api *apiRouter) annotationCreate(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	bi := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+	bi := dataset.NewBookmark(r.Context(), b)
 	annotation, err := f.addToBookmark(bi)
 	if err != nil {
 		if errors.As(err, &annotate.ErrAnotate) {
@@ -746,7 +746,7 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 
 func (api *apiRouter) withBookmarkSeq(next http.Handler) http.Handler {
 	serve := func(w http.ResponseWriter, r *http.Request, ds *goqu.SelectDataset) {
-		res := dataset.NewBookmarkIterator(server.WithRequest(r.Context(), r), ds)
+		res := dataset.NewBookmarkIterator(r.Context(), ds)
 		ctx := withBookmarkIterator(r.Context(), res)
 
 		taggers := []server.Etagger{res}
@@ -785,7 +785,7 @@ func (api *apiRouter) withBookmarkList(next http.Handler) http.Handler {
 
 		var res *dataset.BookmarkList
 		var err error
-		if res, err = dataset.NewBookmarkList(server.WithRequest(r.Context(), r), ds); err != nil {
+		if res, err = dataset.NewBookmarkList(r.Context(), ds); err != nil {
 			if errors.Is(err, bookmarks.ErrBookmarkNotFound) {
 				server.TextMsg(w, r, http.StatusNotFound, "not found")
 			} else {
@@ -831,7 +831,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 			Offset(uint(pf.Offset())).
 			Order(goqu.I("annotation_created").Desc())
 
-		res, err := dataset.NewAnnotationList(server.WithRequest(r.Context(), r), ds)
+		res, err := dataset.NewAnnotationList(r.Context(), ds)
 		if err != nil {
 			server.Err(w, r, err)
 			return
@@ -857,7 +857,7 @@ func (api *apiRouter) withLabelList(next http.Handler) http.Handler {
 			ds = ds.Where(goqu.I("name").ILike(q))
 		}
 
-		res, err := dataset.NewLabelList(server.WithRequest(r.Context(), r), ds)
+		res, err := dataset.NewLabelList(r.Context(), ds)
 		if err != nil {
 			server.Err(w, r, err)
 			return

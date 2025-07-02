@@ -29,7 +29,6 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
-	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
@@ -77,7 +76,6 @@ func NewMarkdownExporter() MarkdownExporter {
 // that contains images for the exported bookmarks.
 func (e MarkdownExporter) IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
 	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
-	ctx = server.WithRequest(ctx, r)
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
@@ -100,10 +98,9 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 		return err
 	}
 
-	r := server.GetRequest(ctx)
 	ctx = dataset.WithURLReplacer(ctx, func(b *bookmarks.Bookmark) func(name string) string {
 		return func(name string) string {
-			return urls.AbsoluteURL(r, "/bm", b.FilePath, name).String()
+			return urls.AbsoluteURLContext(ctx, "/bm", b.FilePath, name).String()
 		}
 	})
 
@@ -128,7 +125,7 @@ func (e MarkdownExporter) exportTextOnly(ctx context.Context, w io.Writer, bookm
 }
 
 func (e MarkdownExporter) exportMultipart(ctx context.Context, w io.Writer, bookmarkSeq *dataset.BookmarkIterator) error {
-	server.Log(server.GetRequest(ctx)).Warn("multipart/alternative markdown export is deprecated and will be removed in the next version")
+	slog.Warn("multipart/alternative markdown export is deprecated and will be removed in the next version")
 
 	mp := multipart.NewWriter(w)
 	defer mp.Close() //nolint:errcheck
@@ -296,7 +293,7 @@ func (e MarkdownExporter) getImageURL(ctx context.Context, b *dataset.Bookmark, 
 	if s, _ := checkExportType(ctx); s == "multipart" {
 		return b.UID + "-" + path.Base(name)
 	}
-	return urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath, "img", path.Base(name)).String()
+	return urls.AbsoluteURLContext(ctx, "/bm", b.FilePath, "img", path.Base(name)).String()
 }
 
 func (e MarkdownExporter) writeArticle(ctx context.Context, w io.Writer, b *dataset.Bookmark, withMeta bool) error {

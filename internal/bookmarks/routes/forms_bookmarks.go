@@ -829,7 +829,7 @@ func (f *shareForm) sendBookmark(r *http.Request, b *bookmarks.Bookmark) (err er
 		&dataset.BookmarkList{
 			Count: 1,
 			Items: []*dataset.Bookmark{
-				dataset.NewBookmark(server.WithRequest(r.Context(), r), b),
+				dataset.NewBookmark(r.Context(), b),
 			},
 		},
 	); err != nil {

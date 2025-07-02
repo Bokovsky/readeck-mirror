@@ -40,7 +40,7 @@ func NewAnnotationList(ctx context.Context, ds *goqu.SelectDataset) (*Annotation
 	}
 
 	if limit, ok := ds.GetClauses().Limit().(uint); ok {
-		res.Pagination = server.NewPagination(server.GetRequest(ctx),
+		res.Pagination = server.NewPagination(ctx,
 			int(res.Count), int(limit), int(ds.GetClauses().Offset()),
 		)
 	}
@@ -85,12 +85,12 @@ type Annotation struct {
 func NewAnnotation(ctx context.Context, a *bookmarks.AnnotationQueryResult) *Annotation {
 	return &Annotation{
 		ID:               a.ID,
-		Href:             urls.AbsoluteURL(server.GetRequest(ctx), "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
+		Href:             urls.AbsoluteURLContext(ctx, "/api/bookmarks", a.Bookmark.UID, "annotations", a.ID).String(),
 		Text:             a.Text,
 		Created:          time.Time(a.Created),
 		Color:            a.Color,
 		BookmarkID:       a.Bookmark.UID,
-		BookmarkHref:     urls.AbsoluteURL(server.GetRequest(ctx), "/api/bookmarks", a.Bookmark.UID).String(),
+		BookmarkHref:     urls.AbsoluteURLContext(ctx, "/api/bookmarks", a.Bookmark.UID).String(),
 		BookmarkURL:      a.Bookmark.URL,
 		BookmarkTitle:    a.Bookmark.Title,
 		BookmarkSiteName: a.Bookmark.SiteName,
