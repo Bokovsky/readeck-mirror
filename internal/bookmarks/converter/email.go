@@ -48,7 +48,6 @@ func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailEx
 // It create an email with a text/plan and text/html version and attaches images
 // as inline resources.
 func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
-	ctx = server.WithRequest(ctx, r)
 	if l := len(bookmarkList.Items); l != 1 {
 		return fmt.Errorf("HTMLEmailExporter can only export one bookmark. Got %d", l)
 	}
@@ -141,7 +140,7 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *dataset.Bo
 		"HTML":    html,
 		"Item":    b,
 		"Image":   image,
-		"SiteURL": urls.AbsoluteURL(server.GetRequest(ctx), "/").String(),
+		"SiteURL": urls.AbsoluteURLContext(ctx, "/").String(),
 	}, nil
 }
 
@@ -163,7 +162,6 @@ func NewEPUBEmailExporter(to string, options ...email.MessageOption) EPUBEmailEx
 // Export implements [Exporter].
 // It create an email with the bookmark's EPUB file attached to it.
 func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
-	ctx = server.WithRequest(ctx, r)
 	if l := len(bookmarkList.Items); l != 1 {
 		return fmt.Errorf("EPUBEmailExporter can only export one bookmark. Got %d", l)
 	}
@@ -177,7 +175,7 @@ func (e EPUBEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Requ
 			e.options,
 			email.WithMDTemplate(
 				"/emails/bookmark_epub.jet.md",
-				server.TemplateVars(server.GetRequest(ctx)),
+				server.TemplateVars(r),
 				map[string]any{
 					"Item":    b,
 					"SiteURL": urls.AbsoluteURL(r, "/").String(),

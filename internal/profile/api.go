@@ -176,7 +176,7 @@ func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
 			return
 		}
 
-		res.Pagination = server.NewPagination(r, int(count), pf.Limit(), pf.Offset())
+		res.Pagination = server.NewPagination(r.Context(), int(count), pf.Limit(), pf.Offset())
 
 		res.Items = make([]tokenItem, len(items))
 		for i, item := range items {

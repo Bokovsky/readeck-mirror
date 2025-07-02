@@ -95,7 +95,7 @@ func (h *adminViews) userCreate(w http.ResponseWriter, r *http.Request) {
 func (h *adminViews) userInfo(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
 	u := getUser(r.Context())
-	item := newUserItem(server.WithRequest(r.Context(), r), u)
+	item := newUserItem(r.Context(), u)
 
 	f := users.NewUserForm(server.Locale(r))
 	f.SetUser(u)

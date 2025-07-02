@@ -122,7 +122,7 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 
 func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	b := getBookmark(r.Context())
-	item := dataset.NewBookmark(server.WithRequest(r.Context(), r), b)
+	item := dataset.NewBookmark(r.Context(), b)
 	if err := item.SetEmbed(); err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
 	}
@@ -385,7 +385,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			if !found || err != nil {
 				status = http.StatusNotFound
 			} else {
-				item := dataset.NewBookmark(server.WithRequest(r.Context(), r), bu.Bookmark)
+				item := dataset.NewBookmark(r.Context(), bu.Bookmark)
 				if err := item.SetEmbed(); err != nil {
 					server.Err(w, r, err)
 					return

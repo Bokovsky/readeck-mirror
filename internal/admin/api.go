@@ -71,7 +71,7 @@ func (api *adminAPI) withUserList(next http.Handler) http.Handler {
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
-		res, err := newUserList(server.WithRequest(r.Context(), r), ds)
+		res, err := newUserList(r.Context(), ds)
 		if err != nil {
 			server.Err(w, r, err)
 			return
@@ -121,7 +121,7 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 
 func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r.Context())
-	item := newUserItem(server.WithRequest(r.Context(), r), u)
+	item := newUserItem(r.Context(), u)
 	item.Settings = u.Settings
 
 	server.Render(w, r, http.StatusOK, item)
@@ -198,7 +198,7 @@ func newUserList(ctx context.Context, ds *goqu.SelectDataset) (*userList, error)
 	}
 
 	if limit, ok := ds.GetClauses().Limit().(uint); ok {
-		res.Pagination = server.NewPagination(server.GetRequest(ctx),
+		res.Pagination = server.NewPagination(ctx,
 			int(res.Count), int(limit), int(ds.GetClauses().Offset()),
 		)
 	}
@@ -228,7 +228,7 @@ type userItem struct {
 func newUserItem(ctx context.Context, u *users.User) *userItem {
 	return &userItem{
 		ID:        u.UID,
-		Href:      urls.AbsoluteURL(server.GetRequest(ctx), "/api/admin/users", u.UID).String(),
+		Href:      urls.AbsoluteURLContext(ctx, "/api/admin/users", u.UID).String(),
 		Created:   u.Created,
 		Updated:   u.Updated,
 		Username:  u.Username,

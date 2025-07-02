@@ -27,7 +27,7 @@ func (api *apiRouter) collectionList(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) collectionInfo(w http.ResponseWriter, r *http.Request) {
 	c := getCollection(r.Context())
-	item := dataset.NewCollection(server.WithRequest(r.Context(), r), c)
+	item := dataset.NewCollection(r.Context(), c)
 	server.Render(w, r, http.StatusOK, item)
 }
 
@@ -102,7 +102,7 @@ func (api *apiRouter) withColletionList(next http.Handler) http.Handler {
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset()))
 
-		res, err := dataset.NewCollectionList(server.WithRequest(r.Context(), r), ds)
+		res, err := dataset.NewCollectionList(r.Context(), ds)
 		if err != nil {
 			if errors.Is(err, bookmarks.ErrCollectionNotFound) {
 				server.TextMsg(w, r, http.StatusNotFound, "not found")

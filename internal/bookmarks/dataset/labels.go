@@ -12,7 +12,6 @@ import (
 	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/internal/db/scanner"
-	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 )
 
@@ -43,8 +42,8 @@ func NewLabelList(ctx context.Context, ds *goqu.SelectDataset) (LabelList, error
 
 // NewLabel returns a new [*Label], setting the necessary URLs.
 func NewLabel(ctx context.Context, l *Label) *Label {
-	l.Href = urls.AbsoluteURL(server.GetRequest(ctx), "/api/bookmarks/labels", l.Name.Path()).String()
-	l.HrefBookmarks = urls.AbsoluteURL(server.GetRequest(ctx), "/api/bookmarks").String() + "?" + url.Values{
+	l.Href = urls.AbsoluteURLContext(ctx, "/api/bookmarks/labels", l.Name.Path()).String()
+	l.HrefBookmarks = urls.AbsoluteURLContext(ctx, "/api/bookmarks").String() + "?" + url.Values{
 		"labels": []string{strconv.Quote(string(l.Name))},
 	}.Encode()
 	return l

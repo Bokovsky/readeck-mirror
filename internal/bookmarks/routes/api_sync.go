@@ -94,7 +94,7 @@ func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
 		ds = ds.Where(goqu.C("uid").In(ids))
 	}
 
-	seq := dataset.NewBookmarkIterator(server.WithRequest(r.Context(), r), ds)
+	seq := dataset.NewBookmarkIterator(r.Context(), ds)
 	if err := converter.NewSyncExporter(
 		converter.WithSyncJSON(f.Get("with_json").(*forms.BooleanField).V()),
 		converter.WithSyncHTML(f.Get("with_html").(*forms.BooleanField).V()),

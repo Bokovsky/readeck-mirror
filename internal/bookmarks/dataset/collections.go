@@ -38,7 +38,7 @@ func NewCollectionList(ctx context.Context, ds *goqu.SelectDataset) (*Collection
 	}
 
 	if limit, ok := ds.GetClauses().Limit().(uint); ok {
-		res.Pagination = server.NewPagination(server.GetRequest(ctx),
+		res.Pagination = server.NewPagination(ctx,
 			int(res.Count), int(limit), int(ds.GetClauses().Offset()),
 		)
 	}
@@ -92,7 +92,7 @@ func NewCollection(ctx context.Context, c *bookmarks.Collection) *Collection {
 	return &Collection{
 		Collection: c,
 		ID:         c.UID,
-		Href:       urls.AbsoluteURL(server.GetRequest(ctx), "/api/collections", c.UID).String(),
+		Href:       urls.AbsoluteURLContext(ctx, "/api/collections", c.UID).String(),
 		Created:    c.Created,
 		Updated:    c.Updated,
 		Name:       c.Name,

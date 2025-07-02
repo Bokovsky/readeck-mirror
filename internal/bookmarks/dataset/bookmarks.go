@@ -98,7 +98,7 @@ func NewBookmarkList(ctx context.Context, ds *goqu.SelectDataset) (*BookmarkList
 	}
 
 	if limit, ok := ds.GetClauses().Limit().(uint); ok {
-		res.Pagination = server.NewPagination(server.GetRequest(ctx),
+		res.Pagination = server.NewPagination(ctx,
 			int(res.Count), int(limit), int(ds.GetClauses().Offset()),
 		)
 	}
@@ -197,7 +197,7 @@ type BookmarkFile struct {
 
 // NewBookmark builds a [Bookmark] from a [bookmarks.Bookmark] instance.
 func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
-	bookmarkURL := urls.AbsoluteURL(server.GetRequest(ctx), "/api/bookmarks", b.UID)
+	bookmarkURL := urls.AbsoluteURLContext(ctx, "/api/bookmarks", b.UID)
 
 	res := &Bookmark{
 		Bookmark:      b,
@@ -242,8 +242,8 @@ func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
 		},
 	}
 
-	res.mediaURL = urls.AbsoluteURL(server.GetRequest(ctx), "/bm", b.FilePath)
-	res.videoPlayerURL = urls.AbsoluteURL(server.GetRequest(ctx), "/videoplayer")
+	res.mediaURL = urls.AbsoluteURLContext(ctx, "/bm", b.FilePath)
+	res.videoPlayerURL = urls.AbsoluteURLContext(ctx, "/videoplayer")
 
 	if b.Labels != nil {
 		res.Labels = b.Labels
