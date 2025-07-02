@@ -69,7 +69,22 @@ SPDX-License-Identifier: AGPL-3.0-only
        data-panel-target="panel"
        tabindex="-1"
       >
-        <div class="h-topnav border-b bg-app-bg border-b-gray-200 max-lg:sticky max-lg:top-0 max-lg:z-40 print:hidden no-js:hidden">
+        <div class="
+          h-topnav border-b bg-app-bg border-b-gray-200
+          flex px-3 items-center
+          max-lg:sticky max-lg:top-0 max-lg:z-40
+          print:hidden no-js:hidden
+        ">
+          {{- if user.Settings.DebugInfo -}}
+            <button class="text-gray-300 hf:text-gray-700"
+             title="diagnosis"
+             data-controller="dialog"
+             data-dialog-select-value="#debug-info"
+             data-action="dialog#open">
+              {{- yield icon(name="o-terminal", class="inline-block", svgClass="w-6 h-6") -}}
+            </button>
+          {{- end -}}
+
           <button type="button" title="{{ gettext(`Close panel`) }}"
            name="bookmark_sidebar_hidden"
            value="true"
@@ -79,7 +94,7 @@ SPDX-License-Identifier: AGPL-3.0-only
            data-action="click->panel#toggle click->request#fetch"
            data-panel-target="button"
            aria-controls="bookmark-panel"
-           class="lg:hidden p-1 ml-2 absolute top-3 right-3 border rounded text-gray-400 hf:text-gray-700"
+           class="lg:hidden p-1 ml-auto border rounded text-gray-400 hf:text-gray-700"
           >
             {{- yield icon(name="o-close", class="inline-block", svgClass="w-8 h-8") -}}
             <span class="sr-only">{{ gettext("Close panel") }}</span>
@@ -135,9 +150,6 @@ SPDX-License-Identifier: AGPL-3.0-only
             <p class="mt-2 text-lg leading-tight text-justify italic"
                dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Description }}</p>
           {{- end -}}
-          {{- if user.Settings.DebugInfo -}}
-            {{ include "./components/debug" map("log", ._log, "props", ._props) }}
-          {{- end -}}
         </div>
 
         {* content *}
@@ -154,4 +166,17 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end -}}
   </turbo-frame>
 </div>
+
+<dialog class="dialog font-sans" id="debug-info">
+  <div>
+    <form class="dialog--top" method="dialog">
+      <button class="dialog--close" title="{{ gettext("Close dialog") }}">
+      {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+      </button>
+    </form>
+
+    <turbo-frame id="diagnostic-info" src="{{ urlFor(`/bookmarks`, .Item.ID, `diagnosis`) }}" loading="lazy">
+    </turbo-frame>
+  </div>
+</dialog>
 {{- end -}}
