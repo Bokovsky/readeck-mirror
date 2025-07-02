@@ -257,26 +257,33 @@ func newSessionPrefForm(tr forms.Translator) *sessionPrefForm {
 				forms.Choice("mosaic", "mosaic"),
 			),
 		),
+		forms.NewBooleanField(
+			"bookmark_sidebar_hidden",
+			forms.Skip,
+		),
 	)}
 }
 
-func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[string]interface{}, err error) {
+func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
-	res = make(map[string]interface{})
+	res = make(map[string]any)
 	for _, field := range f.Fields() {
 		if !field.IsBound() || field.IsNil() {
 			continue
 		}
 
 		n := field.Name()
-		switch n { //nolint:gocritic
+		switch n {
 		case "bookmark_list_display":
 			payload.Preferences.BookmarkListDisplay = field.String()
 			res[n] = field.String()
+		case "bookmark_sidebar_hidden":
+			payload.Preferences.BookmarkSidebarHidden = field.(*forms.BooleanField).V()
+			res[n] = payload.Preferences.BookmarkSidebarHidden
 		}
 	}
 

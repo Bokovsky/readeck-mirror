@@ -34,7 +34,8 @@ type FlashMessage struct {
 
 // Preferences contains the user session preferences.
 type Preferences struct {
-	BookmarkListDisplay string `json:"bld"`
+	BookmarkListDisplay   string `json:"bld"`
+	BookmarkSidebarHidden bool   `json:"bsh"`
 }
 
 // Session is a unique session.

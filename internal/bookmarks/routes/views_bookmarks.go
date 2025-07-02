@@ -171,6 +171,42 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	server.RenderTemplate(w, r, 200, "/bookmarks/bookmark", tc)
 }
 
+func (h *viewsRouter) diagnosis(w http.ResponseWriter, r *http.Request) {
+	b := getBookmark(r.Context())
+	tc := getBaseContext(r.Context())
+
+	// Load bookmark debug information.
+	c, err := b.OpenContainer()
+	if err != nil && !os.IsNotExist(err) {
+		server.Err(w, r, err)
+		return
+	}
+
+	if c != nil {
+		defer c.Close()
+
+		for k, x := range map[string]string{
+			"Props": "props.json",
+			"Log":   "log",
+		} {
+			if r, err := c.GetFile(x); err != nil {
+				tc[k] = err.Error()
+			} else {
+				tc[k] = string(r)
+			}
+		}
+	}
+
+	if server.IsTurboRequest(r) {
+		server.RenderTurboStream(w, r,
+			"/bookmarks/components/diagnosis", "replace",
+			"diagnostic-info", tc, nil)
+		return
+	}
+
+	server.TextMsg(w, r, http.StatusBadRequest, "not a turbo request")
+}
+
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 	f := newUpdateForm(server.Locale(r))
 	forms.Bind(f, r)

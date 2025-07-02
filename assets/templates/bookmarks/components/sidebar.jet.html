@@ -8,13 +8,30 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <turbo-frame id="bookmark-sidebar-{{ .Item.ID }}" disabled>
   {{- if len(.Item.Errors) -}}
-    <details class="my-4">
-      <summary class="text-sm bg-red-700 text-white inline-block p-0.5 rounded"
-      >{{ yield icon(name="o-error") }} {{ gettext("Errors occurred during extraction.") }}</summary>
-      <ul class="text-red-800">{{ range .Item.Errors }}
-        <li class="mt-0.5">{{ . }}</li>
-      {{ end }}</ul>
-    </details>
+    {{- yield message(type="error") content -}}
+      <details>
+        <summary class="font-semibold">{{ gettext("Errors occurred during extraction.") }}</summary>
+        <ul class="mt-2 list-disc">
+        {{- range .Item.Errors -}}
+          <li class="ml-4">{{ . }}</li>
+        {{- end -}}
+        </ul>
+        <p class="mt-4 text-sm">{{ gettext(`
+          Depending on the error, Readeck's browser extension may provide
+          a workaround.`
+        ) }}</p>
+        <p class="mt-4 text-center">
+          <a class="btn btn-primary rounded-full" target="_blank" href="https://readeck.org/en/extension">{{ gettext("Learn more") }}</a>
+        </p>
+        <p class="mt-4 text-sm text-right">
+          <button
+           class="underline text-red-900 hf:text-red-950"
+           data-controller="dialog"
+           data-dialog-select-value="#debug-info"
+           data-action="dialog#open">{{ gettext("View log") }}</button>
+        </p>
+      </details>
+    {{- end -}}
   {{- end -}}
 
   <p class="hidden print:block mb-4 font-semibold text-primary-dark">{{ .Item.URL }}</p>

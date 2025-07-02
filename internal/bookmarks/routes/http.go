@@ -180,6 +180,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				api.withBookmark,
 			).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 				r.Get("/", h.bookmarkInfo)
+				r.Get("/diagnosis", h.diagnosis)
 				r.With(server.WithPermission("bookmarks", "export")).Route(
 					"/share", func(r chi.Router) {
 						r.With(
