@@ -10,16 +10,12 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
-	"net"
 	"net/http"
-	"slices"
-	"strings"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
-	"codeberg.org/readeck/readeck/pkg/http/forwarded"
 	"codeberg.org/readeck/readeck/pkg/http/permissionspolicy"
 )
 
@@ -27,14 +23,12 @@ type (
 	ctxCSPNonceKey     struct{}
 	ctxCSPKey          struct{}
 	ctxUnauthorizedKey struct{}
-	ctxRemoteInfoKey   struct{}
 )
 
 var (
 	withCSPNonce, getCSPNonce         = ctxr.WithChecker[string](ctxCSPNonceKey{})
 	withCSP, getCSP                   = ctxr.WithChecker[csp.Policy](ctxCSPKey{})
 	withUnauthorized, getUnauthorized = ctxr.WithChecker[int](ctxUnauthorizedKey{})
-	withRemoteInfo, getRemoteInfo     = ctxr.WithChecker[*RemoteInfo](ctxRemoteInfoKey{})
 )
 
 const (
@@ -44,134 +38,6 @@ const (
 
 type cspReport struct {
 	Report map[string]any `json:"csp-report"`
-}
-
-// RemoteInfo contains the host/URL information as built by
-// the configuration and/or proxy sent headers.
-type RemoteInfo struct {
-	IsForced    bool
-	IsTrusted   bool
-	IsForwarded bool
-	ProxyAddr   net.IP
-	Host        string
-	Scheme      string
-}
-
-func newRemoteInfo(r *http.Request) *RemoteInfo {
-	pi := &RemoteInfo{
-		IsForwarded: forwarded.IsForwarded(r.Header),
-		Host:        forwarded.ParseXForwardedHost(r.Header),
-		Scheme:      forwarded.ParseXForwardedProto(r.Header),
-	}
-
-	// When we've got forwarded headers and an empty scheme, default to https
-	if pi.IsForwarded && pi.Scheme == "" {
-		pi.Scheme = "https"
-	}
-
-	return pi
-}
-
-func isTrustedIP(ip net.IP) bool {
-	return slices.ContainsFunc(configs.TrustedProxies(), func(network *net.IPNet) bool {
-		return network.Contains(ip)
-	})
-}
-
-func checkHost(r *http.Request) error {
-	// If allowed_hosts is not set, do not check the hostname.
-	if len(configs.Config.Server.AllowedHosts) == 0 {
-		return nil
-	}
-
-	host := r.Host
-	port := r.URL.Port()
-	if port != "" {
-		host = strings.TrimSuffix(host, ":"+port)
-	}
-	host = strings.TrimSuffix(host, ".")
-
-	if slices.Contains(configs.Config.Server.AllowedHosts, host) {
-		return nil
-	}
-	return fmt.Errorf("host is not allowed: %s", host)
-}
-
-// GetRemoteInfo returns the [*RemoteInfo] instance stored in the request's context.
-func GetRemoteInfo(r *http.Request) *RemoteInfo {
-	if hi, ok := getRemoteInfo(r.Context()); ok {
-		return hi
-	}
-	return &RemoteInfo{}
-}
-
-// InitRequest update the scheme and host on the incoming
-// HTTP request URL (r.URL), based on provided headers and/or
-// current environnement.
-//
-// It also checks the validity of the host header when the server
-// is not running in dev mode.
-func InitRequest(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// First, always remove the port from RenoteAddr
-		r.RemoteAddr, _, _ = net.SplitHostPort(r.RemoteAddr)
-		remoteIP := net.ParseIP(r.RemoteAddr)
-
-		// Set default scheme
-		r.URL.Scheme = "http"
-		if r.TLS != nil {
-			r.URL.Scheme = "https"
-		}
-
-		// Load remoteInfo headers
-		remoteInfo := newRemoteInfo(r)
-		if remoteInfo.IsForwarded {
-			remoteInfo.ProxyAddr = remoteIP
-			remoteInfo.IsTrusted = isTrustedIP(remoteIP)
-		}
-
-		if configs.Config.Server.BaseURL != nil && configs.Config.Server.BaseURL.IsHTTP() {
-			// If a baseURL is set, set scheme and host from it.
-			remoteInfo.IsForced = true
-			remoteInfo.Host = configs.Config.Server.BaseURL.Host
-			remoteInfo.Scheme = configs.Config.Server.BaseURL.Scheme
-		}
-
-		// Set host
-		if remoteInfo.IsForced || remoteInfo.IsTrusted && remoteInfo.Host != "" {
-			r.Host = remoteInfo.Host
-		}
-		r.URL.Host = r.Host
-
-		// Set scheme
-		if remoteInfo.IsForced || remoteInfo.IsForwarded && remoteInfo.Scheme != "" {
-			r.URL.Scheme = remoteInfo.Scheme
-		}
-
-		// Set client IP
-		if remoteInfo.IsTrusted {
-			for _, ip := range forwarded.ParseXForwardedFor(r.Header) {
-				if isTrustedIP(ip) {
-					continue
-				}
-				r.RemoteAddr = ip.String()
-				break
-			}
-		}
-
-		*r = *r.WithContext(withRemoteInfo(r.Context(), remoteInfo))
-
-		// Check host
-		if !configs.Config.Main.DevMode {
-			if err := checkHost(r); err != nil {
-				Log(r).Error("server error", slog.Any("err", err))
-				Status(w, r, http.StatusBadRequest)
-				return
-			}
-		}
-
-		next.ServeHTTP(w, r)
-	})
 }
 
 // getDefaultCSP returns the default Content Security Policy

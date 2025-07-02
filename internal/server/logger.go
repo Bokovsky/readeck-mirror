@@ -12,6 +12,8 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5/middleware"
+
+	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 // Logger is a middleware that logs requests.
@@ -28,7 +30,7 @@ func (sl *httpLogger) NewLogEntry(r *http.Request) middleware.LogEntry {
 			slog.String("method", r.Method),
 			slog.String("path", r.RequestURI),
 			slog.String("proto", r.Proto),
-			slog.String("remote_addr", r.RemoteAddr),
+			slog.String("remote_addr", request.GetRealIP(r.Context()).String()),
 		),
 	}
 	slog.LogAttrs(context.TODO(), slog.LevelDebug,

@@ -9,12 +9,14 @@
 package urls
 
 import (
+	"context"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 // Prefix returns the configured URL prefix.
@@ -39,10 +41,23 @@ func CurrentPath(r *http.Request) string {
 	return p
 }
 
-// AbsoluteURL resolve the absolute URL for the given ref path parts.
+// AbsoluteURL resolves the absolute URL for the given ref path parts.
 // If the ref starts with "./", it will resolve relative to the current
 // URL.
+// The context must have been initialized with [request.InitRequest].
 func AbsoluteURL(r *http.Request, parts ...string) *url.URL {
+	return absoluteURL(r.URL, parts...)
+}
+
+// AbsoluteURLContext resolves the absolute URL for the given ref path parts.
+// If the ref starts with "./", it will resolve relative to the current
+// URL.
+// The context must have been initialized with [request.InitRequest].
+func AbsoluteURLContext(ctx context.Context, parts ...string) *url.URL {
+	return absoluteURL(request.GetURL(ctx), parts...)
+}
+
+func absoluteURL(ref *url.URL, parts ...string) *url.URL {
 	// First deal with parts
 	for i, p := range parts {
 		if i == 0 && strings.HasPrefix(p, "./") {
@@ -55,7 +70,8 @@ func AbsoluteURL(r *http.Request, parts ...string) *url.URL {
 
 	pathName := strings.Join(parts, "/")
 
-	cur, _ := r.URL.Parse("")
+	cur := &url.URL{}
+	*cur = *ref
 
 	p, _ := url.Parse(pathName) // Never let a full URL pass in the parts
 	pathName = p.Path
@@ -78,15 +94,26 @@ func AbsoluteURL(r *http.Request, parts ...string) *url.URL {
 	var u *url.URL
 	var err error
 	if u, err = url.Parse(pathName); err != nil {
-		return r.URL
+		return ref
 	}
 
 	return cur.ResolveReference(u)
 }
 
-// AssetURL returns the real URL for a given asset.
+// AssetURL returns an asset's URL using the request.
+// The context must have been initialized with [request.InitRequest].
 func AssetURL(r *http.Request, name string) *url.URL {
-	return AbsoluteURL(r, "/assets", assets.AssetMap()[name])
+	return assetURL(r.URL, name)
+}
+
+// AssetURLContext returns an asset's URL using a context.
+// The context must have been initialized with [request.InitRequest].
+func AssetURLContext(ctx context.Context, name string) *url.URL {
+	return assetURL(request.GetURL(ctx), name)
+}
+
+func assetURL(ref *url.URL, name string) *url.URL {
+	return absoluteURL(ref, "/assets", assets.AssetMap()[name])
 }
 
 // PathOnly returns the URL path + query + fragment.
