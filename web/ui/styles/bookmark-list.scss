@@ -111,6 +111,7 @@
     a {
       @apply overflow-hidden text-ellipsis;
       @apply block font-semibold text-left;
+      word-break: break-word;
     }
   }
 
