@@ -65,13 +65,18 @@ SPDX-License-Identifier: AGPL-3.0-only
       </div>
 
       <div id="bookmark-panel"
-       class="bookmark-sidebar max-lg:hidden"
+       class="bookmark-sidebar max-lg:hidden {{ if preferences.BookmarkSidebarHidden() }}hidden{{ end }}"
        data-panel-target="panel"
        tabindex="-1"
       >
         <div class="h-topnav border-b bg-app-bg border-b-gray-200 max-lg:sticky max-lg:top-0 max-lg:z-40 print:hidden no-js:hidden">
           <button type="button" title="{{ gettext(`Close panel`) }}"
-           data-action="click->panel#toggle"
+           name="bookmark_sidebar_hidden"
+           value="true"
+           data-controller="request"
+           data-request-url-value="{{ urlFor(`/profile/session`) }}"
+           data-request-method-value="post"
+           data-action="click->panel#toggle click->request#fetch"
            data-panel-target="button"
            aria-controls="bookmark-panel"
            class="lg:hidden p-1 ml-2 absolute top-3 right-3 border rounded text-gray-400 hf:text-gray-700"
@@ -101,7 +106,12 @@ SPDX-License-Identifier: AGPL-3.0-only
               {{- include "./components/reader_control" -}}
             {{- end -}}
             <button type="button" title="{{ gettext(`Bookmark information`) }}"
-             data-action="click->panel#toggle"
+             name="bookmark_sidebar_hidden"
+             value="{{ !preferences.BookmarkSidebarHidden() }}"
+             data-controller="request"
+             data-request-url-value="{{ urlFor(`/profile/session`) }}"
+             data-request-method-value="post"
+             data-action="click->panel#toggle click->request#fetch"
              data-panel-target="button"
              aria-expanded="false"
              aria-controls="bookmark-panel"

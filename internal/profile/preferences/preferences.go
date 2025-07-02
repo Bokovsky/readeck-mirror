@@ -218,3 +218,8 @@ func (p *Preferences) BookmarkListLayout() Pair {
 		"bookmark-list--" + bookmarkListLayouts[p.idxRookmarkListLayout],
 	}
 }
+
+// BookmarkSidebarHidden returns true when the sidebar must be hidden.
+func (p *Preferences) BookmarkSidebarHidden() bool {
+	return p.session.Payload.Preferences.BookmarkSidebarHidden
+}
