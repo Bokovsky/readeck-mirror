@@ -299,6 +299,12 @@ func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
 	return res
 }
 
+// MediaURL returns the absolute URL for an article media resource.
+func (bi Bookmark) MediaURL(name string) string {
+	// return bi.mediaURL
+	return bi.mediaURL.JoinPath(name).String()
+}
+
 // GetArticle calls [HTMLConverter.GetArticle]
 // with URL replacer and annotation tag properly setup.
 func (bi Bookmark) GetArticle() (*strings.Reader, error) {
@@ -306,9 +312,7 @@ func (bi Bookmark) GetArticle() (*strings.Reader, error) {
 
 	// Set resource URL replacer, for images
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
-		return func(name string) string {
-			return bi.mediaURL.JoinPath(name).String()
-		}
+		return bi.MediaURL
 	})
 
 	// Set annotation tag and callback

@@ -15,6 +15,7 @@ import (
 	"net/http"
 	"net/textproto"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 
@@ -99,13 +100,16 @@ func (e SyncExporter) IterExport(ctx context.Context, w io.Writer, _ *http.Reque
 		w.Header().Set("Content-Type", `multipart/mixed; boundary="`+mp.Boundary()+`"`)
 	}
 
-	ctx = dataset.WithURLReplacer(ctx, e.urlReplacer)
-
 	for b, err := range bookmarkSeq.Items {
 		if err != nil {
 			return err
 		}
 
+		if err = b.SetEmbed(); err != nil {
+			return err
+		}
+
+		ctx := dataset.WithURLReplacer(ctx, e.urlReplacer(b))
 		if e.withJSON {
 			if err = e.writeJSON(ctx, mp, b); err != nil {
 				return err
@@ -130,12 +134,20 @@ func (e SyncExporter) IterExport(ctx context.Context, w io.Writer, _ *http.Reque
 	return nil
 }
 
-func (e SyncExporter) urlReplacer(b *bookmarks.Bookmark) func(name string) string {
-	p := path.Clean(e.resourcePrefix)
-	p = strings.ReplaceAll(p, "%", b.UID)
+func (e SyncExporter) urlReplacer(b *dataset.Bookmark) dataset.URLReplacerFunc {
+	if e.resourcePrefix == "" {
+		return func(_ *bookmarks.Bookmark) func(name string) string {
+			return b.MediaURL
+		}
+	}
 
-	return func(name string) string {
-		return path.Join(p, path.Base(name))
+	return func(b *bookmarks.Bookmark) func(name string) string {
+		p := path.Clean(e.resourcePrefix)
+		p = strings.ReplaceAll(p, "%", b.UID)
+
+		return func(name string) string {
+			return path.Join(p, path.Base(name))
+		}
 	}
 }
 
@@ -144,9 +156,11 @@ func (e SyncExporter) writeJSON(_ context.Context, mp *multipart.Writer, b *data
 		"Bookmark-Id":         []string{b.UID},
 		"Type":                []string{"json"},
 		"Content-Type":        []string{"application/json; charset=utf-8"},
+		"Location":            []string{b.Href},
 		"Filename":            []string{"info.json"},
 		"Content-Disposition": []string{`attachment; filename="info.json"`},
 		"Date":                []string{b.Created.Format(time.RFC3339)},
+		"Last-Modified":       []string{b.Updated.Format(time.RFC3339)},
 	})
 	if err != nil {
 		return err
@@ -160,9 +174,11 @@ func (e SyncExporter) writeHTML(ctx context.Context, mp *multipart.Writer, b *da
 		"Bookmark-Id":         []string{b.UID},
 		"Type":                []string{"html"},
 		"Content-Type":        []string{"text/html; charset=utf-8"},
+		"Location":            []string{b.Href + "/article"},
 		"Filename":            []string{"index.html"},
 		"Content-Disposition": []string{`attachment; filename="index.html"`},
 		"Date":                []string{b.Created.Format(time.RFC3339)},
+		"Last-Modified":       []string{b.Updated.Format(time.RFC3339)},
 	})
 	if err != nil {
 		return err
@@ -185,6 +201,7 @@ func (e SyncExporter) writeMarkdown(ctx context.Context, mp *multipart.Writer, b
 		"Filename":            []string{"index.md"},
 		"Content-Disposition": []string{`attachment; filename="index.md"`},
 		"Date":                []string{b.Created.Format(time.RFC3339)},
+		"Last-Modified":       []string{b.Updated.Format(time.RFC3339)},
 	})
 	if err != nil {
 		return err
@@ -211,7 +228,7 @@ func (e SyncExporter) writeMarkdown(ctx context.Context, mp *multipart.Writer, b
 	intro.WriteString("---\n\n")
 
 	if img, ok := b.Files["image"]; ok {
-		fmt.Fprintf(intro, "![](%s)\n\n", e.urlReplacer(b.Bookmark)(path.Base(img.Name)))
+		fmt.Fprintf(intro, "![](%s)\n\n", e.urlReplacer(b)(b.Bookmark)(path.Base(img.Name)))
 	}
 
 	if b.DocumentType == "video" {
@@ -238,17 +255,14 @@ func (e SyncExporter) writeResources(ctx context.Context, mp *multipart.Writer, 
 	}
 	defer bc.Close()
 
-	repl := e.urlReplacer(b.Bookmark)
-
 	// Fetch the images
 	nosize := [2]int{}
-	for _, f := range b.Files {
+	for group, f := range b.Files {
 		if f.Size == nosize { // discard non image files
 			continue
 		}
 		if z, ok := bc.Lookup(f.Name); ok {
-			z.Name = repl(f.Name)
-			if err := e.writeResource(ctx, mp, z, b); err != nil {
+			if err := e.writeResource(ctx, group, mp, z, b); err != nil {
 				return err
 			}
 		}
@@ -256,8 +270,7 @@ func (e SyncExporter) writeResources(ctx context.Context, mp *multipart.Writer, 
 
 	// Fetch all resources
 	for _, x := range bc.ListResources() {
-		x.Name = repl(x.Name)
-		if err := e.writeResource(ctx, mp, x, b); err != nil {
+		if err := e.writeResource(ctx, "embedded", mp, x, b); err != nil {
 			return err
 		}
 	}
@@ -265,7 +278,7 @@ func (e SyncExporter) writeResources(ctx context.Context, mp *multipart.Writer, 
 	return nil
 }
 
-func (e SyncExporter) writeResource(_ context.Context, mp *multipart.Writer, resource *zip.File, b *dataset.Bookmark) error {
+func (e SyncExporter) writeResource(_ context.Context, group string, mp *multipart.Writer, resource *zip.File, b *dataset.Bookmark) error {
 	r, err := resource.Open()
 	if err != nil {
 		return err
@@ -278,13 +291,18 @@ func (e SyncExporter) writeResource(_ context.Context, mp *multipart.Writer, res
 		return err
 	}
 
+	src := e.urlReplacer(b)(b.Bookmark)(resource.Name)
+
 	part, err := mp.CreatePart(textproto.MIMEHeader{
 		"Bookmark-Id":         []string{b.UID},
 		"Type":                []string{"resource"},
-		"Path":                []string{resource.Name},
-		"Filename":            []string{path.Base(resource.Name)},
-		"Content-Disposition": []string{`attachment; filename="` + resource.Name + `"`},
+		"Path":                []string{src},
+		"Filename":            []string{path.Base(src)},
+		"Content-Disposition": []string{`attachment; filename="` + path.Base(src) + `"`},
 		"Content-Type":        []string{mtype.String()},
+		"Location":            []string{b.MediaURL(resource.Name)},
+		"Group":               []string{group},
+		"Content-Length":      []string{strconv.FormatUint(resource.UncompressedSize64, 10)},
 	})
 	if err != nil {
 		return err
