@@ -401,11 +401,11 @@ func (e *Extractor) Run() {
 		m.position = i
 
 		// Start extraction
+		m.step = StepStart
 		m.Log().Info("start",
 			slog.Int("idx", i),
 			slog.String("url", d.URL.String()),
 		)
-		m.step = StepStart
 		e.runProcessors(m)
 		if m.canceled {
 			return
