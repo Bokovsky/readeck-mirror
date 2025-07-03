@@ -66,7 +66,16 @@ SPDX-License-Identifier: AGPL-3.0-only
        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, gettext(`no site name`)) }}</strong>
       </li>
       {{- yield line_icon(icon="o-download") content -}}
-        <span class="text-gray-700" title="{{ date(.Item.Created, `%c`) }}">{{ date(.Item.Created, "%e %B %Y") }}</span>
+        <span class="text-gray-700 inline-flex items-center gap-2 group" title="{{ date(.Item.Created, `%c`) }}">
+          {{- date(.Item.Created, "%e %B %Y") }}
+          <button class="opacity-0 group-hfw:opacity-100 text-gray-300 hf:text-gray-700"
+            title="diagnosis"
+            data-controller="dialog"
+            data-dialog-select-value="#debug-info"
+            data-action="dialog#open">
+            {{- yield icon(name="o-terminal") -}}
+          </button>
+        </span>
       {{- end -}}
       {{- if !empty(.Item.Published) -}}
         {{- yield line_icon(icon="o-calendar") content -}}

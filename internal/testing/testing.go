@@ -588,6 +588,7 @@ type RequestTest struct {
 	Target         string
 	Form           url.Values
 	JSON           interface{}
+	Headers        map[string]string
 	ExpectStatus   int
 	ExpectRedirect string
 	ExpectJSON     string
@@ -653,6 +654,10 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 
 				default:
 					req = c.NewRequest(test.Method, target, nil)
+				}
+
+				for k, v := range test.Headers {
+					req.Header.Add(k, v)
 				}
 
 				// Perform request

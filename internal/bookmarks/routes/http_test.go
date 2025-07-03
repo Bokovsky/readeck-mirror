@@ -344,6 +344,23 @@ func TestPermissions(t *testing.T) {
 				},
 			},
 			RequestTest{
+				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}/diagnosis",
+				Headers: map[string]string{
+					"x-turbo": "1",
+				},
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
 				Target: "/bookmarks/{{(index .User.Bookmarks 0).UID}}",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {

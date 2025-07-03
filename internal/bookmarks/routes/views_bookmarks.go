@@ -172,39 +172,27 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) diagnosis(w http.ResponseWriter, r *http.Request) {
+	if !server.IsTurboRequest(r) {
+		server.TextMsg(w, r, http.StatusBadRequest, "not a turbo request")
+		return
+	}
+
 	b := getBookmark(r.Context())
 	tc := getBaseContext(r.Context())
 
-	// Load bookmark debug information.
-	c, err := b.OpenContainer()
-	if err != nil && !os.IsNotExist(err) {
+	d, err := dataset.NewBokmarkDiagnosis(b)
+	if err != nil {
 		server.Err(w, r, err)
 		return
 	}
 
-	if c != nil {
-		defer c.Close()
+	tc["Log"] = string(d.Log)
+	tc["Props"] = string(d.Props)
+	tc["LogLines"] = d.LogLines()
 
-		for k, x := range map[string]string{
-			"Props": "props.json",
-			"Log":   "log",
-		} {
-			if r, err := c.GetFile(x); err != nil {
-				tc[k] = err.Error()
-			} else {
-				tc[k] = string(r)
-			}
-		}
-	}
-
-	if server.IsTurboRequest(r) {
-		server.RenderTurboStream(w, r,
-			"/bookmarks/components/diagnosis", "replace",
-			"diagnostic-info", tc, nil)
-		return
-	}
-
-	server.TextMsg(w, r, http.StatusBadRequest, "not a turbo request")
+	server.RenderTurboStream(w, r,
+		"/bookmarks/components/diagnosis", "replace",
+		"diagnostic-info", tc, nil)
 }
 
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {

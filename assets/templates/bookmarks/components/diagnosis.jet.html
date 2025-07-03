@@ -12,10 +12,24 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- yield icon(name="o-copy") }}
     {{ gettext("copy to clipboard") }}
   </button>
-  <pre class="mt-2 text-sm">{{ .Log }}</pre>
   <textarea class="hidden" data-clipboard-target="content">{{ .Log }}</textarea>
+  <ul class="mt-2 w-full text-xs font-mono">
+  {{ levelMap := map(
+    "DEBU", "text-gray-400",
+    "INFO", "text-green-700",
+    "WARN", "text-yellow-700",
+    "ERRO", "text-red-700",
+  ) }}
+  {{- range .LogLines -}}
+    <li class="flex gap-2">
+      <span class="{{ levelMap[.Level] }}">[{{ .Level }}]</span>
+      <span class="grow wrap-anywhere">{{ .Line }}</span>
+    </li>
+  {{- end -}}
+  </li>
 
+  {{ if user.Settings.DebugInfo -}}
   <h4 class="mt-2 mb-1 title text-lg">Properties</h4>
-  <pre class="text-sm">{{ .Props }}</pre>
-
+  <pre class="text-xs leading-5">{{ .Props }}</pre>
+  {{- end }}
 </div>

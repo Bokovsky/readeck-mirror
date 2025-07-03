@@ -75,16 +75,6 @@ SPDX-License-Identifier: AGPL-3.0-only
           max-lg:sticky max-lg:top-0 max-lg:z-40
           print:hidden no-js:hidden
         ">
-          {{- if user.Settings.DebugInfo -}}
-            <button class="text-gray-300 hf:text-gray-700"
-             title="diagnosis"
-             data-controller="dialog"
-             data-dialog-select-value="#debug-info"
-             data-action="dialog#open">
-              {{- yield icon(name="o-terminal", class="inline-block", svgClass="w-6 h-6") -}}
-            </button>
-          {{- end -}}
-
           <button type="button" title="{{ gettext(`Close panel`) }}"
            name="bookmark_sidebar_hidden"
            value="true"
@@ -162,7 +152,6 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- include "./components/bottom_actions" .Item -}}
         </div>
       </div>
-
     {{- end -}}
   </turbo-frame>
 </div>
@@ -170,7 +159,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <dialog class="dialog font-sans" id="debug-info">
   <div>
     <form class="dialog--top" method="dialog">
-      <button class="dialog--close" title="{{ gettext("Close dialog") }}">
+      <button class="dialog--close" title="{{ gettext(`Close dialog`) }}">
       {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
       </button>
     </form>
