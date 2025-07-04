@@ -9,10 +9,6 @@ exports.isActive = function () {
 exports.setConfig = function (config) {
   config.bodySelectors = ["//div[contains(@class,'available-content')]"]
   config.stripIdOrClass.push("image-link-expand")
-  config.stripSelectors.push(
-    "//div[contains(@data-component-name, 'DigestPostEmbed')]",
-    "//strong[contains(text(), 'FROM THE ARCHIVES:')]",
-  )
 }
 
 exports.processMeta = function () {
