@@ -222,11 +222,15 @@ schemas:
         default: false
       resource_prefix:
         type: string
+        default: "."
         description: |
           A prefix added to resource URLs in HTML parts.
 
           Each image link in the HTML content will have this prefix added. To include the
           bookmark ID, use the `%` placeholder.
+
+          **Note**: an empty prefix value will render raw, absolute URLs to each resource
+          on Readeck. The default value is `.` (direct relative prefix).
         examples:
           - "%/img"
           - images

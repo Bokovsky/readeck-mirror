@@ -345,7 +345,7 @@ func newSyncForm(tr forms.Translator) *syncForm {
 			forms.NewBooleanField("with_html"),
 			forms.NewBooleanField("with_markdown"),
 			forms.NewBooleanField("with_resources"),
-			forms.NewTextField("resource_prefix"),
+			forms.NewTextField("resource_prefix", forms.Default(".")),
 		),
 	}
 }
