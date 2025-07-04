@@ -38,8 +38,8 @@ var DefaultPolicy = New(
 		regexp.MustCompile(`^data-`),
 		// Remove all on* (JS events) attributes
 		regexp.MustCompile(`^on[a-z]+`),
-		// Remove "rel", "srcset" and "sizes" attributes
-		regexp.MustCompile(`^(rel|srcset|sizes)$`),
+		// Remove "rel" and "sizes" attributes
+		regexp.MustCompile(`^(rel|sizes)$`),
 	},
 	elementMap,
 )

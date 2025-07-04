@@ -10,6 +10,7 @@ package srcset
 import (
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 // ImageSource is a structure that contains an image definition.
@@ -217,4 +218,30 @@ func Parse(input string) SourceSet {
 			tokenize()
 		}
 	}
+}
+
+func (s ImageSource) String() string {
+	b := new(strings.Builder)
+	b.WriteString(s.URL)
+
+	if s.Width > 0 {
+		b.WriteString(" " + strconv.FormatInt(s.Width, 10) + "w")
+	}
+	if s.Height > 0 {
+		b.WriteString(" " + strconv.FormatInt(s.Height, 10) + "h")
+	}
+	if s.Density > 0 {
+		b.WriteString(" " + strconv.FormatFloat(s.Density, 'f', -1, 64) + "x")
+	}
+
+	return b.String()
+}
+
+func (s SourceSet) String() string {
+	res := make([]string, len(s))
+	for i, p := range s {
+		res[i] = p.String()
+	}
+
+	return strings.Join(res, ", ")
 }

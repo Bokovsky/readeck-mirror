@@ -31,17 +31,6 @@ var (
 	rxNewLine = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
 )
 
-var acceptedImages = map[string]struct{}{
-	"image/bmp":     {},
-	"image/gif":     {},
-	"image/jpeg":    {},
-	"image/png":     {},
-	"image/svg+xml": {},
-	"image/tiff":    {},
-	"image/webp":    {},
-	"image/x-icon":  {},
-}
-
 type ctxKeyReadabilityEnabled struct{}
 
 // IsReadabilityEnabled returns true when readability is enabled
@@ -346,25 +335,22 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 		set := []string{}
 		sources := dom.GetElementsByTagName(node, "source")
 		for _, n := range sources {
-			mt, _, _ := strings.Cut(dom.GetAttribute(n, "type"), ";")
-			if _, ok := acceptedImages[strings.TrimSpace(mt)]; !ok {
-				continue
-			}
-
 			if dom.HasAttribute(n, "srcset") {
 				set = append(set, dom.GetAttribute(n, "srcset"))
 			}
 		}
 
-		// Including the one in the <img> if present
+		// Include the <img> attributes if present
 		if dom.HasAttribute(img, "srcset") {
 			set = append(set, dom.GetAttribute(img, "srcset"))
+		}
+		if dom.HasAttribute(img, "src") {
+			set = append(set, dom.GetAttribute(img, "src"))
 		}
 
 		// Now mix them all together and replace the picture
 		// element.
 		dom.SetAttribute(img, "srcset", strings.Join(set, ", "))
-
 		dom.ReplaceChild(node.Parent, img, node)
 	})
 
@@ -386,8 +372,8 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 }
 
 func fixImages(top *html.Node, m *extract.ProcessMessage) {
-	// Fix images with an srcset attribute and only keep the
-	// best one.
+	// Fix images with an srcset attribute and reorder with the best
+	// size first.
 	m.Log().Debug("fixing images")
 	nodes, err := htmlquery.QueryAll(top, "//*[@srcset]")
 	if err != nil {
@@ -406,9 +392,14 @@ func fixImages(top *html.Node, m *extract.ProcessMessage) {
 			return sourceSet[i].Width > sourceSet[j].Width
 		})
 
+		// Add src as last option
+		if dom.HasAttribute(node, "src") {
+			sourceSet = append(sourceSet, srcset.Parse(dom.GetAttribute(node, "src"))...)
+		}
+
 		if len(sourceSet) > 0 {
-			dom.SetAttribute(node, "src", sourceSet[0].URL)
-			dom.RemoveAttribute(node, "srcset")
+			dom.SetAttribute(node, "srcset", sourceSet.String())
+			dom.RemoveAttribute(node, "src")
 			dom.RemoveAttribute(node, "width")
 			dom.RemoveAttribute(node, "height")
 		}

@@ -24,7 +24,7 @@ func TestClean(t *testing.T) {
 	}{
 		{
 			bleach.DefaultPolicy.Clean,
-			`<p id="id-p" class="test" data-test="1" onClick="bar" rel="link" srcset="url" sizes="x1">foo</p>`,
+			`<p id="id-p" class="test" data-test="1" onClick="bar" rel="link" sizes="x1">foo</p>`,
 			`<body><p id="id-p">foo</p></body>`,
 		},
 		{
@@ -118,7 +118,7 @@ func TestClean(t *testing.T) {
 				bleach.DefaultPolicy.RemoveEmptyNodes(n)
 				bleach.DefaultPolicy.SetLinkRel(n)
 			},
-			`<p id="id-p" class="test" data-test="1" onClick="bar" rel="link" srcset="url" sizes="x1"><a name="foo"></a></p><p><a href="foo">link</a><span></span><hr></p>`,
+			`<p id="id-p" class="test" data-test="1" onClick="bar" rel="link" sizes="x1"><a name="foo"></a></p><p><a href="foo">link</a><span></span><hr></p>`,
 			`<body><p id="id-p"><a name="foo"></a></p><p><a href="foo" rel="nofollow noopener noreferrer">link</a></p><hr/></body>`,
 		},
 		{

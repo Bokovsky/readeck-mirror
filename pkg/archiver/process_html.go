@@ -626,32 +626,28 @@ func (arc *Archiver) processMediaNode(ctx context.Context, node *html.Node, base
 		return nil
 	}
 
-	var newSets []string
+	// Try each URL from srcset and, when receiveing a suitable candidate,
+	// stop the loop. This results in an img with a src attribute of the
+	// first image found.
+	// In case of failure, src will be empty and can be cleaned up.
 	srcset := dom.GetAttribute(node, "srcset")
-	for _, parts := range rxSrcsetURL.FindAllStringSubmatch(srcset, -1) {
-		oldURL := parts[1]
-		targetWidth := parts[2]
 
-		content, contentType, err := arc.processURL(ctx, oldURL, baseURL.String(), nil)
-		if err != nil && err != errSkippedURL {
-			arc.SendEvent(ctx, &EventError{Err: err, URI: oldURL})
+	// Remove attributes to end up with an empty image in case of failure
+	dom.RemoveAttribute(node, "srcset")
+	dom.RemoveAttribute(node, "src")
+
+	for _, parts := range rxSrcsetURL.FindAllStringSubmatch(srcset, -1) {
+		src := parts[1]
+
+		dom.SetAttribute(node, "src", src)
+		err = arc.processURLNode(ctx, node, "src", baseURL)
+		if err != nil {
+			dom.RemoveAttribute(node, "src")
 			continue
 		}
 
-		newSet := oldURL
-		if err == nil {
-			newSet = arc.URLProcessor(oldURL, content, contentType)
-		}
-
-		newSet += targetWidth
-		newSets = append(newSets, newSet)
-	}
-
-	if len(newSets) > 0 {
-		newSrcset := strings.Join(newSets, ",")
-		dom.SetAttribute(node, "srcset", newSrcset)
-	} else {
-		dom.RemoveAttribute(node, "srcset")
+		// Found one, we're good
+		break
 	}
 
 	return nil
