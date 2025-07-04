@@ -157,15 +157,13 @@ SPDX-License-Identifier: AGPL-3.0-only
 </div>
 
 <dialog class="dialog font-sans" id="debug-info">
-  <div>
-    <form class="dialog--top" method="dialog">
-      <button class="dialog--close" title="{{ gettext(`Close dialog`) }}">
-      {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
-      </button>
-    </form>
+  <form class="dialog--top" method="dialog">
+    <button class="dialog--close" title="{{ gettext(`Close dialog`) }}">
+    {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+    </button>
+  </form>
 
-    <turbo-frame id="diagnostic-info" src="{{ urlFor(`/bookmarks`, .Item.ID, `diagnosis`) }}" loading="lazy">
-    </turbo-frame>
-  </div>
+  <turbo-frame id="diagnostic-info" src="{{ urlFor(`/bookmarks`, .Item.ID, `diagnosis`) }}" loading="lazy">
+  </turbo-frame>
 </dialog>
 {{- end -}}
