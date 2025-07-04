@@ -11,6 +11,7 @@ import (
 	"slices"
 
 	"github.com/go-shiori/dom"
+	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/bleach"
@@ -86,6 +87,16 @@ func CleanDomProcessor(m *extract.ProcessMessage, next extract.Processor) extrac
 	}
 
 	m.Log().Debug("cleaning resulting DOM")
+
+	// Remove empty id attributes
+	for _, n := range dom.QuerySelectorAll(m.Dom, "[id='']") {
+		dom.RemoveAttribute(n, "id")
+	}
+
+	// Remove empty images
+	dom.RemoveNodes(dom.QuerySelectorAll(m.Dom, "img"), func(n *html.Node) bool {
+		return !dom.HasAttribute(n, "src") && !dom.HasAttribute(n, "srcset")
+	})
 
 	bleach.DefaultPolicy.Clean(m.Dom)
 	bleach.DefaultPolicy.RemoveEmptyNodes(m.Dom)
