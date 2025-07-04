@@ -3,7 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'essay-body') or contains(@class, 'essay-intro')]"
+    "//div[contains(@class, 'essay-body')] | //div[contains(@class, 'essay-intro')] | //div[contains(@class, 'collection-embed')] | //div[contains(@class, 'collection-preamble')]"
   ],
   "date_selectors": [
     "//div[@class=\"essay-intro\"]/p[@class=\"date\"]"
@@ -11,8 +11,13 @@
   "author_selectors": [
     "//div[@class=\"essay-header\"]/p[@class=\"byline\"]/a"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//svg/parent::a",
+    "//*[contains(text(), 'Scroll through the whole page to download all images')]/text()"
+  ],
+  "strip_id_or_class": [
+    "essay__right-bar"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -28,6 +33,10 @@
       "contains": [
         "By chance a physician named Everard Brande"
       ]
+    },
+    {
+      "url": "https://publicdomainreview.org/collection/utsuro-bune/",
+      "contains": []
     }
   ]
 }

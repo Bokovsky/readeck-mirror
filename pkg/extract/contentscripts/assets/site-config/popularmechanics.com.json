@@ -3,12 +3,18 @@
     "//div[@id='contentHeader']//h1"
   ],
   "body_selectors": [
-    "//div[@id='articleBody']",
-    "//div[@id='intelliTXT']"
+    "//main[@id='main-content']//div[contains(concat(' ',normalize-space(@class),' '),' article-container ')] | //header//h1/following-sibling::div[1]/p"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//svg",
+    "//img[contains(@src, '.svg?')]",
+    "//img[contains(@src, '/profile_photos/')]/ancestor::div[2]",
+    "//div[@data-embed=\"embed-product\"]",
+    "//img[contains(@src, '.svg')]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -19,8 +25,19 @@
   "next_page_link_selectors": [
     "//div[@id='longPagination']/a[@class='next']"
   ],
-  "replace_strings": null,
-  "http_headers": null,
+  "replace_strings": [
+    [
+      "\u003cbutton",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/button\u003e",
+      "\u003c/div\u003e"
+    ]
+  ],
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0"
+  },
   "tests": [
     {
       "url": "http://www.popularmechanics.com/technology/aviation/crashes/what-really-happened-aboard-air-france-447-6611877",

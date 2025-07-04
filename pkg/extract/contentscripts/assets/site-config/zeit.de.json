@@ -54,11 +54,11 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
-    "//li[@class='article-pager__all']//a[@data-ct-label='all']",
+    "//a[contains(@class, 'article-pagination__all-pages')]",
     "//li[@class='article-pager__all']/a"
   ],
   "next_page_link_selectors": [
-    "//a[contains(@class, 'article-pagination') and @data-ct-label='Nächste Seite']",
+    "//a[contains(@class, 'article-pagination__button')]",
     "//meta[@rel='next']/@href"
   ],
   "replace_strings": [

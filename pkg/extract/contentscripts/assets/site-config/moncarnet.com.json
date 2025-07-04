@@ -1,0 +1,31 @@
+{
+  "title_selectors": [
+    "//h1[@class='entry-title']"
+  ],
+  "body_selectors": [
+    "//div[@class='entry-content']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[@id='jp-relatedposts']",
+    "//p[contains(text(), 'Subscribe to get the latest posts sent to your email.')]/parent::div",
+    "//p[contains(., \"Tous les jours de la semaine, du lundi au vendredi, Bruno Guglielminetti vous propose un regard sur l’essentiel de l’actualité numérique avec\") and .//em[contains(text(), \"120 secondes de tech\")]]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://moncarnet.com/2025/06/11/a-vivatech-jensen-huang-fait-de-lia-une-nouvelle-infrastructure-industrielle/",
+      "contains": []
+    }
+  ]
+}

@@ -1,8 +1,10 @@
 {
   "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | Autocar')",
     "//div[@class='col-center']/h1"
   ],
   "body_selectors": [
+    "//div[contains(@class, 'article-section')]",
     "//div[@class='content'] | //div[@class='lower-content-region'] | //div[contains(@class,'article-body')] | //div[contains(@class,'main-article')]"
   ],
   "date_selectors": [
@@ -16,9 +18,22 @@
     "//p//iframe[contains(@src,'signup')]/preceding::p[1]",
     "//div[@class='signup-block']",
     "//div[@class='content']/h3/a[contains(@href,'#comment')]/parent::h3",
-    "//div[@class='content']/div[contains(@class,'comment')]"
+    "//div[@class='content']/div[contains(@class,'comment')]",
+    "//div[contains(@class, 'block-author-information')] | //div[contains(@class, 'block-author-information')]/following-sibling::*"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "sitewide-carousel",
+    "sitewide-carousel0",
+    "close-gallery",
+    "content--author-region",
+    "block-related-news",
+    "block-mobile-car-review-sidebar",
+    "col-left",
+    "col-right",
+    "col-right-desktop",
+    "promo-panel",
+    "car-review-nav"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

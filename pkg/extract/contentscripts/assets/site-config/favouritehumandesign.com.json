@@ -1,0 +1,32 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' post ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header",
+    "//aside"
+  ],
+  "strip_id_or_class": [
+    "comments"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0"
+  },
+  "tests": [
+    {
+      "url": "https://favouritehumandesign.com/2020/06/14/pebble-2-buttons-fitting-instructions/",
+      "contains": []
+    }
+  ]
+}

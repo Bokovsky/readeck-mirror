@@ -1,0 +1,35 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1]//div[contains(concat(' ',normalize-space(@class),' '),' article-container ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//address/span",
+    "//address/text()"
+  ],
+  "strip_selectors": [
+    "//img[contains(@src, '/profile_photos/')]/ancestor::div[2]"
+  ],
+  "strip_id_or_class": [
+    "pinterest",
+    "css-it8c6v"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:140.0) Gecko/20100101 Firefox/140.0"
+  },
+  "tests": [
+    {
+      "url": "https://www.caranddriver.com/features/columns/a15127687/john-phillips-a-whole-bunch-of-what-not-to-write-column/",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' - Milano Citt')"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' post ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header/h1",
+    "//a[contains(@href, '=banner')]/parent::div"
+  ],
+  "strip_id_or_class": [
+    "td-category",
+    "td-module-meta-info",
+    "td-post-source-tags",
+    "td-post-sharing-bottom",
+    "td-post-next-prev",
+    "author-box-wrap",
+    "the_champ_sharing_container",
+    "the_champ_horizontal_sharing"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.milanocittastato.it/milano/le-5-fermate-della-metro-dove-costa-meno-andare-in-affitto-edizione-2025/",
+      "contains": []
+    }
+  ]
+}

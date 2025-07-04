@@ -3,6 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
+    "//main//article/div[contains(concat(' ',normalize-space(@class),' '),' crawler ')] | //main//div[contains(@class, 'article-header')]",
     "//main",
     "//article",
     "//main[@id=\"main\"]//div[@itemprop=\"articleLead\" or @itemprop=\"articleBody\" or contains(concat(' ',normalize-space(@class),' '),' articleBody ')]",
@@ -33,6 +34,10 @@
     "//div[@aria-label='What to Read Next']",
     "//div[@aria-label='Utility Bar']",
     "//div[@data-type='inset']",
+    "//iframe",
+    "//div[contains(@class, '_hoverText_')]",
+    "//textarea[contains(text(), 'video-api.wsj.com/')]",
+    "//a[contains(text(), 'video-api.wsj.com/')]",
     "//amp-iframe",
     "//*[@amp-access-hide]",
     "//div[contains(@class, 'insetContent')]//cite",
@@ -49,6 +54,12 @@
     "controls-container",
     "category",
     "aside-container",
+    "uds-ad-container",
+    "jw-hidden-accessibility",
+    "jw-shortcuts-tooltip",
+    "jw-controlbar",
+    "jw-text",
+    "jw-rightclick",
     "insetFullBracket",
     "newsletter-inset",
     "insettipBox",
@@ -65,9 +76,18 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003ctextarea",
+      "\u003ca"
+    ],
+    [
+      "\u003c/textarea\u003e",
+      "\u003c/a\u003e"
+    ]
+  ],
   "http_headers": {
-    "User-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/116.0",
+    "User-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
     "referer": "https://www.wsj.com"
   },
   "tests": [

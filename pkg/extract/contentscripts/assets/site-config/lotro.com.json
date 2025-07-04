@@ -5,7 +5,9 @@
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'article-body')]/h1[1]"
+  ],
   "strip_id_or_class": [
     "legal-and-language",
     "footer-download",

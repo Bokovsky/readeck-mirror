@@ -1,0 +1,44 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='threadMainContainer']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "user-profile-image",
+    "threadQuestionTitleStatusIcons",
+    "voting-button",
+    "message-voting-button",
+    "message-voting-container",
+    "thread-message-content-reply-to",
+    "reportAbuseMessageItem",
+    "message-user-info-affiliations",
+    "message-action-container"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cbutton",
+      "\u003csmall\u003e\u003cem"
+    ],
+    [
+      "\u003c/button\u003e",
+      "\u003c/em\u003e\u003c/small\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://answers.microsoft.com/de-de/windows/forum/all/windows-11-fotoanzeige-von-windows-foto-app/e36d3df3-4a14-4a31-8390-557dacdbf9df",
+      "contains": []
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1]/section[1]/div[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//main[1]/section[1]/div[1]/div[2]",
+    "//div[contains(@class, 'lg:hidden')]",
+    "//main[1]/section[1]/div[1]/div[1]/div[1]",
+    "//svg"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003ca class=\"header-link",
+      "\u003cinvalid class=\"header-link"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://tailscale.com/blog/frequent-reath-security",
+      "contains": []
+    }
+  ]
+}

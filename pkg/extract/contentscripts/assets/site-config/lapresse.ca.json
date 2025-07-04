@@ -5,10 +5,13 @@
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//div[@class='infosAuteur']"
+    "//div[@class='infosAuteur']  | //span[contains(@class,'authorModule__name')]",
+    "substring-before(//div[contains(concat(' ',normalize-space(@class),' '),' author ')] , ' LA PRESSE')",
+    "//div[@class=\"authorModule__content\"]//img[1]/@alt"
   ],
   "strip_selectors": [
-    "//ul[@class='stories']"
+    "//ul[@class='stories']",
+    "//div[contains(@class,'adsWrapper')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -27,6 +30,14 @@
     },
     {
       "url": "http://www.lapresse.ca/le-soleil/vivre-ici/la-science-au-quotidien/201610/01/01-5026482-les-vertus-de-leau-degout.php",
+      "contains": []
+    },
+    {
+      "url": "https://www.lapresse.ca/actualites/politique/2024-11-21/mesures-du-gouvernement-trudeau/un-conge-de-tps-cet-hiver-et-un-cheque-de-250-au-printemps.php",
+      "contains": []
+    },
+    {
+      "url": "https://www.lapresse.ca/actualites/2025-06-14/planification-des-coupes-forestieres/le-forestier-en-chef-du-quebec-vise-par-une-demande-d-enquete.php",
       "contains": []
     }
   ]

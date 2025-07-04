@@ -1,17 +1,29 @@
 {
   "title_selectors": [
+    "//shreddit-title/@title",
+    "//h1[@slot=\"title\"]",
     "//p[@class=\"title\"]/a/text()"
   ],
   "body_selectors": [
+    "//div[@slot=\"text-body\"] | //shreddit-comment-tree",
     "//div[contains(concat(' ',normalize-space(@class),' '),' expando ')]"
   ],
   "date_selectors": [
-    "//p[@class=\"tagline\"]//@datetime"
+    "//shreddit-post/@created-timestamp"
   ],
   "author_selectors": [
+    "//a[contains(concat(' ',normalize-space(@class),' '),' author-name ')]",
     "//div[@class=\"top-matter\"]/p[contains(concat(' ',normalize-space(@class),' '),'tagline ')]/a/text()"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "//svg",
+    "//faceplate-hovercard/div",
+    "//a[@slot='more-comments-permalink']",
+    "//div[@slot=\"commentAvatar\"]",
+    "//faceplate-tracker//faceplate-screen-reader-content",
+    "//shreddit-post/h1"
+  ],
   "strip_id_or_class": [
     "tagline",
     "unvotable-message",
