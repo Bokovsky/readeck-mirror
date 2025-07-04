@@ -14,7 +14,10 @@
     "table__instruction",
     "imageGallery-wrapper",
     "author__avatar-block",
-    "slice-container-newsletterForm"
+    "slice-container-newsletterForm",
+    "article-sponsored-post",
+    "hawk-base",
+    "section-more-from-tom-s-guide"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -37,6 +40,10 @@
   "tests": [
     {
       "url": "https://www.tomsguide.com/news/chatgpt-explained",
+      "contains": []
+    },
+    {
+      "url": "https://www.tomsguide.com/ai/claude-4-is-one-of-the-best-chatbots-yet-heres-the-only-prompt-youll-ever-need-for-it",
       "contains": []
     }
   ]

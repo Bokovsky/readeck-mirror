@@ -5,15 +5,22 @@
     "//p[@class='TexteChronique']",
     "//div[@class='src-content']"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "//span[contains(concat(' ',normalize-space(@class),' '),'group-hover/signature:underline')]",
+    "substring-before((//a[contains(@href, '/profil/')])[1]/@title , ' (')"
+  ],
   "strip_selectors": [
     "//header",
     "//figure",
     "//div[@class='framed']",
     "//form",
     "//div[contains(@class, 'newsstory-share-social-layout-wrapper')]",
-    "//article[contains(@class, 'card-style')]"
+    "//article[contains(@class, 'card-style')]",
+    "//label[contains(concat(' ',normalize-space(@class),' '),'group')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),'lbZquO')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -23,7 +30,12 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "La version audio de cet article est générée par la synthèse vocale, une technologie basée sur l’intelligence artificielle.",
+      "\u003cbr /\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

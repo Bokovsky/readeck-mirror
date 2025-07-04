@@ -1,0 +1,43 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[@role='article']/div[@class='content']"
+  ],
+  "date_selectors": [
+    "//meta[@name=\"cXenseParse:recs:publishtime\"]/@content"
+  ],
+  "author_selectors": [
+    "//meta[@name=\"cXenseParse:author\" and not(@content=\"\")]/@content"
+  ],
+  "strip_selectors": [
+    "//section[contains(@data-title, 'Text to speech')]",
+    "//div[contains(@data-title, 'Byline')]",
+    "//div[contains(@data-title, 'share and bookmark')]",
+    "//section[contains(@data-title, 'Mediacorp Fast Button')]",
+    "//section[contains(@data-title, 'Article page Newsletter')]"
+  ],
+  "strip_id_or_class": [
+    "content-detail__category",
+    "h1--page-title",
+    "layout__region--second",
+    "referenced-card",
+    "newsletter-widget-subscription-main",
+    "ubscription-newspick",
+    "hidden"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.channelnewsasia.com/world/jetstar-asia-closure-broome-singapore-only-international-flight-australia-5184726",
+      "contains": []
+    }
+  ]
+}

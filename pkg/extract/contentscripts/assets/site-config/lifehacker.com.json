@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[contains(@class, 'main-content')]",
     "//section[@data-ga-module=\"content-body\"]"
   ],
   "date_selectors": null,
@@ -8,9 +9,10 @@
   "strip_selectors": [
     "//time/parent::div",
     "//section[@data-ga-module=\"content-body\"]/article/following-sibling::*",
-    "//img[contains(@src, '/authors/')]/ancestor::div[contains(@class, 'w-full')]/parent::div",
     "//svg",
-    "//aside"
+    "//aside",
+    "//div[contains(@class, '2xl:hidden')]",
+    "//div[contains(@x-data, 'commentsCount')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,

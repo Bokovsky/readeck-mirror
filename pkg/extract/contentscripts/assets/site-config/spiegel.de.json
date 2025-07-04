@@ -25,7 +25,8 @@
   "strip_id_or_class": [
     "jwplayer",
     "pointer-events-none",
-    "border-separator-b"
+    "border-separator-b",
+    "feature-bar"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -45,7 +46,7 @@
     ]
   ],
   "http_headers": {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/123.0"
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 14.7; rv:140.0) Gecko/20100101 Firefox/140.0"
   },
   "tests": [
     {

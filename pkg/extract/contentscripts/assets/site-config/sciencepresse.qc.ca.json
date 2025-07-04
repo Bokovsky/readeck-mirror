@@ -1,0 +1,36 @@
+{
+  "title_selectors": [
+    "//h1[@class='page-title']"
+  ],
+  "body_selectors": [
+    "//main/article"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[contains(@class, 'author') and contains(@class, 'exp--author')]//a/text()"
+  ],
+  "strip_selectors": [
+    "//div[@id='newsletter-popup']",
+    "//h2[@class=\"h4 mt-0\"]/parent::div",
+    "//div[@class='left-col']//div[@class='node__content']/following-sibling::*",
+    "//div[contains(@class, 'social-media-sharing')] | //div[contains(@class, 'social-media-sharing')]/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "right-col"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.sciencepresse.qc.ca/actualite/2025/05/22/guerre-opportunite-affaires-pour-gafam",
+      "contains": []
+    }
+  ]
+}

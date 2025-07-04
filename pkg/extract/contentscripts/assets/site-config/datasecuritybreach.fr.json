@@ -1,0 +1,35 @@
+{
+  "title_selectors": [
+    "//header/h1"
+  ],
+  "body_selectors": [
+    "//div[@class='content-inner']/div/article[1]"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "(//div[contains(@class, 'article-meta')]//a[contains(@href, '/author/')])[1]"
+  ],
+  "strip_selectors": [
+    "//a[contains(@href,  'veillezataz.com')]/parent::figure"
+  ],
+  "strip_id_or_class": [
+    "entry-footer"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.datasecuritybreach.fr/google-mise-sur-lia-locale/",
+      "contains": []
+    }
+  ]
+}

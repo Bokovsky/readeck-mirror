@@ -1,21 +1,14 @@
 {
   "title_selectors": [
-    "//meta[@property=\"og:title\"]/@content"
+    "//meta[@name=\"description\"]/@content"
   ],
   "body_selectors": [
-    "//article"
+    "//div[@id='contentBoxText']"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
-  "strip_id_or_class": [
-    "image-credit",
-    "noAutolink",
-    "related",
-    "sponsor",
-    "sharebarWrapper",
-    "collections-topics-and-tags"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -27,11 +20,15 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.cnet.com/tech/services-and-software/lots-more-americans-are-using-chatgpt-but-a-surprising-number-say-they-havent-heard-of-it/",
+      "url": "https://www.parlimen.gov.my/rss.bm",
       "contains": []
     },
     {
-      "url": "https://www.cnet.com/tech/services-and-software/best-ai-image-generators/",
+      "url": "https://www.parlimen.gov.my/tawaran_sebut_harga_par2367_sh52025_3.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.parlimen.gov.my/tawaran_sebut_harga_par2367_sh82025.html?\u0026lang=bm",
       "contains": []
     }
   ]

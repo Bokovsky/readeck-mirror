@@ -10,7 +10,7 @@
     "//div[contains(@class,'post__title__author-date')]/a"
   ],
   "strip_selectors": [
-    "//figcaption//div[contains(@class, 'attribution theme__anchors')]",
+    "//figcaption//div[contains(concat(' ',normalize-space(@class),' '),' post__aside ')]",
     "//aside[contains(@class, 'post__sidebar hide')]"
   ],
   "strip_id_or_class": [
@@ -20,7 +20,8 @@
     "post__title__actions",
     "post__title__author-date",
     "post__title__title",
-    "post__title__kicker"
+    "post__title__kicker",
+    "related-list"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

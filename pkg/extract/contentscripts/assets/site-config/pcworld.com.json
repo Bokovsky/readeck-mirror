@@ -3,12 +3,15 @@
     "//h1[@class=\"entry-title\"]"
   ],
   "body_selectors": [
-    "//div[@class=\"entry-content\"]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' entry-content ')] | //header/div[contains(@class, 'subheadline')] | //div[contains(@class, 'post-thumbnail')]"
   ],
   "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"dateModified\"')",
     "//time[contains(concat(' ',normalize-space(@class), ' '), ' entry-date ')]/@datetime"
   ],
   "author_selectors": [
+    "//div[contains(@class, 'entry-meta')]//a[contains(@href, '/author/')]",
+    "substring-after( //div[contains(@class, 'entry-meta')]//div[contains(@class, 'meta-text-top')] , 'By ')",
     "//div[@class=\"author-name\"]/a[1]"
   ],
   "strip_selectors": [
@@ -28,11 +31,20 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-src=\"https",
+      "src=\"https"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://www.pcworld.com/article/262034/are-printer-companies-gouging-us-on-laser-toner-pricing.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.pcworld.com/article/2799246/9-mundane-tasks-chatgpt-can-handle-for-you-in-seconds-saving-hours.html",
       "contains": []
     }
   ]

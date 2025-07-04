@@ -1,13 +1,9 @@
 {
   "title_selectors": null,
-  "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' Article ')]"
-  ],
+  "body_selectors": null,
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//div[contains(@class, \"-dfp-\")]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -17,7 +13,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
+  },
   "tests": [
     {
       "url": "https://apnews.com/article/israel-west-bank-gaza-middle-east-israel-palestinian-conflict-7974cc0c03897b8b21e5fc2f8c7d8a79",

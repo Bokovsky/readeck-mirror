@@ -1,19 +1,23 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//main//article[contains(concat(' ',normalize-space(@class),' '),' post ')]/header/figure | //div[contains(concat(' ',normalize-space(@class),' '),' entry-content ')]",
     "//main"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
     "//nav",
-    "//footer"
+    "//footer",
+    "//section[contains(concat(' ',normalize-space(@class),' '),' paywall ')]"
   ],
   "strip_id_or_class": [
+    "header-overlay",
     "entry-header__heading",
+    "breadcrumbs",
+    "resume-reading-banner",
     "entry-meta",
     "most-popular",
-    "paywall",
     "comments-container",
     "related-articles"
   ],

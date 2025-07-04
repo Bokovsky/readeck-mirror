@@ -1,0 +1,53 @@
+{
+  "title_selectors": [
+    "//h1[@class=\"post-title\"]"
+  ],
+  "body_selectors": [
+    "//div[@class='article']",
+    "//div[@class='Post-body']",
+    "//article[@class='item']",
+    "//article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//button"
+  ],
+  "strip_id_or_class": [
+    "post-title",
+    "bloc-infos",
+    "ob-PostNavigation",
+    "return",
+    "ob-h4",
+    "ob-user-avatar",
+    "ob-reply-link"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"ob-comment\"",
+      "\u003chr /\u003e\u003cdiv class=\"hr ob-comment\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://lamiedupoiraud.over-blog.com/2018/06/brioche-100-levain.html",
+      "contains": []
+    },
+    {
+      "url": "https://cinemacinema.over-blog.com/2025/05/shang-chi-et-la-legende-des-dix-anneaux.html",
+      "contains": []
+    },
+    {
+      "url": "https://berenice3.over-blog.com/2025/06/ponticauds-de-limoges.html",
+      "contains": []
+    }
+  ]
+}

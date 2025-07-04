@@ -1,0 +1,41 @@
+{
+  "title_selectors": [
+    "//h1[contains(concat(' ',normalize-space(@class),' '),' article-hero__h1 ')]"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' uni-content ')] | //div[@class='article-image-hero']"
+  ],
+  "date_selectors": [
+    "//p[contains(concat(' ',normalize-space(@class),' '),' article-meta__published-at ')]"
+  ],
+  "author_selectors": [
+    "//meta[@name=\"article-author\"]/@content",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-meta__author-name ')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      ".width-100.format-",
+      ".width-1000.format-"
+    ],
+    [
+      ".width-200.format-",
+      ".width-2200.format-"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://blog.google/products/android/android-16/",
+      "contains": []
+    }
+  ]
+}
