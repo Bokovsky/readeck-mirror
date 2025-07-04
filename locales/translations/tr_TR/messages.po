@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-27 08:51+0200\n"
-"PO-Revision-Date: 2025-05-28 13:58+0000\n"
-"Last-Translator: eih <eih@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-04 21:08+0000\n"
+"Last-Translator: misketmuskat <misketmuskat@noreply.codeberg.org>\n"
+"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
+"application/tr/>\n"
 "Language: tr_TR\n"
-"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -443,7 +445,7 @@ msgstr "Tekrar hatırlatma"
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:80
 msgid "Close panel"
-msgstr ""
+msgstr "Paneli kapat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:111
@@ -561,7 +563,7 @@ msgstr "Düzenle"
 #: assets/templates/bookmarks/index.jet.html:168
 #: assets/templates/bookmarks/index.jet.html:171
 msgid "Filters"
-msgstr ""
+msgstr "Filtreler"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
@@ -602,6 +604,15 @@ msgid ""
 "          Here are some examples:\n"
 "        "
 msgstr ""
+"\n"
+"          Koleksiyonlar, seçtiğiniz arama sorgularını kaydederek\n"
+"          yer imlerinizi kolayca organize etmenizi ve dışa aktarmanızı "
+"sağlar.\n"
+"          Yeni bir yer imi oluşturduğunuzda ve bu yer imi koleksiyonun "
+"kriterleriyle eşleştiğinde,\n"
+"          hemen koleksiyonda görünür.\n"
+"          İşte bazı örnekler:\n"
+"        "
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
@@ -853,7 +864,7 @@ msgstr "İçeri ve dışarı aktar"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Atom Akışı"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1019,7 +1030,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Ayarlayabileceğiniz sütunlar:"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 msgid "Field"
@@ -1074,19 +1085,18 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Bağlantıları bir GoodLinks dışarı aktarım dosyası kullanarak içeri aktar"
+msgstr ""
+"Bağlantıları bir Linkwarden dışarı aktarım dosyası kullanarak içeri aktar"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
 "\n"
-"    GoodLinks uygulamanızdan aldığınız bir JSON dosyası yükleyin.\n"
+"    Linkwarden uygulamanızdan aldığınız bir JSON dosyası yükleyin.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1168,25 +1178,27 @@ msgstr "Not: doğrudan ZIP dosyasını yükleyin, dosyanın içeriklerini değil
 
 # | msgid "Import Links from a CSV File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "CSV dosyasındaki bağlantıları içeri aktar"
+msgstr "Readwise Reader CSV dosyasındaki bağlantıları içeri aktar"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Readwise Reader hesabınızdan dışa aktarılan CSV dosyasını aşağıya "
+"yükleyin.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Hangi bilgiler içe aktarılıyor"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Makale başlığı, URL ve ilk kaydedilme tarihi,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
@@ -2534,4 +2546,3 @@ msgstr ""
 #~ "        following email address within your Kindle Account:\n"
 #~ "        "
 #~ msgstr ""
-
