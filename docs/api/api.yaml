@@ -392,10 +392,21 @@ paths:
         - "traits.yaml#.deferred"
         - "bookmarks/routes.yaml#.importWallabag"
 
-
   /cookbook/extract:
     get:
       tags: [dev tools]
       $merge:
         - "traits.yaml#.authenticated"
         - "cookbook/routes.yaml#.extract"
+    post:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "cookbook/routes.yaml#.extract"
+
+  /cookbook/urls:
+    get:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "cookbook/routes.yaml#.urls"

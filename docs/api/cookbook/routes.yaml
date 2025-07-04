@@ -3,11 +3,12 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-# GET /cookbook/extrack
+# GET /cookbook/extract
+# POST /cookbook/extract
 extract:
   summary: Extract Link
   description: |
-    **NOTE: Only available for user in the admin group.**
+    **NOTE: Only available to users in the admin group.**
 
     This route extracts a link and returns the extraction result.
 
@@ -17,6 +18,10 @@ extract:
     - `text/html` returns an HTML response with all the media included as base64 encoded
       URLs.
 
+    To pass the entire contents of a page together with its url, make a POST request with
+    the `Content-Type: text/html` header and the page contents as the request body. This
+    way, the article fetcher can use that instead of having to fetch the page at url.
+
   parameters:
     - name: url
       in: query
@@ -25,6 +30,15 @@ extract:
         type: string
         format: uri
       description: URL to extract
+
+  requestBody:
+    required: false
+    content:
+      text/html:
+        schema:
+          type: string
+        description:
+          Optional HTML content of the resource at url
 
   responses:
     "200":
@@ -143,3 +157,24 @@ extract:
         text/html:
           schema:
             type: string
+
+# GET /cookbook/urls
+urls:
+  summary: List test URLs
+  description: |
+    **NOTE: Only available for users in the admin group.**
+
+    Lists test URLs gathered from `pkg/extract/contentscripts/assets/site-config`
+
+  responses:
+    "200":
+      description: Test URLs for content extraction
+      content:
+        application/json:
+          schema:
+            type: object
+            additionalProperties:
+              type: array
+              items:
+                type: string
+                format: uri
