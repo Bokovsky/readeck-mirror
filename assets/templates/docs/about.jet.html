@@ -5,6 +5,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "./base" }}
 
+{{- block sysInfo() -}}
+Version:            {{ .Version }}
+Build Date:         {{ .BuildTime.Format("2006-01-02 15:04:05 MST") }}
+Platform:           {{ .OS }} / {{ .Arch }}
+Go Version:         {{ .GoVersion }}
+Database Connector: {{ .DBConnecter }}
+Database Version:   {{ .DBVersion }}
+{{- end -}}
+
 {{ block title() }}{{ gettext("About Readeck") }}{{ end }}
 
 {{ block mainContent() }}
@@ -17,18 +26,29 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <h2 class="title text-h2">{{ gettext("System Information") }}</h2>
 
-  <p>{{ gettext("Here are your current system information. Please include them if you report a bug.") }}</p>
+  <div class="my-4" data-controller="clipboard">
+    <p>{{ gettext("Here are your current system information. Please include them if you report a bug.") }}</p>
+    <pre class="mt-4 p-2 text-sm bg-gray-100 border border-gray-200 rounded">{{ yield sysInfo() }}</pre>
+    <p class="mt-1"><button type="button" class="link" data-action="clipboard#copy">
+      {{- yield icon(name="o-copy") }}
+      {{ gettext("copy to clipboard") }}
+    </button></p>
+    <textarea hidden data-clipboard-target="content">{{ yield sysInfo() }}</textarea>
+  </div>
 
-  <ul class="my-4 p-2 text-sm font-mono bg-gray-100 border border-gray-200 rounded">
-    <li>Version: {{ .Version }}</li>
-    <li>Build Date: {{ .BuildTime }}</li>
-    <li>Platform: {{ .OS }} / {{ .Arch }}</li>
-    <li>Go Version: {{ .GoVersion }}</li>
-    <li>Database Connector: {{ .DBConnecter }}</li>
-    <li>Database Version: {{ .DBVersion }}</li>
-    <li>Database Size: {{ humanReadable(.DBSize) }}</li>
-    <li>Bookmarks Disk Usage: {{ humanReadable(.DiskUsage) }}</li>
-  </ul>
+  <h3 class="title text-h3">Storage</h3>
+  <table class="my-4">
+    <tbody>
+      <tr>
+        <th class="text-left">Database Size:</th>
+        <td class="pl-4 text-right">{{ humanReadable(.DBSize) }}</td>
+      </tr>
+      <tr>
+        <th class="text-left">Bookmarks Disk Usage:</th>
+        <td class="pl-4 text-right">{{ humanReadable(.DiskUsage) }}</td>
+      </tr>
+    </tbody>
+  </table>
 
   <h2 class="title text-h2">{{ gettext("Project") }}</h2>
 
