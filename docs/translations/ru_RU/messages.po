@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-01 09:47+0000\n"
-"PO-Revision-Date: 2025-07-05 14:19+0000\n"
+"PO-Revision-Date: 2025-07-05 14:47+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "documentation/ru/>\n"
@@ -254,25 +254,29 @@ msgstr ""
 #: en-US/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr ""
+msgstr "## Фильтр Закладок {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
 msgstr ""
+"Список закладок можно отфильтровать по одному или нескольким критериям. "
+"Нажмите кнопку «Фильтры» сбоку от заголовка, чтобы открыть панель фильтрации."
 
 #: en-US/bookmark-list.md:105
 msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
 msgstr ""
+"![Фильтр закладок](./img/bookmark-filters.webp)\n"
+"Форма с фильтрами"
 
 #: en-US/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
-msgstr ""
+msgstr "Введите нужные признаки и нажмите **Ищи**."
 
 #: en-US/bookmark-list.md:110
 msgid "### Available filters"
-msgstr ""
+msgstr "### Доступные фильтры"
 
 #: en-US/bookmark-list.md:112
 msgid "You can combine the following filters:"
