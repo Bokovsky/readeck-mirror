@@ -11,6 +11,7 @@
 - synchronization API
 - listen on unix domain sockets, by [@noctux](https://codeberg.org/noctux)
 - http/2 cleartext support
+- modal images in articles
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission

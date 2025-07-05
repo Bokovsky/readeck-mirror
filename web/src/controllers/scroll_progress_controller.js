@@ -70,6 +70,10 @@ export default class extends Controller {
     }
   }
 
+  skip() {
+    this.skipEvent = true
+  }
+
   trackedTargetConnected() {
     this.skipEvent = true // document.location.hash != ""
 
