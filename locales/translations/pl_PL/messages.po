@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-05-27 06:01+0000\n"
-"Last-Translator: liilliil <liilliil@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-05 12:45+0000\n"
+"Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
+"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
+"application/pl/>\n"
 "Language: pl_PL\n"
-"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/application/pl/>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
+"|| n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -439,9 +442,8 @@ msgid "Don't remind me"
 msgstr "Nie przypominaj mi"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Zamknij panel"
+msgstr "Zamknij okno dialogowe"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -536,9 +538,8 @@ msgstr "Zapisane za pomocą %s"
 
 # | msgid "Share by Link"
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
-#, fuzzy
 msgid "Share by email"
-msgstr "Udostępnij link"
+msgstr "Udostępnij przez e-mail"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
@@ -734,14 +735,12 @@ msgid "Remove Highlight(s)"
 msgstr "Usuń podkreślenie(-a)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Zamknij menu"
+msgstr "Zamknij obraz"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Strona startowa"
+msgstr "Pokaż obraz"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -764,9 +763,8 @@ msgid "Highlight"
 msgstr "Podkreślenie"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Kopiuj link"
+msgstr "kopiuj do schowka"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
@@ -869,7 +867,6 @@ msgstr "Widok kompaktowy"
 
 # | msgid "Grid view"
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
-#, fuzzy
 msgid "Mosaic view"
 msgstr "Widok siatki"
 
@@ -926,17 +923,16 @@ msgstr ""
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:30
-#, fuzzy
 msgid "Format"
-msgstr "Od daty"
+msgstr "Format"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:40
 msgid "Send To"
-msgstr ""
+msgstr "Wyślij do"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:45
 msgid "Send message"
-msgstr ""
+msgstr "Wyślij wiadomość"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
@@ -973,9 +969,8 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Wideo"
+msgstr "Wyświetl dziennik"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1464,9 +1459,8 @@ msgstr "Dowiedz się więcej o zakładkach w <a class=\"%s\" href=\"%s\">dokumen
 
 # | msgid "Readeck Bookmark Collections"
 #: assets/templates/bookmarks/index.jet.html:90
-#, fuzzy
 msgid "Readeck Browser Extension"
-msgstr "Kolekcje zakładek Readeck"
+msgstr "Rozszerzenie Readeck do przeglądarki"
 
 # | msgid "Import bookmarks"
 #: assets/templates/bookmarks/index.jet.html:106
@@ -1804,9 +1798,8 @@ msgstr "Mój profil"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:19
-#, fuzzy
 msgid "Base settings"
-msgstr "Ustawienia"
+msgstr "Ogólne ustawienia"
 
 #: assets/templates/profile/index.jet.html:28
 msgid "Email Address"
@@ -1818,9 +1811,8 @@ msgstr "Język"
 
 # | msgid "Settings"
 #: assets/templates/profile/index.jet.html:50
-#, fuzzy
 msgid "Email settings"
-msgstr "Ustawienia"
+msgstr "Ustawienia e-mail"
 
 #: assets/templates/profile/index.jet.html:51
 msgid ""
@@ -1831,7 +1823,7 @@ msgstr ""
 
 #: assets/templates/profile/index.jet.html:57
 msgid "Reply To"
-msgstr ""
+msgstr "Odpowiedz"
 
 #: assets/templates/profile/index.jet.html:58
 msgid "Add this email address in your outgoing emails so recipients can reply."
@@ -1839,7 +1831,7 @@ msgstr ""
 
 #: assets/templates/profile/index.jet.html:63
 msgid "Send EPUB to"
-msgstr ""
+msgstr "Wyślij EPUB do"
 
 #: assets/templates/profile/index.jet.html:64
 msgid "This address is used to prefill the recipient when you send an e-book by email."
@@ -1932,9 +1924,8 @@ msgstr "Usuń token"
 
 # | msgid "API authentication"
 #: assets/templates/profile/token.jet.html:83
-#, fuzzy
 msgid "Authentication"
-msgstr "Autentykacja API"
+msgstr "Uwierzytelnianie"
 
 #: assets/templates/profile/token.jet.html:86
 msgid "Your API token"
@@ -1960,9 +1951,8 @@ msgstr "Nagłówek HTTP"
 
 # | msgid "Password"
 #: assets/templates/profile/token.jet.html:113
-#, fuzzy
 msgid "As a password"
-msgstr "Hasło"
+msgstr "Jako hasło"
 
 #: assets/templates/profile/token.jet.html:115
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
@@ -2618,4 +2608,3 @@ msgstr "%H:%M:%S"
 #~ "        following email address within your Kindle Account:\n"
 #~ "        "
 #~ msgstr ""
-
