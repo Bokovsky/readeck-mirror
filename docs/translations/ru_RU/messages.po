@@ -8,90 +8,111 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-01 09:47+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: ru\n"
+"PO-Revision-Date: 2025-07-05 14:19+0000\n"
+"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
+"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
+"documentation/ru/>\n"
+"Language: ru_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr ""
+msgstr "# Закладки"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr ""
+msgstr "В Закладках вы храните понравившиеся кусочки интернета."
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr ""
+msgstr "## Создание Закладки"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
 msgstr ""
+"Нашли хорошую страницу? Чудно! Вставьте ссылку в поле **новая закладка** "
+"там, где [Все закладки](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr ""
+msgstr "![форма добавления закладки](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
 msgstr ""
+"Несколько секунд — и закладка готова. Можно открыть её, прочитать, "
+"просмотреть, добавить ярлыки, выделить текст или экспортировать в "
+"электронную книгу. Подробности в разделе [Работа с закладками](./"
+"bookmark.md)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr ""
+msgstr "## Типы Закладок"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "Readeck понимает 3 вида данных:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### Статья"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
 msgstr ""
+"Статья — это веб-страница, с которой убрали всё лишнее, оставив лишь "
+"содержательный текст и иллюстрации."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### Картинка"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
 msgstr ""
+"Если страница распознаётся как контейнер для картинки (например, с Unsplash)"
+", то она будет сохранена как картинка."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr ""
+msgstr "### Видео"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
 msgstr ""
+"Если страница была распознана как контейнер для видео (напр. Youtube или "
+"Vimeo), то она будет показана как видеоплеер. При этом само видео будет "
+"показано с соответствующего сайта."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr ""
+msgstr "## Все закладки"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
 msgstr ""
+"В списке [Все закладки](readeck-instance://bookmarks) находятся… все ваши "
+"закладки."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr ""
+msgstr "### Навигация"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
 msgstr ""
+"На панели сбоку есть поиск и ссылки, по которым можно перейти к спискам "
+"закладок."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr ""
+msgstr "![боковая панель](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -106,10 +127,20 @@ msgid ""
 "- **Favorites** \\\n"
 "  The bookmarks you marked as favorite."
 msgstr ""
+"- **Search** \\\n"
+"  Поиск по заголовку, тексту, сайту...\n"
+"- **Все** \\\n"
+"  Все-все закладки.\n"
+"- **Непрочитанные** \\\n"
+"  Закладки, которые не в архиве.\n"
+"- **Архив** \\\n"
+"  Которые прочитаны.\n"
+"- **Избранные** \\\n"
+"  Самые любимые, конечно."
 
 #: en-US/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
+msgstr "После первой сохранённой закладки, дополнительно появятся:"
 
 #: en-US/bookmark-list.md:54
 msgid ""
@@ -120,10 +151,16 @@ msgid ""
 "- **Pictures** \\\n"
 "  Your picture bookmarks"
 msgstr ""
+"- **Статьи** \\\n"
+"  Тут ссылки на статьи\n"
+"- **Видео** \\\n"
+"  Тут только видео\n"
+"- **Картинки** \\\n"
+"  И только картинки"
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
+msgstr "И, наконец, 3 последних пункта:"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -134,24 +171,32 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
+"- **[Ярлыки](./labels.md)** \\\n"
+"  Ярлыки для закладок\n"
+"- **Выделения** \\\n"
+"  Выделения в тексте закладок\n"
+"- **[Собрания](./collections.md)** \\\n"
+"  Список собраний закладок"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr ""
+msgstr "### Карточки закладок"
 
 #: en-US/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr ""
+msgstr "Каждая закладка представлена в виде Карточки."
 
 #: en-US/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
+"![Список закладок](./img/bookmark-list.webp)\n"
+"Сетка закладок"
 
 #: en-US/bookmark-list.md:77
 msgid "A card shows:"
-msgstr ""
+msgstr "Карточка состоит из:"
 
 #: en-US/bookmark-list.md:79
 msgid ""
@@ -161,10 +206,15 @@ msgid ""
 "- the **label list**,\n"
 "- **action buttons**"
 msgstr ""
+"- **заголовка**, на который можно нажать, чтобы прочесть закладку,\n"
+"- **названия сайта**,\n"
+"- приблизительного **времени на прочтение**,\n"
+"- **списка ярлыков**,\n"
+"- **кнопок для работы с закладкой**"
 
 #: en-US/bookmark-list.md:85
 msgid "The action buttons perform the following:"
-msgstr ""
+msgstr "С помощью кнопок можно:"
 
 #: en-US/bookmark-list.md:87
 msgid ""
@@ -175,20 +225,31 @@ msgid ""
 "- **Delete** \\\n"
 "  This marks the bookmark for deletion (it can be canceled during a few seconds)."
 msgstr ""
+"- **Избранное** \\\n"
+"  Добавить или убрать из Избранного.\n"
+"- **Архив** \\\n"
+"  Добавить/убрать в/из Архив(а).\n"
+"- **Удалить** \\\n"
+"  Пометить для удаления (и есть пара секунд, чтобы его остановить)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
-msgstr ""
+msgstr "### Краткий Список"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
 msgstr ""
+"Если сетка закладок занимает слишком много места, можно переключиться на "
+"компактный список без картинок. Кнопка переключения находится рядом с "
+"заголовком."
 
 #: en-US/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
+"![Компактный список](./img/bookmark-list-compact.webp)\n"
+"Закладки в виде списка"
 
 #: en-US/bookmark-list.md:101
 #, python-brace-format
@@ -283,7 +344,7 @@ msgstr ""
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
-msgstr ""
+msgstr "# Работа с закладками"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
@@ -514,11 +575,13 @@ msgstr ""
 
 #: en-US/index.md:13
 msgid "# Readeck Help"
-msgstr ""
+msgstr "# Помощь Readeck"
 
 #: en-US/index.md:15
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr ""
+"Readeck приветствует Вас! Тут вы найдете ответы на большинство ваших "
+"вопросов о Readeck и некоторые советы, которые помогут вам стать опытней."
 
 #: en-US/index.md:17
 msgid "## Contents"
