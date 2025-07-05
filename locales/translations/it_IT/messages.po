@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-27 08:51+0200\n"
+"POT-Creation-Date: 2025-07-05 11:52+0200\n"
 "PO-Revision-Date: 2025-05-26 05:49+0000\n"
 "Last-Translator: skypixel <skypixel@noreply.codeberg.org>\n"
 "Language: it_IT\n"
@@ -116,8 +116,8 @@ msgstr "Successivo"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:59
+#: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Utenti"
 
@@ -190,7 +190,7 @@ msgstr "Salva"
 msgid "Delete this user"
 msgstr "Rimuovi questə utente"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
 msgstr "Nuovə utente"
 
@@ -401,12 +401,12 @@ msgid "Pictures"
 msgstr "Immagini"
 
 #: assets/templates/bookmarks/base.jet.html:70
-#: assets/templates/bookmarks/components/sidebar.jet.html:91
+#: assets/templates/bookmarks/components/sidebar.jet.html:117
 msgid "Labels"
 msgstr "Etichette"
 
 #: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/components/sidebar.jet.html:96
+#: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
 msgstr "Parti evidenziate"
 
@@ -432,6 +432,7 @@ msgstr ""
 "            direttamente dal tuo browser!"
 
 #: assets/templates/bookmarks/base.jet.html:98
+#: assets/templates/bookmarks/components/sidebar.jet.html:24
 #: assets/templates/bookmarks/index.jet.html:99
 msgid "Learn more"
 msgstr "Scopri di più"
@@ -441,12 +442,17 @@ msgid "Don't remind me"
 msgstr "Non ricordarmelo più"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:80
+#, fuzzy
+msgid "Close dialog"
+msgstr "Chiudi pannello"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
 msgstr "Chiudi pannello"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:111
+#: assets/templates/bookmarks/bookmark.jet.html:126
 msgid "Bookmark information"
 msgstr "Informazioni sul bookmark"
 
@@ -460,7 +466,7 @@ msgstr "Il bookmark si sta caricando"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
-#: assets/templates/bookmarks/components/sidebar.jet.html:49
+#: assets/templates/bookmarks/components/sidebar.jet.html:66
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
@@ -468,7 +474,7 @@ msgstr "nessun nome sito"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
-#: assets/templates/bookmarks/components/sidebar.jet.html:56
+#: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
@@ -477,7 +483,7 @@ msgstr "Pubblicato il %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
 #: assets/templates/bookmarks/bookmark_public.jet.html:83
-#: assets/templates/bookmarks/components/sidebar.jet.html:61
+#: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
@@ -486,7 +492,7 @@ msgstr "Di %s"
 
 # | msgid "About %d min read"
 #: assets/templates/bookmarks/bookmark_atom.jet.html:17
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/bookmarks/components/sidebar.jet.html:95
 #: assets/templates/emails/bookmark.jet.html:27
 #: assets/templates/epub/bookmark.jet.html:45
 #, python-format
@@ -727,6 +733,16 @@ msgstr[1] "%d minuti"
 msgid "Remove Highlight(s)"
 msgstr "Rimuovi parte/i evidenziata/e"
 
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Close image"
+msgstr "Chiudi menu"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Show image"
+msgstr "Pagina principale"
+
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
 msgstr "Giallo"
@@ -747,6 +763,11 @@ msgstr "Verde"
 msgid "Highlight"
 msgstr "Evidenzia"
 
+#: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#, fuzzy
+msgid "copy to clipboard"
+msgstr "Copia il link"
+
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
 msgstr "Cerca"
@@ -755,74 +776,74 @@ msgstr "Cerca"
 msgid "Title"
 msgstr "Titolo"
 
-#: assets/templates/bookmarks/components/filters.jet.html:19
+#: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
 msgstr "Autore"
 
-#: assets/templates/bookmarks/components/filters.jet.html:24
+#: assets/templates/bookmarks/components/filters.jet.html:58
 msgid "Site"
 msgstr "Sito"
 
-#: assets/templates/bookmarks/components/filters.jet.html:29
+#: assets/templates/bookmarks/components/filters.jet.html:80
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:11
 msgid "Label"
 msgstr "Etichetta"
 
-#: assets/templates/bookmarks/components/filters.jet.html:34
+#: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
 msgstr "Da"
 
-#: assets/templates/bookmarks/components/filters.jet.html:40
+#: assets/templates/bookmarks/components/filters.jet.html:109
 msgid "To date"
 msgstr "A"
 
-#: assets/templates/bookmarks/components/filters.jet.html:45
+#: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "Type"
 msgstr "Tipo"
 
-#: assets/templates/bookmarks/components/filters.jet.html:50
+#: assets/templates/bookmarks/components/filters.jet.html:119
 msgctxt "filter"
 msgid "Progress"
 msgstr "Progresso"
 
-#: assets/templates/bookmarks/components/filters.jet.html:55
+#: assets/templates/bookmarks/components/filters.jet.html:124
 msgid "Is Favorite"
 msgstr "È fra i preferiti"
 
-#: assets/templates/bookmarks/components/filters.jet.html:59
-#: assets/templates/bookmarks/components/filters.jet.html:68
-#: assets/templates/bookmarks/components/filters.jet.html:78
-#: assets/templates/bookmarks/components/filters.jet.html:88
-#: assets/templates/bookmarks/components/filters.jet.html:98
+#: assets/templates/bookmarks/components/filters.jet.html:128
+#: assets/templates/bookmarks/components/filters.jet.html:137
+#: assets/templates/bookmarks/components/filters.jet.html:147
+#: assets/templates/bookmarks/components/filters.jet.html:157
+#: assets/templates/bookmarks/components/filters.jet.html:167
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
 msgstr "sì"
 
-#: assets/templates/bookmarks/components/filters.jet.html:60
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/filters.jet.html:89
-#: assets/templates/bookmarks/components/filters.jet.html:99
+#: assets/templates/bookmarks/components/filters.jet.html:129
+#: assets/templates/bookmarks/components/filters.jet.html:138
+#: assets/templates/bookmarks/components/filters.jet.html:148
+#: assets/templates/bookmarks/components/filters.jet.html:158
+#: assets/templates/bookmarks/components/filters.jet.html:168
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
 msgstr "no"
 
-#: assets/templates/bookmarks/components/filters.jet.html:64
+#: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
 msgstr "È archiviato"
 
-#: assets/templates/bookmarks/components/filters.jet.html:74
+#: assets/templates/bookmarks/components/filters.jet.html:143
 msgid "Is Loaded"
 msgstr "È caricato"
 
-#: assets/templates/bookmarks/components/filters.jet.html:84
+#: assets/templates/bookmarks/components/filters.jet.html:153
 msgid "With Labels"
 msgstr "Con etichette"
 
-#: assets/templates/bookmarks/components/filters.jet.html:94
+#: assets/templates/bookmarks/components/filters.jet.html:163
 msgid "With Errors"
 msgstr "Con errori"
 
@@ -944,11 +965,23 @@ msgstr "Copia il link"
 msgid "Errors occurred during extraction."
 msgstr "Sono avvenuti degli errori durante l’estrazione."
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:99
+#: assets/templates/bookmarks/components/sidebar.jet.html:19
+msgid ""
+"\n"
+"          Depending on the error, Readeck's browser extension may provide\n"
+"          a workaround."
+msgstr ""
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:31
+#, fuzzy
+msgid "View log"
+msgstr "Video"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
 msgstr "Comincia a selezionare il testo nell’articolo per evidenziarne una parte."
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:130
+#: assets/templates/bookmarks/components/sidebar.jet.html:156
 msgid "Links"
 msgstr "Link"
 
@@ -1998,11 +2031,11 @@ msgstr "Ultimo utilizzo: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Questo token sarà rimosso fra alcuni secondi."
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:77
 msgid "User created."
 msgstr "Utente creato."
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:116
 msgid "User updated."
 msgstr "Utente aggiornato."
 
@@ -2051,95 +2084,95 @@ msgstr "Chiave API non valida"
 msgid "Readwise Reader CSV"
 msgstr ""
 
-#: internal/bookmarks/importer/wallabag.go:242
+#: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
 msgstr "URL non valido"
 
-#: internal/bookmarks/importer/wallabag.go:247
+#: internal/bookmarks/importer/wallabag.go:262
 msgid "Invalid credentials"
 msgstr "Credenziali non valide"
 
-#: internal/bookmarks/importer/wallabag.go:258
+#: internal/bookmarks/importer/wallabag.go:273
 msgid "No access token found"
 msgstr "Nessun gettone d’accesso trovato"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:142
+#: internal/bookmarks/routes/forms_bookmarks.go:143
 msgid "Unable to process input data"
 msgstr "Impossibile processare i dati inseriti"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:419
+#: internal/bookmarks/routes/forms_bookmarks.go:506
 msgid "Article"
 msgstr "Articolo"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:420
+#: internal/bookmarks/routes/forms_bookmarks.go:507
 msgid "Picture"
 msgstr "Immagine"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:421
+#: internal/bookmarks/routes/forms_bookmarks.go:508
 msgid "Video"
 msgstr "Video"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:428
+#: internal/bookmarks/routes/forms_bookmarks.go:515
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Non visualizzato"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:429
+#: internal/bookmarks/routes/forms_bookmarks.go:516
 msgctxt "status"
 msgid "In-Progress"
 msgstr "In corso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:430
+#: internal/bookmarks/routes/forms_bookmarks.go:517
 msgctxt "status"
 msgid "Completed"
 msgstr "Completato"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:657
+#: internal/bookmarks/routes/forms_bookmarks.go:744
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Aggiunta, ordine cronologico"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:658
+#: internal/bookmarks/routes/forms_bookmarks.go:745
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Aggiunta, ordine cronologico inverso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:659
+#: internal/bookmarks/routes/forms_bookmarks.go:746
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Pubblicazione, ordine cronologico inverso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:660
+#: internal/bookmarks/routes/forms_bookmarks.go:747
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Pubblicazione, ordine cronologico"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:661
+#: internal/bookmarks/routes/forms_bookmarks.go:748
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Titolo, ordine alfabetico"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:662
+#: internal/bookmarks/routes/forms_bookmarks.go:749
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Titolo, ordine alfabetico inverso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:663
+#: internal/bookmarks/routes/forms_bookmarks.go:750
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Nome sito, ordine alfabetico"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:664
+#: internal/bookmarks/routes/forms_bookmarks.go:751
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Nome sito, ordine alfabetico inverso"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:665
+#: internal/bookmarks/routes/forms_bookmarks.go:752
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Tempo di lettura, prima i più brevi"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:666
+#: internal/bookmarks/routes/forms_bookmarks.go:753
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Tempo di lettura, prima i più lunghi"

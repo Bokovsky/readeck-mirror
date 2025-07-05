@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-27 08:51+0200\n"
+"POT-Creation-Date: 2025-07-05 11:52+0200\n"
 "PO-Revision-Date: 2025-06-30 17:50+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -118,8 +116,8 @@ msgstr "下一页"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:63
-#: internal/admin/views.go:93 internal/admin/views.go:133
+#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:59
+#: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "用户"
 
@@ -192,7 +190,7 @@ msgstr "保存"
 msgid "Delete this user"
 msgstr "删除此用户"
 
-#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:94
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
 msgstr "新用户"
 
@@ -403,12 +401,12 @@ msgid "Pictures"
 msgstr "图片"
 
 #: assets/templates/bookmarks/base.jet.html:70
-#: assets/templates/bookmarks/components/sidebar.jet.html:91
+#: assets/templates/bookmarks/components/sidebar.jet.html:117
 msgid "Labels"
 msgstr "标签"
 
 #: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/components/sidebar.jet.html:96
+#: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
 msgstr "高亮"
 
@@ -434,6 +432,7 @@ msgstr ""
 "            从浏览器中保存页面、图片和选定内容！"
 
 #: assets/templates/bookmarks/base.jet.html:98
+#: assets/templates/bookmarks/components/sidebar.jet.html:24
 #: assets/templates/bookmarks/index.jet.html:99
 msgid "Learn more"
 msgstr "了解更多"
@@ -443,12 +442,17 @@ msgid "Don't remind me"
 msgstr "不再提醒"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:80
+#, fuzzy
+msgid "Close dialog"
+msgstr "关闭面板"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
 msgstr "关闭面板"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:111
+#: assets/templates/bookmarks/bookmark.jet.html:126
 msgid "Bookmark information"
 msgstr "书签信息"
 
@@ -462,7 +466,7 @@ msgstr "书签正在加载"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
-#: assets/templates/bookmarks/components/sidebar.jet.html:49
+#: assets/templates/bookmarks/components/sidebar.jet.html:66
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
@@ -470,7 +474,7 @@ msgstr "没有网站名称"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
-#: assets/templates/bookmarks/components/sidebar.jet.html:56
+#: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
@@ -479,7 +483,7 @@ msgstr "发布于 %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
 #: assets/templates/bookmarks/bookmark_public.jet.html:83
-#: assets/templates/bookmarks/components/sidebar.jet.html:61
+#: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
@@ -487,7 +491,7 @@ msgid "By %s"
 msgstr "作者 %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:17
-#: assets/templates/bookmarks/components/sidebar.jet.html:69
+#: assets/templates/bookmarks/components/sidebar.jet.html:95
 #: assets/templates/emails/bookmark.jet.html:27
 #: assets/templates/epub/bookmark.jet.html:45
 #, python-format
@@ -722,6 +726,16 @@ msgstr[0] "%d 分钟"
 msgid "Remove Highlight(s)"
 msgstr "移除高亮"
 
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Close image"
+msgstr "关闭菜单"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Show image"
+msgstr "主页"
+
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
 msgstr "黄色"
@@ -742,6 +756,11 @@ msgstr "绿色"
 msgid "Highlight"
 msgstr "高亮"
 
+#: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#, fuzzy
+msgid "copy to clipboard"
+msgstr "复制链接"
+
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
 msgstr "搜索"
@@ -750,74 +769,74 @@ msgstr "搜索"
 msgid "Title"
 msgstr "标题"
 
-#: assets/templates/bookmarks/components/filters.jet.html:19
+#: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
 msgstr "作者"
 
-#: assets/templates/bookmarks/components/filters.jet.html:24
+#: assets/templates/bookmarks/components/filters.jet.html:58
 msgid "Site"
 msgstr "网站"
 
-#: assets/templates/bookmarks/components/filters.jet.html:29
+#: assets/templates/bookmarks/components/filters.jet.html:80
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:11
 msgid "Label"
 msgstr "标签"
 
-#: assets/templates/bookmarks/components/filters.jet.html:34
+#: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
 msgstr "起始日期"
 
-#: assets/templates/bookmarks/components/filters.jet.html:40
+#: assets/templates/bookmarks/components/filters.jet.html:109
 msgid "To date"
 msgstr "结束日期"
 
-#: assets/templates/bookmarks/components/filters.jet.html:45
+#: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "Type"
 msgstr "类型"
 
-#: assets/templates/bookmarks/components/filters.jet.html:50
+#: assets/templates/bookmarks/components/filters.jet.html:119
 msgctxt "filter"
 msgid "Progress"
 msgstr "进度"
 
-#: assets/templates/bookmarks/components/filters.jet.html:55
+#: assets/templates/bookmarks/components/filters.jet.html:124
 msgid "Is Favorite"
 msgstr "是否收藏"
 
-#: assets/templates/bookmarks/components/filters.jet.html:59
-#: assets/templates/bookmarks/components/filters.jet.html:68
-#: assets/templates/bookmarks/components/filters.jet.html:78
-#: assets/templates/bookmarks/components/filters.jet.html:88
-#: assets/templates/bookmarks/components/filters.jet.html:98
+#: assets/templates/bookmarks/components/filters.jet.html:128
+#: assets/templates/bookmarks/components/filters.jet.html:137
+#: assets/templates/bookmarks/components/filters.jet.html:147
+#: assets/templates/bookmarks/components/filters.jet.html:157
+#: assets/templates/bookmarks/components/filters.jet.html:167
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
 msgstr "是"
 
-#: assets/templates/bookmarks/components/filters.jet.html:60
-#: assets/templates/bookmarks/components/filters.jet.html:69
-#: assets/templates/bookmarks/components/filters.jet.html:79
-#: assets/templates/bookmarks/components/filters.jet.html:89
-#: assets/templates/bookmarks/components/filters.jet.html:99
+#: assets/templates/bookmarks/components/filters.jet.html:129
+#: assets/templates/bookmarks/components/filters.jet.html:138
+#: assets/templates/bookmarks/components/filters.jet.html:148
+#: assets/templates/bookmarks/components/filters.jet.html:158
+#: assets/templates/bookmarks/components/filters.jet.html:168
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
 msgstr "否"
 
-#: assets/templates/bookmarks/components/filters.jet.html:64
+#: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
 msgstr "已归档"
 
-#: assets/templates/bookmarks/components/filters.jet.html:74
+#: assets/templates/bookmarks/components/filters.jet.html:143
 msgid "Is Loaded"
 msgstr "已加载"
 
-#: assets/templates/bookmarks/components/filters.jet.html:84
+#: assets/templates/bookmarks/components/filters.jet.html:153
 msgid "With Labels"
 msgstr "有标签"
 
-#: assets/templates/bookmarks/components/filters.jet.html:94
+#: assets/templates/bookmarks/components/filters.jet.html:163
 msgid "With Errors"
 msgstr "有错误"
 
@@ -935,11 +954,23 @@ msgstr "复制链接"
 msgid "Errors occurred during extraction."
 msgstr "提取过程中出错。"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:99
+#: assets/templates/bookmarks/components/sidebar.jet.html:19
+msgid ""
+"\n"
+"          Depending on the error, Readeck's browser extension may provide\n"
+"          a workaround."
+msgstr ""
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:31
+#, fuzzy
+msgid "View log"
+msgstr "视频"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
 msgstr "在文章中选择文本以创建新的高亮。"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:130
+#: assets/templates/bookmarks/components/sidebar.jet.html:156
 msgid "Links"
 msgstr "链接"
 
@@ -1966,11 +1997,11 @@ msgstr "上次使用：%s"
 msgid "This token will be removed in a few seconds."
 msgstr "将在几秒钟内移除此令牌。"
 
-#: internal/admin/views.go:81
+#: internal/admin/views.go:77
 msgid "User created."
 msgstr "用户已创建。"
 
-#: internal/admin/views.go:120
+#: internal/admin/views.go:116
 msgid "User updated."
 msgstr "用户已更新。"
 
@@ -2018,95 +2049,95 @@ msgstr "无效的 API 密钥"
 msgid "Readwise Reader CSV"
 msgstr "Readwise Reader CSV 文件"
 
-#: internal/bookmarks/importer/wallabag.go:242
+#: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
 msgstr "无效的 URL"
 
-#: internal/bookmarks/importer/wallabag.go:247
+#: internal/bookmarks/importer/wallabag.go:262
 msgid "Invalid credentials"
 msgstr "无效的凭据"
 
-#: internal/bookmarks/importer/wallabag.go:258
+#: internal/bookmarks/importer/wallabag.go:273
 msgid "No access token found"
 msgstr "未找到访问令牌"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:142
+#: internal/bookmarks/routes/forms_bookmarks.go:143
 msgid "Unable to process input data"
 msgstr "无法处理输入数据"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:419
+#: internal/bookmarks/routes/forms_bookmarks.go:506
 msgid "Article"
 msgstr "文章"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:420
+#: internal/bookmarks/routes/forms_bookmarks.go:507
 msgid "Picture"
 msgstr "图片"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:421
+#: internal/bookmarks/routes/forms_bookmarks.go:508
 msgid "Video"
 msgstr "视频"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:428
+#: internal/bookmarks/routes/forms_bookmarks.go:515
 msgctxt "status"
 msgid "Unviewed"
 msgstr "未查看"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:429
+#: internal/bookmarks/routes/forms_bookmarks.go:516
 msgctxt "status"
 msgid "In-Progress"
 msgstr "进行中"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:430
+#: internal/bookmarks/routes/forms_bookmarks.go:517
 msgctxt "status"
 msgid "Completed"
 msgstr "已完成"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:657
+#: internal/bookmarks/routes/forms_bookmarks.go:744
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "最近添加"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:658
+#: internal/bookmarks/routes/forms_bookmarks.go:745
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "最早添加"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:659
+#: internal/bookmarks/routes/forms_bookmarks.go:746
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "最近发布"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:660
+#: internal/bookmarks/routes/forms_bookmarks.go:747
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "最早发布"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:661
+#: internal/bookmarks/routes/forms_bookmarks.go:748
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "标题，A 到 Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:662
+#: internal/bookmarks/routes/forms_bookmarks.go:749
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "标题，Z 到 A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:663
+#: internal/bookmarks/routes/forms_bookmarks.go:750
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "网站名称，A 到 Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:664
+#: internal/bookmarks/routes/forms_bookmarks.go:751
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "网站名称，Z 到 A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:665
+#: internal/bookmarks/routes/forms_bookmarks.go:752
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "耗时最短"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:666
+#: internal/bookmarks/routes/forms_bookmarks.go:753
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "耗时最长"
@@ -2564,3 +2595,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "密码已更新。"
+
