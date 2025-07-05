@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-05-27 06:01+0000\n"
-"Last-Translator: liilliil <liilliil@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-05 12:45+0000\n"
+"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
+"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
+"application/ru/>\n"
 "Language: ru_RU\n"
-"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/application/ru/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -442,9 +445,8 @@ msgid "Don't remind me"
 msgstr "Не напоминать"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Закрыть панель"
+msgstr "Закрыть"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -736,14 +738,12 @@ msgid "Remove Highlight(s)"
 msgstr "Удалить выделение(я)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Закрыть меню"
+msgstr "Убрать картинку"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Начальная страница"
+msgstr "Показать картинку"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -766,9 +766,8 @@ msgid "Highlight"
 msgstr "Выделение"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Скопировать ссылку"
+msgstr "Скопировать"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
@@ -891,7 +890,7 @@ msgstr "Импорт-экспорт"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Лента Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -972,11 +971,14 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          В зависимости от ошибки, расширение браузера Readeck может "
+"предложить\n"
+"          решение."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Видео"
+msgstr "Смотреть лог"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1134,19 +1136,17 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Импортировать ссылки из файла GoodLinks"
+msgstr "Импортировать ссылки из файла Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
 "\n"
-"    Загрузить JSON-файл из приложения GoodLinks.\n"
+"    Загрузить JSON-файл из приложения Linkwarden.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1229,9 +1229,8 @@ msgstr "Грузите zip целиком, а не распаковывая"
 # | msgid "Import Links from a Text File"
 # | msgid "Import Links from a CSV File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Импортировать ссылки из файла CSV"
+msgstr "Импортировать ссылки из файла CSV Readwise Reader"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1239,44 +1238,48 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Загрузите ниже a CSV-файл из вашего Readwise Reader.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
 msgid "Which information is imported"
-msgstr ""
+msgstr "Что импортировано"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Заголовок статьи, ссылка, и время первого сохранения,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "Состояние архивирования статьи,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" как ярлыки Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Когда тег документа содержит \"%s\", закладка попадёт в Избранное Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "Что не импортировано:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Прогресс чтения статьи и статус просмотра,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Статьи отправлены в Readwise Reader по эл. почте,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Загруженные документы (PDFы, ePubы и др.)."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:84
@@ -1379,13 +1382,12 @@ msgid "Import your GoodLinks Articles"
 msgstr "Импортировать статьи GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Импортировать закладки"
+msgstr "Импортировать закладки Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Импортировать библиотеку Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:83
 #: internal/bookmarks/importer/text.go:24
@@ -2080,7 +2082,7 @@ msgstr "Плохой ключ API"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "Readwise Reader CSV"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
@@ -2629,4 +2631,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Пароль изменён."
-
