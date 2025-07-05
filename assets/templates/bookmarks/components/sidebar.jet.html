@@ -28,7 +28,7 @@ SPDX-License-Identifier: AGPL-3.0-only
            class="underline text-red-900 hf:text-red-950"
            data-controller="dialog"
            data-dialog-select-value="#debug-info"
-           data-action="dialog#open">{{ gettext("View log") }}</button>
+           data-action="scroll-progress#skip dialog#open">{{ gettext("View log") }}</button>
         </p>
       </details>
     {{- end -}}
@@ -72,7 +72,7 @@ SPDX-License-Identifier: AGPL-3.0-only
             title="diagnosis"
             data-controller="dialog"
             data-dialog-select-value="#debug-info"
-            data-action="dialog#open">
+            data-action="scroll-progress#skip dialog#open">
             {{- yield icon(name="o-terminal") -}}
           </button>
         </span>
