@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-27 08:51+0200\n"
-"PO-Revision-Date: 2025-06-17 07:58+0000\n"
+"PO-Revision-Date: 2025-06-28 07:44+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
+"application/gl/>\n"
 "Language: gl_ES\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1087,19 +1089,17 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importar ligazóns desde un ficheiro exportado desde GoodLinks"
+msgstr "Importar Marcadores desde un ficheiro exportado desde Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
 "\n"
-"    Subir un ficheiro JSON obtido na túa app GoodLinks.\n"
+"    Subir un ficheiro JSON obtido na túa conta Linkwarden.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1329,9 +1329,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Importa os artigos desde GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importa os teus Marcadores"
+msgstr "Importa os teus Marcadores de Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
@@ -1816,9 +1815,10 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Se tes pensado enviar libros electrónicos ao dispositivo Kindle, tes que autorizar\n"
-"        o seguinte enderezo de correo na túa Conta Kindle:\n"
-"        "
+"          Se tes pensado enviar libros electrónicos ao dispositivo Kindle, "
+"tes que autorizar\n"
+"        o seguinte enderezo de correo na túa conta Kindle:\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -2538,4 +2538,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Actualizouse o contrasinal."
-
