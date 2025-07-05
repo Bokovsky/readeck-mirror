@@ -8,9 +8,11 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"runtime"
+	"runtime/debug"
 	"slices"
 	"strings"
 	"time"
@@ -238,6 +240,13 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	buildInfo := new(strings.Builder)
+	if info, ok := debug.ReadBuildInfo(); ok {
+		for _, x := range info.Settings {
+			fmt.Fprintf(buildInfo, "%s: %s\n", x.Key, strings.ReplaceAll(x.Value, ",", ", "))
+		}
+	}
+
 	section, tag := h.getSection(r)
 	tr := locales.LoadTranslation(tag)
 	ctx := server.TC{
@@ -245,6 +254,7 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		"Language":    tag,
 		"Version":     configs.Version(),
 		"BuildTime":   configs.BuildTime(),
+		"BuildInfo":   buildInfo,
 		"Licenses":    licenses["licenses"],
 		"OS":          runtime.GOOS,
 		"Arch":        runtime.GOARCH,

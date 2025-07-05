@@ -12,6 +12,9 @@ Platform:           {{ .OS }} / {{ .Arch }}
 Go Version:         {{ .GoVersion }}
 Database Connector: {{ .DBConnecter }}
 Database Version:   {{ .DBVersion }}
+
+Build Info:
+{{ .BuildInfo }}
 {{- end -}}
 
 {{ block title() }}{{ gettext("About Readeck") }}{{ end }}
@@ -28,7 +31,7 @@ Database Version:   {{ .DBVersion }}
 
   <div class="my-4" data-controller="clipboard">
     <p>{{ gettext("Here are your current system information. Please include them if you report a bug.") }}</p>
-    <pre class="mt-4 p-2 text-sm bg-gray-100 border border-gray-200 rounded">{{ yield sysInfo() }}</pre>
+    <pre class="mt-4 p-2 text-sm bg-gray-100 border border-gray-200 rounded overflow-x-auto whitespace-pre-wrap">{{ yield sysInfo() }}</pre>
     <p class="mt-1"><button type="button" class="link" data-action="clipboard#copy">
       {{- yield icon(name="o-copy") }}
       {{ gettext("copy to clipboard") }}
