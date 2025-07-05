@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-07-05 12:45+0000\n"
+"PO-Revision-Date: 2025-07-05 14:19+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
@@ -378,7 +378,7 @@ msgstr "Все"
 
 #: assets/templates/bookmarks/base.jet.html:34
 msgid "Unread"
-msgstr "Непрочитнные"
+msgstr "Непрочитaнные"
 
 #: assets/templates/bookmarks/base.jet.html:37
 msgid "Archive"
