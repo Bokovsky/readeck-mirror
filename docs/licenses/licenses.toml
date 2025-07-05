@@ -171,10 +171,10 @@ Copyright (c) 2018 Peter Lithammer
 [[licenses]]
 name = "go-sqlite3"
 license = "MIT"
-author = "Nuno Cruces"
-url = "https://github.com/ncruces/go-sqlite3"
+author = "Yasuhiro Matsumoto"
+url = "https://github.com/mattn/go-sqlite3/"
 copyright = """
-Copyright (c) 2023 Nuno Cruces
+Copyright (c) 2014 Yasuhiro Matsumoto
 """
 
 [[licenses]]
