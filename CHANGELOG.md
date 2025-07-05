@@ -11,6 +11,7 @@
 - synchronization API
 - listen on unix domain sockets, by [@noctux](https://codeberg.org/noctux)
 - http/2 cleartext support
+- diagnosis modal with extraction log on each bookmark
 - modal images in articles
 
 ### Fixed
@@ -24,6 +25,7 @@
 - prevent AVIF images from interfering with fetching of alternative image sources
 - more permissive Open Graph metadata scanning
 - correct encoding for imported Wallabag articles that were originally non-UTF8, by [@mislav](https://codeberg.org/mislav)
+- layout in mosaic view with very long titles
 
 ### Improved
 - documentation extracted to gettext
@@ -35,6 +37,8 @@
 - hide bookmark description when it exists at the begining of the article
 - increase sharpness of archived images on high-resolution ("2x") displays, by [@mislav](https://codeberg.org/mislav)
 - strip links from self-linking heading elements, by [@mislav](https://codeberg.org/mislav)
+- handling of multiple source images (picture source and srcset)
+- cookbook API documentation (POST on extract route), by [@mislav](https://codeberg.org/mislav)
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version
