@@ -5,8 +5,8 @@
 package securecookie
 
 import (
-	"crypto/rand"
 	"encoding/base64"
+	"encoding/hex"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -15,14 +15,13 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+var skey, _ = hex.DecodeString("3490e8d46d132052c8437c0eb02fdb1cb76546169ea9cc162f83c795621570eb")
+
 func TestStore(t *testing.T) {
 	t.Run("encode-decode", func(t *testing.T) {
 		assert := require.New(t)
-		k := make([]byte, 32)
-		rand.Read(k)
-
 		s := store{
-			key: Key(k),
+			key: Key(skey),
 		}
 		msg := []byte("lorem ipsum 😺")
 		encoded, err := s.encode(msg)
@@ -35,11 +34,9 @@ func TestStore(t *testing.T) {
 
 	t.Run("tampered message", func(t *testing.T) {
 		assert := require.New(t)
-		k := make([]byte, 32)
-		rand.Read(k)
 
 		s := store{
-			key: Key(k),
+			key: Key(skey),
 		}
 		msg := []byte("lorem ipsum 😺")
 		encoded, err := s.encode(msg)
@@ -53,11 +50,9 @@ func TestStore(t *testing.T) {
 
 	t.Run("decode error", func(t *testing.T) {
 		assert := require.New(t)
-		k := make([]byte, 32)
-		rand.Read(k)
 
 		s := store{
-			key: Key(k),
+			key: Key(skey),
 		}
 
 		msg := []byte("abcd")
@@ -68,10 +63,7 @@ func TestStore(t *testing.T) {
 }
 
 func TestHandler(t *testing.T) {
-	k := make([]byte, 32)
-	rand.Read(k)
-
-	h := NewHandler(Key(k))
+	h := NewHandler(Key(skey))
 
 	t.Run("encode-decode", func(t *testing.T) {
 		assert := require.New(t)
@@ -118,7 +110,7 @@ func TestHandler(t *testing.T) {
 	t.Run("load cookie", func(t *testing.T) {
 		assert := require.New(t)
 
-		h := NewHandler(Key(k), WithName("xid"), WithPath("/test"))
+		h := NewHandler(Key(skey), WithName("xid"), WithPath("/test"))
 
 		r := httptest.NewRequest("GET", "/test", nil)
 		w := httptest.NewRecorder()
@@ -141,7 +133,7 @@ func TestHandler(t *testing.T) {
 		assert := require.New(t)
 		tick := 0
 
-		h := NewHandler(Key(k), WithName("xid"), WithPath("/test"), WithMaxAge(60*121))
+		h := NewHandler(Key(skey), WithName("xid"), WithPath("/test"), WithMaxAge(60*121))
 		h.now = func() time.Time {
 			t, _ := time.Parse(time.DateTime, time.DateTime)
 			t = t.Add(time.Duration(tick) * time.Hour)
@@ -175,7 +167,7 @@ func TestHandler(t *testing.T) {
 		assert := require.New(t)
 		tick := 0
 
-		h := NewHandler(Key(k), WithMaxAge(60*121), WithTTL(false))
+		h := NewHandler(Key(skey), WithMaxAge(60*121), WithTTL(false))
 		h.now = func() time.Time {
 			t, _ := time.Parse(time.DateTime, time.DateTime)
 			t = t.Add(time.Duration(tick) * time.Hour)
@@ -250,7 +242,7 @@ func TestHandler(t *testing.T) {
 	t.Run("delete", func(t *testing.T) {
 		assert := require.New(t)
 
-		h := NewHandler(Key(k), WithName("xid"), WithPath("/test"))
+		h := NewHandler(Key(skey), WithName("xid"), WithPath("/test"))
 
 		r := httptest.NewRequest("GET", "/test", nil)
 		w := httptest.NewRecorder()
