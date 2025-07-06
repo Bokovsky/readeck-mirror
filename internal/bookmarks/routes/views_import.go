@@ -25,7 +25,7 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 
 	if trackID != "" {
 		tc.SetBreadcrumbs([][2]string{
-			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
+			{tr.Gettext("Bookmarks"), urls.AbsoluteURL(r, "/bookmarks").String()},
 			{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 			{tr.Gettext("Progress")},
 		})
@@ -34,7 +34,7 @@ func (h *viewsRouter) bookmarksImportMain(w http.ResponseWriter, r *http.Request
 		tc["Progress"], _ = importer.NewImportProgress(trackID)
 	} else {
 		tc.SetBreadcrumbs([][2]string{
-			{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
+			{tr.Gettext("Bookmarks"), urls.AbsoluteURL(r, "/bookmarks").String()},
 			{tr.Gettext("Import")},
 		})
 	}
@@ -65,7 +65,7 @@ func (h *viewsRouter) bookmarksImport(w http.ResponseWriter, r *http.Request) {
 	tc := getBaseContext(r.Context())
 	tc["Form"] = f
 	tc.SetBreadcrumbs([][2]string{
-		{"Bookmarks", urls.AbsoluteURL(r, "/bookmarks").String()},
+		{tr.Gettext("Bookmarks"), urls.AbsoluteURL(r, "/bookmarks").String()},
 		{tr.Gettext("Import"), urls.AbsoluteURL(r, "/bookmarks/import").String()},
 		{adapter.Name(tr)},
 	})
