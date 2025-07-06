@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-07-05 14:19+0000\n"
+"PO-Revision-Date: 2025-07-06 10:03+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
@@ -343,7 +343,7 @@ msgstr "На страницу входа"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr "Выделения в закладках"
+msgstr "Выдержки из закладок"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
@@ -364,7 +364,8 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "Про выделения можно прочесть в <a class=\"%s\" href=\"%s\">документации</a>."
+msgstr ""
+"Про выдержки можно прочесть в <a class=\"%s\" href=\"%s\">документации</a>."
 
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
@@ -411,13 +412,13 @@ msgstr "Ярлыки"
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
-msgstr "Выделено"
+msgstr "Выдержки"
 
 #: assets/templates/bookmarks/base.jet.html:74
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:39
 msgid "Collections"
-msgstr "Собрания"
+msgstr "Сборники"
 
 #: assets/templates/bookmarks/base.jet.html:90
 msgid "Did you know?"
@@ -557,11 +558,11 @@ msgstr "Поделиться"
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
 msgid "Collection %s"
-msgstr "Собрание %s"
+msgstr "Сборник %s"
 
 #: assets/templates/bookmarks/collection.jet.html:27
 msgid "Collection will be removed in a few seconds."
-msgstr "Собрание удалится через пару секунд."
+msgstr "Сборник удалится через пару секунд."
 
 #: assets/templates/bookmarks/collection.jet.html:48
 #: assets/templates/bookmarks/collection.jet.html:61
@@ -589,20 +590,20 @@ msgstr "Название"
 
 #: assets/templates/bookmarks/collection.jet.html:86
 msgid "Delete collection"
-msgstr "Удалить собрание"
+msgstr "Удалить сборник"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr "Новое собрание"
+msgstr "Новый сборник"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:75
 msgid "Bookmark Collections"
-msgstr "Собрания ссылок"
+msgstr "Сборники ссылок"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr "Создать новое собрание"
+msgstr "Создать новый сборник"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -615,10 +616,10 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Собрания позволяют Вам легко организовывать и экспортировать\n"
+"          Сборники позволяют Вам легко организовывать и экспортировать\n"
 "          закладки, сохраняя поисковые запросы по Вашему выбору.\n"
 "          Когда создаётся новая закладка, подпадающая под критерий\n"
-"          собрания, она в нём появится сразу.\n"
+"          сборника, она в нём появится сразу.\n"
 "          Вот примеры:\n"
 "        "
 
@@ -641,7 +642,9 @@ msgstr "Статья со словом «здоровье» в заголовк�
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
 msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "Про собрания ссылок можно прочесть в <a class=\"%s\" href=\"%s\">документации</a>."
+msgstr ""
+"Про сборники ссылок можно прочесть в <a class=\"%s\" href=\"%s\""
+">документации</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
@@ -735,7 +738,7 @@ msgstr[2] "%d минут"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
-msgstr "Удалить выделение(я)"
+msgstr "Удалить выдержку(и)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Close image"
@@ -763,7 +766,7 @@ msgstr "Зелёный"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
-msgstr "Выделение"
+msgstr "Выдержка"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 msgid "copy to clipboard"
@@ -982,7 +985,7 @@ msgstr "Смотреть лог"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
-msgstr "Выберите текст, чтобы создать выделение."
+msgstr "Выберите текст, чтобы сделать выдержку."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:156
 msgid "Links"
@@ -1535,7 +1538,7 @@ msgstr "Очистить поиск"
 
 #: assets/templates/bookmarks/index.jet.html:189
 msgid "Create a collection"
-msgstr "Создать собрание"
+msgstr "Создать сборник"
 
 #: assets/templates/bookmarks/label.jet.html:44
 msgid "Delete"
@@ -2183,22 +2186,22 @@ msgstr "Закладки Readeck"
 
 #: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
-msgstr "Собрания закладок Readeck"
+msgstr "Сборники закладок Readeck"
 
 #: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr "Собрание Readeck: %s"
+msgstr "Сборник Readeck: %s"
 
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr "Ebook собрания - %s"
+msgstr "Ebook сборник - %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
-msgstr "Смотрим собрание: %s"
+msgstr "Смотрим сборник: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
@@ -2222,7 +2225,7 @@ msgstr "Избранные закладки"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
-msgstr "Собрание обновлено."
+msgstr "Сборник обновлён."
 
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
