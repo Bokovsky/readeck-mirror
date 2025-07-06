@@ -74,6 +74,11 @@ func absoluteURL(ref *url.URL, parts ...string) *url.URL {
 	*cur = *ref
 
 	p, _ := url.Parse(pathName) // Never let a full URL pass in the parts
+	// Only one part with scheme and host, stop here
+	if len(parts) == 1 && p.Scheme != "" && p.Host != "" {
+		return p
+	}
+
 	pathName = p.Path
 
 	// If the url is relative, we need a final slash on the original path

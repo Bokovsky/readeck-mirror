@@ -141,7 +141,9 @@ func NewPagination(ctx context.Context, count, limit, offset int) Pagination {
 		CurrentPage: int(math.Floor(float64(offset)/float64(limit))) + 1,
 		First:       0,
 	}
-	p.Last = (p.TotalPages - 1) * p.Limit
+	if p.TotalPages > 0 {
+		p.Last = (p.TotalPages - 1) * p.Limit
+	}
 
 	if n := p.Offset + p.Limit; n <= p.Last {
 		p.Next = p.Offset + p.Limit
@@ -153,37 +155,30 @@ func NewPagination(ctx context.Context, count, limit, offset int) Pagination {
 	}
 
 	p.FirstPage = p.GetLink(p.First)
-	p.LastPage = p.GetLink(p.Last)
+	if p.Last > 0 {
+		p.LastPage = p.GetLink(p.Last)
+	}
 	p.PageLinks = p.GetPageLinks()
 
 	return p
 }
 
 // GetPaginationLinks returns a list of Link instances suitable for pagination.
-func GetPaginationLinks(r *http.Request, p Pagination) []Link {
-	uri := urls.AbsoluteURL(r)
-	pages := int(math.Ceil(float64(p.TotalCount) / float64(p.Limit)))
-	lastOffset := int(pages-1) * p.Limit
-	prevOffset := p.Offset - p.Limit
-	nextOffset := p.Offset + p.Limit
-
+func GetPaginationLinks(_ *http.Request, p Pagination) []Link {
 	links := []Link{}
-	getLink := func(rel string, offset int) Link {
-		u := *uri
-		q := u.Query()
-		q.Set("limit", strconv.Itoa(p.Limit))
-		q.Set("offset", strconv.Itoa(offset))
-		u.RawQuery = q.Encode()
-		return NewLink(u.String()).WithRel(rel)
-	}
 
-	if prevOffset >= 0 {
-		links = append(links, getLink("previous", prevOffset))
+	if p.PreviousPage != "" {
+		links = append(links, NewLink(p.PreviousPage).WithRel("previous"))
 	}
-	if nextOffset <= lastOffset {
-		links = append(links, getLink("next", nextOffset))
+	if p.NextPage != "" {
+		links = append(links, NewLink(p.NextPage).WithRel("next"))
 	}
-	links = append(links, getLink("first", 0), getLink("last", lastOffset))
+	if p.FirstPage != "" {
+		links = append(links, NewLink(p.FirstPage).WithRel("first"))
+	}
+	if p.LastPage != "" {
+		links = append(links, NewLink(p.LastPage).WithRel("last"))
+	}
 
 	return links
 }
