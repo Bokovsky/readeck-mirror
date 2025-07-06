@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-05 11:52+0200\n"
+"POT-Creation-Date: 2025-07-06 16:55+0200\n"
 "PO-Revision-Date: 2025-07-05 12:45+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
-"application/gl/>\n"
 "Language: gl_ES\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -49,6 +47,7 @@ msgstr "Páxina de inicio"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:56
 msgid "Required"
 msgstr "Requerido"
 
@@ -365,9 +364,17 @@ msgstr ""
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Aprende máis sobre os destacados na <a class=\"%s\" href=\"%s\">documentación</a>."
 
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "Buscar"
+
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
 msgstr "Marcadores"
 
@@ -404,6 +411,7 @@ msgstr "Imaxes"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:26
 msgid "Labels"
 msgstr "Etiquetas"
 
@@ -573,8 +581,8 @@ msgstr "Filtros"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
-#: docs/http.go:296
+#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
+#: docs/http.go:306
 msgid "Documentation"
 msgstr "Documentación"
 
@@ -760,12 +768,9 @@ msgid "Highlight"
 msgstr "Destacar"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "copiar ao portapapeis"
-
-#: assets/templates/bookmarks/components/filters.jet.html:9
-msgid "Search"
-msgstr "Buscar"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -1533,129 +1538,129 @@ msgstr ""
 "  As etiquetas permítenche organizar os marcadores ao teu xeito.\n"
 "  Podes escribir o que queiras na etiqueta, incluso emojis!\n"
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:259
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:269
 msgid "About Readeck"
 msgstr "Sobre Readeck"
 
-#: assets/templates/docs/about.jet.html:14
+#: assets/templates/docs/about.jet.html:26
 msgid "Version:"
 msgstr "Versión:"
 
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html:27
 msgid "Built Date:"
 msgstr "Data da versión:"
 
-#: assets/templates/docs/about.jet.html:18
+#: assets/templates/docs/about.jet.html:30
 msgid "System Information"
 msgstr "Información do Sistema"
 
-#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/about.jet.html:33
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "Esta é a información sobre o sistema. Inclúea no informe se acontece algún problema."
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Proxecto"
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:59
 msgid "Main website"
 msgstr "Sitio web"
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues"
 msgstr "Código e incidencias"
 
-#: assets/templates/docs/about.jet.html:38
+#: assets/templates/docs/about.jet.html:61
 msgid "How to contribute"
 msgstr "Colaborar"
 
-#: assets/templates/docs/about.jet.html:39
+#: assets/templates/docs/about.jet.html:62
 msgid "Community Forum"
 msgstr "Foro da comunidade"
 
-#: assets/templates/docs/about.jet.html:40
+#: assets/templates/docs/about.jet.html:63
 msgid "Matrix Chat"
 msgstr "Parola en Matrix"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:66
 msgid "License"
 msgstr "Licenza"
 
-#: assets/templates/docs/about.jet.html:45
+#: assets/templates/docs/about.jet.html:68
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck distribúese baixo os termos da licenza «%s»"
 
-#: assets/templates/docs/about.jet.html:49
+#: assets/templates/docs/about.jet.html:72
 msgid "Here's a short summary of the license conditions:"
 msgstr "Este é un pequeno resumo das condicións da licenza:"
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:77
 msgid "Permissions"
 msgstr "Permisos"
 
-#: assets/templates/docs/about.jet.html:55
+#: assets/templates/docs/about.jet.html:78
 msgid "Conditions"
 msgstr "Condicións"
 
-#: assets/templates/docs/about.jet.html:56
+#: assets/templates/docs/about.jet.html:79
 msgid "Limitations"
 msgstr "Limitacións"
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:87
 msgid "Commercial use"
 msgstr "Uso comercial"
 
-#: assets/templates/docs/about.jet.html:67
+#: assets/templates/docs/about.jet.html:90
 msgid "Distribution"
 msgstr "Distribución"
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:93
 msgid "Modification"
 msgstr "Modificación"
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:96
 msgid "Patent use"
 msgstr "Uso de patentes"
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html:99
 msgid "Private use"
 msgstr "Uso privado"
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:106
 msgid "Disclose source"
 msgstr "Exposición do código"
 
-#: assets/templates/docs/about.jet.html:86
+#: assets/templates/docs/about.jet.html:109
 msgid "License and copyright notice"
 msgstr "Licenza e aviso sobre dereito de copia"
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:112
 msgid "Network use is distribution"
 msgstr "Uso na rede é distribución"
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:115
 msgid "Same license"
 msgstr "Mesma licenza"
 
-#: assets/templates/docs/about.jet.html:95
+#: assets/templates/docs/about.jet.html:118
 msgid "State changes"
 msgstr "Informar dos cambios"
 
-#: assets/templates/docs/about.jet.html:102
+#: assets/templates/docs/about.jet.html:125
 msgid "Liability"
 msgstr "Responsabilidade"
 
-#: assets/templates/docs/about.jet.html:105
+#: assets/templates/docs/about.jet.html:128
 msgid "Warranty"
 msgstr "Garantía"
 
-#: assets/templates/docs/about.jet.html:132
+#: assets/templates/docs/about.jet.html:155
 msgid "Third-Party Licenses"
 msgstr "Licenzas de terceiras partes"
 
-#: assets/templates/docs/about.jet.html:134
+#: assets/templates/docs/about.jet.html:157
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr "Readeck inclúe e/ou usa os seguintes elementos de código aberto:"
 
@@ -2568,3 +2573,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Actualizouse o contrasinal."
+

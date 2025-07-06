@@ -6,18 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-05 11:52+0200\n"
+"POT-Creation-Date: 2025-07-06 16:55+0200\n"
 "PO-Revision-Date: 2025-07-05 12:45+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
-"application/uk/>\n"
 "Language: uk_UA\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -50,6 +47,7 @@ msgstr "Головна"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:56
 msgid "Required"
 msgstr "Обов’язково"
 
@@ -366,9 +364,17 @@ msgstr ""
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Прочитайте більше про виділення в <a class=\"%s\" href=\"%s\">документації</a>."
 
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "Пошук"
+
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
 msgstr "Закладки"
 
@@ -405,6 +411,7 @@ msgstr "Зображення"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:26
 msgid "Labels"
 msgstr "Мітки"
 
@@ -574,8 +581,8 @@ msgstr "Фільтри"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
-#: docs/http.go:296
+#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
+#: docs/http.go:306
 msgid "Documentation"
 msgstr "Документація"
 
@@ -762,12 +769,9 @@ msgid "Highlight"
 msgstr "Виділити"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "копіювати в буфер обміну"
-
-#: assets/templates/bookmarks/components/filters.jet.html:9
-msgid "Search"
-msgstr "Пошук"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -966,8 +970,7 @@ msgid ""
 "          a workaround."
 msgstr ""
 "\n"
-"          Залежно від помилки, розширення Readeck для браузера може "
-"запропонувати\n"
+"          Залежно від помилки, розширення Readeck для браузера може запропонувати\n"
 "          обхідний шлях."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
@@ -1538,129 +1541,129 @@ msgstr ""
 "  Мітки дадуть вам змогу впорядкувати закладки так, як ви захочете.\n"
 "  До мітки можна додати будь-що, зокрема емодзі!\n"
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:259
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:269
 msgid "About Readeck"
 msgstr "Про Readeck"
 
-#: assets/templates/docs/about.jet.html:14
+#: assets/templates/docs/about.jet.html:26
 msgid "Version:"
 msgstr "Версія:"
 
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html:27
 msgid "Built Date:"
 msgstr "Дата складання:"
 
-#: assets/templates/docs/about.jet.html:18
+#: assets/templates/docs/about.jet.html:30
 msgid "System Information"
 msgstr "Інформація про систему"
 
-#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/about.jet.html:33
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "Тут знаходиться поточна інформація про вашу систему. Будь ласка, вкажіть її, якщо повідомляєте про помилку."
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Проєкт"
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:59
 msgid "Main website"
 msgstr "Головний вебсайт"
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues"
 msgstr "Джерела та задачі"
 
-#: assets/templates/docs/about.jet.html:38
+#: assets/templates/docs/about.jet.html:61
 msgid "How to contribute"
 msgstr "Як долучитися"
 
-#: assets/templates/docs/about.jet.html:39
+#: assets/templates/docs/about.jet.html:62
 msgid "Community Forum"
 msgstr "Форум спільноти"
 
-#: assets/templates/docs/about.jet.html:40
+#: assets/templates/docs/about.jet.html:63
 msgid "Matrix Chat"
 msgstr "Чат Matrix"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:66
 msgid "License"
 msgstr "Ліцензія"
 
-#: assets/templates/docs/about.jet.html:45
+#: assets/templates/docs/about.jet.html:68
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck розповсюджується на умовах ліцензії «%s»"
 
-#: assets/templates/docs/about.jet.html:49
+#: assets/templates/docs/about.jet.html:72
 msgid "Here's a short summary of the license conditions:"
 msgstr "Ось короткий огляд ліцензійних умов:"
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:77
 msgid "Permissions"
 msgstr "Дозволи"
 
-#: assets/templates/docs/about.jet.html:55
+#: assets/templates/docs/about.jet.html:78
 msgid "Conditions"
 msgstr "Умови"
 
-#: assets/templates/docs/about.jet.html:56
+#: assets/templates/docs/about.jet.html:79
 msgid "Limitations"
 msgstr "Обмеження"
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:87
 msgid "Commercial use"
 msgstr "Комерційне використання"
 
-#: assets/templates/docs/about.jet.html:67
+#: assets/templates/docs/about.jet.html:90
 msgid "Distribution"
 msgstr "Розповсюдження"
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:93
 msgid "Modification"
 msgstr "Модифікація"
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:96
 msgid "Patent use"
 msgstr "Використання патенту"
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html:99
 msgid "Private use"
 msgstr "Приватне використання"
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:106
 msgid "Disclose source"
 msgstr "Оприлюднення джерела"
 
-#: assets/templates/docs/about.jet.html:86
+#: assets/templates/docs/about.jet.html:109
 msgid "License and copyright notice"
 msgstr "Ліцензія та повідомлення про авторські права"
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:112
 msgid "Network use is distribution"
 msgstr "Мережеве використання — це розповсюдження"
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:115
 msgid "Same license"
 msgstr "Та сама ліцензія"
 
-#: assets/templates/docs/about.jet.html:95
+#: assets/templates/docs/about.jet.html:118
 msgid "State changes"
 msgstr "Зміни стану"
 
-#: assets/templates/docs/about.jet.html:102
+#: assets/templates/docs/about.jet.html:125
 msgid "Liability"
 msgstr "Відповідальність"
 
-#: assets/templates/docs/about.jet.html:105
+#: assets/templates/docs/about.jet.html:128
 msgid "Warranty"
 msgstr "Гарантія"
 
-#: assets/templates/docs/about.jet.html:132
+#: assets/templates/docs/about.jet.html:155
 msgid "Third-Party Licenses"
 msgstr "Сторонні ліцензії"
 
-#: assets/templates/docs/about.jet.html:134
+#: assets/templates/docs/about.jet.html:157
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr "Readeck містить та/або використовує такі ресурси з відкритим кодом:"
 
@@ -2582,3 +2585,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Пароль оновлено."
+

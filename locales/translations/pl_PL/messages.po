@@ -6,18 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-05 11:52+0200\n"
+"POT-Creation-Date: 2025-07-06 16:55+0200\n"
 "PO-Revision-Date: 2025-07-05 12:45+0000\n"
 "Last-Translator: Eryk Michalak <gnu.ewm@protonmail.com>\n"
-"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
-"application/pl/>\n"
 "Language: pl_PL\n"
+"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/application/pl/>\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -50,6 +47,7 @@ msgstr "Strona startowa"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:56
 msgid "Required"
 msgstr "Wymagane"
 
@@ -366,9 +364,17 @@ msgstr ""
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "Dowiedz się więcej o podkreśleniach w <a class=\"%s\" href=\"%s\">dokumentacji</a>."
 
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "Szukaj"
+
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
 msgstr "Zakładki"
 
@@ -405,6 +411,7 @@ msgstr "Obrazy"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:26
 msgid "Labels"
 msgstr "Etykiety"
 
@@ -574,8 +581,8 @@ msgstr "Filtry"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
-#: docs/http.go:296
+#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
+#: docs/http.go:306
 msgid "Documentation"
 msgstr "Dokumentacja"
 
@@ -763,12 +770,9 @@ msgid "Highlight"
 msgstr "Podkreślenie"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "kopiuj do schowka"
-
-#: assets/templates/bookmarks/components/filters.jet.html:9
-msgid "Search"
-msgstr "Szukaj"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -1539,129 +1543,129 @@ msgstr ""
 "  Etykiety pozwalają organizować zakładki tak jak chcesz.\n"
 "  Możesz wpisać cokolwiek do etykiety, łącznie z emotkami!\n"
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:259
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:269
 msgid "About Readeck"
 msgstr "O Readeck"
 
-#: assets/templates/docs/about.jet.html:14
+#: assets/templates/docs/about.jet.html:26
 msgid "Version:"
 msgstr "Wersja:"
 
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html:27
 msgid "Built Date:"
 msgstr "Data kompilacji:"
 
-#: assets/templates/docs/about.jet.html:18
+#: assets/templates/docs/about.jet.html:30
 msgid "System Information"
 msgstr "Informacje systemowe"
 
-#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/about.jet.html:33
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "To jest informacja o twoim systemie. Dodaj ją, gdy będziesz raportował(-a) błąd."
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Projekt"
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:59
 msgid "Main website"
 msgstr "Główna strona internetowa"
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues"
 msgstr "Kod źródłowy i zgłoszenia"
 
-#: assets/templates/docs/about.jet.html:38
+#: assets/templates/docs/about.jet.html:61
 msgid "How to contribute"
 msgstr "Jak można pomóc"
 
-#: assets/templates/docs/about.jet.html:39
+#: assets/templates/docs/about.jet.html:62
 msgid "Community Forum"
 msgstr "Forum społeczności"
 
-#: assets/templates/docs/about.jet.html:40
+#: assets/templates/docs/about.jet.html:63
 msgid "Matrix Chat"
 msgstr "Czat Matrix"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:66
 msgid "License"
 msgstr "Licencja"
 
-#: assets/templates/docs/about.jet.html:45
+#: assets/templates/docs/about.jet.html:68
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck jest dystrybuowany pod licencją \"%s\""
 
-#: assets/templates/docs/about.jet.html:49
+#: assets/templates/docs/about.jet.html:72
 msgid "Here's a short summary of the license conditions:"
 msgstr "Tutaj jest krótkie podsumowanie warunków licencji:"
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:77
 msgid "Permissions"
 msgstr "Uprawnienia"
 
-#: assets/templates/docs/about.jet.html:55
+#: assets/templates/docs/about.jet.html:78
 msgid "Conditions"
 msgstr "Warunki"
 
-#: assets/templates/docs/about.jet.html:56
+#: assets/templates/docs/about.jet.html:79
 msgid "Limitations"
 msgstr "Ograniczenia"
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:87
 msgid "Commercial use"
 msgstr "Użycie komercyjne"
 
-#: assets/templates/docs/about.jet.html:67
+#: assets/templates/docs/about.jet.html:90
 msgid "Distribution"
 msgstr "Dystrybucja"
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:93
 msgid "Modification"
 msgstr "Modyfikacje"
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:96
 msgid "Patent use"
 msgstr "Wykorzystanie w patentach"
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html:99
 msgid "Private use"
 msgstr "Użytek prywatny"
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:106
 msgid "Disclose source"
 msgstr "Ujawnienie źródeł"
 
-#: assets/templates/docs/about.jet.html:86
+#: assets/templates/docs/about.jet.html:109
 msgid "License and copyright notice"
 msgstr "Licencja i informacja o prawach autorskich"
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:112
 msgid "Network use is distribution"
 msgstr "Wykorzystanie w sieci to dystrybucja"
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:115
 msgid "Same license"
 msgstr "Ta sama licencja"
 
-#: assets/templates/docs/about.jet.html:95
+#: assets/templates/docs/about.jet.html:118
 msgid "State changes"
 msgstr "Zmiany stanu"
 
-#: assets/templates/docs/about.jet.html:102
+#: assets/templates/docs/about.jet.html:125
 msgid "Liability"
 msgstr "Odpowiedzialność"
 
-#: assets/templates/docs/about.jet.html:105
+#: assets/templates/docs/about.jet.html:128
 msgid "Warranty"
 msgstr "Gwarancja"
 
-#: assets/templates/docs/about.jet.html:132
+#: assets/templates/docs/about.jet.html:155
 msgid "Third-Party Licenses"
 msgstr "Licencje stron trzecich"
 
-#: assets/templates/docs/about.jet.html:134
+#: assets/templates/docs/about.jet.html:157
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr "Readeck zawiera i/lub używa następujących zasobów otwartego oprogramowania:"
 
@@ -2608,3 +2612,4 @@ msgstr "%H:%M:%S"
 #~ "        following email address within your Kindle Account:\n"
 #~ "        "
 #~ msgstr ""
+

@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-05 11:52+0200\n"
+"POT-Creation-Date: 2025-07-06 16:55+0200\n"
 "PO-Revision-Date: 2025-07-05 14:19+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -49,6 +47,7 @@ msgstr "主页"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:56
 msgid "Required"
 msgstr "必填"
 
@@ -365,9 +364,17 @@ msgstr ""
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
 msgstr "阅读<a class=\"%s\" href=\"%s\">文档</a>中有关高亮的更多信息。"
 
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "搜索"
+
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
 #: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
 msgstr "书签"
 
@@ -404,6 +411,7 @@ msgstr "图片"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:26
 msgid "Labels"
 msgstr "标签"
 
@@ -570,8 +578,8 @@ msgstr "筛选器"
 
 #: assets/templates/bookmarks/collection.jet.html:66
 #: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:179 docs/http.go:258
-#: docs/http.go:296
+#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
+#: docs/http.go:306
 msgid "Documentation"
 msgstr "文档"
 
@@ -756,12 +764,9 @@ msgid "Highlight"
 msgstr "高亮"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "复制到剪贴板"
-
-#: assets/templates/bookmarks/components/filters.jet.html:9
-msgid "Search"
-msgstr "搜索"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -1529,129 +1534,129 @@ msgstr ""
 "  标签可让您按自己的方式整理书签。\n"
 "  您可以将任何内容设置为标签，包括表情符号！\n"
 
-#: assets/templates/docs/about.jet.html:8
-#: assets/templates/docs/base.jet.html:27 docs/http.go:259
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:269
 msgid "About Readeck"
 msgstr "关于 Readeck"
 
-#: assets/templates/docs/about.jet.html:14
+#: assets/templates/docs/about.jet.html:26
 msgid "Version:"
 msgstr "版本："
 
-#: assets/templates/docs/about.jet.html:15
+#: assets/templates/docs/about.jet.html:27
 msgid "Built Date:"
 msgstr "构建日期："
 
-#: assets/templates/docs/about.jet.html:18
+#: assets/templates/docs/about.jet.html:30
 msgid "System Information"
 msgstr "系统信息"
 
-#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/about.jet.html:33
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "这是您当前的系统信息。如果您报告错误，请将其包括在内。"
 
-#: assets/templates/docs/about.jet.html:33
+#: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "项目"
 
-#: assets/templates/docs/about.jet.html:36
+#: assets/templates/docs/about.jet.html:59
 msgid "Main website"
 msgstr "主网站"
 
-#: assets/templates/docs/about.jet.html:37
+#: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues"
 msgstr "来源和问题"
 
-#: assets/templates/docs/about.jet.html:38
+#: assets/templates/docs/about.jet.html:61
 msgid "How to contribute"
 msgstr "如何做出贡献"
 
-#: assets/templates/docs/about.jet.html:39
+#: assets/templates/docs/about.jet.html:62
 msgid "Community Forum"
 msgstr "社区论坛"
 
-#: assets/templates/docs/about.jet.html:40
+#: assets/templates/docs/about.jet.html:63
 msgid "Matrix Chat"
 msgstr "Matrix 聊天"
 
-#: assets/templates/docs/about.jet.html:43
+#: assets/templates/docs/about.jet.html:66
 msgid "License"
 msgstr "许可"
 
-#: assets/templates/docs/about.jet.html:45
+#: assets/templates/docs/about.jet.html:68
 #, python-format
 msgid "Readeck is distributed under the terms of the license \"%s\""
 msgstr "Readeck 根据“%s”许可条款分发"
 
-#: assets/templates/docs/about.jet.html:49
+#: assets/templates/docs/about.jet.html:72
 msgid "Here's a short summary of the license conditions:"
 msgstr "以下是许可条件的简短摘要："
 
-#: assets/templates/docs/about.jet.html:54
+#: assets/templates/docs/about.jet.html:77
 msgid "Permissions"
 msgstr "权限"
 
-#: assets/templates/docs/about.jet.html:55
+#: assets/templates/docs/about.jet.html:78
 msgid "Conditions"
 msgstr "条件"
 
-#: assets/templates/docs/about.jet.html:56
+#: assets/templates/docs/about.jet.html:79
 msgid "Limitations"
 msgstr "限制"
 
-#: assets/templates/docs/about.jet.html:64
+#: assets/templates/docs/about.jet.html:87
 msgid "Commercial use"
 msgstr "商业用途"
 
-#: assets/templates/docs/about.jet.html:67
+#: assets/templates/docs/about.jet.html:90
 msgid "Distribution"
 msgstr "分发"
 
-#: assets/templates/docs/about.jet.html:70
+#: assets/templates/docs/about.jet.html:93
 msgid "Modification"
 msgstr "改进"
 
-#: assets/templates/docs/about.jet.html:73
+#: assets/templates/docs/about.jet.html:96
 msgid "Patent use"
 msgstr "专利使用"
 
-#: assets/templates/docs/about.jet.html:76
+#: assets/templates/docs/about.jet.html:99
 msgid "Private use"
 msgstr "个人使用"
 
-#: assets/templates/docs/about.jet.html:83
+#: assets/templates/docs/about.jet.html:106
 msgid "Disclose source"
 msgstr "披露来源"
 
-#: assets/templates/docs/about.jet.html:86
+#: assets/templates/docs/about.jet.html:109
 msgid "License and copyright notice"
 msgstr "许可和版权声明"
 
-#: assets/templates/docs/about.jet.html:89
+#: assets/templates/docs/about.jet.html:112
 msgid "Network use is distribution"
 msgstr "网络使用视为分发"
 
-#: assets/templates/docs/about.jet.html:92
+#: assets/templates/docs/about.jet.html:115
 msgid "Same license"
 msgstr "相同许可"
 
-#: assets/templates/docs/about.jet.html:95
+#: assets/templates/docs/about.jet.html:118
 msgid "State changes"
 msgstr "说明变更"
 
-#: assets/templates/docs/about.jet.html:102
+#: assets/templates/docs/about.jet.html:125
 msgid "Liability"
 msgstr "责任"
 
-#: assets/templates/docs/about.jet.html:105
+#: assets/templates/docs/about.jet.html:128
 msgid "Warranty"
 msgstr "担保"
 
-#: assets/templates/docs/about.jet.html:132
+#: assets/templates/docs/about.jet.html:155
 msgid "Third-Party Licenses"
 msgstr "第三方许可"
 
-#: assets/templates/docs/about.jet.html:134
+#: assets/templates/docs/about.jet.html:157
 msgid "Readeck includes and/or uses the following open source assets:"
 msgstr "Readeck 包括和/或使用以下开源资产："
 
@@ -2595,3 +2600,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "密码已更新。"
+
