@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-07-06 10:03+0000\n"
+"PO-Revision-Date: 2025-07-06 13:59+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
@@ -603,7 +603,7 @@ msgstr "Сборники ссылок"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr "Создать новый сборник"
+msgstr "Создать сборник"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
