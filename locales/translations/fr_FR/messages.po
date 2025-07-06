@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-06-27 06:56+0000\n"
+"PO-Revision-Date: 2025-07-05 09:59+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -442,9 +444,8 @@ msgid "Don't remind me"
 msgstr "Ne plus me le rappeler"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Fermer le panneau"
+msgstr "Fermer le dialogue"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -729,14 +730,12 @@ msgid "Remove Highlight(s)"
 msgstr "Supprimer la ou les annotations"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Fermer le menu"
+msgstr "Fermer l'image"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Accueil"
+msgstr "Afficher l'image"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -759,9 +758,8 @@ msgid "Highlight"
 msgstr "Annoter"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Copier le lien"
+msgstr "copier dans le presse papier"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
@@ -961,11 +959,12 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          Selon l'erreur, l'extension Readeck peut fournir une solution."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Vidéo"
+msgstr "Voir le journal"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1115,7 +1114,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importez les liens d'un ficher d'export Linkwarden"
+msgstr "Importez les bookmarks d'un ficher d'export Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -2586,4 +2585,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Mot de passe mis à jour."
-

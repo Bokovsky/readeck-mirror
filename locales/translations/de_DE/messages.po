@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
-"PO-Revision-Date: 2025-06-17 07:58+0000\n"
+"PO-Revision-Date: 2025-07-06 14:52+0000\n"
 "Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -442,9 +444,8 @@ msgid "Don't remind me"
 msgstr "Erinnere mich nicht"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Panel schließen"
+msgstr "Dialog schließen"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -731,14 +732,12 @@ msgid "Remove Highlight(s)"
 msgstr "Markierung(en) entfernen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Menü schließen"
+msgstr "Bild schließen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Homepage"
+msgstr "Bild anzeigen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -761,9 +760,8 @@ msgid "Highlight"
 msgstr "Markierung"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Link kopieren"
+msgstr "in Zwischenablage kopieren"
 
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
@@ -964,11 +962,13 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          Je nach Fehler kann Readecks Browser-Erweiterung ggf. einen "
+"Workaround anbieten."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Video"
+msgstr "Protokoll ansehen"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1120,19 +1120,17 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importiere Links aus GoodLinks-Exportdatei"
+msgstr "Importiere Lesezeichen aus Linkwarden-Exportdatei"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
 "\n"
-"    Lade eine JSON-Datei, die du aus der GoodLinks-App erhalten hast.\n"
+"    Lade eine JSON-Datei, die du aus der Linkwarden-App erhalten hast.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1363,9 +1361,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Importiere deine GoodLinks-Artikel"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importiere deine Lesezeichen"
+msgstr "Importiere deine Linkwarden-Lesezeichen"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
@@ -2605,4 +2602,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Passwort aktualisiert."
-
