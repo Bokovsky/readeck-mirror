@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-05 11:52+0200\n"
 "PO-Revision-Date: 2025-07-06 14:01+0000\n"
-"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
+"Last-Translator: FrankDex <frankdex@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/"
 "application/de/>\n"
 "Language: de_DE\n"
@@ -1361,9 +1361,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Importiere deine GoodLinks-Artikel"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importiere deine Lesezeichen"
+msgstr "Importiere deine Linkwarden Lesezeichen"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
