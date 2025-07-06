@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-06-19 12:12+0000\n"
+"PO-Revision-Date: 2025-07-07 20:08+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
+"application/ca/>\n"
 "Language: ca_ES\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/application/ca/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -452,9 +454,8 @@ msgid "Don't remind me"
 msgstr "No m'ho recordis"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Tanca el panell"
+msgstr "Tanca el diàleg"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -743,14 +744,12 @@ msgid "Remove Highlight(s)"
 msgstr "Treure ressaltat(s)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Tanca el menú"
+msgstr "Tanca la imatge"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Pàgina principal"
+msgstr "Mostra la imatge"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -774,9 +773,8 @@ msgstr "Ressaltar"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Copia l'enllaç"
+msgstr "Copia al porta-retalls"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -974,11 +972,14 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          Depenent de l'error, l'extensió del navegador de Readeck pot "
+"proporcionar\n"
+"          una solució alternativa."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Vídeo"
+msgstr "Veure el registre"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1129,19 +1130,17 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importa enllaços des d'un arxiu exportat des de GoodLinks"
+msgstr "Importa enllaços des d'un arxiu exportat des de Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
 "\n"
-"    Puja un arxiu JSON obtingut de la teva aplicació GoodLinks.\n"
+"    Puja un arxiu JSON obtingut de la teva aplicació Linkwarden.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
@@ -1259,15 +1258,15 @@ msgstr "Quan un document contingui \"%s\", els marcadors s'afegirà als favorits
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
-msgstr ""
+msgstr "Què no s'importa:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Progrés de lectura de l'article i estat de visualització,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Articles reenviats a Readwise Reader per correu electrònic,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:51
 msgid "Uploaded documents such as PDFs or EPUB."
@@ -1372,9 +1371,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Importa els teus articles de GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importa els teus marcadors"
+msgstr "Importa els teus marcadors de Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
@@ -2064,7 +2062,7 @@ msgstr "Clau d'API no vàlida"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV de Readwise Reader"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
@@ -2609,4 +2607,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr ""
-
