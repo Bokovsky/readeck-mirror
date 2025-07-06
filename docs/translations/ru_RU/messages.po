@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-01 09:47+0000\n"
-"PO-Revision-Date: 2025-07-05 14:47+0000\n"
+"PO-Revision-Date: 2025-07-06 10:03+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "documentation/ru/>\n"
@@ -47,7 +47,7 @@ msgstr "![форма добавления закладки](./img/bookmark-new.w
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
 msgstr ""
 "Несколько секунд — и закладка готова. Можно открыть её, прочитать, "
-"просмотреть, добавить ярлыки, выделить текст или экспортировать в "
+"просмотреть, добавить ярлыки, сделать выдержку или экспортировать в "
 "электронную книгу. Подробности в разделе [Работа с закладками](./"
 "bookmark.md)."
 
@@ -76,8 +76,8 @@ msgstr "### Картинка"
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
 msgstr ""
-"Если страница распознаётся как контейнер для картинки (например, с Unsplash)"
-", то она будет сохранена как картинка."
+"Если страница распознаётся как контейнер для картинки (напр., с Unsplash), "
+"то она будет сохранена как картинка."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -173,10 +173,10 @@ msgid ""
 msgstr ""
 "- **[Ярлыки](./labels.md)** \\\n"
 "  Ярлыки для закладок\n"
-"- **Выделения** \\\n"
-"  Выделения в тексте закладок\n"
-"- **[Собрания](./collections.md)** \\\n"
-"  Список собраний закладок"
+"- **Выдержки** \\\n"
+"  Выдержки из текста закладок\n"
+"- **[Сборники](./collections.md)** \\\n"
+"  Список сборников закладок"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
@@ -280,7 +280,7 @@ msgstr "### Доступные фильтры"
 
 #: en-US/bookmark-list.md:112
 msgid "You can combine the following filters:"
-msgstr ""
+msgstr "Можно сочетать следующие фильтры:"
 
 #: en-US/bookmark-list.md:114
 msgid ""
@@ -299,14 +299,31 @@ msgid ""
 "- **From date**, **To date**\\\n"
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
+"- **Поиск**\\\n"
+" Ищет в тексте, заголовке, авторах, имени сайта, домене и ярлыках закладки.\n"
+"- **Заголовок**\\\n"
+"  Только в заголовках.\n"
+"- **Автор**\\\n"
+"  Только в авторах.\n"
+"- **Сайт**\\\n"
+"  Имена сайтов и домены.\n"
+"- **Ярлык**\\\n"
+"  Поиск по ярлыкам.\n"
+"- **В избранном**, **Архивирован**, **Тип**\\\n"
+"  Ограничение по соответствующим критериям.\n"
+"- **С даты**, **Пр дату**\\\n"
+"  Тут выбирается время сохранения закладки. Например, последние 4 недели, но "
+"не в самую последнюю."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
-msgstr ""
+msgstr "### Правила запроса"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
 msgstr ""
+"Для полей **Поиск**, **Заголовок**, **Автор**, **Сайт** и **Ярлык** "
+"синтаксис одинаков:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -315,36 +332,51 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
+"- `испуганный кот ` найдет материалы со словами **испуганный** и **кот**.\n"
+"- `\"испуганный кот\"` найдет материалы с точной фразой **испуганный кот**.\n"
+"- `кот*` будет искать всё со словами, начинающимися с **кот** (кот, котомка, "
+"котлета и т.п.).\n"
+"- `-испуганный кот` будет искать со словом **кот**, но БЕЗ слова "
+"**испуганный**."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
 msgstr ""
+"Результат поиска можно сохранить как новый [сборник](./collections.md), и он "
+"станет постоянным."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr ""
+msgstr "## Экспорт/импорт закладок"
 
 #: en-US/bookmark-list.md:143
 msgid ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Bookmark list menu"
 msgstr ""
+"![Меню](./img/bookmark-list-menu.webp)\n"
+"Меню экспорта/импорта"
 
 #: en-US/bookmark-list.md:146
 msgid "### Export bookmarks"
-msgstr ""
+msgstr "### Экспорт закладок"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
 msgstr ""
+"Кнопка около кнопки фильтров создаст из списка закладок ePub-файл. Это будет "
+"одна электронная книга, содержащая все статьи, разбитые на главы."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
-msgstr ""
+msgstr "### Импорт закладок"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
 msgstr ""
+"В том же меню есть пункт [Импорт закладок](readeck-instance://bookmarks/"
+"import). Там есть инструмент, который импортирует закладки из разных "
+"источников."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
@@ -352,17 +384,19 @@ msgstr "# Работа с закладками"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
-msgstr ""
+msgstr "## Просмотр"
 
 #: en-US/bookmark.md:5
 msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
 msgstr ""
+"![Статья-закладка](./img/bookmark-view.webp)\n"
+"Просмотр статьи-закладки."
 
 #: en-US/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr ""
+msgstr "Просмотр закладки делится на 3 части:"
 
 #: en-US/bookmark.md:10
 msgid ""
@@ -370,96 +404,116 @@ msgid ""
 "- The content,\n"
 "- A sidebar with information, labels, highlights and actions."
 msgstr ""
+"- Сверху — навигация и настройки показа,\n"
+"- Сама статья,\n"
+"- Панель сбоку с информацией, ярлыками, выдержками и операциями."
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr ""
+msgstr "Показ закладки зависит от её типа, их три:"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr ""
+msgstr "## Навигация и настройки просмотра"
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
-msgstr ""
+msgstr "Слева сверху находится кнопка возврата на предыдущую страницу."
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr ""
+msgstr "Для закладки-статьи, кнопка сверху справа позволяет изменить шрифт."
 
 #: en-US/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
+"![Настройки шрифта статьи](./img/bookmark-typography.webp)\n"
+"Шрифтовые настройки."
 
 #: en-US/bookmark.md:39
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
+"Здесь задается шрифт статьи, его размер, выравнивание и высота строк.\\\n"
+"Эти настройки сохранятся и будут применены ко всем статьям, которые вы "
+"прочитаете потом."
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
-msgstr ""
+msgstr "## Смена заголовка"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
 msgstr ""
+"Название закладки создаётся автоматически при её сохранении. Если вам надо "
+"его изменить, щелкните по нему или нажмите кнопку сбоку от заголовка."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
-msgstr ""
+msgstr "## Операции"
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr ""
+msgstr "На боковой панели есть кнопки для работы с закладкой."
 
 #: en-US/bookmark.md:52
 msgid "### Favorite"
-msgstr ""
+msgstr "### Избранное"
 
 #: en-US/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr ""
+msgstr "Изменяет статус «избранное» закладки."
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr ""
+msgstr "### Архив"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr ""
+msgstr "Перемещает закладку в (и достаёт из) архива."
 
 #: en-US/bookmark.md:60
 msgid "### Share"
-msgstr ""
+msgstr "### Поделиться"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
 msgstr ""
+"Жмите эту кнопку, если вам надо создать ссылку, чтобы поделиться статьей с "
+"кем-то."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
 msgstr ""
+"Там же можно экспортировать закладку (пока лишь в ePub) для чтения на другом "
+"устройстве."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr ""
+msgstr "### Удаление"
 
 #: en-US/bookmark.md:69
 msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
+"Пометит закладку для удаления.\\\n"
+"Если нажмете по ошибке — не волнуйтесь! Действие можно отменить до "
+"фактического удаления."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr ""
+msgstr "## Ярлыки"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
+"К закладке можно добавить сколько душе угодно ярлыков. Просто введите текст "
+"в поле ярлыка и нажмите **Добавить ярлык**. Ярлыком может быть что угодно, "
+"даже эмодзи, если хотите."
 
 #: en-US/bookmark.md:77
 msgid ""
