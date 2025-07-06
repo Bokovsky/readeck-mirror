@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-01 09:47+0000\n"
-"PO-Revision-Date: 2025-07-06 10:03+0000\n"
+"PO-Revision-Date: 2025-07-06 13:59+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "documentation/ru/>\n"
@@ -88,7 +88,7 @@ msgid "A video is a page that was identified as a video container (ie. a link to
 msgstr ""
 "Если страница была распознана как контейнер для видео (напр. Youtube или "
 "Vimeo), то она будет показана как видеоплеер. При этом само видео будет "
-"показано с соответствующего сайта."
+"взято с соответствующего сайта."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
@@ -520,38 +520,44 @@ msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
+"![Форма ярлыка закладки](./img/bookmark-labels.webp)\n"
+"Добавление ярлыка."
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr ""
+msgstr "Читайте о работе с ярлыками в разделе [Ярлыки](./labels.md)."
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr ""
+msgstr "## Выдержки"
 
 #: en-US/bookmark.md:84
 msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
+"В статье есть интересный кусок? Сделайте выдержку!\n"
+"Для этого выделите текст, и появится меню с предложением сделать выдержку."
 
 #: en-US/bookmark.md:87
 msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
 msgstr ""
+"![Так делают выдержку](./img/bookmark-highlight.webp)\n"
+"Создание выдержки."
 
 #: en-US/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr ""
+msgstr "Ваши выдержки появятся на панели сбоку."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr ""
+msgstr "Убрать выдержку можно, выбрав её на боковой панели, или самой в статье."
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr ""
+msgstr "# Сборники"
 
 #: en-US/collections.md:3
 msgid ""
@@ -561,6 +567,11 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
+"Сборники позволяют легко упорядочить и экспортировать закладки,\n"
+"используя поисковые запросы по своему вкусу.\n"
+"Новая закладка, подпадающая под критерии сборника\n"
+"сразу же в нём появится.\n"
+"Например:"
 
 #: en-US/collections.md:9
 msgid ""
@@ -569,52 +580,62 @@ msgid ""
 "- The pictures with the label \"cat\",\n"
 "- The articles that contain \"climate\" in their title."
 msgstr ""
+"- Непрочитанные статьи (без изображений и видео),\n"
+"- Архивные статьи с «wikipedia.org»,\n"
+"- Картинки с меткой «кошка»,\n"
+"- Статьи, в заголовке которых есть слово «климат»."
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
-msgstr ""
+msgstr "## Создание сборника"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
 msgstr ""
+"Чтобы создать сборник, перейдите в [Список сборников](readeck-instance://"
+"bookmarks/collections) и нажмите **Создать сборник**."
 
 #: en-US/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
+"![Форма создания сборника статей](./img/collection-new.webp)\n"
+"Создание сборника статей"
 
 #: en-US/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr ""
+msgstr "Выберите нужные критерии и нажмите **Сохранить**."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
 msgstr ""
+"О том, как работать с фильтрами, смотрите справку по [фильтрам закладок]"
+"(./bookmark-list.md#filters)."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
-msgstr ""
+msgstr "## Экспорт сборника"
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr ""
+msgstr "На странице сборника вы можете его экспортировать целиком."
 
 #: en-US/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr ""
+msgstr "Сейчас это можно сделать только в формате ePub в виде книги."
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
-msgstr ""
+msgstr "## Удаление сборника"
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr ""
+msgstr "На странице сборника нажмите **Править** и **Удалить**."
 
 #: en-US/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
-msgstr ""
+msgstr "У вас будет пара секунд для отмены, если произошла ошибка."
 
 #: en-US/index.md:1
 msgid ""
@@ -630,20 +651,31 @@ msgid ""
 "    - user-profile\n"
 "---"
 msgstr ""
+"---\n"
+"Title: Содержание\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
 
 #: en-US/index.md:13
 msgid "# Readeck Help"
-msgstr "# Помощь Readeck"
+msgstr "# Помощь по Readeck"
 
 #: en-US/index.md:15
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr ""
-"Readeck приветствует Вас! Тут вы найдете ответы на большинство ваших "
-"вопросов о Readeck и некоторые советы, которые помогут вам стать опытней."
+"Readeck приветствует Вас! Тут вы найдете ответы на многие ваши вопросы о "
+"Readeck и некоторые советы, которые помогут вам стать опытней."
 
 #: en-US/index.md:17
 msgid "## Contents"
-msgstr ""
+msgstr "## Содержание"
 
 #: en-US/index.md:19
 msgid ""
@@ -654,40 +686,52 @@ msgid ""
 "- [Ebook Catalog](./opds.md)\n"
 "- [User Profile](./user-profile.md)"
 msgstr ""
+"- [Закладки](./bookmark-list.md)\n"
+"- [Работа с закладками](./bookmark.md)\n"
+"- [Ярлыки](./labels.md)\n"
+"- [Сборники](./collections.md)\n"
+"- [Каталог Ebook’ов](./opds.md)\n"
+"- [Профиль пользователя](./user-profile.md)"
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr ""
+msgstr "# Ярлыки"
 
 #: en-US/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
+"Ярлыков к закладке [можно добавить сколько хотите](./bookmark.md#labels).\\\n"
+"Ярлыком может быть что угодно, даже эмодзи."
 
 #: en-US/labels.md:6
 msgid "## Label List"
-msgstr ""
+msgstr "## Список Ярлыков"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
 msgstr ""
+"В [Списке Ярлыков](readeck-instance://bookmarks/labels) можно увидеть все "
+"ваши ярлыки сразу, а также сколько именно закладок содержит каждый ярлык."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr ""
+msgstr "Нажав на ярлык, вы увидите список всех закладок, принадлежащих ему."
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
-msgstr ""
+msgstr "## Переименование ярлыка"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
 msgstr ""
+"На странице с ярлыком щелкните по заголовку страницы (ярлыку), чтобы "
+"переименовать его."
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
-msgstr ""
+msgstr "# Каталог Ebook’ов"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
