@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
 "PO-Revision-Date: 2025-07-07 20:08+0000\n"
-"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
+"Last-Translator: 0ko <0ko@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
 "Language: ru_RU\n"
@@ -2495,12 +2495,12 @@ msgstr "Дек"
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr "утр."
+msgstr "Д.П."
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr "веч."
+msgstr "П.П."
 
 #: pkg/strftime/strftime.go:75
 #, python-format
