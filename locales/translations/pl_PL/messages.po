@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-07-07 20:08+0000\n"
-"Last-Translator: twkozlowski <twkozlowski@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-08 21:08+0000\n"
+"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
 "application/pl/>\n"
 "Language: pl_PL\n"
@@ -440,6 +440,10 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            Rozszerzenie przeglądarki umożliwia zapisywanie stron, obrazów i "
+"wyborów\n"
+"            bezpośrednio z poziomu przeglądarki!"
 
 #: assets/templates/bookmarks/base.jet.html:98
 #: assets/templates/bookmarks/components/sidebar.jet.html:24
@@ -894,7 +898,7 @@ msgstr "Import i eksport"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Kanał Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
