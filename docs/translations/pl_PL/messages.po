@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-06-01 09:47+0000\n"
-"PO-Revision-Date: 2025-07-07 20:08+0000\n"
-"Last-Translator: twkozlowski <twkozlowski@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-08 21:08+0000\n"
+"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
 "documentation/pl/>\n"
 "Language: pl_PL\n"
@@ -94,7 +94,7 @@ msgstr "W panelu bocznym znajdziesz pole wyszukiwania i linki, które przeniosą
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
+msgstr "![Pasek boczny zakładek](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -831,6 +831,8 @@ msgstr "Jeśli potrzebujesz udzielić dostępu do swojego konta Readeck jakiejś
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
+"Zamiast tego możesz podać swoją nazwę użytkownika i wybrany token jako dane "
+"uwierzytelniające."
 
 #~ msgid "## Application Passwords"
 #~ msgstr "## Hasła aplikacji"
