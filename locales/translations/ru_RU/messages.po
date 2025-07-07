@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-07-07 20:08+0000\n"
-"Last-Translator: 0ko <0ko@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-08 21:08+0000\n"
+"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
 "application/ru/>\n"
 "Language: ru_RU\n"
@@ -348,7 +348,7 @@ msgstr "Выдержки из закладок"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr "Вы пока ничего не выделили."
+msgstr "Вы пока не делали выдержек."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
