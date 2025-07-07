@@ -20,8 +20,8 @@ import (
 
 	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
-	"github.com/go-shiori/go-readability"
 
+	"codeberg.org/readeck/go-readability"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/srcset"
 )
@@ -64,9 +64,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 			return next
 		}
 
-		// Note: even if readability is disable, we must perform some pre and post processing
-		// tasks.
-
+		// Note: we perform some pre- and post-processing even when readability is disabled.
 		fixNoscriptImages(m.Dom)
 		convertPictureNodes(m.Dom, m)
 
@@ -81,7 +79,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 				f(&parser)
 			}
 
-			article, err := parser.ParseDocument(m.Dom, m.Extractor.Drop().URL)
+			article, err := parser.ParseAndMutate(m.Dom, m.Extractor.Drop().URL)
 			if err != nil {
 				m.Log().Error("readability error", slog.Any("err", err))
 				m.ResetContent()
@@ -121,8 +119,10 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		// Ensure we always start with a <section>
 		encloseArticle(body)
 
-		// Restore stored attributes
-		restoreDataAttributes(body)
+		if readabilityEnabled {
+			// Restore attributes stored by prepareTitles
+			restoreDataAttributes(body)
+		}
 
 		// Replaces id attributes in content
 		setIDs(body)
@@ -265,13 +265,11 @@ func removeEmbeds(top *html.Node) {
 	dom.RemoveNodes(dom.GetAllNodesWithTag(top, "object", "embed", "iframe", "video", "audio"), nil)
 }
 
+// fixNoscriptImages processes <noscript> tags by replacing them with the <img> tag contain within,
+// but only when the <noscript> tag doesn't immediately follow another <img> tag. go-readability
+// also does this, but since convertPictureNodes runs before readability, we need this explicit step
+// to process <noscript> tags within <picture> elements.
 func fixNoscriptImages(top *html.Node) {
-	// A bug in readability prevents us to extract images.
-	// It does move the noscript content when it's a single image
-	// but only when the noscript previous sibling is an image.
-	// This will replace the noscript content with the image
-	// in the other case.
-
 	noscripts := dom.GetElementsByTagName(top, "noscript")
 	dom.ForEachNode(noscripts, func(noscript *html.Node, _ int) {
 		noscriptContent := dom.TextContent(noscript)
