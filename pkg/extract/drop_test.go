@@ -24,6 +24,10 @@ func TestDrop(t *testing.T) {
 	httpmock.RegisterResponder("GET", "/error", httpmock.NewErrorResponder(errors.New("HTTP")))
 	httpmock.RegisterResponder("GET", "/ioerror", NewIOErrorResponder(200,
 		map[string]string{"content-type": "text/html; charset=UTF-8"}))
+	httpmock.RegisterResponder("GET", "/ct-unsupported",
+		NewContentResponder(200,
+			map[string]string{"content-type": "application/x-something-weird"},
+			"html/ex1.html"))
 	httpmock.RegisterResponder("GET", "/ch1",
 		NewContentResponder(200,
 			map[string]string{"content-type": "text/html; charset=UTF-8"},
@@ -65,6 +69,8 @@ func TestDrop(t *testing.T) {
 			{"http", mustParse("http://x/error"), `Get "http://x/error": HTTP`},
 			{"404", mustParse("http://x/404"), "Invalid status code (404)"},
 			{"ioerror", mustParse("http://x/ioerror"), "read error"},
+			{"no type", mustParse("http://x/ch1-notype"), "unsupported content-type: \"\""},
+			{"unsupported", mustParse("http://x/ct-unsupported"), "unsupported content-type: \"application/x-something-weird\""},
 		}
 
 		for _, x := range tests {
@@ -133,7 +139,6 @@ func TestDrop(t *testing.T) {
 		}{
 			{"ch1", true, false, "text/html", "utf-8", ""},
 			{"ch1-nocharset", true, false, "text/html", "utf-8", ""},
-			{"ch1-notype", false, false, "", "", ""},
 			{"ch2", true, false, "text/html", "iso-8859-15", "grand mammifère"},
 			{"ch2-detect", true, false, "text/html", "windows-1252", "grand mammifère"},
 			{"ch3", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
