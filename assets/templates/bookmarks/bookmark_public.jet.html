@@ -16,6 +16,30 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- else -}}
     {{ gettext("Shared link") }}
   {{- end -}} - Readeck</title>
+
+  {{- if isset(.Item) }}
+  <meta property="og:title" content="{{ .Item.Title }}">
+  {{ end -}}
+  {{- if !empty(.Item.Description) }}
+  <meta property="og:description" content="{{ .Item.Description }}">
+  {{ end -}}
+  {{ if isset(.Item.Resources.thumbnail) }}
+  <meta property="og:image" content="{{ .Item.Resources.thumbnail.Src }}">
+  <meta property="og:image:width" content="{{ .Item.Resources.thumbnail.Width }}">
+  <meta property="og:image:height" content="{{ .Item.Resources.thumbnail.Height }}">
+  {{ end }}
+  {{- if .Item.Type == "video" }}
+  <meta property="og:type" content="video.other">
+  {{ else if .Item.HasArticle }}
+  <meta property="og:type" content="article">
+  {{- range .Item.Authors }}
+  <meta property="article:author" content="{{ . }}">
+  {{ end -}}
+  {{- if !empty(.Item.Published) }}
+  <meta property="article:published_time" content="{{ .Item.Published|date(`RFC3339`) }}">
+  {{ end -}}
+  {{- end }}
+
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="csp-nonce" content="{{ cspNonce }}" />
