@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-06-24 04:58+0000\n"
-"Last-Translator: soaresluciano <soaresluciano@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-13 01:14+0000\n"
+"Last-Translator: afelipefernandes <afelipefernandes@noreply.codeberg.org>\n"
+"Language-Team: Portuguese (Brazil) <https://translate.codeberg.org/projects/"
+"readeck/application/pt_BR/>\n"
 "Language: pt_BR\n"
-"Language-Team: Portuguese (Brazil) <https://translate.codeberg.org/projects/readeck/application/pt_BR/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -743,12 +745,11 @@ msgstr "Remover Marcação(ões)"
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 #, fuzzy
 msgid "Close image"
-msgstr "Fechar menu"
+msgstr "Fechar Imagem"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Página inicial"
+msgstr "Mostrar Imagem"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -2502,4 +2503,3 @@ msgstr ""
 #~ "        following email address within your Kindle Account:\n"
 #~ "        "
 #~ msgstr ""
-
