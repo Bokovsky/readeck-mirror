@@ -32,6 +32,7 @@ func init() {
 		"image/bmp",
 		"image/gif",
 		"image/x-icon",
+		"image/vnd.microsoft.icon",
 		"image/jpeg",
 		"image/png",
 		"image/tiff",
@@ -182,7 +183,7 @@ func (im *NativeImage) Encode(w io.Writer) error {
 		return gif.Encode(w, im.m, &gif.Options{
 			NumColors: numColors,
 		})
-	case im.encFormat == "png" || im.lossless:
+	case im.encFormat == "png" || im.format == "ico" || im.lossless:
 		c := png.BestSpeed
 		if im.compression == CompressionBest {
 			c = png.BestCompression

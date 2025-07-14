@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	rxHTMLStart = regexp.MustCompile(`^(.*?)<body>`)
+	rxHTMLStart = regexp.MustCompile(`^(?s)(.*?)<body>`)
 	rxHTMLEnd   = regexp.MustCompile(`</body>\s*</html>\s*$`)
 )
 
