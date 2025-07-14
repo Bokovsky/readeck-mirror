@@ -85,5 +85,11 @@ exports.setConfig = function (config) {
     case $.domain == "theverge.com":
       config.replaceStrings = []
       break
+
+    case $.domain == "politico.eu":
+      config.bodySelectors.unshift('//article')
+      config.stripSelectors.push('//nav', '//aside', '//footer')
+      config.stripIdOrClass.push('ad', 'listen', 'pro-pill')
+      break
   }
 }
