@@ -5,7 +5,7 @@ go 1.24
 toolchain go1.24.4
 
 require (
-	codeberg.org/readeck/go-readability v0.0.0-20250624161939-2b59a52ff7d6
+	codeberg.org/readeck/go-readability v0.0.0-20250707153221-ae7d57e84914
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.3.3
 	github.com/antchfx/htmlquery v1.3.4
@@ -14,7 +14,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/casbin/casbin/v2 v2.108.0
+	github.com/casbin/casbin/v2 v2.109.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
@@ -43,12 +43,12 @@ require (
 	github.com/wneessen/go-mail v0.6.2
 	github.com/yuin/goldmark v1.7.12
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/crypto v0.39.0
-	golang.org/x/image v0.28.0
-	golang.org/x/net v0.41.0
-	golang.org/x/sync v0.15.0
-	golang.org/x/term v0.32.0
-	golang.org/x/text v0.26.0
+	golang.org/x/crypto v0.40.0
+	golang.org/x/image v0.29.0
+	golang.org/x/net v0.42.0
+	golang.org/x/sync v0.16.0
+	golang.org/x/term v0.33.0
+	golang.org/x/text v0.27.0
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.38.0
 )
@@ -60,7 +60,7 @@ require (
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antchfx/xpath v1.3.4 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
-	github.com/bmatcuk/doublestar/v4 v4.8.1 // indirect
+	github.com/bmatcuk/doublestar/v4 v4.9.0 // indirect
 	github.com/casbin/govaluate v1.8.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -87,14 +87,14 @@ require (
 	github.com/prometheus/common v0.65.0 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	golang.org/x/exp v0.0.0-20250620022241-b7579e27df2b // indirect
-	golang.org/x/sys v0.33.0 // indirect
+	golang.org/x/exp v0.0.0-20250711185948-6ae5c78190dc // indirect
+	golang.org/x/sys v0.34.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	modernc.org/libc v1.66.2 // indirect
+	modernc.org/libc v1.66.3 // indirect
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 )
