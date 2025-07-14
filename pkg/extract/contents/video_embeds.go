@@ -5,6 +5,8 @@
 package contents
 
 import (
+	"fmt"
+	"log/slog"
 	"net/url"
 	"regexp"
 	"strings"
@@ -23,8 +25,6 @@ func ConvertVideoEmbeds(m *extract.ProcessMessage, next extract.Processor) extra
 		return next
 	}
 
-	m.Log().Debug("convert video embeds")
-
 	dom.ForEachNode(dom.QuerySelectorAll(m.Dom, "iframe"), func(iframe *html.Node, _ int) {
 		attrSrc := dom.GetAttribute(iframe, "src")
 		srcURL, err := url.Parse(attrSrc)
@@ -39,6 +39,9 @@ func ConvertVideoEmbeds(m *extract.ProcessMessage, next extract.Processor) extra
 			}
 			videoID := match[1]
 			videoURL := "https://www.youtube.com/watch?v=" + videoID
+			if startAt := srcURL.Query().Get("start"); startAt != "" {
+				videoURL = fmt.Sprintf("%s&t=%ss", videoURL, startAt)
+			}
 
 			link := dom.CreateElement("a")
 			dom.SetAttribute(link, "href", videoURL)
@@ -62,6 +65,8 @@ func ConvertVideoEmbeds(m *extract.ProcessMessage, next extract.Processor) extra
 			dom.AppendChild(p, caption)
 
 			dom.ReplaceChild(iframe.Parent, p, iframe)
+
+			m.Log().Debug("converted video embed", slog.String("url", videoURL))
 		}
 	})
 

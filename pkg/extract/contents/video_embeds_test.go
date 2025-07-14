@@ -23,7 +23,7 @@ func TestExtractor_ConvertVideoEmbeds(t *testing.T) {
 		<html>
 		<body>
 		<p>This is a video:</p>
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/haAimDKxo40?si=XZY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/haAimDKxo40?si=XZY&start=123" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen=""></iframe>
 		<p>Conclusion</p>
 		</body>
 		</html>
@@ -38,6 +38,6 @@ func TestExtractor_ConvertVideoEmbeds(t *testing.T) {
 	assert.Equal(`<!-- page 1 -->
 
 		<p>This is a video:</p>
-		<figure><a href="https://www.youtube.com/watch?v=haAimDKxo40" data-readeck-video-iframe-src="https://www.youtube-nocookie.com/embed/haAimDKxo40?si=XZY"><img alt="YouTube video" src="https://i.ytimg.com/vi/haAimDKxo40/hqdefault.jpg"/></a><figcaption><a href="https://www.youtube.com/watch?v=haAimDKxo40">https://www.youtube.com/watch?v=haAimDKxo40</a></figcaption></figure>
+		<figure><a href="https://www.youtube.com/watch?v=haAimDKxo40&amp;t=123s" data-readeck-video-iframe-src="https://www.youtube-nocookie.com/embed/haAimDKxo40?si=XZY&amp;start=123"><img alt="YouTube video" src="https://i.ytimg.com/vi/haAimDKxo40/hqdefault.jpg"/></a><figcaption><a href="https://www.youtube.com/watch?v=haAimDKxo40&amp;t=123s">https://www.youtube.com/watch?v=haAimDKxo40&amp;t=123s</a></figcaption></figure>
 		<p>Conclusion</p>`, finalHTML)
 }
