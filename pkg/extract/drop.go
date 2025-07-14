@@ -145,9 +145,9 @@ func (d *Drop) Load(client *http.Client) error {
 		return d.loadTextPlain(rsp)
 	case strings.HasPrefix(d.ContentType, "image/"):
 		return d.loadImage(rsp)
+	default:
+		return fmt.Errorf("unsupported content-type: %q", d.ContentType)
 	}
-
-	return nil
 }
 
 // IsHTML returns true when the resource is of type HTML.
