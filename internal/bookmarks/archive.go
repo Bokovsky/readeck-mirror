@@ -21,7 +21,7 @@ import (
 	"github.com/go-shiori/dom"
 	"github.com/google/uuid"
 
-	"codeberg.org/readeck/readeck/pkg/archiver/v2"
+	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/img"

@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/pkg/archiver/v2"
+	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
