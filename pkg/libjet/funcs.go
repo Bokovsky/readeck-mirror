@@ -6,6 +6,8 @@
 package libjet
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"hash/adler32"
 	"io"
@@ -86,6 +88,15 @@ var funcMap = map[string]jet.Func{
 		i := ToInt[uint64](args.Get(0))
 
 		return reflect.ValueOf(utils.FormatBytes(i))
+	},
+	"niceJSON": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("niceJSON", 1, 1)
+		v, _ := Indirect(args.Get(0))
+		buf := new(bytes.Buffer)
+		enc := json.NewEncoder(buf)
+		enc.SetIndent("", "  ")
+		enc.Encode(v) //nolint:errcheck
+		return reflect.ValueOf(buf.String())
 	},
 	"attrList": func(args jet.Arguments) reflect.Value {
 		if args.NumOfArguments()%2 > 0 {
