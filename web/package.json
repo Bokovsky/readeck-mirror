@@ -20,7 +20,7 @@
     "@hotwired/turbo": "^8.0.13",
     "@mdi/svg": "^7.4.47",
     "boxicons": "^2.1.4",
-    "cssnano": "^7.0.7",
+    "cssnano": "^7.1.0",
     "culori": "^4.0.2",
     "del": "^8.0.0",
     "esbuild": "^0.25.6",
