@@ -9,12 +9,14 @@ import (
 	"fmt"
 	"log/slog"
 	"net/url"
+	"slices"
 	"strings"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/antchfx/htmlquery"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
+	"golang.org/x/net/html"
 )
 
 var (
@@ -166,16 +168,29 @@ func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	body := bodyNodes[0]
 
 	for _, selector := range cfg.BodySelectors {
-		node, _ := htmlquery.Query(m.Dom, selector)
-		if node == nil {
+		nodes, _ := htmlquery.QueryAll(m.Dom, selector)
+		if len(nodes) == 0 {
 			continue
 		}
-		if len(dom.Children(node)) == 0 {
+
+		// Filter out nodes that don't have any element children
+		nodes = slices.DeleteFunc(nodes, func(n *html.Node) bool {
+			for child := n.FirstChild; child != nil; child = child.NextSibling {
+				if child.Type == html.ElementNode {
+					return false
+				}
+			}
+			return true
+		})
+		if len(nodes) == 0 {
 			continue
 		}
 
 		// First match, replace the root node and stop
-		m.Log().Debug("site config body found", slog.Int("nodes", len(dom.Children(node))))
+		m.Log().Debug("site config body found",
+			slog.String("selector", selector),
+			slog.Int("nodes", len(nodes)),
+		)
 
 		newBody := dom.CreateElement("body")
 		section := dom.CreateElement("section")
@@ -183,7 +198,9 @@ func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		dom.SetAttribute(section, "id", "article")
 		dom.AppendChild(newBody, section)
 
-		dom.AppendChild(section, node)
+		for _, node := range nodes {
+			dom.AppendChild(section, node)
+		}
 		dom.ReplaceChild(body.Parent, newBody, body)
 
 		break
