@@ -26,6 +26,7 @@
 - more permissive Open Graph metadata scanning
 - correct encoding for imported Wallabag articles that were originally non-UTF8, by [@mislav](https://codeberg.org/mislav)
 - layout in mosaic view with very long titles
+- readeck.exe crash, serving web assets on Windows, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - documentation extracted to gettext

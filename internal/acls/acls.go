@@ -6,6 +6,7 @@
 package acls
 
 import (
+	"bufio"
 	"embed"
 	"errors"
 	"path"
@@ -133,8 +134,10 @@ func (sa *adapter) LoadPolicy(model model.Model) error {
 	if sa.contents == "" {
 		return errors.New("invalid line, line cannot be empty")
 	}
-	lines := strings.Split(sa.contents, "\n")
-	for _, str := range lines {
+
+	scanner := bufio.NewScanner(strings.NewReader(sa.contents))
+	for scanner.Scan() {
+		str := scanner.Text()
 		if str == "" {
 			continue
 		}

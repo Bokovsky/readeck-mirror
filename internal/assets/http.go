@@ -11,7 +11,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"path/filepath"
 	"regexp"
 	"strings"
 	"time"
@@ -94,7 +93,7 @@ func (f *directFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	name := filepath.Base(r.URL.Path)
+	name := path.Base(r.URL.Path)
 	accepts := map[string]bool{}
 	for _, x := range accept.ParseAccept(r.Header, "Accept-Encoding") {
 		accepts[x.Value] = true
@@ -140,7 +139,7 @@ func (f *directFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// Go 1.16 did not implement any form of caching control for embed.FS.
 		// Since all the files in assets/www have a hash fragment, we're just going to
 		// use it for caching.
-		if reAssetHashed.MatchString(path.Base(name)) {
+		if reAssetHashed.MatchString(name) {
 			w.Header().Set("Cache-Control", `public, max-age=31536000`)
 		}
 

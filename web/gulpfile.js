@@ -31,6 +31,10 @@ const fontCatalog = require("./ui/fonts.js")
 
 const DEST = path.resolve("../assets/www")
 
+function toPosixPath(p) {
+  return process.platform === "win32" ? p.replace(/\\/g, "/") : p
+}
+
 const sassCompiler = gulpSass(sass)
 
 // hashName returns a gulp stream for hashing filenames with the
@@ -279,7 +283,7 @@ function icon_sprite(src, dst) {
       gulpRename((file, f) => {
         // Set new filename on each entry in order to set
         // a chosen ID on each symbol.
-        let p = path.relative(f.cwd, f.path)
+        let p = toPosixPath(path.relative(f.cwd, f.path))
         let id = Object.entries(icons).find((x) => x[1] == p)[0]
         file.basename = id
       }),
@@ -356,7 +360,7 @@ async function write_manifest(done) {
   const rxFilename = new RegExp(/^(.+)(\.[a-f0-9]{8}\.)(.+)$/)
   const excluded = [".br", ".gz", ".map"]
 
-  const files = await glob(path.join(DEST, "**/*"))
+  const files = await glob(toPosixPath(path.join(DEST, "**/*")))
 
   let manifest = {}
   for (let f of files) {
@@ -364,7 +368,7 @@ async function write_manifest(done) {
     if (!st.isFile()) {
       continue
     }
-    f = path.relative(DEST, f)
+    f = toPosixPath(path.relative(DEST, f))
     if (f == "manifest.json" || excluded.includes(path.extname(f))) {
       continue
     }

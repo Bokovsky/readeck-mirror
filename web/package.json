@@ -58,8 +58,8 @@
   },
   "scripts": {
     "lint": "eslint *.js ./src",
-    "build": "NODE_ENV=production gulp",
+    "build": "gulp",
     "clean": "gulp clean",
-    "watch": "NODE_ENV=production gulp dev"
+    "watch": "gulp dev"
   }
 }
