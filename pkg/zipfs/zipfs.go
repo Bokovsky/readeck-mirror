@@ -99,18 +99,18 @@ func (z *ZipRW) makeDirs(filename string) (err error) {
 // Close closes all writer resources, including the underlying io.Writer and io.Reader
 // when they implement their respective closer interfaces.
 func (z *ZipRW) Close() error {
-	var err error
+	errs := []error{}
 	if z.zw != nil {
-		err = z.zw.Close()
+		errs = append(errs, z.zw.Close())
 	}
 	if c, ok := z.dst.(io.WriteCloser); ok {
-		err = c.Close()
+		errs = append(errs, c.Close())
 	}
 	if c, ok := z.src.(io.ReadCloser); ok {
-		err = c.Close()
+		errs = append(errs, c.Close())
 	}
 
-	return err
+	return errors.Join(errs...)
 }
 
 // AddDestFile adds a destination file to ZipRW.
@@ -143,7 +143,12 @@ func (z *ZipRW) AddSourceFile(name string) (err error) {
 	return z.init()
 }
 
-// Source returns the underlying source zip.Reader.
+// Dest returns the underlying destination [zip.Writer].
+func (z *ZipRW) Dest() *zip.Writer {
+	return z.zw
+}
+
+// Source returns the underlying source [zip.Reader].
 func (z *ZipRW) Source() *zip.Reader {
 	return z.zr
 }

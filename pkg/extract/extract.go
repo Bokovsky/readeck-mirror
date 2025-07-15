@@ -248,7 +248,7 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 	}
 
 	if res.logger == nil {
-		res.logger = slog.New(newLogRecorder(slog.Default().Handler(), res))
+		res.logger = slog.New(newLogRecorder(slog.Default().Handler(), slog.LevelDebug, res))
 	}
 
 	return res, nil
@@ -258,9 +258,9 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 // This logger will copy everything to the extractor internal log and error list.
 // Arguments are [slog.With] arguments and are shared between the parent logger
 // and the log recorder.
-func SetLogger(logger *slog.Logger, args ...any) func(e *Extractor) {
+func SetLogger(logger *slog.Logger, level slog.Level, args ...any) func(e *Extractor) {
 	return func(e *Extractor) {
-		e.logger = slog.New(newLogRecorder(logger.Handler(), e)).With(args...)
+		e.logger = slog.New(newLogRecorder(logger.Handler(), level, e)).With(args...)
 	}
 }
 

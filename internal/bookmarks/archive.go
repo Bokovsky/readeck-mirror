@@ -5,22 +5,23 @@
 package bookmarks
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"io"
 	"log/slog"
-	"mime"
-	"net/url"
+	"net/http"
 	"path"
 	"strconv"
 	"strings"
 	"time"
 
-	"github.com/go-shiori/dom"
-	"github.com/google/uuid"
 	"golang.org/x/sync/semaphore"
 
-	"codeberg.org/readeck/readeck/pkg/archiver"
+	"github.com/go-shiori/dom"
+	"github.com/google/uuid"
+
+	"codeberg.org/readeck/readeck/pkg/archiver/v2"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/img"
@@ -35,7 +36,9 @@ var (
 	// the system and freeze everything just because the image processing has way
 	// too much work to do.
 	imgSem = semaphore.NewWeighted(2)
-	imgCtx = context.TODO()
+	imgCtx = context.Background()
+
+	archiveFlags = archiver.EnableImages | archiver.EnableBestImage | archiver.EnableDataAttributes
 )
 
 // ResourceDirName returns the resource folder name in an archive.
@@ -43,187 +46,156 @@ func ResourceDirName() string {
 	return resourceDirName
 }
 
-// NewArchive runs the archiver and returns a BookmarkArchive instance.
-func NewArchive(_ context.Context, ex *extract.Extractor) (*archiver.Archiver, error) {
-	req := &archiver.Request{
-		Client: ex.Client(),
-		Input:  bytes.NewReader(ex.HTML),
-		URL:    ex.Drop().URL,
-	}
+// interface guards.
+var (
+	_ archiver.Collector        = &bookmarkCollector{}
+	_ archiver.ConvertCollector = &bookmarkCollector{}
+	_ archiver.LoggerCollector  = &bookmarkCollector{}
+)
 
-	arc, err := archiver.New(req)
-	if err != nil {
-		return nil, err
-	}
-
-	arc.MaxConcurrentDownload = 4
-	arc.Flags = archiver.EnableImages | archiver.EnableDataAttributes
-	arc.RequestTimeout = 45 * time.Second
-
-	arc.EventHandler = eventHandler(ex)
-
-	arc.ImageProcessor = imageProcessor
-	arc.URLProcessor = urlProcessor
-
-	if err := arc.Archive(context.Background()); err != nil {
-		return nil, err
-	}
-
-	return arc, nil
+// for these formats, we copy them directly if they don't need resizing.
+// Note: as tempting as allowing webp can be, it must be converted
+// to either jpeg or png for maximum EPUB compatibility.
+var directCopyFormats = map[string]struct{}{
+	"image/gif":  {},
+	"image/jpeg": {},
+	"image/png":  {},
 }
 
-var mimeTypes = map[string]string{
-	"application/javascript":        ".js",
-	"application/json":              ".json",
-	"application/ogg":               ".ogx",
-	"application/pdf":               ".pdf",
-	"application/rtf":               ".rtf",
-	"application/vnd.ms-fontobject": ".eot",
-	"application/xhtml+xml":         ".xhtml",
-	"application/xml":               ".xml",
-	"audio/aac":                     ".aac",
-	"audio/midi":                    ".midi",
-	"audio/x-midi":                  ".midi",
-	"audio/mpeg":                    ".mp3",
-	"audio/ogg":                     ".oga",
-	"audio/opus":                    ".opus",
-	"audio/wav":                     ".wav",
-	"audio/webm":                    ".weba",
-	"font/otf":                      ".otf",
-	"font/ttf":                      ".ttf",
-	"font/woff":                     ".woff",
-	"font/woff2":                    ".woff2",
-	"image/bmp":                     ".bmp",
-	"image/gif":                     ".gif",
-	"image/jpeg":                    ".jpg",
-	"image/png":                     ".png",
-	"image/svg+xml":                 ".svg",
-	"image/tiff":                    ".tiff",
-	"image/vnd.microsoft.icon":      ".ico",
-	"image/webp":                    ".webp",
-	"text/calendar":                 ".ics",
-	"text/css":                      ".css",
-	"text/csv":                      ".csv",
-	"text/html":                     ".html",
-	"text/javascript":               ".js",
-	"text/plain":                    ".txt",
-	"video/mp2t":                    ".ts",
-	"video/mp4":                     ".mp4",
-	"video/mpeg":                    ".mpeg",
-	"video/ogg":                     ".ogv",
-	"video/webm":                    ".webm",
-	"video/x-msvideo":               ".avi",
+type bookmarkCollector struct {
+	archiver.ZipCollector
+	logger *slog.Logger
 }
 
-func eventHandler(ex *extract.Extractor) func(ctx context.Context, arc *archiver.Archiver, evt archiver.Event) {
-	return func(_ context.Context, _ *archiver.Archiver, evt archiver.Event) {
-		attrs := []slog.Attr{}
-		for k, v := range evt.Fields() {
-			attrs = append(attrs, slog.Any(k, v))
-		}
-		msg := "archiver"
-		level := slog.LevelDebug
-
-		switch evt.(type) {
-		case *archiver.EventError:
-			msg = "archive error"
-			level = slog.LevelError
-		case archiver.EventStartHTML:
-			msg = "start archive"
-			level = slog.LevelInfo
-		case *archiver.EventFetchURL:
-			msg = "load archive resource"
-		}
-
-		ex.Log().LogAttrs(context.Background(), level, msg, attrs...)
-	}
+func (c *bookmarkCollector) Log() *slog.Logger {
+	return c.logger
 }
 
-// GetURLfilename returns a filename from a URL and MIME type. The filename
-// is a short UUID based on the URL and its extension is based on the
-// MIME type.
-func GetURLfilename(uri string, contentType string) string {
-	ext, ok := mimeTypes[strings.Split(contentType, ";")[0]]
-	if !ok {
-		ext = ".bin"
+func (c *bookmarkCollector) Name(uri string) string {
+	return "./" + path.Join(
+		ResourceDirName(),
+		base58.EncodeUUID(uuid.NewSHA1(uuid.NameSpaceURL, []byte(uri))),
+	)
+}
+
+func (c *bookmarkCollector) Convert(ctx context.Context, res *archiver.Resource, r io.ReadCloser) (io.ReadCloser, error) {
+	return ConvertCollectedImage(ctx, c, res, r)
+}
+
+// ConvertCollectedImage copies or convert a collected image.
+// When an image fits in [extract.ImageSizeWide] and is in a compatible format, its
+// reader is returned directly. Otherwise, it's converted to a suitable format.
+func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archiver.Resource, r io.ReadCloser) (io.ReadCloser, error) {
+	if strings.Split(res.ContentType, "/")[0] != "image" {
+		return r, nil
 	}
 
-	return base58.EncodeUUID(
-		uuid.NewSHA1(uuid.NameSpaceURL, []byte(uri)),
-	) + ext
-}
+	node := archiver.GetNodeContext(ctx)
 
-func urlProcessor(uri string, _ []byte, contentType string) string {
-	return "./" + path.Join(resourceDirName, GetURLfilename(uri, contentType))
-}
+	l := archiver.Logger(c).With(slog.Any("url", archiver.URLLogValue(res.URL())))
 
-func imageProcessor(ctx context.Context, arc *archiver.Archiver, input io.Reader, contentType string, uri *url.URL) ([]byte, string, error) {
+	// Direct copy of small enough images and in a compatible format.
+	if _, ok := directCopyFormats[res.ContentType]; ok && res.Width <= extract.ImageSizeWide {
+		l.Debug("copy image", slog.Group("resource",
+			slog.String("type", res.ContentType),
+			slog.Int("w", res.Width),
+			slog.Int("h", res.Height),
+		))
+		return r, nil
+	}
+
 	err := imgSem.Acquire(imgCtx, 1)
 	if err != nil {
-		return nil, "", err
+		return nil, err
 	}
 	defer imgSem.Release(1)
 
-	if mt, _, err := mime.ParseMediaType(contentType); err == nil {
-		contentType = mt
-	}
-
-	if _, ok := imageTypes[contentType]; !ok {
-		r, err := io.ReadAll(input)
-		if err != nil {
-			return []byte{}, "", err
-		}
-		return r, contentType, nil
-	}
-
-	im, err := img.New(contentType, input)
-	// If for any reason, we can't read the image, just return nothing
+	im, err := img.New(res.ContentType, r)
+	r.Close() //nolint:errcheck
 	if err != nil {
-		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
-		return []byte{}, "", nil
+		l.Warn("open image",
+			slog.String("format", res.ContentType),
+			slog.Any("err", err),
+		)
+		return http.NoBody, nil
 	}
 	defer func() {
 		if err := im.Close(); err != nil {
-			arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
+			l.Warn("closing image", slog.Any("err", err))
 		}
 	}()
 
-	err = img.Pipeline(im,
+	if err = img.Pipeline(im,
 		func(im img.Image) error { return im.Clean() },
 		func(im img.Image) error { return im.SetQuality(75) },
 		func(im img.Image) error { return im.SetCompression(img.CompressionBest) },
 		func(im img.Image) error { return img.Fit(im, extract.ImageSizeWide, 0) },
+	); err != nil {
+		l.Warn("convert image", slog.Any("err", err))
+		return http.NoBody, nil
+	}
+
+	if node != nil && dom.TagName(node) == "img" {
+		dom.SetAttribute(node, "width", strconv.FormatUint(uint64(im.Width()), 10))
+		dom.SetAttribute(node, "height", strconv.FormatUint(uint64(im.Height()), 10))
+	}
+
+	buf := new(bytes.Buffer)
+	if err = im.Encode(buf); err != nil {
+		l.Warn("encode image", slog.Any("err", err))
+		return http.NoBody, nil
+	}
+
+	l.Debug("convert image",
+		slog.Group("resource",
+			slog.String("type", res.ContentType),
+			slog.Int("w", res.Width),
+			slog.Int("h", res.Height),
+		),
+		slog.Group("image",
+			slog.String("format", im.Format()),
+			slog.Int("w", int(im.Width())),
+			slog.Int("h", int(im.Height())),
+		),
 	)
-	if err != nil {
-		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
-		return []byte{}, "", nil
-	}
 
-	var buf bytes.Buffer
-	err = im.Encode(&buf)
-	if err != nil {
-		arc.SendEvent(ctx, &archiver.EventError{Err: err, URI: uri.String()})
-		return []byte{}, "", nil
-	}
+	res.ContentType = im.ContentType()
+	res.Width = int(im.Width())
+	res.Height = int(im.Height())
+	res.Name = strings.TrimSuffix(res.Name, path.Ext(res.Name))
+	res.Name += archiver.GetExtension(res.ContentType)
 
-	// Set width and height on the <img> element
-	node, ok := archiver.GetContextNode(ctx)
-	if ok && dom.TagName(node) == "img" {
-		dom.SetAttribute(node, "width", strconv.FormatInt(int64(im.Width()), 10))
-		dom.SetAttribute(node, "height", strconv.FormatInt(int64(im.Height()), 10))
-	}
-
-	arc.SendEvent(ctx, archiver.EventInfo{"uri": uri.String(), "format": im.Format()})
-	return buf.Bytes(), im.ContentType(), nil
+	return io.NopCloser(buf), nil
 }
 
-// Note: we skip gif files since they're usually optimized already
-// and could be animated, which isn't supported by all backends.
-var imageTypes = map[string]struct{}{
-	"image/bmp":     {},
-	"image/jpeg":    {},
-	"image/png":     {},
-	"image/svg+xml": {},
-	"image/tiff":    {},
-	"image/webp":    {},
+// ArchiveDocument runs the archiver and returns a the number of saved resources.
+func ArchiveDocument(ctx context.Context, zw *zip.Writer, ex *extract.Extractor) (int, error) {
+	collector := &bookmarkCollector{
+		ZipCollector: *archiver.NewZipCollector(
+			zw,
+			ex.Client(),
+			archiver.WithTimeout(50*time.Second),
+		),
+		logger: ex.Log(),
+	}
+
+	arc := archiver.New(
+		archiver.WithFlags(archiveFlags),
+		archiver.WithConcurrency(8),
+		archiver.WithCollector(collector),
+	)
+
+	err := arc.ArchiveReader(ctx, bytes.NewReader(ex.HTML), ex.Drop().URL, "index.html")
+	if err != nil {
+		return 0, err
+	}
+
+	count := 0
+	for res := range collector.Resources() {
+		if res.Saved() {
+			count++
+		}
+	}
+
+	return count, nil
 }

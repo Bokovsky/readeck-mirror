@@ -20,19 +20,24 @@ type groupOrAttrs struct {
 
 type logRecorder struct {
 	slog.Handler
+	level     slog.Level
 	extractor *Extractor
 	mu        *sync.Mutex
 	goas      []groupOrAttrs
 }
 
-func newLogRecorder(handler slog.Handler, extractor *Extractor) *logRecorder {
+func newLogRecorder(handler slog.Handler, level slog.Level, extractor *Extractor) *logRecorder {
 	return &logRecorder{
-		handler, extractor, &sync.Mutex{}, []groupOrAttrs{},
+		Handler:   handler,
+		level:     level,
+		extractor: extractor,
+		mu:        &sync.Mutex{},
+		goas:      []groupOrAttrs{},
 	}
 }
 
-func (h *logRecorder) Enabled(_ context.Context, _ slog.Level) bool {
-	return true
+func (h *logRecorder) Enabled(_ context.Context, l slog.Level) bool {
+	return l >= h.level
 }
 
 func (h *logRecorder) Handle(ctx context.Context, r slog.Record) error {
@@ -40,7 +45,12 @@ func (h *logRecorder) Handle(ctx context.Context, r slog.Record) error {
 	defer h.mu.Unlock()
 
 	b := new(strings.Builder)
-	fmt.Fprintf(b, "[%s] ", r.Level.String()[0:4])
+	lName := r.Level.String()
+	if r.Level < slog.LevelDebug {
+		lName = "TRACE"
+	}
+
+	fmt.Fprintf(b, "[%s] ", lName[0:4])
 	fmt.Fprintf(b, "%s ", strings.TrimSpace(r.Message))
 
 	goas := h.goas
