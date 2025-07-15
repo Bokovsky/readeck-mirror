@@ -67,11 +67,19 @@ func Catalog() *jet.Set {
 		}
 
 		var result string
-		tr, ok := args.Runtime().Resolve("translator").Interface().(*locales.Locale)
-		if !ok {
-			result = strftime.Strftime(libjet.ToString(args.Get(1)), date)
-		} else {
-			result = strftime.New(tr).Strftime(libjet.ToString(args.Get(1)), date)
+		format := libjet.ToString(args.Get(1))
+		switch format {
+		case "RFC3339":
+			result = date.Format(time.RFC3339)
+		case "RFC3339Nano":
+			result = date.Format(time.RFC3339Nano)
+		default:
+			tr, ok := args.Runtime().Resolve("translator").Interface().(*locales.Locale)
+			if !ok {
+				result = strftime.Strftime(format, date)
+			} else {
+				result = strftime.New(tr).Strftime(format, date)
+			}
 		}
 
 		return reflect.ValueOf(result)

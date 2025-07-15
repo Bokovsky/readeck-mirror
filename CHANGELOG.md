@@ -13,6 +13,7 @@
 - http/2 cleartext support
 - diagnosis modal with extraction log on each bookmark
 - modal images in articles
+- Open Graph metadata on publicly shared bookmarks
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
