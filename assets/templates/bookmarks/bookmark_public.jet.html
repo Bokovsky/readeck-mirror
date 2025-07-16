@@ -19,15 +19,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{- if isset(.Item) }}
   <meta property="og:title" content="{{ .Item.Title }}">
-  {{ end -}}
   {{- if !empty(.Item.Description) }}
   <meta property="og:description" content="{{ .Item.Description }}">
   {{ end -}}
-  {{ if isset(.Item.Resources.thumbnail) }}
+  {{- if isset(.Item.Resources.thumbnail) }}
   <meta property="og:image" content="{{ .Item.Resources.thumbnail.Src }}">
   <meta property="og:image:width" content="{{ .Item.Resources.thumbnail.Width }}">
   <meta property="og:image:height" content="{{ .Item.Resources.thumbnail.Height }}">
-  {{ end }}
+  {{ end -}}
   {{- if .Item.Type == "video" }}
   <meta property="og:type" content="video.other">
   {{ else if .Item.HasArticle }}
@@ -38,7 +37,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if !empty(.Item.Published) }}
   <meta property="article:published_time" content="{{ .Item.Published|date(`RFC3339`) }}">
   {{ end -}}
-  {{- end }}
+  {{- end -}}
+  {{- end -}}
 
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <meta name="robots" content="noindex nofollow noarchive">
 
   <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}" nonce="{{ cspNonce }}">
-  {{ if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
+  {{ if isset(.Item) && .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
     <script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
   {{- end }}
 
