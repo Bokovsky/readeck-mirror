@@ -10,7 +10,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/base64"
-	"errors"
 	"io"
 	"iter"
 	"log/slog"
@@ -216,21 +215,13 @@ func NewFileCollector(root string, client *http.Client, options ...ClientOptions
 // transformation. At this point, the [*Resource] properties can change, including its name
 // and it will reflect on the final document.
 func (c *FileCollector) Create(res *Resource) (io.Writer, error) {
-	root, err := os.OpenRoot(c.root)
-	if err != nil {
+	dest := filepath.Join(c.root, res.Name)
+
+	if err := os.MkdirAll(filepath.Dir(dest), 0o750); err != nil {
 		return nil, err
 	}
-	if dir := filepath.Dir(res.Name); dir != "." {
-		for _, d := range filepath.SplitList(dir) {
-			if err := root.Mkdir(d, 0o750); err != nil {
-				if !errors.Is(err, os.ErrExist) {
-					return nil, err
-				}
-			}
-		}
-	}
 
-	w, err := root.Create(res.Name)
+	w, err := os.Create(dest)
 	if err != nil {
 		return nil, err
 	}
