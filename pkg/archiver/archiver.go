@@ -193,7 +193,7 @@ func (arc *Archiver) fetch(ctx context.Context, uri string, headers http.Header)
 				return nil, err
 			}
 		}
-		arc.log().LogAttrs(ctx, slog.LevelDebug-10, "fetched url",
+		arc.log().LogAttrs(ctx, levelTrace, "fetched url",
 			slog.Group("request",
 				slog.Any("url", URLLogValue(uri)),
 				slog.Any("headers", rsp.Request.Header),

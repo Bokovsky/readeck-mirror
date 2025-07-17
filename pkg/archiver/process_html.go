@@ -24,8 +24,8 @@ import (
 )
 
 const (
-	noScriptDataAttr = "data-x-noscript"
-	accetImageHeader = "image/webp,image/svg+xml,image/*,*/*;q=0.8"
+	noScriptDataAttr  = "data-x-noscript"
+	acceptImageHeader = "image/webp,image/svg+xml,image/*,*/*;q=0.8"
 )
 
 type (
@@ -201,7 +201,7 @@ func (arc *Archiver) processURLNode(ctx context.Context, node *html.Node, attrNa
 
 	switch node.Data {
 	case "img", "picture", "source", "use":
-		headers.Set("accept", accetImageHeader)
+		headers.Set("accept", acceptImageHeader)
 	}
 
 	res, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{headers: headers})

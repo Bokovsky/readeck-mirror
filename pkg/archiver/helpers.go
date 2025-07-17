@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"encoding/base64"
 	"errors"
+	"fmt"
 	"io"
 	"log/slog"
 	"mime"
@@ -86,22 +87,52 @@ func (s URLLogValue) LogValue() slog.Value {
 }
 
 type nodeLogValue struct {
-	*html.Node
+	node *html.Node
 }
 
 // NodeLogValue is an [slog.LogValuer] for an [*html.Node].
 // Its LogValue method renders and truncate the node as HTML.
-func NodeLogValue(n *html.Node) nodeLogValue { //nolint:revive
-	return nodeLogValue{n}
+func NodeLogValue(n *html.Node) slog.LogValuer {
+	return &nodeLogValue{n}
 }
 
-func (n nodeLogValue) LogValue() slog.Value {
-	b := new(bytes.Buffer)
-	html.Render(b, n.Node)
-	if b.Len() > 128 {
-		b.Truncate(128)
+func (n *nodeLogValue) LogValue() slog.Value {
+	if n.node.Type == html.TextNode {
+		return slog.StringValue(n.node.Data)
 	}
-	return slog.StringValue(b.String())
+
+	var tagPreview strings.Builder
+	tagPreview.WriteString("<")
+	tagPreview.WriteString(n.node.Data)
+
+	hasOtherAttributes := false
+	for _, attr := range n.node.Attr {
+		switch strings.ToLower(attr.Key) {
+		case "id", "class", "rel", "itemprop", "name", "type", "role", "for":
+			fmt.Fprintf(&tagPreview, ` %s=%q`, attr.Key, attr.Val)
+		case "src", "href":
+			val := attr.Val
+			if strings.HasPrefix(val, "data:") {
+				if v, _, ok := strings.Cut(val, ","); ok {
+					val = v + ",***"
+				}
+			} else if strings.HasPrefix(val, "javascript:") {
+				val = "javascript:***"
+			}
+			fmt.Fprintf(&tagPreview, ` %s=%q`, attr.Key, val)
+		default:
+			hasOtherAttributes = true
+		}
+	}
+	if hasOtherAttributes {
+		tagPreview.WriteString(" ...")
+	}
+
+	if n.node.FirstChild == nil {
+		tagPreview.WriteString("/")
+	}
+	tagPreview.WriteString(">")
+	return slog.StringValue(tagPreview.String())
 }
 
 // GetExtension returns an extension for a given mime type. It defaults
@@ -168,7 +199,7 @@ func toAbsoluteURI(uri string, base *url.URL) string {
 }
 
 // sanitizeStyleURL sanitizes the URL in CSS by removing `url()`,
-// quotation mark and trailing slash.
+// quotation marks.
 func sanitizeStyleURL(uri string) string {
 	cssURL := rxStyleURL.ReplaceAllString(uri, "$1")
 	cssURL = strings.TrimSpace(cssURL)

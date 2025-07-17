@@ -116,5 +116,9 @@ func (h *logRecorder) renderAttr(w *strings.Builder, prefix string, attr slog.At
 		}
 		return
 	}
-	fmt.Fprintf(w, `%s%s="%v" `, prefix, attr.Key, attr.Value)
+	v := attr.Value
+	if x, ok := v.Any().(slog.LogValuer); ok {
+		v = x.LogValue()
+	}
+	fmt.Fprintf(w, `%s%s="%v" `, prefix, attr.Key, v)
 }

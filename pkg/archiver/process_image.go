@@ -163,7 +163,7 @@ func (arc *Archiver) findBestImage(ctx context.Context, seq iter.Seq[string]) *R
 			log := log.With(slog.Any("url", URLLogValue(src)))
 
 			res, err := arc.fetchInfo(ctx, src, http.Header{
-				"Accept": {accetImageHeader},
+				"Accept": {acceptImageHeader},
 			})
 			if err != nil {
 				log.Warn("cannot load image", slog.Any("err", err))
@@ -177,7 +177,12 @@ func (arc *Archiver) findBestImage(ctx context.Context, seq iter.Seq[string]) *R
 				return nil
 			}
 
-			if res.Width*res.Height == 0 || res.Width*res.Height > maxImageSize {
+			r := res.Width * res.Height
+			if r == 0 || r > maxImageSize {
+				log.Warn("invalid image size",
+					slog.Int("w", res.Width),
+					slog.Int("h", res.Height),
+				)
 				return nil
 			}
 

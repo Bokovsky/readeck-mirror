@@ -47,9 +47,6 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 	if !m.Extractor.Drop().IsHTML() {
 		return next
 	}
-	if !m.Extractor.Drop().IsHTML() {
-		return next
-	}
 
 	m.Log().Debug("create archive")
 
