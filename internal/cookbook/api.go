@@ -84,23 +84,15 @@ func (o *bodyOpener) Filename() string             { return "" }
 func (o *bodyOpener) Size() int64                  { return o.r.ContentLength }
 func (o *bodyOpener) Header() textproto.MIMEHeader { return textproto.MIMEHeader(o.r.Header) }
 
-func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
-	f := newExtractForm()
-	f.bind(r)
-
-	if !f.IsValid() {
-		server.Render(w, r, http.StatusUnprocessableEntity, f)
-		return
-	}
-
+func (api *cookbookAPI) getExtractor(uri string, r *http.Request) *extract.Extractor {
 	proxyList := make([]extract.ProxyMatcher, len(configs.Config.Extractor.ProxyMatch))
 	for i, x := range configs.Config.Extractor.ProxyMatch {
 		proxyList[i] = x
 	}
 
 	ex, err := extract.New(
-		f.Get("url").String(),
-		extract.SetLogger(slog.Default(),
+		uri,
+		extract.SetLogger(slog.Default(), slog.LevelDebug-10,
 			slog.String("@id", server.GetReqID(r)),
 		),
 		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
@@ -108,21 +100,6 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	)
 	if err != nil {
 		panic(err)
-	}
-
-	if !f.Get("data").IsNil() {
-		fd, err := f.Get("data").(*forms.FileField).V().Open()
-		if err != nil {
-			panic(err)
-		}
-		defer fd.Close() //nolint:errcheck
-		if content, err := io.ReadAll(fd); err == nil {
-			ex.AddToCache(f.Get("url").String(), map[string]string{
-				"Content-Type": "text/html",
-			}, content)
-		} else {
-			slog.Error("caching body", slog.Any("err", err))
-		}
 	}
 
 	ex.AddProcessors(
@@ -146,24 +123,20 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		contentscripts.StripTags,
 		contentscripts.GoToNextPage,
 		contents.StripHeadingAnchors,
-		contents.ExtractInlineSVGs,
 		contents.ConvertVideoEmbeds,
 		contents.Readability(),
+		contents.ExtractInlineSVGs,
 		bookmark_tasks.CleanDomProcessor,
 		contents.Text,
 		archiveProcessor,
 	)
+
+	return ex
+}
+
+func (api *cookbookAPI) getExtractResult(ex *extract.Extractor) *extractResult {
 	ex.Run()
 	runtime.GC()
-
-	// Very rough but good enough for our tests
-	accepted := accept.NegotiateContentType(r.Header, []string{"application/json", "text/html"}, "application/json")
-	if accepted == "text/html" {
-		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.WriteHeader(http.StatusOK)
-		w.Write(ex.HTML)
-		return
-	}
 
 	drop := ex.Drop()
 
@@ -209,6 +182,46 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	for _, link := range bookmark_tasks.GetExtractedLinks(ex.Context) {
 		res.Links = append(res.Links, link)
+	}
+
+	return res
+}
+
+func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
+	f := newExtractForm()
+	f.bind(r)
+
+	if !f.IsValid() {
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
+		return
+	}
+
+	ex := api.getExtractor(f.Get("url").String(), r)
+
+	if !f.Get("data").IsNil() {
+		fd, err := f.Get("data").(*forms.FileField).V().Open()
+		if err != nil {
+			panic(err)
+		}
+		defer fd.Close() //nolint:errcheck
+		if content, err := io.ReadAll(fd); err == nil {
+			ex.AddToCache(f.Get("url").String(), map[string]string{
+				"Content-Type": "text/html",
+			}, content)
+		} else {
+			slog.Error("caching body", slog.Any("err", err))
+		}
+	}
+
+	res := api.getExtractResult(ex)
+
+	// Very rough but good enough for our tests
+	accepted := accept.NegotiateContentType(r.Header, []string{"application/json", "text/html"}, "application/json")
+	if accepted == "text/html" {
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+		w.WriteHeader(http.StatusOK)
+		w.Write(ex.HTML)
+		return
 	}
 
 	server.Render(w, r, 200, res)

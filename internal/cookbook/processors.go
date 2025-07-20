@@ -7,14 +7,34 @@ package cookbook
 import (
 	"bytes"
 	"context"
+	"io"
 	"log/slog"
 	"time"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-type ctxLogger struct{}
+var (
+	_ archiver.Collector          = &cookbookCollector{}
+	_ archiver.ConvertCollector   = &cookbookCollector{}
+	_ archiver.PostWriteCollector = &cookbookCollector{}
+	_ archiver.LoggerCollector    = &cookbookCollector{}
+)
+
+type cookbookCollector struct {
+	archiver.SingleFileCollector
+	logger *slog.Logger
+}
+
+func (c *cookbookCollector) Log() *slog.Logger {
+	return c.logger
+}
+
+func (c *cookbookCollector) Convert(ctx context.Context, res *archiver.Resource, r io.ReadCloser) (io.ReadCloser, error) {
+	return bookmarks.ConvertCollectedImage(ctx, c, res, r)
+}
 
 func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	if m.Step() != extract.StepPostProcess {
@@ -30,54 +50,30 @@ func archiveProcessor(m *extract.ProcessMessage, next extract.Processor) extract
 
 	m.Log().Debug("create archive")
 
-	req := &archiver.Request{
-		Client: m.Extractor.Client(),
-		Input:  bytes.NewReader(m.Extractor.HTML),
-		URL:    m.Extractor.Drop().URL,
+	buf := new(bytes.Buffer)
+	collector := &cookbookCollector{
+		SingleFileCollector: *archiver.NewSingleFileCollector(
+			buf,
+			m.Extractor.Client(),
+			archiver.WithTimeout(time.Second*50),
+		),
+		logger: m.Log(),
 	}
-	arc, err := archiver.New(req)
+
+	arc := archiver.New(
+		archiver.WithConcurrency(12),
+		archiver.WithCollector(collector),
+		archiver.WithFlags(
+			archiver.EnableImages|archiver.EnableBestImage|archiver.EnableDataAttributes,
+		),
+	)
+
+	err := arc.ArchiveReader(m.Extractor.Context, bytes.NewReader(m.Extractor.HTML), m.Extractor.URL, "index.html")
 	if err != nil {
-		m.Log().Error("archive error", slog.Any("err", err))
-		return next
+		panic(err)
 	}
 
-	arc.MaxConcurrentDownload = 5
-	arc.Flags = archiver.EnableImages | archiver.EnableDataAttributes
-	arc.RequestTimeout = 45 * time.Second
-	arc.EventHandler = eventHandler
-
-	ctx := context.WithValue(context.Background(), ctxLogger{}, m.Log())
-
-	if err := arc.Archive(ctx); err != nil {
-		m.Log().Error("archive error", slog.Any("err", err))
-		return next
-	}
-
-	m.Extractor.HTML = arc.Result
+	m.Extractor.HTML = buf.Bytes()
 
 	return next
-}
-
-func eventHandler(ctx context.Context, _ *archiver.Archiver, evt archiver.Event) {
-	logger := ctx.Value(ctxLogger{}).(*slog.Logger)
-
-	attrs := []slog.Attr{}
-	for k, v := range evt.Fields() {
-		attrs = append(attrs, slog.Any(k, v))
-	}
-	msg := "archiver"
-	level := slog.LevelDebug
-
-	switch evt.(type) {
-	case *archiver.EventError:
-		msg = "archive error"
-		level = slog.LevelError
-	case archiver.EventStartHTML:
-		msg = "start archive"
-		level = slog.LevelInfo
-	case *archiver.EventFetchURL:
-		msg = "load archive resource"
-	}
-
-	logger.LogAttrs(context.Background(), level, msg, attrs...)
 }

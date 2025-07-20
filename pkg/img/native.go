@@ -94,6 +94,7 @@ func (im *NativeImage) Image() image.Image {
 // Close frees the resources used by the image and must be called
 // when you're done processing it.
 func (im *NativeImage) Close() error {
+	im.m = nil
 	return nil
 }
 

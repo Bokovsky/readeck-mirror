@@ -23,16 +23,16 @@ import (
 	"strings"
 	"time"
 
-	"github.com/doug-martin/goqu/v9"
 	"golang.org/x/net/html"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/doug-martin/goqu/v9"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -264,7 +264,7 @@ func extractPageHandler(data interface{}) {
 
 	ex, err := extract.New(
 		b.URL,
-		extract.SetLogger(slog.Default(),
+		extract.SetLogger(slog.Default(), slog.LevelDebug,
 			slog.String("@id", params.RequestID),
 			slog.Int("bookmark_id", b.ID),
 		),
@@ -390,21 +390,8 @@ func saveBookmark(b *bookmarks.Bookmark, saved *bool, resourceCount *int) extrac
 
 		b.Links = GetExtractedLinks(ex.Context)
 
-		// Run the archiver
-		var arc *archiver.Archiver
-		if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
-			arc, err = bookmarks.NewArchive(context.TODO(), ex)
-			if err != nil {
-				m.Log().Error("archiver error", slog.Any("err", err))
-			}
-		}
-
-		if arc != nil {
-			*resourceCount = len(arc.Cache)
-		}
-
 		// Create the zip file
-		err = createZipFile(b, ex, arc)
+		err = createZipFile(b, ex, resourceCount)
 		if err != nil {
 			// If something goes really wrong, cleanup after ourselves
 			b.Errors = append(b.Errors, err.Error())
@@ -503,7 +490,7 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 	}
 }
 
-func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, arc *archiver.Archiver) error {
+func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, resourceCount *int) error {
 	// Fail fast
 	fileURL, err := b.GetBaseFileURL()
 	if err != nil {
@@ -541,28 +528,13 @@ func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, arc *archiver.A
 		b.Files[k] = &bookmarks.BookmarkFile{Name: name, Type: p.Type, Size: p.Size}
 	}
 
-	// Add HTML content
-	if arc != nil && len(arc.Result) > 0 {
-		if err = z.Add(
-			&zip.FileHeader{Name: "index.html", Method: zip.Deflate},
-			bytes.NewReader(arc.Result),
-		); err != nil {
+	// Archive page
+	if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
+		*resourceCount, err = bookmarks.ArchiveDocument(context.Background(), z.Dest(), ex)
+		if err != nil {
 			return err
 		}
 		b.Files["article"] = &bookmarks.BookmarkFile{Name: "index.html"}
-	}
-
-	// Add assets
-	if arc != nil && len(arc.Cache) > 0 {
-		for uri, asset := range arc.Cache {
-			fname := path.Join(bookmarks.ResourceDirName(), bookmarks.GetURLfilename(uri, asset.ContentType))
-			if err = z.Add(
-				&zip.FileHeader{Name: fname},
-				bytes.NewReader(asset.Data),
-			); err != nil {
-				return err
-			}
-		}
 	}
 
 	// Add the log

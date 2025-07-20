@@ -8,9 +8,11 @@ import (
 	"context"
 	"log/slog"
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi/v5"
 
+	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -28,6 +30,7 @@ func newCookbookViews(api *cookbookAPI) *cookbookViews {
 		r.Get("/", v.namedTemplateView("prose"))
 		r.Get("/ui", v.uiView)
 		r.Get("/{name}", v.templateView)
+		r.Get("/extract", v.extractView)
 	})
 
 	return v
@@ -63,6 +66,25 @@ func (v *cookbookViews) uiView(w http.ResponseWriter, r *http.Request) {
 	}
 
 	server.RenderTemplate(w, r, 200, "cookbook/ui", ctx)
+}
+
+func (v *cookbookViews) extractView(w http.ResponseWriter, r *http.Request) {
+	f := newExtractForm()
+	forms.BindURL(f, r)
+
+	ctx := server.TC{
+		"Form":   f,
+		"Result": nil,
+	}
+
+	if f.IsValid() && f.Get("url").String() != "" {
+		ex := v.getExtractor(f.Get("url").String(), r)
+		res := v.getExtractResult(ex)
+		ctx["Result"] = res
+		ctx["HTML"] = strings.NewReader(bookmarks.ExtractHTMLBody(res.HTML))
+	}
+
+	server.RenderTemplate(w, r, 200, "cookbook/extract", ctx)
 }
 
 func newCookbookForm() *forms.Form {

@@ -1,4 +1,5 @@
 // SPDX-FileCopyrightText: © 2020 Radhi Fadlillah
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: MIT
 
@@ -7,66 +8,97 @@ package archiver
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"net/url"
 	"strings"
 	"sync"
 
+	"golang.org/x/sync/errgroup"
+
 	"github.com/tdewolff/parse/v2"
 	"github.com/tdewolff/parse/v2/css"
-	"golang.org/x/sync/errgroup"
 )
 
-func (arc *Archiver) processCSS(ctx context.Context, input io.Reader, baseURL *url.URL) (string, error) {
-	// Prepare buffer to store content from input
-	buffer := bytes.NewBuffer(nil)
+func ignoreFontFace(lexer *css.Lexer) {
+	// Consume the rule until a right brace
+	for {
+		token, _ := lexer.Next()
+		if token == css.ErrorToken || token == css.RightBraceToken {
+			break
+		}
+	}
+}
 
+func (arc *Archiver) processCSS(ctx context.Context, r io.Reader, parent *Resource) (*bytes.Buffer, error) {
 	// Scan CSS and find all URLs
-	urls := make(map[string]struct{})
-	lexer := css.NewLexer(parse.NewInput(input))
+	contents := new(bytes.Buffer)
+	if _, err := io.Copy(contents, r); err != nil {
+		return nil, err
+	}
 
+	urls := make(map[string]struct{})
+	lexer := css.NewLexer(parse.NewInputBytes(contents.Bytes()))
+
+	buf := new(bytes.Buffer)
 	for {
 		token, bt := lexer.Next()
-
-		// Check for error or EOF
 		if token == css.ErrorToken {
 			break
 		}
 
-		// If it's URL save it
+		if arc.flags&EnableFonts == 0 && token == css.TokenType(css.AtKeywordToken) && bytes.Equal(bt, []byte("@font-face")) {
+			ignoreFontFace(lexer)
+			continue
+		}
+
 		if token == css.URLToken {
 			urls[string(bt)] = struct{}{}
 		}
-
-		buffer.Write(bt)
+		buf.Write(bt)
 	}
 
-	// Process each url concurrently
+	// Download all resources and prepare the replacement with the new
+	// name.
 	mutex := sync.RWMutex{}
-	processedURLs := make(map[string]string)
+	replacer := []string{}
+
+	parentURL, err := url.Parse(parent.url)
+	if err != nil {
+		return nil, errSkippedURL
+	}
+
+	ctx = withReferrerContext(ctx, parent.URL())
 
 	g, ctx := errgroup.WithContext(ctx)
-	for uri := range urls {
+	g.SetLimit(5)
+	for token := range urls {
 		g.Go(func() error {
-			cssURL := sanitizeStyleURL(uri)
-			cssURL = createAbsoluteURL(cssURL, baseURL)
-			content, contentType, err := arc.processURL(ctx, cssURL, baseURL.String(), nil)
-			if err != nil && err != errSkippedURL {
-				arc.SendEvent(ctx, &EventError{err, uri})
+			cssURL := sanitizeStyleURL(token)
+			if strings.HasPrefix(cssURL, "#") {
+				return nil
+			}
+
+			cssURL = toAbsoluteURI(cssURL, parentURL)
+			res, err := arc.processURL(ctx, cssURL, processOptions{})
+			if err != nil {
+				if errors.Is(err, errSkippedURL) {
+					return nil
+				}
 				return err
 			}
 
-			var result string
-			if err == errSkippedURL {
-				arc.SendEvent(ctx, &EventError{err, uri})
-				result = `url("` + cssURL + `")`
-			} else {
-				result = fmt.Sprintf(`url("%s")`, arc.URLProcessor(uri, content, contentType))
+			// Make the path relative to its parent
+			newURL := res.Value()
+			if res.Contents == nil {
+				newURL = res.Name[len(commonPrefix(res.Name, parent.Name)):]
 			}
 
 			mutex.Lock()
-			processedURLs[uri] = result
+			replacer = append(replacer,
+				token, fmt.Sprintf(`url("%s")`, newURL),
+			)
 			mutex.Unlock()
 
 			return nil
@@ -74,14 +106,15 @@ func (arc *Archiver) processCSS(ctx context.Context, input io.Reader, baseURL *u
 	}
 
 	if err := g.Wait(); err != nil {
-		return buffer.String(), err
+		return nil, err
 	}
 
-	// Convert all url into the processed URL
-	cssRules := buffer.String()
-	for url, processedURL := range processedURLs {
-		cssRules = strings.ReplaceAll(cssRules, url, processedURL)
+	// Replace original URLs and return the new buffer.
+	result := new(bytes.Buffer)
+	repl := strings.NewReplacer(replacer...)
+	if _, err := repl.WriteString(result, buf.String()); err != nil {
+		return nil, err
 	}
 
-	return cssRules, nil
+	return result, nil
 }

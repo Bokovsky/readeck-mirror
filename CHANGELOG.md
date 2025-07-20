@@ -31,6 +31,7 @@
 - preserve all matched nodes when applying FiveFilters body selector rules, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
+- new archiver process: faster and smaller memory footprint
 - documentation extracted to gettext
 - check that folders and configuration exist before import or export
 - improved settings UI

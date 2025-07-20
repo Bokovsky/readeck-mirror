@@ -4,8 +4,7 @@ version = 1
 path = [
     "CHANGELOG.md",
     "README.md",
-    "pkg/archiver/README.md",
-    "pkg/extract/contentscripts/README.md",
+    "pkg/**/README.md",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2020 Olivier Meunier <olivier@neokraft.net>"

@@ -13,17 +13,14 @@ import (
 	"log/slog"
 	"math/rand/v2"
 	"regexp"
-	"sort"
 	"strings"
 
 	"golang.org/x/net/html"
 
-	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
 
 	"codeberg.org/readeck/go-readability"
 	"codeberg.org/readeck/readeck/pkg/extract"
-	"codeberg.org/readeck/readeck/pkg/extract/srcset"
 )
 
 var (
@@ -106,7 +103,6 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 		// final cleanup
 		removeEmbeds(body)
-		fixImages(body, m)
 
 		// Simplify the top hierarchy
 		switch node := findFirstContentNode(body); {
@@ -366,40 +362,5 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 		})
 		dom.SetAttribute(node, "class", "")
 		dom.SetAttribute(node, "id", "")
-	})
-}
-
-func fixImages(top *html.Node, m *extract.ProcessMessage) {
-	// Fix images with an srcset attribute and reorder with the best
-	// size first.
-	m.Log().Debug("fixing images")
-	nodes, err := htmlquery.QueryAll(top, "//*[@srcset]")
-	if err != nil {
-		m.Log().Warn("", slog.Any("err", err))
-	}
-
-	dom.ForEachNode(nodes, func(node *html.Node, _ int) {
-		sourceSet := srcset.SourceSet{}
-		for _, x := range srcset.Parse(dom.GetAttribute(node, "srcset")) {
-			if x.Height > 3072 || x.Width > 3072 {
-				continue
-			}
-			sourceSet = append(sourceSet, x)
-		}
-		sort.SliceStable(sourceSet, func(i, j int) bool {
-			return sourceSet[i].Width > sourceSet[j].Width
-		})
-
-		// Add src as last option
-		if dom.HasAttribute(node, "src") {
-			sourceSet = append(sourceSet, srcset.Parse(dom.GetAttribute(node, "src"))...)
-		}
-
-		if len(sourceSet) > 0 {
-			dom.SetAttribute(node, "srcset", sourceSet.String())
-			dom.RemoveAttribute(node, "src")
-			dom.RemoveAttribute(node, "width")
-			dom.RemoveAttribute(node, "height")
-		}
 	})
 }
