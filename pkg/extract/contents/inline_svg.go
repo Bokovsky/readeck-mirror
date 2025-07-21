@@ -18,7 +18,7 @@ import (
 // Each SVG node is saved in the resource cache with a known URL, then the node is replaced
 // by an img tag linking to this resource.
 func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
-	if m.Step() != extract.StepDom {
+	if m.Step() != extract.StepDom || m.Dom == nil {
 		return next
 	}
 
