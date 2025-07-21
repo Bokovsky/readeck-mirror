@@ -39,12 +39,16 @@ func getConfig(ctx context.Context) *SiteConfig {
 // LoadScripts starts the content script runtime and adds it
 // to the extractor context.
 func LoadScripts(programs ...*Program) extract.Processor {
+	scripts := []*Program{}
+	scripts = append(scripts, preloadedScripts...)
+	scripts = append(scripts, programs...)
+
 	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 		if m.Step() != extract.StepStart || m.Position() > 0 {
 			return next
 		}
 
-		vm, err := New(append(preloadedScripts, programs...)...)
+		vm, err := New(scripts...)
 		if err != nil {
 			m.Log().Error("loading scripts", slog.Any("err", err))
 			return next

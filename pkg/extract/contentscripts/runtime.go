@@ -120,7 +120,7 @@ func getPriority(prg *ast.Program) (res int) {
 
 // New creates a new ContentScript instance.
 func New(programs ...*Program) (*Runtime, error) {
-	slices.SortStableFunc(programs, func(a, b *Program) int {
+	scripts := slices.SortedStableFunc(slices.Values(programs), func(a, b *Program) int {
 		if a.Priority != b.Priority {
 			return cmp.Compare(a.Priority, b.Priority)
 		}
@@ -130,7 +130,7 @@ func New(programs ...*Program) (*Runtime, error) {
 
 	r := &Runtime{
 		Runtime:  goja.New(),
-		programs: programs,
+		programs: scripts,
 		ctx:      context.Background(),
 	}
 
