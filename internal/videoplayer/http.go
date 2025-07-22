@@ -6,11 +6,14 @@
 package videoplayer
 
 import (
+	"context"
 	"net/http"
+	"net/url"
 
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
 )
 
@@ -24,26 +27,44 @@ func SetupRoutes(s *server.Server) {
 }
 
 func videoPlayerHandler(w http.ResponseWriter, r *http.Request) {
-	src := r.URL.Query().Get("src")
-	mediaType := r.URL.Query().Get("type")
-	if src == "" {
-		server.Status(w, r, http.StatusBadRequest)
+	f := forms.Must(
+		forms.WithTranslator(context.Background(), server.Locale(r)),
+		forms.NewTextField("src", forms.Trim, forms.Required, forms.IsURL("http", "https")),
+		forms.NewTextField("type",
+			forms.Trim,
+			forms.RequiredOrNil,
+			forms.Default("video"),
+			forms.ChoicesPairs([][2]string{
+				{"hls", "hls"},
+				{"embed", "embed"},
+				{"video", "video"},
+			})),
+		forms.NewIntegerField("w", forms.Gte(1)),
+		forms.NewIntegerField("h", forms.Gte(1)),
+	)
+
+	forms.BindURL(f, r)
+	if !f.IsValid() {
+		server.Render(w, r, http.StatusUnprocessableEntity, f)
 		return
 	}
 
+	srcURL, _ := url.Parse(f.Get("src").String())
+
 	ctx := server.TC{
-		"Src":    src,
-		"Type":   mediaType,
-		"Height": r.URL.Query().Get("h"),
-		"Width":  r.URL.Query().Get("w"),
+		"Src":    f.Get("src").String(),
+		"Type":   f.Get("type").String(),
+		"Width":  f.Get("w").Value(),
+		"Height": f.Get("h").Value(),
 	}
 
-	// Set appropriate CSP values for thie ressource to work
+	// Set appropriate CSP values for this ressource to work
 	// as a video play in an iframe.
 	policy := server.GetCSPHeader(r)
-	policy.Set("connect-src", "*")
+	policy.Set("connect-src", srcURL.Hostname())
 	policy.Set("worker-src", "blob:")
-	policy.Add("media-src", "blob:", "*")
+	policy.Add("media-src", "blob:", srcURL.Hostname())
+	policy.Add("frame-src", "blob:", srcURL.Hostname())
 	policy.Set("frame-ancestors", csp.Self)
 
 	policy.Write(w.Header())
