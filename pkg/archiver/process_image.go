@@ -142,8 +142,9 @@ func getSrcset(srcset string) (set map[string]struct{}) {
 }
 
 func setImgSize(node *html.Node, res *Resource) {
-	if !dom.HasAttribute(node, "width") && !dom.HasAttribute(node, "height") &&
-		res.Width > 0 && res.Height > 0 {
+	keepSize := res.ContentType == "image/svg+xml" && dom.HasAttribute(node, "width") && dom.HasAttribute(node, "height")
+
+	if !keepSize && res.Width > 0 && res.Height > 0 {
 		dom.SetAttribute(node, "width", strconv.Itoa(res.Width))
 		dom.SetAttribute(node, "height", strconv.Itoa(res.Height))
 	}
