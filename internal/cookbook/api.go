@@ -104,7 +104,7 @@ func (api *cookbookAPI) getExtractor(uri string, r *http.Request) *extract.Extra
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(server.Log(r))...,
+			bookmarks.LoadContentScripts(server.Log(r))...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,

@@ -283,7 +283,7 @@ func extractPageHandler(data interface{}) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(ex.Log())...,
+			bookmarks.LoadContentScripts(ex.Log())...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,

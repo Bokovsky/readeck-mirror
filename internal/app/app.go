@@ -7,9 +7,12 @@ package app
 
 import (
 	"bufio"
+	"bytes"
 	"errors"
 	"flag"
 	"fmt"
+	"hash/crc32"
+	"io"
 	"log/slog"
 	"net/url"
 	"os"
@@ -27,6 +30,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/locales"
+	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 )
 
 var commands = []acmd.Command{}
@@ -104,7 +108,12 @@ func InitApp() {
 	if err := createFolder(filepath.Join(configs.Config.Main.DataDirectory, "content-scripts")); err != nil {
 		fatal("can't create content-scripts directory", err)
 	}
-	bookmarks.LoadContentScripts()
+	if err := copyContentScriptHelpers(filepath.Join(configs.Config.Main.DataDirectory, "content-scripts")); err != nil {
+		slog.Warn("could not copy content-scripts helpers", slog.Any("err", err))
+	}
+
+	// Preload content scripts
+	_ = bookmarks.LoadContentScripts(slog.Default())
 
 	// Database URL
 	dsn, err := url.Parse(configs.Config.Database.Source)
@@ -244,6 +253,56 @@ func createFolder(name string) error {
 		}
 	} else if !stat.IsDir() {
 		return fmt.Errorf("'%s' is not a directory", name)
+	}
+
+	return nil
+}
+
+func copyContentScriptHelpers(dest string) error {
+	for _, name := range []string{"@types.d.ts", "jsconfig.json"} {
+		if err := func(name string) error {
+			dcs := crc32.NewIEEE()
+			fd, err := os.Open(filepath.Join(dest, name))
+			if err == nil {
+				defer fd.Close() //nolint:errcheck
+				if _, err := io.Copy(dcs, fd); err != nil {
+					return err
+				}
+			} else if !errors.Is(err, os.ErrNotExist) {
+				return err
+			}
+
+			f, err := contentscripts.ContentScriptFS.Open(name)
+			if err != nil {
+				return err
+			}
+			defer f.Close() //nolint:errcheck
+
+			contents := new(bytes.Buffer)
+			scs := crc32.NewIEEE()
+			if _, err := io.Copy(scs, io.TeeReader(f, contents)); err != nil {
+				return err
+			}
+
+			if dcs.Sum32() == scs.Sum32() {
+				return nil
+			}
+
+			dst, err := os.Create(filepath.Join(dest, name))
+			if err != nil {
+				return err
+			}
+			defer dst.Close() //nolint:errcheck
+
+			slog.Debug("copying helper",
+				slog.String("src", name),
+				slog.String("dst", filepath.Join(dest, name)),
+			)
+			_, err = io.Copy(dst, contents)
+			return err
+		}(name); err != nil {
+			return err
+		}
 	}
 
 	return nil

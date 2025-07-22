@@ -37,6 +37,7 @@ type Program struct {
 	*goja.Program
 	Name     string
 	Priority int
+	ModTime  time.Time
 }
 
 // Runtime contains a collection of content scripts.
