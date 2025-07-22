@@ -16,6 +16,8 @@ import (
 	"strings"
 	"time"
 
+	"golang.org/x/net/html"
+
 	"github.com/dop251/goja"
 	"github.com/dop251/goja/ast"
 	"github.com/dop251/goja_nodejs/require"
@@ -278,6 +280,25 @@ func (vm *Runtime) ProcessMeta() error {
 		}
 		vm.GetLogger().Debug("content script", slog.String("function", "processMeta"))
 		return fn()
+	})
+}
+
+// ProcessDom runs every script and calls the given exported funcName
+// with the [html.Node] as its only argument.
+func (vm *Runtime) ProcessDom(funcName string, node *html.Node) error {
+	m := newDomModule(vm.Runtime)
+
+	return vm.execEach(func() error {
+		f := vm.getExports(funcName)
+		if f == nil {
+			return nil
+		}
+		var fn func(goja.Value) error
+		if err := vm.ExportTo(f, &fn); err != nil {
+			return err
+		}
+		vm.GetLogger().Debug("content script", slog.String("function", funcName))
+		return fn(m.newNodeValue(node))
 	})
 }
 
