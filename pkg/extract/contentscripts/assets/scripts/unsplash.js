@@ -2,9 +2,12 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return (
-    $.domain == "unsplash.com" && new URL($.url).pathname.match(/^\/photos\//)
+    $.domain == "unsplash.com" && !!new URL($.url).pathname.match(/^\/photos\//)
   )
 }
 

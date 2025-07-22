@@ -2,6 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return $.domain == "reddit.com"
 }
@@ -46,7 +49,7 @@ exports.processMeta = function () {
   // Check if there is a preview first
   const preview = findPreview(post)
   if (preview) {
-    $.meta["x.picture_url"] = preview
+    $.meta["x.picture_url"] = [preview]
   }
 
   if (post.media?.type == "image" && preview) {

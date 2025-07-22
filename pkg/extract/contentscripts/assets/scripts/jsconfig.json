@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "es5",
+    "allowUmdGlobalAccess": false,
+    "checkJs": true,
+    "lib": ["ES2015", "ES2015.Core"],
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": false,
+    "paths": {
+        "*.js": ["./@types.d.ts"]
+    }
+  },
+  "include": ["./*.js", "./*.d.ts"]
+}

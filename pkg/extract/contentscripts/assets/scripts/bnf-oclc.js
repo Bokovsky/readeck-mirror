@@ -4,10 +4,16 @@
 
 exports.priority = 10
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return $.host.endsWith(".bnf.idm.oclc.org")
 }
 
+/**
+ * @param {Config} config
+ */
 exports.setConfig = function (config) {
   const targetSite = /(.+)\.bnf\.idm\.oclc\.org$/.exec($.host)[1]
 

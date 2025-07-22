@@ -2,8 +2,11 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
-  return $.domain == "instagram.com" && new URL($.url).pathname.match(/^\/p\//)
+  return $.domain == "instagram.com" && /^\/p\//.test(new URL($.url).pathname)
 }
 
 exports.processMeta = function () {
