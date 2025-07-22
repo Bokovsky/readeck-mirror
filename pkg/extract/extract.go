@@ -12,8 +12,6 @@ package extract
 import (
 	"bytes"
 	"context"
-	"crypto/rand"
-	"encoding/hex"
 	"errors"
 	"fmt"
 	"io"
@@ -144,25 +142,35 @@ func (m *ProcessMessage) Log() *slog.Logger {
 	))
 }
 
-// SetDataAttribute adds a data attribute to a given node.
-// The attribute follows a pattern that's "x-data-{random-string}-{name}"
-// The random value is there to avoid attribute injection from a page.
-func (m *ProcessMessage) SetDataAttribute(node *html.Node, name, value string) {
-	dom.SetAttribute(node, "x-data-"+m.Extractor.uniqueID+"-"+name, value)
-}
-
-// transformDataAttributes converts all existing x-data-{random-string}-* to
-// regular data attributes.
-// The resulting attribute looks like "data-readeck-{name}".
-func (m *ProcessMessage) transformDataAttributes() {
+// removeXdataAttributes removes every "x-data-*" attribute from all nodes.
+func (m *ProcessMessage) removeXdataAttributes() {
 	if m.Dom == nil {
 		return
 	}
 
-	dom.ForEachNode(dom.QuerySelectorAll(m.Dom, "*"), func(n *html.Node, _ int) {
+	dom.ForEachNode(dom.GetAllNodesWithTag(m.Dom, "*"), func(n *html.Node, _ int) {
+		attrs := []html.Attribute{}
+		for _, a := range n.Attr {
+			if !strings.HasPrefix(a.Key, "x-data-") {
+				attrs = append(attrs, a)
+			}
+		}
+		n.Attr = attrs
+	})
+}
+
+// restoreXdataAttributes converts all existing "x-data-*" attributes to
+// regular data attributes.
+// The resulting attribute looks like "data-{name}".
+func (m *ProcessMessage) restoreXdataAttributes() {
+	if m.Dom == nil {
+		return
+	}
+
+	dom.ForEachNode(dom.GetAllNodesWithTag(m.Dom, "*"), func(n *html.Node, _ int) {
 		for i, a := range n.Attr {
-			if strings.HasPrefix(a.Key, "x-data-"+m.Extractor.uniqueID+"-") {
-				n.Attr[i].Key = "data-readeck-" + a.Key[len("x-data-"+m.Extractor.uniqueID+"-"):]
+			if strings.HasPrefix(a.Key, "x-data-") {
+				n.Attr[i].Key = a.Key[2:]
 			}
 		}
 	})
@@ -211,7 +219,6 @@ type Extractor struct {
 	processors      ProcessList
 	errors          Error
 	drops           []*Drop
-	uniqueID        string
 	cachedResources map[string]*cachedResource
 }
 
@@ -224,9 +231,6 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 	}
 	URL.Fragment = ""
 
-	id := make([]byte, 4)
-	rand.Read(id)
-
 	res := &Extractor{
 		URL:             URL,
 		Visited:         URLList{},
@@ -235,7 +239,6 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 		cachedResources: make(map[string]*cachedResource),
 		processors:      ProcessList{},
 		drops:           []*Drop{NewDrop(URL)},
-		uniqueID:        hex.EncodeToString(id),
 	}
 
 	t := res.client.Transport.(*Transport)
@@ -443,12 +446,14 @@ func (e *Extractor) Run() {
 				m.step = StepDom
 
 				d.fixRelativeURIs(m) // Fix relative URIs before any processor
+				m.removeXdataAttributes()
+
 				e.runProcessors(m)
 				if m.canceled {
 					return
 				}
 
-				m.transformDataAttributes()
+				m.restoreXdataAttributes()
 
 				// Render the final document body
 				if m.Dom != nil {

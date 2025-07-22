@@ -6,6 +6,8 @@ package contentscripts
 
 import (
 	"context"
+	"net/http"
+	"strings"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
@@ -41,4 +43,36 @@ func TestExtractBody(t *testing.T) {
 	ex.Run()
 	assert.Empty(ex.Errors())
 	assert.Equal(expectedHTML, string(ex.HTML))
+}
+
+func TestScriptVideoEmbed(t *testing.T) {
+	assert := require.New(t)
+	httpmock.Activate()
+	defer httpmock.DeactivateAndReset()
+
+	httpmock.RegisterResponder("GET", "/page1", NewHTMLResponder(200, "video_embed.html"))
+	httpmock.RegisterResponder("POST", "/youtubei/v1/player", func(_ *http.Request) (*http.Response, error) {
+		rsp := httpmock.NewBytesResponse(200, []byte(`{
+			"videoDetails": {"title": "Test Embed"}
+		}`))
+		rsp.Header.Set("Content-Type", "application/json")
+		return rsp, nil
+	})
+
+	ex, _ := extract.New("http://example.net/page1")
+	ex.AddProcessors(
+		LoadScripts(),
+		ProcessDom("initialDocument"),
+		ProcessDom("finalDocument"),
+	)
+	ex.Run()
+	assert.Empty(ex.Errors())
+
+	expectHTML := `<!-- page 1 -->
+
+    <p>This is a video:</p>
+    <figure class="content"><img srcset="https://i.ytimg.com/vi/haAimDKxo40/maxresdefault.jpg, https://i.ytimg.com/vi/haAimDKxo40/hqdefault.jpg" alt="Youtube - Test Embed" data-iframe-params="src=https%3A%2F%2Fwww.youtube-nocookie.com%2Fembed%2FhaAimDKxo40%3Fsi%3DXZY%26start%3D123&amp;w=560&amp;h=315"/><figcaption><a href="https://www.youtube.com/watch?v=haAimDKxo40&amp;t=123s">Youtube - Test Embed</a></figcaption></figure>
+    <p>Conclusion</p>`
+
+	assert.Equal(expectHTML, strings.TrimSpace(string(ex.HTML)))
 }

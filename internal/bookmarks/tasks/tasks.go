@@ -306,7 +306,6 @@ func extractPageHandler(data interface{}) {
 		contentscripts.ProcessDom("initialDocument"),
 		contents.StripHeadingAnchors,
 		contents.ExtractInlineSVGs,
-		contents.ConvertVideoEmbeds,
 		contents.Readability(),
 		contentscripts.ProcessDom("finalDocument"),
 		CleanDomProcessor,
