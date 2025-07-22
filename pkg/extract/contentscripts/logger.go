@@ -6,9 +6,10 @@ package contentscripts
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"strings"
+
+	"github.com/dop251/goja"
 )
 
 var loggerCtxKey = &contextKey{"logger"}
@@ -56,19 +57,19 @@ func (vm *Runtime) startConsole() error {
 	return vm.Set("console", console)
 }
 
-func logFunc(level string, getLogger func() *slog.Logger) func(...any) {
-	return func(args ...any) {
+func logFunc(level string, getLogger func() *slog.Logger) func(call goja.FunctionCall) goja.Value {
+	return func(call goja.FunctionCall) goja.Value {
 		msg := []string{}
 		fields := []slog.Attr{}
 
-		for _, x := range args {
-			if f, ok := x.(map[string]any); ok {
-				for k, v := range f {
-					fields = append(fields, slog.Any(k, v))
+		for _, x := range call.Arguments {
+			if f, ok := x.(*goja.Object); ok {
+				for _, k := range f.Keys() {
+					fields = append(fields, valueToLogAttr(k, f.Get(k)))
 				}
-			} else {
-				msg = append(msg, fmt.Sprintf("%s", x))
+				continue
 			}
+			msg = append(msg, x.String())
 		}
 
 		lv := slog.LevelInfo
@@ -81,5 +82,28 @@ func logFunc(level string, getLogger func() *slog.Logger) func(...any) {
 			lv = slog.LevelWarn
 		}
 		getLogger().LogAttrs(context.Background(), lv, strings.Join(msg, " "), fields...)
+
+		return goja.Undefined()
+	}
+}
+
+func valueToLogAttr(name string, v goja.Value) slog.Attr {
+	switch x := v.Export().(type) {
+	case int:
+		return slog.Int(name, x)
+	case float64:
+		return slog.Float64(name, x)
+	case float32:
+		return slog.Float64(name, float64(x))
+	case string:
+		return slog.String(name, x)
+	case bool:
+		return slog.Bool(name, x)
+	case []any:
+		return slog.Any(name, x)
+	case map[string]any:
+		return slog.Any(name, x)
+	default:
+		return slog.Any(name, v.String())
 	}
 }
