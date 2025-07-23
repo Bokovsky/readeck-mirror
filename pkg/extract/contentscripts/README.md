@@ -51,6 +51,18 @@ exports.setConfig = function(config) {
 
 This function runs after loading the page meta data.
 
+### initialDocument
+
+`exports.initialDocument(document)`
+
+This function runs before readability, when an HTML document exists.
+
+### finalDocument
+
+`exports.finalDocument(document)`
+
+This function runs after readability, when an HTML document exists.
+
 ## Global variables and functions
 
 ### `$`: extractor information
@@ -248,3 +260,140 @@ List of pairs of string replacement.
 #### `config.httpHeaders` - object
 
 An object that contain HTTP headers being sent to every subsequent requests.
+
+
+### DOM API
+
+The `initialDocument` and `finalDocument` functions receive a `document` argument that is a subset of a DOM Node. It exposes the following types, properties and methods:
+
+#### `Attribute.name: string`
+#### `Attribute.value: string`
+
+#### `Node.TEXT_NODE: number`
+#### `Node.DOCUMENT_NODE: number`
+#### `Node.ELEMENT_NODE: number`
+#### `Node.COMMENT_NODE: number`
+#### `Node.DOCTYPE_NODE: number`
+
+#### `Node.nodeName: string`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/nodeName)
+
+#### `Node.nodeType: number`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/nodeType)
+
+#### `Node.nodeValue: string`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/nodeValue)
+
+#### `Node.attributes: Attribute[]`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/attributes)
+
+#### `Node.body: Node | undefined`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/body)
+
+#### `Node.childNodes: Node[]`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/childNodes)
+
+#### `Node.children: Node[]`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/children)
+
+#### `Node.firstChild: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/firstChild)
+
+#### `Node.firstElementChild: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/firstElementChild)
+
+#### `Node.id: string`
+read write -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/id)
+
+#### `Node.innerHTML: string`
+read write -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/innerHTML)
+
+#### `Node.lastChild: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/lastChild)
+
+#### `Node.nextSibling: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/nextSibling)
+
+#### `Node.outerHTML: string`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/outerHTML)
+
+#### `Node.parentNode: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentNode)
+
+#### `Node.parentElement: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/parentElement)
+
+#### `Node.previousSibling: Node | null`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/previousSibling)
+
+#### `Node.textContent: string`
+read only -
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/textContent)
+
+#### `Node.appendChild(node: Node): undefined`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/appendChild)
+
+#### `Node.append(node: Node): undefined`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/append)
+
+#### `Node.cloneNode(): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/cloneNode)
+
+#### `Node.contains(node: Node): boolean`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/contains)
+
+#### `Node.createElement(name: string): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createElement)
+
+#### `Node.createTextNode(data: string): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/createTextNode)
+
+#### `Node.getAttribute(name: string): string`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/getAttribute)
+
+#### `Node.hasAttribute(name: string): boolean`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/hasAttribute)
+
+#### `Node.hasAttributes(): boolean`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/hasAttributes)
+
+#### `Node.hasChildNodes(): boolean`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/hasChildNodes)
+
+#### `Node.insertBefore(newChild: Node, oldChild: Node): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/insertBefore)
+
+#### `Node.removeChild(node: Node): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/removeChild)
+
+#### `Node.querySelector(s: string): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/querySelector)
+
+#### `Node.querySelectorAll(s: string): Node[]`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Document/querySelectorAll)
+
+#### `Node.replaceChild(newChild: Node, oldChild: Node): Node`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Node/replaceChild)
+
+#### `Node.replaceWith(...nodes: (Node | string)[]): undefined`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/CharacterData/replaceWith)
+
+#### `Node.setAttribute(name: string, value: string): undefined`
+[MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/setAttribute)
