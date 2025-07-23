@@ -82,7 +82,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <h2 class="title text-h3">{{ gettext("Authentication") }}</h2>
 
-<div class="w-full mb-6 field" data-controller="clipboard">
+<div class="w-full mb-4 field" data-controller="clipboard">
   <label class="font-semibold">{{ gettext("Your API token") }}</label>
   <span class="inline-flex w-full form-input p-0">
     <input type="text" readonly class="grow p-2 rounded ring-0 ring-offset-0" data-clipboard-target="content" value="{{ .Encoded }}">
@@ -92,6 +92,13 @@ SPDX-License-Identifier: AGPL-3.0-only
     </button>
   </span>
 </div>
+
+<p class="mb-6">
+  <a class="btn btn-outlined btn-primary font-semibold" download="readeck-token.txt" href="data:text/plain;,{{ .Encoded }}%0D%0A">
+    {{- yield icon(name="o-download") }}
+    {{ gettext("Download as a text file") -}}
+  </a>
+</p>
 
 <h2 class="title text-h3">{{ gettext("How to use it") }}</h2>
 

@@ -21,6 +21,8 @@ On a collection's section, you can download the full collection as a single E-bo
 The catalog can be accessed by any app or e-reader supporting the OPDS format.
 To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens).
 
+**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token.
+
 You can restrict the permission of this token to "Bookmarks : Read Only".
 Write the token value down and setup your app.
 

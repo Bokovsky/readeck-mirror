@@ -16,6 +16,7 @@
 - Open Graph metadata on publicly shared bookmarks, [@mislav](https://codeberg.org/mislav)
 - DOM API in content scripts
 - Log format configuration entry
+- API tokens can be download as text files
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
