@@ -6,10 +6,15 @@
 
 exports.priority = 10
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return true
 }
-
+/**
+ * @param {Config} config
+ */
 exports.setConfig = function (config) {
   switch (true) {
     case $.domain == "arstechnica.com":
@@ -87,9 +92,9 @@ exports.setConfig = function (config) {
       break
 
     case $.domain == "politico.eu":
-      config.bodySelectors.unshift('//article')
-      config.stripSelectors.push('//nav', '//aside', '//footer')
-      config.stripIdOrClass.push('ad', 'listen', 'pro-pill')
+      config.bodySelectors.unshift("//article")
+      config.stripSelectors.push("//nav", "//aside", "//footer")
+      config.stripIdOrClass.push("ad", "listen", "pro-pill")
       break
   }
 }

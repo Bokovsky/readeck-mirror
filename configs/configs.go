@@ -14,6 +14,7 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"time"
@@ -324,8 +325,7 @@ var Config = config{
 		StartWorker: true,
 	},
 	Extractor: configExtractor{
-		NumWorkers:     runtime.NumCPU(),
-		ContentScripts: []string{"data/content-scripts"},
+		NumWorkers: runtime.NumCPU(),
 		DeniedIPs: []configIPNet{
 			newConfigIPNet("127.0.0.0/8"),
 			newConfigIPNet("::1/128"),
@@ -361,6 +361,12 @@ func LoadConfiguration(configPath string) error {
 func InitConfiguration() {
 	if Config.Database.Source == "" {
 		Config.Database.Source = fmt.Sprintf("sqlite3:%s/db.sqlite3", Config.Main.DataDirectory)
+	}
+
+	if Config.Extractor.ContentScripts == nil {
+		Config.Extractor.ContentScripts = []string{
+			filepath.Join(Config.Main.DataDirectory, "content-scripts"),
+		}
 	}
 
 	Config.Email.From.setDefault()

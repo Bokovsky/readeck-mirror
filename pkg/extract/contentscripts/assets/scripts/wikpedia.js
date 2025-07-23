@@ -4,10 +4,16 @@
 
 exports.priority = 10
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return /\.(wikinews|wikipedia)\.org$/.test($.host)
 }
 
+/**
+ * @param {Config} config
+ */
 exports.setConfig = function (config) {
   // Force override for wikinews
   $.overrideConfig(config, "https://wikipedia.org/")

@@ -6,10 +6,16 @@ const vttTimeStamp = /^\d+:\d+:\d+\.\d+\s+-->\s+\d+:\d+:\d+\.\d+/
 const rxAutogen = /-x-autogen/
 const rxDuration = /^PT(\d+)H(\d+)M(\d+)S$/
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return $.domain == "vimeo.com"
 }
 
+/**
+ * @param {Config} config
+ */
 exports.setConfig = function (config) {
   config.singlePageLinkSelectors = []
 }

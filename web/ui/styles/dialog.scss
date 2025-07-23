@@ -95,3 +95,50 @@
     }
   }
 }
+
+.dialog-video {
+  --dialog-spacing: 0px;
+  position: fixed;
+  z-index: 50;
+  width: auto;
+  max-height: calc(100dvh - var(--dialog-spacing));
+  margin: auto;
+  background-color: #000;
+
+  @apply rounded-md shadow-lg shadow-black;
+
+  @screen lg {
+    --dialog-spacing: theme("spacing.20");
+  }
+
+  @at-root body:has(&:open) {
+    @apply overflow-hidden;
+  }
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  & > form {
+    position: absolute;
+    top: 0;
+  }
+
+  & > div,
+  & > div > iframe {
+    width: 100%;
+    height: 100%;
+  }
+
+  .dialog--close {
+    position: fixed;
+    top: theme("spacing.4");
+    right: theme("spacing.4");
+    @apply text-white/70 hf:text-white;
+
+    &:focus-visible {
+      outline: none;
+      background-color: transparent;
+    }
+  }
+}

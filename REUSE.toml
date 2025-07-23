@@ -5,6 +5,7 @@ path = [
     "CHANGELOG.md",
     "README.md",
     "pkg/**/README.md",
+    "pkg/extract/contentscripts/assets/scripts/jsconfig.json"
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2020 Olivier Meunier <olivier@neokraft.net>"

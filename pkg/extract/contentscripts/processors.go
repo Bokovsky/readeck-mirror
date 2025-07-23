@@ -153,6 +153,21 @@ func ReplaceStrings(m *extract.ProcessMessage, next extract.Processor) extract.P
 	return next
 }
 
+// ProcessDom returns an [extract.Processor] that runs the given content script function
+// with the current [extract.ProcessMessage.Dom] content when it exists.
+func ProcessDom(funcName string) extract.Processor {
+	return func(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
+		if m.Step() != extract.StepDom || m.Dom == nil {
+			return next
+		}
+
+		if err := getRuntime(m.Extractor.Context).ProcessDom(funcName, m.Dom); err != nil {
+			m.Log().Warn(funcName, slog.Any("err", err))
+		}
+		return next
+	}
+}
+
 // ExtractBody tries to find a body as defined by the "body" directives
 // in the configuration file.
 func ExtractBody(m *extract.ProcessMessage, next extract.Processor) extract.Processor {

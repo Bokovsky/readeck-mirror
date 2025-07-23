@@ -283,7 +283,7 @@ func extractPageHandler(data interface{}) {
 
 	ex.AddProcessors(
 		contentscripts.LoadScripts(
-			bookmarks.GetContentScripts(ex.Log())...,
+			bookmarks.LoadContentScripts(ex.Log())...,
 		),
 		meta.ExtractMeta,
 		meta.ExtractOembed,
@@ -303,10 +303,11 @@ func extractPageHandler(data interface{}) {
 		conditionnalProcessor(params.FindMain, contentscripts.ExtractBody),
 		conditionnalProcessor(params.FindMain, contentscripts.StripTags),
 		conditionnalProcessor(params.FindMain, contentscripts.GoToNextPage),
+		contentscripts.ProcessDom("initialDocument"),
 		contents.StripHeadingAnchors,
 		contents.ExtractInlineSVGs,
-		contents.ConvertVideoEmbeds,
 		contents.Readability(),
+		contentscripts.ProcessDom("finalDocument"),
 		CleanDomProcessor,
 		extractLinksProcessor,
 		contents.Text,

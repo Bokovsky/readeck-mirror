@@ -2,11 +2,13 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+const rxPost = /^\/profile\/(.+)?\/post\/([a-zA-Z0-9]+)$/
+
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
-  return (
-    $.domain == "bsky.app" &&
-    new URL($.url).pathname.match(/^\/profile\/(.+)?\/post\/([a-zA-Z0-9]+)$/)
-  )
+  return $.domain == "bsky.app" && rxPost.test(new URL($.url).pathname)
 }
 
 exports.processMeta = function () {
@@ -19,6 +21,11 @@ exports.processMeta = function () {
   loadThread(userName, postID)
 }
 
+/**
+ *
+ * @param {string} userName
+ * @param {string} postID
+ */
 function loadThread(userName, postID) {
   let rsp = requests.get(
     `https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle=${userName}`,

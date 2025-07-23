@@ -18,7 +18,7 @@
   "o-cross":        "node_modules/boxicons/svg/solid/bxs-x-circle.svg",
   "o-download":     "node_modules/boxicons/svg/regular/bx-download.svg",
   "o-email":        "node_modules/boxicons/svg/regular/bx-envelope.svg",
-  "o-expand":       "node_modules/boxicons/svg/regular/bx-expand.svg",
+  "o-expand":       "node_modules/boxicons/svg/regular/bx-expand-alt.svg",
   "o-extension":    "node_modules/boxicons/svg/regular/bx-extension.svg",
   "o-error":        "node_modules/boxicons/svg/solid/bxs-bolt-circle.svg",
   "o-favorite-off": "node_modules/boxicons/svg/regular/bx-heart.svg",

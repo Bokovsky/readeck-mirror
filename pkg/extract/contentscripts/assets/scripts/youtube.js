@@ -2,10 +2,16 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return $.domain == "youtube.com"
 }
 
+/**
+ * @param {Config} config
+ */
 exports.setConfig = function (config) {
   // there's no need for custom headers, on the contrary
   config.httpHeaders = {}

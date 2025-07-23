@@ -2,6 +2,9 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+/**
+ * @returns {boolean}
+ */
 exports.isActive = function () {
   return $.domain == "ted.com" && new URL($.url).pathname.match(/^\/talks\//)
 }
