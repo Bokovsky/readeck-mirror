@@ -13,7 +13,9 @@
 - http/2 cleartext support
 - diagnosis modal with extraction log on each bookmark
 - modal images in articles
-- Open Graph metadata on publicly shared bookmarks
+- Open Graph metadata on publicly shared bookmarks, [@mislav](https://codeberg.org/mislav)
+- DOM API in content scripts
+- Log format configuration entry
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
@@ -29,6 +31,7 @@
 - layout in mosaic view with very long titles
 - readeck.exe crash, serving web assets on Windows, by [@mislav](https://codeberg.org/mislav)
 - preserve all matched nodes when applying FiveFilters body selector rules, by [@mislav](https://codeberg.org/mislav)
+- duplicate load (and run) of user content scripts
 
 ### Improved
 - new archiver process: faster and smaller memory footprint
