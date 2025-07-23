@@ -10,21 +10,33 @@ import (
 	. "github.com/phsym/console-slog" //nolint:revive,staticcheck
 )
 
-type devLogTheme struct{}
+type consoleTheme struct {
+	timestamp      ANSIMod
+	source         ANSIMod
+	message        ANSIMod
+	messageDebug   ANSIMod
+	attrKey        ANSIMod
+	attrValue      ANSIMod
+	attrValueError ANSIMod
+	levelError     ANSIMod
+	levelWarn      ANSIMod
+	levelInfo      ANSIMod
+	levelDebug     ANSIMod
+}
 
-func (t devLogTheme) Name() string            { return "" }
-func (t devLogTheme) Timestamp() ANSIMod      { return ToANSICode(BrightBlack) }
-func (t devLogTheme) Source() ANSIMod         { return ToANSICode(Bold, BrightBlack) }
-func (t devLogTheme) Message() ANSIMod        { return ToANSICode(Bold) }
-func (t devLogTheme) MessageDebug() ANSIMod   { return ToANSICode() }
-func (t devLogTheme) AttrKey() ANSIMod        { return ToANSICode(Cyan) }
-func (t devLogTheme) AttrValue() ANSIMod      { return ToANSICode(Faint) }
-func (t devLogTheme) AttrValueError() ANSIMod { return ToANSICode(Bold, Red) }
-func (t devLogTheme) LevelError() ANSIMod     { return ToANSICode(Bold, Red) }
-func (t devLogTheme) LevelWarn() ANSIMod      { return ToANSICode(Bold, Yellow) }
-func (t devLogTheme) LevelInfo() ANSIMod      { return ToANSICode(Bold, Green) }
-func (t devLogTheme) LevelDebug() ANSIMod     { return ToANSICode(Bold, BrightMagenta) }
-func (t devLogTheme) Level(level slog.Level) ANSIMod {
+func (t consoleTheme) Name() string            { return "" }
+func (t consoleTheme) Timestamp() ANSIMod      { return t.timestamp }
+func (t consoleTheme) Source() ANSIMod         { return t.source }
+func (t consoleTheme) Message() ANSIMod        { return t.message }
+func (t consoleTheme) MessageDebug() ANSIMod   { return t.messageDebug }
+func (t consoleTheme) AttrKey() ANSIMod        { return t.attrKey }
+func (t consoleTheme) AttrValue() ANSIMod      { return t.attrValue }
+func (t consoleTheme) AttrValueError() ANSIMod { return t.attrValueError }
+func (t consoleTheme) LevelError() ANSIMod     { return t.levelError }
+func (t consoleTheme) LevelWarn() ANSIMod      { return t.levelWarn }
+func (t consoleTheme) LevelInfo() ANSIMod      { return t.levelInfo }
+func (t consoleTheme) LevelDebug() ANSIMod     { return t.levelDebug }
+func (t consoleTheme) Level(level slog.Level) ANSIMod {
 	switch {
 	case level >= slog.LevelError:
 		return t.LevelError()
@@ -35,4 +47,20 @@ func (t devLogTheme) Level(level slog.Level) ANSIMod {
 	default:
 		return t.LevelDebug()
 	}
+}
+
+var stdLogTheme = consoleTheme{}
+
+var devLogTheme = consoleTheme{
+	timestamp:      ToANSICode(BrightBlack),
+	source:         ToANSICode(Bold, BrightBlack),
+	message:        ToANSICode(Bold),
+	messageDebug:   ToANSICode(),
+	attrKey:        ToANSICode(Cyan),
+	attrValue:      ToANSICode(Faint),
+	attrValueError: ToANSICode(Bold, Red),
+	levelError:     ToANSICode(Bold, Red),
+	levelWarn:      ToANSICode(Bold, Yellow),
+	levelInfo:      ToANSICode(Bold, Green),
+	levelDebug:     ToANSICode(Bold, BrightMagenta),
 }

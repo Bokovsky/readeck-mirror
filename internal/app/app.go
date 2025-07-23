@@ -19,6 +19,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/cristalhq/acmd"
 	"github.com/phsym/console-slog"
@@ -82,16 +83,25 @@ func Run() error {
 func InitApp() {
 	// Setup logger
 	var handler slog.Handler
-	if configs.Config.Main.LogFormat == "json" {
+	switch f := configs.Config.Main.LogFormat; f {
+	case "", "json":
 		handler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
 			Level: configs.Config.Main.LogLevel,
 		})
-	} else {
+	case "text":
 		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
 			Level:      configs.Config.Main.LogLevel,
-			Theme:      devLogTheme{},
-			TimeFormat: "15:04:05.000",
+			Theme:      stdLogTheme,
+			TimeFormat: time.RFC3339Nano,
 		})
+	case "dev":
+		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
+			Level:      configs.Config.Main.LogLevel,
+			Theme:      devLogTheme,
+			TimeFormat: "15:04:05.0000",
+		})
+	default:
+		fatal("can't setup logger", fmt.Errorf("unknown format %s", f))
 	}
 
 	slog.SetDefault(slog.New(handler))

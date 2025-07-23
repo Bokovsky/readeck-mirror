@@ -293,7 +293,6 @@ func (pm configProxyMatch) URL() *url.URL {
 var Config = config{
 	Main: configMain{
 		LogLevel:      slog.LevelInfo,
-		LogFormat:     "json",
 		DataDirectory: "data",
 	},
 	Server: configServer{
