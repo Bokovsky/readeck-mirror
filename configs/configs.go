@@ -54,7 +54,7 @@ type config struct {
 
 type configMain struct {
 	LogLevel      slog.Level `json:"log_level" env:"LOG_LEVEL"`
-	DevMode       bool       `json:"dev_mode" env:"DEV_MODE"`
+	LogFormat     string     `json:"log_format" env:"LOG_FORMAT"`
 	SecretKey     string     `json:"secret_key" env:"SECRET_KEY,unset"`
 	DataDirectory string     `json:"data_directory" env:"DATA_DIRECTORY,unset"`
 }
@@ -293,7 +293,7 @@ func (pm configProxyMatch) URL() *url.URL {
 var Config = config{
 	Main: configMain{
 		LogLevel:      slog.LevelInfo,
-		DevMode:       false,
+		LogFormat:     "json",
 		DataDirectory: "data",
 	},
 	Server: configServer{

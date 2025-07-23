@@ -82,15 +82,15 @@ func Run() error {
 func InitApp() {
 	// Setup logger
 	var handler slog.Handler
-	if configs.Config.Main.DevMode {
+	if configs.Config.Main.LogFormat == "json" {
+		handler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
+			Level: configs.Config.Main.LogLevel,
+		})
+	} else {
 		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
 			Level:      configs.Config.Main.LogLevel,
 			Theme:      devLogTheme{},
 			TimeFormat: "15:04:05.000",
-		})
-	} else {
-		handler = slog.NewJSONHandler(os.Stdout, &slog.HandlerOptions{
-			Level: configs.Config.Main.LogLevel,
 		})
 	}
 
@@ -193,11 +193,6 @@ func appPreRun(flags *appFlags) error {
 
 	if err := initConfig(flags.ConfigFile); err != nil {
 		return err
-	}
-
-	// Enforce debug in dev mode
-	if configs.Config.Main.DevMode {
-		configs.Config.Main.LogLevel = slog.LevelDebug
 	}
 
 	InitApp()

@@ -88,8 +88,8 @@ func Render(w http.ResponseWriter, r *http.Request, status int, value interface{
 func Msg(w http.ResponseWriter, r *http.Request, message *Message) {
 	Render(w, r, message.Status, message)
 
-	// Log errors only in dev mode
-	if message.Status >= 400 && configs.Config.Main.DevMode {
+	// Log errors only in debug
+	if message.Status >= 400 && configs.Config.Main.LogLevel <= slog.LevelDebug {
 		Log(r).Warn(message.Message, slog.Any("message", message))
 	}
 }

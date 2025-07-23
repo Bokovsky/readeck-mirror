@@ -35,16 +35,13 @@ func TestEnvVars(t *testing.T) {
 			assert.NoError(err)
 			assert.Equal(slog.LevelWarn, cf.Main.LogLevel)
 		}},
-		{"READECK_DEV_MODE", "1", func(assert *require.Assertions, cf config, err error) {
+		{"READECK_LOG_LEVEL", "debug-10", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
-			assert.True(cf.Main.DevMode)
+			assert.Equal(slog.LevelDebug-10, cf.Main.LogLevel)
 		}},
-		{"READECK_DEV_MODE", "0", func(assert *require.Assertions, cf config, err error) {
+		{"READECK_LOG_FORMAT", "json", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
-			assert.False(cf.Main.DevMode)
-		}},
-		{"READECK_DEV_MODE", "abc", func(assert *require.Assertions, _ config, err error) {
-			assert.ErrorContains(err, "invalid syntax")
+			assert.Equal("json", cf.Main.LogFormat)
 		}},
 		{"READECK_SECRET_KEY", "abcdefghijkl", func(assert *require.Assertions, cf config, err error) {
 			assert.NoError(err)
