@@ -22,6 +22,16 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end }}
   </menu>
 
+  <hr class="w-[25%] border-gray-200 mx-auto">
+  <menu class="my-4">
+    <li><a href="{{ urlFor(`/profile/export`) }}"
+    data-current="{{ pathIs(`/profile/export`) }}">{{ yield icon(name="o-export") }}
+      {{ gettext("Export") }}</a></li>
+    <li><a href="{{ urlFor(`/profile/import`) }}"
+    data-current="{{ pathIs(`/profile/import`) }}">{{ yield icon(name="o-import") }}
+      {{ gettext("Import") }}</a></li>
+  </menu>
+
   {{- if  hasPermission("admin:users", "read") -}}
     <hr class="w-[25%] border-gray-200 mx-auto">
     <menu class="my-4">

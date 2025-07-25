@@ -5,15 +5,22 @@
 package profile
 
 import (
+	"archive/zip"
 	"context"
 	"errors"
+	"fmt"
+	"io"
+	"net/http"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/portability"
+	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -376,4 +383,44 @@ func (f *tokenForm) updateToken(t *tokens.Token) error {
 		return err
 	}
 	return nil
+}
+
+type importForm struct {
+	*forms.Form
+}
+
+func newImportForm(tr forms.Translator, user *users.User) *importForm {
+	return &importForm{
+		forms.Must(
+			forms.WithTranslator(context.Background(), tr),
+			forms.NewFileField("data", forms.Required),
+			forms.NewTextField("check", forms.Trim, forms.ValueValidatorFunc[string](func(_ forms.Field, value string) error {
+				if value != user.Username {
+					return errors.New(tr.Gettext("username does not match"))
+				}
+
+				return nil
+			})),
+		),
+	}
+}
+
+func (f *importForm) importFile(r *http.Request) error {
+	fo := f.Get("data").(*forms.FileField).V()
+	fd, err := fo.Open()
+	if err != nil {
+		return err
+	}
+	defer fd.Close() //nolint:errcheck
+
+	zr, err := zip.NewReader(fd.(io.ReaderAt), fo.Size())
+	if err != nil {
+		return err
+	}
+
+	imp := portability.NewSingleUserImporter(zr, auth.GetRequestUser(r), server.Locale(r))
+	imp.SetLogger(func(s string, a ...any) {
+		server.Log(r).Info(fmt.Sprintf(s, a...))
+	})
+	return portability.Import(imp)
 }
