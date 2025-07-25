@@ -42,7 +42,7 @@ func NewLabelList(ctx context.Context, ds *goqu.SelectDataset) (LabelList, error
 
 // NewLabel returns a new [*Label], setting the necessary URLs.
 func NewLabel(ctx context.Context, l *Label) *Label {
-	l.Href = urls.AbsoluteURLContext(ctx, "/api/bookmarks/labels", l.Name.Path()).String()
+	l.Href = urls.AbsoluteURLContext(ctx, "/api/bookmarks/labels").String() + "/" + l.Name.Path()
 	l.HrefBookmarks = urls.AbsoluteURLContext(ctx, "/api/bookmarks").String() + "?" + url.Values{
 		"labels": []string{strconv.Quote(string(l.Name))},
 	}.Encode()
