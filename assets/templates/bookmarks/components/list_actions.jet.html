@@ -76,7 +76,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       </summary>
       <ul class="top-8 right-0">
         {{- yield content -}}
-        <li><a class="link" href="{{ urlFor(`/api/bookmarks/export.epub`) }}{{ params }}&sort={{ sortParam }}">{{- yield icon(name="o-download") }} {{ gettext("Download EPUB") }}</a></li>
+        <li><a class="link" href="{{ urlFor(`/api/bookmarks/export.epub`) }}{{ params }}&sort={{ sortParam }}">{{- yield icon(name="o-ebook") }} {{ gettext("Download EPUB") }}</a></li>
         <li><a class="link" href="{{ urlFor(`/api/bookmarks/feed`) }}{{ params }}">{{- yield icon(name="o-feed") }} {{ gettext("Atom Feed") }}</a></li>
       </ul>
     </details>

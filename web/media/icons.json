@@ -17,6 +17,7 @@
   "o-create":       "node_modules/@mdi/svg/svg/plus-circle.svg",
   "o-cross":        "node_modules/boxicons/svg/solid/bxs-x-circle.svg",
   "o-download":     "node_modules/boxicons/svg/regular/bx-download.svg",
+  "o-ebook":        "node_modules/boxicons/svg/regular/bx-book-alt.svg",
   "o-email":        "node_modules/boxicons/svg/regular/bx-envelope.svg",
   "o-expand":       "node_modules/boxicons/svg/regular/bx-expand-alt.svg",
   "o-extension":    "node_modules/boxicons/svg/regular/bx-extension.svg",
