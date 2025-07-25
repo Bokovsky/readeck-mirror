@@ -142,6 +142,10 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 	var exporter converter.IterExporter
 	format := chi.URLParam(r, "format")
 	switch format {
+	case "csv":
+		exporter = converter.CSVExporter{}
+	case "html":
+		exporter = converter.BrowserExporter{}
 	case "epub":
 		exp := converter.NewEPUBExporter()
 		if collection, ok := checkCollection(r.Context()); ok {
