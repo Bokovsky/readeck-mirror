@@ -16,6 +16,7 @@ import (
 	"github.com/cristalhq/acmd"
 
 	"codeberg.org/readeck/readeck/internal/portability"
+	"codeberg.org/readeck/readeck/locales"
 )
 
 func init() {
@@ -86,19 +87,18 @@ func runImport(_ context.Context, args []string) error {
 	}
 	defer zr.Close()
 
-	loader, err := portability.NewImporter(&zr.Reader, users, clearData)
-	if err != nil {
+	imp := portability.NewFullImporter(&zr.Reader, users, clearData, locales.LoadTranslation(""))
+	imp.SetLogger(func(s string, a ...any) {
+		fmt.Fprintf(os.Stdout, "  - "+s+"\n", a...) //nolint:errcheck
+	})
+
+	imp.Log("%sstarting import%s...", colorYellow, colorReset)
+
+	if err = portability.Import(imp); err != nil {
 		return err
 	}
-	loader.SetOutput(os.Stdout)
 
-	fmt.Fprintf(loader.Output(), "%sstarting import%s...\n", colorYellow, colorReset) // nolint:errcheck
-
-	if err = loader.Load(); err != nil {
-		return err
-	}
-
-	fmt.Fprintf(loader.Output(), "%s%simport done!%s\n", bold, colorGreen, colorReset) // nolint:errcheck
+	imp.Log("%s%simport done!%s", bold, colorGreen, colorReset)
 
 	if clearData {
 		return removeOrphanFiles()

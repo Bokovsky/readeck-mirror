@@ -16,6 +16,11 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 )
 
+// Translator describes a type that implements a translation method.
+type translator interface {
+	Gettext(string, ...interface{}) string
+}
+
 type exportInfo struct {
 	Date           time.Time
 	Version        string

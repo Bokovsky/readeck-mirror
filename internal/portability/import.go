@@ -7,7 +7,7 @@ package portability
 import (
 	"archive/zip"
 	"encoding/json"
-	"fmt"
+	"errors"
 	"io"
 	"maps"
 	"os"
@@ -15,6 +15,7 @@ import (
 	"path/filepath"
 	"slices"
 	"strings"
+	"time"
 
 	"github.com/doug-martin/goqu/v9"
 
@@ -26,39 +27,26 @@ import (
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
-// Importer is a content importer.
-type Importer struct {
-	usernames []string
-	users     map[int]int
-	clearData bool
-	zr        *zip.Reader
-	output    io.Writer
+var (
+	_ Importer = (*FullImporter)(nil)
+	_ Importer = (*SingleUserImporter)(nil)
+)
+
+// Importer describes a data loader.
+type Importer interface {
+	Log(format string, a ...any)
+
+	loadData() (*portableData, error)
+	clearDB(*goqu.TxDatabase) error
+	loadUsers(*goqu.TxDatabase, *portableData) error
+	loadTokens(*goqu.TxDatabase, *portableData) error
+	loadCollections(*goqu.TxDatabase, *portableData) error
+	loadBookmarks(*goqu.TxDatabase, *portableData) error
 }
 
-// NewImporter creates a new [Importer].
-func NewImporter(zr *zip.Reader, usernames []string, clearData bool) (*Importer, error) {
-	return &Importer{
-		zr:        zr,
-		usernames: usernames,
-		users:     map[int]int{},
-		clearData: clearData,
-		output:    io.Discard,
-	}, nil
-}
-
-// Output returns the message output writer.
-func (imp *Importer) Output() io.Writer {
-	return imp.output
-}
-
-// SetOutput sets the message output writer.
-func (imp *Importer) SetOutput(w io.Writer) {
-	imp.output = w
-}
-
-// Load loads all the data into Readeck's database and content folder.
-func (imp *Importer) Load() error {
-	fd, err := imp.zr.Open("data.json")
+// Import loads all the data into Readeck's database and content folder.
+func Import(imp Importer) error {
+	data, err := imp.loadData()
 	if err != nil {
 		return err
 	}
@@ -70,24 +58,17 @@ func (imp *Importer) Load() error {
 		imp.loadBookmarks,
 	}
 
-	var data portableData
-	dec := json.NewDecoder(fd)
-	if err = dec.Decode(&data); err != nil {
-		return err
-	}
 	tx, err := db.Q().Begin()
 	if err != nil {
 		return err
 	}
 	return tx.Wrap(func() error {
-		if imp.clearData {
-			if err = imp.clearDB(tx); err != nil {
-				return err
-			}
+		if err = imp.clearDB(tx); err != nil {
+			return err
 		}
 
 		for _, fn := range fnList {
-			if err = fn(tx, &data); err != nil {
+			if err = fn(tx, data); err != nil {
 				return err
 			}
 		}
@@ -95,7 +76,64 @@ func (imp *Importer) Load() error {
 	})
 }
 
-func (imp *Importer) clearDB(tx *goqu.TxDatabase) error {
+// FullImporter is a content importer.
+type FullImporter struct {
+	usernames []string
+	users     map[int]int
+	clearData bool
+	zr        *zip.Reader
+	tr        translator
+	logFn     func(string, ...any)
+}
+
+// SingleUserImporter is an importer that loads only one user.
+type SingleUserImporter struct {
+	*FullImporter
+	user *users.User
+}
+
+// NewFullImporter creates a new [FullImporter].
+func NewFullImporter(zr *zip.Reader, usernames []string, clearData bool, tr translator) *FullImporter {
+	return &FullImporter{
+		zr:        zr,
+		usernames: usernames,
+		users:     map[int]int{},
+		clearData: clearData,
+		tr:        tr,
+	}
+}
+
+// Log implements [Importer].
+func (imp *FullImporter) Log(format string, a ...any) {
+	imp.logFn(format, a...)
+}
+
+// SetLogger sets a logging function.
+func (imp *FullImporter) SetLogger(fn func(string, ...any)) {
+	imp.logFn = fn
+}
+
+func (imp *FullImporter) loadData() (*portableData, error) {
+	fd, err := imp.zr.Open("data.json")
+	if err != nil {
+		return nil, err
+	}
+	defer fd.Close() //nolint:errcheck
+
+	var data portableData
+	dec := json.NewDecoder(fd)
+	if err = dec.Decode(&data); err != nil {
+		return nil, err
+	}
+
+	return &data, nil
+}
+
+func (imp *FullImporter) clearDB(tx *goqu.TxDatabase) error {
+	if !imp.clearData {
+		return nil
+	}
+
 	if _, err := tx.Delete(bookmarks.TableName).Executor().Exec(); err != nil {
 		return err
 	}
@@ -106,7 +144,7 @@ func (imp *Importer) clearDB(tx *goqu.TxDatabase) error {
 	return nil
 }
 
-func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err error) {
+func (imp *FullImporter) loadUsers(tx *goqu.TxDatabase, data *portableData) (err error) {
 	allUsers := len(imp.usernames) == 0
 
 	for _, item := range data.Users {
@@ -129,10 +167,7 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 			return err
 		}
 		if count > 0 {
-			fmt.Fprintf( // nolint:errcheck
-				imp.output,
-				"\tERR: user \"%s\" or \"%s\" already exists\n", item.Username, item.Email,
-			)
+			imp.Log("ERR: user \"%s\" or \"%s\" already exists", item.Username, item.Email)
 			continue
 		}
 
@@ -149,11 +184,11 @@ func (imp *Importer) loadUsers(tx *goqu.TxDatabase, data *portableData) (err err
 		imp.users[originalID] = item.ID
 	}
 
-	fmt.Fprintf(imp.output, "\t- %d user(s) imported\n", len(imp.users)) // nolint:errcheck
+	imp.Log("%d user(s) imported", len(imp.users))
 	return
 }
 
-func (imp *Importer) loadTokens(tx *goqu.TxDatabase, data *portableData) (err error) {
+func (imp *FullImporter) loadTokens(tx *goqu.TxDatabase, data *portableData) (err error) {
 	ids := slices.Collect(maps.Keys(imp.users))
 
 	i := 0
@@ -177,11 +212,11 @@ func (imp *Importer) loadTokens(tx *goqu.TxDatabase, data *portableData) (err er
 		i++
 	}
 
-	fmt.Fprintf(imp.output, "\t- %d token(s) imported\n", i) // nolint:errcheck
+	imp.Log("%d token(s) imported", i)
 	return
 }
 
-func (imp *Importer) loadCollections(tx *goqu.TxDatabase, data *portableData) (err error) {
+func (imp *FullImporter) loadCollections(tx *goqu.TxDatabase, data *portableData) (err error) {
 	ids := slices.Collect(maps.Keys(imp.users))
 
 	i := 0
@@ -205,11 +240,11 @@ func (imp *Importer) loadCollections(tx *goqu.TxDatabase, data *portableData) (e
 		i++
 	}
 
-	fmt.Fprintf(imp.output, "\t- %d collection(s) imported\n", i) // nolint:errcheck
+	imp.Log("%d collection(s) imported", i)
 	return
 }
 
-func (imp *Importer) loadBookmarks(tx *goqu.TxDatabase, data *portableData) (err error) {
+func (imp *FullImporter) loadBookmarks(tx *goqu.TxDatabase, data *portableData) (err error) {
 	ids := slices.Collect(maps.Keys(imp.users))
 
 	i := 0
@@ -224,16 +259,17 @@ func (imp *Importer) loadBookmarks(tx *goqu.TxDatabase, data *portableData) (err
 		i++
 	}
 
-	fmt.Fprintf(imp.output, "\t- %d bookmark(s) imported\n", i) // nolint:errcheck
+	imp.Log("%d bookmark(s) imported\n", i)
 	return
 }
 
-func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err error) {
+func (imp *FullImporter) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err error) {
 	p := path.Join("bookmarks", item.UID, "info.json")
 	fd, err := imp.zr.Open(p)
 	if err != nil {
 		return err
 	}
+	defer fd.Close() //nolint:errcheck
 
 	var b bookmarks.Bookmark
 	dec := json.NewDecoder(fd)
@@ -243,11 +279,11 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 
 	if b.ID, err = insertInto(tx, bookmarks.TableName, &b, func(x *bookmarks.Bookmark) {
 		x.ID = 0
-		x.FilePath, _ = x.GetBaseFileURL()
 		x.UserID = ptrTo(imp.users[*x.UserID])
 		if !imp.clearData || x.UID == "" {
 			x.UID = base58.NewUUID()
 		}
+		x.FilePath, _ = x.GetBaseFileURL()
 	}); err != nil {
 		return
 	}
@@ -261,6 +297,7 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 	if err != nil {
 		return err
 	}
+	defer w.Close() //nolint:errcheck
 
 	zw := zipfs.NewZipRW(w, nil, 0)
 	defer zw.Close() // nolint:errcheck
@@ -294,4 +331,88 @@ func (imp *Importer) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (err 
 	}
 
 	return
+}
+
+// NewSingleUserImporter returns a [SingleUserImporter] instance.
+func NewSingleUserImporter(zr *zip.Reader, user *users.User, tr translator) *SingleUserImporter {
+	return &SingleUserImporter{
+		FullImporter: NewFullImporter(zr, []string{user.Username}, false, tr),
+		user:         user,
+	}
+}
+
+func (imp *SingleUserImporter) loadData() (*portableData, error) {
+	data, err := imp.FullImporter.loadData()
+	if err != nil {
+		return nil, err
+	}
+
+	if len(data.Users) != 1 {
+		return nil, errors.New(imp.tr.Gettext("The import file must contain one user only"))
+	}
+
+	imp.usernames = []string{imp.user.Username}
+	imp.users[data.Users[0].ID] = imp.user.ID
+	return data, nil
+}
+
+func (imp *SingleUserImporter) clearDB(_ *goqu.TxDatabase) error {
+	return nil
+}
+
+func (imp *SingleUserImporter) loadUsers(tx *goqu.TxDatabase, data *portableData) error {
+	_, err := tx.Update(users.TableName).Prepared(true).
+		Set(map[string]any{
+			"updated":  time.Now().UTC(),
+			"settings": data.Users[0].Settings,
+		}).
+		Where(goqu.C("id").Eq(imp.user.ID)).
+		Executor().Exec()
+
+	return err
+}
+
+func (imp *SingleUserImporter) loadTokens(tx *goqu.TxDatabase, data *portableData) error {
+	if _, err := tx.Delete(tokens.TableName).Prepared(true).
+		Where(goqu.C("user_id").Eq(imp.user.ID)).
+		Executor().Exec(); err != nil {
+		return err
+	}
+	return imp.FullImporter.loadTokens(tx, data)
+}
+
+func (imp *SingleUserImporter) loadCollections(tx *goqu.TxDatabase, data *portableData) error {
+	if _, err := tx.Delete(bookmarks.CollectionTable).Prepared(true).
+		Where(goqu.C("user_id").Eq(imp.user.ID)).
+		Executor().Exec(); err != nil {
+		return err
+	}
+	return imp.FullImporter.loadCollections(tx, data)
+}
+
+func (imp *SingleUserImporter) loadBookmarks(tx *goqu.TxDatabase, data *portableData) (err error) {
+	ds := tx.From(bookmarks.TableName).Prepared(true).
+		Select(goqu.C("id"), goqu.C("file_path")).
+		Where(goqu.C("user_id").Eq(imp.user.ID))
+
+	items := []*bookmarks.Bookmark{}
+	if err := ds.ScanStructs(&items); err != nil {
+		return err
+	}
+
+	if _, err := tx.Delete(bookmarks.TableName).Prepared(true).
+		Where(goqu.C("user_id").Eq(imp.user.ID)).
+		Executor().Exec(); err != nil {
+		return err
+	}
+
+	if err := imp.FullImporter.loadBookmarks(tx, data); err != nil {
+		return err
+	}
+
+	for _, b := range items {
+		b.RemoveFiles()
+	}
+
+	return nil
 }
