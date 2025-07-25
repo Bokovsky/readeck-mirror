@@ -67,8 +67,9 @@ func runExport(_ context.Context, args []string) error {
 	if err != nil {
 		return err
 	}
+	defer fd.Close() //nolint:errcheck
 
-	ex, err := portability.NewExporter(fd, users)
+	ex, err := portability.NewFullExporter(fd, users)
 	if err != nil {
 		return err
 	}
@@ -77,14 +78,16 @@ func runExport(_ context.Context, args []string) error {
 			fatal("error closing the archive", err)
 		}
 	}()
-	ex.SetOutput(os.Stdout)
+	ex.SetLogger(func(s string, a ...any) {
+		fmt.Fprintf(os.Stdout, "  - "+s+"\n", a...) //nolint:errcheck
+	})
 
-	fmt.Fprintf(ex.Output(), "%sstarting export%s...\n", colorYellow, colorReset) // nolint:errcheck
+	ex.Log("%sstarting export%s...", colorYellow, colorReset)
 
-	if err = ex.ExportAll(); err != nil {
+	if err = portability.Export(ex); err != nil {
 		return err
 	}
 
-	fmt.Fprintf(ex.Output(), "%s%s%s%s created\n", bold, colorGreen, dest, colorReset) // nolint:errcheck
+	ex.Log("%s%s%s%s created", bold, colorGreen, dest, colorReset)
 	return nil
 }

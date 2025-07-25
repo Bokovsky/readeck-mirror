@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2024 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -8,7 +8,6 @@ import (
 	"archive/zip"
 	"encoding/json"
 	"errors"
-	"fmt"
 	"io"
 	"os"
 	"path"
@@ -23,18 +22,84 @@ import (
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
-// Exporter is a content exporter.
-// It exports content into a zip file writer.
-type Exporter struct {
+var (
+	_ Exporter = (*FullExporter)(nil)
+	_ Exporter = (*SingleUserExporter)(nil)
+)
+
+// Exporter describes a data exporter.
+type Exporter interface {
+	Log(format string, a ...any)
+
+	getUsers() ([]*users.User, error)
+	getTokens() ([]*tokens.Token, error)
+	getCollections() ([]*bookmarks.Collection, error)
+	getBookmarks() ([]bookmarkItem, error)
+	saveBookmark(item bookmarkItem) error
+	saveData(*portableData) error
+}
+
+// Export export data using the [Exporter].
+func Export(ex Exporter) error {
+	var err error
+
+	data := &portableData{
+		Info: exportInfo{
+			Date:           time.Now(),
+			Version:        "1",
+			ReadeckVersion: configs.Version(),
+		},
+	}
+
+	if data.Users, err = ex.getUsers(); err != nil {
+		return err
+	}
+	ex.Log("%d user(s) exported", len(data.Users))
+
+	if data.Tokens, err = ex.getTokens(); err != nil {
+		return err
+	}
+	ex.Log("%d tokens(s) exported", len(data.Tokens))
+
+	if data.BookmarkCollections, err = ex.getCollections(); err != nil {
+		return err
+	}
+	ex.Log("%d collection(s) exported", len(data.BookmarkCollections))
+
+	if data.Bookmarks, err = ex.getBookmarks(); err != nil {
+		return err
+	}
+
+	// Save each bookmark now
+	for _, item := range data.Bookmarks {
+		if err = ex.saveBookmark(item); err != nil {
+			return err
+		}
+	}
+	ex.Log("%d bookmark(s) exported", len(data.Bookmarks))
+
+	// Save data.json
+	return ex.saveData(data)
+}
+
+// FullExporter is an [Exporter] than exports data to a zip file.
+// It receives a list of usernames (or an empty list for all users)
+// and exports all their related data.
+type FullExporter struct {
 	userIDs  []int
 	zfs      *zipfs.ZipRW
-	output   io.Writer
+	logFn    func(string, ...any)
 	manifest exportManifest
 }
 
-// NewExporter creates a new [Exporter] for the given users. The provided [io.Writer] is used
-// to output contents as a zip file.
-func NewExporter(w io.Writer, usernames []string) (*Exporter, error) {
+// SingleUserExporter is an [Exporter] that exports only one user.
+// The resulting file is the same as [FullExporter].
+type SingleUserExporter struct {
+	*FullExporter
+}
+
+// NewFullExporter returns a [FullExporter] instance.
+func NewFullExporter(w io.Writer, usernames []string) (*FullExporter, error) {
 	var userIDs []int
 	ds := users.Users.Query().Select(goqu.C("id"))
 
@@ -45,97 +110,69 @@ func NewExporter(w io.Writer, usernames []string) (*Exporter, error) {
 		return nil, err
 	}
 
-	return &Exporter{
+	ex := &FullExporter{
 		userIDs: userIDs,
 		zfs:     zipfs.NewZipRW(w, nil, 0),
 		manifest: exportManifest{
 			Date:  time.Now(),
 			Files: make(map[string]string),
 		},
-		output: io.Discard,
-	}, nil
+		logFn: func(_ string, _ ...any) {},
+	}
+
+	return ex, nil
 }
 
-// Close closes the output zip file descriptor.
-func (ex *Exporter) Close() error {
+// Log implements [Exporter].
+func (ex *FullExporter) Log(format string, a ...any) {
+	ex.logFn(format, a...)
+}
+
+// Close flushes and closes the underlying zipfile.
+func (ex *FullExporter) Close() error {
 	return ex.zfs.Close()
 }
 
-// Output returns the message output writer.
-func (ex *Exporter) Output() io.Writer {
-	return ex.output
+// SetLogger sets a logging function.
+func (ex *FullExporter) SetLogger(fn func(string, ...any)) {
+	ex.logFn = fn
 }
 
-// SetOutput sets the message output writer.
-func (ex *Exporter) SetOutput(w io.Writer) {
-	ex.output = w
-}
-
-// ExportAll exports all the user content.
-func (ex *Exporter) ExportAll() error {
-	var err error
-	data := portableData{
-		Info: exportInfo{
-			Date:           time.Now(),
-			Version:        "1",
-			ReadeckVersion: configs.Version(),
-		},
-	}
-
-	if data.Users, err = marshalItems[*users.User](
+func (ex *FullExporter) getUsers() ([]*users.User, error) {
+	return marshalItems[*users.User](
 		users.Users.Query().
+			SelectAppend(goqu.V(0).As("seed")).
 			Where(goqu.C("id").In(ex.userIDs)).
 			Order(goqu.C("username").Asc()),
-	); err != nil {
-		return err
-	}
-	fmt.Fprintf(ex.output, "\t- %d user(s) exported\n", len(data.Users)) // nolint:errcheck
+	)
+}
 
-	if data.Tokens, err = marshalItems[*tokens.Token](
+func (ex *FullExporter) getTokens() ([]*tokens.Token, error) {
+	return marshalItems[*tokens.Token](
 		tokens.Tokens.Query().
 			Where(goqu.C("user_id").In(ex.userIDs)).
 			Order(goqu.C("created").Asc()),
-	); err != nil {
-		return err
-	}
-	fmt.Fprintf(ex.output, "\t- %d token(s) exported\n", len(data.Tokens)) // nolint:errcheck
+	)
+}
 
-	if data.BookmarkCollections, err = marshalItems[*bookmarks.Collection](
+func (ex *FullExporter) getCollections() ([]*bookmarks.Collection, error) {
+	return marshalItems[*bookmarks.Collection](
 		bookmarks.Collections.Query().
 			Where(goqu.C("user_id").In(ex.userIDs)).
 			Order(goqu.C("created").Asc()),
-	); err != nil {
-		return err
-	}
-	fmt.Fprintf(ex.output, "\t- %d collection(s) exported\n", len(data.BookmarkCollections)) // nolint:errcheck
+	)
+}
 
-	if data.Bookmarks, err = marshalItems[bookmarkItem](
+func (ex *FullExporter) getBookmarks() ([]bookmarkItem, error) {
+	return marshalItems[bookmarkItem](
 		bookmarks.Bookmarks.Query().
 			Select("uid", "user_id").
 			Where(goqu.C("user_id").In(ex.userIDs)).
 			Order(goqu.C("created").Asc()),
-	); err != nil {
-		return err
-	}
-
-	// Save each bookmark now
-	for _, item := range data.Bookmarks {
-		if err = ex.saveBookmark(item); err != nil {
-			return err
-		}
-	}
-	fmt.Fprintf(ex.output, "\t- %d bookmark(s) exported\n", len(data.Bookmarks)) // nolint:errcheck
-
-	// Save data.json
-	w, err := ex.zfs.GetWriter(&zip.FileHeader{Name: "data.json", Method: zip.Deflate})
-	if err != nil {
-		return err
-	}
-	enc := json.NewEncoder(w)
-	return enc.Encode(data)
+	)
 }
 
-func (ex *Exporter) saveBookmark(item bookmarkItem) error {
+func (ex *FullExporter) saveBookmark(item bookmarkItem) error {
 	b, err := bookmarks.Bookmarks.GetOne(goqu.C("uid").Eq(item.UID))
 	if err != nil {
 		return err
@@ -187,4 +224,40 @@ func (ex *Exporter) saveBookmark(item bookmarkItem) error {
 	}
 
 	return nil
+}
+
+func (ex *FullExporter) saveData(data *portableData) error {
+	w, err := ex.zfs.GetWriter(&zip.FileHeader{Name: "data.json", Method: zip.Deflate})
+	if err != nil {
+		return err
+	}
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", "  ")
+	return enc.Encode(data)
+}
+
+// NewSingleUserExporter returns a [SingleUserExporter] instance.
+func NewSingleUserExporter(w io.Writer, user *users.User) (*SingleUserExporter, error) {
+	return &SingleUserExporter{
+		&FullExporter{
+			userIDs: []int{user.ID},
+			zfs:     zipfs.NewZipRW(w, nil, 0),
+			manifest: exportManifest{
+				Date:  time.Now(),
+				Files: make(map[string]string),
+			},
+		},
+	}, nil
+}
+
+func (ex *SingleUserExporter) getUsers() ([]*users.User, error) {
+	return marshalItems[*users.User](
+		users.Users.Query().
+			SelectAppend(
+				goqu.V("0").As("seed"),
+				goqu.V("").As("password"),
+			).
+			Where(goqu.C("id").In(ex.userIDs)).
+			Order(goqu.C("username").Asc()),
+	)
 }

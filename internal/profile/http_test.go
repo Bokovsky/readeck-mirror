@@ -244,6 +244,65 @@ func TestPermissions(t *testing.T) {
 					}
 				},
 			},
+			RequestTest{
+				Target: "/profile/import",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/import",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 422)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Target: "/profile/export",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
+			RequestTest{
+				Method: "POST",
+				Target: "/profile/export",
+				Assert: func(t *testing.T, r *Response) {
+					switch user {
+					case "admin", "staff", "user":
+						r.AssertStatus(t, 200)
+						require.Equal(t, "application/zip", r.Header.Get("content-type"))
+					case "disabled":
+						r.AssertStatus(t, 403)
+					default:
+						r.AssertStatus(t, 303)
+						r.AssertRedirect(t, "/login")
+					}
+				},
+			},
 		)
 	}
 }

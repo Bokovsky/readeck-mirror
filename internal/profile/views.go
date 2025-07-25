@@ -5,14 +5,17 @@
 package profile
 
 import (
+	"fmt"
 	"log/slog"
 	"net/http"
+	"time"
 
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/internal/portability"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -32,12 +35,16 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(server.WithPermission("profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.userProfile)
 		r.Get("/password", v.userPassword)
+		r.Get("/export", v.exportData)
+		r.Post("/export", v.exportData)
 	})
 
 	r.With(server.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
 		r.Post("/session", v.userSession)
+		r.Get("/import", v.importData)
+		r.Post("/import", v.importData)
 	})
 
 	r.With(server.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
@@ -58,7 +65,7 @@ func newProfileViews(api *profileAPI) *profileViews {
 func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
 	user := auth.GetRequestUser(r)
-	f := newProfileForm(server.Locale(r))
+	f := newProfileForm(tr)
 	f.setUser(user)
 
 	if r.Method == http.MethodPost {
@@ -243,4 +250,71 @@ func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	server.Redirect(w, r, f.Get("_to").String())
+}
+
+func (v *profileViews) exportData(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		u := auth.GetRequestUser(r)
+		ex, err := portability.NewSingleUserExporter(w, u)
+		if err != nil {
+			server.Err(w, r, err)
+			return
+		}
+		defer ex.Close() //nolint:errcheck
+
+		ex.SetLogger(func(s string, a ...any) {
+			server.Log(r).Info(fmt.Sprintf(s, a...))
+		})
+
+		w.Header().Set("Content-Type", "application/zip")
+		w.Header().Set("Content-Disposition", fmt.Sprintf(
+			`attachment; filename="readeck-%s-%s.zip"`,
+			u.Username,
+			time.Now().Format("20060102-1504"),
+		),
+		)
+		if err = portability.Export(ex); err != nil {
+			server.Err(w, r, err)
+		}
+		return
+	}
+
+	tr := server.Locale(r)
+	ctx := server.TC{}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Import")},
+	})
+	server.RenderTemplate(w, r, 200, "profile/export", ctx)
+}
+
+func (v *profileViews) importData(w http.ResponseWriter, r *http.Request) {
+	tr := server.Locale(r)
+	f := newImportForm(tr, auth.GetRequestUser(r))
+
+	if r.Method == http.MethodPost {
+		forms.Bind(f, r)
+
+		if f.IsValid() {
+			if err := f.importFile(r); err != nil {
+				server.Log(r).Error("", slog.Any("err", err))
+				f.AddErrors("data", err)
+			} else {
+				server.AddFlash(w, r, "success", tr.Gettext("Profile imported."))
+				server.Redirect(w, r, "/profile")
+				return
+			}
+			return
+		}
+		w.WriteHeader(http.StatusUnprocessableEntity)
+	}
+
+	ctx := server.TC{
+		"Form": f,
+	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Import")},
+	})
+	server.RenderTemplate(w, r, 200, "profile/import", ctx)
 }
