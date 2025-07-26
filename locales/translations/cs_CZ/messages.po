@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-06-28 20:12+0000\n"
+"PO-Revision-Date: 2025-07-10 10:08+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/"
+"application/cs/>\n"
 "Language: cs_CZ\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -452,9 +454,8 @@ msgid "Don't remind me"
 msgstr "Nepřipomínat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
-msgstr "Zavřít panel"
+msgstr "Zavřít dialog"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -742,14 +743,12 @@ msgid "Remove Highlight(s)"
 msgstr "Odebrat zvýraznění"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close image"
-msgstr "Zavřít nabídku"
+msgstr "Zavřít obrázek"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Domovská stránka"
+msgstr "Zobrazit obrázek"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -773,9 +772,8 @@ msgstr "Zvýraznění"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Kopírovat odkaz"
+msgstr "Kopírovat do schránky"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -975,11 +973,14 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          V závislosti na chybě může rozšíření prohlížeče Readeck "
+"poskytnout\n"
+"           řešení."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Video"
+msgstr "Zobrazit záznam"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -2627,4 +2628,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Heslo bylo aktualizováno."
-

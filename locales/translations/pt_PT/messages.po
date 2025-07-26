@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-06 16:55+0200\n"
-"PO-Revision-Date: 2025-06-22 10:08+0000\n"
-"Last-Translator: Ninguem <ninguem@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-19 07:44+0000\n"
+"Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
+"projects/readeck/application/pt_PT/>\n"
 "Language: pt_PT\n"
-"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -946,7 +948,7 @@ msgstr "Enviar mensagem"
 #: assets/templates/bookmarks/components/share_email.jet.html:49
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr "O favorito foi enviado para %s"
+msgstr "O marcador foi enviado para %s"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:56
 #: assets/templates/bookmarks/components/share_link.jet.html:25
@@ -976,11 +978,14 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          Dependendo do erro, a extensão de navegador do Readeck pode "
+"oferecer \n"
+"          uma alternativa."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
-#, fuzzy
 msgid "View log"
-msgstr "Vídeo"
+msgstr "Ver registo"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -1135,9 +1140,8 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importar ligações de um ficheiro de exportação GoodLinks"
+msgstr "Importar marcadores de um ficheiro de exportação Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 #, fuzzy
@@ -2623,4 +2627,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "A palavra-passe foi atualizada."
-
