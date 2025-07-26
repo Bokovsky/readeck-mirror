@@ -34,6 +34,7 @@
 - readeck.exe crash, serving web assets on Windows, by [@mislav](https://codeberg.org/mislav)
 - preserve all matched nodes when applying FiveFilters body selector rules, by [@mislav](https://codeberg.org/mislav)
 - duplicate load (and run) of user content scripts
+- Amazon regional storefronts inherit amazon.com site rules, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - new archiver process: faster and smaller memory footprint
