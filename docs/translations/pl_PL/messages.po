@@ -6,18 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-01 09:47+0000\n"
+"POT-Creation-Date: 2025-07-26 11:28+0200\n"
 "PO-Revision-Date: 2025-07-08 21:08+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
-"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
-"documentation/pl/>\n"
 "Language: pl_PL\n"
+"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/documentation/pl/>\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -720,6 +717,10 @@ msgstr ""
 "Aby przydzielić dostęp do katalogu musisz najpierw stworzyć [Hasło Aplikacji](readeck-instance://profile/credentials)."
 
 #: en-US/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr ""
+
+#: en-US/opds.md:26
 #, fuzzy
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
@@ -728,7 +729,7 @@ msgstr ""
 "Możesz ograniczyć prawa dostępu hasła tylko do \"Zakładki : Tylko odczyt\".\n"
 "Zapisz sobie hasło i skonfiguruj aplikację."
 
-#: en-US/opds.md:27
+#: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
@@ -736,36 +737,36 @@ msgstr ""
 "Adres URL twojego katalogu OPDS to: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 
-#: en-US/opds.md:31
+#: en-US/opds.md:33
 msgid "## Example setup: Koreader"
 msgstr "## Przykładowa konfiguracja: Koreader"
 
-#: en-US/opds.md:33
+#: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
 msgstr "[Koreader](https://koreader.rocks/) jest przeglądarką dokumentów dla urządzeń z ekranem E-Ink. Jest ona dostępna dla Kindle, Kobo, PocketBook'a, Android'a i Linux's. Posiada bardzo dobre wsparcie OPDS."
 
-#: en-US/opds.md:35
+#: en-US/opds.md:37
 #, fuzzy
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
 msgstr "Gdy będziesz miał Hasło Aplikacji możesz uzyskać dostęp do sekcji OPDS w menu wyszukiwanie Koreader:"
 
-#: en-US/opds.md:37
+#: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
 msgstr "![Menu wyszukiwania Koreader](../img/koreader-1.webp)"
 
-#: en-US/opds.md:39
+#: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
 msgstr "Sekcja ta pokazuje listę pre-konfigurowanych źródeł OPDS i możesz tutaj dodać swoje źródło naciskając ikonę \"+\" w lewym górnym rogu:"
 
-#: en-US/opds.md:41
+#: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
 msgstr "![Lista katalogów Koreader](../img/koreader-2.webp)"
 
-#: en-US/opds.md:43
+#: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
 msgstr "W tym oknie dialogowym zamień pola poniżej na:"
 
-#: en-US/opds.md:45
+#: en-US/opds.md:47
 #, fuzzy
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
@@ -776,15 +777,15 @@ msgstr ""
 "- alice: twoja nazwa użytkownika\n"
 "- twoje hasło aplikacji w ostatnim polu"
 
-#: en-US/opds.md:49
+#: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
 msgstr "![Dodaj katalog Koreader](../img/koreader-3.webp)"
 
-#: en-US/opds.md:51
+#: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
 msgstr "Teraz możesz uzyskać dostęp do swoich zakładek z Koreader'a!"
 
-#: en-US/opds.md:53
+#: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
 msgstr "![Katalo readeck oreader](../img/koreader-4.webp)"
 
@@ -830,9 +831,7 @@ msgstr "Jeśli potrzebujesz udzielić dostępu do swojego konta Readeck jakiejś
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
-"Zamiast tego możesz podać swoją nazwę użytkownika i wybrany token jako dane "
-"uwierzytelniające."
+msgstr "Zamiast tego możesz podać swoją nazwę użytkownika i wybrany token jako dane uwierzytelniające."
 
 #~ msgid "## Application Passwords"
 #~ msgstr "## Hasła aplikacji"
@@ -851,3 +850,4 @@ msgstr ""
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Uwaga**: nawet jeśli możesz użyć hasła aplikacji to dostępu do API, rekomendowane jest użycie tokena API gdy tylko możliwe."
+

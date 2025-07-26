@@ -1,23 +1,20 @@
-# Translations template for Readeck User Documentation.
+# Catalan (Spain) translations for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-01 09:47+0000\n"
+"POT-Creation-Date: 2025-07-26 11:28+0200\n"
 "PO-Revision-Date: 2025-06-13 21:26+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
-"documentation/ca/>\n"
 "Language: ca_ES\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/documentation/ca/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -34,10 +31,7 @@ msgstr "## Crear un marcador nou"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr ""
-"Has trobat una pàgina web que t'agrada? Fantàstic! Copia'n l'enllaç al camp "
-"de text anomenat **nou marcador** a la [Llista de marcadors](readeck-"
-"instance://bookmarks)."
+msgstr "Has trobat una pàgina web que t'agrada? Fantàstic! Copia'n l'enllaç al camp de text anomenat **nou marcador** a la [Llista de marcadors](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -45,11 +39,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr ""
-"Al cap d'uns segons, el teu marcador estarà a punt. Aleshores, el podràs "
-"obrir per llegir-ne o veure'n el contingut, afegir-hi etiquetes, ressaltar-"
-"ne text o exportar un llibre electrònic. Per a més informació, llegeix la "
-"secció [Visualització dels marcadors](./bookmark.md)."
+msgstr "Al cap d'uns segons, el teu marcador estarà a punt. Aleshores, el podràs obrir per llegir-ne o veure'n el contingut, afegir-hi etiquetes, ressaltar-ne text o exportar un llibre electrònic. Per a més informació, llegeix la secció [Visualització dels marcadors](./bookmark.md)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -65,9 +55,7 @@ msgstr "### Article"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
-"Un article és una pàgina de la qual s'ha extret el contingut textual. Es "
-"renderitza com una versió llegible del seu contingut."
+msgstr "Un article és una pàgina de la qual s'ha extret el contingut textual. Es renderitza com una versió llegible del seu contingut."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
@@ -75,9 +63,7 @@ msgstr "### Imatge"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
-"Una imatge és una pàgina que s'ha reconegut com a contenidor d'imatges (p. "
-"ex. un enllaç a Unsplash). Renderitza la imatge emmagatzemada."
+msgstr "Una imatge és una pàgina que s'ha reconegut com a contenidor d'imatges (p. ex. un enllaç a Unsplash). Renderitza la imatge emmagatzemada."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -85,11 +71,7 @@ msgstr "### Vídeo"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
-"Un vídeo és una pàgina que s'ha identificat com a contenidor de vídeo (p. "
-"ex. un enllaç a YouTube o Vimeo). Renderitza un reproductor de vídeo. "
-"Tingueu en compte que els vídeos es reprodueixen des dels seus respectius "
-"servidors remots."
+msgstr "Un vídeo és una pàgina que s'ha identificat com a contenidor de vídeo (p. ex. un enllaç a YouTube o Vimeo). Renderitza un reproductor de vídeo. Tingueu en compte que els vídeos es reprodueixen des dels seus respectius servidors remots."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
@@ -97,9 +79,7 @@ msgstr "## Llista de marcadors"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
-"La [llista de marcadors](readeck-instance://bookmarks) és on trobaràs tots "
-"els marcadors desats."
+msgstr "La [llista de marcadors](readeck-instance://bookmarks) és on trobaràs tots els marcadors desats."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -107,9 +87,7 @@ msgstr "### Navegació"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr ""
-"A la barra lateral, trobaràs un camp de cerca i enllaços que et portaran a "
-"llistes de marcadors filtrades."
+msgstr "A la barra lateral, trobaràs un camp de cerca i enllaços que et portaran a llistes de marcadors filtrades."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
@@ -131,8 +109,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
-"Un cop comencis a desar pàgines, veuràs els següents enllaços addicionals:"
+msgstr "Un cop comencis a desar pàgines, veuràs els següents enllaços addicionals:"
 
 #: en-US/bookmark-list.md:54
 msgid ""
@@ -146,9 +123,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
-"Finalment, veuràs 3 seccions més que et portaran a pàgines relacionades amb "
-"els marcadors:"
+msgstr "Finalment, veuràs 3 seccions més que et portaran a pàgines relacionades amb els marcadors:"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -213,10 +188,7 @@ msgstr "### Llista compacta"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr ""
-"Si trobes la vista de quadrícula massa carregada, pots canviar a una llista "
-"més compacta amb menys imatges. Fes clic al botó que hi ha al costat del "
-"títol per canviar de la vista de quadrícula a la vista compacta."
+msgstr "Si trobes la vista de quadrícula massa carregada, pots canviar a una llista més compacta amb menys imatges. Fes clic al botó que hi ha al costat del títol per canviar de la vista de quadrícula a la vista compacta."
 
 #: en-US/bookmark-list.md:98
 msgid ""
@@ -231,10 +203,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr ""
-"A la llista de marcadors, pots filtrar els resultats segons un o diversos "
-"criteris. Fes clic al botó \"Llista de filtres\" que hi ha al costat del "
-"títol de la pàgina per obrir el formulari de filtratge."
+msgstr "A la llista de marcadors, pots filtrar els resultats segons un o diversos criteris. Fes clic al botó \"Llista de filtres\" que hi ha al costat del títol de la pàgina per obrir el formulari de filtratge."
 
 #: en-US/bookmark-list.md:105
 msgid ""
@@ -290,9 +259,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr ""
-"Després de realitzar una cerca, pots desar-la com una nova [col·lecció](./"
-"collections.md) per fer-la permanent."
+msgstr "Després de realitzar una cerca, pots desar-la com una nova [col·lecció](./collections.md) per fer-la permanent."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
@@ -318,10 +285,7 @@ msgstr "### Importar marcadors"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr ""
-"Al mateix menú, trobaràs un enllaç [Importa marcadors](readeck-instance://"
-"bookmarks/import). Et portarà a un assistent d'importació que et permet "
-"importar marcadors existents de diverses fonts."
+msgstr "Al mateix menú, trobaràs un enllaç [Importa marcadors](readeck-instance://bookmarks/import). Et portarà a un assistent d'importació que et permet importar marcadors existents de diverses fonts."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
@@ -414,15 +378,11 @@ msgstr "### Compartir"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr ""
-"El botó de compartir obre un menú des del qual pots crear un enllaç si vols "
-"compartir un article amb algú."
+msgstr "El botó de compartir obre un menú des del qual pots crear un enllaç si vols compartir un article amb algú."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr ""
-"Al mateix menú, pots exportar el teu marcador (només a EPUB de moment) per "
-"llegir-lo en un altre dispositiu."
+msgstr "Al mateix menú, pots exportar el teu marcador (només a EPUB de moment) per llegir-lo en un altre dispositiu."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
@@ -462,8 +422,7 @@ msgid ""
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
 "Has trobat alguna part interessant en un article? La pots ressaltar!\\\n"
-"Quan selecciones qualsevol text de l'article, apareixerà un menú que et "
-"permetrà crear un nou ressaltat."
+"Quan selecciones qualsevol text de l'article, apareixerà un menú que et permetrà crear un nou ressaltat."
 
 #: en-US/bookmark.md:87
 msgid ""
@@ -479,9 +438,7 @@ msgstr "Els ressaltats apareixen a la barra lateral."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr ""
-"Quan necessitis eliminar un ressaltat, pots fer-ho des de la barra lateral o "
-"seleccionant-lo a l'article."
+msgstr "Quan necessitis eliminar un ressaltat, pots fer-ho des de la barra lateral o seleccionant-lo a l'article."
 
 #: en-US/collections.md:1
 msgid "# Collections"
@@ -656,61 +613,65 @@ msgid ""
 msgstr ""
 
 #: en-US/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr ""
+
+#: en-US/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
 
-#: en-US/opds.md:27
+#: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
 
-#: en-US/opds.md:31
+#: en-US/opds.md:33
 msgid "## Example setup: Koreader"
 msgstr ""
 
-#: en-US/opds.md:33
+#: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
 msgstr ""
 
-#: en-US/opds.md:35
+#: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
 msgstr ""
 
-#: en-US/opds.md:37
+#: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
 msgstr ""
 
-#: en-US/opds.md:39
+#: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
 msgstr ""
 
-#: en-US/opds.md:41
+#: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
 msgstr ""
 
-#: en-US/opds.md:43
+#: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
 msgstr ""
 
-#: en-US/opds.md:45
+#: en-US/opds.md:47
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
 
-#: en-US/opds.md:49
+#: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
 msgstr ""
 
-#: en-US/opds.md:51
+#: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
 msgstr ""
 
-#: en-US/opds.md:53
+#: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
 msgstr ""
 
@@ -757,3 +718,4 @@ msgstr ""
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
+

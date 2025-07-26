@@ -1,23 +1,20 @@
-# Translations template for Readeck User Documentation.
+# Spanish (Spain) translations for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-01 09:47+0000\n"
+"POT-Creation-Date: 2025-07-26 11:28+0200\n"
 "PO-Revision-Date: 2025-07-05 14:47+0000\n"
 "Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/"
-"documentation/es/>\n"
 "Language: es_ES\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -606,61 +603,65 @@ msgid ""
 msgstr ""
 
 #: en-US/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr ""
+
+#: en-US/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
 
-#: en-US/opds.md:27
+#: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
 
-#: en-US/opds.md:31
+#: en-US/opds.md:33
 msgid "## Example setup: Koreader"
 msgstr ""
 
-#: en-US/opds.md:33
+#: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
 msgstr ""
 
-#: en-US/opds.md:35
+#: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
 msgstr ""
 
-#: en-US/opds.md:37
+#: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
 msgstr ""
 
-#: en-US/opds.md:39
+#: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
 msgstr ""
 
-#: en-US/opds.md:41
+#: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
 msgstr ""
 
-#: en-US/opds.md:43
+#: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
 msgstr ""
 
-#: en-US/opds.md:45
+#: en-US/opds.md:47
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
 
-#: en-US/opds.md:49
+#: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
 msgstr ""
 
-#: en-US/opds.md:51
+#: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
 msgstr ""
 
-#: en-US/opds.md:53
+#: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
 msgstr ""
 
@@ -707,3 +708,4 @@ msgstr ""
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
+

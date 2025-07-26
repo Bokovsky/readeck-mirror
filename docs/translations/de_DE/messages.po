@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-06-01 09:47+0000\n"
+"POT-Creation-Date: 2025-07-26 11:28+0200\n"
 "PO-Revision-Date: 2025-06-11 19:40+0000\n"
 "Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
-"documentation/de/>\n"
 "Language: de_DE\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/documentation/de/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.11.4\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -57,9 +55,7 @@ msgstr "### Artikel"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
-"Ein Artikel ist eine Seite, aus der der Textinhalt extrahiert wurde. Er wird "
-"als lesbare Version seines Inhalts gerendert."
+msgstr "Ein Artikel ist eine Seite, aus der der Textinhalt extrahiert wurde. Er wird als lesbare Version seines Inhalts gerendert."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
@@ -83,9 +79,7 @@ msgstr "## Lesezeichen-Liste"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
-"Die [Lesezeichen-Liste](readeck-instance://bookmarks) ist, wo du all deine "
-"gespeicherten Lesezeichen findest."
+msgstr "Die [Lesezeichen-Liste](readeck-instance://bookmarks) ist, wo du all deine gespeicherten Lesezeichen findest."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -309,14 +303,10 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `erschrockene Katze` findet den Inhalt mit den Wörtern **erschrocken** und "
-"**Katze**\n"
-"- `\"erschrockene Katze\"` findet den Inhalt mit den genauen Wörtern **"
-"erschrockene Katze** zusammen.\n"
-"- `Katze*` findet den Inhalt mit Wörtern, die mit **Katze** beginnen (Katze, "
-"Katzenminze und Raupe würden übereinstimmen).\n"
-"- `-erschrockene Katze` findet den Inhalt mit dem Wort **Katze**, aber NICHT "
-"mit dem Wort **erschrocke**."
+"- `erschrockene Katze` findet den Inhalt mit den Wörtern **erschrocken** und **Katze**\n"
+"- `\"erschrockene Katze\"` findet den Inhalt mit den genauen Wörtern **erschrockene Katze** zusammen.\n"
+"- `Katze*` findet den Inhalt mit Wörtern, die mit **Katze** beginnen (Katze, Katzenminze und Raupe würden übereinstimmen).\n"
+"- `-erschrockene Katze` findet den Inhalt mit dem Wort **Katze**, aber NICHT mit dem Wort **erschrocke**."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
@@ -528,11 +518,9 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"Mit Sammlungen können Sie Ihre Lesezeichen einfach organisieren und "
-"exportieren\n"
+"Mit Sammlungen können Sie Ihre Lesezeichen einfach organisieren und exportieren\n"
 "indem Sie die Suchanfragen Ihrer Wahl speichern.\n"
-"Wenn Sie ein neues Lesezeichen erstellen, das den Kriterien einer Sammlung "
-"entspricht,\n"
+"Wenn Sie ein neues Lesezeichen erstellen, das den Kriterien einer Sammlung entspricht,\n"
 "wird es sofort angezeigt.\n"
 "Hier einige Beispiele:"
 
@@ -554,10 +542,7 @@ msgstr "## Erstellen Sie eine neue Sammlung"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr ""
-"Um eine neue Sammlung zu erstellen, gehen Sie zur [Sammlungsliste](readeck-"
-"instance://bookmarks/collections) und klicken Sie auf **Neue Sammlung "
-"erstellen**."
+msgstr "Um eine neue Sammlung zu erstellen, gehen Sie zur [Sammlungsliste](readeck-instance://bookmarks/collections) und klicken Sie auf **Neue Sammlung erstellen**."
 
 #: en-US/collections.md:18
 msgid ""
@@ -730,21 +715,22 @@ msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
-"Auf den Katalog kann mit jeder App oder jedem E-Reader zugegriffen werden, "
-"der das OPDS-Format unterstützt.\n"
-"Um Zugriff auf den Katalog zu gewähren, müssen Sie zunächst ein [API-Token]"
-"(readeck-instance://profile/tokens) erstellen."
+"Auf den Katalog kann mit jeder App oder jedem E-Reader zugegriffen werden, der das OPDS-Format unterstützt.\n"
+"Um Zugriff auf den Katalog zu gewähren, müssen Sie zunächst ein [API-Token](readeck-instance://profile/tokens) erstellen."
 
 #: en-US/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr ""
+
+#: en-US/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"Sie können die Berechtigung dieses Tokens auf „Lesezeichen: Nur Lesen“ "
-"beschränken.\n"
+"Sie können die Berechtigung dieses Tokens auf „Lesezeichen: Nur Lesen“ beschränken.\n"
 "Notieren Sie sich den Token-Wert und richten Sie Ihre App ein."
 
-#: en-US/opds.md:27
+#: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
@@ -752,37 +738,35 @@ msgstr ""
 "Die URL Ihres OPDS-Katalogs lautet: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 
-#: en-US/opds.md:31
+#: en-US/opds.md:33
 msgid "## Example setup: Koreader"
 msgstr "## Beispiel-Setup: Koreader"
 
-#: en-US/opds.md:33
+#: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
 msgstr "[Koreader](https://koreader.rocks/) ist ein Dokumentenbetrachter für E-Ink-Geräte. Es ist für Kindle, Kobo, PocketBook, Android und Desktop-Linux verfügbar. Es verfügt über eine sehr gute OPDS-Unterstützung."
 
-#: en-US/opds.md:35
-msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr ""
-"Sobald Sie ein API-Token haben, können Sie im Suchmenü von Koreader auf den "
-"OPDS-Bereich zugreifen:"
-
 #: en-US/opds.md:37
+msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
+msgstr "Sobald Sie ein API-Token haben, können Sie im Suchmenü von Koreader auf den OPDS-Bereich zugreifen:"
+
+#: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
 msgstr "![Koreader-Suchmenü](../img/koreader-1.webp)"
 
-#: en-US/opds.md:39
+#: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
 msgstr "Dieser Abschnitt zeigt eine Liste vorkonfigurierter OPDS-Quellen und Sie können Ihre hinzufügen, indem Sie auf das „+“-Symbol in der oberen linken Ecke klicken:"
 
-#: en-US/opds.md:41
+#: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
 msgstr "![Koreader-Katalogliste](../img/koreader-2.webp)"
 
-#: en-US/opds.md:43
+#: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
 msgstr "Ersetzen Sie in diesem Dialog die folgenden Felder durch:"
 
-#: en-US/opds.md:45
+#: en-US/opds.md:47
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
@@ -792,15 +776,15 @@ msgstr ""
 "- alice: Ihr Benutzername\n"
 "- Geben Sie im letzten Feld Ihr API-Token ein"
 
-#: en-US/opds.md:49
+#: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
 msgstr "![Koreader Katalog hinzufügen](../img/koreader-3.webp)"
 
-#: en-US/opds.md:51
+#: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
 msgstr "Sie können jetzt über Koreader auf Ihre Lesezeichen zugreifen!"
 
-#: en-US/opds.md:53
+#: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
 msgstr "![Koreader-Readeck-Katalog](../img/koreader-4.webp)"
 
@@ -846,9 +830,7 @@ msgstr "Wenn Sie einem Dienst oder einer App Zugriff auf Ihr Readeck-Konto gewä
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
-"Stattdessen können Sie Ihren Benutzernamen und ein API-Token Ihrer Wahl zur "
-"Legitimation verwenden."
+msgstr "Stattdessen können Sie Ihren Benutzernamen und ein API-Token Ihrer Wahl zur Legitimation verwenden."
 
 #~ msgid "## Application Passwords"
 #~ msgstr "## Anwendungskennwörter"
@@ -867,3 +849,4 @@ msgstr ""
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Hinweis**: Obwohl Sie für den Zugriff auf die API ein Anwendungskennwort verwenden können, wird empfohlen, nach Möglichkeit ein API-Token zu verwenden."
+
