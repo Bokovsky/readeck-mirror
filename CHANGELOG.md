@@ -17,6 +17,7 @@
 - DOM API in content scripts
 - Log format configuration entry
 - API tokens can be download as text files
+- Profile (one user only for now) export and import
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
