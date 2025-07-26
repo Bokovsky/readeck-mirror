@@ -79,7 +79,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="bookmark-card--labels">
         <ul>
         {{- range .Labels -}}
-          <li><a href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}">{{ . }}</a></li>
+          <li><a href="{{ urlFor(`/bookmarks/labels`) }}?name={{ url(.) }}">{{ . }}</a></li>
         {{- end -}}
         </ul>
       </div>

@@ -322,9 +322,8 @@ func (h *viewsRouter) labelInfo(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
-			// We can't use redirect here, since we must escape the label
-			redir := urls.AbsoluteURL(r, "/bookmarks/labels/")
-			redir.Path += url.QueryEscape(f.Get("name").String())
+			redir := urls.AbsoluteURL(r, "/bookmarks/labels")
+			redir.RawQuery = url.Values{"name": []string{f.Get("name").String()}}.Encode()
 			w.Header().Set("Location", redir.String())
 			w.WriteHeader(http.StatusSeeOther)
 			return
@@ -358,8 +357,8 @@ func (h *viewsRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// We can't use redirect here, since we must escape the label
-	redir := urls.AbsoluteURL(r, "/bookmarks/labels/")
-	redir.Path += url.QueryEscape(label)
+	redir := urls.AbsoluteURL(r, "/bookmarks/labels")
+	redir.RawQuery = url.Values{"name": []string{label}}.Encode()
 	w.Header().Set("Location", redir.String())
 	w.WriteHeader(http.StatusSeeOther)
 }

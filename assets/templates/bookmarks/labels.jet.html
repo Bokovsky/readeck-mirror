@@ -19,7 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <ul class="grid lg:grid-cols-3 xl:grid-cols-4 gap-4">
 {{- range .Labels -}}
-  <li><a href="{{ urlFor(`./`) }}/{{ url(.Name.Path()) }}"
+  <li><a href="{{ urlFor() }}?name={{ url(.Name) }}"
    class="h-full flex items-center gap-1 border rounded-xl
    py-2 px-4 font-semibold
    hf:bg-yellow-100"

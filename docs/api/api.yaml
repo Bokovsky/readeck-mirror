@@ -208,7 +208,7 @@ paths:
         - "traits.yaml#.authenticated"
         - "bookmarks/routes.yaml#.labels"
 
-  /bookmarks/labels/{name}:
+  /bookmarks/labels?name={name}:
     $merge:
       - "bookmarks/routes.yaml#.withLabel"
 

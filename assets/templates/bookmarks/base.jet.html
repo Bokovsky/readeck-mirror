@@ -68,7 +68,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <menu class="mt-4">
     {{ yield sideMenuItem(name=gettext("Labels"), path="/bookmarks/labels", icon="o-label",
-                          current=pathIs("/bookmarks/labels", "/bookmarks/labels/*")) }}
+                          current=pathIs("/bookmarks/labels", "/bookmarks/labels")) }}
     {{ yield sideMenuItem(name=gettext("Highlights"), path="/bookmarks/highlights", icon="o-highlight",
                           current=pathIs("/bookmarks/highlights")) }}
     {{ yield sideMenuItem(name=gettext("Collections"), path="/bookmarks/collections", icon="o-collection",
