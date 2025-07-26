@@ -40,7 +40,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- yield list_actions() content -}}
     {{- if !.IsDeleted -}}
       <button class="btn-outlined btn-danger py-1"
-      formaction="{{ url(.Label) }}/delete" formmethod="post"
+       formaction="{{ urlFor(`./delete`) }}?name={{ url(.Label) }}" formmethod="post"
       >{{ yield icon(name="o-trash") }} {{ gettext("Delete") }}</button>
 
       {{- if hasPermission("api:bookmarks", "export") -}}
@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </form>
 
 {{- if .IsDeleted -}}
-  <form action="{{ url(.Label) }}/delete" method="post" class="mb-4">
+  <form action="{{ urlFor(`./delete`) }}?name={{ url(.Label) }}" method="post" class="mb-4">
   {{ yield csrfField() }}
   {{- yield message(type="info") content -}}
     {{ gettext("Label will be removed in a few seconds.") }}&nbsp;

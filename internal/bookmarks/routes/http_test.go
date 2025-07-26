@@ -271,7 +271,7 @@ func TestPermissions(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target: "/api/bookmarks/labels/foo",
+				Target: "/api/bookmarks/labels?name=foo",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -496,7 +496,7 @@ func TestPermissions(t *testing.T) {
 				},
 			},
 			RequestTest{
-				Target: "/bookmarks/labels/foo",
+				Target: "/bookmarks/labels?name=foo",
 				Assert: func(t *testing.T, r *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -511,7 +511,7 @@ func TestPermissions(t *testing.T) {
 			},
 			RequestTest{
 				Method: "POST",
-				Target: "/bookmarks/labels/foo/delete",
+				Target: "/bookmarks/labels/delete?name=foo",
 				Form:   url.Values{},
 				Assert: func(t *testing.T, r *Response) {
 					switch user {

@@ -389,6 +389,10 @@ func (api *apiRouter) labelUpdate(w http.ResponseWriter, r *http.Request) {
 		server.Status(w, r, http.StatusNotFound)
 		return
 	}
+
+	server.Render(w, r, http.StatusOK, map[string]string{
+		"name": f.Get("name").String(),
+	})
 }
 
 func (api *apiRouter) labelDelete(w http.ResponseWriter, r *http.Request) {
@@ -566,12 +570,11 @@ func (api *apiRouter) withBookmarkFilters(next http.Handler) http.Handler {
 
 func (api *apiRouter) withLabel(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		label, err := url.QueryUnescape(chi.URLParam(r, "label"))
-		if err != nil {
-			server.Err(w, r, err)
+		label := strings.TrimSpace(r.URL.Query().Get("name"))
+		if label == "" {
+			server.Status(w, r, http.StatusNotFound)
 			return
 		}
-
 		ctx := withLabel(r.Context(), label)
 
 		filters := newFilterForm(server.Locale(r))

@@ -8,7 +8,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <ul class="inline" id="bookmark-label-list-{{ .ID }}">
 {{- range .Labels -}}
   <li class="inline-flex items-center text-sm bg-gray-100 py-1 px-1.5 mr-1 mb-1 border rounded-md"
-  ><a data-turbo="false" href="{{ urlFor(`/bookmarks/labels`) }}/{{ url(.) }}" class="hf:text-primary">{{ . }}</a>
+  ><a data-turbo="false" href="{{ urlFor(`/bookmarks/labels`) }}?name={{ url(.) }}" class="hf:text-primary">{{ . }}</a>
   <button class="ml-1 text-gray-600 hf:text-red-700 print:hidden"
    type="submit" name="remove_labels" value="{{ . }}"
    title="{{ gettext(`Remove label`) }}"

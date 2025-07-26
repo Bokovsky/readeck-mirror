@@ -20,10 +20,10 @@ type LabelList []*Label
 
 // Label contains a label's information.
 type Label struct {
-	Name          labelString `db:"name"  json:"name"`
-	Count         int         `db:"count" json:"count"`
-	Href          string      `db:"-"     json:"href"`
-	HrefBookmarks string      `db:"-"     json:"href_bookmarks"`
+	Name          string `db:"name"  json:"name"`
+	Count         int    `db:"count" json:"count"`
+	Href          string `db:"-"     json:"href"`
+	HrefBookmarks string `db:"-"     json:"href_bookmarks"`
 }
 
 // NewLabelList returns a new [LabelList] from a select dataset.
@@ -42,16 +42,12 @@ func NewLabelList(ctx context.Context, ds *goqu.SelectDataset) (LabelList, error
 
 // NewLabel returns a new [*Label], setting the necessary URLs.
 func NewLabel(ctx context.Context, l *Label) *Label {
-	l.Href = urls.AbsoluteURLContext(ctx, "/api/bookmarks/labels").String() + "/" + l.Name.Path()
+	u := urls.AbsoluteURLContext(ctx, "/api/bookmarks/labels")
+	u.RawQuery = url.Values{"name": []string{string(l.Name)}}.Encode()
+
+	l.Href = u.String()
 	l.HrefBookmarks = urls.AbsoluteURLContext(ctx, "/api/bookmarks").String() + "?" + url.Values{
-		"labels": []string{strconv.Quote(string(l.Name))},
+		"labels": []string{strconv.Quote(l.Name)},
 	}.Encode()
 	return l
-}
-
-// labelString is a string with a Path method.
-type labelString string
-
-func (s labelString) Path() string {
-	return url.QueryEscape(string(s))
 }

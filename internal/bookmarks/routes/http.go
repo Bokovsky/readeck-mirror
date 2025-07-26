@@ -110,9 +110,17 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Post("/", api.bookmarkSync)
 		})
 
-		r.Route("/labels", func(r chi.Router) {
-			r.With(api.withLabelList).Get("/", api.labelList)
-			r.With(api.withLabel).Get("/{label}", api.labelInfo)
+		// We use the same route for the label list and label info
+		// for a label can be anything and it can clash with path
+		// parameters (ie. "#/../" is a valid label but will break resolution).
+		// We split the resolution based on the presence of a "name" query
+		// parameter.
+		r.Get("/labels", func(w http.ResponseWriter, r *http.Request) {
+			if r.URL.Query().Has("name") {
+				chi.Chain(api.withLabel).HandlerFunc(api.labelInfo).ServeHTTP(w, r)
+				return
+			}
+			chi.Chain(api.withLabelList).HandlerFunc(api.labelList).ServeHTTP(w, r)
 		})
 
 		r.Get("/@complete", api.autocompleteHelper)
@@ -127,8 +135,10 @@ func newAPIRouter(s *server.Server) *apiRouter {
 			r.Patch("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationUpdate)
 			r.Delete("/{uid:[a-zA-Z0-9]{18,22}}/annotations/{id:[a-zA-Z0-9]{18,22}}", api.annotationDelete)
 		})
-		r.With(api.withLabel).Patch("/labels/{label}", api.labelUpdate)
-		r.With(api.withLabel).Delete("/labels/{label}", api.labelDelete)
+
+		// Using withLabel ensures that the query parameter is present.
+		r.With(api.withLabel).Patch("/labels", api.labelUpdate)
+		r.With(api.withLabel).Delete("/labels", api.labelDelete)
 	})
 
 	// Collection API
@@ -196,11 +206,19 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 					})
 			})
 
-			r.With(api.withLabelList).Get("/labels", h.labelList)
-			r.With(api.withLabel, api.withBookmarkOrdering, api.withBookmarkList).
-				Get("/labels/{label}", h.labelInfo)
 			r.With(api.withAnnotationList).Route("/highlights", func(r chi.Router) {
 				r.Get("/", h.annotationList)
+			})
+
+			// Same logic as the /labels API route.
+			r.Get("/labels", func(w http.ResponseWriter, r *http.Request) {
+				if r.URL.Query().Has("name") {
+					chi.Chain(
+						api.withLabel, api.withBookmarkOrdering, api.withBookmarkList,
+					).HandlerFunc(h.labelInfo).ServeHTTP(w, r)
+					return
+				}
+				chi.Chain(api.withLabelList).HandlerFunc(h.labelList).ServeHTTP(w, r)
 			})
 		})
 	})
@@ -212,9 +230,10 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				r.Post("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkUpdate)
 				r.Post("/{uid:[a-zA-Z0-9]{18,22}}/delete", h.bookmarkDelete)
 			})
+
 			r.With(api.withLabel, api.withBookmarkList).Group(func(r chi.Router) {
-				r.Post("/labels/{label}", h.labelInfo)
-				r.Post("/labels/{label}/delete", h.labelDelete)
+				r.Post("/labels", h.labelInfo)
+				r.Post("/labels/delete", h.labelDelete)
 			})
 		})
 	})
