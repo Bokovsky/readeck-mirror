@@ -1,28 +1,37 @@
-# Translations template for Readeck.
+# Swedish (Sweden) translations for Readeck.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-06 16:55+0200\n"
+"POT-Creation-Date: 2025-07-26 11:26+0200\n"
 "PO-Revision-Date: 2025-07-11 20:08+0000\n"
 "Last-Translator: terminalnode <terminalnode@noreply.codeberg.org>\n"
-"Language-Team: Swedish <https://translate.codeberg.org/projects/readeck/"
-"application/sv/>\n"
 "Language: sv_SE\n"
+"Language-Team: Swedish <https://translate.codeberg.org/projects/readeck/application/sv/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
+
+#: assets/templates/_layouts/sidemenu.jet.html:29
+#: assets/templates/bookmarks/bookmark.jet.html:26
+#: assets/templates/error.jet.html:12
+msgid "Menu"
+msgstr "Meny"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
 msgstr "Sekundär Meny"
+
+#: assets/templates/_layouts/sidemenu.jet.html:31
+#: assets/templates/bookmarks/bookmark.jet.html:27
+#: assets/templates/error.jet.html:13
+msgid "Main content"
+msgstr "Huvudinnehåll"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
@@ -106,9 +115,35 @@ msgctxt "page"
 msgid "Next"
 msgstr "Nästa"
 
+#: assets/templates/admin/user.jet.html:9
+#: assets/templates/admin/user_list.jet.html:9
+#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: internal/admin/views.go:89 internal/admin/views.go:129
+msgid "Users"
+msgstr "Användare"
+
 #: assets/templates/admin/user.jet.html:19
 msgid "User will be removed in a few seconds"
 msgstr "Användaren kommer raderas inom ett par sekunder"
+
+#: assets/templates/admin/user.jet.html:20
+#: assets/templates/admin/user_list.jet.html:44
+#: assets/templates/bookmarks/collection.jet.html:28
+#: assets/templates/bookmarks/components/card.jet.html:101
+#: assets/templates/bookmarks/import/form-browser.jet.html:49
+#: assets/templates/bookmarks/import/form-csv.jet.html:35
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:35
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:44
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
+#: assets/templates/bookmarks/import/form-readwise.jet.html:35
+#: assets/templates/bookmarks/import/form-text.jet.html:36
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
+#: assets/templates/bookmarks/label.jet.html:59
+#: assets/templates/profile/token.jet.html:20
+#: assets/templates/profile/token_list.jet.html:68
+msgid "Cancel"
+msgstr "Avbryt"
 
 #: assets/templates/admin/user.jet.html:31
 #: assets/templates/admin/user_create.jet.html:20
@@ -135,7 +170,7 @@ msgstr "Grupp"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:123
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
 msgid "Password"
 msgstr "Lösenord"
 
@@ -164,13 +199,6 @@ msgstr "Ny Användare"
 msgid "Create user"
 msgstr "Skapa användare"
 
-#: assets/templates/admin/user.jet.html:9
-#: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:59
-#: internal/admin/views.go:89 internal/admin/views.go:129
-msgid "Users"
-msgstr "Användare"
-
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
 msgstr "Lägg till ny användare"
@@ -189,25 +217,6 @@ msgstr "Senast uppdaterad: %s"
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
 msgstr "Användaren kommer tas bort om par sekunder."
-
-#: assets/templates/admin/user.jet.html:20
-#: assets/templates/admin/user_list.jet.html:44
-#: assets/templates/bookmarks/collection.jet.html:28
-#: assets/templates/bookmarks/components/card.jet.html:101
-#: assets/templates/bookmarks/import/form-browser.jet.html:49
-#: assets/templates/bookmarks/import/form-csv.jet.html:35
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:35
-#: assets/templates/bookmarks/import/form-linkwarden.jet.html:35
-#: assets/templates/bookmarks/import/form-omnivore.jet.html:44
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:51
-#: assets/templates/bookmarks/import/form-readwise.jet.html:35
-#: assets/templates/bookmarks/import/form-text.jet.html:36
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:70
-#: assets/templates/bookmarks/label.jet.html:59
-#: assets/templates/profile/token.jet.html:20
-#: assets/templates/profile/token_list.jet.html:68
-msgid "Cancel"
-msgstr "Avbryt"
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:37
@@ -235,6 +244,12 @@ msgstr "Välkommen till Readeck!"
 msgid "We're delighted to have you on board; one more step and you're good to go."
 msgstr "Vi är glada att ha dig ombord; bara ett steg till så är du färdig."
 
+#: assets/templates/auth/onboarding.jet.html:32
+#: assets/templates/auth/recover.jet.html:56
+#: assets/templates/profile/password.jet.html:32
+msgid "must be at least 8 characters long"
+msgstr "måste vara minst 8 tecken långt"
+
 #: assets/templates/auth/onboarding.jet.html:39
 msgid "Please note:"
 msgstr "Vänligen notera:"
@@ -250,8 +265,7 @@ msgstr ""
 "\n"
 "  Din epostadress är frivillig och lämnar aldrig denna installation.\n"
 "  Den kommer aldrig samlas in, överföras eller säljas.\n"
-"  Den kommer <strong>endast</strong> användas, om du behöver, för "
-"lösenordsåterställning och interna notifikationer.\n"
+"  Den kommer <strong>endast</strong> användas, om du behöver, för lösenordsåterställning och interna notifikationer.\n"
 "  "
 
 #: assets/templates/auth/onboarding.jet.html:47
@@ -313,12 +327,6 @@ msgstr ""
 msgid "New password"
 msgstr "Nytt lösenord"
 
-#: assets/templates/auth/onboarding.jet.html:32
-#: assets/templates/auth/recover.jet.html:56
-#: assets/templates/profile/password.jet.html:32
-msgid "must be at least 8 characters long"
-msgstr "måste vara minst 8 tecken långt"
-
 #: assets/templates/auth/recover.jet.html:57
 msgid "Update your password"
 msgstr "Uppdatera ditt lösenord"
@@ -347,21 +355,28 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"        När du börjar markera delar av dina sparade artiklar, kommer de dyka "
-"upp på den här sidan\n"
+"        När du börjar markera delar av dina sparade artiklar, kommer de dyka upp på den här sidan\n"
 "        så att du lätt kan hitta dem.\n"
 "      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
-"Läs mer om markeringar i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
+msgstr "Läs mer om markeringar i <a class=\"%s\" href=\"%s\">dokumentationen</a>."
 
 #: assets/templates/bookmarks/base.jet.html:1
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
 msgstr "Sök"
+
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "Bokmärken"
 
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
@@ -423,8 +438,7 @@ msgid ""
 "            directly from your browser!"
 msgstr ""
 "\n"
-"            Med webläsartillägget kan du spara sidor, bilder och "
-"markeringar\n"
+"            Med webläsartillägget kan du spara sidor, bilder och markeringar\n"
 "            direkt från din webläsare!"
 
 #: assets/templates/bookmarks/base.jet.html:98
@@ -468,7 +482,7 @@ msgid "no site name"
 msgstr "inget sidnamn"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:102
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -477,7 +491,7 @@ msgid "Published on %s"
 msgstr "Publicerad %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:83
+#: assets/templates/bookmarks/bookmark_public.jet.html:107
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -504,25 +518,25 @@ msgstr "Bokmärke ej hittat"
 msgid "Shared link"
 msgstr "Delad länk"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:54
+#: assets/templates/bookmarks/bookmark_public.jet.html:78
 msgid "Page not found"
 msgstr "Sida ej hittad"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:56
+#: assets/templates/bookmarks/bookmark_public.jet.html:80
 msgid "Page has expired"
 msgstr "Sidan har löpt ut"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:91
+#: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:97
+#: assets/templates/bookmarks/bookmark_public.jet.html:121
 #, python-format
 msgid "Shared by %s with %s"
 msgstr "Delad av %s med %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#: assets/templates/bookmarks/bookmark_public.jet.html:174
 #, python-format
 msgid "Saved with %s"
 msgstr "Delad med %s"
@@ -562,6 +576,13 @@ msgstr "Redigera"
 msgid "Filters"
 msgstr "Filter"
 
+#: assets/templates/bookmarks/collection.jet.html:66
+#: assets/templates/bookmarks/index.jet.html:174
+#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
+#: docs/http.go:306
+msgid "Documentation"
+msgstr "Dokumentation"
+
 #: assets/templates/bookmarks/collection.jet.html:74
 #: assets/templates/bookmarks/collection_create.jet.html:23
 msgid "Name"
@@ -595,8 +616,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Samlingar låter dig enkelt organisera och exportera dina "
-"bokmärken\n"
+"          Samlingar låter dig enkelt organisera och exportera dina bokmärken\n"
 "          genom att spara sökningar som du väljer.\n"
 "          När du skapar ett nytt bokmärke som matchar en samlings\n"
 "          kriterie, så dyker den upp omedelbart.\n"
@@ -641,6 +661,30 @@ msgstr "Markera som oläst"
 msgid "Mark as read"
 msgstr "Markera som läst"
 
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Remove from archive"
+msgstr "Radera från arkiv"
+
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Move to archive"
+msgstr "Flytta till arkiv"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Remove from favorites"
+msgstr "Radera från favoriter"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Add to favorites"
+msgstr "Lägg till i favoriter"
+
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
@@ -671,30 +715,6 @@ msgstr "Skicka e-bok via Epost"
 msgid "Saved with Readeck"
 msgstr "Spara med Readeck"
 
-#: assets/templates/bookmarks/components/actions.jet.html:8
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
-#: assets/templates/bookmarks/components/card.jet.html:9
-msgid "Remove from archive"
-msgstr "Radera från arkiv"
-
-#: assets/templates/bookmarks/components/actions.jet.html:8
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
-#: assets/templates/bookmarks/components/card.jet.html:9
-msgid "Move to archive"
-msgstr "Flytta till arkiv"
-
-#: assets/templates/bookmarks/components/actions.jet.html:9
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
-#: assets/templates/bookmarks/components/card.jet.html:10
-msgid "Remove from favorites"
-msgstr "Radera från favoriter"
-
-#: assets/templates/bookmarks/components/actions.jet.html:9
-#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
-#: assets/templates/bookmarks/components/card.jet.html:10
-msgid "Add to favorites"
-msgstr "Lägg till i favoriter"
-
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
 msgstr "Gå till originalsidan"
@@ -717,12 +737,18 @@ msgid "Remove Highlight(s)"
 msgstr "Radera Markering(ar)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Close image"
-msgstr "Stäng bild"
+#, fuzzy
+msgid "Close"
+msgstr "Stäng meny"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Visa bild"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Play video"
+msgstr "Video"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -761,6 +787,12 @@ msgstr "Författare"
 msgid "Site"
 msgstr "Sida"
 
+#: assets/templates/bookmarks/components/filters.jet.html:80
+#: assets/templates/bookmarks/import/options.jet.html:10
+#: assets/templates/bookmarks/label.jet.html:11
+msgid "Label"
+msgstr "Etikett"
+
 #: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
 msgstr "Från datum"
@@ -782,6 +814,26 @@ msgstr "Progression"
 #: assets/templates/bookmarks/components/filters.jet.html:124
 msgid "Is Favorite"
 msgstr "Är Favorit"
+
+#: assets/templates/bookmarks/components/filters.jet.html:128
+#: assets/templates/bookmarks/components/filters.jet.html:137
+#: assets/templates/bookmarks/components/filters.jet.html:147
+#: assets/templates/bookmarks/components/filters.jet.html:157
+#: assets/templates/bookmarks/components/filters.jet.html:167
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "yes"
+msgstr "ja"
+
+#: assets/templates/bookmarks/components/filters.jet.html:129
+#: assets/templates/bookmarks/components/filters.jet.html:138
+#: assets/templates/bookmarks/components/filters.jet.html:148
+#: assets/templates/bookmarks/components/filters.jet.html:158
+#: assets/templates/bookmarks/components/filters.jet.html:168
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "no"
+msgstr "nej"
 
 #: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
@@ -858,26 +910,6 @@ msgstr "Linjehöjd"
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
 msgstr "Justera"
-
-#: assets/templates/bookmarks/components/filters.jet.html:128
-#: assets/templates/bookmarks/components/filters.jet.html:137
-#: assets/templates/bookmarks/components/filters.jet.html:147
-#: assets/templates/bookmarks/components/filters.jet.html:157
-#: assets/templates/bookmarks/components/filters.jet.html:167
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "yes"
-msgstr "ja"
-
-#: assets/templates/bookmarks/components/filters.jet.html:129
-#: assets/templates/bookmarks/components/filters.jet.html:138
-#: assets/templates/bookmarks/components/filters.jet.html:148
-#: assets/templates/bookmarks/components/filters.jet.html:158
-#: assets/templates/bookmarks/components/filters.jet.html:168
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "no"
-msgstr "nej"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
@@ -978,6 +1010,17 @@ msgstr "Instruktioner för Firefox"
 msgid "Instructions for Chrome"
 msgstr "Instruktioner för Chrome"
 
+#: assets/templates/bookmarks/import/form-browser.jet.html:34
+#: assets/templates/bookmarks/import/form-csv.jet.html:27
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:27
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
+#: assets/templates/bookmarks/import/form-readwise.jet.html:27
+#: assets/templates/bookmarks/import/form-text.jet.html:28
+#: assets/templates/profile/import.jet.html:25
+msgid "File"
+msgstr "Fil"
+
 #: assets/templates/bookmarks/import/form-browser.jet.html:42
 msgid "Convert section titles to labels"
 msgstr "Konvertera sektionstitlar till etiketter"
@@ -985,6 +1028,18 @@ msgstr "Konvertera sektionstitlar till etiketter"
 #: assets/templates/bookmarks/import/form-browser.jet.html:44
 msgid "Adds a label on links, based on their section title"
 msgstr "Lägg till etiketter på länkar, baserat på deras sektionstitel"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-csv.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-readwise.jet.html:34
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+msgid "Import Bookmarks"
+msgstr "Importera Bokmärken"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
@@ -997,8 +1052,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ladda upp en CSV-fil från Instapaper eller vilken CSV som helst som "
-"matchar the format specifcerat nedan.\n"
+"    Ladda upp en CSV-fil från Instapaper eller vilken CSV som helst som matchar the format specifcerat nedan.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:41
@@ -1010,10 +1064,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Den uppladdade filen måste innehålla en första rad med kolumnnamnen. "
-"Kolumnnamn är oberoende\n"
-"    av stor eller liten bokstav och, förutom <code>%s</code>, är inga "
-"kolumner obligatoriska.\n"
+"    Den uppladdade filen måste innehålla en första rad med kolumnnamnen. Kolumnnamn är oberoende\n"
+"    av stor eller liten bokstav och, förutom <code>%s</code>, är inga kolumner obligatoriska.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:45
@@ -1047,9 +1099,7 @@ msgstr "Bokmärkets arkivstatus; enda giltiga värdet är \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:73
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
-"Skapad-datum, kan vara en UNIX-tidsstämpel eller ett RFC-3339-formatterat "
-"datum"
+msgstr "Skapad-datum, kan vara en UNIX-tidsstämpel eller ett RFC-3339-formatterat datum"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:78
 msgid "A JSON encoded list of labels"
@@ -1100,8 +1150,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    För att importera dina artiklar från Omnivore, måste du först skapa en "
-"API-nyckel i dina\n"
+"    För att importera dina artiklar från Omnivore, måste du först skapa en API-nyckel i dina\n"
 "    Omnivore-inställningar, och skriva in den i formuläret nedan.\n"
 "  "
 
@@ -1143,8 +1192,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ladda upp denna fil i formuläret nedan så kommer Readeck att hämat och "
-"spara\n"
+"    Ladda upp denna fil i formuläret nedan så kommer Readeck att hämat och spara\n"
 "    alla länkar den hittar i filen.\n"
 "  "
 
@@ -1157,8 +1205,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Var uppmärksam på att Pocket inte tillåter artiklars innehåll att "
-"exporteras.\n"
+"    Var uppmärksam på att Pocket inte tillåter artiklars innehåll att exporteras.\n"
 "    Detta kan leda till andra resultat i Readeck än vad du just nu\n"
 "    kan se i Pocket.\n"
 "  "
@@ -1178,8 +1225,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ladda upp en CSV-fil du exporterad från ditt Readwise Reader-konto nedan."
-"\n"
+"    Ladda upp en CSV-fil du exporterad från ditt Readwise Reader-konto nedan.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:39
@@ -1202,9 +1248,7 @@ msgstr "\"%s\" som Readeck-etiketter,"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:45
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
-"När en dokumentetikett innehåller \"%s\", kommer bokmärket att läggas till i "
-"Readeck-favoriter."
+msgstr "När en dokumentetikett innehåller \"%s\", kommer bokmärket att läggas till i Readeck-favoriter."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:47
 msgid "What is not imported:"
@@ -1236,32 +1280,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ladda upp en textfil som innehåller en länk per rad, så kommer Readeck "
-"att hämta\n"
+"    Ladda upp en textfil som innehåller en länk per rad, så kommer Readeck att hämta\n"
 "    dem alla och spara med i din bokmärkeslista.\n"
 "  "
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:34
-#: assets/templates/bookmarks/import/form-csv.jet.html:27
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:27
-#: assets/templates/bookmarks/import/form-linkwarden.jet.html:27
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
-#: assets/templates/bookmarks/import/form-readwise.jet.html:27
-#: assets/templates/bookmarks/import/form-text.jet.html:28
-msgid "File"
-msgstr "Fil"
-
-#: assets/templates/bookmarks/import/form-browser.jet.html:48
-#: assets/templates/bookmarks/import/form-csv.jet.html:34
-#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
-#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
-#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
-#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
-#: assets/templates/bookmarks/import/form-readwise.jet.html:34
-#: assets/templates/bookmarks/import/form-text.jet.html:35
-#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
-msgid "Import Bookmarks"
-msgstr "Importera Bokmärken"
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:91
@@ -1277,12 +1298,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    För att importera dina artiklar från Wallabag, måste du först skapa en "
-"API-klient\n"
-"    i Wallabags <strong>API-klienthantering</strong>s meny. Detta kommer "
-"bestå dig med\n"
-"    ett <strong>Klient-ID</strong> och en <strong>Klient-hemlighet</strong>."
-"\n"
+"    För att importera dina artiklar från Wallabag, måste du först skapa en API-klient\n"
+"    i Wallabags <strong>API-klienthantering</strong>s meny. Detta kommer bestå dig med\n"
+"    ett <strong>Klient-ID</strong> och en <strong>Klient-hemlighet</strong>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:21
@@ -1322,11 +1340,11 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Här kan du importera dina existerande bokmärkessamlingar från diverse "
-"olika källor in i Readeck.\n"
+"    Här kan du importera dina existerande bokmärkessamlingar från diverse olika källor in i Readeck.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/profile/export.jet.html:36
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
 msgstr "Webläsarbokmärken"
@@ -1336,6 +1354,7 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importera din Webläsares Bokmärken, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/profile/export.jet.html:44
 #: internal/bookmarks/importer/csv.go:55
 msgid "CSV File"
 msgstr "CSV-fil"
@@ -1413,8 +1432,7 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Dina bokmärken är nu tillgängliga i din <a class=\"%s\" href=\"%s\""
-">bokmärkeslista</a>.\n"
+"      Dina bokmärken är nu tillgängliga i din <a class=\"%s\" href=\"%s\">bokmärkeslista</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html:1
@@ -1433,14 +1451,11 @@ msgstr "Spara länk"
 #: assets/templates/bookmarks/index.jet.html:54
 #, python-format
 msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
-msgstr ""
-"\"%s\" är inte en giltig adress. Ämnade du söka efter %s i dina bokmärken?"
+msgstr "\"%s\" är inte en giltig adress. Ämnade du söka efter %s i dina bokmärken?"
 
 #: assets/templates/bookmarks/index.jet.html:78
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
-msgstr ""
-"Du har inga bokmärken än.<br>Kopiera in en länk i fältet ovan för att börja "
-"samla."
+msgstr "Du har inga bokmärken än.<br>Kopiera in en länk i fältet ovan för att börja samla."
 
 #: assets/templates/bookmarks/index.jet.html:80
 #, python-format
@@ -1463,8 +1478,7 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Önskar du importera existerande bokmärken från fil eller från "
-"ett liknande verktyg?\n"
+"              Önskar du importera existerande bokmärken från fil eller från ett liknande verktyg?\n"
 "              Pröva Readecks importverktyg.\n"
 "            "
 
@@ -1499,12 +1513,6 @@ msgstr "Nollställ sökning"
 #: assets/templates/bookmarks/index.jet.html:189
 msgid "Create a collection"
 msgstr "Skapa en samling"
-
-#: assets/templates/bookmarks/components/filters.jet.html:80
-#: assets/templates/bookmarks/import/options.jet.html:10
-#: assets/templates/bookmarks/label.jet.html:11
-msgid "Label"
-msgstr "Etikett"
 
 #: assets/templates/bookmarks/label.jet.html:44
 msgid "Delete"
@@ -1547,9 +1555,7 @@ msgstr "Systeminformation"
 
 #: assets/templates/docs/about.jet.html:33
 msgid "Here are your current system information. Please include them if you report a bug."
-msgstr ""
-"Här kommer din nuvarande systeminformation. Vänligen inkludera dem om du "
-"raporterar en bugg."
+msgstr "Här kommer din nuvarande systeminformation. Vänligen inkludera dem om du raporterar en bugg."
 
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
@@ -1729,8 +1735,7 @@ msgstr ""
 "\n"
 "Hej,\n"
 "\n"
-"Du (eller någon annan) uppgav denna epostadress i samband med ett försök "
-"att\n"
+"Du (eller någon annan) uppgav denna epostadress i samband med ett försök att\n"
 "byta lösenord på ett Readeck-konto (%s).\n"
 "\n"
 "Men, denna epost är inte kopplad till något konto och\n"
@@ -1745,18 +1750,6 @@ msgstr ""
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Fel"
-
-#: assets/templates/_layouts/sidemenu.jet.html:29
-#: assets/templates/bookmarks/bookmark.jet.html:26
-#: assets/templates/error.jet.html:12
-msgid "Menu"
-msgstr "Meny"
-
-#: assets/templates/_layouts/sidemenu.jet.html:31
-#: assets/templates/bookmarks/bookmark.jet.html:27
-#: assets/templates/error.jet.html:13
-msgid "Main content"
-msgstr "Huvudinnehåll"
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
@@ -1782,15 +1775,6 @@ msgstr "Logga ut"
 msgid "Open menu"
 msgstr "Öppna meny"
 
-#: assets/templates/bookmarks/base.jet.html:15
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
-msgid "Bookmarks"
-msgstr "Bokmärken"
-
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
 msgstr "Byt färgtema"
@@ -1799,23 +1783,107 @@ msgstr "Byt färgtema"
 msgid "Settings"
 msgstr "Inställningar"
 
-#: assets/templates/bookmarks/collection.jet.html:66
-#: assets/templates/bookmarks/index.jet.html:174
-#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
-#: docs/http.go:306
-msgid "Documentation"
-msgstr "Dokumentation"
-
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:87
-#: internal/profile/views.go:122 internal/profile/views.go:166
-#: internal/profile/views.go:226
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: internal/profile/views.go:129 internal/profile/views.go:173
+#: internal/profile/views.go:233 internal/profile/views.go:285
+#: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:167
-#: internal/profile/views.go:227
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "API-tokens"
+
+#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/export.jet.html:10
+#, fuzzy
+msgid "Export"
+msgstr "Import"
+
+#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/import.jet.html:9
+#: assets/templates/profile/import.jet.html:45
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
+#: internal/profile/views.go:317
+msgid "Import"
+msgstr "Import"
+
+#: assets/templates/profile/export.jet.html:15
+#, fuzzy
+msgid "Export your Readeck Profile"
+msgstr "Importera dina Pocket-artiklar"
+
+#: assets/templates/profile/export.jet.html:20
+msgid ""
+"\n"
+"    This lets you download a zip file containing all your profile's data, including\n"
+"    bookmarks, collections, etc.\n"
+"    "
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:25
+#, fuzzy
+msgid "Export Data"
+msgstr "Exportera och Dela"
+
+#: assets/templates/profile/export.jet.html:37
+msgid "Bookmark List in Browser Bookmarks Format"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:45
+msgid "Bookmark List as Comma Separated Values"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:50
+#, fuzzy
+msgid "Export Bookmarks"
+msgstr "Importera bokmärken"
+
+#: assets/templates/profile/export.jet.html:52
+msgid "You can export your bookmark list in the following formats:"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:14
+msgid "Import a Readeck Profile"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:16
+msgid "Import a file obtained through a previous profile export."
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:31
+msgid "Confirm your user name"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:36
+#, fuzzy
+msgid "Attention"
+msgstr "Autentisering"
+
+#: assets/templates/profile/import.jet.html:38
+msgid ""
+"\n"
+"      This will empty your current profile and all its data will be\n"
+"      replaced with the file's content.\n"
+"      "
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:50
+#, fuzzy
+msgid "Import bookmarks from other services"
+msgstr "Importera bokmärken"
+
+#: assets/templates/profile/import.jet.html:53
+#, python-format
+msgid ""
+"\n"
+"  If you have bookmarks from another service you can import them in the\n"
+"  <a href=\"%s\">dedicated section</a>.\n"
+"  "
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1853,8 +1921,7 @@ msgstr "Svara Till"
 
 #: assets/templates/profile/index.jet.html:58
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
-"Lägg till denna epostadress i dina utgående epost så mottagare kan svara."
+msgstr "Lägg till denna epostadress i dina utgående epost så mottagare kan svara."
 
 #: assets/templates/profile/index.jet.html:63
 msgid "Send EPUB to"
@@ -1862,9 +1929,7 @@ msgstr "Skicka EPUB till"
 
 #: assets/templates/profile/index.jet.html:64
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
-"Denna adress används för att förhandsfylla mottagare när du skickar en e-bok "
-"över epost."
+msgstr "Denna adress används för att förhandsfylla mottagare när du skickar en e-bok över epost."
 
 #: assets/templates/profile/index.jet.html:72
 msgid ""
@@ -1874,8 +1939,7 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Om du planerar att skicka e-böcker till en Kindle-enhet, så måste "
-"du godkänna\n"
+"          Om du planerar att skicka e-böcker till en Kindle-enhet, så måste du godkänna\n"
 "          följande epostadress i ditt Kindle-konto:\n"
 "          "
 
@@ -1940,11 +2004,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Du kan begränsa vilka privilegier denna token ger genom att välja en "
-"eller flera\n"
+"    Du kan begränsa vilka privilegier denna token ger genom att välja en eller flera\n"
 "    grupper av privilegier nedan.<br>\n"
-"    Lämna alla alternativ omarkerade för att ge alla privilegier till denna "
-"token.\n"
+"    Lämna alla alternativ omarkerade för att ge alla privilegier till denna token.\n"
 "  "
 
 #: assets/templates/profile/token.jet.html:70
@@ -1963,43 +2025,41 @@ msgstr "Autentisering"
 msgid "Your API token"
 msgstr "Din API-token"
 
-#: assets/templates/profile/token.jet.html:96
+#: assets/templates/profile/token.jet.html:99
+msgid "Download as a text file"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
 msgstr "Hur du använder den"
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:105
 msgid "As a Bearer Token"
 msgstr "Som Bearer-token"
 
-#: assets/templates/profile/token.jet.html:100
+#: assets/templates/profile/token.jet.html:107
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
-msgstr ""
-"Du kan använda denna token genom att skicka den som en <strong>Authorization:"
-" Bearer</strong> HTTP-header."
+msgstr "Du kan använda denna token genom att skicka den som en <strong>Authorization: Bearer</strong> HTTP-header."
 
-#: assets/templates/profile/token.jet.html:102
+#: assets/templates/profile/token.jet.html:109
 msgid "HTTP Header"
 msgstr "HTTP-header"
 
-#: assets/templates/profile/token.jet.html:113
+#: assets/templates/profile/token.jet.html:120
 msgid "As a password"
 msgstr "Som ett lösenord"
 
-#: assets/templates/profile/token.jet.html:115
+#: assets/templates/profile/token.jet.html:122
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
-msgstr ""
-"Alternativt kan du använda denna token som ett lösenord för HTTP Basic "
-"Authentication."
+msgstr "Alternativt kan du använda denna token som ett lösenord för HTTP Basic Authentication."
 
-#: assets/templates/profile/token.jet.html:116
+#: assets/templates/profile/token.jet.html:123
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
-"Till exempel, om en applikation endast accepterar användarnamn och lösenord, "
-"kan du använda denna token som ett lösenord.\n"
-"  Användarnamnet ignoreras och kan vara vad som helst, inklusive ett tomt "
-"fält."
+"Till exempel, om en applikation endast accepterar användarnamn och lösenord, kan du använda denna token som ett lösenord.\n"
+"  Användarnamnet ignoreras och kan vara vad som helst, inklusive ett tomt fält."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2012,16 +2072,13 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-"  En API-token är en nyckel som ger dig (eller ett verktyg såsom ett "
-"webläsartillägg)\n"
+"  En API-token är en nyckel som ger dig (eller ett verktyg såsom ett webläsartillägg)\n"
 "  tillgång till Readecks API.\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr ""
-"Vänligen läs <a href=\"%s\">API-dokumentationen</a> om du planerar att "
-"använda det."
+msgstr "Vänligen läs <a href=\"%s\">API-dokumentationen</a> om du planerar att använda det."
 
 #: assets/templates/profile/token_list.jet.html:26
 msgid "Create a new API token"
@@ -2233,12 +2290,6 @@ msgstr "Favoritmarkerade Bokmärken"
 msgid "Collection updated."
 msgstr "Samling uppdaterad."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
-msgid "Import"
-msgstr "Import"
-
 #: internal/bookmarks/routes/views_import.go:30
 #, fuzzy
 msgid "Progress"
@@ -2248,33 +2299,46 @@ msgstr "Progression"
 msgid "All Bookmarks"
 msgstr "Alla Bokmärken"
 
-#: internal/profile/forms.go:32
+#: internal/portability/import.go:351
+msgid "The import file must contain one user only"
+msgstr ""
+
+#: internal/profile/forms.go:39
 msgid "invalid username and/or email"
 msgstr "ogiltigt användarnamn och/eller epost"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:40
 msgid "invalid password"
 msgstr "ogiltigt lösenord"
 
-#: internal/profile/views.go:74
+#: internal/profile/forms.go:399
+msgid "username does not match"
+msgstr ""
+
+#: internal/profile/views.go:81
 msgid "Profile updated."
 msgstr "Profil uppdaterad."
 
-#: internal/profile/views.go:110
+#: internal/profile/views.go:117
 msgid "Your password was changed."
 msgstr "Ditt lösenord har ändrats."
 
-#: internal/profile/views.go:182
+#: internal/profile/views.go:189
 msgid "An error occurred while creating your token."
 msgstr "Ett fel uppstod när din token skapades."
 
-#: internal/profile/views.go:187
+#: internal/profile/views.go:194
 msgid "New token created."
 msgstr "Ny token skapad."
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:213
 msgid "Token was updated."
 msgstr "Token har uppdaterats."
+
+#: internal/profile/views.go:303
+#, fuzzy
+msgid "Profile imported."
+msgstr "Profil uppdaterad."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2524,3 +2588,7 @@ msgstr "%Y-%m-%d"
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
+
+#~ msgid "Close image"
+#~ msgstr "Stäng bild"
+

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-06 16:55+0200\n"
+"POT-Creation-Date: 2025-07-26 11:26+0200\n"
 "PO-Revision-Date: 2025-07-05 09:59+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: fr_FR\n"
@@ -117,7 +117,7 @@ msgstr "Suivante"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Utilisateurs"
@@ -170,7 +170,7 @@ msgstr "Groupe"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:123
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -482,7 +482,7 @@ msgid "no site name"
 msgstr "pas de nom de site"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:102
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -491,7 +491,7 @@ msgid "Published on %s"
 msgstr "Publié le %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:83
+#: assets/templates/bookmarks/bookmark_public.jet.html:107
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -518,25 +518,25 @@ msgstr "Bookmark non trouvé"
 msgid "Shared link"
 msgstr "Lien partagé"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:54
+#: assets/templates/bookmarks/bookmark_public.jet.html:78
 msgid "Page not found"
 msgstr "Page non trouvée"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:56
+#: assets/templates/bookmarks/bookmark_public.jet.html:80
 msgid "Page has expired"
 msgstr "La page a expiré"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:91
+#: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:97
+#: assets/templates/bookmarks/bookmark_public.jet.html:121
 #, python-format
 msgid "Shared by %s with %s"
 msgstr "Partagé par %s avec %s"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#: assets/templates/bookmarks/bookmark_public.jet.html:174
 #, python-format
 msgid "Saved with %s"
 msgstr "Sauvegardé avec %s"
@@ -738,12 +738,18 @@ msgid "Remove Highlight(s)"
 msgstr "Supprimer la ou les annotations"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Close image"
-msgstr "Fermer l'image"
+#, fuzzy
+msgid "Close"
+msgstr "Fermer le menu"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Afficher l'image"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Play video"
+msgstr "Vidéo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1012,6 +1018,7 @@ msgstr "Instructions pour Chrome"
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-readwise.jet.html:27
 #: assets/templates/bookmarks/import/form-text.jet.html:28
+#: assets/templates/profile/import.jet.html:25
 msgid "File"
 msgstr "Fichier"
 
@@ -1337,6 +1344,7 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/profile/export.jet.html:36
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
 msgstr "Signets de navigateur"
@@ -1346,6 +1354,7 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "Importez les signets de votre navigateur, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/profile/export.jet.html:44
 #: internal/bookmarks/importer/csv.go:55
 msgid "CSV File"
 msgstr "Fichier CSV"
@@ -1773,16 +1782,107 @@ msgstr "Changer le thème de couleurs"
 msgid "Settings"
 msgstr "Paramètres"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:87
-#: internal/profile/views.go:122 internal/profile/views.go:166
-#: internal/profile/views.go:226
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: internal/profile/views.go:129 internal/profile/views.go:173
+#: internal/profile/views.go:233 internal/profile/views.go:285
+#: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:167
-#: internal/profile/views.go:227
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "Jetons API"
+
+#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/export.jet.html:10
+#, fuzzy
+msgid "Export"
+msgstr "Importer"
+
+#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/import.jet.html:9
+#: assets/templates/profile/import.jet.html:45
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
+#: internal/profile/views.go:317
+msgid "Import"
+msgstr "Importer"
+
+#: assets/templates/profile/export.jet.html:15
+#, fuzzy
+msgid "Export your Readeck Profile"
+msgstr "Importez vos articles Pocket"
+
+#: assets/templates/profile/export.jet.html:20
+msgid ""
+"\n"
+"    This lets you download a zip file containing all your profile's data, including\n"
+"    bookmarks, collections, etc.\n"
+"    "
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:25
+#, fuzzy
+msgid "Export Data"
+msgstr "Exporter et partager"
+
+#: assets/templates/profile/export.jet.html:37
+msgid "Bookmark List in Browser Bookmarks Format"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:45
+msgid "Bookmark List as Comma Separated Values"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:50
+#, fuzzy
+msgid "Export Bookmarks"
+msgstr "Importer des bookmarks"
+
+#: assets/templates/profile/export.jet.html:52
+msgid "You can export your bookmark list in the following formats:"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:14
+msgid "Import a Readeck Profile"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:16
+msgid "Import a file obtained through a previous profile export."
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:31
+msgid "Confirm your user name"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:36
+#, fuzzy
+msgid "Attention"
+msgstr "Authentification"
+
+#: assets/templates/profile/import.jet.html:38
+msgid ""
+"\n"
+"      This will empty your current profile and all its data will be\n"
+"      replaced with the file's content.\n"
+"      "
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:50
+#, fuzzy
+msgid "Import bookmarks from other services"
+msgstr "Importer des bookmarks"
+
+#: assets/templates/profile/import.jet.html:53
+#, python-format
+msgid ""
+"\n"
+"  If you have bookmarks from another service you can import them in the\n"
+"  <a href=\"%s\">dedicated section</a>.\n"
+"  "
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1926,31 +2026,35 @@ msgstr "Authentification"
 msgid "Your API token"
 msgstr "Votre jeton API"
 
-#: assets/templates/profile/token.jet.html:96
+#: assets/templates/profile/token.jet.html:99
+msgid "Download as a text file"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
 msgstr "Utilisation"
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:105
 msgid "As a Bearer Token"
 msgstr "Comme jeton API"
 
-#: assets/templates/profile/token.jet.html:100
+#: assets/templates/profile/token.jet.html:107
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "Vous pouvez utiliser ce jeton en tant qu'en-tête HTTP <strong>Authorization: Bearer</strong>."
 
-#: assets/templates/profile/token.jet.html:102
+#: assets/templates/profile/token.jet.html:109
 msgid "HTTP Header"
 msgstr "En-tête HTTP"
 
-#: assets/templates/profile/token.jet.html:113
+#: assets/templates/profile/token.jet.html:120
 msgid "As a password"
 msgstr "Comment mot de passe"
 
-#: assets/templates/profile/token.jet.html:115
+#: assets/templates/profile/token.jet.html:122
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr "Une autre possibilité est d'utiliser ce jeton comme mot de passe pour une authentification HTTP classique."
 
-#: assets/templates/profile/token.jet.html:116
+#: assets/templates/profile/token.jet.html:123
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
@@ -2187,12 +2291,6 @@ msgstr "Bookmarks favoris"
 msgid "Collection updated."
 msgstr "Collection mise à jour."
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
-msgid "Import"
-msgstr "Importer"
-
 #: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
 msgstr "Progression"
@@ -2201,33 +2299,46 @@ msgstr "Progression"
 msgid "All Bookmarks"
 msgstr "Tous les bookmarks"
 
-#: internal/profile/forms.go:32
+#: internal/portability/import.go:351
+msgid "The import file must contain one user only"
+msgstr ""
+
+#: internal/profile/forms.go:39
 msgid "invalid username and/or email"
 msgstr "utilisateur et/ou e-mail invalide"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:40
 msgid "invalid password"
 msgstr "mot de passe invalide"
 
-#: internal/profile/views.go:74
+#: internal/profile/forms.go:399
+msgid "username does not match"
+msgstr ""
+
+#: internal/profile/views.go:81
 msgid "Profile updated."
 msgstr "Profil mis à jour."
 
-#: internal/profile/views.go:110
+#: internal/profile/views.go:117
 msgid "Your password was changed."
 msgstr "Votre mot de passe a été modifié."
 
-#: internal/profile/views.go:182
+#: internal/profile/views.go:189
 msgid "An error occurred while creating your token."
 msgstr "Une erreur s'est produite lors de la création du jeton."
 
-#: internal/profile/views.go:187
+#: internal/profile/views.go:194
 msgid "New token created."
 msgstr "Nouveau jeton créé."
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:213
 msgid "Token was updated."
 msgstr "Le jeton a été mis à jour."
+
+#: internal/profile/views.go:303
+#, fuzzy
+msgid "Profile imported."
+msgstr "Profil mis à jour."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2590,4 +2701,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "Mot de passe mis à jour."
+
+#~ msgid "Close image"
+#~ msgstr "Fermer l'image"
 

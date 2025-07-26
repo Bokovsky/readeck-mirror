@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-06 16:55+0200\n"
+"POT-Creation-Date: 2025-07-26 11:26+0200\n"
 "PO-Revision-Date: 2025-07-05 14:19+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
 "Language: zh_CN\n"
@@ -117,7 +117,7 @@ msgstr "下一页"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:30 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "用户"
@@ -170,7 +170,7 @@ msgstr "组"
 #: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:29
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:48
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:123
+#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
 msgid "Password"
 msgstr "密码"
 
@@ -482,7 +482,7 @@ msgid "no site name"
 msgstr "没有网站名称"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:102
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -491,7 +491,7 @@ msgid "Published on %s"
 msgstr "发布于 %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:83
+#: assets/templates/bookmarks/bookmark_public.jet.html:107
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -517,25 +517,25 @@ msgstr "未找到书签"
 msgid "Shared link"
 msgstr "分享链接"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:54
+#: assets/templates/bookmarks/bookmark_public.jet.html:78
 msgid "Page not found"
 msgstr "未找到页面"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:56
+#: assets/templates/bookmarks/bookmark_public.jet.html:80
 msgid "Page has expired"
 msgstr "页面已过期"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:91
+#: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
 msgstr "%d 分钟"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:97
+#: assets/templates/bookmarks/bookmark_public.jet.html:121
 #, python-format
 msgid "Shared by %s with %s"
 msgstr "由 %s 与 %s 分享"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:150
+#: assets/templates/bookmarks/bookmark_public.jet.html:174
 #, python-format
 msgid "Saved with %s"
 msgstr "使用 %s 保存"
@@ -736,12 +736,18 @@ msgid "Remove Highlight(s)"
 msgstr "移除高亮"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Close image"
-msgstr "关闭图片"
+#, fuzzy
+msgid "Close"
+msgstr "关闭菜单"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "显示图片"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+#, fuzzy
+msgid "Play video"
+msgstr "视频"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1012,6 +1018,7 @@ msgstr "Chrome 导入说明"
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:42
 #: assets/templates/bookmarks/import/form-readwise.jet.html:27
 #: assets/templates/bookmarks/import/form-text.jet.html:28
+#: assets/templates/profile/import.jet.html:25
 msgid "File"
 msgstr "文件"
 
@@ -1340,6 +1347,7 @@ msgstr ""
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/profile/export.jet.html:36
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
 msgstr "浏览器书签"
@@ -1349,6 +1357,7 @@ msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
 msgstr "导入浏览器的书签、Pinboard、Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/profile/export.jet.html:44
 #: internal/bookmarks/importer/csv.go:55
 msgid "CSV File"
 msgstr "CSV 文件"
@@ -1780,16 +1789,107 @@ msgstr "更改主题颜色"
 msgid "Settings"
 msgstr "设置"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:87
-#: internal/profile/views.go:122 internal/profile/views.go:166
-#: internal/profile/views.go:226
+#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: internal/profile/views.go:129 internal/profile/views.go:173
+#: internal/profile/views.go:233 internal/profile/views.go:285
+#: internal/profile/views.go:316
 msgid "Profile"
 msgstr "个人资料"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:167
-#: internal/profile/views.go:227
+#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "API 令牌"
+
+#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/export.jet.html:10
+#, fuzzy
+msgid "Export"
+msgstr "导入"
+
+#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/import.jet.html:9
+#: assets/templates/profile/import.jet.html:45
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
+#: internal/profile/views.go:317
+msgid "Import"
+msgstr "导入"
+
+#: assets/templates/profile/export.jet.html:15
+#, fuzzy
+msgid "Export your Readeck Profile"
+msgstr "导入 Pocket 文章"
+
+#: assets/templates/profile/export.jet.html:20
+msgid ""
+"\n"
+"    This lets you download a zip file containing all your profile's data, including\n"
+"    bookmarks, collections, etc.\n"
+"    "
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:25
+#, fuzzy
+msgid "Export Data"
+msgstr "导出和分享"
+
+#: assets/templates/profile/export.jet.html:37
+msgid "Bookmark List in Browser Bookmarks Format"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:45
+msgid "Bookmark List as Comma Separated Values"
+msgstr ""
+
+#: assets/templates/profile/export.jet.html:50
+#, fuzzy
+msgid "Export Bookmarks"
+msgstr "导入书签"
+
+#: assets/templates/profile/export.jet.html:52
+msgid "You can export your bookmark list in the following formats:"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:14
+msgid "Import a Readeck Profile"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:16
+msgid "Import a file obtained through a previous profile export."
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:31
+msgid "Confirm your user name"
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:36
+#, fuzzy
+msgid "Attention"
+msgstr "身份验证"
+
+#: assets/templates/profile/import.jet.html:38
+msgid ""
+"\n"
+"      This will empty your current profile and all its data will be\n"
+"      replaced with the file's content.\n"
+"      "
+msgstr ""
+
+#: assets/templates/profile/import.jet.html:50
+#, fuzzy
+msgid "Import bookmarks from other services"
+msgstr "导入书签"
+
+#: assets/templates/profile/import.jet.html:53
+#, python-format
+msgid ""
+"\n"
+"  If you have bookmarks from another service you can import them in the\n"
+"  <a href=\"%s\">dedicated section</a>.\n"
+"  "
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1933,31 +2033,35 @@ msgstr "身份验证"
 msgid "Your API token"
 msgstr "您的 API 令牌"
 
-#: assets/templates/profile/token.jet.html:96
+#: assets/templates/profile/token.jet.html:99
+msgid "Download as a text file"
+msgstr ""
+
+#: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
 msgstr "使用方法"
 
-#: assets/templates/profile/token.jet.html:98
+#: assets/templates/profile/token.jet.html:105
 msgid "As a Bearer Token"
 msgstr "作为持有者令牌"
 
-#: assets/templates/profile/token.jet.html:100
+#: assets/templates/profile/token.jet.html:107
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr "您可以通过将其作为 <strong>验证：Bearer</strong> HTTP 标头传递来使用此令牌。"
 
-#: assets/templates/profile/token.jet.html:102
+#: assets/templates/profile/token.jet.html:109
 msgid "HTTP Header"
 msgstr "HTTP 标头"
 
-#: assets/templates/profile/token.jet.html:113
+#: assets/templates/profile/token.jet.html:120
 msgid "As a password"
 msgstr "作为密码"
 
-#: assets/templates/profile/token.jet.html:115
+#: assets/templates/profile/token.jet.html:122
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr "或者，您可以将此令牌用作 HTTP 基本身份验证的密码。"
 
-#: assets/templates/profile/token.jet.html:116
+#: assets/templates/profile/token.jet.html:123
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
@@ -2194,12 +2298,6 @@ msgstr "已收藏书签"
 msgid "Collection updated."
 msgstr "收藏集已更新。"
 
-#: internal/bookmarks/routes/views_import.go:29
-#: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69
-msgid "Import"
-msgstr "导入"
-
 #: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
 msgstr "进度"
@@ -2208,33 +2306,46 @@ msgstr "进度"
 msgid "All Bookmarks"
 msgstr "全部书签"
 
-#: internal/profile/forms.go:32
+#: internal/portability/import.go:351
+msgid "The import file must contain one user only"
+msgstr ""
+
+#: internal/profile/forms.go:39
 msgid "invalid username and/or email"
 msgstr "用户名和/或电子邮件地址无效"
 
-#: internal/profile/forms.go:33
+#: internal/profile/forms.go:40
 msgid "invalid password"
 msgstr "无效的密码"
 
-#: internal/profile/views.go:74
+#: internal/profile/forms.go:399
+msgid "username does not match"
+msgstr ""
+
+#: internal/profile/views.go:81
 msgid "Profile updated."
 msgstr "个人资料已更新。"
 
-#: internal/profile/views.go:110
+#: internal/profile/views.go:117
 msgid "Your password was changed."
 msgstr "您的密码已更改。"
 
-#: internal/profile/views.go:182
+#: internal/profile/views.go:189
 msgid "An error occurred while creating your token."
 msgstr "创建令牌时出错。"
 
-#: internal/profile/views.go:187
+#: internal/profile/views.go:194
 msgid "New token created."
 msgstr "新令牌已创建。"
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:213
 msgid "Token was updated."
 msgstr "令牌已更新。"
+
+#: internal/profile/views.go:303
+#, fuzzy
+msgid "Profile imported."
+msgstr "个人资料已更新。"
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2600,4 +2711,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Password was updated."
 #~ msgstr "密码已更新。"
+
+#~ msgid "Close image"
+#~ msgstr "关闭图片"
 
