@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-26 09:45+0000\n"
+"PO-Revision-Date: 2025-07-26 10:15+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
 "application/uk/>\n"
@@ -1826,9 +1826,8 @@ msgid "Import"
 msgstr "Імпортувати"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Імпортувати ваші статті з Pocket"
+msgstr "Експортувати ваш профіль Readeck"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1839,9 +1838,8 @@ msgid ""
 msgstr ""
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "Експортувати та поділитися"
+msgstr "Експортувати дані"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
@@ -1852,9 +1850,8 @@ msgid "Bookmark List as Comma Separated Values"
 msgstr ""
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Імпортувати закладки"
+msgstr "Експортувати закладки"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
@@ -1862,7 +1859,7 @@ msgstr ""
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Імпортувати профіль Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
@@ -1873,9 +1870,8 @@ msgid "Confirm your user name"
 msgstr ""
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "Автентифікація"
+msgstr "Увага"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1886,9 +1882,8 @@ msgid ""
 msgstr ""
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Імпортувати закладки"
+msgstr "Імпортувати закладки з інших сервісів"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -2351,9 +2346,8 @@ msgid "Token was updated."
 msgstr "Токен оновлено."
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "Профіль оновлено."
+msgstr "Профіль імпортовано."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
