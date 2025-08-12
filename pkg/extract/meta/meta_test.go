@@ -459,7 +459,7 @@ func TestMeta(t *testing.T) {
 		dom.SetAttribute(icon1, "href", "/icon.ico")
 
 		icon2 := dom.CreateElement("link")
-		dom.SetAttribute(icon2, "rel", "shortcut-icon")
+		dom.SetAttribute(icon2, "rel", "shortcut icon")
 		dom.SetAttribute(icon2, "href", "/favicon.png")
 		dom.SetAttribute(icon2, "type", "image/png")
 		dom.SetAttribute(icon2, "sizes", "64x64")

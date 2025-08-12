@@ -106,7 +106,7 @@ func newFaviconList(doc *html.Node, base *url.URL) faviconList {
 	res := make(faviconList, 0)
 	selector := `//link[@href][
 		@rel='icon' or
-		@rel='shortcut-icon' or
+		@rel='shortcut icon' or
 		@rel='apple-touch-icon'
 	]`
 	nodes, _ := htmlquery.QueryAll(doc, selector)
