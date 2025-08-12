@@ -1,0 +1,84 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "fig-modal",
+    "original-slide",
+    "hide",
+    "empty-target",
+    "copyright-year"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"surname\"",
+      "class=\"inline-block surname\""
+    ],
+    [
+      "class=\"given-names\"",
+      "class=\"inline-block given-names\""
+    ],
+    [
+      "class=\"year\"",
+      "class=\"inline-block year\""
+    ],
+    [
+      "class=\"article-title\"",
+      "class=\"inline-block article-title\""
+    ],
+    [
+      "class=\"source\"",
+      "class=\"inline-block source\""
+    ],
+    [
+      "class=\"volume\"",
+      "class=\"inline-block volume\""
+    ],
+    [
+      "class=\"fpage\"",
+      "class=\"inline-block fpage\""
+    ],
+    [
+      "class=\"lpage\"",
+      "class=\"inline-block lpage\""
+    ],
+    [
+      "class=\"pub-id-doi\"",
+      "class=\"inline-block pub-id-doi\""
+    ],
+    [
+      "\u003cdiv class=\"google-scholar-ref-link",
+      "\u003cdiv class=\"inline-block google-scholar-ref-link"
+    ],
+    [
+      "\u003cdiv class=\"crossref-doi",
+      "\u0026nbsp;\u0026nbsp;\u0026middot;\u0026nbsp;\u0026nbsp;\u003cdiv class=\"inline-block crossref-doi"
+    ],
+    [
+      "\u003cdiv class=\"pub-id",
+      "\u0026nbsp;\u0026nbsp;\u0026middot;\u0026nbsp;\u0026nbsp;\u003cdiv class=\"inline-block pub-id"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://journals.biologists.com/jeb/article/228/13/jeb251026/368435/",
+      "contains": []
+    },
+    {
+      "url": "https://journals.biologists.com/bio/article/14/3/bio061939/367435/Alveolar-epithelial-paxillin-in-postnatal-lung",
+      "contains": []
+    }
+  ]
+}

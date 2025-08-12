@@ -1,14 +1,18 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' center-content ')]"
+  ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[@class='content--header']/div[@class!='sub-title']"
+  ],
   "strip_id_or_class": [
-    "tag-cloud",
-    "follow-us__correction",
-    "corrections_container",
-    "fallback-consent"
+    "toolsRight",
+    "toc-anchor",
+    "bloc-tags",
+    "alignement-guide"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,7 +25,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.huffingtonpost.fr/michael-dias/pourquoi-la-generation-y-est-elle-en-train-de-demissionner/",
+      "url": "https://www.has-sante.fr/jcms/p_3193968/fr/gestion-du-capital-sanguin-en-pre-per-et-post-operatoire-et-en-obstetrique",
       "contains": []
     }
   ]

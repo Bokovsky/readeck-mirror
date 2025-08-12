@@ -31,7 +31,9 @@
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mastodon/4.3.2"
+  },
   "tests": [
     {
       "url": "http://www.inc.com/guides/2010/11/seven-tips-for-lobbying-politicians.html",

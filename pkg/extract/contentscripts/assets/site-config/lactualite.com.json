@@ -1,18 +1,18 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[@class='entry-title']"
+  ],
   "body_selectors": [
-    "//main[@id='main']"
+    "//p[@class='entry-lead'] | //div[contains(@class,'entry-content')] | //div[contains(@class, 'entry-asset-wrapper')]/figure"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//button"
+    "//aside[contains(@class, 'suggested-link')]"
   ],
   "strip_id_or_class": [
-    "breadcrumbs",
-    "box-teaser",
-    "title-left",
-    "page-notice"
+    "newsletter-callout",
+    "entry-sidebar"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,16 +21,11 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": [
-    [
-      "class=\"container",
-      "class=\"foo-cntnr"
-    ]
-  ],
+  "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.onb.ac.at/mehr/blogs/detail/die-drucke-der-bibliotheca-eugeniana-im-prunksaal-eine-spurensuche",
+      "url": "https://lactualite.com/sante-et-science/les-dangers-detre-esclave-de-son-gps/",
       "contains": []
     }
   ]

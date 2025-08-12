@@ -3,9 +3,9 @@
     "//article[contains(concat(' ',normalize-space(@class),' '),' markdown-body ')]//h1"
   ],
   "body_selectors": [
+    "//div[@id='wiki-body']",
     "//div[contains(concat(' ',normalize-space(@class),' '),' Box-body ')]",
-    "//article[1]",
-    "//div[@id='wiki-body']"
+    "//article[1]"
   ],
   "date_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' Details ')]//relative-time"

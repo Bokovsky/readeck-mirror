@@ -1,14 +1,15 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
+  "title_selectors": [
+    "//h1[@class=\"post-title\"]"
+  ],
+  "body_selectors": [
+    "//div[@class=\"post-content\"] | //div[@class=\"post-media\"]"
+  ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": [
-    "tag-cloud",
-    "follow-us__correction",
-    "corrections_container",
-    "fallback-consent"
+    "ez-toc-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,7 +22,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.huffingtonpost.fr/michael-dias/pourquoi-la-generation-y-est-elle-en-train-de-demissionner/",
+      "url": "https://creteinsider.com/things-to-do-in-rethymnon-town-crete/",
       "contains": []
     }
   ]

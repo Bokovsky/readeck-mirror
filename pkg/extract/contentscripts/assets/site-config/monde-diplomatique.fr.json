@@ -12,7 +12,8 @@
   "strip_selectors": [
     "//div[contains(@class, 'bandeautitre')]",
     "//div[contains(@class, 'dates_auteurs')]",
-    "//div[@class='cartouche']/h1"
+    "//div[@class='cartouche']/h1",
+    "//div[@class='cartouche']/p[contains(@class, 'surtitre')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,7 +23,12 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "chapo\"\u003e\u003cp\u003e",
+      "chapo\"\u003e\u003ch6\u003e"
+    ]
+  ],
   "http_headers": {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:135.0) Gecko/20100101 Firefox/135.0",
     "referer": "https://www.monde-diplomatique.fr"

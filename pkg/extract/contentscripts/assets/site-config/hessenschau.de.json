@@ -70,6 +70,22 @@
       "\"foo4=\"http"
     ],
     [
+      "480w\"",
+      "\""
+    ],
+    [
+      "640w\"",
+      "\""
+    ],
+    [
+      "720w\"",
+      "\""
+    ],
+    [
+      "960w\"",
+      "\""
+    ],
+    [
       ".jpg \"",
       ".jpg\""
     ],
@@ -96,6 +112,18 @@
     [
       "\u003eEnde des Formulars \u003c",
       "\u003e\u003c"
+    ],
+    [
+      "Weitere Informationen",
+      ""
+    ],
+    [
+      "Ende der weiteren Informationen",
+      ""
+    ],
+    [
+      "Ende des Audiobeitrags",
+      ""
     ]
   ],
   "http_headers": null,

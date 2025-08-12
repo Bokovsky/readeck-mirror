@@ -12,6 +12,7 @@
   "strip_selectors": [
     "//div[@id='newsletter-popup']",
     "//h2[@class=\"h4 mt-0\"]/parent::div",
+    "//div[contains(@class, 'articles-suggestions')]",
     "//div[@class='left-col']//div[@class='node__content']/following-sibling::*",
     "//div[contains(@class, 'social-media-sharing')] | //div[contains(@class, 'social-media-sharing')]/following-sibling::*"
   ],
@@ -30,6 +31,10 @@
   "tests": [
     {
       "url": "https://www.sciencepresse.qc.ca/actualite/2025/05/22/guerre-opportunite-affaires-pour-gafam",
+      "contains": []
+    },
+    {
+      "url": "https://www.sciencepresse.qc.ca/actualites-scientifiques/2025/07/24/garcon-fille-toujours-50-chances",
       "contains": []
     }
   ]

@@ -1,16 +1,18 @@
 {
-  "title_selectors": null,
-  "body_selectors": [
-    "//article[contains(concat(' ',normalize-space(@class),' '),' status-publish ')]//div[contains(concat(' ',normalize-space(@class),' '),' entry-container ')]"
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | Le site de Korben')"
   ],
-  "date_selectors": null,
+  "body_selectors": [
+    "//article//div[@class='article-content']/div[contains(concat(' ',normalize-space(@class),' '),' content ')]"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
   "author_selectors": [
     "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": [
-    "post-categories"
-  ],
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -18,7 +20,20 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-srcset=\"https",
+      "srcset=\"https"
+    ],
+    [
+      "srcset=\"/cdn-cgi/",
+      "srcset=\"https://korben.info/cdn-cgi/"
+    ],
+    [
+      ", /cdn-cgi/",
+      ", https://korben.info/cdn-cgi/"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

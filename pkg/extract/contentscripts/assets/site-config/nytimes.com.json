@@ -97,7 +97,7 @@
   ],
   "http_headers": {
     "cookie": "nyt-a=AAAA; nyt-gdpr=1;",
-    "user-agent": "curl/7.83.1"
+    "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 15.5; rv:141.0) Gecko/20100101 Firefox/141.0"
   },
   "tests": [
     {

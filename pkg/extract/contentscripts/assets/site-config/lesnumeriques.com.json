@@ -1,19 +1,16 @@
 {
-  "title_selectors": [
-    "//h1/following::span[@class='fn']"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//div[@class='ArTexte']",
-    "//div[@id='prod_txt_b']",
-    "//div[@class='ArPhotoP']"
+    "//p[contains(@class,'ed__bdy__l')] | //div[contains(@class, '__artcl__bdy ')] | //section[contains(@class,'__hdr')]//figure"
   ],
-  "date_selectors": [
-    "//following::div[@class='PDate2']/strong"
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'ln__a-dp')]",
+    "//aside[contains(@class, 'ed__m-frmd')]",
+    "//a/article/ancestor::div[@class='ed__cntnr']",
+    "//button"
   ],
-  "author_selectors": [
-    "//following::div[@class='PDate2']"
-  ],
-  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -22,11 +19,24 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "data-srcset=\"https",
+      "srcset=\"https"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "http://www.lesnumeriques.com/disque-dur-multimedia/popcorn-hour-300-p12231/test.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.lesnumeriques.com/vpn/echapper-au-fingerprinting-comment-un-vpn-peut-vraiment-faire-la-difference-a237361.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.lesnumeriques.com/cine-svod/apple-tv-prix-abonnements-catalogue-tout-savoir-sur-la-plateforme-de-streaming-n240180.html",
       "contains": []
     }
   ]
