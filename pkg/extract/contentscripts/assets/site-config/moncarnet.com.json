@@ -6,7 +6,9 @@
     "//div[@class='entry-content']"
   ],
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "substring-after(//h2[@class='author-title'], 'Publié par')"
+  ],
   "strip_selectors": [
     "//div[@id='jp-relatedposts']",
     "//p[contains(text(), 'Subscribe to get the latest posts sent to your email.')]/parent::div",

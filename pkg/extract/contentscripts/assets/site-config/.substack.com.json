@@ -11,6 +11,8 @@
   ],
   "strip_selectors": [
     "//div[contains(@class, 'tweet-footer')]//span",
+    "//button",
+    "//svg",
     "//p[contains(concat(' ',normalize-space(@class),' '),' button-wrapper ')]"
   ],
   "strip_id_or_class": [

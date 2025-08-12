@@ -1,0 +1,52 @@
+{
+  "title_selectors": [
+    "//section[@id='content']/header/h1"
+  ],
+  "body_selectors": [
+    "//section[@id='content']/header | //main[@class='article']"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "//a[contains(@href, '/author/')]"
+  ],
+  "strip_selectors": [
+    "//header/h1",
+    "//main/header",
+    "//svg"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003ca class=\"image-wrapper",
+      "\u003cimg class=\"image-wrapper"
+    ],
+    [
+      "href=\"https://cdn.kinocheck.com/i/",
+      "src=\"https://cdn.kinocheck.com/i/w=1280/"
+    ],
+    [
+      "class=\"video-container\"",
+      "class=\"foo-video-cntnr\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://kinocheck.de/news/ve0ysy/mikey-madison-und-jeremy-allen-white-fuer-the-social-network-2-im-gespraech",
+      "contains": []
+    },
+    {
+      "url": "https://kinocheck.de/rss/news",
+      "contains": []
+    }
+  ]
+}

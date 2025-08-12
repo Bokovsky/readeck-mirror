@@ -1,0 +1,39 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[1]"
+  ],
+  "date_selectors": [
+    "substring-before(//p[contains(@class, 'article-info')] , '•')"
+  ],
+  "author_selectors": [
+    "//hero//p[contains(@class, 'coh-style-paragraph-small')]//a"
+  ],
+  "strip_selectors": [
+    "//nav",
+    "//button",
+    "//hero",
+    "//header/self::* | //header/preceding-sibling::*",
+    "//div[contains(@class, 'social-media-share')]",
+    "//div[contains(@id, 'related-articles')]/parent::div/parent::div"
+  ],
+  "strip_id_or_class": [
+    "article-info",
+    "mobile"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://fidelitydigitalassets.com/research-and-insights/increasing-impact-bitcoins-ancient-supply?ccsource=owned_social_impact_bitcoin_ancient_supply_x",
+      "contains": []
+    }
+  ]
+}

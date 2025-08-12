@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header",
+    "//button",
+    "//*[contains(@id, 'troy-teaser-container')]",
+    "//*[contains(@id, 'feedback-container')]",
+    "//*[contains(@class, 'Teaser_ingredientBadge')]"
+  ],
+  "strip_id_or_class": [
+    "sub-nav",
+    "delicious-container",
+    "index",
+    "recipe-review",
+    "footer-section-container",
+    "footer-mesos"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.rewe.de/rezepte/bratwurst-gefuellt/",
+      "contains": []
+    },
+    {
+      "url": "https://www.rewe.de/ernaehrung/essen-an-heissen-tagen/",
+      "contains": []
+    }
+  ]
+}
