@@ -16,7 +16,7 @@
 - Open Graph metadata on publicly shared bookmarks, [@mislav](https://codeberg.org/mislav)
 - DOM API in content scripts
 - Log format configuration entry
-- API tokens can be download as text files
+- Download API tokens as text files
 - Profile (one user only for now) export and import
 
 ### Fixed
@@ -52,6 +52,7 @@
 - cookbook API documentation (POST on extract route), by [@mislav](https://codeberg.org/mislav)
 - switch to the readeck/go-readability fork for compatibility with Mozilla Readability.js 0.6.0, by [@mislav](https://codeberg.org/mislav)
 - refresh user content scripts when they've changed
+- improved flash messages styling
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version

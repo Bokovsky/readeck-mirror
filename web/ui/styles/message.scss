@@ -9,15 +9,55 @@
     @apply bg-gradient-to-r from-[0.25rem] via-[0.25rem];
     @apply transition-all duration-300 ease-in-out;
 
+    --msg-color: theme("colors.blue.800");
+    --msg-border: theme("colors.blue.700");
+    --msg-bg: theme("colors.blue.50");
+    --msg-remover: theme("colors.gray.500");
+    --msg-remover-hover: theme("colors.red.700");
+
+    --tw-gradient-to: var(--msg-bg) var(--tw-gradient-to-position);
+    --tw-gradient-stops:
+      var(--tw-gradient-from), var(--msg-bg) var(--tw-gradient-via-position), var(--tw-gradient-to);
+    --tw-gradient-from: var(--msg-border) var(--tw-gradient-from-position);
+
+    border-color: var(--msg-border);
+
+    &.success {
+      --msg-color: theme("colors.green.800");
+      --msg-border: theme("colors.green.700");
+      --msg-bg: theme("colors.green.100");
+    }
+    &.error {
+      --msg-color: theme("colors.red.800");
+      --msg-border: theme("colors.red.700");
+      --msg-bg: theme("colors.red.100");
+    }
+
     button.remover {
-      @apply text-gray-300;
+      color: var(--msg-remover);
+      opacity: 0.5;
+
+      &:hover,
+      &:focus {
+        color: var(--msg-remover-hover);
+      }
+
+      & .svgicon {
+        & > svg {
+          @apply w-5 h-5;
+        }
+      }
     }
 
     &:hover,
     &:focus-within {
       button.remover {
-        @apply text-red-700;
+        opacity: 1;
       }
+    }
+
+    & > div > .svgicon {
+      color: var(--msg-color);
     }
 
     & > div > details {
@@ -41,6 +81,47 @@
 
       &[open] > summary::after {
         transform: rotate(0);
+      }
+    }
+  }
+
+  .toaster {
+    @at-root body.js & {
+      position: fixed;
+      top: theme("spacing.2");
+      margin: 0;
+      left: 50%;
+      transform: translate(-50%, 0);
+      width: auto;
+      min-width: theme("spacing.col-4");
+      z-index: 100;
+
+      @screen max-sm {
+        width: 100%;
+        top: auto;
+        bottom: 0;
+      }
+
+      & .message {
+        @apply border-none my-0;
+
+        --msg-color: theme("colors.blue.300");
+        --msg-bg: theme("colors.blue.800");
+        --msg-remover: theme("colors.gray.300");
+        --msg-remover-hover: theme("colors.gray.100");
+
+        @apply bg-none rounded shadow-xl;
+        background-color: var(--msg-bg);
+        color: theme("colors.gray.light");
+
+        &.success {
+          --msg-color: theme("colors.green.300");
+          --msg-bg: theme("colors.green.800");
+        }
+        &.error {
+          --msg-color: theme("colors.red.300");
+          --msg-bg: theme("colors.red.800");
+        }
       }
     }
   }

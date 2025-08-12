@@ -209,8 +209,6 @@
   .layout-content {
     container-name: layout-content;
     container-type: inline-size;
-    contain: layout;
     @apply bg-transparent mx-6 my-8;
-    @apply relative;
   }
 }

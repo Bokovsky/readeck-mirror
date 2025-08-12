@@ -16,39 +16,24 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 
 {{- block message(type="info", removable=false, delay=0, class="") -}}
 {{- icon := "o-info" -}}
-{{- color := "text-blue-800" -}}
-{{- bg := "bg-blue-50" -}}
-{{- border := "border-blue-800" -}}
-{{- bg_from := "from-blue-700" -}}
-{{- bg_via := "via-blue-50" -}}
 {{- if type == "success" -}}
   {{- icon = "o-check-on" -}}
-  {{- color = "text-green-800" -}}
-  {{- bg = "bg-green-100" -}}
-  {{- border = "border-green-800" -}}
-  {{- bg_from = "from-green-700" -}}
-  {{- bg_via = "via-green-100" -}}
 {{- else if type == "error" -}}
   {{- icon = "o-error" -}}
-  {{- color = "text-red-800" -}}
-  {{- bg = "bg-red-100" -}}
-  {{- border = "border-red-800" -}}
-  {{- bg_from = "from-red-700" -}}
-  {{- bg_via = "via-red-100" -}}
 {{- end -}}
-<div class="message {{ bg }} {{ border }} {{ bg_from }} {{ bg_via }} {{ class }}"
+<div class="message {{ type }} {{ class }}"
  {{- if removable || delay > 0 -}} data-controller="remover" {{- end -}} data-remover-delay-value="{{ delay }}"
 >
   <div>
-    {{- yield icon(name=icon, class="svgicon " + color) -}}
+    {{- yield icon(name=icon) -}}
   </div>
   <div class="flex-grow">
     {{- yield content -}}
   </div>
   {{- if removable -}}
-    <div class="-mt-2 -mr-2">
+    <div class="no-js:hidden">
       <button data-action="remover#remove" class="remover">
-        {{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}
+        {{ yield icon(name="o-cross") }}
       </button>
     </div>
   {{- end -}}
@@ -57,11 +42,11 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 
 {{- block flashes() -}}
 {{- if len(flashes) > 0 -}}
-  <div class="js:absolute js:-top-0 js:left-0 js:right-0 js:z-50">
+  <div class="toaster">
   {{- range flashes -}}
       {{- if !hasPrefix(.Type, "_") -}}
         <div class="drop-shadow-sm mb-1">
-          {{- yield message(type=.Type, delay=3) content -}}
+          {{- yield message(type=.Type, delay=3, removable=true) content -}}
             <strong>{{ .Message }}</strong>
           {{- end -}}
         </div>
