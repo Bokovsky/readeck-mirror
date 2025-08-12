@@ -53,6 +53,7 @@
 - switch to the readeck/go-readability fork for compatibility with Mozilla Readability.js 0.6.0, by [@mislav](https://codeberg.org/mislav)
 - refresh user content scripts when they've changed
 - improved flash messages styling
+- feedback on "copy to clipboard" buttons
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version

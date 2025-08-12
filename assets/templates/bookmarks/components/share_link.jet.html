@@ -19,7 +19,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <p class="flex max-sm:flex-col gap-2 mb-4" data-controller="clipboard">
     <input class="hidden" type="text" value="{{ .URL }}" data-clipboard-target="content">
-    <button class="btn btn-default rounded" type="button" data-action="clipboard#copy">{{ gettext("Copy the link") }}</button>
+    <button class="btn btn-default rounded" type="button" data-action="clipboard#copy">
+      {{- yield icon(name="o-copy", attrs=attrList("data-clipboard-target", "icon")) }}
+      {{ gettext("Copy the link") -}}
+    </button>
     {{- if !isTurbo -}}
       <a class="sm:ml-auto btn btn-primary text-center" href="{{ urlFor(`/bookmarks`, .ID) }}"
         data-controller="history" data-action="history#back">{{ gettext("Go back to the bookmark") }}</a>
