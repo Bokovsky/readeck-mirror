@@ -2,7 +2,7 @@ module codeberg.org/readeck/readeck
 
 go 1.24
 
-toolchain go1.24.4
+toolchain go1.24.6
 
 require (
 	codeberg.org/readeck/go-readability v0.0.0-20250707153221-ae7d57e84914
