@@ -7,19 +7,26 @@
 package request
 
 import (
+	"crypto/rand"
+	"encoding/binary"
+	"encoding/hex"
+	"hash/adler32"
 	"net"
 	"net/http"
 	"net/url"
+	"os"
 	"slices"
+	"sync/atomic"
 
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/forwarded"
 )
 
 type (
-	ctxRemoteIPKey struct{}
-	ctxRealIPKey   struct{}
-	ctxURLKey      struct{}
+	ctxRemoteIPKey  struct{}
+	ctxRealIPKey    struct{}
+	ctxURLKey       struct{}
+	ctxRequestIDKey struct{}
 )
 
 var (
@@ -37,7 +44,48 @@ var (
 	GetURL   = ctxr.Getter[*url.URL](ctxURLKey{})
 	checkURL = ctxr.Checker[*url.URL](ctxURLKey{})
 	withURL  = ctxr.Setter[*url.URL](ctxURLKey{})
+
+	// GetReqID returns the request's ID.
+	GetReqID  = ctxr.Getter[string](ctxRequestIDKey{})
+	withReqID = ctxr.Setter[string](ctxRequestIDKey{})
 )
+
+var (
+	reqid       uint32
+	reqIDPrefix [13]byte
+)
+
+func init() {
+	hostname, _ := os.Hostname()
+	if hostname == "" {
+		hostname = "localhost"
+	}
+
+	var b [6]byte
+	rand.Read(b[4:])
+	cs := adler32.New()
+	cs.Write([]byte(hostname))
+	copy(b[0:4], cs.Sum(nil))
+
+	reqIDPrefix[8] = '/'
+	hex.Encode(reqIDPrefix[0:8], b[0:4])
+	hex.Encode(reqIDPrefix[9:], b[4:])
+}
+
+// makeRequestID creates request ID.
+// A request ID is a string of the form "host-checksum/random-seq",
+// where "host-checksum" is an adler32 checksum of the host name (4 bytes),
+// "random" is a 2 byte random value and "seq" a sequence number.
+func makeRequestID() string {
+	// The prefix is 13 bytes, we add a separator "-" and 8 bytes for the
+	// sequence number.
+	var id [22]byte
+	copy(id[0:13], reqIDPrefix[:])
+	id[13] = '-'
+
+	hex.Encode(id[14:], binary.BigEndian.AppendUint32(nil, atomic.AddUint32(&reqid, 1)))
+	return string(id[:])
+}
 
 // InitBaseURL sets the scheme and host taken from the given URL and adds
 // it to the context.
@@ -124,6 +172,9 @@ func InitRequest(trustedProxies ...*net.IPNet) func(next http.Handler) http.Hand
 
 			// Set the request's URL
 			*(r.URL) = *cu
+
+			// Add request's ID to context
+			ctx = withReqID(ctx, makeRequestID())
 
 			next.ServeHTTP(w, r.WithContext(ctx))
 		})

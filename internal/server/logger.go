@@ -25,7 +25,7 @@ type httpLogger struct{}
 
 func (sl *httpLogger) NewLogEntry(r *http.Request) middleware.LogEntry {
 	attrs := httpAttrs{
-		slog.String("@id", middleware.GetReqID(r.Context())),
+		slog.String("@id", GetReqID(r)),
 		slog.Group("request",
 			slog.String("method", r.Method),
 			slog.String("path", r.RequestURI),
@@ -45,7 +45,6 @@ type httpAttrs []slog.Attr
 
 func (attrs httpAttrs) Write(status, bytes int, _ http.Header, elapsed time.Duration, _ interface{}) {
 	slog.LogAttrs(context.TODO(), slog.LevelInfo,
-		// fmt.Sprintf("http %d %s", status, http.StatusText(status)),
 		"http "+strconv.Itoa(status)+" "+http.StatusText(status),
 		append(attrs,
 			slog.Group("response",

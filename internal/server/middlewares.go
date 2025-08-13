@@ -27,7 +27,6 @@ import (
 const (
 	csrfCookieName = "__csrf_key"
 	csrfFieldName  = "__csrf__"
-	csrfHeaderName = "X-CSRF-Token"
 	gzipEtagSuffix = "-gzip"
 )
 

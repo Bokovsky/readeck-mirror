@@ -10,9 +10,8 @@ import (
 	"log/slog"
 	"net/http"
 
-	"github.com/go-chi/chi/v5/middleware"
-
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 type (
@@ -136,7 +135,7 @@ func Required(next http.Handler) http.Handler {
 		r, err := provider.Authenticate(w, r)
 		if err != nil {
 			slog.Error("authentication error",
-				slog.String("@id", middleware.GetReqID(r.Context())),
+				slog.String("@id", request.GetReqID(r.Context())),
 				slog.Any("err", err),
 			)
 			w.WriteHeader(http.StatusForbidden)

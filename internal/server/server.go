@@ -42,7 +42,6 @@ func New() *Server {
 	s.Use(
 		middleware.Recoverer,
 		InitRequest(),
-		middleware.RequestID,
 		Logger(),
 		metrics.Middleware,
 		SetSecurityHeaders,
@@ -234,7 +233,7 @@ func IsTurboRequest(r *http.Request) bool {
 
 // GetReqID returns the request ID.
 func GetReqID(r *http.Request) string {
-	return middleware.GetReqID(r.Context())
+	return request.GetReqID(r.Context())
 }
 
 // Log returns a log entry including the request ID.
