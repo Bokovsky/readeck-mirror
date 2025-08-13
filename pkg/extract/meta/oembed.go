@@ -5,6 +5,7 @@
 package meta
 
 import (
+	"context"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -141,7 +142,13 @@ func newOembed(doc *html.Node, base *url.URL, client *http.Client) (res *oembed,
 		return
 	}
 
-	rsp, err := client.Get(src.String())
+	ctx := extract.SkipCache(context.Background())
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, src.String(), nil)
+	if err != nil {
+		return
+	}
+
+	rsp, err := client.Do(req)
 	if err != nil {
 		return
 	}
