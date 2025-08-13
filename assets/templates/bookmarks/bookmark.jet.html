@@ -136,7 +136,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          data-controller="styler">
           {{ include "./components/title_form" .Item }}
 
-          {{- if !empty(.Item.Description) && !.Item.OmitDescription -}}
+          {{- if !empty(.Item.Description) && empty(.Item.OmitDescription) -}}
             <p class="mt-2 text-lg leading-tight text-justify italic"
                dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Description }}</p>
           {{- end -}}
