@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-06 14:52+0000\n"
+"PO-Revision-Date: 2025-08-12 15:23+0000\n"
 "Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
+"Language-Team: German <https://translate.codeberg.org/projects/readeck/"
+"application/de/>\n"
 "Language: de_DE\n"
-"Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -740,18 +742,16 @@ msgid "Remove Highlight(s)"
 msgstr "Markierung(en) entfernen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Menü schließen"
+msgstr "Schließen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Bild anzeigen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Video"
+msgstr "Video abspielen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1807,9 +1807,8 @@ msgstr "API-Token"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "Importieren"
+msgstr "Exportieren"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1822,9 +1821,8 @@ msgid "Import"
 msgstr "Importieren"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Importiere deine Pocket-Artikel"
+msgstr "Exportiere dein Readeck-Profil"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1833,45 +1831,49 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Hiermit kannst du eine ZIP-Datei mit allen Daten deines Profils "
+"herunterladen, einschließlich\n"
+"    Lesezeichen, Sammlungen usw.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "Exportiere und Teile"
+msgstr "Exportiere Daten"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Lesezeichen-Liste im Browser-Lesezeichen-Format"
 
 #: assets/templates/profile/export.jet.html:45
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Lesezeichen-Liste als kommagetrennte Werte (CSV-Datei)"
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Lesezeichen importieren"
+msgstr "Lesezeichen exportieren"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
 msgstr ""
+"Du kannst deine Lesezeichen-Liste in den folgenden Formaten exportieren:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Importieren ein Readeck-Profil"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
 msgstr ""
+"Importiere eine Datei, die du zuvor mit einem Profil-Export erzeugt hast."
 
 #: assets/templates/profile/import.jet.html:31
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Bestätige deinen Benutzernamen"
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "Authentifizierung"
+msgstr "Achtung"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1880,11 +1882,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Dies wird dein aktuelles Profil leeren und all seine Daten\n"
+"      mit dem Inhalt der Datei ersetzen.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Lesezeichen importieren"
+msgstr "Lesezeichen von anderen Diensten importieren"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -1894,6 +1899,10 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Wenn du Lesezeichen eines anderen Dienstes besitzt, kannst du sie im\n"
+"  <a href=\"%s\">dafür vorgesehenen Abschnitt</a> importieren.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -2040,7 +2049,7 @@ msgstr "Dein API-Token"
 
 #: assets/templates/profile/token.jet.html:99
 msgid "Download as a text file"
-msgstr ""
+msgstr "Als Textdatei herunterladen"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
@@ -2313,7 +2322,7 @@ msgstr "Alle Lesezeichen"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Die Import-Datei darf nur einen Benutzer enthalten"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2325,7 +2334,7 @@ msgstr "ungültiges Passwort"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "Benutzername stimmt nicht überein"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
@@ -2348,9 +2357,8 @@ msgid "Token was updated."
 msgstr "Token aktualisiert."
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "Profil aktualisiert."
+msgstr "Profil importiert."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2720,4 +2728,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Bild schließen"
-

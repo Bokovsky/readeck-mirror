@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-06-03 03:13+0000\n"
+"PO-Revision-Date: 2025-07-26 10:15+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"documentation/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/documentation/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -721,6 +724,9 @@ msgstr ""
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
 msgstr ""
+"**Підказка:** завантажте токен у вигляді текстового файлу і перенесіть його "
+"на свій електронний пристрій для читання. Потім відкрийте файл і скопіюйте "
+"токен."
 
 #: en-US/opds.md:26
 msgid ""
@@ -831,4 +837,3 @@ msgstr "Якщо вам потрібно надати якому-небудь с
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "Натомість у якості облікових даних для автентифікації ви можете вказати своє ім’я користувача і токен на ваш вибір."
-

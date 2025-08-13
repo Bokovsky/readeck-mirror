@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-08 21:08+0000\n"
-"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-07-29 08:09+0000\n"
+"Last-Translator: liilliil <liilliil@noreply.codeberg.org>\n"
+"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/"
+"application/ru/>\n"
 "Language: ru_RU\n"
-"Language-Team: Russian <https://translate.codeberg.org/projects/readeck/application/ru/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -745,18 +748,16 @@ msgid "Remove Highlight(s)"
 msgstr "Удалить выдержку(и)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Закрыть меню"
+msgstr "Закрыть"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Показать картинку"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Видео"
+msgstr "Играть видео"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1830,9 +1831,8 @@ msgstr "Токены API"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "Импорт"
+msgstr "Экспорт"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1845,9 +1845,8 @@ msgid "Import"
 msgstr "Импорт"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Импортировать из Pocket"
+msgstr "Экспортировать профиль Readeck"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1856,45 +1855,46 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Тут можно скачать zip-файл с вашим профилем,\n"
+"    закладками, сборниками, и т. д.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "Экспортировать/поделиться"
+msgstr "Экспортировать"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Закладки в формате браузера"
 
 #: assets/templates/profile/export.jet.html:45
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Список закладок в виде CSV"
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Импортировать ссылки"
+msgstr "Экспортировать закладки"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Можно экспортировать список закладок в таких форматах:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Импортировать Профиль Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
+msgstr "Импортировать файл, полученный при предыдущем экспорте профиля."
 
 #: assets/templates/profile/import.jet.html:31
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Подтвердите имя пользователя"
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "Авторизация"
+msgstr "Внимание"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1903,11 +1903,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Это удалит ваш текущий профиль, все его данные будут\n"
+"      заменены содержимым файла.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Импортировать ссылки"
+msgstr "Импортировать ссылки с других служб"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -1917,6 +1920,10 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Если у вас есть закладки из сторонней службы, их можно импортировать в\n"
+"  <a href=\"%s\">другом разделе</a>.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -1974,9 +1981,9 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"        Для отправки эл. книг на устройства Kindle, надо подтвердить\n"
-"        этот email в аккаунте Kindle:\n"
-"        "
+"          Для отправки эл. книг на устройства Kindle, надо подтвердить\n"
+"          этот email в аккаунте Kindle:\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
@@ -2065,7 +2072,7 @@ msgstr "Ваш токен API"
 
 #: assets/templates/profile/token.jet.html:99
 msgid "Download as a text file"
-msgstr ""
+msgstr "Скачать как текстовый файл"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
@@ -2188,7 +2195,7 @@ msgstr "Плохой ключ API"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr "Readwise Reader CSV"
+msgstr "CSV для Readwise Reader"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
@@ -2340,7 +2347,7 @@ msgstr "Все закладки"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Импортируемый файл должен быть с одним пользователем"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2352,7 +2359,7 @@ msgstr "пароль не подходит"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "пользователи не совпадают"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
@@ -2375,9 +2382,8 @@ msgid "Token was updated."
 msgstr "Токен обновлён."
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "Профиль обновлён."
+msgstr "Профиль загружен."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2747,4 +2753,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Убрать картинку"
-

@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-05 14:19+0000\n"
+"PO-Revision-Date: 2025-07-28 04:09+0000\n"
 "Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://"
+"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
-"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -736,18 +738,16 @@ msgid "Remove Highlight(s)"
 msgstr "移除高亮"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "关闭菜单"
+msgstr "关闭"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "显示图片"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "视频"
+msgstr "播放视频"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1803,9 +1803,8 @@ msgstr "API 令牌"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "导入"
+msgstr "导出"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1818,9 +1817,8 @@ msgid "Import"
 msgstr "导入"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "导入 Pocket 文章"
+msgstr "导出您的 Readeck 个人资料"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1829,45 +1827,46 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    这允许您下载一个包含您个人资料所有\n"
+"    数据的 ZIP 文件，包括书签、收藏集等。\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "导出和分享"
+msgstr "导出数据"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "浏览器书签格式的书签列表"
 
 #: assets/templates/profile/export.jet.html:45
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "逗号分隔值（CSV）格式的书签列表"
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "导入书签"
+msgstr "导出书签"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "您可以将书签列表导出为以下格式："
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "导入 Readeck 个人资料"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
+msgstr "导入通过之前的个人资料导出获得的文件。"
 
 #: assets/templates/profile/import.jet.html:31
 msgid "Confirm your user name"
-msgstr ""
+msgstr "确认您的用户名"
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "身份验证"
+msgstr "注意"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1876,11 +1875,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      这将清空您当前的个人资料，\n"
+"      文件的内容会替换所有数据。\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "导入书签"
+msgstr "从其他服务导入书签"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -1890,6 +1892,10 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  如果您有来自其他服务的书签，\n"
+"  您可以在<a href=\"%s\">专门功能区域</a>导入。\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -2035,7 +2041,7 @@ msgstr "您的 API 令牌"
 
 #: assets/templates/profile/token.jet.html:99
 msgid "Download as a text file"
-msgstr ""
+msgstr "下载为文本文件"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
@@ -2308,7 +2314,7 @@ msgstr "全部书签"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "导入文件必须只包含一个用户"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2320,7 +2326,7 @@ msgstr "无效的密码"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "用户名不匹配"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
@@ -2343,9 +2349,8 @@ msgid "Token was updated."
 msgstr "令牌已更新。"
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "个人资料已更新。"
+msgstr "个人资料已导入。"
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2714,4 +2719,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "关闭图片"
-

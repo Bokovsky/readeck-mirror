@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-07 20:08+0000\n"
+"PO-Revision-Date: 2025-08-12 15:52+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
+"application/ca/>\n"
 "Language: ca_ES\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/application/ca/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -1842,11 +1844,11 @@ msgstr "Exporta i comparteix"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Llista de marcadors en format de marcadors del navegador"
 
 #: assets/templates/profile/export.jet.html:45
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Llista de marcadors amb els valors separats per comes"
 
 #: assets/templates/profile/export.jet.html:50
 #, fuzzy
@@ -1855,19 +1857,20 @@ msgstr "Importa marcadors"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Pots exportar la teva llista de marcadors en els formats següents:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Importa un perfil del Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
 msgstr ""
+"Importa un fitxer obtingut mitjançant una exportació de perfil anterior."
 
 #: assets/templates/profile/import.jet.html:31
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Confirma el teu nom d'usuari"
 
 #: assets/templates/profile/import.jet.html:36
 #, fuzzy
@@ -2040,7 +2043,7 @@ msgstr "El teu testimoni d'API"
 
 #: assets/templates/profile/token.jet.html:99
 msgid "Download as a text file"
-msgstr ""
+msgstr "Descarrega com a fitxer de text"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
@@ -2718,4 +2721,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Tanca la imatge"
-

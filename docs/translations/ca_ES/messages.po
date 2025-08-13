@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-06-13 21:26+0000\n"
+"PO-Revision-Date: 2025-08-12 15:52+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
+"documentation/ca/>\n"
 "Language: ca_ES\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/documentation/ca/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -47,7 +49,7 @@ msgstr "## Tipus de marcador"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "El Readeck reconeix 3 tipus diferents de contingut web:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
@@ -315,6 +317,7 @@ msgstr ""
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
 msgstr ""
+"Un marcador mostra el seu contingut segons el seu tipus. N'hi ha 3 tipus:"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
@@ -710,12 +713,18 @@ msgstr ""
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
 msgstr ""
+"Podeu limitar a què pot accedir un testimoni determinat a través de l'API i "
+"durant quant de temps és vàlid."
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
 msgstr ""
+"Si necessites concedir accés al teu compte de Readeck a un servei o una "
+"aplicació, no pots proporcionar el teu nom d'usuari i contrasenya principals;"
+" no funcionarà."
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
-
+"En comptes d'això, pots proporcionar el teu nom d'usuari i un testimoni com "
+"a credencials d'autenticació."

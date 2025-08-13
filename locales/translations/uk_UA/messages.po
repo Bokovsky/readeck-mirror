@@ -7,14 +7,17 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-05 12:45+0000\n"
+"PO-Revision-Date: 2025-07-26 18:00+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
+"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/"
+"application/uk/>\n"
 "Language: uk_UA\n"
-"Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -741,18 +744,16 @@ msgid "Remove Highlight(s)"
 msgstr "Стерти виділення"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Закрити меню"
+msgstr "Закрити"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Показати зображення"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Відео"
+msgstr "Відтворити відео"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1004,7 +1005,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    У вашому вебпереглядачі експортуйте закладки як HTML файл.<br>\n"
+"    У вашому вебпереглядачі експортуйте закладки як файл HTML.<br>\n"
 "    Завантажте цей файл у форму нижче і Readeck створить та витягне\n"
 "    кожну закладку, яка є у файлі.\n"
 "  "
@@ -1159,7 +1160,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Щоб імпортувати свої статті з Omnivore, спершу ви маєте створити ключ API у\n"
+"    Щоб імпортувати свої статті з Omnivore, спершу необхідно створити ключ "
+"API у\n"
 "    налаштуваннях Omnivore та ввести його у форму нижче.\n"
 "  "
 
@@ -1810,9 +1812,8 @@ msgstr "Токени API"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "Імпортувати"
+msgstr "Експортувати"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1825,9 +1826,8 @@ msgid "Import"
 msgstr "Імпортувати"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Імпортувати ваші статті з Pocket"
+msgstr "Експортувати ваш профіль Readeck"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1836,45 +1836,46 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Ви можете завантажити ZIP-архів, що містить усі дані вашого профілю,\n"
+"    зокрема закладки, колекції тощо.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "Експортувати та поділитися"
+msgstr "Експортувати дані"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Список закладок у форматі закладок браузера"
 
 #: assets/templates/profile/export.jet.html:45
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Список закладок у форматі значень, розділених комою"
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Імпортувати закладки"
+msgstr "Експортувати закладки"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Ви можете експортувати закладки у таких форматах:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Імпортувати профіль Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
+msgstr "Імпортуйте файл, отриманий в результаті попереднього експорту профілю."
 
 #: assets/templates/profile/import.jet.html:31
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Підтвердіть своє ім’я користувача"
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "Автентифікація"
+msgstr "Увага"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1883,11 +1884,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Ваш поточний профіль буде очищено, а всі його дані буде\n"
+"      замінено вмістом цього файлу.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Імпортувати закладки"
+msgstr "Імпортувати закладки з інших сервісів"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -1897,6 +1901,10 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Якщо у вас є закладки з іншого сервісу, ви можете імпортувати їх\n"
+"  у <a href=\"%s\">спеціальному розділі</a>.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -2042,7 +2050,7 @@ msgstr "Ваш токен API"
 
 #: assets/templates/profile/token.jet.html:99
 msgid "Download as a text file"
-msgstr ""
+msgstr "Завантажити як текстовий файл"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "How to use it"
@@ -2315,7 +2323,7 @@ msgstr "Усі закладки"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Файл імпорту повинен містити лише одного користувача"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2327,7 +2335,7 @@ msgstr "неправильний пароль"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "ім’я користувача не збігається"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
@@ -2350,9 +2358,8 @@ msgid "Token was updated."
 msgstr "Токен оновлено."
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "Профіль оновлено."
+msgstr "Профіль імпортовано."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2699,4 +2706,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Закрити зображення"
-

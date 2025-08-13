@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-05-26 05:49+0000\n"
+"PO-Revision-Date: 2025-07-30 22:07+0000\n"
 "Last-Translator: skypixel <skypixel@noreply.codeberg.org>\n"
+"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/"
+"application/it/>\n"
 "Language: it_IT\n"
-"Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2398,7 +2400,7 @@ msgstr "non è un indirizzo email valido"
 
 #: pkg/forms/validators.go:22
 msgid "invalid URL"
-msgstr "non è un URL valido"
+msgstr "URL non valido"
 
 #: pkg/forms/validators.go:331
 #, python-format
@@ -2749,4 +2751,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Chiudi menu"
-
