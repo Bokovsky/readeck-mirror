@@ -14,7 +14,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/casbin/casbin/v2 v2.118.0
+	github.com/casbin/casbin/v2 v2.119.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
