@@ -3,7 +3,7 @@ module codeberg.org/readeck/readeck
 go 1.24.6
 
 require (
-	codeberg.org/readeck/go-readability v0.0.0-20250707153221-ae7d57e84914
+	codeberg.org/readeck/go-readability v0.0.0-20250814140457-fb0fbc5a8e33
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.3.3
 	github.com/antchfx/htmlquery v1.3.4
