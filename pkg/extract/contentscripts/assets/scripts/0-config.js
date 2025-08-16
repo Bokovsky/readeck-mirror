@@ -12,6 +12,7 @@ exports.priority = 10
 exports.isActive = function () {
   return true
 }
+
 /**
  * @param {Config} config
  */

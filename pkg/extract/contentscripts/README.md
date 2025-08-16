@@ -131,6 +131,10 @@ Whether readability is enabled for this content. It can be useful to set it to f
 
 Please note that even though readability can be disabled, it won't disable the last cleaning pass that removes unwanted tags and attributes.
 
+#### `$.overrideConfig(cfg, src)`
+
+This overrides the site's configuration. It can be used in a context where a pages is retrieved from an archive mirror but you want to apply its original configuration. `cfg` is the original configuration and `src` is the URL used to lookup for the given configuration.
+
 ### unescapeURL
 
 ```js
