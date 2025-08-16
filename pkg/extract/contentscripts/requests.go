@@ -6,6 +6,7 @@ package contentscripts
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -13,6 +14,7 @@ import (
 	"net/http"
 	"strings"
 
+	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/dop251/goja"
 )
 
@@ -71,7 +73,8 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 }
 
 func (c *httpClient) get(url string, args ...goja.Value) (*goja.Object, error) {
-	req, err := http.NewRequest(http.MethodGet, url, nil)
+	ctx := extract.SkipCache(context.Background())
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -80,7 +83,8 @@ func (c *httpClient) get(url string, args ...goja.Value) (*goja.Object, error) {
 }
 
 func (c *httpClient) post(url string, data []byte, args ...goja.Value) (*goja.Object, error) {
-	req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(data))
+	ctx := extract.SkipCache(context.Background())
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}

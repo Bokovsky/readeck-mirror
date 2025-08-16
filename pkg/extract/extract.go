@@ -483,7 +483,19 @@ func (e *Extractor) Run() {
 	e.runProcessors(m)
 }
 
+var ctxKeyCacheSkip = &struct{}{}
+
+// SkipCache returns a new Context derived from ctx that indicates that an http.Request should
+// bypass the Extractor HTTP cache.
+func SkipCache(ctx context.Context) context.Context {
+	return context.WithValue(ctx, ctxKeyCacheSkip, true)
+}
+
 func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
+	if skip, ok := req.Context().Value(ctxKeyCacheSkip).(bool); ok && skip {
+		return nil, nil
+	}
+
 	u := req.URL.String()
 	entry, ok := e.cachedResources[u]
 	if !ok {

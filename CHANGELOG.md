@@ -36,6 +36,7 @@
 - duplicate load (and run) of user content scripts
 - Amazon regional storefronts inherit amazon.com site rules, by [@mislav](https://codeberg.org/mislav)
 - recognize historical, IE-compatible markup for site favicons, by [@mislav](https://codeberg.org/mislav)
+- Fediverse content script fetching Activity Streams JSON for certain URLs, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - new archiver process: faster and smaller memory footprint
