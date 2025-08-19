@@ -6,6 +6,7 @@ package extract
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
@@ -117,7 +118,8 @@ func (d *Drop) Load(client *http.Client) error {
 	var err error
 	var rsp *http.Response
 
-	if rsp, err = client.Get(d.URL.String()); err != nil {
+	ctx := WithRequestType(context.Background(), PageRequest)
+	if rsp, err = Fetch(ctx, client, d.URL.String()); err != nil {
 		return err
 	}
 	defer rsp.Body.Close() //nolint:errcheck

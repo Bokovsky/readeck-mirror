@@ -142,13 +142,8 @@ func newOembed(doc *html.Node, base *url.URL, client *http.Client) (res *oembed,
 		return
 	}
 
-	ctx := extract.SkipCache(context.Background())
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, src.String(), nil)
-	if err != nil {
-		return
-	}
-
-	rsp, err := client.Do(req)
+	ctx := extract.WithRequestType(context.Background(), extract.ResourceRequest)
+	rsp, err := extract.Fetch(ctx, client, src.String())
 	if err != nil {
 		return
 	}

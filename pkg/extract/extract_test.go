@@ -60,9 +60,6 @@ func TestExtractor(t *testing.T) {
 		assert.Equal(drop, ex.Drops()[0])
 		assert.Equal("http://example.net/", drop.URL.String())
 
-		assert.IsType(extract.NewClient(), ex.Client())
-		assert.Empty(ex.Errors())
-
 		ex.AddError(errors.New("err1"))
 		assert.Equal("err1", ex.Errors().Error())
 	})

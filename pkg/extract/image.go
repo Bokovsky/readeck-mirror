@@ -6,6 +6,7 @@ package extract
 
 import (
 	"bytes"
+	"context"
 	"encoding/base64"
 	"errors"
 	"fmt"
@@ -28,7 +29,7 @@ const (
 )
 
 // NewRemoteImage loads an image and returns a new img.Image instance.
-func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
+func NewRemoteImage(ctx context.Context, client *http.Client, src string) (img.Image, error) {
 	if client == nil {
 		client = http.DefaultClient
 	}
@@ -38,13 +39,15 @@ func NewRemoteImage(src string, client *http.Client) (img.Image, error) {
 	}
 
 	// Send the request with a specific Accept header
-	req, err := http.NewRequest("GET", src, nil)
-	if err != nil {
-		return nil, err
+	header, _ := CheckRequestHeader(ctx)
+	if header == nil {
+		header = http.Header{}
 	}
-	req.Header.Set("Accept", "image/webp,image/svg+xml,image/*,*/*;q=0.8")
+	header.Set("Accept", "image/webp,image/svg+xml,image/*,*/*;q=0.8")
+	ctx = WithRequestHeader(ctx, header)
+	ctx = WithRequestType(ctx, ImageRequest)
 
-	rsp, err := client.Do(req)
+	rsp, err := Fetch(ctx, client, src)
 	if err != nil {
 		return nil, err
 	}
@@ -86,8 +89,8 @@ func NewPicture(src string, base *url.URL) (*Picture, error) {
 
 // Load loads the image remotely and fit it into the given
 // boundaries size.
-func (p *Picture) Load(client *http.Client, size uint, toFormat string) error {
-	ri, err := NewRemoteImage(p.Href, client)
+func (p *Picture) Load(ctx context.Context, client *http.Client, size uint, toFormat string) error {
+	ri, err := NewRemoteImage(ctx, client, p.Href)
 	if err != nil {
 		return err
 	}

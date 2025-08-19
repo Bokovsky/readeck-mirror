@@ -57,6 +57,14 @@ const (
 
 const levelTrace = slog.LevelDebug - 10
 
+type ctxArchiverKey struct{}
+
+// IsArchiverRequest returns true when an [http.Request] was made using the archiver.
+func IsArchiverRequest(req *http.Request) bool {
+	res, _ := req.Context().Value(ctxArchiverKey{}).(bool)
+	return res
+}
+
 // Archiver is the core of the archiver process. It hold the flags [ArchiveFlag] and
 // a [Collector] that caches collected content.
 type Archiver struct {
@@ -189,20 +197,11 @@ func (arc *Archiver) fetch(ctx context.Context, uri string, headers http.Header)
 				r.Header.Set("Referer", referrer)
 			}
 
-			if rsp, err = arc.collector.Fetch(r); err != nil { //nolint
+			ctx = context.WithValue(ctx, ctxArchiverKey{}, true)
+			if rsp, err = arc.collector.Fetch(r.WithContext(ctx)); err != nil { //nolint
 				return nil, err
 			}
 		}
-		arc.log().LogAttrs(ctx, levelTrace, "fetched url",
-			slog.Group("request",
-				slog.Any("url", URLLogValue(uri)),
-				slog.Any("headers", rsp.Request.Header),
-			),
-			slog.Group("response",
-				slog.Int("status", rsp.StatusCode),
-				slog.Any("headers", rsp.Header),
-			),
-		)
 
 		contentType, _, _ := strings.Cut(rsp.Header.Get("content-type"), ";")
 		contentType = strings.TrimSpace(contentType)

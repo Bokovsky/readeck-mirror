@@ -7,7 +7,9 @@ package meta
 import (
 	// "fmt".
 
+	"context"
 	"log/slog"
+	"net/http"
 	"net/url"
 	"path"
 	"regexp"
@@ -42,9 +44,12 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 	list := newFaviconList(m.Dom, m.Extractor.Drop().URL)
 
 	// Load icons until we find a suitable one
-	extract.SetHeader(m.Extractor.Client(), "Referer", m.Extractor.Drop().URL.String())
+	ctx := extract.WithRequestHeader(context.Background(), http.Header{
+		"Referer": []string{m.Extractor.Drop().URL.String()},
+	})
+
 	for _, icon := range list {
-		if err := icon.Load(m.Extractor.Client(), 48, "png"); err != nil {
+		if err := icon.Load(ctx, m.Extractor.Client(), 48, "png"); err != nil {
 			continue
 		}
 		m.Extractor.Drop().Pictures["icon"] = icon

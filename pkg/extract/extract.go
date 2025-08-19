@@ -14,9 +14,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"io"
 	"log/slog"
-	"net"
 	"net/http"
 	"net/url"
 	"strconv"
@@ -25,8 +23,6 @@ import (
 	"github.com/go-shiori/dom"
 
 	"golang.org/x/net/html"
-
-	"codeberg.org/readeck/readeck/pkg/glob"
 )
 
 type (
@@ -214,12 +210,11 @@ type Extractor struct {
 	Logs    []string
 	Context context.Context
 
-	client          *http.Client
-	logger          *slog.Logger
-	processors      ProcessList
-	errors          Error
-	drops           []*Drop
-	cachedResources map[string]*cachedResource
+	client     *http.Client
+	logger     *slog.Logger
+	processors ProcessList
+	errors     Error
+	drops      []*Drop
 }
 
 // New returns an Extractor instance for a given URL,
@@ -232,17 +227,12 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 	URL.Fragment = ""
 
 	res := &Extractor{
-		URL:             URL,
-		Visited:         URLList{},
-		Context:         context.TODO(),
-		client:          NewClient(),
-		cachedResources: make(map[string]*cachedResource),
-		processors:      ProcessList{},
-		drops:           []*Drop{NewDrop(URL)},
+		URL:        URL,
+		Visited:    URLList{},
+		Context:    context.TODO(),
+		processors: ProcessList{},
+		drops:      []*Drop{NewDrop(URL)},
 	}
-
-	t := res.client.Transport.(*Transport)
-	t.SetRoundTripper(res.getFromCache)
 
 	for _, fn := range options {
 		if fn != nil {
@@ -250,47 +240,35 @@ func New(src string, options ...func(e *Extractor)) (*Extractor, error) {
 		}
 	}
 
+	if res.client == nil {
+		res.client = http.DefaultClient
+	}
+
 	if res.logger == nil {
 		res.logger = slog.New(newLogRecorder(slog.Default().Handler(), slog.LevelDebug, res))
+	}
+
+	if t, ok := res.client.Transport.(logSetter); ok {
+		t.SetLogger(res.logger)
 	}
 
 	return res, nil
 }
 
-// SetLogger sets the extractor logger.
+// WithClient sets the extractor HTTP client.
+func WithClient(client *http.Client) func(e *Extractor) {
+	return func(e *Extractor) {
+		e.client = client
+	}
+}
+
+// WithLogger sets the extractor logger.
 // This logger will copy everything to the extractor internal log and error list.
 // Arguments are [slog.With] arguments and are shared between the parent logger
 // and the log recorder.
-func SetLogger(logger *slog.Logger, level slog.Level, args ...any) func(e *Extractor) {
+func WithLogger(logger *slog.Logger, level slog.Level, args ...any) func(e *Extractor) {
 	return func(e *Extractor) {
 		e.logger = slog.New(newLogRecorder(logger.Handler(), level, e)).With(args...)
-	}
-}
-
-// SetDeniedIPs sets a list of ip or cird that cannot be reached
-// by the extraction client.
-func SetDeniedIPs(netList []*net.IPNet) func(e *Extractor) {
-	return func(e *Extractor) {
-		if t, ok := e.client.Transport.(*Transport); ok {
-			t.deniedIPs = netList
-		}
-	}
-}
-
-// SetProxyList adds a new proxy dispatcher function to the HTTP transport.
-func SetProxyList(list []ProxyMatcher) func(e *Extractor) {
-	return func(e *Extractor) {
-		t := e.client.Transport.(*Transport)
-		htr := t.tr.(*http.Transport)
-		htr.Proxy = func(r *http.Request) (*url.URL, error) {
-			for _, p := range list {
-				if glob.Glob(p.Host(), r.URL.Host) {
-					e.Log().Debug("using proxy", slog.String("proxy", p.URL().String()))
-					return p.URL(), nil
-				}
-			}
-			return nil, nil
-		}
 	}
 }
 
@@ -302,19 +280,6 @@ func (e *Extractor) Client() *http.Client {
 // Log returns the extractor's logger.
 func (e *Extractor) Log() *slog.Logger {
 	return e.logger
-}
-
-// AddToCache adds a resource to the extractor's resource cache.
-// The cache will be used by the HTTP client during its round trip.
-func (e *Extractor) AddToCache(url string, headers map[string]string, body []byte) {
-	e.cachedResources[url] = &cachedResource{headers: headers, data: newCacheEntry(body)}
-}
-
-// IsInCache returns true if a given URL is present in the
-// resource cache mapping.
-func (e *Extractor) IsInCache(url string) bool {
-	_, ok := e.cachedResources[url]
-	return ok
 }
 
 // Errors returns the extractor's error list.
@@ -483,41 +448,6 @@ func (e *Extractor) Run() {
 	e.runProcessors(m)
 }
 
-var ctxKeyCacheSkip = &struct{}{}
-
-// SkipCache returns a new Context derived from ctx that indicates that an http.Request should
-// bypass the Extractor HTTP cache.
-func SkipCache(ctx context.Context) context.Context {
-	return context.WithValue(ctx, ctxKeyCacheSkip, true)
-}
-
-func (e *Extractor) getFromCache(req *http.Request) (*http.Response, error) {
-	if skip, ok := req.Context().Value(ctxKeyCacheSkip).(bool); ok && skip {
-		return nil, nil
-	}
-
-	u := req.URL.String()
-	entry, ok := e.cachedResources[u]
-	if !ok {
-		return nil, nil
-	}
-
-	e.Log().Debug("cache hit", slog.String("url", u))
-	headers := make(http.Header)
-	for k, v := range entry.headers {
-		headers.Set(k, v)
-	}
-
-	return &http.Response{
-		Status:        "OK",
-		StatusCode:    http.StatusOK,
-		Header:        headers,
-		Body:          entry.data,
-		Request:       req,
-		ContentLength: -1,
-	}, nil
-}
-
 func (e *Extractor) runProcessors(m *ProcessMessage) {
 	if len(e.processors) == 0 {
 		return
@@ -565,26 +495,4 @@ func (e *Extractor) setFinalHTML() {
 		buf.WriteString("\n")
 	}
 	e.HTML = buf.Bytes()
-}
-
-type cachedResource struct {
-	headers map[string]string
-	data    io.ReadCloser
-}
-
-type cacheEntry struct {
-	*bytes.Reader
-}
-
-func newCacheEntry(data []byte) *cacheEntry {
-	return &cacheEntry{
-		bytes.NewReader(data),
-	}
-}
-
-// Close implement io.ReadCloser on a cache entry.
-// It rewinds the reader's position.
-func (cr *cacheEntry) Close() (err error) {
-	_, err = cr.Seek(0, 0)
-	return
 }

@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	bookmark_tasks "codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/httpclient"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
@@ -92,11 +93,10 @@ func (api *cookbookAPI) getExtractor(uri string, r *http.Request) *extract.Extra
 
 	ex, err := extract.New(
 		uri,
-		extract.SetLogger(slog.Default(), slog.LevelDebug-10,
+		extract.WithClient(bookmark_tasks.NewClient()),
+		extract.WithLogger(slog.Default(), slog.LevelDebug-10,
 			slog.String("@id", server.GetReqID(r)),
 		),
-		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
-		extract.SetProxyList(proxyList),
 	)
 	if err != nil {
 		panic(err)
@@ -207,9 +207,14 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 		}
 		defer fd.Close() //nolint:errcheck
 		if content, err := io.ReadAll(fd); err == nil {
-			ex.AddToCache(f.Get("url").String(), map[string]string{
-				"Content-Type": "text/html",
-			}, content)
+			httpclient.AddToCache(
+				ex.Client(),
+				f.Get("url").String(),
+				http.Header{
+					"Content-Type": []string{"text/html"},
+				},
+				content,
+			)
 		} else {
 			slog.Error("caching body", slog.Any("err", err))
 		}

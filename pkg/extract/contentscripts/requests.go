@@ -6,7 +6,6 @@ package contentscripts
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -64,7 +63,8 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 		}
 	}
 
-	r, err := c.Client.Do(req)
+	ctx := extract.WithRequestType(req.Context(), extract.ContentScriptRequest)
+	r, err := c.Client.Do(req.WithContext(ctx))
 	if err != nil {
 		return nil, err
 	}
@@ -73,8 +73,7 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 }
 
 func (c *httpClient) get(url string, args ...goja.Value) (*goja.Object, error) {
-	ctx := extract.SkipCache(context.Background())
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req, err := http.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -83,8 +82,7 @@ func (c *httpClient) get(url string, args ...goja.Value) (*goja.Object, error) {
 }
 
 func (c *httpClient) post(url string, data []byte, args ...goja.Value) (*goja.Object, error) {
-	ctx := extract.SkipCache(context.Background())
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, url, bytes.NewBuffer(data))
+	req, err := http.NewRequest(http.MethodPost, url, bytes.NewBuffer(data))
 	if err != nil {
 		return nil, err
 	}

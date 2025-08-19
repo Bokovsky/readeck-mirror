@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"net/url"
 	"slices"
 	"strings"
@@ -24,6 +25,10 @@ var (
 	configCtxKey   = &contextKey{"config"}
 	nextPageCtxKey = &contextKey{"next_page"}
 )
+
+type headerSetter interface {
+	SetHeader(func(http.Header))
+}
 
 func getRuntime(ctx context.Context) *Runtime {
 	return ctx.Value(runtimeCtxKey).(*Runtime)
@@ -119,11 +124,18 @@ func prepareHeaders(m *extract.ProcessMessage, cfg *SiteConfig) {
 		return
 	}
 
-	attrs := []slog.Attr{}
-	for k, v := range cfg.HTTPHeaders {
-		extract.SetHeader(m.Extractor.Client(), k, v)
-		attrs = append(attrs, slog.String(k, v))
+	t, ok := m.Extractor.Client().Transport.(headerSetter)
+	if !ok {
+		return
 	}
+
+	attrs := []slog.Attr{}
+	t.SetHeader(func(h http.Header) {
+		for k, v := range cfg.HTTPHeaders {
+			h.Set(k, v)
+			attrs = append(attrs, slog.String(k, v))
+		}
+	})
 	m.Log().WithGroup("header").LogAttrs(
 		context.Background(),
 		slog.LevelDebug,
