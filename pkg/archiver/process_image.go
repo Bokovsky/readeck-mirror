@@ -102,7 +102,7 @@ func (arc *Archiver) processPictureNode(ctx context.Context, node *html.Node) {
 	setImgSize(img, bestImg)
 
 	log.Log(ctx, levelTrace, "replaced img",
-		slog.Any("url", slog.Any("url", URLLogValue(bestImg.url))),
+		slog.Any("url", URLLogValue(bestImg.url)),
 	)
 }
 
@@ -127,7 +127,7 @@ func (arc *Archiver) processImgNode(ctx context.Context, node *html.Node) {
 	setImgSize(node, bestImg)
 
 	log.Log(ctx, levelTrace, "replaced img",
-		slog.Any("url", slog.Any("url", URLLogValue(bestImg.url))),
+		slog.Any("url", URLLogValue(bestImg.url)),
 	)
 }
 
