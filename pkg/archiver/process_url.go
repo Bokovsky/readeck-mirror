@@ -43,10 +43,13 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, options process
 
 	body, res, err := arc.fetch(ctx, uri, options.headers)
 	if err != nil || res.status/100 != 2 {
-		log.Warn("failed to fetch resource",
-			slog.Int("status", res.status),
-			slog.Any("err", err),
-		)
+		var attr slog.Attr
+		if err != nil {
+			attr = slog.Any("err", err)
+		} else {
+			attr = slog.Int("status", res.status)
+		}
+		log.LogAttrs(context.Background(), slog.LevelWarn, "faile to fetch resource", attr)
 		return nil, errors.Join(errSkippedURL, err)
 	}
 	defer body.Close() //nolint:errcheck
