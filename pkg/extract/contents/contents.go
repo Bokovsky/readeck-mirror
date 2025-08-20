@@ -71,6 +71,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		if readabilityEnabled {
 			prepareTitles(m.Dom)
 			parser := readability.NewParser()
+			parser.Logger = m.Log().WithGroup("go-readability")
 
 			for _, f := range options {
 				f(&parser)
