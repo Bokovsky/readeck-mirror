@@ -12,7 +12,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/casbin/casbin/v2 v2.119.0
+	github.com/casbin/casbin/v2 v2.120.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
@@ -25,13 +25,13 @@ require (
 	github.com/hlandau/passlib v1.0.11
 	github.com/itchyny/gojq v0.12.17
 	github.com/jackc/pgx/v5 v5.7.5
-	github.com/jarcoal/httpmock v1.4.0
+	github.com/jarcoal/httpmock v1.4.1
 	github.com/kinbiko/jsonassert v1.2.0
 	github.com/klauspost/compress v1.18.0
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.2
 	github.com/mangoumbrella/goldmark-figure v1.3.0
-	github.com/mattn/go-sqlite3 v1.14.31
+	github.com/mattn/go-sqlite3 v1.14.32
 	github.com/phsym/console-slog v0.3.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.23.0
@@ -56,7 +56,7 @@ require (
 	github.com/JohannesKaufmann/dom v0.2.0 // indirect
 	github.com/PuerkitoBio/goquery v1.10.3 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
-	github.com/antchfx/xpath v1.3.4 // indirect
+	github.com/antchfx/xpath v1.3.5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bmatcuk/doublestar/v4 v4.9.1 // indirect
 	github.com/casbin/govaluate v1.9.0 // indirect
@@ -85,9 +85,9 @@ require (
 	github.com/prometheus/common v0.65.0 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
-	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6 // indirect
+	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
 	golang.org/x/sys v0.35.0 // indirect
-	google.golang.org/protobuf v1.36.7 // indirect
+	google.golang.org/protobuf v1.36.8 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
