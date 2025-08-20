@@ -35,6 +35,7 @@ require (
 	github.com/phsym/console-slog v0.3.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.23.0
+	github.com/sergeymakinen/go-ico v1.0.0-beta.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.10.0
 	github.com/tdewolff/parse/v2 v2.8.1
@@ -85,6 +86,7 @@ require (
 	github.com/prometheus/common v0.65.0 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
+	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
 	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
 	golang.org/x/sys v0.35.0 // indirect
 	google.golang.org/protobuf v1.36.8 // indirect

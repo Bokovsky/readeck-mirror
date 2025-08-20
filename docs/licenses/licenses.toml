@@ -232,6 +232,16 @@ Copyright (c) 2023 Pierre-Henri Symoneaux
 """
 
 [[licenses]]
+name = "go-ico"
+license = "BSD-3-Clause"
+author = "Sergey Makinen"
+url = "https://github.com/sergeymakinen/go-ico"
+copyright = """
+Copyright (c) 2024, Sergey Makinen
+All rights reserved.
+"""
+
+[[licenses]]
 name = "x/image"
 license = "BSD-3-Clause"
 author = "Google Inc."
