@@ -1,6 +1,6 @@
 module codeberg.org/readeck/readeck
 
-go 1.24.6
+go 1.25.0
 
 require (
 	codeberg.org/readeck/go-readability v0.0.0-20250814140457-fb0fbc5a8e33
