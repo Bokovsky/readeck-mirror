@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-08-12 15:52+0000\n"
+"PO-Revision-Date: 2025-08-13 16:09+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
 "Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
 "application/ca/>\n"
@@ -596,7 +596,7 @@ msgstr "Nom"
 
 #: assets/templates/bookmarks/collection.jet.html:86
 msgid "Delete collection"
-msgstr "Esborrar col·lecció"
+msgstr "Esborra la col·lecció"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
@@ -635,7 +635,7 @@ msgstr "Articles no llegits (sense fotos ni vídeos)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr "Els articles arxivats de \"wikipedia.org\""
+msgstr "Els articles arxivats de \"ca.wikipedia.org\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
@@ -744,18 +744,16 @@ msgid "Remove Highlight(s)"
 msgstr "Treure ressaltat(s)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Tanca el menú"
+msgstr "Tanca"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Mostra la imatge"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Vídeo"
+msgstr "Reprodueix el vídeo"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -1506,14 +1504,14 @@ msgstr "Importa marcadors"
 
 #: assets/templates/bookmarks/index.jet.html:151
 msgid "Your search query yielded <strong>no results</strong>."
-msgstr "La teva cerca no ha donat <strong>cap resultat</strong>."
+msgstr "El teu terme de cerca no ha donat <strong>cap resultat</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:153
 #, python-format
 msgid "Your search query yielded <strong>%d result</strong>."
 msgid_plural "Your search query yielded <strong>%d results</strong>."
-msgstr[0] "La teva cerca ha donat <strong>%d resultat</strong>."
-msgstr[1] "La teva cerca ha donat <strong>%d resultats</strong>."
+msgstr[0] "El teu terme de cerca ha donat <strong>%d resultat</strong>."
+msgstr[1] "Els teus termes de cerca ha donat <strong>%d resultats</strong>."
 
 #: assets/templates/bookmarks/index.jet.html:184
 msgctxt "action"
@@ -1810,9 +1808,8 @@ msgstr "Testimonis d'API"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "Importar"
+msgstr "Exportar"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1825,9 +1822,8 @@ msgid "Import"
 msgstr "Importar"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Importa els teus articles de Pocket"
+msgstr "Exporta el teu perfil del Readeck"
 
 #: assets/templates/profile/export.jet.html:20
 msgid ""
@@ -1836,11 +1832,15 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Això et permet descarregar un fitxer zip que conté totes les dades del "
+"teu perfil,\n"
+"    incloent-hi els marcadors, les col·leccions, etc.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:25
-#, fuzzy
 msgid "Export Data"
-msgstr "Exporta i comparteix"
+msgstr "Exporta les dades"
 
 #: assets/templates/profile/export.jet.html:37
 msgid "Bookmark List in Browser Bookmarks Format"
@@ -1851,9 +1851,8 @@ msgid "Bookmark List as Comma Separated Values"
 msgstr "Llista de marcadors amb els valors separats per comes"
 
 #: assets/templates/profile/export.jet.html:50
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Importa marcadors"
+msgstr "Exporta els marcadors"
 
 #: assets/templates/profile/export.jet.html:52
 msgid "You can export your bookmark list in the following formats:"
@@ -1873,9 +1872,8 @@ msgid "Confirm your user name"
 msgstr "Confirma el teu nom d'usuari"
 
 #: assets/templates/profile/import.jet.html:36
-#, fuzzy
 msgid "Attention"
-msgstr "Autenticació"
+msgstr "Atenció"
 
 #: assets/templates/profile/import.jet.html:38
 msgid ""
@@ -1884,11 +1882,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Això buidarà el teu perfil actual i totes les teves dades\n"
+"      seran substituïdes pel contingut del fitxer.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:50
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Importa marcadors"
+msgstr "Importa marcadors des d'altres serveis"
 
 #: assets/templates/profile/import.jet.html:53
 #, python-format
@@ -1898,6 +1899,10 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Si teniu marcadors d'un altre servei, els podeu importar a la\n"
+"  <a href=\"%s\">secció dedicada</a>.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
@@ -2318,7 +2323,7 @@ msgstr "Tots els marcadors"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "El fitxer d'importació només ha de contenir un usuari"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2330,7 +2335,7 @@ msgstr "contrasenya no vàlida"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "el nom d'usuari no coincideix"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
@@ -2353,9 +2358,8 @@ msgid "Token was updated."
 msgstr "S'ha actualitzat el token."
 
 #: internal/profile/views.go:303
-#, fuzzy
 msgid "Profile imported."
-msgstr "Perfil actualitzat."
+msgstr "Perfil importat."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
