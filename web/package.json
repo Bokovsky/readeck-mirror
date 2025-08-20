@@ -39,7 +39,7 @@
     "gulp-sass": "^6.0.1",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-svgstore": "^9.0.0",
-    "hls.js": "^1.6.9",
+    "hls.js": "^1.6.10",
     "open-color": "^1.9.1",
     "ordered-read-streams": "^2.0.0",
     "postcss": "^8.5.6",
