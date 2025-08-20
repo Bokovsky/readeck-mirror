@@ -30,6 +30,32 @@ var (
 
 type ctxKeyReadabilityEnabled struct{}
 
+type readabilitySlogHandler struct {
+	slog.Handler
+}
+
+func (h *readabilitySlogHandler) Handle(ctx context.Context, r slog.Record) error {
+	if r.Level == slog.LevelDebug {
+		r.Level = slog.LevelDebug - 10
+	}
+	return h.Handler.Handle(ctx, r)
+}
+
+func (h *readabilitySlogHandler) Enabled(ctx context.Context, l slog.Level) bool {
+	if l == slog.LevelDebug {
+		return h.Handler.Enabled(ctx, slog.LevelDebug-10)
+	}
+	return h.Handler.Enabled(ctx, l)
+}
+
+func (h *readabilitySlogHandler) WithAttrs(attrs []slog.Attr) slog.Handler {
+	return &readabilitySlogHandler{h.Handler.WithAttrs(attrs)}
+}
+
+func (h *readabilitySlogHandler) WithGroup(name string) slog.Handler {
+	return &readabilitySlogHandler{h.Handler.WithGroup(name)}
+}
+
 // IsReadabilityEnabled returns true when readability is enabled
 // in the extractor context.
 func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
@@ -71,7 +97,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		if readabilityEnabled {
 			prepareTitles(m.Dom)
 			parser := readability.NewParser()
-			parser.Logger = m.Log().WithGroup("go-readability")
+			parser.Logger = slog.New(&readabilitySlogHandler{m.Log().WithGroup("go-readability").Handler()})
 
 			for _, f := range options {
 				f(&parser)
