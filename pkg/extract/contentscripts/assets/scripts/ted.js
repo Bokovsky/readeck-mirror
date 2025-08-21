@@ -6,7 +6,28 @@
  * @returns {boolean}
  */
 exports.isActive = function () {
-  return $.domain == "ted.com" && new URL($.url).pathname.match(/^\/talks\//)
+  return (
+    $.domain == "ted.com" &&
+    new URL($.url).pathname.match(/^\/(talks|dubbing)\//) !== null
+  )
+}
+
+/**
+ * @param {Node} document
+ */
+exports.documentLoaded = function (document) {
+  // TED talks can exist on /dubbing/... paths and expose
+  // a broken oembed link.
+  // This fixes the link to oembed with "/talks/..." path.
+  document
+    .querySelectorAll("link[href][type='application/json+oembed']")
+    .forEach((e) => {
+      const url = new URL(e.getAttribute("href"))
+      const p = new URL(url.searchParams.get("url"))
+      p.pathname = p.pathname.replace(/^\/dubbing\//, "/talks/")
+      url.searchParams.set("url", p.toString())
+      e.setAttribute("href", url.toString())
+    })
 }
 
 exports.processMeta = function () {
