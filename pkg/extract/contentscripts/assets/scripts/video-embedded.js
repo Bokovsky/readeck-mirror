@@ -17,7 +17,7 @@ const rxYtEmbedded = /^\/embed\/([a-zA-Z0-9_-]+)/
 /**
  *  @param {Node} document
  */
-exports.finalDocument = function (document) {
+exports.documentDone = function (document) {
   // Transform span elements with an x-data-link-href
   // attribute to proper <a> elements.
   document
@@ -33,7 +33,7 @@ exports.finalDocument = function (document) {
 /**
  *  @param {Node} document
  */
-exports.initialDocument = function (document) {
+exports.documentReady = function (document) {
   document.querySelectorAll("iframe[src]").forEach((iframe) => {
     const src = new URL(iframe.getAttribute("src"))
     if (src.protocol != "http:" && src.protocol != "https:") {

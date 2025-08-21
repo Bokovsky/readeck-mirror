@@ -51,15 +51,21 @@ exports.setConfig = function(config) {
 
 This function runs after loading the page meta data.
 
-### initialDocument
+### documentLoaded
 
-`exports.initialDocument(document)`
+`exports.documentLoaded(document)`
+
+This function runs immediatly after loading the page and before any other processor, when an HTML document exists.
+
+### documentReady
+
+`exports.documentReady(document)`
 
 This function runs before readability, when an HTML document exists.
 
-### finalDocument
+### documentDone
 
-`exports.finalDocument(document)`
+`exports.documentDone(document)`
 
 This function runs after readability, when an HTML document exists.
 
@@ -268,7 +274,7 @@ An object that contain HTTP headers being sent to every subsequent requests.
 
 ### DOM API
 
-The `initialDocument` and `finalDocument` functions receive a `document` argument that is a subset of a DOM Node. It exposes the following types, properties and methods:
+The `documentReady` and `documentDone` functions receive a `document` argument that is a subset of a DOM Node. It exposes the following types, properties and methods:
 
 #### `Attribute.name: string`
 #### `Attribute.value: string`

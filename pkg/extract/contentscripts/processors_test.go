@@ -62,8 +62,8 @@ func TestScriptVideoEmbed(t *testing.T) {
 	ex, _ := extract.New("http://example.net/page1")
 	ex.AddProcessors(
 		LoadScripts(),
-		ProcessDom("initialDocument"),
-		ProcessDom("finalDocument"),
+		ProcessDom("documentReady"),
+		ProcessDom("documentDone"),
 	)
 	ex.Run()
 	assert.Empty(ex.Errors())
