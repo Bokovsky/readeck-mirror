@@ -13,8 +13,9 @@ import (
 	"net/http"
 	"strings"
 
-	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/dop251/goja"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
 type httpClient struct {

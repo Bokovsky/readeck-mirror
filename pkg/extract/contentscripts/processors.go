@@ -9,36 +9,24 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
-	"net/url"
 	"slices"
 	"strings"
 
-	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/antchfx/htmlquery"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
-)
 
-var (
-	runtimeCtxKey  = &contextKey{"runtime"}
-	configCtxKey   = &contextKey{"config"}
-	nextPageCtxKey = &contextKey{"next_page"}
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
 type headerSetter interface {
 	SetHeader(func(http.Header))
 }
 
-func getRuntime(ctx context.Context) *Runtime {
-	return ctx.Value(runtimeCtxKey).(*Runtime)
-}
-
-func getConfig(ctx context.Context) *SiteConfig {
-	if cfg, ok := ctx.Value(configCtxKey).(*SiteConfig); ok {
-		return cfg
-	}
-	return nil
+func getConfig(ctx context.Context) (cfg *SiteConfig) {
+	cfg, _ = checkConfig(ctx)
+	return
 }
 
 // LoadScripts starts the content script runtime and adds it
@@ -61,7 +49,7 @@ func LoadScripts(programs ...*Program) extract.Processor {
 		vm.SetLogger(m.Log())
 		vm.SetProcessMessage(m)
 
-		m.Extractor.Context = context.WithValue(m.Extractor.Context, runtimeCtxKey, vm)
+		m.Extractor.Context = withRuntime(m.Extractor.Context, vm)
 		m.Log().Debug("content script runtime ready", slog.Any("step", m.Step()))
 
 		return next
@@ -99,7 +87,7 @@ func LoadSiteConfig(m *extract.ProcessMessage, next extract.Processor) extract.P
 	}
 
 	// Add config to context
-	m.Extractor.Context = context.WithValue(m.Extractor.Context, configCtxKey, cfg)
+	m.Extractor.Context = withConfig(m.Extractor.Context, cfg)
 
 	// Set custom headers from configuration file
 	prepareHeaders(m, cfg)
@@ -437,7 +425,7 @@ func FindNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		u.Fragment = ""
 
 		m.Log().Debug("site config found next page", slog.String("url", u.String()))
-		m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, u)
+		m.Extractor.Context = withNextPage(m.Extractor.Context, u)
 	}
 
 	return next
@@ -450,7 +438,7 @@ func GoToNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 		return next
 	}
 
-	u, ok := m.Extractor.Context.Value(nextPageCtxKey).(*url.URL)
+	u, ok := checkNextPage(m.Extractor.Context)
 	if !ok || u == nil {
 		return next
 	}
@@ -463,7 +451,7 @@ func GoToNextPage(m *extract.ProcessMessage, next extract.Processor) extract.Pro
 
 	m.Log().Info("go to next page", slog.String("url", u.String()))
 	m.Extractor.AddDrop(u)
-	m.Extractor.Context = context.WithValue(m.Extractor.Context, nextPageCtxKey, nil)
+	m.Extractor.Context = withNextPage(m.Extractor.Context, nil)
 
 	return next
 }

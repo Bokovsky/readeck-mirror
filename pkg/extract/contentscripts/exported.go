@@ -6,7 +6,6 @@ package contentscripts
 
 import (
 	"bytes"
-	"context"
 	"fmt"
 	"log/slog"
 	"net/url"
@@ -21,8 +20,6 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/xml2map"
 )
-
-var messageCtxKey = &contextKey{"processmessage"}
 
 type processMessageProxy struct {
 	vm *Runtime
@@ -50,12 +47,12 @@ func registerExported(vm *Runtime) (err error) {
 
 // SetProcessMessage adds an extract.ProcessMessage to the content script context.
 func (vm *Runtime) SetProcessMessage(m *extract.ProcessMessage) {
-	vm.ctx = context.WithValue(vm.ctx, messageCtxKey, m)
+	vm.ctx = withMessage(vm.ctx, m)
 }
 
 func (vm *Runtime) getProcessMessage() *extract.ProcessMessage {
-	if v, ok := vm.ctx.Value(messageCtxKey).(*extract.ProcessMessage); ok {
-		return v
+	if m, ok := checkMessage(vm.ctx); ok {
+		return m
 	}
 	return nil
 }
