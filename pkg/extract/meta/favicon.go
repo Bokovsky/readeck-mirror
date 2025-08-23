@@ -15,6 +15,7 @@ import (
 	"regexp"
 	"sort"
 	"strconv"
+	"time"
 
 	"golang.org/x/net/html"
 
@@ -49,9 +50,15 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 	})
 
 	for _, icon := range list {
+		// Set a shorter request's timeout
+		ctx, cancel := context.WithCancel(ctx)
+		timer := time.AfterFunc(time.Second*4, cancel)
 		if err := icon.Load(ctx, m.Extractor.Client(), 48, "png"); err != nil {
+			timer.Stop()
 			continue
 		}
+		timer.Stop()
+
 		m.Extractor.Drop().Pictures["icon"] = icon
 		m.Log().Debug("icon loaded",
 			slog.String("href", icon.Href),
