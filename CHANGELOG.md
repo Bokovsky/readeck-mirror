@@ -18,6 +18,7 @@
 - Log format configuration entry
 - Download API tokens as text files
 - Profile (one user only for now) export and import
+- readability structured logging, by [@mislav](https://codeberg.org/mislav)
 
 ### Fixed
 - scoped_admin_r scope was missing the system:read permission
@@ -37,6 +38,8 @@
 - Amazon regional storefronts inherit amazon.com site rules, by [@mislav](https://codeberg.org/mislav)
 - recognize historical, IE-compatible markup for site favicons, by [@mislav](https://codeberg.org/mislav)
 - Fediverse content script fetching Activity Streams JSON for certain URLs, by [@mislav](https://codeberg.org/mislav)
+- fixed a crash during URL processing in the archive process, by [@mislav](https://codeberg.org/mislav)
+- prevent content scripts to timeout on the whole extraction process
 
 ### Improved
 - new archiver process: faster and smaller memory footprint
@@ -55,6 +58,12 @@
 - refresh user content scripts when they've changed
 - improved flash messages styling
 - feedback on "copy to clipboard" buttons
+- removed server hostname from the request ID in the log entries
+- new internal HTTP client, shared by the extract and archive process
+
+### Changed
+- updated Go to 1.25.0
+- new .ico decoder
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version
