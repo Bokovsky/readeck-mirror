@@ -171,9 +171,11 @@ func (vm *Runtime) AddScript(name string, r io.Reader) error {
 
 // RunProgram runs a Program instance in the VM and returns its result.
 func (vm *Runtime) RunProgram(p *Program) (goja.Value, error) {
-	time.AfterFunc(10*time.Second, func() {
-		vm.Interrupt("timeout")
+	timer := time.AfterFunc(10*time.Second, func() {
+		vm.Interrupt("script runtime timeout")
+		vm.ClearInterrupt()
 	})
+	defer timer.Stop()
 	return vm.Runtime.RunProgram(p.Program)
 }
 
