@@ -49,6 +49,10 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 		slog.String("url", req.URL.String()),
 	)
 
+	if m := c.vm.getProcessMessage(); m != nil {
+		req.Header.Set("Referer", m.Extractor.Drop().URL.String())
+	}
+
 	if len(args) > 0 {
 		var headers map[string]string
 		if err := c.vm.ExportTo(args[0], &headers); err != nil {
@@ -59,7 +63,11 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 			if k == "Content-Length" {
 				continue
 			}
-			req.Header.Set(k, v)
+			if v != "" {
+				req.Header.Set(k, v)
+			} else {
+				req.Header.Del(k)
+			}
 		}
 	}
 
