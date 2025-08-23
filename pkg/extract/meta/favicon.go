@@ -9,7 +9,6 @@ import (
 
 	"context"
 	"log/slog"
-	"net/http"
 	"net/url"
 	"path"
 	"regexp"
@@ -45,10 +44,7 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 	list := newFaviconList(m.Dom, m.Extractor.Drop().URL)
 
 	// Load icons until we find a suitable one
-	ctx := extract.WithRequestHeader(context.Background(), http.Header{
-		"Referer": []string{m.Extractor.Drop().URL.String()},
-	})
-
+	ctx := extract.WithReferrer(context.Background(), m.Extractor.Drop().URL)
 	for _, icon := range list {
 		// Set a shorter request's timeout
 		ctx, cancel := context.WithCancel(ctx)

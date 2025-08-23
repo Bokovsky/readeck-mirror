@@ -7,7 +7,6 @@ package meta
 import (
 	"context"
 	"log/slog"
-	"net/http"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 )
@@ -48,9 +47,7 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 		return next
 	}
 
-	ctx := extract.WithRequestHeader(context.Background(), http.Header{
-		"Referer": []string{m.Extractor.Drop().URL.String()},
-	})
+	ctx := extract.WithReferrer(context.Background(), m.Extractor.Drop().URL)
 
 	if err = picture.Load(ctx, m.Extractor.Client(), size, ""); err != nil {
 		m.Log().Warn("cannot load picture",

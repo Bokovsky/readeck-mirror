@@ -6,8 +6,10 @@ package extract
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"net/http"
+	"net/url"
 
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 )
@@ -45,6 +47,17 @@ const (
 	// ContentScriptRequest identifies a request made from a content-script.
 	ContentScriptRequest
 )
+
+// WithReferrer sets a Referer value to the context's [http.Header].
+// The value is only "{scheme}://{host}/".
+func WithReferrer(ctx context.Context, u *url.URL) context.Context {
+	header, _ := CheckRequestHeader(ctx)
+	if header == nil {
+		header = http.Header{}
+	}
+	header.Set("Referer", fmt.Sprintf("%s://%s/", u.Scheme, u.Hostname()))
+	return WithRequestHeader(ctx, header)
+}
 
 // Fetch builds and performs a GET requests to a given URL.
 // It uses [FetchOptions] to add the request type to the request's context

@@ -50,7 +50,8 @@ func (c *httpClient) Do(req *http.Request, args ...goja.Value) (*goja.Object, er
 	)
 
 	if m := c.vm.getProcessMessage(); m != nil {
-		req.Header.Set("Referer", m.Extractor.Drop().URL.String())
+		u := m.Extractor.Drop().URL
+		req.Header.Set("Referer", fmt.Sprintf("%s://%s/", u.Scheme, u.Hostname()))
 	}
 
 	if len(args) > 0 {
