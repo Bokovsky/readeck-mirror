@@ -7,12 +7,14 @@ package meta
 import (
 	// "fmt".
 
+	"context"
 	"log/slog"
 	"net/url"
 	"path"
 	"regexp"
 	"sort"
 	"strconv"
+	"time"
 
 	"golang.org/x/net/html"
 
@@ -42,11 +44,17 @@ func ExtractFavicon(m *extract.ProcessMessage, next extract.Processor) extract.P
 	list := newFaviconList(m.Dom, m.Extractor.Drop().URL)
 
 	// Load icons until we find a suitable one
-	extract.SetHeader(m.Extractor.Client(), "Referer", m.Extractor.Drop().URL.String())
+	ctx := extract.WithReferrer(context.Background(), m.Extractor.Drop().URL)
 	for _, icon := range list {
-		if err := icon.Load(m.Extractor.Client(), 48, "png"); err != nil {
+		// Set a shorter request's timeout
+		ctx, cancel := context.WithCancel(ctx)
+		timer := time.AfterFunc(time.Second*4, cancel)
+		if err := icon.Load(ctx, m.Extractor.Client(), 48, "png"); err != nil {
+			timer.Stop()
 			continue
 		}
+		timer.Stop()
+
 		m.Extractor.Drop().Pictures["icon"] = icon
 		m.Log().Debug("icon loaded",
 			slog.String("href", icon.Href),

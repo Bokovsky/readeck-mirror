@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"net/http"
 	"net/url"
 	"os"
 	"path"
@@ -33,6 +34,8 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bus"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/internal/httpclient"
+	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
@@ -264,12 +267,11 @@ func extractPageHandler(data interface{}) {
 
 	ex, err := extract.New(
 		b.URL,
-		extract.SetLogger(slog.Default(), slog.LevelDebug,
+		extract.WithClient(NewClient()),
+		extract.WithLogger(slog.Default(), slog.LevelDebug,
 			slog.String("@id", params.RequestID),
 			slog.Int("bookmark_id", b.ID),
 		),
-		extract.SetDeniedIPs(configs.ExtractorDeniedIPs()),
-		extract.SetProxyList(proxyList),
 	)
 	if err != nil {
 		logger.Error("", slog.Any("err", err))
@@ -278,7 +280,11 @@ func extractPageHandler(data interface{}) {
 
 	for _, x := range params.Resources {
 		// Inject resource in client's cache
-		ex.AddToCache(x.URL, x.Headers, x.Data)
+		headers := http.Header{}
+		for k, v := range x.Headers {
+			headers.Set(k, v)
+		}
+		httpclient.AddToCache(ex.Client(), x.URL, headers, x.Data)
 	}
 
 	ex.AddProcessors(
@@ -296,8 +302,8 @@ func extractPageHandler(data interface{}) {
 		contentscripts.LoadSiteConfig,
 		conditionnalProcessor(params.FindMain, contentscripts.ReplaceStrings),
 		// Only when the page is not in cache
-		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindContentPage),
-		conditionnalProcessor(!ex.IsInCache(b.URL), contentscripts.FindNextPage),
+		conditionnalProcessor(!httpclient.IsInCache(ex.Client(), b.URL), contentscripts.FindContentPage),
+		conditionnalProcessor(!httpclient.IsInCache(ex.Client(), b.URL), contentscripts.FindNextPage),
 		contentscripts.ExtractAuthor,
 		contentscripts.ExtractDate,
 		// Default is true but the request can override this
@@ -564,4 +570,17 @@ func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, resourceCount *
 	b.Files["props"] = &bookmarks.BookmarkFile{Name: "props.json"}
 
 	return nil
+}
+
+// NewClient returns an [http.Client] with a cached transport and a specific check function.
+// The check function only allows archiver requests and extractor pages and images.
+func NewClient() *http.Client {
+	return httpclient.NewCacheClient(func(req *http.Request) bool {
+		switch t, _ := extract.CheckRequestType(req.Context()); t {
+		case extract.ImageRequest, extract.PageRequest:
+			return true
+		}
+
+		return archiver.IsArchiverRequest(req)
+	})
 }

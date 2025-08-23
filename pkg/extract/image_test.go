@@ -6,6 +6,7 @@ package extract_test
 
 import (
 	"bytes"
+	"context"
 	"errors"
 	"image"
 	"net/url"
@@ -48,7 +49,7 @@ func TestRemoteImage(t *testing.T) {
 
 			for _, x := range tests {
 				t.Run(x.name, func(t *testing.T) {
-					ri, err := extract.NewRemoteImage(x.path, nil)
+					ri, err := extract.NewRemoteImage(context.Background(), nil, x.path)
 					require.Nil(t, ri)
 					if ri != nil {
 						defer ri.Close() //nolint:errcheck
@@ -60,7 +61,7 @@ func TestRemoteImage(t *testing.T) {
 
 		for _, format := range formats {
 			t.Run(format, func(t *testing.T) {
-				ri, err := extract.NewRemoteImage("/img."+format, nil)
+				ri, err := extract.NewRemoteImage(context.Background(), nil, "/img."+format)
 				require.NoError(t, err)
 				defer ri.Close() //nolint:errcheck
 				require.Equal(t, format, ri.Format())
@@ -69,7 +70,7 @@ func TestRemoteImage(t *testing.T) {
 
 		t.Run("fit", func(t *testing.T) {
 			assert := require.New(t)
-			ri, _ := extract.NewRemoteImage("/img.png", nil)
+			ri, _ := extract.NewRemoteImage(context.Background(), nil, "/img.png")
 			defer ri.Close() //nolint:errcheck
 
 			w := ri.Width()
@@ -102,7 +103,7 @@ func TestRemoteImage(t *testing.T) {
 			for _, x := range tests {
 				t.Run(x.format, func(t *testing.T) {
 					assert := require.New(t)
-					ri, err := extract.NewRemoteImage(x.path, nil)
+					ri, err := extract.NewRemoteImage(context.Background(), nil, x.path)
 					assert.NoError(err)
 					defer func() {
 						if err := ri.Close(); err != nil {
@@ -138,7 +139,7 @@ func TestPicture(t *testing.T) {
 
 	t.Run("HTTP error", func(t *testing.T) {
 		p, _ := extract.NewPicture("/nowhere", base)
-		err := p.Load(nil, 100, "")
+		err := p.Load(context.Background(), nil, 100, "")
 		require.Error(t, err)
 	})
 
@@ -148,7 +149,7 @@ func TestPicture(t *testing.T) {
 
 		assert.Empty(p.Encoded())
 
-		err := p.Load(nil, 100, "")
+		err := p.Load(context.Background(), nil, 100, "")
 		assert.NoError(err)
 
 		assert.Equal([2]int{100, 75}, p.Size)

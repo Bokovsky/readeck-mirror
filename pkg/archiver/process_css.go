@@ -69,7 +69,7 @@ func (arc *Archiver) processCSS(ctx context.Context, r io.Reader, parent *Resour
 		return nil, errSkippedURL
 	}
 
-	ctx = withReferrerContext(ctx, parent.URL())
+	ctx = withReferrerContext(ctx, parentURL)
 
 	g, ctx := errgroup.WithContext(ctx)
 	g.SetLimit(5)

@@ -323,8 +323,8 @@ func (c *SingleFileCollector) PostWrite(res *Resource, w io.Writer) {
 			res.Contents = new(bytes.Buffer)
 			res.Contents.WriteString("data:" + res.ContentType + ";base64,")
 			enc := base64.NewEncoder(base64.StdEncoding, res.Contents)
-			defer enc.Close() //nolint:errcheck
-			io.Copy(enc, w)   //nolint:errcheck
+			io.Copy(enc, w) //nolint:errcheck
+			enc.Close()     //nolint:errcheck
 		}
 	}
 }

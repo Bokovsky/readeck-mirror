@@ -6,8 +6,8 @@ package contents
 
 import (
 	"bytes"
-	"fmt"
 	"log/slog"
+	"net/url"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"github.com/go-shiori/dom"
@@ -24,7 +24,7 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 
 	m.Log().Debug("extract inline SVG images")
 
-	dom.ForEachNode(dom.QuerySelectorAll(m.Dom, "svg"), func(n *html.Node, i int) {
+	dom.ForEachNode(dom.QuerySelectorAll(m.Dom, "svg"), func(n *html.Node, _ int) {
 		// Extract the node content to a buffer, as a standalone SVG file.
 		buf := new(bytes.Buffer)
 		buf.WriteString(`<?xml version="1.0" encoding="UTF-8"?>`)
@@ -41,16 +41,14 @@ func ExtractInlineSVGs(m *extract.ProcessMessage, next extract.Processor) extrac
 			return
 		}
 
-		// Push image to extractor's cache.
-		src := fmt.Sprintf("http://__resources.cache/%d.svg", i)
-
-		m.Extractor.AddToCache(src, map[string]string{
-			"Content-Type": "image/svg+xml",
-		}, buf.Bytes())
+		// Create an image with data URI
+		src := new(bytes.Buffer)
+		src.WriteString("data:" + "image/svg+xml,")
+		src.WriteString(url.PathEscape(buf.String()))
 
 		// Replace the SVG node by an image.
 		imgNode := dom.CreateElement("img")
-		dom.SetAttribute(imgNode, "src", src)
+		dom.SetAttribute(imgNode, "src", src.String())
 
 		dom.ReplaceChild(n.Parent, imgNode, n)
 	})

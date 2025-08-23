@@ -9,6 +9,7 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"fmt"
 	"io"
 	"log/slog"
 	"net/http"
@@ -45,8 +46,8 @@ func GetNodeContext(ctx context.Context) *html.Node {
 	return nil
 }
 
-func withReferrerContext(ctx context.Context, uri string) context.Context {
-	return context.WithValue(ctx, ctxReferrerKey{}, uri)
+func withReferrerContext(ctx context.Context, u *url.URL) context.Context {
+	return context.WithValue(ctx, ctxReferrerKey{}, fmt.Sprintf("%s://%s/", u.Scheme, u.Hostname()))
 }
 
 func getReferrerContext(ctx context.Context) string {
@@ -75,7 +76,7 @@ var (
 func (arc *Archiver) processHTML(ctx context.Context, doc *html.Node, baseURL *url.URL) error {
 	arc.log().Info("start page archive", slog.String("url", baseURL.String()))
 
-	ctx = withReferrerContext(ctx, baseURL.String())
+	ctx = withReferrerContext(ctx, baseURL)
 
 	// Prepare document
 	arc.setCharset(ctx, doc)

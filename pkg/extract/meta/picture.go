@@ -5,6 +5,7 @@
 package meta
 
 import (
+	"context"
 	"log/slog"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -46,8 +47,9 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 		return next
 	}
 
-	extract.SetHeader(m.Extractor.Client(), "Referer", m.Extractor.Drop().URL.String())
-	if err = picture.Load(m.Extractor.Client(), size, ""); err != nil {
+	ctx := extract.WithReferrer(context.Background(), m.Extractor.Drop().URL)
+
+	if err = picture.Load(ctx, m.Extractor.Client(), size, ""); err != nil {
 		m.Log().Warn("cannot load picture",
 			slog.Any("err", err),
 			slog.String("url", href),
