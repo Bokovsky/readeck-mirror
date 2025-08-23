@@ -12,11 +12,9 @@ import (
 	"github.com/dop251/goja"
 )
 
-var loggerCtxKey = &contextKey{"logger"}
-
 // SetLogger sets the runtime's log entry.
 func (vm *Runtime) SetLogger(logger *slog.Logger) {
-	vm.ctx = context.WithValue(vm.ctx, loggerCtxKey, logger)
+	vm.ctx = withLogger(vm.ctx, logger)
 }
 
 // GetLogger returns the runtime's log entry or a default one
@@ -24,7 +22,7 @@ func (vm *Runtime) SetLogger(logger *slog.Logger) {
 func (vm *Runtime) GetLogger() *slog.Logger {
 	var logger *slog.Logger
 	var ok bool
-	if logger, ok = vm.ctx.Value(loggerCtxKey).(*slog.Logger); !ok {
+	if logger, ok = checkLogger(vm.ctx); !ok {
 		logger = slog.Default()
 	}
 

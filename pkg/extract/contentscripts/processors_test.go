@@ -5,7 +5,6 @@
 package contentscripts
 
 import (
-	"context"
 	"net/http"
 	"strings"
 	"testing"
@@ -33,7 +32,7 @@ func TestExtractBody(t *testing.T) {
 `
 
 	ex, _ := extract.New("http://example.net/page1")
-	ex.Context = context.WithValue(ex.Context, configCtxKey, &SiteConfig{
+	ex.Context = withConfig(ex.Context, &SiteConfig{
 		BodySelectors: []string{
 			"//div[@class = 'article'] | //div[@class = 'archive']",
 			"//section",

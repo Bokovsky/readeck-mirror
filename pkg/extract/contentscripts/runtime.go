@@ -12,6 +12,7 @@ import (
 	"errors"
 	"io"
 	"log/slog"
+	"net/url"
 	"slices"
 	"strings"
 	"time"
@@ -21,16 +22,27 @@ import (
 	"github.com/dop251/goja"
 	"github.com/dop251/goja/ast"
 	"github.com/dop251/goja_nodejs/require"
-	"github.com/dop251/goja_nodejs/url"
+	nodeurl "github.com/dop251/goja_nodejs/url"
+
+	"codeberg.org/readeck/readeck/pkg/ctxr"
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
-type contextKey struct {
-	name string
-}
+type (
+	configCtxKey   struct{}
+	loggerCtxKey   struct{}
+	messageCtxKey  struct{}
+	nextPageCtxKey struct{}
+	runtimeCtxKey  struct{}
+)
 
-func (k *contextKey) String() string {
-	return "readeck/pkg/contentscript context value " + k.name
-}
+var (
+	withConfig, checkConfig     = ctxr.WithChecker[*SiteConfig](configCtxKey{})
+	withLogger, checkLogger     = ctxr.WithChecker[*slog.Logger](loggerCtxKey{})
+	withMessage, checkMessage   = ctxr.WithChecker[*extract.ProcessMessage](messageCtxKey{})
+	withNextPage, checkNextPage = ctxr.WithChecker[*url.URL](nextPageCtxKey{})
+	withRuntime, getRuntime     = ctxr.WithGetter[*Runtime](runtimeCtxKey{})
+)
 
 // Program is a wrapper around goja.Program, with a script name.
 type Program struct {
@@ -144,7 +156,7 @@ func New(programs ...*Program) (*Runtime, error) {
 
 	// Register utils
 	registry.Enable(r.Runtime)
-	url.Enable(r.Runtime)
+	nodeurl.Enable(r.Runtime)
 
 	// Register global variables and functions
 	if err := registerExported(r); err != nil {
