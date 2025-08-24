@@ -22,36 +22,42 @@ exports.setConfig = function (config) {
 
 exports.processMeta = function () {
   const videoId = new URL($.url).pathname.replace(/^\/(\d+)$/, "$1")
-  const info = getPlayerInfo(videoId)
-
-  // Get thumbnail
-  const size = Object.keys(info.video?.thumbs || []).find((x) => true)
-  if (size) {
-    $.meta["x.picture_url"] = info.video.thumbs[size]
+  if (!videoId) {
+    return
   }
 
+  const props = $.properties["json-ld"]?.[0]?.[0]
+  if (!props) {
+    return
+  }
+
+  // Get thumbnail
+  $.meta["x.picture_url"] = props.thumbnail.url
+
   // Get duration
-  const duration = getDuration()
-  if (duration) {
+  const duration = getDuration(props)
+  if (!!duration) {
     $.meta["x.duration"] = String(duration)
   }
 
-  // Fetch transcript
-  const track = getTextTrack(info)
-  if (track.length > 0) {
-    $.html = `<section id="main"><p>${track.join("<br>\n")}</p></section>`
-    $.readability = true
+  // Try to get transcript
+  const info = getPlayerInfo(videoId)
+  if (!info) {
+    return
   }
 }
 
 function getPlayerInfo(videoId) {
-  const rsp = requests.get(`https://player.vimeo.com/video/${videoId}/config`)
-  rsp.raiseForStatus()
-  return rsp.json()
+  const rsp = requests.get(`https://player.vimeo.com/video/${videoId}/config`, {
+    Referer: $.url,
+  })
+  if (rsp.status == 200) {
+    return rsp.json()
+  }
 }
 
-function getDuration() {
-  const duration = $.properties["json-ld"]?.[0]?.[0]?.duration
+function getDuration(props) {
+  const duration = props.duration
   const m = duration.match(rxDuration)
   if (m) {
     return parseInt(m[1]) * 3600 + parseInt(m[2]) * 60 + parseInt(m[3])
