@@ -12,6 +12,7 @@ import (
 	"hash/adler32"
 	"io"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -20,6 +21,35 @@ import (
 
 	"codeberg.org/readeck/readeck/pkg/utils"
 )
+
+type (
+	reflectWithString struct {
+		v  reflect.Value
+		ks string
+	}
+
+	orderedMap struct {
+		i      int
+		keys   []reflectWithString
+		values reflect.Value
+	}
+)
+
+func (m *orderedMap) ProvidesIndex() bool {
+	return true
+}
+
+func (m *orderedMap) Range() (k reflect.Value, v reflect.Value, done bool) {
+	if m.i+1 > len(m.keys) {
+		done = true
+		return
+	}
+
+	k = reflect.ValueOf(m.keys[m.i].ks)
+	v = m.values.MapIndex(m.keys[m.i].v)
+	m.i++
+	return
+}
 
 var strType = reflect.TypeOf("")
 
@@ -131,6 +161,23 @@ var funcMap = map[string]jet.Func{
 			}
 		}
 
+		return reflect.ValueOf(res)
+	},
+	"orderMap": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("orderMap", 1, 1)
+
+		v := args.Get(0)
+		sv := make([]reflectWithString, v.Len())
+		mi := v.MapRange()
+		for i := 0; mi.Next(); i++ {
+			sv[i] = reflectWithString{mi.Key(), ToString(mi.Key())}
+		}
+
+		slices.SortFunc(sv, func(i, j reflectWithString) int {
+			return strings.Compare(i.ks, j.ks)
+		})
+
+		res := &orderedMap{keys: sv, values: v}
 		return reflect.ValueOf(res)
 	},
 }

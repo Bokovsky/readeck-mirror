@@ -51,7 +51,15 @@ SPDX-License-Identifier: AGPL-3.0-only
       <tr><th>DocumentType</th><td>{{ .Result.DocumentType }}</td></tr>
       <tr><th>Title</th><td class="w-full">{{ .Result.Title }}</td></tr>
       <tr><th>Description</th><td>{{ .Result.Description }}</td></tr>
-      <tr><th>Authors</th><td>{{ .Result.Authors }}</td></tr>
+      <tr><th>Authors</th><td>
+      {{- if isset(.Result.Authors) -}}
+        <ul>
+        {{- range .Result.Authors -}}
+          <li>{{ . }}</li>
+        {{- end -}}
+        </ul>
+      {{- end -}}
+      </td></tr>
       <tr><th>Lang</th><td>{{ .Result.Lang }}</td></tr>
       <tr><th>TextDirection</th><td>{{ .Result.TextDirection }}</td></tr>
       <tr><th>Date</th><td>{{ isset(.Result.Date) ? .Result.Date : "" }}</td></tr>
@@ -88,7 +96,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <h3 class="title text-h3">Meta</h3>
     <table class="data-table my-4">
-    {{- range k, v := .Result.Meta -}}
+    {{- range k, v := orderMap(.Result.Meta) -}}
       <tr>
         <th>{{ k }}</th>
         <td class="text-xs font-mono wrap-anywhere">{{ v|json }}</td>
@@ -98,7 +106,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
     <h3 class="title text-h3">Properties</h3>
     <table class="data-table my-4">
-    {{- range k, v := .Result.Properties -}}
+    {{- range k, v := orderMap(.Result.Properties) -}}
       <tr>
         <th class="whitespace-nowrap">{{ k }}</th>
         <td class="text-xs"><pre class="whitespace-pre-wrap">{{ v|niceJSON }}</pre></td>
