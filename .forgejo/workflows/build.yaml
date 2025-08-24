@@ -58,7 +58,7 @@ jobs:
     needs:
       - generate
     container:
-      image: docker.io/techknowlogick/xgo:go-1.21.x
+      image: docker.io/techknowlogick/xgo:latest
       volumes:
         - readeck-ci:/workspace
       env:
