@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:26+0200\n"
-"PO-Revision-Date: 2025-07-29 08:09+0000\n"
+"PO-Revision-Date: 2025-08-25 17:09+0000\n"
 "Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
 "projects/readeck/application/pt_PT/>\n"
@@ -2351,7 +2351,6 @@ msgid "invalid password"
 msgstr "senha inválida"
 
 #: internal/profile/forms.go:399
-#, fuzzy
 msgid "username does not match"
 msgstr "o nome de utilizador não tem correspondência"
 
