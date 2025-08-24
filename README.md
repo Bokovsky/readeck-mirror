@@ -115,61 +115,7 @@ If you already know how to deploy containers on a server, installing Readeck for
 
 ## FAQ
 
-### I can't save a link or it's incomplete
-
-Readeck usually can save the vast majority of news or blog articles, but it sometimes fails to do so. The most common reasons are:
-
-- The page is behind a paywall
-- The page needs JavaScript to render its content
-- Your server is blocked
-- The content extractor fails
-
-The most common solution to these problems is to install and use the [Browser Extension](https://readeck.org/en/download/). The extension sends the page's full content to Readeck, so anything can be saved. Moreover, it lets you select the exact content you want to save.
-
-If a page really doesn't work at all, please [open an issue](https://codeberg.org/readeck/readeck/issues/new?template=.gitea%2fissue_template%2fextraction_error.yaml).
-
-### Can I share a saved bookmark with a public link?
-
-Yes, you can, for a limited time. On each article you can generate a link that'll be valid for 24 hours. You can generate a new link as many times as you want but it will always expire. You can also export or print an article to a PDF file.
-
-### Is there a system to store my (paywall) website credentials?
-
-There isn't, for several reasons:
-
-- To safely store credentials without giving access to anyone but the user is next to impossible
-- Such a system relies on web scraping and is prone to break too often
-- It might go against websites' terms of service
-
-Again, the [Browser Extension](https://readeck.org/en/download/) will let you save any content you can access from your web browser.
-
-### Is there a smartphone application?
-
-Not yet but it might come at some point. Meanwhile, you can use Readeck on any mobile browser and even install as a mobile application.
-
-If you'd like to save links using the "share" feature of your phone, you can use the following:
-
-- iOS: [iOS shortcut](https://www.icloud.com/shortcuts/226bafabbbfd47708f3bea69dbf24ef0),
-- Android: Use [HTTP Shortcuts](https://http-shortcuts.rmy.ch/) and create a new shortcut as described on [this issue](https://codeberg.org/readeck/readeck/issues/112#issuecomment-2082710).
-
-### Is there a roadmap?
-
-There are [milestones](https://codeberg.org/readeck/readeck/milestones), where you can see what's planned for the future releases.
-
-For longer term goals, there are [projects](https://codeberg.org/readeck/readeck/projects)
-
-### Is there a Readeck twitter account?
-
-There isn't but you can follow [@readeck@mastodon.online](https://mastodon.online/@readeck) on Mastodon.
-
-### Is there a Readeck Discord server?
-
-There isn't but you can join [#readeck:matrix.org](https://matrix.to/#/#readeck:matrix.org) on Matrix.
-
-### How can I report a security issue?
-
-If you think you found a security issue in Readeck, **please DO NOT create an issue**; they're public and it could potentially put all users at risk.
-
-Send an email to security@readeck.com and you'll receive a follow-up as soon as possible.
+Please refer to the [FAQ on readeck.org](https://readeck.org/en/docs/faq).
 
 ## Under the hood
 
