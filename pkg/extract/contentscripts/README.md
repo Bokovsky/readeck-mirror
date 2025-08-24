@@ -55,7 +55,7 @@ This function runs after loading the page meta data.
 
 `exports.documentLoaded(document)`
 
-This function runs immediatly after loading the page and before any other processor, when an HTML document exists.
+This function runs immediately after loading the page and before any other processor, when an HTML document exists.
 
 ### documentReady
 

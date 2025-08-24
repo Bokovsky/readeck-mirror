@@ -283,7 +283,7 @@ shareEmail:
 syncList:
   summary: Bookmark Sync List
   description: |
-    This route returns a non-paginated list of all bookmarks order by last update dates.
+    This route returns a non-paginated list of all bookmarks ordered by last update dates.
 
     You can retrieve only bookmarks updated and deleted since a given date by using the
     `since` parameter. Please note that without the parameter, it only returns updated
@@ -326,7 +326,7 @@ sync:
     Location: http://localhost:8000/api/bookmarks/VnopmpKQ3CmQ6apY9mgDws
     Type: json
 
-    ..content
+    ...content
 
     --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
     Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
