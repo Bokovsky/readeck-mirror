@@ -57,6 +57,7 @@ func New() *Server {
 		),
 		LoadLocale,
 		ErrorPages,
+		crossOriginGuard,
 	)
 
 	return s

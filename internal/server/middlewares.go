@@ -7,10 +7,12 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
@@ -38,6 +40,33 @@ func Csrf(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if err := csrfProtection.Check(r); err != nil {
 			Log(r).Warn("Cross Origin", slog.Any("err", err))
+			Status(w, r, http.StatusForbidden)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+// crossOriginGuard is a first layer of cross origin protection.
+// It denies cross-site embedded requests.
+// https://web.dev/articles/fetch-metadata
+func crossOriginGuard(next http.Handler) http.Handler {
+	crossOrigin := []string{"cross-site", "same-site"}
+	embedDest := []string{"iframe", "frame", "object", "embed"}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("Sec-Fetch-Site") != "" {
+			w.Header().Add("Vary", "Sec-Fetch-Dest,Sec-Fetch-Mode,Sec-Fetch-Site")
+		}
+
+		topLevelEmbed := (r.Method == http.MethodGet &&
+			r.Header.Get("Sec-Fetch-Mode") == "navigate" &&
+			slices.Contains(crossOrigin, r.Header.Get("Sec-Fetch-Site")) &&
+			slices.Contains(embedDest, r.Header.Get("Sec-Fetch-Dest")))
+
+		if topLevelEmbed {
+			Log(r).Warn("Cross Origin", slog.Any("err", errors.New("cross origin embed denied")))
 			Status(w, r, http.StatusForbidden)
 			return
 		}

@@ -248,28 +248,28 @@ func TestCsrfProtect(t *testing.T) {
 			secFetchDest: "embed",
 			secFetchMode: "navigate",
 			secFetchSite: "cross-site",
-			expected:     map[string]int{"GET": http.StatusOK},
+			expected:     map[string]int{"GET": http.StatusForbidden},
 		},
 		{
 			name:         "navigate frame from outside",
 			secFetchDest: "frame",
 			secFetchMode: "navigate",
 			secFetchSite: "cross-site",
-			expected:     map[string]int{"GET": http.StatusOK},
+			expected:     map[string]int{"GET": http.StatusForbidden},
 		},
 		{
 			name:         "navigate iframe from outside",
 			secFetchDest: "iframe",
 			secFetchMode: "navigate",
 			secFetchSite: "cross-site",
-			expected:     map[string]int{"GET": http.StatusOK},
+			expected:     map[string]int{"GET": http.StatusForbidden},
 		},
 		{
 			name:         "navigate object from outside",
 			secFetchDest: "object",
 			secFetchMode: "navigate",
 			secFetchSite: "cross-site",
-			expected:     map[string]int{"GET": http.StatusOK},
+			expected:     map[string]int{"GET": http.StatusForbidden},
 		},
 
 		{
