@@ -7,26 +7,22 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
 	"path"
+	"slices"
 	"strings"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/klauspost/compress/gzhttp"
 
-	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
-	"codeberg.org/readeck/readeck/pkg/http/csrf"
-	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 const (
-	csrfCookieName = "__csrf_key"
-	csrfFieldName  = "__csrf__"
 	gzipEtagSuffix = "-gzip"
 )
 
@@ -36,43 +32,47 @@ var acceptOffers = []string{
 	"application/json",
 }
 
-var csrfHandler *csrf.Handler
+var csrfProtection = http.NewCrossOriginProtection()
 
-// Csrf setup the CSRF protection.
+// Csrf setup the CSRF protection, using the native Go [http.CrossOriginProtection].
+// https://words.filippo.io/csrf/
 func Csrf(next http.Handler) http.Handler {
-	csrfHandler = csrf.NewCSRFHandler(
-		securecookie.NewHandler(
-			securecookie.Key(configs.Keys.CSRFKey()),
-			securecookie.WithMaxAge(0),
-			securecookie.WithName(csrfCookieName),
-			securecookie.WithPath(path.Join(urls.Prefix())),
-			securecookie.WithTTL(false),
-		),
-		csrf.WithFieldName(csrfFieldName),
-		csrf.WithErrorHandler(func(w http.ResponseWriter, r *http.Request) {
-			err := csrf.GetError(r)
-			Log(r).Warn("CSRF error", slog.Any("err", err))
-			Status(w, r, http.StatusForbidden)
-		}),
-	)
-
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Always enable CSRF protection, unless the current auth provider
-		// states otherwise.
-		if p, ok := auth.GetRequestProvider(r).(auth.FeatureCsrfProvider); ok && p.CsrfExempt(r) {
-			next.ServeHTTP(w, r)
+		if err := csrfProtection.Check(r); err != nil {
+			Log(r).Warn("Cross Origin", slog.Any("err", err))
+			Status(w, r, http.StatusForbidden)
 			return
 		}
 
-		csrfHandler.Protect(next).ServeHTTP(w, r)
+		next.ServeHTTP(w, r)
 	})
 }
 
-// RenewCsrf generate a new CSRF protection token.
-func RenewCsrf(w http.ResponseWriter, r *http.Request) {
-	if csrfHandler != nil {
-		_, _ = csrfHandler.Renew(w, r)
-	}
+// crossOriginGuard is a first layer of cross origin protection.
+// It denies cross-site embedded requests.
+// https://web.dev/articles/fetch-metadata
+func crossOriginGuard(next http.Handler) http.Handler {
+	crossOrigin := []string{"cross-site", "same-site"}
+	embedDest := []string{"iframe", "frame", "object", "embed"}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Header.Get("Sec-Fetch-Site") != "" {
+			w.Header().Add("Vary", "Sec-Fetch-Dest,Sec-Fetch-Mode,Sec-Fetch-Site")
+		}
+
+		topLevelEmbed := (r.Method == http.MethodGet &&
+			r.Header.Get("Sec-Fetch-Mode") == "navigate" &&
+			slices.Contains(crossOrigin, r.Header.Get("Sec-Fetch-Site")) &&
+			slices.Contains(embedDest, r.Header.Get("Sec-Fetch-Dest")))
+
+		if topLevelEmbed {
+			Log(r).Warn("Cross Origin", slog.Any("err", errors.New("cross origin embed denied")))
+			Status(w, r, http.StatusForbidden)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }
 
 // WithPermission enforce a permission check on the request's path for

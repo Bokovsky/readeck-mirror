@@ -2,9 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-import * as Turbo from "@hotwired/turbo"
-import {safeMethods, csrfToken} from "./request"
-
 const cspNonce = document.querySelector(
   'html>head>meta[name="csp-nonce"]',
 ).content
@@ -12,11 +9,6 @@ const cspNonce = document.querySelector(
 document.addEventListener("turbo:before-fetch-request", (evt) => {
   // Method MUST be uppercase
   evt.detail.fetchOptions.method = evt.detail.fetchOptions.method.toUpperCase()
-
-  // Insert the CSRF token when needed
-  if (!safeMethods.includes(evt.detail.fetchOptions.method)) {
-    evt.detail.fetchOptions.headers["X-CSRF-Token"] = csrfToken
-  }
 
   // Mark the request for turbo rendering
   evt.detail.fetchOptions.headers["X-Turbo"] = "1"

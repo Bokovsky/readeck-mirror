@@ -2,12 +2,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-const safeMethods = ["GET", "HEAD", "OPTIONS", "TRACE"]
-
-const csrfToken = document.querySelector(
-  'html>head>meta[name="x-csrf-token"]',
-).content
-
 async function request(path, options) {
   const {headers, query = null, method = "GET", body, ...extraOpts} = options
 
@@ -15,7 +9,6 @@ async function request(path, options) {
   const reqOptions = {
     method: method.toUpperCase(),
     headers: new Headers({
-      ...(!safeMethods.includes(method) && {"X-CSRF-Token": csrfToken}),
       ...headers,
     }),
   }
@@ -46,4 +39,4 @@ async function request(path, options) {
   return await fetch(req)
 }
 
-export {safeMethods, csrfToken, request}
+export {request}

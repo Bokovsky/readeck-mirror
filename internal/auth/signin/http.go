@@ -33,8 +33,8 @@ func newAuthHandler(s *server.Server) *authHandler {
 	// Non authenticated routes
 	r := chi.NewRouter()
 	r.Use(
-		server.WithSession(),
 		server.Csrf,
+		server.WithSession(),
 	)
 
 	h := &authHandler{r, s}
@@ -83,9 +83,6 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 				sess.Payload.Seed = user.Seed
 				sess.Save(w, r)
 
-				// Renew CSRF token
-				server.RenewCsrf(w, r)
-
 				// Get redirection from a form "redirect" parameter
 				// Since it goes to Redirect(), it will be sanitized there
 				// and can only stay within the app.
@@ -115,7 +112,5 @@ func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 	sess := server.GetSession(r)
 	sess.Clear(w, r)
 
-	// Renew CSRF token
-	server.RenewCsrf(w, r)
 	server.Redirect(w, r, "/login")
 }

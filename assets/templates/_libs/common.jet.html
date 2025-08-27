@@ -10,10 +10,6 @@ viewbox="{{ viewBox }}" class="inline-block {{ svgClass }}"><use
 href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
-{{- block csrfField() -}}
-<span class="hidden"><input type="hidden" name="{{ csrfName }}" value="{{ csrfToken }}"></span>
-{{- end -}}
-
 {{- block message(type="info", removable=false, delay=0, class="") -}}
 {{- icon := "o-info" -}}
 {{- if type == "success" -}}

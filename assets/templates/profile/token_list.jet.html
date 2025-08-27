@@ -22,7 +22,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 
 <form class="mb-4" action="{{ urlFor() }}" method="post">
-  {{ yield csrfField() }}
   <p><button class="btn btn-primary" type="submit">{{ gettext("Create a new API token") }}</button></p>
 </form>
 
@@ -62,7 +61,6 @@ SPDX-License-Identifier: AGPL-3.0-only
             {{ gettext("This token will be removed in a few seconds.") }}
           </span>
           <form action="{{ urlFor(`.`, .ID, `delete`) }}" method="post">
-            {{ yield csrfField() }}
             <input type="hidden" name="cancel" value="1" />
             <button type="submit"
             class="btn btn-primary whitespace-nowrap text-sm py-1 ml-2">{{ yield icon(name="o-undo") }} {{ gettext("Cancel") }}</button>

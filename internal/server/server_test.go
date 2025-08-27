@@ -5,17 +5,23 @@
 package server_test
 
 import (
+	"fmt"
+	"io"
 	"net"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
 	"strconv"
+	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/http/request"
-	"github.com/stretchr/testify/require"
+
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestInitRequest(t *testing.T) {
@@ -148,6 +154,178 @@ func TestInitRequest(t *testing.T) {
 			assert.Equal(test.ExpectedRemoteHost, ru.Host)
 			assert.Equal(test.ExpectedRemoteProto, ru.Scheme)
 			assert.Equal(test.ExpectedRemoteProto+"://"+test.ExpectedRemoteHost+"/", ru.String())
+		})
+	}
+}
+
+func TestCsrfProtect(t *testing.T) {
+	app := NewTestApp(t)
+	defer app.Close(t)
+
+	client := NewClient(t, app)
+	app.Users["user"].Login(client)
+	defer client.Logout()
+
+	tests := []struct {
+		name         string
+		secFetchDest string
+		secFetchMode string
+		secFetchSite string
+		origin       string
+		expected     map[string]int
+	}{
+		{
+			name:         "same-origin allowd",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:         "none allowed",
+			secFetchSite: "none",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:         "cross-site blocked",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden, "PUT": http.StatusForbidden},
+		},
+		{
+			name:         "same-site blocked",
+			secFetchSite: "same-site",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden},
+		},
+		{
+			name:         "navigate document from inside",
+			secFetchDest: "document",
+			secFetchMode: "navigate",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:         "navigate document user initiated",
+			secFetchDest: "document",
+			secFetchMode: "navigate",
+			secFetchSite: "none",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:         "navigate document from outside",
+			secFetchDest: "document",
+			secFetchMode: "navigate",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden},
+		},
+		{
+			name:         "navigate embed inside",
+			secFetchDest: "embed",
+			secFetchMode: "navigate",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK},
+		},
+		{
+			name:         "navigate frame inside",
+			secFetchDest: "frame",
+			secFetchMode: "navigate",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK},
+		},
+		{
+			name:         "navigate iframe inside",
+			secFetchDest: "iframe",
+			secFetchMode: "navigate",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK},
+		},
+		{
+			name:         "navigate object inside",
+			secFetchDest: "object",
+			secFetchMode: "navigate",
+			secFetchSite: "same-origin",
+			expected:     map[string]int{"GET": http.StatusOK},
+		},
+		{
+			name:         "navigate embed from outside",
+			secFetchDest: "embed",
+			secFetchMode: "navigate",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusForbidden},
+		},
+		{
+			name:         "navigate frame from outside",
+			secFetchDest: "frame",
+			secFetchMode: "navigate",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusForbidden},
+		},
+		{
+			name:         "navigate iframe from outside",
+			secFetchDest: "iframe",
+			secFetchMode: "navigate",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusForbidden},
+		},
+		{
+			name:         "navigate object from outside",
+			secFetchDest: "object",
+			secFetchMode: "navigate",
+			secFetchSite: "cross-site",
+			expected:     map[string]int{"GET": http.StatusForbidden},
+		},
+
+		{
+			name:     "no sec-fetch no origin",
+			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:     "no sec-fetch matching origin",
+			origin:   fmt.Sprintf("%s://%s", client.URL.Scheme, client.URL.Host),
+			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
+		{
+			name:     "no sec-fetch mismatched origin",
+			origin:   "https://attacker.example",
+			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden},
+		},
+		{
+			name:     "no sec-fetch null origin",
+			origin:   "null",
+			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden},
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			for method, expected := range test.expected {
+				t.Run(method, func(t *testing.T) {
+					req := client.NewRequest(method, "/profile", nil)
+					if req.Method != http.MethodGet {
+						req.Body = io.NopCloser(strings.NewReader("username=user"))
+						req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+					}
+
+					if test.secFetchMode != "" {
+						req.Header.Set("Sec-Fetch-Mode", test.secFetchMode)
+					}
+					if test.secFetchSite != "" {
+						req.Header.Set("Sec-Fetch-Site", test.secFetchSite)
+					}
+					if test.secFetchDest != "" {
+						req.Header.Set("Sec-Fetch-Dest", test.secFetchDest)
+					}
+					if test.origin != "" {
+						req.Header.Set("Origin", test.origin)
+					}
+
+					rsp := client.Request(req)
+
+					if c := rsp.Header.Get("content-type"); rsp.StatusCode >= 400 && !strings.HasPrefix(c, "text/html;") {
+						t.Errorf(`got content-type "%s", want "text/html"`, rsp.Header.Get("content-type"))
+					}
+					if rsp.StatusCode != expected {
+						t.Errorf("got status %d, want %d", rsp.StatusCode, expected)
+					}
+				})
+			}
 		})
 	}
 }

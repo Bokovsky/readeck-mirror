@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 <form action="" method="post" class="flex flex-wrap items-center gap-2"
  data-controller="inplace-input"
  data-inplace-input-hidden-class="hidden">
-  {{ yield csrfField() }}
   <h1 class="flex flex-grow items-center gap-2 group title mb-0 text-h2 max-md:w-full">
     {* JS context *}
     <span class="font-normal"><a href="{{ urlFor(`/bookmarks/labels`) }}" class="link">{{ gettext("Labels") }}</a> /</span>
@@ -53,7 +52,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- if .IsDeleted -}}
   <form action="{{ urlFor(`./delete`) }}?name={{ url(.Label) }}" method="post" class="mb-4">
-  {{ yield csrfField() }}
   {{- yield message(type="info") content -}}
     {{ gettext("Label will be removed in a few seconds.") }}&nbsp;
     <button class="btn btn-primary" name="cancel" value="1">{{ gettext("Cancel") }}</button>
