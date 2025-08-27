@@ -5,20 +5,20 @@ go 1.25.0
 require (
 	codeberg.org/readeck/go-readability v0.0.0-20250814140457-fb0fbc5a8e33
 	github.com/CloudyKit/jet/v6 v6.3.1
-	github.com/JohannesKaufmann/html-to-markdown/v2 v2.3.3
+	github.com/JohannesKaufmann/html-to-markdown/v2 v2.4.0
 	github.com/antchfx/htmlquery v1.3.4
 	github.com/antchfx/xmlquery v1.4.4
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/casbin/casbin/v2 v2.120.0
+	github.com/casbin/casbin/v2 v2.121.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
 	github.com/doug-martin/goqu/v9 v9.19.0
-	github.com/gabriel-vasile/mimetype v1.4.9
-	github.com/go-chi/chi/v5 v5.2.2
+	github.com/gabriel-vasile/mimetype v1.4.10
+	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
 	github.com/google/uuid v1.6.0
@@ -37,7 +37,7 @@ require (
 	github.com/prometheus/client_golang v1.23.0
 	github.com/sergeymakinen/go-ico v1.0.0-beta.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	github.com/tdewolff/parse/v2 v2.8.3
 	github.com/wneessen/go-mail v0.6.2
 	github.com/yuin/goldmark v1.7.13
