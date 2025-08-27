@@ -18,7 +18,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/internal/templates"
 	"codeberg.org/readeck/readeck/pkg/glob"
-	"codeberg.org/readeck/readeck/pkg/http/csrf"
 	"codeberg.org/readeck/readeck/pkg/libjet"
 )
 
@@ -143,8 +142,6 @@ func TemplateVars(r *http.Request) jet.VarMap {
 
 	return make(jet.VarMap).
 		Set("basePath", urls.Prefix()).
-		Set("csrfName", csrfFieldName).
-		Set("csrfToken", csrf.Token(r)).
 		Set("currentPath", urls.CurrentPath(r)).
 		Set("isTurbo", IsTurboRequest(r)).
 		Set("request", r).

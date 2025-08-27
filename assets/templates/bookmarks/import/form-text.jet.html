@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <form action="{{ urlFor() }}" method="POST" enctype="multipart/form-data">
   {{ yield formErrors(form=.Form) }}
-  {{ yield csrfField() }}
 
   {{- yield fileDropField(
     field=.Form.Get("data"),

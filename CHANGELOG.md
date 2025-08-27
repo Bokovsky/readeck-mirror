@@ -64,6 +64,7 @@
 ### Changed
 - updated Go to 1.25.0
 - new .ico decoder
+- Go 1.25 CSRF protection
 
 ### Deprecated
 - markdown export in multipart is replaced by the sync API and will be removed in the the next version

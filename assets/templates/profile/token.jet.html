@@ -13,7 +13,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{ if .Token.IsDeleted -}}
 <form action="{{ urlFor(`.`, `delete`) }}" method="POST">
-  {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   {{- yield message() content -}}
       {{ gettext("Token will be removed in a few seconds.") }}&nbsp;
@@ -26,7 +25,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <form class="mb-4" action="{{ urlFor() }}" method="post">
   {{ yield formErrors(form=.Form) }}
-  {{ yield csrfField() }}
 
   <div class="field field-h">
     <label>{{ gettext("Token ID") }}</label>

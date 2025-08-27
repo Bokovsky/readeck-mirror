@@ -26,7 +26,6 @@ import (
 
 	"golang.org/x/net/html"
 
-	"github.com/go-shiori/dom"
 	"github.com/itchyny/gojq"
 	"github.com/kinbiko/jsonassert"
 	"github.com/stretchr/testify/require"
@@ -306,10 +305,9 @@ func (ta *TestApp) SendEmail(msg *mail.Msg) error {
 // Client is a thin HTTP client over the main server router.
 type Client struct {
 	*testing.T
-	app       *TestApp
-	URL       *url.URL
-	Jar       http.CookieJar
-	CsrfToken string
+	app *TestApp
+	URL *url.URL
+	Jar http.CookieJar
 }
 
 // NewClient creates a new Client instance.
@@ -340,10 +338,6 @@ func (c *Client) NewRequest(method, target string, body io.Reader) *http.Request
 
 // NewFormRequest returns a new http.Request instance to be used for sending form data.
 func (c *Client) NewFormRequest(method, target string, data url.Values) *http.Request {
-	if c.CsrfToken != "" {
-		data.Set("__csrf__", c.CsrfToken)
-	}
-
 	req := c.NewRequest(method, target, strings.NewReader(data.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	return req
@@ -389,7 +383,6 @@ func (c *Client) Request(req *http.Request) *Response {
 	if err != nil {
 		c.Fatal(err)
 	}
-	c.CsrfToken = rsp.CsrfToken
 
 	return rsp
 }
@@ -426,7 +419,6 @@ func (c *Client) Get(target string) *Response {
 }
 
 // PostForm performs a POST request on the given path with some data.
-// If available, the CSRF token is automaticaly sent with the data.
 func (c *Client) PostForm(target string, data url.Values) *Response {
 	return c.Request(c.NewFormRequest("POST", target, data))
 }
@@ -462,12 +454,11 @@ func (c *Client) RenderTemplate(src string, extra map[string]interface{}) (strin
 // the HTML (when applicable) is parsed in advance.
 type Response struct {
 	*http.Response
-	URL       *url.URL
-	Redirect  string
-	Body      []byte
-	HTML      *html.Node
-	JSON      any
-	CsrfToken string
+	URL      *url.URL
+	Redirect string
+	Body     []byte
+	HTML     *html.Node
+	JSON     any
 }
 
 // NewResponse returns a Response instance based on the ResponseRecorder
@@ -507,12 +498,6 @@ func NewResponse(rec *httptest.ResponseRecorder, req *http.Request) (*Response, 
 		r.HTML, err = html.Parse(bytes.NewReader(r.Body))
 		if err != nil {
 			return nil, err
-		}
-
-		// Extract the CSRF token, we'll need it to post data
-		n := dom.QuerySelector(r.HTML, `head>meta[name="x-csrf-token"]`)
-		if n != nil {
-			r.CsrfToken = dom.GetAttribute(n, "content")
 		}
 	case strings.HasPrefix(r.Header.Get("content-type"), "application/json"):
 		err := json.Unmarshal(r.Body, &r.JSON)

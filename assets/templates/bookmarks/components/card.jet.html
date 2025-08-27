@@ -92,7 +92,6 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{ gettext("This bookmark will be removed in a few seconds.") }}
       </span>
       <form action="{{ _url }}" method="post">
-        {{ yield csrfField() }}
         <input type="hidden" name="cancel" value="1" />
         <input type="hidden" name="_to" value="{{ currentPath }}" />
         <button type="submit" name="is_deleted" value="0"
@@ -107,7 +106,6 @@ SPDX-License-Identifier: AGPL-3.0-only
          data-controller="turbo-form turbo-reload"
          data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
          data-turbo-form-method-value="patch">
-          {{ yield csrfField() }}
           <input type="hidden" name="_to" value="{{ currentPath }}" />
           {{- if .Loaded -}}
             <button name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
@@ -125,7 +123,6 @@ SPDX-License-Identifier: AGPL-3.0-only
         </form>
 
       <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
-        {{ yield csrfField() }}
         <input type="hidden" name="_to" value="{{ currentPath }}" />
         <button name="is_deleted" value="1"
          data-controller="turbo-form"

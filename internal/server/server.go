@@ -97,10 +97,10 @@ func AuthenticatedRouter(middlewares ...func(http.Handler) http.Handler) chi.Rou
 
 	r.Use(middlewares...)
 	r.Use(
+		Csrf,
 		WithSession(),
 		auth.Required,
 		LoadLocale,
-		Csrf,
 		// It's already in the main router but this one will be called first and have
 		// the current user information
 		ErrorPages,

@@ -16,7 +16,6 @@ var Keys = KeyMaterial{}
 const (
 	keyToken   = "api_token"
 	keySession = "session"
-	keyCSRF    = "csrf"
 )
 
 // KeyMaterial contains the signing and encryption keys.
@@ -24,7 +23,6 @@ type KeyMaterial struct {
 	prk        []byte // Main pseudorandom key
 	tokenKey   []byte
 	sessionKey []byte
-	csrfKey    []byte
 }
 
 func hkdfHashFunc() hash.Hash {
@@ -49,11 +47,6 @@ func (km KeyMaterial) SessionKey() []byte {
 	return km.sessionKey
 }
 
-// CSRFKey returns a 256-bit key used by the CSRF token's secure cookie.
-func (km KeyMaterial) CSRFKey() []byte {
-	return km.csrfKey
-}
-
 func (km KeyMaterial) mustExpand(name string, keyLength int) []byte {
 	k, err := km.Expand(name, keyLength)
 	if err != nil {
@@ -76,5 +69,4 @@ func loadKeys() {
 	// Derived keys
 	Keys.tokenKey = Keys.mustExpand(keyToken, 32)
 	Keys.sessionKey = Keys.mustExpand(keySession, 32)
-	Keys.csrfKey = Keys.mustExpand(keyCSRF, 32)
 }

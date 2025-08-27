@@ -8,7 +8,6 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-controller="turbo-form"
  data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
  data-turbo-form-method-value="patch">
-  {{ yield csrfField() }}
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   <button type="submit" class="hidden"></button>
   <div>

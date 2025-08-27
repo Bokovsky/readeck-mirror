@@ -100,11 +100,6 @@ func (p *TokenAuthProvider) GetPermissions(r *http.Request) []string {
 	return plist
 }
 
-// CsrfExempt is always true for this provider.
-func (p *TokenAuthProvider) CsrfExempt(_ *http.Request) bool {
-	return true
-}
-
 // getToken reads the token from the "Authorization" header.
 func (p *TokenAuthProvider) getToken(r *http.Request) (token string, ok bool) {
 	auth := r.Header.Get("Authorization")

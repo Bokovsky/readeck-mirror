@@ -21,7 +21,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- if .Item.IsDeleted -}}
   <h1 class="title text-h2">{{ gettext("Collection %s", .Item.Name) }}</h1>
   <form action="{{ urlFor(`./delete`) }}" method="post">
-    {{ yield csrfField() }}
     <input type="hidden" name="_to" value="{{ currentPath }}" />
     {{- yield message(type="info") content -}}
       {{ gettext("Collection will be removed in a few seconds.") }}&nbsp;
@@ -67,7 +66,6 @@ SPDX-License-Identifier: AGPL-3.0-only
       </p>
       <form action="{{ urlFor(`?edit=1`) }}" method="post">
         {{ yield formErrors(form=.Form) }}
-        {{ yield csrfField() }}
 
         {{ yield textField(
           field=.Form.Get("name"),

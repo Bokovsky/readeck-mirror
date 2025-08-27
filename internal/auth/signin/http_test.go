@@ -85,7 +85,7 @@ func TestSignin(t *testing.T) {
 				Target:       "/profile",
 				ExpectStatus: 200,
 				Assert: func(t *testing.T, _ *Response) {
-					require.Len(t, client.Cookies(), 2)
+					require.Len(t, client.Cookies(), 1)
 				},
 			},
 			RequestTest{
@@ -95,7 +95,7 @@ func TestSignin(t *testing.T) {
 				ExpectStatus:   303,
 				ExpectRedirect: "/",
 				Assert: func(t *testing.T, _ *Response) {
-					require.Len(t, client.Cookies(), 1)
+					require.Empty(t, client.Cookies())
 				},
 			},
 			RequestTest{

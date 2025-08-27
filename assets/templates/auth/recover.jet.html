@@ -15,7 +15,6 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if step == 0 -}}
     <form action="" method="post">
       {{ yield formErrors(form=.Form) }}
-      {{ yield csrfField() }}
       <input type="hidden" name="step" value="{{ step }}" />
 
       <p class="mt-4">{{ gettext("No worries, it happens to anyone.") }}</p>
@@ -47,7 +46,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- else -}}
       <form action="" method="post">
         {{ yield formErrors(form=.Form) }}
-        {{ yield csrfField() }}
         <input type="hidden" name="step" value="{{ step }}" />
 
         {{ yield passwordField(field=.Form.Get("password"),

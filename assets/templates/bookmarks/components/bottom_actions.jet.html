@@ -13,7 +13,6 @@ SPDX-License-Identifier: AGPL-3.0-only
  data-controller="turbo-form"
  data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
  data-turbo-form-method-value="patch">
-  {{ yield csrfField() }}
   <button class="btn-outlined btn-primary rounded-full whitespace-nowrap mb-0 mr-4 max-sm:mr-0 max-sm:mb-2"
    name="is_marked" value="{{ .IsMarked ? 0 : 1 }}">
     {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}

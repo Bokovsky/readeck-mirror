@@ -20,7 +20,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end }}
 
     {{ yield formErrors(form=.Form) }}
-    {{ yield csrfField() }}
 
     {{ if isTurbo -}}
       <input type="hidden" name="format" value="{{ .Form.Get(`format`).Value() }}">

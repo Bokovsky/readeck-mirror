@@ -15,7 +15,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 <h2 class="title text-h3">{{ gettext("Export your Readeck Profile") }}</h2>
 
 <form class="mb-8" action="{{ urlFor() }}" method="post">
-  {{ yield csrfField() }}
   <div class="btn-block">
     <p>{{ gettext(`
     This lets you download a zip file containing all your profile's data, including

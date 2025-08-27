@@ -27,8 +27,8 @@ func SetupRoutes(s *server.Server) {
 
 	r := chi.NewRouter()
 	r.Use(
-		server.WithSession(),
 		server.Csrf,
+		server.WithSession(),
 	)
 
 	h := &viewHandler{r, s}

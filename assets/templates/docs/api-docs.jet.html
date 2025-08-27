@@ -35,25 +35,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     >
       {{ yield breadcrumbs() }}
     </rapi-doc>
-    <script nonce="{{ cspNonce }}">
-      // Add the X-CSRF-Token header when no token is sent with the request.
-      // This way, the API can be tested without having to provide a token.
-      (function() {
-        const safeMethods = ["GET", "HEAD", "OPTIONS", "TRACE"]
-
-        window.addEventListener('DOMContentLoaded', () => {
-          const csrfToken = document.querySelector(
-            'html>head>meta[name="x-csrf-token"]',
-          ).content
-          const el = document.querySelector("rapi-doc")
-          el.addEventListener('before-try', (evt) => {
-            if (!safeMethods.includes(evt.detail.request.method) && !evt.detail.request.headers.get("authorization")) {
-              evt.detail.request.headers.append("X-CSRF-Token", csrfToken)
-            }
-          })
-        })
-      })()
-    </script>
   </div>
 </div>
 {{ end }}

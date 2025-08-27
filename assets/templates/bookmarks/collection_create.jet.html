@@ -16,7 +16,6 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="bookmark-filters">
       <form action="{{ urlFor() }}" method="post">
         {{ yield formErrors(form=.Form) }}
-        {{ yield csrfField() }}
 
         {{ yield textField(
           field=.Form.Get("name"),

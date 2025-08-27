@@ -16,17 +16,11 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/klauspost/compress/gzhttp"
 
-	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/http/accept"
-	"codeberg.org/readeck/readeck/pkg/http/csrf"
-	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 const (
-	csrfCookieName = "__csrf_key"
-	csrfFieldName  = "__csrf__"
 	gzipEtagSuffix = "-gzip"
 )
 
@@ -36,43 +30,20 @@ var acceptOffers = []string{
 	"application/json",
 }
 
-var csrfHandler *csrf.Handler
+var csrfProtection = http.NewCrossOriginProtection()
 
-// Csrf setup the CSRF protection.
+// Csrf setup the CSRF protection, using the native Go [http.CrossOriginProtection].
+// https://words.filippo.io/csrf/
 func Csrf(next http.Handler) http.Handler {
-	csrfHandler = csrf.NewCSRFHandler(
-		securecookie.NewHandler(
-			securecookie.Key(configs.Keys.CSRFKey()),
-			securecookie.WithMaxAge(0),
-			securecookie.WithName(csrfCookieName),
-			securecookie.WithPath(path.Join(urls.Prefix())),
-			securecookie.WithTTL(false),
-		),
-		csrf.WithFieldName(csrfFieldName),
-		csrf.WithErrorHandler(func(w http.ResponseWriter, r *http.Request) {
-			err := csrf.GetError(r)
-			Log(r).Warn("CSRF error", slog.Any("err", err))
-			Status(w, r, http.StatusForbidden)
-		}),
-	)
-
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Always enable CSRF protection, unless the current auth provider
-		// states otherwise.
-		if p, ok := auth.GetRequestProvider(r).(auth.FeatureCsrfProvider); ok && p.CsrfExempt(r) {
-			next.ServeHTTP(w, r)
+		if err := csrfProtection.Check(r); err != nil {
+			Log(r).Warn("Cross Origin", slog.Any("err", err))
+			Status(w, r, http.StatusForbidden)
 			return
 		}
 
-		csrfHandler.Protect(next).ServeHTTP(w, r)
+		next.ServeHTTP(w, r)
 	})
-}
-
-// RenewCsrf generate a new CSRF protection token.
-func RenewCsrf(w http.ResponseWriter, r *http.Request) {
-	if csrfHandler != nil {
-		_, _ = csrfHandler.Renew(w, r)
-	}
 }
 
 // WithPermission enforce a permission check on the request's path for
