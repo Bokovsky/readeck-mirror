@@ -9,6 +9,8 @@ package archiver
 import (
 	"bytes"
 	"context"
+	"errors"
+	"fmt"
 	"image"
 	"io"
 	"log/slog"
@@ -56,6 +58,8 @@ const (
 )
 
 const levelTrace = slog.LevelDebug - 10
+
+var errInvalidStatusCode = errors.New("invalid status code")
 
 type ctxArchiverKey struct{}
 
@@ -200,6 +204,9 @@ func (arc *Archiver) fetch(ctx context.Context, uri string, headers http.Header)
 			ctx = context.WithValue(ctx, ctxArchiverKey{}, true)
 			if rsp, err = arc.collector.Fetch(r.WithContext(ctx)); err != nil { //nolint
 				return nil, err
+			}
+			if rsp.StatusCode >= 400 {
+				return nil, fmt.Errorf("%w: %d", errInvalidStatusCode, rsp.StatusCode)
 			}
 		}
 
