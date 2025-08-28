@@ -8,7 +8,6 @@ import (
 	"context"
 	"log/slog"
 	"net/url"
-	"slices"
 
 	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
@@ -122,30 +121,29 @@ func extractLinksProcessor(m *extract.ProcessMessage, next extract.Processor) ex
 
 	for _, node := range dom.QuerySelectorAll(m.Dom, "a[href]") {
 		href := dom.GetAttribute(node, "href")
-		URL, err := url.Parse(href)
+		u, err := url.Parse(href)
 		if err != nil {
 			continue
 		}
-		URL.Fragment = ""
+		u.Fragment = ""
 
-		if _, ok := seen[URL.String()]; ok {
-			continue
-		}
+		d := extract.NewDrop(u)
 
-		d := extract.NewDrop(URL)
+		// Don't store links to the extracted page
 		if d.URL.String() == m.Extractor.Drop().URL.String() {
 			continue
 		}
 
-		if URL.Scheme == "http" || URL.Scheme == "https" {
-			seen[URL.String()] = extract.NewDrop(URL)
-			links = append(links, bookmarks.BookmarkLink{URL: URL.String(), Domain: d.Domain})
+		// Don't store the same link twice
+		if _, ok := seen[d.URL.String()]; ok {
+			continue
+		}
+
+		if d.URL.Scheme == "http" || d.URL.Scheme == "https" {
+			seen[d.URL.String()] = d
+			links = append(links, bookmarks.BookmarkLink{URL: d.URL.String(), Domain: d.Domain})
 		}
 	}
-
-	links = slices.CompactFunc(links, func(a, b bookmarks.BookmarkLink) bool {
-		return a.URL == b.URL
-	})
 
 	m.Extractor.Context = withExtractLinks(m.Extractor.Context, links)
 	return next
