@@ -45,7 +45,7 @@
     "postcss": "^8.5.6",
     "postcss-copy": "^7.1.0",
     "postcss-import": "^16.1.1",
-    "postcss-preset-env": "^10.3.0",
+    "postcss-preset-env": "^10.3.1",
     "postcss-value-parser": "^4.2.0",
     "prettier": "^3.6.2",
     "sass": "^1.91.0",
