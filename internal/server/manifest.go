@@ -58,7 +58,7 @@ func manifestRoutes() http.Handler {
 			Categories:                []string{"education", "news", "productivity"},
 			Dir:                       "auto",
 			Lang:                      "en",
-			Orientation:               "natural",
+			Orientation:               "any",
 			PreferRelatedApplications: false,
 			RelatedApplications:       []map[string]string{},
 			LaunchHandler:             map[string]string{"client_mode": "navigate-existing"},
