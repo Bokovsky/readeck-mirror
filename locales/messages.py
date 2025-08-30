@@ -21,7 +21,7 @@ from babel.messages.mofile import write_mo
 from babel.messages.pofile import read_po, write_po
 
 # Percentage of translated content under which a translation won't be loaded.
-COMPLETION_CUTOFF = 0.9
+COMPLETION_CUTOFF = 0.85
 
 HERE = Path(__file__).parent
 ROOT = (HERE / "..").resolve()
@@ -349,7 +349,7 @@ def update(_):
         template = read_po(fp)
 
     dirs = [x for x in translations.iterdir() if x.is_dir()]
-    for p in dirs:
+    for p in sorted(dirs):
         po_file = p / "messages.po"
         if po_file.exists():
             with po_file.open("rb") as fp:
@@ -390,7 +390,7 @@ def compile(_):
         template = read_po(fp)
     total_strings = len(template)
 
-    for po_file in po_files:
+    for po_file in sorted(po_files):
         code = po_file.parent.name
 
         # Ignore en_US, it's always empty
