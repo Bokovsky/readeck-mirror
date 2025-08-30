@@ -1,6 +1,6 @@
 # Changelog
 
-## [unrelease]
+## [0.20.0] - 2025-08-30
 ### Added
 - autocomplete on title, author, site and label in filter form
 - share by link and email API documentation
