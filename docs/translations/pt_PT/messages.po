@@ -8,83 +8,101 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2025-09-01 06:42+0000\n"
+"Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
+"projects/readeck/documentation/pt_PT/>\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr ""
+msgstr "# Marcadores"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr ""
+msgstr "Os marcadores são onde guarda o conteúdo de que gosta na internet."
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr ""
+msgstr "## Criar um Marcador novo"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
 msgstr ""
+"Descobriu uma página de que gosta? Óptimo! Copie o endereço para o campo **"
+"novo marcador** na [Lista de Marcadores](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr ""
+msgstr "![Formulário de novo marcador](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
 msgstr ""
+"Após alguns segundos, o seu marcadorr estará pronto. Depois, pode abri-lo "
+"para o ler ou ver o seu conteúdo, adicionar etiquetas, sublinhar texto ou "
+"exportá-lo como ebook. Para mais informação, por favor leia a secção "
+"[Vista de Marcador](./bookmark.md)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr ""
+msgstr "## Tipo de marcador"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "O Readeck reconhece 3 tipos diferentes de conteúdo na internet:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### Artigo"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
 msgstr ""
+"Um artigo é uma página da qual é extraído texto. É apresentado como uma "
+"versão legível do seu conteúdo."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### Imagem"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
 msgstr ""
+"Uma imagem é uma página reconhecida como um elemento que contém uma imagem ("
+"p.e. uma ligação para o Unsplash). É apresentada a imagem armazenada no "
+"Readeck."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr ""
+msgstr "### Vídeo"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
 msgstr ""
+"Um vídeo é uma página reconhecida como um elemento que contém um vídeo (p.e. "
+"uma ligação para o YouTube ou Vimeo). É apresentado um reprodutor de vídeo. "
+"Tenha em atenção que o vídeo é reproduzido do respectivo servidor original."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr ""
+msgstr "## Lista de marcadores"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
 msgstr ""
+"A [lista de marcadores](readeck-instance://bookmarks) é onde encontra todos "
+"os seus marcadores guardados."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr ""
+msgstr "### Navegação"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
