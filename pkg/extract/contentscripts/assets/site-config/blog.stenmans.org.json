@@ -1,0 +1,32 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id='content'] |  //div[@id='foocontent'] | //div[@id='footnotes']"
+  ],
+  "date_selectors": [
+    "substring-after(//div[@id='footer'] , 'Last updated ')"
+  ],
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv id=\"content\"\u003e",
+      "\u003cdiv id=\"foocontent\"\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://blog.stenmans.org/theBeamBook/",
+      "contains": []
+    }
+  ]
+}

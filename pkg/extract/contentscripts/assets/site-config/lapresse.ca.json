@@ -7,6 +7,7 @@
   "author_selectors": [
     "//div[@class='infosAuteur']  | //span[contains(@class,'authorModule__name')]",
     "substring-before(//div[contains(concat(' ',normalize-space(@class),' '),' author ')] , ' LA PRESSE')",
+    "substring-before(//div[contains(concat(' ',normalize-space(@class),' '),' authorModule__details ')],'La Presse')",
     "//div[@class=\"authorModule__content\"]//img[1]/@alt"
   ],
   "strip_selectors": [
@@ -38,6 +39,10 @@
     },
     {
       "url": "https://www.lapresse.ca/actualites/2025-06-14/planification-des-coupes-forestieres/le-forestier-en-chef-du-quebec-vise-par-une-demande-d-enquete.php",
+      "contains": []
+    },
+    {
+      "url": "https://www.lapresse.ca/actualites/sciences/2025-08-02/l-a-b-c-d-une-bombe-atomique.php",
       "contains": []
     }
   ]

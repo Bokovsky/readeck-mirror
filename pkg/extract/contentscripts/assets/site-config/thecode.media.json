@@ -1,0 +1,47 @@
+{
+  "title_selectors": [
+    "//h1[@class='article__title']"
+  ],
+  "body_selectors": [
+    "//article[@class='article']/div[@class='container']",
+    "//article[@class='article']/div[@class='foo-cntnr']"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//h1[@class='article__title']",
+    "//div[contains(@class, 'lazyblock-link-aside')]",
+    "//div[contains(@class, 'lazyblock-banner')]",
+    "//div[contains(@class, 'lazyblock-titry')]",
+    "//div[contains(@class, 'article-header')]/following-sibling::text()",
+    "//aside/text()"
+  ],
+  "strip_id_or_class": [
+    "article-info",
+    "table-of-contents-wrp",
+    "table-of-contents",
+    "article-bottom",
+    "article-crumbs",
+    "share"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "class=\"container",
+      "class=\"foo-cntnr"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://thecode.media/razbiraem-shemy-moshennikov-arbitrazh-kriptovalyuty/",
+      "contains": []
+    }
+  ]
+}

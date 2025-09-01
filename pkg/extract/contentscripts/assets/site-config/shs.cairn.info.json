@@ -1,15 +1,11 @@
 {
-  "title_selectors": [
-    "//h1[contains(concat(' ',normalize-space(@class),' '),' title ')]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//blockquote[contains(concat(' ',normalize-space(@class),' '),' abstract ')]"
+    "//div[@id='article-texte'] | //div[@id='article-container']//img"
   ],
-  "date_selectors": [
-    "//meta[@name='citation_date']/@content"
-  ],
+  "date_selectors": null,
   "author_selectors": [
-    "//meta[@name='citation_author']/@content"
+    "//meta[@property='og:article:author']/@content"
   ],
   "strip_selectors": null,
   "strip_id_or_class": null,
@@ -21,14 +17,16 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "PHP/8.4"
+  },
   "tests": [
     {
-      "url": "https://arxiv.org/abs/2009.03017",
+      "url": "https://shs.cairn.info/revue-internationale-de-politique-comparee-2001-1-page-59?lang=fr",
       "contains": []
     },
     {
-      "url": "https://arxiv.org/abs/2012.03780",
+      "url": "https://shs.cairn.info/revue-multitudes-2004-4-page-55?lang=fr",
       "contains": []
     }
   ]
