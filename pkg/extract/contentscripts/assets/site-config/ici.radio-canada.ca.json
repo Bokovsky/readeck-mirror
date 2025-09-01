@@ -10,7 +10,8 @@
   ],
   "author_selectors": [
     "//span[contains(concat(' ',normalize-space(@class),' '),'group-hover/signature:underline')]",
-    "substring-before((//a[contains(@href, '/profil/')])[1]/@title , ' (')"
+    "substring-before((//a[contains(@href, '/profil/')])[1]/@title , ' (')",
+    "//img[starts-with(@src,'https://images.radio-canada.ca/v1/personnalites-rc/')]/@alt"
   ],
   "strip_selectors": [
     "//header",
@@ -52,6 +53,10 @@
     },
     {
       "url": "https://ici.radio-canada.ca/rss/4159",
+      "contains": []
+    },
+    {
+      "url": "https://ici.radio-canada.ca/decrypteurs/infolettre/202508021058",
       "contains": []
     }
   ]

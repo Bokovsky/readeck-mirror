@@ -1,0 +1,63 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[@id='main']/article[1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//header/h1/self::* | //header/h1/preceding-sibling::*",
+    "//aside",
+    "//svg"
+  ],
+  "strip_id_or_class": [
+    "entry__byline",
+    "entry__terms-wrapper--tags",
+    "entry__sidebar",
+    "ad-dog"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "star-rating__text",
+      "star-rating__txt inline-block"
+    ],
+    [
+      "written-by__text",
+      "written-by__txt inline-block"
+    ],
+    [
+      "written-by__author",
+      "written-by__authr inline-block"
+    ],
+    [
+      "data-src=\"https://",
+      "src=\"https://"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.denofgeek.com/feed/",
+      "contains": []
+    },
+    {
+      "url": "https://www.denofgeek.com/movies/best-spider-man-and-hulk-stories-inspire-brand-new-day/",
+      "contains": []
+    },
+    {
+      "url": "https://www.denofgeek.com/tv/wednesday-season-2-part-1-review/",
+      "contains": []
+    },
+    {
+      "url": "https://www.denofgeek.com/games/marvel-ninja-gaiden-dotemu-beat-em-up-games-2025/",
+      "contains": []
+    }
+  ]
+}

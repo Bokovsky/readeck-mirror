@@ -24,8 +24,12 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "noscript\u003e",
-      "div\u003e"
+      "\u003cnoscript",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/noscript\u003e",
+      "\u003c/div\u003e"
     ],
     [
       ".jpeg \"",
@@ -44,6 +48,10 @@
     },
     {
       "url": "https://taz.de/!5708122",
+      "contains": []
+    },
+    {
+      "url": "https://taz.de/Ankommen-in-Deutschland-als-Gefluechtete/!6103413/",
       "contains": []
     }
   ]

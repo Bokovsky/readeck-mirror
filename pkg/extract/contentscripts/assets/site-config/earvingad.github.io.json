@@ -1,15 +1,13 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//main[@id='main-content']"
+    "//main"
   ],
-  "date_selectors": [
-    "//meta[@name=\"datePublished\"]/@content"
-  ],
+  "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//h1[@data-cy=\"story-headline\"]/parent::div",
-    "//div[@data-cy=\"social-share-bottom\"] | //div[@data-cy=\"social-share-bottom\"]/following-sibling::*"
+    "//header",
+    "//footer"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -20,12 +18,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": {
-    "User-Agent": "Mastodon/4.3.2 (http.rb/5.2.0)"
-  },
+  "http_headers": null,
   "tests": [
     {
-      "url": "https://www.axios.com/2019/06/25/apple-buy-driveai",
+      "url": "https://earvingad.github.io/posts/headscale/",
       "contains": []
     }
   ]
