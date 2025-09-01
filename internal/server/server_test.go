@@ -291,6 +291,11 @@ func TestCsrfProtect(t *testing.T) {
 			origin:   "null",
 			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusForbidden},
 		},
+		{
+			name:     "non http scheme origin",
+			origin:   "chrome-extension://abcdef",
+			expected: map[string]int{"GET": http.StatusOK, "POST": http.StatusSeeOther},
+		},
 	}
 
 	for _, test := range tests {

@@ -11,6 +11,7 @@ import (
 	"fmt"
 	"log/slog"
 	"net/http"
+	"net/url"
 	"path"
 	"slices"
 	"strings"
@@ -32,13 +33,17 @@ var acceptOffers = []string{
 	"application/json",
 }
 
-var csrfProtection = http.NewCrossOriginProtection()
+var (
+	errCrossOriginRequest               = errors.New("cross-origin request detected from Sec-Fetch-Site header")
+	errCrossOriginRequestFromOldBrowser = errors.New("cross-origin request detected, and/or browser is out of date: " +
+		"Sec-Fetch-Site is missing, and Origin does not match Host")
+)
 
 // Csrf setup the CSRF protection, using the native Go [http.CrossOriginProtection].
 // https://words.filippo.io/csrf/
 func Csrf(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if err := csrfProtection.Check(r); err != nil {
+		if err := csrfprotectionCheck(r); err != nil {
 			Log(r).Warn("Cross Origin", slog.Any("err", err))
 			Status(w, r, http.StatusForbidden)
 			return
@@ -46,6 +51,50 @@ func Csrf(next http.Handler) http.Handler {
 
 		next.ServeHTTP(w, r)
 	})
+}
+
+func csrfprotectionCheck(req *http.Request) error {
+	switch req.Method {
+	case "GET", "HEAD", "OPTIONS":
+		// Safe methods are always allowed.
+		return nil
+	}
+
+	switch req.Header.Get("Sec-Fetch-Site") {
+	case "":
+		// No Sec-Fetch-Site header is present.
+		// Fallthrough to check the Origin header.
+	case "same-origin", "none":
+		return nil
+	default:
+		return errCrossOriginRequest
+	}
+
+	origin := req.Header.Get("Origin")
+	if origin == "" {
+		// Neither Sec-Fetch-Site nor Origin headers are present.
+		// Either the request is same-origin or not a browser request.
+		return nil
+	}
+
+	// We depart from [http.CrossOriginProtection.Check] here as we check the scheme.
+	// We only care for http/https schemes
+	if o, err := url.Parse(origin); err == nil {
+		switch o.Scheme {
+		case "":
+			// failure
+		case "http", "https":
+			// HTTP scheme, compare the hosts
+			if o.Host == req.Host {
+				return nil
+			}
+		default:
+			// Non empty scheme, not a browser request.
+			return nil
+		}
+	}
+
+	return errCrossOriginRequestFromOldBrowser
 }
 
 // crossOriginGuard is a first layer of cross origin protection.
