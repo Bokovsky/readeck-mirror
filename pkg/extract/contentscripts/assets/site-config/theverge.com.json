@@ -43,6 +43,9 @@
     "chorus-ad-placement",
     "c-related-list",
     "sr-only",
+    "tly2fw0",
+    "_1o1f7ku8",
+    "_1ymtmqpm",
     "e-image__meta",
     "duet--article--date-and-comments",
     "duet--article--disclaimer",
@@ -58,6 +61,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": [
+    [
+      "?quality=90\u0026",
+      "\" foo=\""
+    ],
     [
       "\u003cstrong\u003e \u003c/strong\u003e",
       "\u003c!-- nothing --\u003e"

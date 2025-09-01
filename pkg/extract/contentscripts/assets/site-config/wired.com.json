@@ -1,14 +1,22 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//article[contains(@class, 'main-content')]",
+    "//div[contains(@class, 'ArticlePageChunks-fwcPjP')]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' ArticlePageContentBackGround-cNiFNN ')]",
     "//div[@id='container']"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
+    "//aside",
     "//button",
-    "//div[contains(@class, 'RecircMostPopularWrapper')]"
+    "//div[contains(@class, 'RecircMostPopularWrapper')]",
+    "//header//h1",
+    "//div[@data-testid='ContentHeaderRubric']",
+    "//div[contains(@class, 'SocialIconsWrapper')]",
+    "//div[starts-with(@class, 'AdWrapper')]",
+    "//div[contains(@class, 'ContentAdWrapper')]/parent::div"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -18,7 +26,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cnoscript",
+      "\u003cdiv"
+    ],
+    [
+      "\u003c/noscript",
+      "\u003c/div"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
@@ -26,6 +43,10 @@
       "contains": [
         "they are good to their users"
       ]
+    },
+    {
+      "url": "https://www.wired.com/2014/09/coupland-bell-labs/",
+      "contains": []
     }
   ]
 }

@@ -1,11 +1,19 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1"
+  ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' _inner_exxzh_1 ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _templateArticle_')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _articleHeader_')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _socialMedia_')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _cardsRelatedContent_')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _newsletter_')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' _cards_')]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -17,6 +25,14 @@
   "replace_strings": null,
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://www.indiewire.com/criticism/shows/fantasmas-review-juilo-torres-fierce-satire-1235017376/",
+      "contains": []
+    },
+    {
+      "url": "https://www.indiewire.com/features/general/10-new-tv-shows-to-watch-2025-1235079729/",
+      "contains": []
+    },
     {
       "url": "https://www.indiewire.com/gallery/unsimulated-sex-scenes-movies/",
       "contains": []

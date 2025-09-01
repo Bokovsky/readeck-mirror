@@ -25,7 +25,8 @@
     "newsletter-form",
     "paywall-login",
     "paywall-message",
-    "paywall_no_variance"
+    "paywall_no_variance",
+    "screen-reader-only"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -37,6 +38,10 @@
   ],
   "next_page_link_selectors": null,
   "replace_strings": [
+    [
+      "\u003cp class=\"news__heading__top__intro",
+      "\u003cp class=\"hljs-strong news__heading__top__intro"
+    ],
     [
       "class=\"container",
       "class=\"foo_cntr"

@@ -1,0 +1,37 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id=\"article-body\"] | //header//p[@class='strapline'] | //div[contains(@class, 'hero-image-wrapper')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//nav"
+  ],
+  "strip_id_or_class": [
+    "fancy-box__body-text",
+    "newsletter-form__wrapper",
+    "table__instruction",
+    "fancy-box"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.space.com/space-25-anniversary-exoplanet-history",
+      "contains": []
+    },
+    {
+      "url": "https://www.space.com/artemis-accords-explained",
+      "contains": []
+    }
+  ]
+}

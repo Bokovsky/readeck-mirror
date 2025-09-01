@@ -1,17 +1,22 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' csc-textpic-text ')]"
+    "//div[@id='content']"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//nav",
+    "//svg",
+    "//header/h1",
+    "//div[contains(@class,  '-relatedarticles')]"
+  ],
   "strip_id_or_class": [
-    "introa_form",
-    "ttcl_1",
-    "ttcl_3",
-    "ttcl_5",
-    "nbc_belowcontent"
+    "intro-author",
+    "intro-date",
+    "intro-tags",
+    "socialarea"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -20,9 +25,22 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "srcset=\"/fileadmin/",
+      "srcset=\"https://www.notebookcheck.net/fileadmin/"
+    ],
+    [
+      "\u003c/figcaption\u003e",
+      "\u003c/figcaption\u003e\u003cdiv\u003e \u003c/div\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
+    {
+      "url": "https://www.notebookcheck.net/Desperate-measures-to-save-Intel-US-reportedly-forcing-TSMC-to-buy-49-stake-in-Intel-to-secure-tariff-relief-for-Taiwan.1079424.0.html",
+      "contains": []
+    },
     {
       "url": "http://www.notebookcheck.net/Lenovo-ThinkPad-X1-Carbon-Ultrabook-Review.138033.0.html",
       "contains": []
