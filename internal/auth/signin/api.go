@@ -21,6 +21,9 @@ type authAPI struct {
 
 func newAuthAPI(s *server.Server) *authAPI {
 	r := chi.NewRouter()
+	r.Use(
+		server.Csrf,
+	)
 
 	api := &authAPI{Router: r, srv: s}
 	api.Post("/", api.auth)

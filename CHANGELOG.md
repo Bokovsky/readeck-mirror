@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.20.1] - 2025-09-01
+### Changed
+- Updated site config files
+
+### Fixed
+- make CSRF protection compatible with the browser add-on
+
+###
+
 ## [0.20.0] - 2025-08-30
 ### Added
 - autocomplete on title, author, site and label in filter form
