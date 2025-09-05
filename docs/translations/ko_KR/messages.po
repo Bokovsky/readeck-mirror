@@ -8,91 +8,104 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: ko\n"
+"PO-Revision-Date: 2025-09-06 03:09+0000\n"
+"Last-Translator: dewyeyed <dewyeyed@noreply.codeberg.org>\n"
+"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/"
+"documentation/ko/>\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr ""
+msgstr "# 북마크"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr ""
+msgstr "북마크는 마음에 드는 웹 콘텐츠를 저장하는 곳입니다."
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr ""
+msgstr "## 새 북마크 생성"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
 msgstr ""
+"마음에 드는 웹 페이지를 찾으셨나요? 좋아요! 해당 링크를 [북마크 목록]"
+"(readeck-instance://bookmarks)의 **새 북마크**라는 텍스트 필드에 복사하세요."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr ""
+msgstr "![New Bookmark form](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
 msgstr ""
+"잠시뒤, 북마크가 준비됩니다. 이후 북마크를 열어 내용을 읽거나 시청하고, "
+"라벨을 추가하거나, 텍스트를 강조 표시하거나, 전자책을 내보낼 수 있습니다. "
+"자세한 내용은 [북마크 보기](./bookmark.md) 섹션을 참고하세요."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr ""
+msgstr "## 북마크 속성"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "Readeck은 다음 3가지 유형의 웹 콘텐츠를 인식합니다:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### 기사"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
+msgstr "기사는 텍스트 콘텐츠가 추출된 페이지입니다. 해당 콘텐츠를 읽기 쉬운 형태로 "
+"표시합니다."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### 이미지"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
+msgstr "이미지는 이미지 컨테이너(예: Unsplash 링크)로 인식된 페이지입니다. 저장된 "
+"이미지를 표시합니다."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr ""
+msgstr "### 동영상"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
 msgstr ""
+"동영상은 동영상 컨테이너(예: 유튜브 또는 비메오 링크)로 식별된 페이지입니다. "
+"동영상은 Readeck서버에 저장되지 않고, 원 주소에서 재생된다는 점을 유의하세요."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr ""
+msgstr "## Bookmark List"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
+msgstr "[북마크 목록](readeck-instance://bookmarks)은 저장한 모든 북마크를 확인할 수 "
+"있는 곳입니다."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr ""
+msgstr "### 탐색"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr ""
+msgstr "사이드바에는 검색 필드와 필터링된 북마크 목록으로 이동할 수 있는 링크가 "
+"있습니다."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr ""
+msgstr "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -107,10 +120,20 @@ msgid ""
 "- **Favorites** \\\n"
 "  The bookmarks you marked as favorite."
 msgstr ""
+"- **검색** \\\n"
+"검색어 입력 (제목, 내용, 웹사이트...)\n"
+"- **전체** \\\n"
+"모든 북마크.\n"
+"- **미읽음** \\\n"
+"아카이브에 포함되지 않은 북마크.\n"
+"- **아카이브** \\\n"
+"아카이브로 표시한 북마크.\n"
+"- **즐겨찾기** \\\n"
+"즐겨찾기로 표시한 북마크."
 
 #: en-US/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
+msgstr "페이지를 저장하기 시작하면 다음과 같은 추가 링크가 표시됩니다:"
 
 #: en-US/bookmark-list.md:54
 msgid ""
@@ -121,10 +144,16 @@ msgid ""
 "- **Pictures** \\\n"
 "  Your picture bookmarks"
 msgstr ""
+"- **기사** \\\n"
+"당신의 기사 북마크\n"
+"- **동영상** \\\n"
+"당신의 동영상 북마크\n"
+"- **이미지** \\\n"
+"당신의 이미지 북마크"
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
+msgstr "마지막으로, 북마크 관련 페이지로 이동하는 3개의 섹션이 더 표시됩니다:"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -135,6 +164,12 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
+"- **[라벨](./labels.md)** \\\n"
+"모든 북마크 라벨\n"
+"- **하이라이트** \\\n"
+"북마크에 생성된 모든 하이라이트\n"
+"- **[컬렉션](./collections.md)** \\\n"
+"모든 컬렉션 목록"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
