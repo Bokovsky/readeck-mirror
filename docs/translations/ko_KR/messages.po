@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-09-06 03:09+0000\n"
+"PO-Revision-Date: 2025-09-09 05:46+0000\n"
 "Last-Translator: dewyeyed <dewyeyed@noreply.codeberg.org>\n"
 "Language-Team: Korean <https://translate.codeberg.org/projects/readeck/"
 "documentation/ko/>\n"
@@ -173,21 +173,23 @@ msgstr ""
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr ""
+msgstr "### Bookmark Cards"
 
 #: en-US/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr ""
+msgstr "목록의 각 항목을 북마크 카드라고 합니다."
 
 #: en-US/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
+"북마크 목록](./img/bookmark-list.webp)\n"
+"그리드 북마크 목록"
 
 #: en-US/bookmark-list.md:77
 msgid "A card shows:"
-msgstr ""
+msgstr "카드가 표시됩니다:"
 
 #: en-US/bookmark-list.md:79
 msgid ""
@@ -197,10 +199,15 @@ msgid ""
 "- the **label list**,\n"
 "- **action buttons**"
 msgstr ""
+"- 북마크를 클릭해서 보거나 읽을 수 있는 **제목**을 입력합니다,\n"
+"- 사이트 이름**,\n"
+"- 예상 **읽기 시간**,\n"
+"- 라벨 목록**,\n"
+"- 액션 버튼"
 
 #: en-US/bookmark-list.md:85
 msgid "The action buttons perform the following:"
-msgstr ""
+msgstr "작업 버튼은 다음을 수행합니다:"
 
 #: en-US/bookmark-list.md:87
 msgid ""
@@ -211,20 +218,31 @@ msgid ""
 "- **Delete** \\\n"
 "  This marks the bookmark for deletion (it can be canceled during a few seconds)."
 msgstr ""
+"- 즐겨찾기** \\\n"
+"  북마크의 즐겨찾기 상태를 전환합니다.\n"
+"- **아카이브** \\\n"
+"  북마크를 아카이브로 이동하거나 아카이브에서 북마크를 제거합니다.\n"
+"- **삭제** \\\n"
+"  북마크를 삭제합니다(몇 초 내로 취소할 수 있음)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
-msgstr ""
+msgstr "### Compact List"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
 msgstr ""
+"북마크 그리드 보기가 너무 난잡하다고 생각한다면 이미지가 적은 간결한 "
+"목록으로 전환할 수 있습니다. 제목 옆에 있는 버튼을 클릭하면 그리드 보기에서 "
+"압축 보기로 전환할 수 있습니다."
 
 #: en-US/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
+"![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
+"컴팩트 북마크 목록"
 
 #: en-US/bookmark-list.md:101
 #, python-brace-format
