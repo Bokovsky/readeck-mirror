@@ -44,6 +44,13 @@ type Provider interface {
 	Authenticate(http.ResponseWriter, *http.Request) (*http.Request, error)
 }
 
+// FeatureCsrfProvider allows a provider to implement a method
+// to bypass all CSRF protection.
+type FeatureCsrfProvider interface {
+	// Must return true to disable CSRF protection for the request.
+	CsrfExempt(*http.Request) bool
+}
+
 // FeaturePermissionProvider allows a provider to implement a permission
 // check of its own. Usually providing scoped permissions.
 type FeaturePermissionProvider interface {
