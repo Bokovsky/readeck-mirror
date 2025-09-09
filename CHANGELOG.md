@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.20.2] - 2025-09-09
+### Fixed
+- Restored CSRF protection exemption for token authenticated requests
+
 ## [0.20.1] - 2025-09-01
 ### Changed
 - Updated site config files
