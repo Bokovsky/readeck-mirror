@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-09-08 06:09+0000\n"
+"PO-Revision-Date: 2025-09-12 16:17+0000\n"
 "Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
 "projects/readeck/application/pt_PT/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -963,7 +963,7 @@ msgstr "Voltar ao marcador"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr "Pode partilhar a seguinte ligação com os seus amigos."
+msgstr "Pode partilhar o seguinte endereço com os seus amigos."
 
 #: assets/templates/bookmarks/components/share_link.jet.html:10
 #, python-format
