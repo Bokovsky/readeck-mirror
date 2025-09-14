@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-09-14 18:10+0000\n"
+"PO-Revision-Date: 2025-09-15 19:09+0000\n"
 "Last-Translator: cdprf <cdprf@noreply.codeberg.org>\n"
 "Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
 "application/tr/>\n"
@@ -92,7 +92,7 @@ msgstr "Dosya seç ya da bırak"
 
 #: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
-msgstr "sil"
+msgstr "kaldır"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
@@ -454,7 +454,6 @@ msgid "Don't remind me"
 msgstr "Tekrar hatırlatma"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#, fuzzy
 msgid "Close dialog"
 msgstr "İletişim kutusunu kapat"
 
@@ -532,7 +531,7 @@ msgstr "Sayfanın geçerlilik süresi doldu"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
-msgstr "%d dakika"
+msgstr "%d . dk."
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:121
@@ -1242,33 +1241,35 @@ msgstr "Makale başlığı, URL ve ilk kaydedilme tarihi,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "Bir makalenin arşivlenmiş durumu,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" Readeck etiketleri olarak,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
 msgstr ""
+"Bir belge etiketi \"%s\" içerdiğinde, yer imi Readeck Favorilerine "
+"eklenecektir."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
-msgstr ""
+msgstr "İçe aktarılmayanlar:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:48
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Makale okuma ilerlemesi ve görülme durumu,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "E-posta ile Readwise Reader'a iletilen makaleler,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "PDF veya EPUB gibi yüklenmiş belgeler."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:84
@@ -1350,7 +1351,7 @@ msgstr ""
 #: assets/templates/profile/export.jet.html:35
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
-msgstr ""
+msgstr "Tarayıcı Yerimleri"
 
 #: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1360,7 +1361,7 @@ msgstr "Pinboard, Instapaper ya da tarayıcınızdaki yer imlerini içeri aktar�
 #: assets/templates/profile/export.jet.html:43
 #: internal/bookmarks/importer/csv.go:55
 msgid "CSV File"
-msgstr ""
+msgstr "CSV Dosyası"
 
 #: assets/templates/bookmarks/import/index.jet.html:42
 msgid "Import Links from a CSV File and Instapaper"
@@ -1371,18 +1372,17 @@ msgid "Import your GoodLinks Articles"
 msgstr "GoodLinks yazılarınızı içeri aktarın"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
 msgstr "Yer imlerinizi içeri aktarın"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Readwise Kütüphanenizi aktarın"
 
 #: assets/templates/bookmarks/import/index.jet.html:83
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
-msgstr ""
+msgstr "Yazı Dosyası"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
@@ -1441,7 +1441,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/index.jet.html:1
 msgid "Bookmark filters"
-msgstr ""
+msgstr "Yerimi Filtresi"
 
 #: assets/templates/bookmarks/index.jet.html:32
 msgid "Save a new link"
@@ -1735,60 +1735,74 @@ msgid ""
 "\n"
 "If you are not a Readeck user, please ignore this message.\n"
 msgstr ""
+"\n"
+"Merhaba,\r\n"
+"\r\n"
+"Bir Readeck hesabının şifresini değiştirmeye çalışırken bu e-posta adresini\r"
+"\n"
+"siz (veya başka biri) girdiniz (%s).\r\n"
+"\r\n"
+"Ancak, bu e-posta adresi herhangi bir hesaba bağlı değil ve bu nedenle\r\n"
+"şifre değiştirme girişimi başarısız oldu.\r\n"
+"\r\n"
+"Eğer %s üzerinde bir Readeck kullanıcısıysanız ve\r\n"
+"bu e-postayı bekliyorsanız, lütfen hesabınızı oluştururken kullandığınız\r\n"
+"e-posta adresini kullanarak tekrar deneyin.\r\n"
+"\r\n"
+"Readeck kullanıcısı değilseniz, lütfen bu mesajı görmezden gelin.\n"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
-msgstr ""
+msgstr "Hata"
 
 #: assets/templates/error.jet.html:22
 msgid "Permission denied."
-msgstr ""
+msgstr "İzin reddedildi."
 
 #: assets/templates/error.jet.html:24
 msgid "Page not found."
-msgstr ""
+msgstr "Sayfa bulunamadı."
 
 #: assets/templates/error.jet.html:26
 msgid "An error occurred."
-msgstr ""
+msgstr "Bir hata oluştu."
 
 #: assets/templates/menu.jet.html:1
 msgid "Change theme"
-msgstr ""
+msgstr "Tema değiştir"
 
 #: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
 msgid "Sign out"
-msgstr ""
+msgstr "Çıkış yap"
 
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
-msgstr ""
+msgstr "Menüyü aç"
 
 #: assets/templates/menu.jet.html:33
 msgid "Change color theme"
-msgstr ""
+msgstr "Renk temasını değiştir"
 
 #: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
 msgid "Settings"
-msgstr ""
+msgstr "Ayarlar"
 
 #: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
 #: internal/profile/views.go:129 internal/profile/views.go:173
 #: internal/profile/views.go:233 internal/profile/views.go:285
 #: internal/profile/views.go:316
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
 #: internal/profile/views.go:234
 msgid "API Tokens"
-msgstr ""
+msgstr "API Token'ları"
 
 #: assets/templates/profile/base.jet.html:29
 #: assets/templates/profile/export.jet.html:10
-#, fuzzy
 msgid "Export"
-msgstr "Sonraki"
+msgstr "Dışa aktar"
 
 #: assets/templates/profile/base.jet.html:32
 #: assets/templates/profile/import.jet.html:9
@@ -1798,12 +1812,11 @@ msgstr "Sonraki"
 #: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
 #: internal/profile/views.go:317
 msgid "Import"
-msgstr ""
+msgstr "İçe aktar"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Pocket yazılarınızı içeri aktarın"
+msgstr "Readeck Profilinizi Dışa Aktar"
 
 #: assets/templates/profile/export.jet.html:19
 msgid ""
@@ -1812,46 +1825,49 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Bu, yer imleriniz, koleksiyonlarınız vb. dahil tüm profil verilerinizi\r"
+"\n"
+"    içeren bir zip dosyası indirmenizi sağlar.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:24
-#, fuzzy
 msgid "Export Data"
-msgstr "Dışa Aktar ve Paylaş"
+msgstr "Veriyi Dışa Aktar"
 
 #: assets/templates/profile/export.jet.html:36
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Tarayıcı Yer İmi Formatında Yer İmi Listesi"
 
 #: assets/templates/profile/export.jet.html:44
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Virgülle Ayrılmış Değerler Olarak Yer İmi Listesi"
 
 #: assets/templates/profile/export.jet.html:49
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Yer imlerini içeri aktar"
+msgstr "Yer İmlerini Dışa Aktar"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Yer imi listenizi aşağıdaki formatlarda dışa aktarabilirsiniz:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Bir Readeck Profili İçe Aktar"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
 msgstr ""
+"Önceki bir profil dışa aktarımından elde edilen bir dosyayı içe aktarın."
 
 #: assets/templates/profile/import.jet.html:30
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Kullanıcı adınızı onaylayın"
 
 # | msgid "Documentation"
 #: assets/templates/profile/import.jet.html:35
-#, fuzzy
 msgid "Attention"
-msgstr "Yardım Belgeleri"
+msgstr "Dikkat"
 
 #: assets/templates/profile/import.jet.html:37
 msgid ""
@@ -1860,11 +1876,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Bu işlem mevcut profilinizi boşaltacak ve tüm verileri\r\n"
+"      dosyanın içeriği ile değiştirilecektir.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:49
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Yer imlerini içeri aktar"
+msgstr "Diğer servislerden yer imlerini içe aktar"
 
 #: assets/templates/profile/import.jet.html:52
 #, python-format
@@ -1874,26 +1893,30 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Başka bir servisten yer imleriniz varsa, onları\r\n"
+"  <a href=\"%s\">ayrılmış bölümde</a> içe aktarabilirsiniz.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
-msgstr ""
+msgstr "Profilim"
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Base settings"
-msgstr ""
+msgstr "Temel ayarlar"
 
 #: assets/templates/profile/index.jet.html:27
 msgid "Email Address"
-msgstr ""
+msgstr "E-posta Adresi"
 
 #: assets/templates/profile/index.jet.html:32
 msgid "Language"
-msgstr ""
+msgstr "Dil"
 
 #: assets/templates/profile/index.jet.html:49
 msgid "Email settings"
-msgstr ""
+msgstr "E-posta ayarları"
 
 #: assets/templates/profile/index.jet.html:50
 msgid ""
@@ -1901,22 +1924,29 @@ msgid ""
 "    These, optional, parameters are used when Readeck sends emails.\n"
 "    "
 msgstr ""
+"\n"
+"    Bu isteğe bağlı parametreler, Readeck e-posta gönderirken kullanılır.\n"
+"    "
 
 #: assets/templates/profile/index.jet.html:56
 msgid "Reply To"
-msgstr ""
+msgstr "Yanıt Adresi"
 
 #: assets/templates/profile/index.jet.html:57
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr ""
+"Giden e-postalarınıza bu e-posta adresini ekleyin böylece alıcılar "
+"yanıtlayabilir."
 
 #: assets/templates/profile/index.jet.html:62
 msgid "Send EPUB to"
-msgstr ""
+msgstr "EPUB Gönder"
 
 #: assets/templates/profile/index.jet.html:63
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr ""
+"E-posta ile e-kitap gönderirken alıcıyı önceden doldurmak için bu adres "
+"kullanılır."
 
 #: assets/templates/profile/index.jet.html:71
 msgid ""
@@ -1925,62 +1955,65 @@ msgid ""
 "          following email address within your Kindle Account:\n"
 "          "
 msgstr ""
+"\n"
+"          Bir Kindle cihazına e-kitap göndermeyi planlıyorsanız, Kindle "
+"Hesabınızda\r\n"
+"          aşağıdaki e-posta adresini onaylamanız gerekir:\n"
+"          "
 
 #: assets/templates/profile/password.jet.html:9
 msgid "Change my password"
-msgstr ""
+msgstr "Şifremi değiştir"
 
 #: assets/templates/profile/password.jet.html:20
 msgid "Current password"
-msgstr ""
+msgstr "Mevcut şifre"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
-msgstr ""
+msgstr "token'ı kopyala"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy HTTP header"
-msgstr ""
+msgstr "HTTP başlığını kopyala"
 
 #: assets/templates/profile/token.jet.html:9
 msgid "API Token"
-msgstr ""
+msgstr "API Token'ı"
 
 #: assets/templates/profile/token.jet.html:18
 msgid "Token will be removed in a few seconds."
-msgstr ""
+msgstr "Token birkaç saniye içinde kaldırılacak."
 
 #: assets/templates/profile/token.jet.html:24
 msgid "Properties"
-msgstr ""
+msgstr "Özellikler"
 
 #: assets/templates/profile/token.jet.html:30
 msgid "Token ID"
-msgstr ""
+msgstr "Token ID"
 
 # | msgid "Create user"
 #: assets/templates/profile/token.jet.html:35
-#, fuzzy
 msgid "Last used"
-msgstr "Kullanıcı oluştur"
+msgstr "Son kullanım"
 
 # | msgid "New User"
 #: assets/templates/profile/token.jet.html:36
-#, fuzzy
 msgid "never used"
-msgstr "Yeni Kullanıcı"
+msgstr "hiç kullanılmadı"
 
 #: assets/templates/profile/token.jet.html:42
 msgid "Application"
-msgstr ""
+msgstr "Uygulama"
 
 #: assets/templates/profile/token.jet.html:48
 msgid "Enabled"
-msgstr ""
+msgstr "Etkin"
 
 #: assets/templates/profile/token.jet.html:54
 msgid "Expires on"
-msgstr ""
+msgstr "Son kullanma tarihi"
 
 #: assets/templates/profile/token.jet.html:60
 msgid ""
@@ -1990,64 +2023,75 @@ msgid ""
 "    Leave all the choices blank to grant all your permissions to this token.\n"
 "  "
 msgstr ""
+"\n"
+"    Bu token'a verilen izinleri aşağıdan bir veya daha fazla izin grubu\r\n"
+"    seçerek sınırlandırabilirsiniz.<br>\r\n"
+"    Tüm izinlerinizi bu token'a vermek için tüm seçimleri boş bırakın.\n"
+"  "
 
 #: assets/templates/profile/token.jet.html:68
 msgid "Roles"
-msgstr ""
+msgstr "Roller"
 
 #: assets/templates/profile/token.jet.html:76
 msgid "Delete token"
-msgstr ""
+msgstr "Token'ı sil"
 
 # | msgid "Documentation"
 #: assets/templates/profile/token.jet.html:81
-#, fuzzy
 msgid "Authentication"
-msgstr "Yardım Belgeleri"
+msgstr "Kimlik doğrulama"
 
 #: assets/templates/profile/token.jet.html:84
 msgid "Your API token"
-msgstr ""
+msgstr "API Token'ınız"
 
 #: assets/templates/profile/token.jet.html:97
 msgid "Download as a text file"
-msgstr ""
+msgstr "Metin dosyası olarak indir"
 
 #: assets/templates/profile/token.jet.html:101
 msgid "How to use it"
-msgstr ""
+msgstr "Nasıl kullanılır"
 
 #: assets/templates/profile/token.jet.html:103
 msgid "As a Bearer Token"
-msgstr ""
+msgstr "Bearer Token olarak"
 
 #: assets/templates/profile/token.jet.html:105
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
 msgstr ""
+"Bu token'ı <strong>Authorization: Bearer</strong> HTTP başlığı olarak "
+"ileterek kullanabilirsiniz."
 
 #: assets/templates/profile/token.jet.html:107
 msgid "HTTP Header"
-msgstr ""
+msgstr "HTTP Başlığı"
 
 # | msgid "Password"
 #: assets/templates/profile/token.jet.html:118
-#, fuzzy
 msgid "As a password"
-msgstr "Parola"
+msgstr "Şifre olarak"
 
 #: assets/templates/profile/token.jet.html:120
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
 msgstr ""
+"Alternatif olarak, bu token'ı HTTP Temel Kimlik Doğrulaması için şifre "
+"olarak kullanabilirsiniz."
 
 #: assets/templates/profile/token.jet.html:121
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
+"Örneğin, bir uygulama yalnızca kullanıcı adı ve şifre kabul ediyorsa, bu "
+"token'ı şifre olarak sağlayabilirsiniz.\r\n"
+"  Kullanıcı adı dikkate alınmaz ve herhangi bir değer, boş değer dahil olmak "
+"üzere olabilir."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
-msgstr ""
+msgstr "API Token'larım"
 
 #: assets/templates/profile/token_list.jet.html:16
 msgid ""
@@ -2055,493 +2099,498 @@ msgid ""
 "  An API Token is a key that grants you (or another tool like a browser extension)\n"
 "  access to the Readeck API.\n"
 msgstr ""
+"\n"
+"  Bir API Token'ı, size (veya bir tarayıcı eklentisi gibi başka bir araca)\r"
+"\n"
+"  Readeck API'sine erişim izni veren bir anahtardır.\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr ""
+"Kullanmayı planlıyorsanız lütfen <a href=\"%s\">API Dokümantasyonu</a>'nu "
+"okuyun."
 
 #: assets/templates/profile/token_list.jet.html:25
 msgid "Create a new API token"
-msgstr ""
+msgstr "Yeni bir API token'ı oluştur"
 
 #: assets/templates/profile/token_list.jet.html:49
 #, python-format
 msgid "Expires on: %s"
-msgstr ""
+msgstr "Son kullanma: %s"
 
 # | msgid "Created on: %s"
 #: assets/templates/profile/token_list.jet.html:53
-#, fuzzy, python-format
+#, python-format
 msgid "Last used on: %s"
-msgstr "Oluşturulma tarihi: %s"
+msgstr "Son kullanım: %s"
 
 #: assets/templates/profile/token_list.jet.html:61
 msgid "This token will be removed in a few seconds."
-msgstr ""
+msgstr "Bu token birkaç saniye içinde kaldırılacak."
 
 #: internal/admin/views.go:77
 msgid "User created."
-msgstr ""
+msgstr "Kullanıcı oluşturuldu."
 
 #: internal/admin/views.go:116
 msgid "User updated."
-msgstr ""
+msgstr "Kullanıcı güncellendi."
 
 #: internal/auth/signin/forms.go:17
 msgid "Invalid user and/or password"
-msgstr ""
+msgstr "Geçersiz kullanıcı ve/veya şifre"
 
 # | msgid "Password recovery"
 #: internal/auth/users/forms.go:68
-#, fuzzy
 msgid "password is empty"
-msgstr "Parola kurtarma"
+msgstr "şifre boş"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
-msgstr ""
+msgstr "Yer İmleri: Salt Okunur"
 
 #: internal/auth/users/forms.go:206
 msgid "Bookmarks : Write Only"
-msgstr ""
+msgstr "Yer İmleri: Salt Yazılır"
 
 #: internal/auth/users/forms.go:207
 msgid "Admin : Read Only"
-msgstr ""
+msgstr "Yönetici: Salt Okunur"
 
 #: internal/auth/users/forms.go:208
 msgid "Admin : Write Only"
-msgstr ""
+msgstr "Yönetici: Salt Yazılır"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "HTML içeriği okunamıyor"
 
 #: internal/bookmarks/importer/goodlinks.go:40
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "GoodLinks Dışa Aktarma Dosyası"
 
 #: internal/bookmarks/importer/importer.go:47
 msgid "Empty or invalid import file"
-msgstr ""
+msgstr "Boş veya geçersiz içe aktarma dosyası"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Geçersiz API Anahtarı"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "Readwise Reader CSV"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
-msgstr ""
+msgstr "Geçersiz URL"
 
 #: internal/bookmarks/importer/wallabag.go:262
 msgid "Invalid credentials"
-msgstr ""
+msgstr "Geçersiz kimlik bilgileri"
 
 #: internal/bookmarks/importer/wallabag.go:273
 msgid "No access token found"
-msgstr ""
+msgstr "Erişim token'ı bulunamadı"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:143
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Girdi verisi işlenemiyor"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:506
 msgid "Article"
-msgstr ""
+msgstr "Makale"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:507
 msgid "Picture"
-msgstr ""
+msgstr "Resim"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:508
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:515
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Görüntülenmemiş"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:516
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "Devam Ediyor"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:517
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Tamamlandı"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:744
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Eklenme, en yeniden eskiye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:745
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Eklenme, eskiden yeniye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:746
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Yayınlanma, en yeniden eskiye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:747
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Yayınlanma, eskiden yeniye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:748
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Başlık, A'dan Z'ye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:749
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Başlık, Z'den A'ya"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:750
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Site Adı, A'dan Z'ye"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:751
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Site Adı, Z'den A'ya"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:752
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Süre, en kısadan uzuna"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:753
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Süre, en uzundan kısaya"
 
 #: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Readeck Yer İmleri"
 
 #: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Readeck Yer İmi Koleksiyonları"
 
 #: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Readeck Koleksiyonu: %s"
 
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr ""
+msgstr "Koleksiyon e-kitabı - %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
-msgstr ""
+msgstr "Koleksiyona göz at: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
-msgstr ""
+msgstr "Tüm Yer İmleriniz"
 
 #: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
-msgstr ""
+msgstr "Yer İmi Arama"
 
 #: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
 msgid "Unread Bookmarks"
-msgstr ""
+msgstr "Okunmamış Yer İmleri"
 
 #: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
 msgid "Archived Bookmarks"
-msgstr ""
+msgstr "Arşivlenmiş Yer İmleri"
 
 #: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
-msgstr ""
+msgstr "Favori Yer İmleri"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
-msgstr ""
+msgstr "Koleksiyon güncellendi."
 
 #: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
-msgstr ""
+msgstr "İlerleme"
 
 #: internal/opds/http.go:71
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Tüm Yer İmleri"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "İçe aktarma dosyası yalnızca bir kullanıcı içermelidir"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "geçersiz kullanıcı adı ve/veya e-posta"
 
 #: internal/profile/forms.go:40
 msgid "invalid password"
-msgstr ""
+msgstr "geçersiz şifre"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "kullanıcı adı eşleşmiyor"
 
 #: internal/profile/views.go:81
 msgid "Profile updated."
-msgstr ""
+msgstr "Profil güncellendi."
 
 #: internal/profile/views.go:117
 msgid "Your password was changed."
-msgstr ""
+msgstr "Şifreniz değiştirildi."
 
 #: internal/profile/views.go:189
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Token'ınız oluşturulurken bir hata oluştu."
 
 #: internal/profile/views.go:194
 msgid "New token created."
-msgstr ""
+msgstr "Yeni token oluşturuldu."
 
 #: internal/profile/views.go:213
 msgid "Token was updated."
-msgstr ""
+msgstr "Token güncellendi."
 
 #: internal/profile/views.go:303
 msgid "Profile imported."
-msgstr ""
+msgstr "Profil içe aktarıldı."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
-msgstr ""
+msgstr "beklenmeyen bir hata oluştu"
 
 #: pkg/forms/validators.go:18
 msgid "field is required"
-msgstr ""
+msgstr "alan zorunludur"
 
 #: pkg/forms/validators.go:20
 msgid "not a valid email address"
-msgstr ""
+msgstr "geçerli bir e-posta adresi değil"
 
 #: pkg/forms/validators.go:22
 msgid "invalid URL"
-msgstr ""
+msgstr "geçersiz URL"
 
 #: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
-msgstr ""
+msgstr "%d değerinden büyük veya eşit olmalıdır"
 
 #: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
-msgstr ""
+msgstr "%d değerinden küçük veya eşit olmalıdır"
 
 #: pkg/forms/validators.go:398
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "%v  %s değerlerinden biri değil"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Pazar"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Pazartesi"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Salı"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Çarşamba"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Perşembe"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "Cuma"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Cumartesi"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "Paz"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "Pzt"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "Sal"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "Çar"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "Per"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "Cum"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "Cmt"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "Ocak"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "Şubat"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "Mart"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "Nisan"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "Mayıs"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "Haziran"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "Temmuz"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "Ağustos"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "Eylül"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "Ekim"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "Kasım"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "Aralık"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr ""
+msgstr "Oca"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr ""
+msgstr "Şub"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr ""
+msgstr "Nis"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr ""
+msgstr "May"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr ""
+msgstr "Haz"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr ""
+msgstr "Tem"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr ""
+msgstr "Ağu"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr ""
+msgstr "Eyl"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr ""
+msgstr "Eki"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr "Şuan"
+msgstr "Kas"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr ""
+msgstr "Ara"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
@@ -2557,18 +2606,18 @@ msgstr "ö.s."
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr ""
+msgstr "%a %b %e %H:%M:%S %y"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%d/%m/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
-msgstr ""
+msgstr "%H:%M:%S"
 
 #~ msgid "Unabled to read HTML content"
 #~ msgstr ""
