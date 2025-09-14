@@ -8,7 +8,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
 "PO-Revision-Date: 2025-09-15 19:09+0000\n"
-"Last-Translator: cdprf <cdprf@noreply.codeberg.org>\n"
+"Last-Translator: eih <eih@noreply.codeberg.org>\n"
 "Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
 "application/tr/>\n"
 "Language: tr_TR\n"
@@ -79,12 +79,12 @@ msgstr "Ay(lar)"
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
-msgstr "Yıl(lar)"
+msgstr "Yıllar"
 
 #: assets/templates/_libs/forms.jet.html:227
 msgctxt "word"
 msgid "or"
-msgstr "veya"
+msgstr "ya da"
 
 #: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
@@ -101,7 +101,7 @@ msgstr "Önceki sayfaya git"
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr "Şu sayfaya git %d"
+msgstr "%d. sayfaya git"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
