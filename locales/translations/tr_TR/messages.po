@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-07-04 21:08+0000\n"
-"Last-Translator: misketmuskat <misketmuskat@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-09-14 18:10+0000\n"
+"Last-Translator: cdprf <cdprf@noreply.codeberg.org>\n"
+"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
+"application/tr/>\n"
 "Language: tr_TR\n"
-"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -454,7 +456,7 @@ msgstr "Tekrar hatırlatma"
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #, fuzzy
 msgid "Close dialog"
-msgstr "Paneli kapat"
+msgstr "İletişim kutusunu kapat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
@@ -740,19 +742,16 @@ msgid "Remove Highlight(s)"
 msgstr "Vurgulamaları Kaldır"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Menüyü kapat"
+msgstr "Kapat"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Ana Sayfa"
+msgstr "Görseli Görüntüle"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Videolar"
+msgstr "Videoyu Oynat"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -776,9 +775,8 @@ msgstr "Vurgula"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Bağlantıyı kopyala"
+msgstr "Seçimi kopyala"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -972,10 +970,13 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          Hataya bağlı olarak Readeck'in tarayıcı eklentisi bir çözüm "
+"sağlayabilir."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
 msgid "View log"
-msgstr ""
+msgstr "Günlüğü görüntüle"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
@@ -2535,7 +2536,7 @@ msgstr ""
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr ""
+msgstr "Şuan"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
@@ -2545,12 +2546,12 @@ msgstr ""
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr ""
+msgstr "ö.ö."
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr ""
+msgstr "ö.s."
 
 #: pkg/strftime/strftime.go:75
 #, python-format
@@ -2692,4 +2693,3 @@ msgstr ""
 
 #~ msgid "Close image"
 #~ msgstr "Menüyü kapat"
-
