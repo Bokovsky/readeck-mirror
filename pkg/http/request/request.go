@@ -148,6 +148,9 @@ func InitRequest(trustedProxies ...*net.IPNet) func(next http.Handler) http.Hand
 				cu = &url.URL{}
 				*cu = *r.URL
 				cu.Scheme = "http"
+				if r.TLS != nil {
+					cu.Scheme = "https"
+				}
 				cu.Host = r.Host
 
 				isForwarded := forwarded.IsForwarded(r.Header)
