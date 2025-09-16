@@ -16,6 +16,10 @@ from urllib.error import HTTPError
 SITE_CONFIG_REPO = "https://github.com/j0k3r/graby-site-config.git"
 
 
+def versiontuple(v):
+    return tuple(map(int, (v.split("."))))
+
+
 @contextmanager
 def branch(name: str):
     check_call(["git", "checkout", "-B", name])
@@ -74,6 +78,21 @@ def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
     except HTTPError as e:
         if e.status != 409:
             raise
+
+
+def update_go_version():
+    data = check_output(["go", "mod", "edit", "-json"])
+    current = json.loads(data)["Go"]
+
+    rsp = request.urlopen("https://go.dev/VERSION?m=text")
+    latest = rsp.readline().decode().strip().lstrip("go")
+    rsp.close()
+
+    cv = versiontuple(current)
+    lv = versiontuple(latest)
+
+    if lv > cv and lv[1] == cv[1]:
+        check_call(["go", "mod", "edit", f"-go={latest}"])
 
 
 def update_go_dependencies():
@@ -142,6 +161,7 @@ def main():
     print(f"REPOSITORY: {repository}")
 
     with branch("chore/updates") as branch_name:
+        update_go_version()
         update_go_dependencies()
         commit_changes(
             ["go.mod", "go.sum"],
