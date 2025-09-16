@@ -1,6 +1,6 @@
 module codeberg.org/readeck/readeck
 
-go 1.25.0
+go 1.25.1
 
 require (
 	codeberg.org/readeck/go-readability v0.0.0-20250814140457-fb0fbc5a8e33
@@ -12,7 +12,7 @@ require (
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
-	github.com/casbin/casbin/v2 v2.122.0
+	github.com/casbin/casbin/v2 v2.123.0
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20250630131328-58d95d85e994
 	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
@@ -39,17 +39,17 @@ require (
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.11.1
 	github.com/tdewolff/parse/v2 v2.8.3
-	github.com/wneessen/go-mail v0.6.2
+	github.com/wneessen/go-mail v0.7.0
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-meta v1.1.0
 	golang.org/x/crypto v0.42.0
 	golang.org/x/image v0.31.0
-	golang.org/x/net v0.43.0
+	golang.org/x/net v0.44.0
 	golang.org/x/sync v0.17.0
 	golang.org/x/term v0.35.0
 	golang.org/x/text v0.29.0
 	gopkg.in/yaml.v3 v3.0.1
-	modernc.org/sqlite v1.38.2
+	modernc.org/sqlite v1.39.0
 )
 
 require (
@@ -87,10 +87,10 @@ require (
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
-	go.yaml.in/yaml/v2 v2.4.2 // indirect
-	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
+	go.yaml.in/yaml/v2 v2.4.3 // indirect
+	golang.org/x/exp v0.0.0-20250911091902-df9299821621 // indirect
 	golang.org/x/sys v0.36.0 // indirect
-	google.golang.org/protobuf v1.36.8 // indirect
+	google.golang.org/protobuf v1.36.9 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
 	gopkg.in/hlandau/passlib.v1 v1.0.11 // indirect
