@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.20.3] - 2025-09-16
+### Changed
+- Updated Go to 1.25.1
+
 ## [0.20.2] - 2025-09-09
 ### Fixed
 - Restored CSRF protection exemption for token authenticated requests
