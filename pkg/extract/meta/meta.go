@@ -9,6 +9,7 @@ package meta
 import (
 	"fmt"
 	"log/slog"
+	"maps"
 	"regexp"
 	"strings"
 
@@ -34,8 +35,8 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 	// Set raw meta
 	d := m.Extractor.Drop()
-	d.Meta = ParseMeta(m.Dom)
-	d.Properties = ParseProps(m.Dom)
+	maps.Copy(d.Meta, ParseMeta(m.Dom))
+	maps.Copy(d.Properties, ParseProps(m.Dom))
 
 	// Set some values
 	d.Title = d.Meta.LookupGet(

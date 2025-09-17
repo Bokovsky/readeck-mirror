@@ -70,7 +70,7 @@ declare namespace contentScript {
 
   interface Message {
     meta: { [key: string]: string[] }
-    properties: Readonly<{ [key: string]: any }>
+    properties: { [key: string]: any }
 
     /**
      * The domain of the current extraction. Note that it's different from the host name.

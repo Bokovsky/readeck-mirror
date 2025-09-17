@@ -4,7 +4,7 @@
     "target": "es5",
     "allowUmdGlobalAccess": false,
     "checkJs": true,
-    "lib": ["ES2015", "ES2015.Core"],
+    "lib": ["ES2017", "ES2015.Core"],
     "noImplicitAny": true,
     "removeComments": true,
     "preserveConstEnums": true,

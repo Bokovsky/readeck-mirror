@@ -109,6 +109,10 @@ $.meta["html.title"] = "new title" // valid
 $.meta["html.author"] = ["someone", "someone else"] // valid
 ```
 
+#### `$.properties`
+
+This variable is an object that holds arbitrary values. You can use it to store a value in one step and retrieve it in another. The value is eventually stored in the final archive file.
+
 #### `$.authors`
 
 A list of found authors in the document.

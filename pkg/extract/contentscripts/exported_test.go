@@ -157,6 +157,48 @@ func TestExported(t *testing.T) {
 				[]string(nil),
 			},
 			{
+				`$.properties["test"]`,
+				func(value goja.Value, _ *extract.Drop) any {
+					return value.Export()
+				},
+				"test prop",
+			},
+			{
+				`"test" in $.properties`,
+				func(value goja.Value, _ *extract.Drop) any {
+					return value.Export()
+				},
+				true,
+			},
+			{
+				`"abc" in $.properties`,
+				func(value goja.Value, _ *extract.Drop) any {
+					return value.Export()
+				},
+				false,
+			},
+			{
+				`$.properties["abc"] = ["xyz", 123]`,
+				func(_ goja.Value, d *extract.Drop) any {
+					return d.Properties["abc"]
+				},
+				[]any{"xyz", int64(123)},
+			},
+			{
+				`Object.keys($.properties)`,
+				func(value goja.Value, _ *extract.Drop) any {
+					return value.Export()
+				},
+				[]any{"test"},
+			},
+			{
+				`delete($.properties["test"])`,
+				func(_ goja.Value, d *extract.Drop) any {
+					return d.Properties["test"]
+				},
+				nil,
+			},
+			{
 				`
 				const xml = '<test><item id="a">T1</item><item id="b">T2</item></test>'
 				decodeXML(xml)
@@ -179,6 +221,7 @@ func TestExported(t *testing.T) {
 			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				extractor, _ := extract.New("https://host.example.net/")
 				extractor.Drop().Meta["test"] = []string{"test value"}
+				extractor.Drop().Properties["test"] = "test prop"
 				extractor.Drop().Authors = []string{"jack"}
 				extractor.Drop().Description = "content description"
 				extractor.Drop().Title = "content title"
