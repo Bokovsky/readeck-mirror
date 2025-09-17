@@ -19,8 +19,6 @@
 ### Fixed
 - make CSRF protection compatible with the browser add-on
 
-###
-
 ## [0.20.0] - 2025-08-30
 ### Added
 - autocomplete on title, author, site and label in filter form
