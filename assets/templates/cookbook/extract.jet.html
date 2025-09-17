@@ -109,7 +109,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- range k, v := orderMap(.Result.Properties) -}}
       <tr>
         <th class="whitespace-nowrap">{{ k }}</th>
-        <td class="text-xs"><pre class="whitespace-pre-wrap">{{ v|niceJSON }}</pre></td>
+        <td class="text-xs"><pre class="whitespace-pre-wrap">{{ v|json(true) }}</pre></td>
       </tr>
     {{- end -}}
     </table>
