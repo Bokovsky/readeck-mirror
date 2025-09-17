@@ -42,6 +42,9 @@ func registerExported(vm *Runtime) (err error) {
 	if err = vm.Set("escapeHTML", html.EscapeString); err != nil {
 		return
 	}
+	if err = vm.Set("unescapeHTML", html.UnescapeString); err != nil {
+		return
+	}
 	return
 }
 

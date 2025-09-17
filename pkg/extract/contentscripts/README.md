@@ -141,6 +141,30 @@ Please note that even though readability can be disabled, it won't disable the l
 
 This overrides the site's configuration. It can be used in a context where a pages is retrieved from an archive mirror but you want to apply its original configuration. `cfg` is the original configuration and `src` is the URL used to lookup for the given configuration.
 
+### escapeHTML
+
+```js
+/**
+ * @param {string} value - input HTML
+ * @return {string}
+ */
+function escapeHTML(value)
+```
+
+This function escapes HTML entities from value.
+
+### unescapeHTML
+
+```js
+/**
+ * @param {string} value - input HTML
+ * @return {string}
+ */
+function unescapeHTML(value)
+```
+
+This function unescapes HTML entities from value.
+
 ### unescapeURL
 
 ```js
