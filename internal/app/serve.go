@@ -133,6 +133,11 @@ func runServer(_ context.Context, args []string) error {
 		ReadHeaderTimeout: time.Second * 5,
 	}
 	var listenURL *url.URL
+	serverURL := &url.URL{
+		Scheme: "http",
+		Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
+		Path:   urls.Prefix(),
+	}
 
 	// Start the HTTP server
 	go func() {
@@ -163,15 +168,23 @@ func runServer(_ context.Context, args []string) error {
 			listenURL = &url.URL{Scheme: "tcp", Host: srv.Addr}
 		}
 
-		// Wrap http/2 h2c
-		h2 := &http2.Server{}
-		srv.Handler = h2c.NewHandler(srv.Handler, h2)
-		if err := http2.ConfigureServer(srv, h2); err != nil {
-			fatal("cannot configure server", err)
+		ready <- true
+		var err error
+		if configs.Config.Server.CertFile != "" && configs.Config.Server.KeyFile != "" {
+			serverURL.Scheme = "https"
+			err = srv.ServeTLS(ln, configs.Config.Server.CertFile, configs.Config.Server.KeyFile)
+		} else {
+			// Wrap http/2 h2c
+			h2 := &http2.Server{}
+			srv.Handler = h2c.NewHandler(srv.Handler, h2)
+			if err := http2.ConfigureServer(srv, h2); err != nil {
+				fatal("cannot configure server", err)
+			}
+
+			err = srv.Serve(ln)
 		}
 
-		ready <- true
-		if err := srv.Serve(ln); err != nil {
+		if err != nil {
 			if err == http.ErrServerClosed {
 				slog.Info("stopping server...")
 				return
@@ -185,11 +198,6 @@ func runServer(_ context.Context, args []string) error {
 	if listenURL.Scheme == "unix" {
 		slog.Info("server started", slog.String("addr", listenURL.String()))
 	} else {
-		serverURL := &url.URL{
-			Scheme: "http",
-			Host:   fmt.Sprintf("%s:%d", configs.Config.Server.Host, configs.Config.Server.Port),
-			Path:   urls.Prefix(),
-		}
 		switch serverURL.Hostname() {
 		case "0.0.0.0", "127.0.0.1", "::", "::1":
 			serverURL.Host = fmt.Sprintf("localhost:%d", configs.Config.Server.Port)

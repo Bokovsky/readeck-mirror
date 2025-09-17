@@ -66,6 +66,8 @@ type configServer struct {
 	Prefix         string        `json:"prefix" env:"SERVER_PREFIX"`
 	TrustedProxies []configIPNet `json:"trusted_proxies" env:"TRUSTED_PROXIES,unset"`
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
+	CertFile       string        `json:"cert_file" env:"CERT_FILE"`
+	KeyFile        string        `json:"key_file" env:"KEY_FILE"`
 	Session        configSession `json:"session"`
 }
 
