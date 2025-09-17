@@ -4,6 +4,9 @@
 ### Added
 - HTTPS listener with certificate/key pair
 
+### Fixed
+- Reddit content-script, by [@linsui](https://codeberg.org/linsui)
+
 ## [0.20.3] - 2025-09-16
 ### Changed
 - Updated Go to 1.25.1

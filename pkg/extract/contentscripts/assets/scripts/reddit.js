@@ -3,114 +3,164 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 
 /**
+ * Subset of data received by reddit JSON endpoint.
+ *
+ * @typedef {{
+ *  author: string,
+ *  created_utc: number,
+ *  domain: string,
+ *  is_self: boolean,
+ *  selftext_html: string,
+ *  title: string,
+ *  url: string,
+ *  gallery_data?: {
+ *    items: Array<{
+ *      id: number,
+ *      media_id: string,
+ *    }>,
+ *  },
+ *  media?: {
+ *    reddit_video?: {
+ *      duration: number,
+ *      hls_url: string,
+ *    }
+ *  },
+ *  media_metadata?: Record<string, {
+ *    e: string,
+ *    s: {
+ *      u: string,
+ *      x: number,
+ *      y: number,
+ *    },
+ *  }>,
+ *  preview?: {
+ *   images: Array<{
+ *    id: string,
+ *    source: {
+ *     url: string,
+ *    },
+ *   }>
+ *  },
+ * }} redditData
+ */
+
+/**
  * @returns {boolean}
  */
 exports.isActive = function () {
-  return $.domain == "reddit.com"
+  return $.domain == "reddit.com" && !!new URL($.url).pathname.match(/^\/r\//)
 }
 
-exports.processMeta = function () {
-  // Any reddit post provides a JSON payload when you add
-  // a ".json" extension to it. Pretty neat.
+/**
+ * @param {Config} config
+ */
+exports.setConfig = function (config) {
+  // Discard the reddit site config
+  $.overrideConfig(config, "")
+}
+
+/**
+ * @param {Node} document
+ */
+exports.documentLoaded = (document) => {
   const url = new URL($.url)
   url.pathname += ".json"
-
-  let rsp = requests.get(url)
+  const rsp = requests.get(url)
   rsp.raiseForStatus()
-  const data = rsp.json()
-  const basePost = data[0]?.data?.children[0]?.data
-  if (!basePost) {
-    return
-  }
-  const postID = basePost.name
 
-  const postURL = `https://gateway.reddit.com/desktopapi/v1/postcomments/${postID}`
-  rsp = requests.get(postURL)
-  rsp.raiseForStatus()
-  const post = rsp.json().posts?.[postID]
+  /** @type {redditData} */
+  const data = rsp.json()[0]?.data?.children[0]?.data
 
-  let html = ""
+  $.properties["json"] = data
 
   // Get the title
-  if (post.title) {
-    $.title = post.title
+  if (data.title) {
+    $.title = data.title
+    $.meta["graph.title"] = [$.title]
   }
 
   // Get the author
-  if (post.author) {
-    $.author = post.author
+  if (data.author) {
+    $.authors = [data.author]
   }
 
-  // Get any content first
-  if (post.media?.content) {
-    html += post.media.content
+  // Set date
+  if (data.created_utc) {
+    $.meta["html.date"] = [new Date(data.created_utc * 1000).toISOString()]
   }
 
-  // Check if there is a preview first
-  const preview = findPreview(post)
+  // Load HTML content first
+  let html = "<!-- -->"
+  if (data.selftext_html) {
+    html = unescapeHTML(data.selftext_html)
+  }
+
+  // Get preview image
+  const preview = findPreview(data)
   if (preview) {
-    $.meta["x.picture_url"] = [preview]
+    $.meta["x.picture_url"] = [unescapeHTML(preview)]
   }
 
-  if (post.media?.type == "image" && preview) {
-    // We have a picture !
-    // Since we fetched the preview first, we only need to set the bookmark type.
+  if (data.domain == "i.redd.it") {
+    // Single image
+    // https://www.reddit.com/r/catstairs/comments/1nhmpt9/a_pet_as_you_pass_pls/
+    // https://www.reddit.com/r/EarthPorn/comments/1nj04yr/golden_layers_southern_californiaoc_3000x1839/
     $.type = "photo"
-    $.description = ""
-    html = ""
-  } else if (post.media?.type == "gallery" && post.media?.gallery?.items) {
-    // Picture gallery. We'll create an HTML content with a link to all images.
-    // They'll be saved during the extraction process
-    const items = post.media.gallery.items
+    $.meta["x.picture_url"] = [data.url]
+  } else if (data.media?.reddit_video?.hls_url) {
+    // Video
+    // https://www.reddit.com/r/cats/comments/1nid3kk/michelle/
+    // https://www.reddit.com/r/nextfuckinglevel/comments/1nidkkb/incredible_pirates_of_the_caribbean_parade_float/
+    $.type = "video"
+    $.meta["oembed.html"] = [
+      `<hls src="${data.media.reddit_video.hls_url}"></hls>`,
+    ]
+    $.meta["x.duration"] = [String(data.media.reddit_video.duration)]
+  } else if (!!data.gallery_data?.items) {
+    // Image gallery
+    // https://www.reddit.com/r/pics/comments/1nciozc/oc_leaflets_ordering_residents_to_immediately/
+    // https://www.reddit.com/r/cats/comments/1neucd9/i_made_bio_sheets_for_our_catsitter/
+    // https://www.reddit.com/r/cats/comments/1m8fhyq/is_my_cat_okay/
+    const images = data.gallery_data.items
       .map((item) => {
-        const img = (
-          post.media.mediaMetadata?.[item.mediaId]?.p || []
-        ).findLast(() => true)
-        if (!img) {
-          return ""
-        }
-        return img.u
+        const img = data.media_metadata?.[item.media_id]?.s?.u
+        return img
       })
-      .filter((src) => src)
+      .filter((item) => !!item)
 
-    if (items.length > 0) {
-      $.meta["x.picture_url"] = items[0]
+    for (let img of images) {
+      html += `\n<figure><img src="${img}" alt=""></figure>`
     }
 
-    html += items
-      .map((src) => {
-        return `<figure><img alt="" src="${src}"></figure>`
-      })
-      .join("\n")
-    $.readability = false
-  } else if (post.media?.type == "video" && post.media?.hlsUrl && preview) {
-    // Set an HLS embed when we've got an HLS URL and a preview picture
-    $.type = "video"
-    $.meta["oembed.html"] = `<hls src="${post.media?.hlsUrl}"></hls>`
-  } else if (post.media?.type == "video") {
-    // Fallback to a link to the post
-    $.type = "video"
-    html += `<p><a href="${post.permalink}">Original Reddit Video</a></p>`
-    $.readability = false
-  } else if (post.source?.url) {
-    html += `<p>Link to <a href="${post.source.url}">${
-      post.source.displayText || post.source.url
-    }</a></p>`
+    if (images.length > 0) {
+      $.meta["x.picture_url"] = [unescapeHTML(images[0])]
+    }
+  } else if (!data.is_self) {
+    // Not a self post, get the link
+    // https://www.reddit.com/r/UplifitingNews/comments/8mh3pt/dog_adopts_nine_orphaned_ducklings/
+    html += `<p>Link to <a href="${data.url}">${data.url}</a></p>`
   }
 
-  if (html != "") {
-    $.html = `<section id="main">${html}</section>`
-  }
+  document.body.innerHTML = html
+  $.readability = false
 }
 
-function findPreview(post) {
-  // The last preview is the biggest
-  let img = (post.media?.resolutions || []).findLast(() => true)
-  if (!img) {
-    img = post.preview
+/**
+ *
+ * @param {redditData} data
+ * @returns {string | undefined}
+ */
+function findPreview(data) {
+  if (data.preview?.images[0]?.source?.url) {
+    return unescapeHTML(data.preview?.images[0]?.source?.url)
   }
 
-  if (img) {
-    return unescapeURL(img.url)
+  if (data.media_metadata) {
+    const img = Object.entries(data.media_metadata).find(([_, o]) => {
+      return !!o.e && o.e.toLowerCase() == "image" && !!o.s?.u
+    })[1].s.u
+    if (img) {
+      return unescapeHTML(img)
+    }
   }
 }
