@@ -42,6 +42,9 @@ func registerExported(vm *Runtime) (err error) {
 	if err = vm.Set("escapeHTML", html.EscapeString); err != nil {
 		return
 	}
+	if err = vm.Set("unescapeHTML", html.UnescapeString); err != nil {
+		return
+	}
 	return
 }
 
@@ -64,10 +67,7 @@ func newProcessMessageProxy(vm *Runtime) (*goja.Object, error) {
 	if err := obj.Set("meta", newDropMetaProxyObj(vm)); err != nil {
 		return nil, err
 	}
-	if err := obj.DefineAccessorProperty(
-		"properties", vm.ToValue(p.getProperties), nil,
-		goja.FLAG_FALSE, goja.FLAG_FALSE,
-	); err != nil {
+	if err := obj.Set("properties", newPropertiesProxyObj(vm)); err != nil {
 		return nil, err
 	}
 	if err := obj.DefineAccessorProperty(
@@ -148,10 +148,6 @@ func (p *processMessageProxy) getProcessMessage() *extract.ProcessMessage {
 		return pm
 	}
 	panic(p.vm.ToValue("no extractor"))
-}
-
-func (p *processMessageProxy) getProperties() map[string]any {
-	return p.getDrop().Properties
 }
 
 func (p *processMessageProxy) getDomain() string {
@@ -299,6 +295,51 @@ func (m *dropMetaProxy) Delete(key string) bool {
 func (m *dropMetaProxy) Keys() []string {
 	keys := []string{}
 	for k := range m.meta() {
+		keys = append(keys, k)
+	}
+	slices.Sort(keys)
+	return keys
+}
+
+type propertiesProxy struct {
+	vm *Runtime
+}
+
+func newPropertiesProxyObj(vm *Runtime) *goja.Object {
+	return vm.NewDynamicObject(&propertiesProxy{vm})
+}
+
+func (p *propertiesProxy) props() extract.DropProperties {
+	if pm := p.vm.getProcessMessage(); pm != nil {
+		return pm.Extractor.Drop().Properties
+	}
+	panic(p.vm.ToValue("no extractor"))
+}
+
+func (p *propertiesProxy) Get(key string) goja.Value {
+	return p.vm.ToValue(p.props()[key])
+}
+
+func (p *propertiesProxy) Set(key string, val goja.Value) bool {
+	v := val.Export()
+	p.props()[key] = v
+	p.vm.GetLogger().Debug("set property", slog.String("key", key))
+	return true
+}
+
+func (p *propertiesProxy) Has(key string) bool {
+	_, ok := p.props()[key]
+	return ok
+}
+
+func (p *propertiesProxy) Delete(key string) bool {
+	delete(p.props(), key)
+	return true
+}
+
+func (p *propertiesProxy) Keys() []string {
+	keys := []string{}
+	for k := range p.props() {
 		keys = append(keys, k)
 	}
 	slices.Sort(keys)

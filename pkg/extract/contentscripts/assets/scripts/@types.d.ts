@@ -10,6 +10,7 @@ declare global {
   var unescapeURL: contentScript.unescapeURL
   var decodeXML: contentScript.decodeXML
   var escapeHTML: contentScript.escapeHTML
+  var unescapeHTML: contentScript.unescapeHTML
 
   var URL = url.URL
   var URLSearchParams = url.URLSearchParams
@@ -24,6 +25,7 @@ declare namespace contentScript {
   type unescapeURL = (url: string) => string
   type decodeXML = (s: string) => { [key: string]: any }
   type escapeHTML = (s: string) => string
+  type unescapeHTML = (s: string) => string
 
   interface Config {
     /** XPath selectors for the document title. */
@@ -68,7 +70,7 @@ declare namespace contentScript {
 
   interface Message {
     meta: { [key: string]: string[] }
-    properties: Readonly<{ [key: string]: any }>
+    properties: { [key: string]: any }
 
     /**
      * The domain of the current extraction. Note that it's different from the host name.

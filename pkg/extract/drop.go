@@ -69,10 +69,11 @@ type Drop struct {
 // NewDrop returns a Drop instance.
 func NewDrop(src *url.URL) *Drop {
 	d := &Drop{
-		Meta:     DropMeta{},
-		Authors:  []string{},
-		Body:     []byte{},
-		Pictures: map[string]*Picture{},
+		Meta:       DropMeta{},
+		Properties: DropProperties{},
+		Authors:    []string{},
+		Body:       []byte{},
+		Pictures:   map[string]*Picture{},
 	}
 	d.SetURL(src)
 	return d
