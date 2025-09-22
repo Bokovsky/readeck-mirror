@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-09-08 06:09+0000\n"
-"Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-09-23 22:09+0000\n"
+"Last-Translator: Ninguem <ninguem@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
 "projects/readeck/documentation/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.12.2\n"
+"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -403,7 +403,7 @@ msgstr ""
 
 #: en-US/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr ""
+msgstr "A vista de marcadores é dividida em 3 secções:"
 
 #: en-US/bookmark.md:10
 msgid ""
@@ -423,10 +423,14 @@ msgstr ""
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
 msgstr ""
+"No cimo da vista de marcadores, uma ligação trás-te de volta para a página "
+"anterior."
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
 msgstr ""
+"Se o marcador contiver um artigo, o botão do lado oposto permite alterar "
+"algumas configurações tipográficas."
 
 #: en-US/bookmark.md:36
 msgid ""
@@ -442,7 +446,7 @@ msgstr ""
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
-msgstr ""
+msgstr "## Alterar o título"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
@@ -450,35 +454,37 @@ msgstr ""
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
-msgstr ""
+msgstr "## Ações"
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr ""
+msgstr "Na barra lateral do marcador, podes escolher ações."
 
 #: en-US/bookmark.md:52
 msgid "### Favorite"
-msgstr ""
+msgstr "### Favorito"
 
 #: en-US/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr ""
+msgstr "Isto alterna o estado de favorito no estado do marcador."
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr ""
+msgstr "### Arquivo"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr ""
+msgstr "Isto move o marcador para o arquivo (ou remove-o de lá)."
 
 #: en-US/bookmark.md:60
 msgid "### Share"
-msgstr ""
+msgstr "### Partilha"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
 msgstr ""
+"O botão de partilha abre um menú que permite criar uma ligação, se quiseres "
+"partilhar o artigo com alguém."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
