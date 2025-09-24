@@ -30,19 +30,18 @@ var roleMap = map[string]string{
 // and a [User]. When the user is nil, returns all the available groups.
 func GroupList(tr translator, name string, user *User) [][2]string {
 	res := [][2]string{}
-	if groups, err := acls.ListGroups(name); err == nil {
-		for _, g := range groups {
-			if user != nil && !acls.InGroup(g, user.Group) {
-				continue
-			}
-
-			label := g
-			if n, ok := roleMap[g]; ok {
-				label = tr.Pgettext("role", n)
-			}
-
-			res = append(res, [2]string{g, label})
+	groups := acls.ListGroups(name)
+	for _, g := range groups {
+		if user != nil && !acls.InGroup(g, user.Group) {
+			continue
 		}
+
+		label := g
+		if n, ok := roleMap[g]; ok {
+			label = tr.Pgettext("role", n)
+		}
+
+		res = append(res, [2]string{g, label})
 	}
 
 	return res

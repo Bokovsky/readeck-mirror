@@ -168,7 +168,7 @@ func TestAPI(t *testing.T) {
 							"is_bound": true,
 							"is_null": false,
 							"value": "foo",
-							"errors": ["foo is not one of none, user, staff, admin"]
+							"errors": ["foo is not one of none, admin, staff, user"]
 						},
 						"password": {
 							"is_bound": false,

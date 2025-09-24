@@ -1,8 +1,8 @@
-// SPDX-FileCopyrightText: © 2023 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package acls_test
+package acls
 
 import (
 	"bytes"
@@ -11,7 +11,6 @@ import (
 	"strings"
 	"testing"
 
-	"codeberg.org/readeck/readeck/internal/acls"
 	"github.com/stretchr/testify/require"
 )
 
@@ -73,18 +72,27 @@ g, admin, /*/admin/*
 g, admin, /*/cookbook/*
 
 # scopes
+g, scoped_bookmarks_r, __token__
+g, scoped_bookmarks_r, __oauth__
 g, scoped_bookmarks_r, api_common
 g, scoped_bookmarks_r, /api/bookmarks/read
 g, scoped_bookmarks_r, /api/bookmarks/export
 g, scoped_bookmarks_r, /api/bookmarks/collections/read
 g, scoped_bookmarks_r, /api/opds/read
 g, scoped_bookmarks_r, /web/bookmarks/read
+
+g, scoped_bookmarks_w, __token__
+g, scoped_bookmarks_w, __oauth__
 g, scoped_bookmarks_w, api_common
 g, scoped_bookmarks_w, /api/bookmarks/write
 g, scoped_bookmarks_w, /api/bookmarks/collections/write
+
+g, scoped_admin_r, __token__
 g, scoped_admin_r, api_common
 g, scoped_admin_r, /api/admin/read
 g, scoped_admin_r, /system/read
+
+g, scoped_admin_w, __token__
 g, scoped_admin_w, api_common
 g, scoped_admin_w, /api/admin/write
 `))
@@ -127,19 +135,25 @@ func TestCheckPermission(t *testing.T) {
 		{"user", "bookmarks", "read", true},
 		{"", "bookmarks", "read", false},
 
+		{"scoped_bookmarks_r", "api:bookmarks", "read", true},
+		{"scoped_bookmarks_r", "api:bookmarks", "write", false},
+		{"scoped_bookmarks_w", "api:bookmarks", "read", false},
+		{"scoped_bookmarks_w", "api:bookmarks", "write", true},
+
 		{"admin", "email", "send", true},
 		{"staff", "email", "send", true},
 		{"user", "email", "send", true},
 		{"", "email", "send", true},
+
+		{"unknown", "email", "send", false},
 	}
 
-	enforcer, err := acls.NewEnforcer(basePolicy())
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(t, err)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%s-%s-%s", test.Group, test.Obj, test.Act), func(t *testing.T) {
-			res, err := enforcer.Enforce(test.Group, test.Obj, test.Act)
-			require.NoError(t, err)
+			res := policy.Enforce(test.Group, test.Obj, test.Act)
 			require.Equal(t, test.Expected, res)
 		})
 	}
@@ -176,13 +190,12 @@ func TestGetPermissions(t *testing.T) {
 		},
 	}
 
-	enforcer, err := acls.NewEnforcer(basePolicy())
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(t, err)
 
 	for _, test := range tests {
 		t.Run(strings.Join(test.Groups, ","), func(t *testing.T) {
-			res, err := enforcer.GetPermissions(test.Groups...)
-			require.NoError(t, err)
+			res := policy.GetPermissions(test.Groups...)
 			require.Equal(t, test.Expected, res)
 		})
 	}
@@ -196,57 +209,162 @@ func TestInGroup(t *testing.T) {
 	}{
 		{"user", "user", true},
 		{"user", "admin", true},
+		{"admin", "user", false},
 		{"scoped_bookmarks_r", "user", true},
 		{"scoped_admin_r", "user", false},
 		{"scoped_admin_r", "admin", true},
 	}
 
-	enforcer, err := acls.NewEnforcer(basePolicy())
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(t, err)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%s in %s", test.Src, test.Dest), func(t *testing.T) {
-			res := enforcer.InGroup(test.Src, test.Dest)
+			res := policy.InGroup(test.Src, test.Dest)
 			require.Equal(t, test.Expected, res)
 		})
 	}
 }
 
 func TestListGroups(t *testing.T) {
-	enforcer, err := acls.NewEnforcer(basePolicy())
+	tests := []struct {
+		parent   string
+		expected []string
+	}{
+		{
+			"__group__",
+			[]string{"admin", "staff", "user"},
+		},
+		{
+			"__token__",
+			[]string{"scoped_admin_r", "scoped_admin_w", "scoped_bookmarks_r", "scoped_bookmarks_w"},
+		},
+		{
+			"__oauth__",
+			[]string{"scoped_bookmarks_r", "scoped_bookmarks_w"},
+		},
+	}
+
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(t, err)
 
-	groups, err := enforcer.ListGroups("__group__")
+	for _, test := range tests {
+		t.Run(test.parent, func(t *testing.T) {
+			groups := policy.ListGroups(test.parent)
+			require.Equal(t, test.expected, groups)
+		})
+	}
+}
+
+func TestLoad(t *testing.T) {
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(t, err)
 
-	require.Equal(t, []string{"user", "staff", "admin"}, groups)
+	for name, role := range policy {
+		println(">>", name)
+		for g := range role.Parents {
+			println("  G:", g)
+		}
+		for _, p := range role.ListPermissions() {
+			println("   -", p)
+		}
+	}
+}
+
+func TestDeletePermission(t *testing.T) {
+	assert := require.New(t)
+
+	policy, err := LoadPolicy(basePolicy())
+	assert.NoError(err)
+
+	assert.True(policy.Enforce("user", "email", "send"))
+	assert.True(policy.Enforce("", "email", "send"))
+
+	policy.DeletePermission("email", "send")
+	assert.False(policy.Enforce("user", "email", "send"))
+	assert.False(policy.Enforce("", "email", "send"))
+}
+
+func BenchmarkCheckPermission(b *testing.B) {
+	tests := []struct {
+		Group string
+		Obj   string
+		Act   string
+	}{
+		{"admin", "api:profile", "read"},
+		{"", "api:profile", "read"},
+
+		{"admin", "bookmarks", "read"},
+		{"scoped_bookmarks_r", "api:bookmarks", "read"},
+		{"", "bookmarks", "read"},
+
+		{"user", "email", "send"},
+		{"", "email", "send"},
+	}
+
+	policy, err := LoadPolicy(basePolicy())
+	require.NoError(b, err)
+
+	for _, test := range tests {
+		b.Run(fmt.Sprintf("%s-%s-%s", test.Group, test.Obj, test.Act), func(b *testing.B) {
+			for b.Loop() {
+				policy.Enforce(test.Group, test.Obj, test.Act)
+			}
+		})
+	}
 }
 
 func BenchmarkGetPermissions(b *testing.B) {
-	enforcer, err := acls.NewEnforcer(basePolicy())
+	tests := [][]string{
+		{"admin"},
+		{"scoped_admin_r"},
+		{"scoped_bookmarks_w"},
+		{"admin", "user", "staff"},
+		{"user", "scoped_bookmarks_w"},
+	}
+
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(b, err)
 
-	for b.Loop() {
-		_, err := enforcer.GetPermissions("user")
-		require.NoError(b, err)
+	for _, test := range tests {
+		b.Run(strings.Join(test, ","), func(b *testing.B) {
+			for b.Loop() {
+				policy.GetPermissions(test...)
+			}
+		})
 	}
 }
 
-func BenchmarkInGroup(b *testing.B) {
-	enforcer, err := acls.NewEnforcer(basePolicy())
-	require.NoError(b, err)
+func BenchmarkInGroup(t *testing.B) {
+	tests := []struct {
+		Src  string
+		Dest string
+	}{
+		{"user", "user"},
+		{"user", "admin"},
+		{"admin", "user"},
+		{"scoped_bookmarks_r", "user"},
+		{"scoped_admin_r", "user"},
+		{"scoped_admin_r", "admin"},
+	}
 
-	for b.Loop() {
-		enforcer.InGroup("scoped_bookmarks_r", "user")
+	policy, err := LoadPolicy(basePolicy())
+	require.NoError(t, err)
+
+	for _, test := range tests {
+		t.Run(fmt.Sprintf("%s in %s", test.Src, test.Dest), func(b *testing.B) {
+			for b.Loop() {
+				policy.InGroup(test.Src, test.Dest)
+			}
+		})
 	}
 }
 
-func BenchmarkListGroup(b *testing.B) {
-	enforcer, err := acls.NewEnforcer(basePolicy())
+func BenchmarkListGroups(b *testing.B) {
+	policy, err := LoadPolicy(basePolicy())
 	require.NoError(b, err)
 
 	for b.Loop() {
-		_, err := enforcer.ListGroups("__group__")
-		require.NoError(b, err)
+		policy.ListGroups("__group__")
 	}
 }

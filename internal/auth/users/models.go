@@ -11,7 +11,6 @@ import (
 	"errors"
 	"hash"
 	"io"
-	"log/slog"
 	"math/rand/v2"
 	"strconv"
 	"strings"
@@ -203,19 +202,13 @@ func (u *User) IsAnonymous() bool {
 
 // Permissions returns all the user's implicit permissions.
 func (u *User) Permissions() []string {
-	r, _ := acls.GetPermissions(u.Group)
-	return r
+	return acls.GetPermissions(u.Group)
 }
 
 // HasPermission returns true if the user can perform "act" action
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
-	r, err := acls.Enforce(u.Group, obj, act)
-	if err != nil {
-		slog.Error("ACL check error", slog.Any("err", err))
-		return false
-	}
-	return r
+	return acls.Enforce(u.Group, obj, act)
 }
 
 // UserSettings contains some user settings.

@@ -6,7 +6,6 @@ package auth
 
 import (
 	"errors"
-	"log/slog"
 	"net/http"
 	"strings"
 	"time"
@@ -79,9 +78,7 @@ func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 	}
 
 	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
-		if ok, err := acls.Enforce(scope, obj, act); err != nil {
-			slog.Error("ACL check error", slog.Any("err", err))
-		} else if ok {
+		if acls.Enforce(scope, obj, act) {
 			return true
 		}
 	}
@@ -96,8 +93,7 @@ func (p *TokenAuthProvider) GetPermissions(r *http.Request) []string {
 		return nil
 	}
 
-	plist, _ := acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
-	return plist
+	return acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
 }
 
 // CsrfExempt is always true for this provider.
