@@ -116,7 +116,8 @@ type configMetrics struct {
 }
 
 type configCustomize struct {
-	ExtraTemplates string `json:"extra_templates"`
+	ExtraPermissions string `json:"extra_permissions"`
+	ExtraTemplates   string `json:"extra_templates"`
 }
 
 type configEmailAddr struct {

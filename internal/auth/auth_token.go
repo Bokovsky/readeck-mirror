@@ -79,7 +79,7 @@ func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 	}
 
 	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
-		if ok, err := acls.Check(scope, obj, act); err != nil {
+		if ok, err := acls.Enforce(scope, obj, act); err != nil {
 			slog.Error("ACL check error", slog.Any("err", err))
 		} else if ok {
 			return true

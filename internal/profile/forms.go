@@ -336,7 +336,7 @@ func newTokenForm(tr forms.Translator, user *users.User) *tokenForm {
 		forms.NewTextField("application", forms.Trim, forms.Required),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
-		users.NewRolesField(tr, user),
+		forms.NewTextListField("roles", forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", user))),
 	)}
 }
 

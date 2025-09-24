@@ -26,7 +26,7 @@ func newTokenLoginForm(tr forms.Translator) *tokenLoginForm {
 		forms.NewTextField("username", forms.Trim, forms.Required),
 		forms.NewTextField("password", forms.Required),
 		forms.NewTextField("application", forms.Required),
-		users.NewRolesField(tr, nil),
+		forms.NewTextListField("roles", forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", nil))),
 	)}
 }
 

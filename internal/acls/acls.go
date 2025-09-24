@@ -6,10 +6,12 @@
 package acls
 
 import (
-	"bufio"
+	"bytes"
 	"embed"
 	"errors"
+	"io"
 	"path"
+	"slices"
 	"sort"
 	"strings"
 
@@ -22,19 +24,49 @@ import (
 //go:embed config/*
 var confFiles embed.FS
 
-var enforcer *casbin.Enforcer
+var enforcer *Enforcer
 
-// Check performs the rule enforcment for a given user, path and action.
-func Check(group, path, act string) (bool, error) {
-	return enforcer.Enforce(group, path, act)
+// Enforcer is an [casbin.Enforcer] with some extensions.
+type Enforcer struct {
+	*casbin.Enforcer
+}
+
+// NewEnforcer creates an new [Enforcer] instance concatening
+// all the provided [io.Reader] as a policy.
+func NewEnforcer(r io.Reader) (*Enforcer, error) {
+	c, err := confFiles.ReadFile("config/model.ini")
+	if err != nil {
+		return nil, err
+	}
+	m, err := model.NewModelFromString(string(c))
+	if err != nil {
+		return nil, err
+	}
+
+	buf := new(bytes.Buffer)
+	if _, err := io.Copy(buf, r); err != nil {
+		return nil, err
+	}
+
+	sa := newAdapter(buf.String())
+	e, _ := casbin.NewEnforcer()
+	err = e.InitWithModelAndAdapter(m, sa)
+	if err != nil {
+		return nil, err
+	}
+
+	rm := e.GetRoleManager()
+	rm.(*defaultrolemanager.RoleManagerImpl).AddMatchingFunc("g", globMatch)
+
+	return &Enforcer{e}, err
 }
 
 // GetPermissions returns the permissions for a list of groups.
-func GetPermissions(groups ...string) ([]string, error) {
+func (e *Enforcer) GetPermissions(groups ...string) ([]string, error) {
 	perms := map[string]struct{}{}
 
 	for _, group := range groups {
-		plist, err := enforcer.GetImplicitPermissionsForUser(group)
+		plist, err := e.GetImplicitPermissionsForUser(group)
 		if err != nil {
 			return []string{}, err
 		}
@@ -51,10 +83,27 @@ func GetPermissions(groups ...string) ([]string, error) {
 	return res, nil
 }
 
+// ListGroups returns the groups that explicitly belong to a parent group.
+func (e *Enforcer) ListGroups(parent string) (res []string, err error) {
+	roles, err := e.GetGroupingPolicy()
+	if err != nil {
+		return nil, err
+	}
+
+	res = []string{}
+	for _, r := range roles {
+		if r[1] == parent && !slices.Contains(res, parent) {
+			res = append(res, r[0])
+		}
+	}
+
+	return
+}
+
 // InGroup returns true if permissions from "src" group are all in "dest" group.
-func InGroup(src, dest string) bool {
-	srcPermissions, _ := enforcer.GetImplicitPermissionsForUser(src)
-	dstPermissions, _ := enforcer.GetImplicitPermissionsForUser(dest)
+func (e *Enforcer) InGroup(src, dest string) bool {
+	srcPermissions, _ := e.GetImplicitPermissionsForUser(src)
+	dstPermissions, _ := e.GetImplicitPermissionsForUser(dest)
 
 	dmap := map[string]struct{}{}
 	for _, x := range dstPermissions {
@@ -72,44 +121,41 @@ func InGroup(src, dest string) bool {
 	return i > 0
 }
 
+// Load loads the default [Enforcer] using the assets.
+func Load(policies ...io.Reader) (err error) {
+	fd, err := confFiles.Open("config/policy.conf")
+	if err != nil {
+		return err
+	}
+	defer fd.Close() //nolint:errcheck
+
+	enforcer, err = NewEnforcer(io.MultiReader(append([]io.Reader{fd}, policies...)...))
+	return err
+}
+
+// Enforce calls [Enforcer.Enforce] on the default enforcer.
+func Enforce(group, path, act string) (bool, error) {
+	return enforcer.Enforce(group, path, act)
+}
+
+// GetPermissions calls [Enforcer.GetPermissions] on the default enforcer.
+func GetPermissions(groups ...string) ([]string, error) {
+	return enforcer.GetPermissions(groups...)
+}
+
+// ListGroups calls [Enforcer.ListGroups] on the default enforcer.
+func ListGroups(parent string) ([]string, error) {
+	return enforcer.ListGroups(parent)
+}
+
+// InGroup calls [Enforcer.InGroup] on the default enforcer.
+func InGroup(src, dest string) bool {
+	return enforcer.InGroup(src, dest)
+}
+
 // DeleteRole deletes a role. Returns false if a role does not exist.
 func DeleteRole(name string) (bool, error) {
 	return enforcer.DeleteRole(name)
-}
-
-func init() {
-	var err error
-	enforcer, err = newEnforcer()
-	if err != nil {
-		panic(err)
-	}
-}
-
-func newEnforcer() (*casbin.Enforcer, error) {
-	c, err := confFiles.ReadFile("config/model.ini")
-	if err != nil {
-		return nil, err
-	}
-	m, err := model.NewModelFromString(string(c))
-	if err != nil {
-		return nil, err
-	}
-
-	policy, err := confFiles.ReadFile("config/policy.conf")
-	if err != nil {
-		return nil, err
-	}
-	sa := newAdapter(string(policy))
-	e, _ := casbin.NewEnforcer()
-	err = e.InitWithModelAndAdapter(m, sa)
-	if err != nil {
-		return nil, err
-	}
-
-	rm := e.GetRoleManager()
-	rm.(*defaultrolemanager.RoleManagerImpl).AddMatchingFunc("g", globMatch)
-
-	return e, err
 }
 
 // globMatch is our own casbin matcher function. It only matches
@@ -134,10 +180,7 @@ func (sa *adapter) LoadPolicy(model model.Model) error {
 	if sa.contents == "" {
 		return errors.New("invalid line, line cannot be empty")
 	}
-
-	scanner := bufio.NewScanner(strings.NewReader(sa.contents))
-	for scanner.Scan() {
-		str := scanner.Text()
+	for str := range strings.SplitSeq(sa.contents, "\n") {
 		if str == "" {
 			continue
 		}

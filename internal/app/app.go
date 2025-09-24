@@ -148,6 +148,11 @@ func InitApp() {
 		fatal("can't initialize database", err)
 	}
 
+	// Init ACLs
+	if err = acls.Load(strings.NewReader(configs.Config.Customize.ExtraPermissions)); err != nil {
+		fatal("can't initialize ACLs", err)
+	}
+
 	// Init email sending
 	email.InitSender()
 	if !email.CanSendEmail() {

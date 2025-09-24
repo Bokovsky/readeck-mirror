@@ -1,0 +1,49 @@
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+package users
+
+import "codeberg.org/readeck/readeck/internal/acls"
+
+type translator interface {
+	Pgettext(ctx, str string, vars ...any) string
+}
+
+func pgettext(_, s string) string {
+	// dummy pgettext for string extraction
+	return s
+}
+
+var roleMap = map[string]string{
+	"user":  pgettext("role", "user"),
+	"staff": pgettext("role", "staff"),
+	"admin": pgettext("role", "admin"),
+
+	"scoped_bookmarks_r": pgettext("role", "Bookmarks : Read Only"),
+	"scoped_bookmarks_w": pgettext("role", "Bookmarks : Write Only"),
+	"scoped_admin_r":     pgettext("role", "Admin : Read Only"),
+	"scoped_admin_w":     pgettext("role", "Admin : Write Only"),
+}
+
+// GroupList returns a list of available groups identified by a permission name
+// and a [User]. When the user is nil, returns all the available groups.
+func GroupList(tr translator, name string, user *User) [][2]string {
+	res := [][2]string{}
+	if groups, err := acls.ListGroups(name); err == nil {
+		for _, g := range groups {
+			if user != nil && !acls.InGroup(g, user.Group) {
+				continue
+			}
+
+			label := g
+			if n, ok := roleMap[g]; ok {
+				label = tr.Pgettext("role", n)
+			}
+
+			res = append(res, [2]string{g, label})
+		}
+	}
+
+	return res
+}
