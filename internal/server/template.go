@@ -8,11 +8,13 @@ import (
 	"fmt"
 	"html"
 	"net/http"
+	"os"
 	"reflect"
 	"strings"
 
 	"github.com/CloudyKit/jet/v6"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/profile/preferences"
 	"codeberg.org/readeck/readeck/internal/server/urls"
@@ -31,10 +33,6 @@ func (tc TC) SetBreadcrumbs(items [][2]string) {
 
 // views holds all the views (templates).
 var views *jet.Set
-
-func init() {
-	views = templates.Catalog()
-}
 
 // GetTemplate returns a template from the current views.
 func GetTemplate(name string) (*jet.Template, error) {
@@ -93,6 +91,10 @@ func RenderTurboStream(
 
 // initTemplates add global functions to the views.
 func initTemplates() {
+	views = templates.Catalog(
+		os.DirFS(configs.Config.Customize.ExtraTemplates),
+	)
+
 	views.AddGlobalFunc("assetURL", func(args jet.Arguments) reflect.Value {
 		args.RequireNumOfArguments("assetURL", 1, 1)
 		name := args.Get(0).String()

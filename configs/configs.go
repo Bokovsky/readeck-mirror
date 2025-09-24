@@ -49,6 +49,7 @@ type config struct {
 	Bookmarks    configBookmarks `json:"bookmarks"`
 	Worker       configWorker    `json:"worker"`
 	Metrics      configMetrics   `json:"metrics"`
+	Customize    configCustomize `json:"customize"`
 	Commissioned bool            `json:"-"`
 }
 
@@ -112,6 +113,10 @@ type configExtractor struct {
 type configMetrics struct {
 	Host string `json:"host" env:"METRICS_HOST"`
 	Port int    `json:"port" env:"METRICS_PORT"`
+}
+
+type configCustomize struct {
+	ExtraTemplates string `json:"extra_templates"`
 }
 
 type configEmailAddr struct {
