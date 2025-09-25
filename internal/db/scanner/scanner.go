@@ -21,7 +21,12 @@ type Iterator[T any] iter.Seq2[*T, error]
 // and yields a pointer to T and an error after scanning each row into T.
 func Iter[T any](ds *goqu.SelectDataset) Iterator[T] {
 	return func(yield func(*T, error) bool) {
-		s, err := ds.Executor().Scanner()
+		sd := ds
+		if ds.GetClauses().IsDefaultSelect() {
+			sd = ds.Select(new(T))
+		}
+
+		s, err := sd.Executor().Scanner()
 		if err != nil {
 			yield(nil, err)
 			return
