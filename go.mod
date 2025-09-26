@@ -18,7 +18,6 @@ require (
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.10
 	github.com/go-chi/chi/v5 v5.2.3
-	github.com/go-redis/redis/v8 v8.11.5
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
@@ -34,6 +33,7 @@ require (
 	github.com/phsym/console-slog v0.3.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.23.2
+	github.com/redis/go-redis/v9 v9.14.0
 	github.com/sergeymakinen/go-ico v1.0.0-beta.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.11.1
@@ -63,7 +63,6 @@ require (
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.5 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
