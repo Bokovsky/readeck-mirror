@@ -4,7 +4,7 @@
 
 import {Controller} from "@hotwired/stimulus"
 import {request} from "../lib/request"
-import {cspNonce} from "../lib/turbo"
+import {cspNonce, markStaleRefresh} from "../lib/turbo"
 
 export default class extends Controller {
   static values = {
@@ -56,6 +56,15 @@ export default class extends Controller {
     }
 
     const rsp = await request(src, options)
+
+    // Mark any unsafe request for refresh on back/forward navigation.
+    if (
+      rsp.ok &&
+      !["GET", "HEAD", "OPTIONS"].includes(options.method.toUpperCase())
+    ) {
+      markStaleRefresh()
+    }
+
     if (this.turboValue) {
       Turbo.renderStreamMessage(await rsp.text())
     }
