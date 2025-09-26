@@ -148,13 +148,16 @@ func InitApp() {
 		fatal("can't initialize database", err)
 	}
 
+	// Init ACLs
+	if err = acls.Load(strings.NewReader(configs.Config.Customize.ExtraPermissions)); err != nil {
+		fatal("can't initialize ACLs", err)
+	}
+
 	// Init email sending
 	email.InitSender()
 	if !email.CanSendEmail() {
 		// If we can't send email, remnove the mail permission.
-		if _, err = acls.DeleteRole("/email/send"); err != nil {
-			panic(err)
-		}
+		acls.DeletePermission("email", "send")
 	}
 
 	// Set the commissioned flag

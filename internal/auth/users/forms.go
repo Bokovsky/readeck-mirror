@@ -13,7 +13,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
-	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
@@ -50,6 +49,11 @@ func NewUserForm(tr forms.Translator) *UserForm {
 			return u != nil
 		})
 	}
+
+	availableGroups := [][2]string{
+		{"none", tr.Pgettext("role", "no group")},
+	}
+	availableGroups = append(availableGroups, GroupList(tr, "__group__", nil)...)
 
 	return &UserForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
@@ -197,24 +201,4 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	res["id"] = u.ID
 	delete(res, "seed")
 	return
-}
-
-// NewRolesField returns a forms.Field with user's role choices.
-func NewRolesField(tr forms.Translator, user *User) forms.Field {
-	availableScopes := []forms.ValueChoice[string]{
-		forms.Choice(tr.Gettext("Bookmarks : Read Only"), "scoped_bookmarks_r"),
-		forms.Choice(tr.Gettext("Bookmarks : Write Only"), "scoped_bookmarks_w"),
-		forms.Choice(tr.Gettext("Admin : Read Only"), "scoped_admin_r"),
-		forms.Choice(tr.Gettext("Admin : Write Only"), "scoped_admin_w"),
-	}
-
-	// Only present policies that the current user can access
-	choices := []forms.ValueChoice[string]{}
-	for _, r := range availableScopes {
-		if user == nil || acls.InGroup(r.Value, user.Group) {
-			choices = append(choices, r)
-		}
-	}
-
-	return forms.NewTextListField("roles", forms.Choices(choices...))
 }

@@ -5,6 +5,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/_layouts/sidemenu_std" }}
 
+{{- block __sideMenuExtended() -}}{{- end -}}
+
 {{- block sideMenu() -}}
 {{- yield sideMenuTitle() content -}}{{ gettext("Settings") }}{{- end }}
 
@@ -40,4 +42,5 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{ gettext("Users") }}</a></li>
     </menu>
   {{- end -}}
+  {{ yield __sideMenuExtended() }}
 {{- end -}}
