@@ -6,6 +6,7 @@ package auth
 
 import (
 	"errors"
+	"log/slog"
 	"net/http"
 	"strings"
 	"time"
@@ -48,16 +49,19 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, err
 	}
 
-	if err := res.Token.Update(goqu.Record{
-		"last_used": time.Now().UTC(),
-	}); err != nil {
-		return r, err
-	}
-
 	if res.Token.IsExpired() {
 		p.denyAccess(w)
 		return r, errors.New("expired token")
 	}
+
+	lastUsed := time.Now().UTC()
+	go func() {
+		if err := res.Token.Update(goqu.Record{
+			"last_used": lastUsed,
+		}); err != nil {
+			slog.Error("token update", slog.Any("err", err))
+		}
+	}()
 
 	return SetRequestAuthInfo(r, &Info{
 		Provider: &ProviderInfo{
