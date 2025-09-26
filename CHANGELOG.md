@@ -11,6 +11,7 @@
 - Reddit content-script, by [@linsui](https://codeberg.org/linsui)
 - Cut words on runes, not bytes
 - Silent bug in internal/db/scanner
+- Disable bfcache after side effect requests (post, put, patch, delete)
 
 ## [0.20.3] - 2025-09-16
 ### Changed
