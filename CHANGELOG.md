@@ -4,8 +4,13 @@
 ### Added
 - HTTPS listener with certificate/key pair
 
+### Changed
+- Replaced the ACL policy enforcer for better performances and less dependencies
+
 ### Fixed
 - Reddit content-script, by [@linsui](https://codeberg.org/linsui)
+- Cut words on runes, not bytes
+- Silent bug in internal/db/scanner
 
 ## [0.20.3] - 2025-09-16
 ### Changed
