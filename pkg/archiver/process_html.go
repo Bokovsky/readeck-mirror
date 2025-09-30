@@ -26,7 +26,7 @@ import (
 
 const (
 	noScriptDataAttr  = "data-x-noscript"
-	acceptImageHeader = "image/webp,image/svg+xml,image/*,*/*;q=0.8"
+	acceptImageHeader = "image/jpeg,image/png,image/svg+xml,image/webp;q=0.9,image/*;q=0.9,*/*;q=0.8"
 )
 
 type (
