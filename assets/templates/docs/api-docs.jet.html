@@ -29,12 +29,20 @@ SPDX-License-Identifier: AGPL-3.0-only
      show-header="false"
      allow-server-selection="false"
      show-curl-before-try="true"
-     schema-style="table"
+     schema-style="tree"
      schema-description-expanded="true"
      default-schema-tab="schema"
+     render-style="focus"
     >
       {{ yield breadcrumbs() }}
     </rapi-doc>
   </div>
 </div>
+
+<script nonce="{{ cspNonce }}">
+if (window.innerWidth < 814) {
+  document.querySelector("rapi-doc").setAttribute("render-style", "view")
+}
+</script>
+
 {{ end }}

@@ -4,27 +4,33 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 
 # Get /info
-info:
-  summary: Information
-  description: |
-    This route returns public information about the Readeck instance.
-  responses:
-    "200":
-      description: Server information
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              version:
+routes:
+  /info:
+    get:
+      tags: [info]
+      security: []
+
+      summary: Information
+      description: |
+        This route returns public information about the Readeck instance.
+
+      responses:
+        "200":
+          description: Server information
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  canonical:
-                    type: string
-                    description: Canonical (full) version string
-                  release:
-                    type: string
-                    description: Release version number
-                  build:
-                    type: string
-                    description: Build number (can be empty)
+                  version:
+                    type: object
+                    properties:
+                      canonical:
+                        type: string
+                        description: Canonical (full) version string
+                      release:
+                        type: string
+                        description: Release version number
+                      build:
+                        type: string
+                        description: Build number (can be empty)

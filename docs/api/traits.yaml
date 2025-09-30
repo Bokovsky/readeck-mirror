@@ -14,8 +14,7 @@ authenticated:
             $ref: "#/components/schemas/message"
     "403":
       description: |
-        Forbidden. The user doesn't have permission to fetch users for the specified,
-        but has other account permissions
+        Forbidden. The user doesn't have permission to perform the request but has other permissions.
       content:
         application/json:
           schema:

@@ -3,53 +3,62 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-auth:
-  summary: Authenticate
-  description: |
-    This route performs the authentication with a username and a password and returns a token
-    that you can use for all API requests.
+routes:
+  /auth:
+    post:
+      tags: [user profile]
+      security: []
 
-    You don't need to perform a request to this route each time you're using the API, only do it
-    once and keep the token somehow. You can use this route to provide a first time authentication
-    in a mobile application or any API client you may build and only store the resulting token.
+      summary: Authenticate
+      description: |
+        This route performs the authentication with a username and a password and returns a token
+        that you can use for all API requests.
 
-    You MUST provide an application name.
+        You don't need to perform a request to this route each time you're using the API, only do it
+        once and keep the token somehow. You can use this route to provide a first time authentication
+        in a mobile application or any API client you may build and only store the resulting token.
 
-    Alternatively, you can [create an authentication token](../profile/tokens) directly from
-    Readeck.
+        You MUST provide an application name.
 
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/authenticationForm"
+        Alternatively, you can [create an authentication token](../profile/tokens) directly from
+        Readeck.
 
-  responses:
-    "201":
-      description: Authentication success
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/authenticationResult"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/authenticationForm"
 
-    "403":
-      description: Authentication failed
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/message"
+      responses:
+        "201":
+          description: Authentication success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/authenticationResult"
 
-# GET /profile
-profile:
-  summary: User Profile
-  description: |
-    This route returns the current user's profile information. This includes the user information
-    and preferences, and the authentication provider with its permissions.
+        "403":
+          description: Authentication failed
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
 
-  responses:
-    "200":
-      description: Profile information
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/userProfile"
+  /profile:
+    get:
+      tags: [user profile]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: User Profile
+      description: |
+        This route returns the current user's profile information. This includes the user information
+        and preferences, and the authentication provider with its permissions.
+
+      responses:
+        "200":
+          description: Profile information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/userProfile"

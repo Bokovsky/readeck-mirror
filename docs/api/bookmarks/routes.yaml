@@ -42,723 +42,873 @@ withCollection:
         type: string
         format: short-uid
 
-# GET /bookmarks
-list:
-  summary: Bookmark List
-  description: |
-        This route returns a paginated bookmark list.
-
-  parameters:
-    - name: search
-      in: query
-      description: A full text search string
-      schema:
-        type: string
-    - name: title
-      in: query
-      description: Bookmark title
-      schema:
-        type: string
-    - name: author
-      in: query
-      description: Author's name
-      schema:
-        type: string
-    - name: site
-      in: query
-      description: Bookmark site name or domain
-      schema:
-        type: string
-    - name: type
-      in: query
-      description: Bookmark type
-      schema:
-        type: array
-        items:
-          type: string
-          enum: [article, photo, video]
-    - name: labels
-      in: query
-      description: One or several labels
-      schema:
-        type: string
-    - name: is_loaded
-      in: query
-      description: Filter by loaded state
-      schema:
-        type: boolean
-    - name: has_errors
-      in: query
-      description: Filter bookmarks with or without errors
-      schema:
-        type: boolean
-    - name: has_labels
-      in: query
-      description: Filter bookmarks with or without labels
-      schema:
-        type: boolean
-    - name: is_marked
-      in: query
-      description: Filter by marked (favorite) status
-      schema:
-        type: boolean
-    - name: is_archived
-      in: query
-      description: Filter by archived status
-      schema:
-        type: boolean
-    - name: range_start
-      in: query
-      schema:
-        type: string
-    - name: range_end
-      in: query
-      schema:
-        type: string
-    - name: read_status
-      in: query
-      description: Read progress status
-      schema:
-        type: array
-        items:
-          type: string
-          enum: [unread, reading, read]
-    - name: id
-      in: query
-      description: One or more bookmark ID
-      schema:
-        type: string
-    - name: collection
-      in: query
-      description: A collection ID
-      schema:
-        type: string
-
-  responses:
-    '200':
-      description: List of bookmark items
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/bookmarkSummary"
-
-# POST /bookmarks
-create:
-  summary: Bookmark Create
-  description: Creates a new bookmark
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/bookmarkCreate"
-
-  responses:
-    "202":
-      headers:
-        Bookmark-Id:
-          schema:
-            type: string
-          description: ID of the created bookmark
-
-# GET /bookmarks/{id}
-retrieve:
-  summary: Bookmark Details
-  description: Retrieves a saved bookmark
-
-  responses:
-    "200":
-      description: Bookmark details
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/bookmarkInfo"
-
-# PATCH /bookmarks/{id}
-update:
-  summary: Bookmark Update
-  description: |
-    This route updates some bookmark's properties. Every input value is optional.
-    Upon success, it returns a mapping of changed values.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/bookmarkUpdate"
-
-  responses:
-    "200":
-      description: Bookmark updated
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/bookmarkUpdated"
-
-# DELETE /bookmarks/{id}
-delete:
-  summary: Bookmark Delete
-  description: Deletes a saved bookmark
-
-  responses:
-    "204":
-      description: The bookmark was successfuly deleted.
-
-# GET /bookmarks/{id}/article
-article:
-  summary: Bookmark Article
-  description: |
-    This route returns the bookmark's article if it exists.
-
-  responses:
-    "200":
-      description: |
-        A `text/html` response, containing the article body.
-        Please note that it's only the fragment and not a full HTML document.
-      content:
-        text/html:
-          schema:
-            type: string
-
-# GET /bookmarks/{id}/article.{format}
-export:
-  summary: Bookmark Export
-  description: This route exports a bookmark to another format.
-
-  parameters:
-    - name: format
-      in: path
-      required: true
-      description: Export format
-      schema:
-        type: string
-        enum: [epub, md]
-
-  responses:
-    "200":
-      content:
-        application/epub+zip:
-          schema:
-            type: string
-            format: binary
-        text/markdown:
-          schema:
-            type: string
-
-# GET /bookmarks/{id}/share/link
-shareLink:
-  summary: Share by link
-  description: This route produces a publicly accessible link to share a bookmark.
-
-  responses:
-    "200":
-      description: Public link information
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/bookmarkShareLink"
-
-# POST /bookmarks/{id}/share/email
-shareEmail:
-  summary: Share by email
-  description: This route sends a bookmark to an email address.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/bookmarkShareEmail"
-
-  responses:
-    "200":
-      description: Message sent
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/message"
-
-# GET /bookmarks/sync
-syncList:
-  summary: Bookmark Sync List
-  description: |
-    This route returns a non-paginated list of all bookmarks ordered by last update dates.
-
-    You can retrieve only bookmarks updated and deleted since a given date by using the
-    `since` parameter. Please note that without the parameter, it only returns updated
-    bookmarks.
-
-  parameters:
-    - name: since
-      in: query
-      description: A datetime to retrieve updated and deleted IDs including and after this value.
-      schema:
-        type: string
-        format: date-time
-
-  responses:
-    '200':
-      description: Item list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/bookmarkSyncList"
-
-# POST /bookmarks/sync
-sync:
-  summary: Bookmark Sync
-  description: |
-    This then returns a `multipart/mixed` response with all the bookmarks passed in `id` (or all of them if unset).
-
-    Here is an example:
-
-    ```
-    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
-    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
-    Content-Disposition: attachment; filename="info.json"
-    Content-Type: application/json; charset=utf-8
-    Date: 2025-06-20T10:53:47Z
-    Filename: info.json
-    Last-Modified: 2025-07-03T12:49:30Z
-    Location: http://localhost:8000/api/bookmarks/VnopmpKQ3CmQ6apY9mgDws
-    Type: json
-
-    ...content
-
-    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
-    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
-    Content-Disposition: attachment; filename="index.html"
-    Content-Type: text/html; charset=utf-8
-    Date: 2025-06-20T10:53:47Z
-    Filename: index.html
-    Last-Modified: 2025-07-03T12:49:30Z
-    Type: html
-
-    ...content
-
-    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
-    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
-    Content-Disposition: attachment; filename="image.jpeg"
-    Content-Length: 86745
-    Content-Type: image/jpeg
-    Filename: image.jpeg
-    Group: image
-    Location: http://localhost:8000/bm/Vn/VnopmpKQ3CmQ6apY9mgDws/img/image.jpeg
-    Path: image.jpeg
-    Type: resource
-
-    ...content
-
-    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
-    Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
-    Content-Disposition: attachment; filename="Wj66qLatSeikPc31FwvqyS.jpg"
-    Content-Length: 171749
-    Content-Type: image/jpeg
-    Filename: Wj66qLatSeikPc31FwvqyS.jpg
-    Group: embedded
-    Location: http://localhost:8000/bm/Vn/VnopmpKQ3CmQ6apY9mgDws/_resources/Wj66qLatSeikPc31FwvqyS.jpg
-    Path: Wj66qLatSeikPc31FwvqyS.jpg
-    Type: resource
-
-    ...content
-
-    --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b--
-    ```
-
-
-    For each bookmark, there will be entries with a `Type` header:
-
-    - a `Type: json` entry, controlled by `with_json`. It contains the same output as an API bookmark information.
-    - a `Type: html` entry, controlled by `with_html`. It contains the HTML content (article), if any.
-    - a `Type: markdown` entry, controlled by `with_markdown`. It contains the bookmark converted to Markdown.
-    - several `Type: resource` entries, controlled by `with_resources`. Each entry is a resource (icon, images, article images).
-
-    Each entry has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.
-
-    Each `Type: resource` entry contains a `Path` header that's based on the `resource_prefix`
-    parameter.
-
-    Each `Type: resource` entry contains a `Group` header that can take the following values:
-
-    - `icon`: the bookmark's icon,
-    - `image`: the bookmark's image (main picture for photo types, and placeholder for videos),
-    - `thumbnail`: thumbnail of the image,
-    - `embedded`: included in the article itself.
-
-    The response's content is a stream and should be processed while the data is coming, part by
-    part.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/bookmarkSyncParams"
-
-  responses:
-    '200':
-      description: Item list
-      content:
-        multipart/mixed:
-          schema:
-            type: string
-            format: binary
-
-# GET /bookmarks/labels
-labels:
-  summary: Label List
-  description: |
-    This route returns all the labels associated to a bookmark for the current user.
-
-  responses:
-    "200":
-      description: Label list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/labelInfo"
-
-# GET /bookmarks/labels/{name}
-labelInfo:
-  summary: Label Info
-  description:
-    This route returns information about a given bookmark label.
-
-  responses:
-    "200":
-      description: Label information
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/labelInfo"
-
-# PATCH /bookmarks/labels/{name}
-labelUpdate:
-  summary: Label Update
-  description: |
-    This route renames a label.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/labelUpdate"
-
-  responses:
-    "200":
-      description: Label renamed
-
-# DELETE /bookmarks/labels/{name}
-labelDelete:
-  summary: Label Delete
-  description: |
-    This route remove a label from all associated bookmarks.
-
-    Please note that it does not remove the bookmarks themselves.
-
-  responses:
-    "204":
-      description: Label removed
-
-# GET /bookmarks/annotations
-annotationList:
-  summary: Highlight List
-  description: |
-    This route returns all the highlights created by the current user.
-
-  responses:
-    "200":
-      description: Highlight list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/annotationSummary"
-
-# GET /bookmarks/{id}annotations
-bookmarkAnnotationList:
-  summary: Bookmark Highlights
-  description: |
-    This route returns a given bookmark's highlights.
-
-  responses:
-    "200":
-      description: Highlight list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/annotationInfo"
-
-# POST /bookmarks/{id}annotations
-bookmarkAnnotationCreate:
-  summary: Highlight Create
-  description: |
-    This route creates a new highlight on a given bookmarks.
-
-    The highlight format is similar to the [Range API](https://developer.mozilla.org/en-US/docs/Web/API/Range)
-    with some differences:
-
-    - A range's start and end selectors are XPath selectors and must target an element.
-    - The offset is the text length from the begining of the selector, regardless of the traversed
-      potential children.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/annotationCreate"
-
-  responses:
-    "201":
-      description: Highlight created
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/annotationInfo"
-
-# PATCH /bookmarks/{id}annotations/{annotation_id}
-bookmarkAnnotationUpdate:
-  summary: Highlight Update
-  description: |
-    This route updates then given highlight in the given bookmark.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/annotationUpdate"
-
-  responses:
-    "200":
-      description: Update result
-      content:
-        application/json:
-          schema:
-            properties:
-              updated:
-                type: string
-                format: date-time
-              annotations:
-                type: array
-                items:
-                  $ref: "#/components/schemas/annotationInfo"
-
-
-# DELETE /bookmarks/{id}annotations/{annotation_id}
-bookmarkAnnotationDelete:
-  summary: Highlight Delete
-  description: |
-    This route removes the given highlight in the given bookmark.
-
-  responses:
-    "204":
-      description: Highlight removed
-
-# GET /bookmarks/collections
-collectionList:
-  summary: Collection List
-  description: |
-    This route returns all the current user's collections.
-
-  responses:
-    "200":
-      description: Collection list
-      content:
-        application/json:
-          schema:
-            type: array
-            items:
-              $ref: "#/components/schemas/collectionInfo"
-
-# POST /bookmarks/collections
-collectionCreate:
-  summary: Collection Create
-  description: |
-    This route creates a new collection.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/collectionCreate"
-
-# GET /bookmarks/collections/{id}
-collectionInfo:
-  summary: Collection Details
-  description: |
-    This route returns a given collection information.
-
-  responses:
-    "200":
-      description: Collection information
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/collectionInfo"
-
-# PATH /bookmarks/collections/{id}
-collectionUpdate:
-  summary: Collection Update
-  description: |
-    This route updates a given collection. It returns a mapping of updated fields.
-
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/collectionUpdate"
-
-  responses:
-    "200":
-      description: Updated fields
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/collectionSummary"
-
-# DELETE /bookmarks/collections/{id}
-collectionDelete:
-  summary: Collection Delete
-  description: |
-    This route deletes a given collection.
-
-  responses:
-    "204":
-      description: Collection deleted
-
-# POST /bookmarks/import/{type}
-importMultipartGeneric:
+withMultipartImport:
   requestBody:
     content:
       multipart/form-data:
         schema:
-          properties:
-            data:
+          allOf:
+            - $ref: "#components/schemas/baseImport"
+
+
+routes:
+  /bookmarks:
+    get:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+        - "bookmarks/traits.yaml#.sortable"
+
+      summary: Bookmark List
+      description: |
+            This route returns a paginated bookmark list.
+
+      parameters:
+        - name: search
+          in: query
+          description: A full text search string
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: Bookmark title
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Author's name
+          schema:
+            type: string
+        - name: site
+          in: query
+          description: Bookmark site name or domain
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Bookmark type
+          schema:
+            type: array
+            items:
               type: string
-              format: binary
-              description: Source file.
-            labels:
+              enum: [article, photo, video]
+        - name: labels
+          in: query
+          description: One or several labels
+          schema:
+            type: string
+        - name: is_loaded
+          in: query
+          description: Filter by loaded state
+          schema:
+            type: boolean
+        - name: has_errors
+          in: query
+          description: Filter bookmarks with or without errors
+          schema:
+            type: boolean
+        - name: has_labels
+          in: query
+          description: Filter bookmarks with or without labels
+          schema:
+            type: boolean
+        - name: is_marked
+          in: query
+          description: Filter by marked (favorite) status
+          schema:
+            type: boolean
+        - name: is_archived
+          in: query
+          description: Filter by archived status
+          schema:
+            type: boolean
+        - name: range_start
+          in: query
+          schema:
+            type: string
+        - name: range_end
+          in: query
+          schema:
+            type: string
+        - name: read_status
+          in: query
+          description: Read progress status
+          schema:
+            type: array
+            items:
               type: string
-              description: Label to add to all imported bookmarks.
-            ignore_duplicates:
-              type: boolean
-              default: true
-              description: Ignore links that already exist.
-            archive:
-              type: boolean
-              default: false
-              description: Moved imported bookmarks to archive.
-            mark_read:
-              type: boolean
-              default: false
-              description: Mark imported bookmarks as read.
+              enum: [unread, reading, read]
+        - name: id
+          in: query
+          description: One or more bookmark ID
+          schema:
+            type: string
+        - name: collection
+          in: query
+          description: A collection ID
+          schema:
+            type: string
 
-importBrowserBookmarks:
-  summary: Import Browser Bookmarks
-  description: |
-    This route creates bookmarks from an HTML file generated by an export of a browser's
-    bookmarks.
+      responses:
+        '200':
+          description: List of bookmark items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bookmarkSummary"
 
-importCSV:
-  summary: Import CSV files
-  description: |
-    This route creates bookmarks from a CSV file. Compatible with Instapaper.
+    post:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
 
-     The uploaded file must contain a first row with the column names. Column names are case insensitive and, except for url, every column is optional.
+      summary: Bookmark Create
+      description: Creates a new bookmark
 
-    Here are the columns you can set:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkCreate"
 
-    <table>
-      <thead>
-        <tr>
-          <th>Field</th>
-          <th>Alias</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><code>url</code> (<strong>required</strong>)</td>
-          <td></td>
-          <td>Link address</td>
-        </tr>
-        <tr>
-          <td><code>title</code></td>
-          <td></td>
-          <td>Bookmark title</td>
-        </tr>
-        <tr>
-          <td><code>state</code></td>
-          <td><code>folder</code></td>
-          <td>Bookmark's archived state; only valid value is "archive"</td>
-        </tr>
-        <tr>
-          <td><code>created</code></td>
-          <td><code>timestamp</code></td>
-          <td>Creation date, can be a UNIX timestamp or an RFC-3339 formatted date</td>
-        </tr>
-        <tr>
-          <td><code>labels</code></td>
-          <td><code>tags</code></td>
-          <td>A JSON encoded list of labels</td>
-        </tr>
-      </tbody>
-    </table>
+      responses:
+        "202":
+          headers:
+            Bookmark-Id:
+              schema:
+                type: string
+              description: ID of the created bookmark
 
-    Example:
+  /bookmarks/{id}:
+    $merge:
+      - "#.withBookmark"
 
-    ```
-    url,title,state,created,labels
-    https://www.the-reframe.com/all-in-the-same-boat/,"All In The Same Boat",,2025-01-12T10:45:56,"[""label 1"",""label 2""]"
-    ```
+    get:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
 
-importGoodLinks:
-  summary: Import GoodLinks files.
-  description: |
-    This route creates bookmarks from a GoodLinks export file.
+      summary: Bookmark Details
+      description: Retrieves a saved bookmark
 
-importLinkwarden:
-  summary: Import Linkwarden files.
-  description: |
-    This route creates bookmarks from a Linkwarden export file.
+      responses:
+        "200":
+          description: Bookmark details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkInfo"
 
-importPocket:
-  summary: Import Pocket Saves
-  description: |
-    This route creates bookmarks from an HTML file generated by Pocket export tool.
-    Go to [https://getpocket.com/export](https://getpocket.com/export) to generate
-    such a file.
+    patch:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
 
-importReadwise:
-  summary: Import Readwise files.
-  description: |
-    This route creates bookmarks from a Readwise export file (CSV).
+      summary: Bookmark Update
+      description: |
+        This route updates some bookmark's properties. Every input value is optional.
+        Upon success, it returns a mapping of changed values.
 
-importTextFile:
-  summary: Import a Text File
-  description: |
-    This route creates bookmarks from a text file that contains one URL
-    per line.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkUpdate"
 
-importWallabag:
-  summary: Import Wallabag Articles
-  description: |
-    This route imports articles from Wallabag using its API.
+      responses:
+        "200":
+          description: Bookmark updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkUpdated"
 
-    You must create an API client in Wallabag and use its "Client ID" and "Client Secret"
-    in this route's payload.
+    delete:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#.authenticated"
 
-  requestBody:
-    content:
-      application/json:
-        schema:
-          $ref: "#/components/schemas/wallabagImport"
+      summary: Bookmark Delete
+      description: Deletes a saved bookmark
+
+      responses:
+        "204":
+          description: The bookmark was successfuly deleted.
+
+  /bookmarks/{id}/article:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark export]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Article
+      description: |
+        This route returns the bookmark's article if it exists.
+
+      responses:
+        "200":
+          description: |
+            A `text/html` response, containing the article body.
+            Please note that it's only the fragment and not a full HTML document.
+          content:
+            text/html:
+              schema:
+                type: string
+                description: Article in HTML
+
+  /bookmarks/{id}/article.{format}:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark export]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Export
+      description: This route exports a bookmark to another format.
+
+      parameters:
+        - name: format
+          in: path
+          required: true
+          description: Export format
+          schema:
+            type: string
+            enum: [epub, md]
+
+      responses:
+        "200":
+          content:
+            application/epub+zip:
+              schema:
+                type: string
+                format: binary
+            text/markdown:
+              schema:
+                type: string
+
+  /bookmarks/{id}/share/link:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark sharing]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Share by link
+      description: This route produces a publicly accessible link to share a bookmark.
+
+      responses:
+        "200":
+          description: Public link information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkShareLink"
+
+  /bookmarks/{id}/share/email:
+    $merge:
+      - "#.withBookmark"
+
+    post:
+      tags: [bookmark sharing]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Share by email
+      description: This route sends a bookmark to an email address.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkShareEmail"
+
+      responses:
+        "200":
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+
+  /bookmarks/sync:
+    get:
+      tags: [bookmark sync]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Bookmark Sync List
+      description: |
+        This route returns a non-paginated list of all bookmarks ordered by last update dates.
+
+        You can retrieve only bookmarks updated and deleted since a given date by using the
+        `since` parameter. Please note that without the parameter, it only returns updated
+        bookmarks.
+
+      parameters:
+        - name: since
+          in: query
+          description: A datetime to retrieve updated and deleted IDs including and after this value.
+          schema:
+            type: string
+            format: date-time
+
+      responses:
+        '200':
+          description: Item list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bookmarkSyncList"
+
+    post:
+      tags: [bookmark sync]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Bookmark Sync
+      description: |
+        This then returns a `multipart/mixed` response with all the bookmarks passed in `id` (or all of them if unset).
+
+        Here is an example:
+
+        ```
+        --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+        Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+        Content-Disposition: attachment; filename="info.json"
+        Content-Type: application/json; charset=utf-8
+        Date: 2025-06-20T10:53:47Z
+        Filename: info.json
+        Last-Modified: 2025-07-03T12:49:30Z
+        Location: http://localhost:8000/api/bookmarks/VnopmpKQ3CmQ6apY9mgDws
+        Type: json
+
+        ...content
+
+        --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+        Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+        Content-Disposition: attachment; filename="index.html"
+        Content-Type: text/html; charset=utf-8
+        Date: 2025-06-20T10:53:47Z
+        Filename: index.html
+        Last-Modified: 2025-07-03T12:49:30Z
+        Type: html
+
+        ...content
+
+        --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+        Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+        Content-Disposition: attachment; filename="image.jpeg"
+        Content-Length: 86745
+        Content-Type: image/jpeg
+        Filename: image.jpeg
+        Group: image
+        Location: http://localhost:8000/bm/Vn/VnopmpKQ3CmQ6apY9mgDws/img/image.jpeg
+        Path: image.jpeg
+        Type: resource
+
+        ...content
+
+        --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
+        Bookmark-Id: VnopmpKQ3CmQ6apY9mgDws
+        Content-Disposition: attachment; filename="Wj66qLatSeikPc31FwvqyS.jpg"
+        Content-Length: 171749
+        Content-Type: image/jpeg
+        Filename: Wj66qLatSeikPc31FwvqyS.jpg
+        Group: embedded
+        Location: http://localhost:8000/bm/Vn/VnopmpKQ3CmQ6apY9mgDws/_resources/Wj66qLatSeikPc31FwvqyS.jpg
+        Path: Wj66qLatSeikPc31FwvqyS.jpg
+        Type: resource
+
+        ...content
+
+        --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b--
+        ```
+
+
+        For each bookmark, there will be entries with a `Type` header:
+
+        - a `Type: json` entry, controlled by `with_json`. It contains the same output as an API bookmark information.
+        - a `Type: html` entry, controlled by `with_html`. It contains the HTML content (article), if any.
+        - a `Type: markdown` entry, controlled by `with_markdown`. It contains the bookmark converted to Markdown.
+        - several `Type: resource` entries, controlled by `with_resources`. Each entry is a resource (icon, images, article images).
+
+        Each entry has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.
+
+        Each `Type: resource` entry contains a `Path` header that's based on the `resource_prefix`
+        parameter.
+
+        Each `Type: resource` entry contains a `Group` header that can take the following values:
+
+        - `icon`: the bookmark's icon,
+        - `image`: the bookmark's image (main picture for photo types, and placeholder for videos),
+        - `thumbnail`: thumbnail of the image,
+        - `embedded`: included in the article itself.
+
+        The response's content is a stream and should be processed while the data is coming, part by
+        part.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkSyncParams"
+
+      responses:
+        '200':
+          description: Item list
+          content:
+            multipart/mixed:
+              schema:
+                type: string
+                format: binary
+
+  /bookmarks/labels:
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Label List
+      description: |
+        This route returns all the labels associated to a bookmark for the current user.
+
+      responses:
+        "200":
+          description: Label list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/labelInfo"
+
+  /bookmarks/labels?name={name}:
+    $merge:
+      - "#.withLabel"
+
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Label Info
+      description:
+        This route returns information about a given bookmark label.
+
+      responses:
+        "200":
+          description: Label information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/labelInfo"
+
+    patch:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Label Update
+      description: |
+        This route renames a label.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/labelUpdate"
+
+      responses:
+        "200":
+          description: Label renamed
+
+    delete:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Label Delete
+      description: |
+        This route remove a label from all associated bookmarks.
+
+        Please note that it does not remove the bookmarks themselves.
+
+      responses:
+        "204":
+          description: Label removed
+
+  /bookmarks/annotations:
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+
+      summary: Highlight List
+      description: |
+        This route returns all the highlights created by the current user.
+
+      responses:
+        "200":
+          description: Highlight list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/annotationSummary"
+
+  /bookmarks/{id}/annotations:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Highlights
+      description: |
+        This route returns a given bookmark's highlights.
+
+      responses:
+        "200":
+          description: Highlight list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/annotationInfo"
+
+    post:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.created"
+
+      summary: Highlight Create
+      description: |
+        This route creates a new highlight on a given bookmarks.
+
+        The highlight format is similar to the [Range API](https://developer.mozilla.org/en-US/docs/Web/API/Range)
+        with some differences:
+
+        - A range's start and end selectors are XPath selectors and must target an element.
+        - The offset is the text length from the begining of the selector, regardless of the traversed
+          potential children.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/annotationCreate"
+
+      responses:
+        "201":
+          description: Highlight created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/annotationInfo"
+
+  /bookmarks/{id}annotations/{annotation_id}:
+    $merge:
+      - "#.withBookmark"
+      - "#.withAnnotation"
+
+    patch:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Highlight Update
+      description: |
+        This route updates then given highlight in the given bookmark.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/annotationUpdate"
+
+      responses:
+        "200":
+          description: Update result
+          content:
+            application/json:
+              schema:
+                properties:
+                  updated:
+                    type: string
+                    format: date-time
+                  annotations:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/annotationInfo"
+
+    delete:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Highlight Delete
+      description: |
+        This route removes the given highlight in the given bookmark.
+
+      responses:
+        "204":
+          description: Highlight removed
+
+  /bookmarks/collections:
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+
+      summary: Collection List
+      description: |
+        This route returns all the current user's collections.
+
+      responses:
+        "200":
+          description: Collection list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/collectionInfo"
+
+    post:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.created"
+
+      summary: Collection Create
+      description: |
+        This route creates a new collection.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/collectionCreate"
+
+  /bookmarks/collections/{id}:
+    $merge:
+      - "#.withCollection"
+
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Collection Details
+      description: |
+        This route returns a given collection information.
+
+      responses:
+        "200":
+          description: Collection information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/collectionInfo"
+
+    patch:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Collection Update
+      description: |
+        This route updates a given collection. It returns a mapping of updated fields.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/collectionUpdate"
+
+      responses:
+        "200":
+          description: Updated fields
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/collectionSummary"
+
+    delete:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#.authenticated"
+
+      summary: Collection Delete
+      description: |
+        This route deletes a given collection.
+
+      responses:
+        "204":
+          description: Collection deleted
+
+  /bookmarks/import/browser:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import Browser Bookmarks
+      description: |
+        This route creates bookmarks from an HTML file generated by an export of a browser's
+        bookmarks.
+
+  /bookmarks/import/csv:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import CSV files
+      description: |
+        This route creates bookmarks from a CSV file. Compatible with Instapaper.
+
+        The uploaded file must contain a first row with the column names. Column names are case insensitive and, except for url, every column is optional.
+
+        Here are the columns you can set:
+
+        | Field                    | Alias          | Description
+        | ------------------------ | :------------- | :----------
+        | `url` (**required**)     |                | Link address
+        | `title`                  |                | Bookmark title
+        | `state`                  | `folder`       | Bookmark's archived state; only valid value is "archive"
+        | `created`                | `timestamp`    | Creation date, can be a UNIX timestamp or an RFC-3339 formatted date
+        | `labels`                 | `tags`         | A JSON encoded list of labels
+
+        Example:
+
+        ```
+        url,title,state,created,labels
+        https://www.the-reframe.com/all-in-the-same-boat/,"All In The Same Boat",,2025-01-12T10:45:56,"[""label 1"",""label 2""]"
+        ```
+
+  /bookmarks/import/goodlinks:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import GoodLinks files.
+      description: |
+        This route creates bookmarks from a GoodLinks export file.
+
+  /bookmarks/import/linkwarden:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import Linkwarden files.
+      description: |
+        This route creates bookmarks from a Linkwarden export file.
+
+  /bookmarks/import/pocket-file:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import Pocket Saves
+      description: |
+        This route creates bookmarks from an HTML file generated by Pocket export tool.
+        Go to [https://getpocket.com/export](https://getpocket.com/export) to generate
+        such a file.
+
+  /bookmarks/import/readwise:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import Readwise files.
+      description: |
+        This route creates bookmarks from a Readwise export file (CSV).
+
+  /bookmarks/import/text:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import a Text File
+      description: |
+        This route creates bookmarks from a text file that contains one URL
+        per line.
+
+  /bookmarks/import/wallabag:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+
+      summary: Import Wallabag Articles
+      description: |
+        This route imports articles from Wallabag using its API.
+
+        You must create an API client in Wallabag and use its "Client ID" and "Client Secret"
+        in this route's payload.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/wallabagImport"
