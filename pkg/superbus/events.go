@@ -12,7 +12,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 // Event is an event sent to the wire. It contains a name and a value that can be unmarshalled later.
