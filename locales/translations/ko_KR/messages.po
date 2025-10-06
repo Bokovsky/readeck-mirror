@@ -7,124 +7,126 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language: ko\n"
-"Language-Team: none\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"PO-Revision-Date: 2025-09-05 02:22+0000\n"
+"Last-Translator: dewyeyed <dewyeyed@noreply.codeberg.org>\n"
+"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/"
+"application/ko/>\n"
+"Language: ko_KR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "메뉴"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr ""
+msgstr "두번째 메뉴"
 
 #: assets/templates/_layouts/sidemenu.jet.html:31
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "메인 콘텐츠"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "메뉴 닫기"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "바로가기 메뉴"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "홈페이지"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
-msgstr ""
+msgstr "필요"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "오류"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "양식에 오류가 있는지 확인하십시오."
 
 #: assets/templates/_libs/forms.jet.html:212
 msgid "The previous"
-msgstr ""
+msgstr "이전"
 
 #: assets/templates/_libs/forms.jet.html:221
 msgid "Day(s)"
-msgstr ""
+msgstr "일"
 
 #: assets/templates/_libs/forms.jet.html:222
 msgid "Week(s)"
-msgstr ""
+msgstr "주"
 
 #: assets/templates/_libs/forms.jet.html:223
 msgid "Month(s)"
-msgstr ""
+msgstr "월"
 
 #: assets/templates/_libs/forms.jet.html:224
 msgid "Year(s)"
-msgstr ""
+msgstr "연도"
 
 #: assets/templates/_libs/forms.jet.html:227
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "또는"
 
 #: assets/templates/_libs/forms.jet.html:256
 msgid "Select or drop file"
-msgstr ""
+msgstr "파일을 선택하거나 드래그앤드롭으로 옮겨주세요"
 
 #: assets/templates/_libs/forms.jet.html:260
 msgid "remove"
-msgstr ""
+msgstr "제거"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr ""
+msgstr "이전 페이지로 돌아가기"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr ""
+msgstr "%d 페이지로 이동"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr ""
+msgstr "다음 페이지로 넘어가기"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "이전"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "다음"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
-msgstr ""
+msgstr "사용자 계정"
 
 #: assets/templates/admin/user.jet.html:18
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "사용자 계정을 제거중 입니다"
 
 #: assets/templates/admin/user.jet.html:19
 #: assets/templates/admin/user_list.jet.html:43
@@ -143,7 +145,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:19
 #: assets/templates/profile/token_list.jet.html:66
 msgid "Cancel"
-msgstr ""
+msgstr "취소"
 
 #: assets/templates/admin/user.jet.html:29
 #: assets/templates/admin/user_create.jet.html:19
@@ -151,19 +153,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
 #: assets/templates/profile/index.jet.html:21
 msgid "Username"
-msgstr ""
+msgstr "사용자계정"
 
 #: assets/templates/admin/user.jet.html:35
 #: assets/templates/admin/user_create.jet.html:25
 #: assets/templates/auth/onboarding.jet.html:36
 #: assets/templates/auth/recover.jet.html:28
 msgid "Email address"
-msgstr ""
+msgstr "이메일 주소"
 
 #: assets/templates/admin/user.jet.html:39
 #: assets/templates/admin/user_create.jet.html:30
 msgid "Group"
-msgstr ""
+msgstr "그룹"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
@@ -172,11 +174,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
 #: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
 msgid "Password"
-msgstr ""
+msgstr "비밀번호"
 
 #: assets/templates/admin/user.jet.html:47
 msgid "will not change if empty"
-msgstr ""
+msgstr "변경하지 않으시려면 공란으로 두세요"
 
 #: assets/templates/admin/user.jet.html:50
 #: assets/templates/bookmarks/collection.jet.html:82
@@ -185,74 +187,74 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
-msgstr ""
+msgstr "저장"
 
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
-msgstr ""
+msgstr "이 계정을 삭제"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
-msgstr ""
+msgstr "새로운 계정"
 
 #: assets/templates/admin/user_create.jet.html:41
 msgid "Create user"
-msgstr ""
+msgstr "계정 생성"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "계정 추가"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/token_list.jet.html:47
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "생성 일자 : %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "최종 변경 : %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "선택한 계정을 삭제중 입니다."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:36
 msgid "Sign in"
-msgstr ""
+msgstr "로그인"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Readeck에 로그인"
 
 #: assets/templates/auth/login.jet.html:21
 msgid "Username or email address"
-msgstr ""
+msgstr "계정 또는 이메일주소"
 
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
-msgstr ""
+msgstr "비밀번호를 잊으셨나요?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Readeck에 오신 것을 환영합니다!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
+msgstr "여러분을 환영합니다; 한 단계만 더 진행하시면 바로 시작하실 수 있습니다."
 
 #: assets/templates/auth/onboarding.jet.html:31
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:31
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "최소 8자 이상이어야 합니다"
 
 #: assets/templates/auth/onboarding.jet.html:38
 msgid "Please note:"
-msgstr ""
+msgstr "Please note:"
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid ""
@@ -262,18 +264,24 @@ msgid ""
 "  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
 "  "
 msgstr ""
+"\n"
+"  이메일 주소 기입은 선택사항이며, 본 시스템 이용에만 사용됩니다.\n"
+"  이메일 주소를 Readeck에서 수집하거나 이용, 판매하지 않습니다.\n"
+"  이메일은  <strong>오직</strong> 비밀번호 복구 혹은 알람용으로만 이용됩니다."
+"\n"
+"  "
 
 #: assets/templates/auth/onboarding.jet.html:46
 msgid "Finish installation"
-msgstr ""
+msgstr "설치 완료"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr ""
+msgstr "비밀번호 복구"
 
 #: assets/templates/auth/recover.jet.html:20
 msgid "No worries, it happens to anyone."
-msgstr ""
+msgstr "걱정하지 마세요. 누구나 겪는 일입니다."
 
 #: assets/templates/auth/recover.jet.html:21
 msgid ""
@@ -283,19 +291,23 @@ msgid ""
 "        to recover your password.\n"
 "      "
 msgstr ""
+"\n"
+"        계정생성시 입력한 이메일 주소를  입력하시면\n"
+"        해당 주소로 비밀번호 복구링크가 포함된 메세지를 전송합니다.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:31
 msgid "Send me a recovery link"
-msgstr ""
+msgstr "복구 링크를 전송"
 
 #: assets/templates/auth/recover.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 msgid "Cancel and go back to sign in"
-msgstr ""
+msgstr "취소하고 로그인 화면으로 돌아가기"
 
 #: assets/templates/auth/recover.jet.html:36
 msgid "Almost there!"
-msgstr ""
+msgstr "거의 다 왔습니다!"
 
 #: assets/templates/auth/recover.jet.html:37
 #, python-format
@@ -306,31 +318,36 @@ msgid ""
 "        with further instructions.\n"
 "      "
 msgstr ""
+"\n"
+"        추가안내사항을\n"
+"        <strong>%s</strong>\n"
+"        에게 이메일로 발송했습니다.\n"
+"      "
 
 #: assets/templates/auth/recover.jet.html:52
 #: assets/templates/profile/password.jet.html:28
 msgid "New password"
-msgstr ""
+msgstr "새로운 비밀번호"
 
 #: assets/templates/auth/recover.jet.html:55
 msgid "Update your password"
-msgstr ""
+msgstr "비밀번호를 갱신 하세요"
 
 #: assets/templates/auth/recover.jet.html:60
 msgid "Your password has been changed."
-msgstr ""
+msgstr "비밀번호가 변경되었습니다."
 
 #: assets/templates/auth/recover.jet.html:61
 msgid "Go to the sign in page"
-msgstr ""
+msgstr "로그인 페이지로 이동"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr ""
+msgstr "북마크 강조"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr ""
+msgstr "아직 아무것도 강조 표시하지 않았습니다."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -339,16 +356,21 @@ msgid ""
 "        for you to easily find them.\n"
 "      "
 msgstr ""
+"\n"
+"        저장한 글에서 원하는 부분을 강조 표시하면,\n"
+"        해당 부분이 페이지에 표시되어 쉽게 찾을 수 있습니다.\n"
+"      "
 
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
+msgstr "<a class=\"%s\" href=\"%s\">문서</a>에서 강조 기능에 대한 주요 내용을 "
+"알아보세요."
 
 #: assets/templates/bookmarks/base.jet.html:1
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr ""
+msgstr "찾기"
 
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
@@ -357,59 +379,59 @@ msgstr ""
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
-msgstr ""
+msgstr "북마크"
 
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
-msgstr ""
+msgstr "모든 북마크"
 
 #: assets/templates/bookmarks/base.jet.html:34
 msgid "Unread"
-msgstr ""
+msgstr "읽지 않은 북마크"
 
 #: assets/templates/bookmarks/base.jet.html:37
 msgid "Archive"
-msgstr ""
+msgstr "보관함"
 
 #: assets/templates/bookmarks/base.jet.html:40
 msgid "Favorites"
-msgstr ""
+msgstr "즐겨찾기"
 
 #: assets/templates/bookmarks/base.jet.html:48
 #: internal/bookmarks/routes/views_bookmarks.go:110
 msgid "Articles"
-msgstr ""
+msgstr "기사"
 
 #: assets/templates/bookmarks/base.jet.html:54
 #: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Videos"
-msgstr ""
+msgstr "영상"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Pictures"
-msgstr ""
+msgstr "사진"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
 #: assets/templates/bookmarks/label.jet.html:25
 msgid "Labels"
-msgstr ""
+msgstr "라벨"
 
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
-msgstr ""
+msgstr "강조"
 
 #: assets/templates/bookmarks/base.jet.html:74
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:38
 msgid "Collections"
-msgstr ""
+msgstr "컬렉션"
 
 #: assets/templates/bookmarks/base.jet.html:90
 msgid "Did you know?"
-msgstr ""
+msgstr "알고 계셨나요?"
 
 #: assets/templates/bookmarks/base.jet.html:91
 #: assets/templates/bookmarks/index.jet.html:91
@@ -418,38 +440,41 @@ msgid ""
 "            With the Browser Extension, you can save pages, images and selections\n"
 "            directly from your browser!"
 msgstr ""
+"\n"
+"            웹브라우저 확장프로그램을 이용하시면, 웹페이지 전체 저장 및 선택 "
+"영역(문서 일부 또는 사진등)을 바로 저장 할 수 있습니다!"
 
 #: assets/templates/bookmarks/base.jet.html:98
 #: assets/templates/bookmarks/components/sidebar.jet.html:24
 #: assets/templates/bookmarks/index.jet.html:98
 msgid "Learn more"
-msgstr ""
+msgstr "더 알아보기"
 
 #: assets/templates/bookmarks/base.jet.html:107
 msgid "Don't remind me"
-msgstr ""
+msgstr "더 이상 알리지 않기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 msgid "Close dialog"
-msgstr ""
+msgstr "창 닫기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
-msgstr ""
+msgstr "패널 닫기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:126
 msgid "Bookmark information"
-msgstr ""
+msgstr "북마크 정보"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "북마크 불러오기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "북마크를 불러오는 중"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -457,7 +482,7 @@ msgstr ""
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr ""
+msgstr "사이트 이름 없음"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
 #: assets/templates/bookmarks/bookmark_public.jet.html:102
@@ -466,7 +491,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "게시일 : %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
 #: assets/templates/bookmarks/bookmark_public.jet.html:107
@@ -475,7 +500,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "저자 : %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:17
 #: assets/templates/bookmarks/components/sidebar.jet.html:95
@@ -484,34 +509,34 @@ msgstr ""
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] ""
+msgstr[0] "약 %d 분 소요"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "북마크가 존재하지 않습니다"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
-msgstr ""
+msgstr "링크 공유"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
 msgid "Page not found"
-msgstr ""
+msgstr "페이지가 존재하지 않습니다"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:80
 msgid "Page has expired"
-msgstr ""
+msgstr "페이지가 만료되었습니다"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d 분"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:121
 #, python-format
 msgid "Shared by %s with %s"
-msgstr ""
+msgstr "%s가 %s와 공유함"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:174
 #, python-format
@@ -735,51 +760,51 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
-msgstr ""
+msgstr "강조"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
-msgstr ""
+msgstr "클립보드로 복사"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr ""
+msgstr "제목"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
-msgstr ""
+msgstr "저자"
 
 #: assets/templates/bookmarks/components/filters.jet.html:58
 msgid "Site"
-msgstr ""
+msgstr "사이트"
 
 #: assets/templates/bookmarks/components/filters.jet.html:80
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:11
 msgid "Label"
-msgstr ""
+msgstr "라벨"
 
 #: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
-msgstr ""
+msgstr "발행일자"
 
 #: assets/templates/bookmarks/components/filters.jet.html:109
 msgid "To date"
-msgstr ""
+msgstr "종료일자"
 
 #: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "Type"
-msgstr ""
+msgstr "유형"
 
 #: assets/templates/bookmarks/components/filters.jet.html:119
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "진행 상황"
 
 #: assets/templates/bookmarks/components/filters.jet.html:124
 msgid "Is Favorite"
-msgstr ""
+msgstr "즐겨찾기"
 
 #: assets/templates/bookmarks/components/filters.jet.html:128
 #: assets/templates/bookmarks/components/filters.jet.html:137
@@ -789,7 +814,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
-msgstr ""
+msgstr "예"
 
 #: assets/templates/bookmarks/components/filters.jet.html:129
 #: assets/templates/bookmarks/components/filters.jet.html:138
@@ -799,134 +824,134 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
-msgstr ""
+msgstr "아니오"
 
 #: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
-msgstr ""
+msgstr "보관됨"
 
 #: assets/templates/bookmarks/components/filters.jet.html:143
 msgid "Is Loaded"
-msgstr ""
+msgstr "로드됨"
 
 #: assets/templates/bookmarks/components/filters.jet.html:153
 msgid "With Labels"
-msgstr ""
+msgstr "라벨 있음"
 
 #: assets/templates/bookmarks/components/filters.jet.html:163
 msgid "With Errors"
-msgstr ""
+msgstr "오류 있음"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "라벨 제거"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "라벨 추가"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "라벨 추가"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "격자 보기"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "요약 보기"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Mosaic view"
-msgstr ""
+msgstr "모자이크 보기"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
-msgstr ""
+msgstr "북마크 정렬"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
-msgstr ""
+msgstr "정렬 옵션"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
-msgstr ""
+msgstr "가져오기/내보내기"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Atom Feed"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr ""
+msgstr "글꼴"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "너비"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
-msgstr ""
+msgstr "글꼴 크기"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Line height"
-msgstr ""
+msgstr "행간"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr ""
+msgstr "배분정렬"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "줄바꿈(하이픈연결)"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr ""
+msgstr "이 북마크의 내용을 이메일로 전송."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr ""
+msgstr "이 북마크를 EPUB으로 보내기"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:29
 msgid "Format"
-msgstr ""
+msgstr "포맷"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:39
 msgid "Send To"
-msgstr ""
+msgstr "수신인"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:44
 msgid "Send message"
-msgstr ""
+msgstr "이메일 전송"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:48
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr ""
+msgstr "이 북마크가 %s에게 전송 되었습니다"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:55
 #: assets/templates/bookmarks/components/share_link.jet.html:28
 msgid "Go back to the bookmark"
-msgstr ""
+msgstr "북마크로 돌아가기"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "다음 링크를 타인과 공유할 수 있습니다."
 
 #: assets/templates/bookmarks/components/share_link.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr ""
+msgstr "만료일 : %s"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:24
 msgid "Copy the link"
-msgstr ""
+msgstr "링크 복사"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "추출 중 오류가 발생하였습니다."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:19
 msgid ""
@@ -934,22 +959,25 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          오류 유형에 따라 Readeck의 브라우저 확장 프로그램이\n"
+"          해결방법을 제공 할 수도 있습니다."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
 msgid "View log"
-msgstr ""
+msgstr "로그 보기"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:125
 msgid "Start selecting text in the article to create a new highlight."
-msgstr ""
+msgstr "기사의 텍스트를 선택하여 새로운 강조 표시를 생성하세요."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:156
 msgid "Links"
-msgstr ""
+msgstr "Links"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr ""
+msgstr "웹브라우저의 북마크 가져오기"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -959,14 +987,19 @@ msgid ""
 "    every bookmark found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    웹 브라우저에서 북마크를 HTML 파일로 저장하세요.<br>\n"
+"    아래 양식에 이 파일을 업로드하면 Readeck가 해당 파일에서\n"
+"    발견된 모든 북마크를 생성하고 가져옵니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr ""
+msgstr "Firefox에서 사용하기"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr ""
+msgstr "Chrome에서 사용하기"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:33
 #: assets/templates/bookmarks/import/form-csv.jet.html:26
@@ -977,15 +1010,15 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:27
 #: assets/templates/profile/import.jet.html:24
 msgid "File"
-msgstr ""
+msgstr "파일"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:41
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "섹션 제목을 라벨로 변환"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:43
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "링크에 섹션 제목을 기반으로 라벨을 추가합니다"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:47
 #: assets/templates/bookmarks/import/form-csv.jet.html:33
@@ -997,11 +1030,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:34
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:68
 msgid "Import Bookmarks"
-msgstr ""
+msgstr "북마크 가져오기"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
-msgstr ""
+msgstr "CSV 파일에서 링크 가져오기"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -1009,6 +1042,10 @@ msgid ""
 "    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
 "  "
 msgstr ""
+"\n"
+"    Instapaper에서 생성된 CSV 파일 또는 아래에 명시된 형식과 일치하는 CSV "
+"파일을 업로드하세요.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:40
 #, python-format
@@ -1018,51 +1055,56 @@ msgid ""
 "    insensitive and, except for <code>%s</code>, every column is optional.\n"
 "  "
 msgstr ""
+"\n"
+"    업로드된 파일의 첫 번째 행에는 열 제목이 포함되어야 합니다.\n"
+"    열 제목은 대소문자를 구분하지 않으며, <code>%s</code>를 제외한 모든 열은 "
+"선택 사항입니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:44
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "설정할 수 있는 열은 다음과 같습니다:"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:48
 msgid "Field"
-msgstr ""
+msgstr "필드"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 msgid "Alias"
-msgstr ""
+msgstr "별칭"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 msgid "Description"
-msgstr ""
+msgstr "설명"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
 msgid "Link address"
-msgstr ""
+msgstr "주소 링크"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:62
 msgid "Bookmark title"
-msgstr ""
+msgstr "북마크 제목"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:67
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "북마크의 보관 상태; 유효한 값은 “%s”입니다"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:72
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
+msgstr "생성 날짜는 UNIX timestamp 또는 RFC-3339 형식의 날짜로 표시될 수 있음"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:77
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "JSON으로 인코딩된 라벨 목록"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:82
 msgid "Example"
-msgstr ""
+msgstr "예시"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "GoodLinks export 파일에서 링크 가져오기"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -1070,10 +1112,13 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    GoodLinks 앱에서 추출한 JSON 파일 업로드\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr ""
+msgstr "Linkwarden export 파일에서 링크 가져오기"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -1081,11 +1126,14 @@ msgid ""
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
+"\n"
+"    Linkwarden app에서 추출한 JSON파일 업로드\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:63
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Omnivore 기사 가져오기"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -1094,23 +1142,27 @@ msgid ""
 "    Omnivore's settings and enter it in the the form below.\n"
 "  "
 msgstr ""
+"\n"
+"    Omnivore의 기사를 가져오려면, Omnivorse에서 API키를 생성한 뒤, \n"
+"    아래에 Omnivore API키를 입력해야 합니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:27
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Omnivore URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:29
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "당신의 Omnivore URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:35
 msgid "API Key"
-msgstr ""
+msgstr "API 키"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:70
 msgid "Import your Pocket Articles"
-msgstr ""
+msgstr "Pocket 기사 가져오기"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -1120,6 +1172,10 @@ msgid ""
 "    <a class=\"%s\" href=\"%s\">%s</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Pocket에서 기사를 추출하려면 다음 링크를 클릭하세요:<br>\n"
+"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
 msgid ""
@@ -1128,6 +1184,10 @@ msgid ""
 "    every link found it the file.\n"
 "  "
 msgstr ""
+"\n"
+"    아래 양식에 파일을 업로드하면,\n"
+"     파일에서 발견된 모든 링크를 추출하여 저장합니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
 msgid ""
@@ -1137,14 +1197,18 @@ msgid ""
 "    see in Pocket.\n"
 "  "
 msgstr ""
+"\n"
+"    Pocket은 저장된 기사의 \"있는 그대로\" 내보내기를 지원하지 않습니다.\n"
+"    이로인해, Readeck과 Pocket의 내용/레이아웃이 달라질 수 있습니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:43
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "확인사항: ZIP파일을 압축해제 하지 말고, 그대로 업로드하세요"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
 msgid "Import Links from Readwise Reader CSV export"
-msgstr ""
+msgstr "Readwise Reader CSV파일에서 링크 가져오기"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1152,49 +1216,52 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    아래에 Readwise Reader 계정에서 추출한 CSV 파일을 업로드하세요.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:38
 msgid "Which information is imported"
-msgstr ""
+msgstr "어떤 정보를 가져오나요?"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:41
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "기사 제목, URL 및 최초 저장 시점"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "기사의 보관 상태,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "%s”을(를) Readeck 라벨로,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
+msgstr "문서 태그에 “%s”가 포함된 경우, 북마크가 Readeck 즐겨찾기에 추가됩니다."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
-msgstr ""
+msgstr "가져오지 못한 항목:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:48
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "문서 읽기 진행 상황 및 열람 상태,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "이메일을 통해 Readwise Reader로 전달된 기사들,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "PDF 또는 EPUB 파일로 업로드된 문서."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:84
 msgid "Import Links from a Text File"
-msgstr ""
+msgstr "텍스트 파일에서 링크 가져오기"
 
 #: assets/templates/bookmarks/import/form-text.jet.html:15
 msgid ""
@@ -1203,6 +1270,10 @@ msgid ""
 "    all of them and save them in your bookmark list.\n"
 "  "
 msgstr ""
+"\n"
+"    각 줄당 하나의 링크가 포함된 텍스트 파일을 업로드하면\n"
+"    Readeck이 모든 링크를 가져와 북마크 목록에 저장합니다.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:91
@@ -2539,4 +2610,3 @@ msgstr ""
 
 #~ msgid "Close image"
 #~ msgstr ""
-

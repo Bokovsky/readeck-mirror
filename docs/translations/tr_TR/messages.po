@@ -1,100 +1,118 @@
-# Polish (Poland) translations for Readeck User Documentation.
+# Translations template for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-09-26 11:02+0000\n"
-"Last-Translator: micash <micash@noreply.codeberg.org>\n"
-"Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
-"documentation/pl/>\n"
-"Language: pl_PL\n"
+"PO-Revision-Date: 2025-09-15 19:09+0000\n"
+"Last-Translator: cdprf <cdprf@noreply.codeberg.org>\n"
+"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
+"documentation/tr/>\n"
+"Language: tr_TR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr "# Zakładki"
+msgstr "# Yer İmleri"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr "Zakładki to twoje zapisane ulubione materiały z sieci."
+msgstr "Yer imleri, beğendiğiniz web içeriklerini kaydettiğiniz yerdir."
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr "## Stwórz nową zakładkę"
+msgstr "## Yeni Bir Yer İmi Oluşturun"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr "Znalezłaś(-eś) stronę, którą ci się podoba? Świetnie! Skopiuj link do niej do pola nazwanego **nowa zakładka** na [Liście Zakładek](readeck-instance://bookmarks)."
+msgstr ""
+"Beğendiğiniz bir web sayfası mı buldunuz? Harika! Bağlantısını "
+"[Yer İmi Listesi](readeck-instance://bookmarks) üzerindeki **yeni yer "
+"işareti** adlı metin alanına kopyalayın."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr "![Nowy formularz zakładki](./img/bookmark-new.webp)"
+msgstr "![Yeni Yer İmi formu](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr "Twoja zakładka będzie gotowa po kilku sekundach. Możesz ją wtedy otworzyć i przeczytać lub obejrzeć jej zawartość, dodać etykiety, podkreślić tekst albo wyeksportować ją jako ebook. Aby dowiedzieć się więcej, przeczytaj sekcję [Widok Zakładek](./bookmark.md)."
+msgstr ""
+"Birkaç saniye sonra yer işaretiniz hazır olacaktır. Daha sonra içeriğini "
+"okumak veya izlemek, etiket eklemek, metni vurgulamak veya bir e-kitap "
+"olarak dışa aktarmak için açabilirsiniz. Daha fazla bilgi için lütfen "
+"[Yer İmi Görünümü](./bookmark.md) bölümünü okuyun."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr "## Typy zakładek"
+msgstr "## Yer İmi Türü"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr "Readeck rozróżnia 3 typy materiałów z sieci:"
+msgstr "Readeck 3 farklı web içeriği türünü tanır:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr "### Artykuł"
+msgstr "### Makale"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr "Artykuł to strona, z której został wyekstraktowany tekst. Wyświetla się on jako zawartość przygotowana do czytania."
+msgstr ""
+"Makale, metin içeriğinin çıkarıldığı bir sayfadır. İçeriğinin okunabilir bir "
+"sürümü olarak oluşturulur."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr "### Obraz"
+msgstr "### Resim"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr "Obraz to strona, która została rozpoznana jako kontener obrazów (np. link do strony Unsplash). Wyświetla się jako zapisany obraz."
+msgstr ""
+"Resim, bir resim taşıyıcısı olarak tanınan bir sayfadır (örneğin Unsplash "
+"bağlantısı). Saklanan resmi oluşturur."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr "### Wideo"
+msgstr "### Video"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr "Wideo to strona, która została zidentyfikowana jako kontener wideo (np. link do Youtube'a lub Viemo). Wyświetla się jako odtwarzacz wideo. Materiały wideo odtwarzane są bezpośrednio ze swoich odpowiadających serwerów."
+msgstr ""
+"Video, bir video taşıyıcısı olarak tanımlanan bir sayfadır (örneğin YouTube "
+"veya Vimeo bağlantısı). Bir video oynatıcı oluşturur. Lütfen videoların "
+"ilgili uzak sunucularından oynatıldığını unutmayın."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr "## Lista Zakładek"
+msgstr "## Yer İmi Listesi"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr "Na [liście zakładek](readeck-instance://bookmarks) znajdziesz wszystkie swoje zapisane zakładki."
+msgstr ""
+"[Yer işareti listesi](readeck-instance://bookmarks), kaydettiğiniz tüm yer "
+"imlerini bulacağınız yerdir."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr "### Nawigacja"
+msgstr "### Gezinme"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr "W panelu bocznym znajdziesz pole wyszukiwania i linki, które przeniosą cię do pofiltrowanych list zakładek."
+msgstr ""
+"Kenar çubuğunda, sizi filtrelenmiş yer işareti listelerine götürecek bir "
+"arama alanı ve bağlantılar bulacaksınız."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr "![Pasek boczny zakładek](./img/bookmark-sidebar.webp)"
+msgstr "![Yer imi listesi kenar çubuğu](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -109,20 +127,21 @@ msgid ""
 "- **Favorites** \\\n"
 "  The bookmarks you marked as favorite."
 msgstr ""
-"- **Szukaj** \\\n"
-"  Wprowadź hasło do wyszukania (tytuł, zawartość, strona...).\n"
-"- **Wszystkie** \\\n"
-"  Wszystkie twoje zakładki.\n"
-"- **Nieprzeczytane** \\\n"
-"  Zakładki, które nie są w archiwum.\n"
-"- **Archiwum** \\\n"
-"  Zakładki oznaczone jako zarchiwizowane.\n"
-"- **Ulubione** \\\n"
-"  Zakładki oznaczone jako ulubione."
+"- **Ara** \\\n"
+"  Herhangi bir arama terimi girin (başlık, içerik, web sitesi...)\n"
+"- **Tümü** \\\n"
+"  Tüm yer imleriniz.\n"
+"- **Okunmamış** \\\n"
+"  Arşivde olmayan yer imleri.\n"
+"- **Arşiv** \\\n"
+"  Arşivlenmiş olarak işaretlediğiniz yer imleri.\n"
+"- **Favoriler** \\\n"
+"  Favori olarak işaretlediğiniz yer imleri."
 
 #: en-US/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr "Jak już zaczniesz zapisywać strony, zobaczysz dodatkowe linki:"
+msgstr ""
+"Sayfaları kaydetmeye başladığınızda, aşağıdaki ek bağlantıları göreceksiniz:"
 
 #: en-US/bookmark-list.md:54
 msgid ""
@@ -133,16 +152,18 @@ msgid ""
 "- **Pictures** \\\n"
 "  Your picture bookmarks"
 msgstr ""
-"- **Artykuły** \\\n"
-"  Twoje zapisane artykuły\n"
-"- **Wideo** \\\n"
-"  Twoje zapisane wideo\n"
-"- **Obrazy** \\\n"
-"  Twoje zapisane obrazy"
+"- **Makaleler** \\\n"
+"  Makale yer imleriniz\n"
+"- **Videolar** \\\n"
+"  Video yer imleriniz\n"
+"- **Resimler** \\\n"
+"  Resim yer imleriniz"
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr "Na końcu zobaczysz 3 sekcje, które przeniosą cię do stron powiązanych z zakładkami:"
+msgstr ""
+"Son olarak, sizi yer imiyle ilgili sayfalara götüren 3 bölüm daha "
+"göreceksiniz:"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -153,32 +174,32 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
-"- **[Etykiety](./labels.md)** \\\n"
-"  Wszystkie twoje etykiety zakładek\n"
-"- **Podkreślenia** \\\n"
-"  Wszystkie podkreślenia w twoich zakładkach\n"
-"- **[Kolekcje](./collections.md)** \\\n"
-"  Lista twoich kolekcji"
+"- **[Etiketler](./labels.md)** \\\n"
+"  Tüm yer imi etiketleriniz\n"
+"- **Vurgular** \\\n"
+"  Yer imlerinizde oluşturulan tüm vurgular\n"
+"- **[Koleksiyonlar](./collections.md)** \\\n"
+"  Tüm koleksiyonlarınızın listesi"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr "### Karty zakładek"
+msgstr "### Yer İmi Kartları"
 
 #: en-US/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr "Każdy element na liście nazywany jest Kartą Zakładki."
+msgstr "Bir listedeki her öğeye Yer İmi Kartı denir."
 
 #: en-US/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
-"![Lista Zakładek](./img/bookmark-list.webp)\n"
-"Lista zakładek w układzie siatki"
+"![Yer İmi Listesi](./img/bookmark-list.webp)\n"
+"Izgara Yer İmi Listesi"
 
 #: en-US/bookmark-list.md:77
 msgid "A card shows:"
-msgstr "Każda karta pokazuje:"
+msgstr "Bir kart şunları gösterir:"
 
 #: en-US/bookmark-list.md:79
 msgid ""
@@ -188,15 +209,15 @@ msgid ""
 "- the **label list**,\n"
 "- **action buttons**"
 msgstr ""
-"- **tytuł**, na którym można kliknąć aby obejrzeć lub przeczytać zakładkę,\n"
-"- **nazwę strony**,\n"
-"- szacowany **czas czytania**,\n"
-"- **listę etykiet**,\n"
-"- **przyciski akcji**"
+"- yer imini izlemek veya okumak için tıklayabileceğiniz **başlık**,\n"
+"- **site adı**,\n"
+"- tahmini **okuma süresi**,\n"
+"- **etiket listesi**,\n"
+"- **eylem düğmeleri**"
 
 #: en-US/bookmark-list.md:85
 msgid "The action buttons perform the following:"
-msgstr "Przyciski akcji służą do:"
+msgstr "Eylem düğmeleri aşağıdakileri gerçekleştirir:"
 
 #: en-US/bookmark-list.md:87
 msgid ""
@@ -207,57 +228,64 @@ msgid ""
 "- **Delete** \\\n"
 "  This marks the bookmark for deletion (it can be canceled during a few seconds)."
 msgstr ""
-"- **Ulubione** \\\n"
-"  Przełącza stan zakładki jako ulubionej.\n"
-"- **Archiwum** \\\n"
-"  Przenosi zakładkę do archiwum (lub usuwa ją stamtąd).\n"
-"- **Usuń** \\\n"
-"  Oznacza zakładkę do usunięcia (można to cofnąć w ciągu kilku sekund)."
+"- **Favori** \\\n"
+"  Bu, yer iminin favori durumunu değiştirir.\n"
+"- **Arşivle** \\\n"
+"  Bu, yer imini arşive taşır (veya oradan kaldırır).\n"
+"- **Sil** \\\n"
+"  Bu, yer imini silinmek üzere işaretler (birkaç saniye içinde iptal "
+"edilebilir)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
-msgstr "### Zwarta lista"
+msgstr "### Kompakt Liste"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr "Jeśli uważasz, że widok zakładek w układzie siatki jest przeładowany, możesz przełączyć się na bardziej zwartą listę z mniejszą liczbą obrazów. Kliknij przycisk obok tytułu, aby przełączyć się z widoku siatki na widok kompaktowy."
+msgstr ""
+"Yer imi ızgara görünümünü çok yoğun bulursanız, daha az resim içeren daha "
+"kompakt bir listeye geçebilirsiniz. Izgara görünümünden kompakt görünüme "
+"geçmek için başlığın yanındaki düğmeye tıklayın."
 
 #: en-US/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
-"![Zwarta lista zakładek](./img/bookmark-list-compact.webp)\n"
-"Zwarta lista zakładek"
+"![Kompakt Yer İmi Listesi](./img/bookmark-list-compact.webp)\n"
+"Kompakt Yer İmi Listesi"
 
 #: en-US/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr "## Filtrowanie zakładek {#filters}"
+msgstr "## Yer İmlerini Filtrele {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr "Na liście zakładek mozesz filtrować wyniki na podstawie jednego lub kilku kryteriów. Kliknij przycisk \"Filtruj listę\" obok tytułu strony, aby otworzyć formularz filtrowania."
+msgstr ""
+"Yer imi listesinde, sonuçlarınızı bir veya birkaç kritere göre "
+"filtreleyebilirsiniz. Filtreleme formunu açmak için sayfa başlığının "
+"yanındaki \"Listeyi filtrele\" düğmesine tıklayın."
 
 #: en-US/bookmark-list.md:105
 msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
 msgstr ""
-"![Filtry listy zakładek](./img/bookmark-filters.webp)\n"
-"Formularz filtrowania"
+"![Yer imi listesi filtreleri](./img/bookmark-filters.webp)\n"
+"Filtre formu"
 
 #: en-US/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
-msgstr "Wprowadź kryteria filtrowania i kliknij **Szukaj**."
+msgstr "Herhangi bir kriter girin ve **Ara**'ya tıklayın."
 
 #: en-US/bookmark-list.md:110
 msgid "### Available filters"
-msgstr "### Dostępne filtry"
+msgstr "### Mevcut filtreler"
 
 #: en-US/bookmark-list.md:112
 msgid "You can combine the following filters:"
-msgstr "Możesz łączyć następujące filtry:"
+msgstr "Aşağıdaki filtreleri birleştirebilirsiniz:"
 
 #: en-US/bookmark-list.md:114
 msgid ""
@@ -276,28 +304,34 @@ msgid ""
 "- **From date**, **To date**\\\n"
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
-"- **Szukaj**\\\n"
-"  Wyszukaj w treści zakładki, jej tytule lub autorach, nazwie i domenie strony oraz etykietach.\n"
-"- **Tytuł**\\\n"
-"  Wyszukaj tylko w tytule.\n"
-"- **Autor**\\\n"
-"  Wyszukaj tylko na liście autorów.\n"
-"- **Strona**\\\n"
-"  Wyszukaj w nazwie i domenie strony.\n"
-"- **Etykieta**\\\n"
-"  Wyszukaj konkretną etykietę.\n"
-"- **Czy jest ulubiona**, **Czy jest zarchiwizowana**, **Typ**\\\n"
-"  Te filtry pozwalają ograniczyć wyszukiwanie zgodnie z ich nazwami.\n"
-"- **Od daty**, **Do daty**\\\n"
-"  Te filtry na końcu pozwalają ograniczyć zakres czasu od kiedy i do kiedy zakładka została zapisana. Na przykład, możesz wyszukać listę zakładek zapisanych w ciągu ostatnich 4 tygodni, ale nie w ostatnim tygodniu."
+"- **Ara**\\\n"
+"  Yer iminin metninde, başlığında, yazarlarında, site adı ve alan adında ve "
+"etiketlerde arama yapın.\n"
+"- **Başlık**\\\n"
+"  Sadece başlıkta arama yapın.\n"
+"- **Yazar**\\\n"
+"  Sadece yazar listesinde arama yapın.\n"
+"- **Site**\\\n"
+"  Site başlığında ve site alan adında arama yapın.\n"
+"- **Etiket**\\\n"
+"  Belirli etiketleri arayın.\n"
+"- **Favori mi**, **Arşivlenmiş mi**, **Tür**\\\n"
+"  Bu filtreler, aramanızı bu kriterlerden herhangi birine göre kısıtlamanıza "
+"olanak tanır.\n"
+"- **Başlangıç tarihi**, **Bitiş tarihi**\\\n"
+"  Bu son filtreler, yer iminin ne zamandan ne zamana kadar kaydedildiğini "
+"kısıtlamanıza olanak tanır. Örneğin, bu, geçmiş 4 hafta boyunca kaydedilen "
+"ancak geçen haftadan sonra kaydedilmeyen yer imi listesini almanızı sağlar."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
-msgstr "### Zapytanie wyszukiwania"
+msgstr "### Arama sorgusu"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr "Pola **Szukaj**, **Tytuł**, **Autor**, **Strona** i **Etykieta** używają kryteriów wyszukiwania w taki sam sposób:"
+msgstr ""
+"**Ara**, **Başlık**, **Yazar**, **Site** ve **Etiket** alanları arama "
+"kriterlerini aynı şekilde anlar:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -306,62 +340,75 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `zaskoczony kot` wyszuka zawartość ze słowami **zaskoczony** i **kot**\n"
-"- `\"zaskoczony kot\"` wyszuka zawartość z dokładnie taki słowami: **zaskoczony kot**.\n"
-"- `kot*` wyszuka zawartość ze słowami zaczynającymi się na **kot** (kot, kotka i kotlety będą wszystkie pasować).\n"
-"- `-zaskoczony kot` wyszuka zawartość ze słowem **kot** ale BEZ słowa **zaskoczony**."
+"- `ürkümüş kedi`, **ürkümüş** ve **kedi** kelimelerini içeren içeriği "
+"bulacaktır\n"
+"- `\"ürkümüş kedi\"`, tam olarak **ürkümüş kedi** kelimelerini bir arada "
+"içeren içeriği bulacaktır.\n"
+"- `kedi*`, **kedi** ile başlayan kelimeleri içeren içeriği bulacaktır (kedi, "
+"kedinanesi ve tırtıl eşleşme olacaktır).\n"
+"- `-ürkümüş kedi`, **kedi** kelimesini içeren ancak **ürkümüş** kelimesini "
+"İÇERMEYEN içeriği bulacaktır."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr "Po wyszukaniu danej frazy możesz dane wyszukiwanie zapisać na stałe jako [kolekcję](./collections.md)."
+msgstr ""
+"Bir arama yaptıktan sonra, kalıcı hale getirmek için onu yeni bir "
+"[koleksiyona](./collections.md) kaydedebilirsiniz."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr "## Eksport i import zakładek"
+msgstr "## Yer İmlerini Dışa ve İçe Aktar"
 
 #: en-US/bookmark-list.md:143
 msgid ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Bookmark list menu"
 msgstr ""
-"![Menu](./img/bookmark-list-menu.webp)\n"
-"Menu listy zakładek"
+"![Menü](./img/bookmark-list-menu.webp)\n"
+"Yer imi listesi menüsü"
 
 #: en-US/bookmark-list.md:146
 msgid "### Export bookmarks"
-msgstr "### Eksport zakładek"
+msgstr "### Yer imlerini dışa aktar"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr "Przycisk menu obok przycisku filtrowania pozwala ściągnąć plik EPUB z zawartością obecnie wyświetlanej listy zakładek. Eksportuje on jednego e-booka zawierającego wszystkie artykuły zorganizowane w rozdziały."
+msgstr ""
+"Filtreler düğmesinin yanındaki menü düğmesi, mevcut yer imi listesinin bir "
+"EPUB dosyasını indirmenize olanak tanır. Tüm makaleleri bölümler halinde "
+"düzenlenmiş tek bir e-kitap olarak dışa aktarır."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
-msgstr "### Import zakładek"
+msgstr "### Yer imlerini içe aktar"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr "W tym samym menu znajdziesz link [Importuj zakładki](readeck-instance://bookmarks/import). Przeniesie cię on do kreatora importu, który pozwoli ci zaimportować twoje istniejące zakładki z wielu różnych źródeł."
+msgstr ""
+"Aynı menüde, bir [Yer imlerini içe aktar](readeck-instance://bookmarks/"
+"import) bağlantısı bulacaksınız. Bu sizi, mevcut yer imlerinizi çeşitli "
+"kaynaklardan içe aktarmanıza olanak tanıyan bir içe aktarma sihirbazına "
+"götürecektir."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
-msgstr "# Widok Zakładki"
+msgstr "# Yer İmi Görünümü"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
-msgstr "## Widok"
+msgstr "## Görünüm"
 
 #: en-US/bookmark.md:5
 msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
 msgstr ""
-"![The bookmark view](./img/bookmark-view.webp)\n"
-"Widok zakładki artykułu."
+"![Yer imi görünümü](./img/bookmark-view.webp)\n"
+"Bir makalenin yer imi görünümü."
 
 #: en-US/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr "Widok zakładki jest podzielony na 3 sekcje:"
+msgstr "Yer imi görünümü 3 bölüme ayrılmıştır:"
 
 #: en-US/bookmark.md:10
 msgid ""
@@ -369,149 +416,170 @@ msgid ""
 "- The content,\n"
 "- A sidebar with information, labels, highlights and actions."
 msgstr ""
-"- Na górze ustawienia nawigacji i wyświetlania,\n"
-"- Zawartość,\n"
-"- Pasek boczny z informacjami, etykietami, podkreśleniami i akcjami."
+"- Üstte, gezinme ve sunum ayarları,\n"
+"- İçerik,\n"
+"- Bilgiler, etiketler, vurgular ve eylemler içeren bir kenar çubuğu."
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr "Zakładka jest wyświetlana zależnie od swojego typu. Istnieją 3 typy:"
+msgstr "Bir yer imi, içeriğini türüne göre oluşturur. 3 tür vardır:"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr "## Ustawienia nawigacji i wyświetlania"
+msgstr "## Gezinme ve sunum ayarları"
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
-msgstr "Na górze widoku zakładki znajduje się link, który przenosi do poprzedniej strony."
+msgstr ""
+"Yer imi görünümünün üstünde, sizi önceki sayfaya geri götüren bir bağlantı "
+"bulunur."
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr "Jeśli zakładka zawiera artykuł, przycisk po prawej stronie pozwala zmienić ustawienia typografii."
+msgstr ""
+"Yer imi bir makale içeriyorsa, diğer taraftaki bir düğme bazı tipografi "
+"ayarlarını değiştirmenize olanak tanır."
 
 #: en-US/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
-"![Ustawienia typografii zakładki](./img/bookmark-typography.webp)\n"
-"Ustawienia typografii."
+"![Yer imi tipografi ayarları](./img/bookmark-typography.webp)\n"
+"Tipografi ayarları."
 
 #: en-US/bookmark.md:39
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
-"Tutaj możesz ustawić czcionkę używaną do wyświetlania tekstu, rozmiar czcionki i wysokość linii.\\\n"
-"Te ustawienia są automatycznie zapisywane i będą miały zastosowanie do każdego artykułu, który będziesz później czytał."
+"Burada metin için kullanılan yazı tipini, yazı tipi boyutunu ve satır "
+"yüksekliğini ayarlayabilirsiniz.\\\n"
+"Bu ayarlar sizin için otomatik olarak kaydedilir ve daha sonra okuyacağınız "
+"tüm makalelere uygulanır."
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
-msgstr "## Zmień tytuł"
+msgstr "## Başlığı değiştir"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr "Tytuł zakładki jest pobierany automatycznie w momencie jej tworzenia. Jeśli z jakiegoś powodu potrzebujesz innego tytułu, możesz go zmienić klikając najpierw na nim, a później na przycisk z boku tytułu."
+msgstr ""
+"Yer iminin başlığı, siz onu oluşturduğunuzda otomatik olarak alınır. "
+"Herhangi bir nedenle başka bir şeye ihtiyacınız olursa, üzerine tıklayarak "
+"ve ardından başlık tarafındaki düğmeye tıklayarak değiştirebilirsiniz."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
-msgstr "## Akcje"
+msgstr "## Eylemler"
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr "Z paska bocznego zakładki możesz wykonywać akcje."
+msgstr "Yer imi kenar çubuğunda eylemler gerçekleştirebilirsiniz."
 
 #: en-US/bookmark.md:52
 msgid "### Favorite"
-msgstr "### Ulubione"
+msgstr "### Favori"
 
 #: en-US/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr "Przełącza stan zakładki jako ulubionej."
+msgstr "Bu, yer iminin favori durumunu değiştirir."
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr "### Archiwum"
+msgstr "### Arşivle"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr "Przenosi zakładkę do archiwum (lub usuwa ją stamtąd)."
+msgstr "Bu, yer imini arşive taşır (veya oradan kaldırır)."
 
 #: en-US/bookmark.md:60
 msgid "### Share"
-msgstr "### Udostępnij"
+msgstr "### Paylaş"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr "Przycisk udostępniania otwiera menu, w którym możesz stworzyć link, jeśli chcesz udostępnić komuś dany artykuł."
+msgstr ""
+"Paylaş düğmesi, bir makaleyi biriyle paylaşmak isterseniz bir bağlantı "
+"oluşturabileceğiniz bir menü açar."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr "W tym samym menu możesz wyeksportować zakładkę (na razie tylko plik EPUB) aby przeczytać ją na innym urządzeniu."
+msgstr ""
+"Aynı menüde, yer iminizi farklı bir cihazda okumak için dışa "
+"aktarabilirsiniz (şimdilik sadece EPUB)."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr "### Usuń"
+msgstr "### Sil"
 
 #: en-US/bookmark.md:69
 msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
-"Oznacza zakładkę do usunięcia.\\\n"
-"Nie martw się jeśli kliknąłeś tutaj przez przypadek! Ta akcja może zostać anulowana przed właściwym usunięciem."
+"Bu, yer imini silinmek üzere işaretler.\\\n"
+"Yanlışlıkla buna tıklarsanız endişelenmeyin! Bu eylem, gerçek silme "
+"işleminden önce iptal edilebilir."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr "## Etykiety"
+msgstr "## Etiketler"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr "Do zakładki możesz dodać tyle etykiet, ile tylko chcesz. Aby to zrobić, wprowadź jakiś tekst w polu etykiety i kliknij na **Dodaj etykietę**. Nie ma ograniczeń na to co może być etykietą. Możesz nawet dodać emotki jeśli chcesz."
+msgstr ""
+"Bir yer imine istediğiniz kadar etiket ekleyebilirsiniz. Bunu yapmak için, "
+"etiket alanına bir metin girin ve **Etiket ekle**'ye tıklayın. Neyin etiket "
+"olabileceği konusunda bir sınırlama yoktur. Hatta isterseniz emoji bile "
+"ekleyebilirsiniz."
 
 #: en-US/bookmark.md:77
 msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
-"![Formularz etykiet zakładki](./img/bookmark-labels.webp)\n"
-"Dodaj nową zakładkę."
+"![Yer imi etiketleri formu](./img/bookmark-labels.webp)\n"
+"Yeni bir etiket ekleyin."
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr "Poczytaj sekcję [Etykiety](./labels.md) jeśli potrzebujesz więcej informacji."
+msgstr "Daha fazla bilgi için lütfen [Etiketler](./labels.md) bölümünü okuyun."
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr "## Podświetlenia"
+msgstr "## Vurgular"
 
 #: en-US/bookmark.md:84
 msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
-"Znalazłaś(-eś) jakis interesujący fragment artykułu? Możesz go podkreślić!\\\n"
-"Gdy zaznaczysz jakikolwiek tekst w artykule, pojawi się menu, które pozwoli ci stworzyć nowe podkreślenie."
+"Bir makalede ilginç bir bölüm mü buldunuz? Onu vurgulayabilirsiniz!\\\n"
+"Makalede herhangi bir metni seçtiğinizde, yeni bir vurgu oluşturmanıza "
+"olanak tanıyan bir menü belirir."
 
 #: en-US/bookmark.md:87
 msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
 msgstr ""
-"![Tworzenie podkreślenia zakładki](./img/bookmark-highlight.webp)\n"
-"Stwórz nowe podkreślenie."
+"![Yer imi vurgusu oluşturma](./img/bookmark-highlight.webp)\n"
+"Yeni bir vurgu oluşturun."
 
 #: en-US/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr "Twoje podkreślenia pojawią się na pasku bocznym."
+msgstr "Vurgularınız kenar çubuğunda görünür."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr "Gdy potrzebujesz usunąć podkreślenie, możesz to zrobić z paska bocznego lub po zaznaczeniu podświetlenia w artykule."
+msgstr ""
+"Bir vurguyu kaldırmanız gerektiğinde, bunu kenar çubuğundan veya makalede "
+"seçerek yapabilirsiniz."
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr "# Kolekcje"
+msgstr "# Koleksiyonlar"
 
 #: en-US/collections.md:3
 msgid ""
@@ -521,8 +589,12 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"Kolekcje umożliwiają łatwe porządkowanie i eksportowanie zakładek poprzez zapisywanie wybranych żądań wyszukiwania. Po utworzeniu nowej zakładki, która spełnia kryteria kolekcji, zostanie ona natychmiast wyświetlona.\n"
-"Oto kilka przykładów:"
+"Koleksiyonlar, yer imlerinizi kolayca düzenlemenize ve dışa aktarmanıza "
+"olanak tanır\n"
+"seçtiğiniz arama isteklerini kaydederek.\n"
+"Bir koleksiyonun kriterleriyle eşleşen yeni bir yer imi oluşturduğunuzda,\n"
+"hemen görünecektir.\n"
+"İşte bazı örnekler:"
 
 #: en-US/collections.md:9
 msgid ""
@@ -531,58 +603,68 @@ msgid ""
 "- The pictures with the label \"cat\",\n"
 "- The articles that contain \"climate\" in their title."
 msgstr ""
-"- Nieprzeczytane artykuły (bez zdjęć i filmów),\n"
-"- Zarchiwizowane artykuły z „wikipedia.org”,\n"
-"- Zdjęcia z etykietą „kot”,\n"
-"- Artykuły zawierające „klimat” w tytule."
+"- Okunmamış makaleler (resim veya video yok),\n"
+"- \"wikipedia.org\"dan arşivlenmiş makaleler,\n"
+"- \"kedi\" etiketli resimler,\n"
+"- Başlığında \"iklim\" içeren makaleler."
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
-msgstr "## Stwórz nową kolekcję"
+msgstr "## Yeni bir koleksiyon oluşturun"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr "Aby stworzyć nową kolekcję, przejdź do [Listy kolekcji](readeck-instance://bookmarks/collections) i kliknij na **Stwórz nową kolekcję**."
+msgstr ""
+"Yeni bir koleksiyon oluşturmak için, [Koleksiyon Listesi](readeck-instance://"
+"bookmarks/collections)'ne gidin ve **Yeni bir koleksiyon oluştur**'a "
+"tıklayın."
 
 #: en-US/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
-"![Formularz nowej kolekcji](./img/collection-new.webp)\n"
-"Formularz kolekcji"
+"![Yeni Koleksiyon formu](./img/collection-new.webp)\n"
+"Koleksiyon formu"
 
 #: en-US/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr "Wpisz jakiekolwiek kryteria i kliknij na **Zapisz**."
+msgstr "Herhangi bir kriter girin ve **Kaydet**'e tıklayın."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr "Przeczytaj [filtry zakładek](./bookmark-list.md#filters) aby dowiedzieć się więcej o filtrowaniu."
+msgstr ""
+"Filtreleme hakkında daha fazla ayrıntı için lütfen [yer imi filtreleri]"
+"(./bookmark-list.md#filters)'ne bakın."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
-msgstr "## Eksportuj kolekcję"
+msgstr "## Bir koleksiyonu dışa aktarın"
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr "Na stronie kolekcji możesz wyeksportować całą kolekcję do pliku."
+msgstr ""
+"Bir koleksiyon sayfasında, tüm koleksiyonu bir dosyaya aktarabilirsiniz."
 
 #: en-US/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr "Na razie, tylko plik EPUB jest dostępny i zawiera on całą kolekcję jako pojedyńczą książkę."
+msgstr ""
+"Şimdilik, sadece EPUB mevcuttur ve tüm koleksiyonu tek bir kitap olarak dışa "
+"aktarır."
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
-msgstr "## Usuń kolekcję"
+msgstr "## Bir koleksiyonu silin"
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr "Na stronie kolekcji otwórz okno **Edytuj** i kliknij na **Usuń**."
+msgstr ""
+"Bir koleksiyon sayfasında, **Düzenle** kutusunu açın ve **Sil**'e tıklayın."
 
 #: en-US/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
-msgstr "Jeśli popełniłeś błąd, to a operacja może zostać anulowana w ciągu kilku sekund."
+msgstr ""
+"Bu işlem, bir hata yapmanız durumunda birkaç saniye içinde iptal edilebilir."
 
 #: en-US/index.md:1
 msgid ""
@@ -599,7 +681,7 @@ msgid ""
 "---"
 msgstr ""
 "---\n"
-"Title: Spis treści\n"
+"Title: İçindekiler\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -612,15 +694,18 @@ msgstr ""
 
 #: en-US/index.md:13
 msgid "# Readeck Help"
-msgstr "# Pomoc Readeck"
+msgstr "# Readeck Yardım"
 
 #: en-US/index.md:15
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr "Witaj w Readeck! Tutaj znajdziesz odpowiedzi na większość swoich pytań o Readeck i kilka porad jak poprawić swoje wrażenia z jego używania."
+msgstr ""
+"Readeck'e hoş geldiniz! Burada Readeck ile ilgili sorularınızın çoğunun "
+"yanıtlarını ve deneyiminizi daha da geliştirmek için bazı ipuçlarını "
+"bulacaksınız."
 
 #: en-US/index.md:17
 msgid "## Contents"
-msgstr "## Zawartość"
+msgstr "## İçindekiler"
 
 #: en-US/index.md:19
 msgid ""
@@ -631,52 +716,63 @@ msgid ""
 "- [Ebook Catalog](./opds.md)\n"
 "- [User Profile](./user-profile.md)"
 msgstr ""
-"- [Zakładki](./bookmark-list.md)\n"
-"- [Widok zakładki](./bookmark.md)\n"
-"- [Etykiety](./labels.md)\n"
-"- [Kolekcje](./collections.md)\n"
-"- [Katalog e-booków](./opds.md)\n"
-"- [Profil użytkownika](./user-profile.md)"
+"- [Yer İmleri](./bookmark-list.md)\n"
+"- [Yer İmi Görünümü](./bookmark.md)\n"
+"- [Etiketler](./labels.md)\n"
+"- [Koleksiyonlar](./collections.md)\n"
+"- [E-kitap Kataloğu](./opds.md)\n"
+"- [Kullanıcı Profili](./user-profile.md)"
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr "# Etykiety"
+msgstr "# Etiketler"
 
 #: en-US/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
-"Do zakładki możesz [dodać tak wiele etykiet jak tylko chcesz](./bookmark.md#labels).\\\n"
-"Nie ma limitu na to co może być etykietą. Możesz nawet dodać emotki jeśli chcesz."
+"Bir yer imine [istediğiniz kadar etiket ekleyebilirsiniz](./"
+"bookmark.md#labels).\\\n"
+"Neyin etiket olabileceği konusunda bir sınırlama yoktur. Hatta isterseniz "
+"emoji bile ekleyebilirsiniz."
 
 #: en-US/labels.md:6
 msgid "## Label List"
-msgstr "## Lista etykiet"
+msgstr "## Etiket Listesi"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr "[Lista etykier](readeck-instance://bookmarks/labels) pokazuje wszystkie etykiety w twojej kolekcji zakładek, wraz z liczbą pokazującą ile zakładek posiada daną etykietę."
+msgstr ""
+"[Etiket Listesi](readeck-instance://bookmarks/labels), yer imi "
+"koleksiyonunuzdaki tüm etiketleri, belirli bir etiketi taşıyan yer imi "
+"sayısını gösteren bir sayıyla birlikte gösterir."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr "Gdy klikniesz na etykiecie, możesz zobaczyć listę wszystkich zakładek z tą etykietą."
+msgstr ""
+"Bir etikete tıkladığınızda, etiketi taşıyan tüm yer imlerini "
+"listeleyebilirsiniz."
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
-msgstr "## Zmień nazwę etykiety"
+msgstr "## Bir etiketi yeniden adlandırın"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr "Na stronie danej etykiety możesz kliknąć na tytule strony (etykiecie) aby zmienić jej nazwę."
+msgstr ""
+"Belirli bir etiket sayfasında, adını değiştirmek için sayfanın başlığına "
+"(etikete) tıklayabilirsiniz."
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
-msgstr "# Katalog e-booków"
+msgstr "# E-kitap Kataloğu"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr "Readeck udostępnia Katalog E-booków ze wszystkimi twoimi zakładkami, zorganizowany w katalog ze strukturą jak poniżej:"
+msgstr ""
+"Readeck, tüm yer imlerinizin bir E-kitap Kataloğunu, aşağıdaki yapıya sahip "
+"bir katalogda düzenlenmiş olarak sağlar:"
 
 #: en-US/opds.md:5
 msgid ""
@@ -689,168 +785,174 @@ msgid ""
 "    - Collection E-book\n"
 "    - Browse Collection"
 msgstr ""
-"- Nieprzeczytane zakładki\n"
-"- Zarchiwizowane zakładki\n"
-"- Ulubione zakładki\n"
-"- Wszystkie zakładki\n"
-"- Kolekcje zakładek\n"
-"  - (Nazwa kolekcji)\n"
-"    - E-book kolekcji\n"
-"    - Przeglądaj kolekcję"
+"- Okunmamış Yer İmleri\n"
+"- Arşivlenmiş Yer İmleri\n"
+"- Favori Yer İmleri\n"
+"- Tüm Yer İmleri\n"
+"- Yer İmi Koleksiyonları\n"
+"  - (Koleksiyon Adı)\n"
+"    - Koleksiyon E-kitabı\n"
+"    - Koleksiyona Göz At"
 
 #: en-US/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr "Każda sekcja, z wyjątkiem Kolekcji, zawiera każdą zakładkę jako e-book."
+msgstr "Koleksiyonlar hariç her bölüm, her yer imini bir E-kitap olarak sağlar."
 
 #: en-US/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr "W sekcji kolekcji możesz ściągnąć całą kolekcję jako jeden e-book."
+msgstr ""
+"Bir koleksiyonun bölümünde, tüm koleksiyonu tek bir E-kitap olarak "
+"indirebilirsiniz."
 
 #: en-US/opds.md:19
 msgid "## Catalog access"
-msgstr "## Dostęp do katalogu"
+msgstr "## Katalog erişimi"
 
 #: en-US/opds.md:21
-#, fuzzy
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
-"Do katalogu można uzyskać dostęp z każdej aplikacji lub czytnika obsługującego format OPDS.\n"
-"Aby przydzielić dostęp do katalogu musisz najpierw stworzyć [Hasło Aplikacji](readeck-instance://profile/credentials)."
+"Kataloğa, OPDS biçimini destekleyen herhangi bir uygulama veya e-okuyucu "
+"tarafından erişilebilir.\n"
+"Kataloğa erişim vermek için önce bir [API Jetonu](readeck-instance://profile/"
+"tokens) oluşturmalısınız."
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
 msgstr ""
+"**Not**: Jetonu bir metin dosyası olarak indirmek ve e-okuyucunuza aktarmak "
+"daha kolaydır. Ardından dosyayı açıp jetonu kopyalayabilirsiniz."
 
 #: en-US/opds.md:26
-#, fuzzy
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"Możesz ograniczyć prawa dostępu hasła tylko do \"Zakładki : Tylko odczyt\".\n"
-"Zapisz sobie hasło i skonfiguruj aplikację."
+"Bu jetonun iznini \"Yer İmleri : Salt Okunur\" olarak kısıtlayabilirsiniz.\n"
+"Jeton değerini bir yere yazın ve uygulamanızı kurun."
 
 #: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
-"Adres URL twojego katalogu OPDS to: \\\n"
+"OPDS kataloğunuzun URL'si: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 
 #: en-US/opds.md:33
 msgid "## Example setup: Koreader"
-msgstr "## Przykładowa konfiguracja: Koreader"
+msgstr "## Örnek kurulum: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr "[Koreader](https://koreader.rocks/) jest przeglądarką dokumentów dla urządzeń z ekranem E-Ink. Jest ona dostępna dla Kindle, Kobo, PocketBook'a, Android'a i Linux's. Posiada bardzo dobre wsparcie OPDS."
+msgstr ""
+"[Koreader](https://koreader.rocks/), E Mürekkep cihazlar için bir belge "
+"görüntüleyicidir. Kindle, Kobo, PocketBook, Android ve masaüstü Linux için "
+"mevcuttur. Çok iyi bir OPDS desteğine sahiptir."
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
 msgstr ""
-"Gdy będziesz miał Token API, możesz uzyskać dostęp do sekcji OPDS w menu "
-"wyszukiwania Koreader:"
+"Bir API Jetonunuz olduğunda, Koreader'ın arama menüsündeki OPDS bölümüne "
+"erişebilirsiniz:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr "![Menu wyszukiwania Koreader](../img/koreader-1.webp)"
+msgstr "![Koreader'ın arama menüsü](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr "Sekcja ta pokazuje listę pre-konfigurowanych źródeł OPDS i możesz tutaj dodać swoje źródło naciskając ikonę \"+\" w lewym górnym rogu:"
+msgstr ""
+"Bu bölüm, önceden yapılandırılmış OPDS kaynaklarının bir listesini gösterir "
+"ve sol üst köşedeki \"+\" simgesine basarak kendinizinkini ekleyebilirsiniz:"
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
-msgstr "![Lista katalogów Koreader](../img/koreader-2.webp)"
+msgstr "![Koreader katalog listesi](../img/koreader-2.webp)"
 
 #: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
-msgstr "W tym oknie dialogowym zamień pola poniżej na:"
+msgstr "Bu iletişim kutusunda aşağıdaki alanları şunlarla değiştirin:"
 
 #: en-US/opds.md:47
-#, fuzzy
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
-"- [https://readeck.example.com](https://readeck.example.com) : `readeck-instance://opds`\n"
-"- alice: twoja nazwa użytkownika\n"
-"- twoje hasło aplikacji w ostatnim polu"
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: kullanıcı adınız\n"
+"- son alana API Jetonunuz"
 
 #: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
-msgstr "![Dodaj katalog Koreader](../img/koreader-3.webp)"
+msgstr "![Koreader katalog ekle](../img/koreader-3.webp)"
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr "Teraz możesz uzyskać dostęp do swoich zakładek z Koreader'a!"
+msgstr "Artık yer imlerinize Koreader'dan erişebilirsiniz!"
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
-msgstr "![Katalo readeck oreader](../img/koreader-4.webp)"
+msgstr "![Koreader readeck kataloğu](../img/koreader-4.webp)"
 
 #: en-US/user-profile.md:1
 msgid "# User Profile"
-msgstr "# Profil użytkownika"
+msgstr "# Kullanıcı Profili"
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr "[Sekcja profilu](readeck-instance://profile) Readeck pozwala ci zmienić twoje dane osobowe, hasło i inne ustawienia."
+msgstr ""
+"Readeck'in [Profil bölümü](readeck-instance://profile), kişisel "
+"bilgilerinizi, şifrenizi ve diğer bazı ayarları değiştirmenize olanak tanır."
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
-msgstr "## Edytuj swój profil"
+msgstr "## Profilinizi düzenleyin"
 
 #: en-US/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
-msgstr "Na stronie głównej profilu możesz zmienić nazwę użytkownika, adres email i wybrać język aplikacji."
+msgstr ""
+"Ana profil sayfasında, kullanıcı adınızı, e-posta adresinizi değiştirebilir "
+"ve uygulamanın dilini seçebilirsiniz."
 
 #: en-US/user-profile.md:9
 msgid "## Change your password"
-msgstr "## Zmień hasło"
+msgstr "## Şifrenizi değiştirin"
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr "Na stronie [Hasła](readeck-instance://profile/password) możesz zmienić hasło używane do połączenia się z Readeck."
+msgstr ""
+"[Şifre](readeck-instance://profile/password) sayfasında, Readeck'e bağlanmak "
+"için kullandığınız şifreyi değiştirebilirsiniz."
 
 #: en-US/user-profile.md:13
 msgid "## API Tokens"
-msgstr "## Tokeny API"
+msgstr "## API Jetonları"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr "Token API pozwala uzyskać dostęp i używać [API Readeck](readeck-instance://docs/api) do zbudowania czego potrzebujesz. Możesz tworzyć i zarządzać tokenami w sekcji [Tokeny API](readeck-instance://profile/tokens) profilu użytkownika."
+msgstr ""
+"Bir API Jetonu, oluşturmak istediğiniz her şey için [Readeck API](readeck-"
+"instance://docs/api)'sine erişmenizi ve kullanmanızı sağlar. Kullanıcı "
+"profilinizin [API Jetonları](readeck-instance://profile/tokens) bölümünde "
+"jeton oluşturabilir ve yönetebilirsiniz."
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr "Możesz ograniczyć do czego dany token ma dostęp poprzez API i jak długo jest ważny."
+msgstr ""
+"Belirli bir jetonun API aracılığıyla neye erişebileceğini ve ne kadar "
+"süreyle geçerli olacağını sınırlayabilirsiniz."
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr "Jeśli potrzebujesz udzielić dostępu do swojego konta Readeck jakiejś aplikacji lub usłudze, nie możesz udostępnić swojej głównej nazwy użytkownika i hasła; to nie zadziała."
+msgstr ""
+"Readeck hesabınıza bir hizmete veya uygulamaya erişim izni vermeniz "
+"gerekiyorsa, ana kullanıcı adınızı ve şifrenizi sağlayamazsınız; işe yaramaz."
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr "Zamiast tego możesz podać swoją nazwę użytkownika i wybrany token jako dane uwierzytelniające."
-
-#~ msgid "## Application Passwords"
-#~ msgstr "## Hasła aplikacji"
-
-#~ msgid "What you can do is create an [Application Password](readeck-instance://profile/credentials)."
-#~ msgstr "Co możesz zrobić to stworzyć [Hasło aplikacji](readeck-instance://profile/credentials)."
-
-#~ msgid "You can limit what a given password can access through the API."
-#~ msgstr "Możesz ograniczyć do czego dane hasło aplikacji ma dostęp poprzez API."
-
-#~ msgid "Once you created an application password, you can use it to access the [Readeck API](readeck-instance://docs/api) or export services."
-#~ msgstr "Jak już stworzysz hasło aplikacji, możesz go użyć aby uzyskać dostęp do [API Readeck](readeck-instance://docs/api) lub usług eksportu."
-
-#~ msgid "See the [Ebook Catalog](./opds.md) help page for a real life example."
-#~ msgstr "Odwiedź stronę pomocy [Katalog E-booków](./opds.md) aby zobaczyć przykład z życia wzięty."
-
-#~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
-#~ msgstr "**Uwaga**: nawet jeśli możesz użyć hasła aplikacji to dostępu do API, rekomendowane jest użycie tokena API gdy tylko możliwe."
+msgstr ""
+"Bunun yerine, kimlik doğrulama bilgileri olarak kullanıcı adınızı ve "
+"seçtiğiniz bir jetonu verebilirsiniz."
