@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: th\n"
+"PO-Revision-Date: 2025-10-06 23:41+0000\n"
+"Last-Translator: wannaphong <wannaphong@noreply.codeberg.org>\n"
+"Language-Team: Thai <https://translate.codeberg.org/projects/readeck/"
+"application/th/>\n"
+"Language: th_TH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
@@ -24,7 +26,7 @@ msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "ปิดเมนู"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
@@ -32,17 +34,17 @@ msgstr ""
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "หน้าหลัก"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:33
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
-msgstr ""
+msgstr "ต้องการ"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "ข้อผิดพลาด"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
@@ -97,12 +99,12 @@ msgstr ""
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "ก่อนหน้า"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "ถัดไป"
 
 #: assets/templates/admin/user.jet.html:18
 msgid "User will be removed in a few seconds"
@@ -140,12 +142,12 @@ msgstr ""
 #: assets/templates/auth/onboarding.jet.html:36
 #: assets/templates/auth/recover.jet.html:28
 msgid "Email address"
-msgstr ""
+msgstr "ที่อยู่อีเมล"
 
 #: assets/templates/admin/user.jet.html:39
 #: assets/templates/admin/user_create.jet.html:30
 msgid "Group"
-msgstr ""
+msgstr "กลุ่ม"
 
 #: assets/templates/admin/user.jet.html:47
 msgid "will not change if empty"
@@ -158,7 +160,7 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
-msgstr ""
+msgstr "บันทึก"
 
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
@@ -202,7 +204,7 @@ msgstr ""
 
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
-msgstr ""
+msgstr "คุณลืมรหัสผ่าน?"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -234,7 +236,7 @@ msgstr ""
 
 #: assets/templates/auth/onboarding.jet.html:46
 msgid "Finish installation"
-msgstr ""
+msgstr "เสร็จสิ้นการติดตั้ง"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
@@ -279,11 +281,11 @@ msgstr ""
 #: assets/templates/auth/recover.jet.html:52
 #: assets/templates/profile/password.jet.html:28
 msgid "New password"
-msgstr ""
+msgstr "รหัสผ่านใหม่"
 
 #: assets/templates/auth/recover.jet.html:55
 msgid "Update your password"
-msgstr ""
+msgstr "ปรับปรุงรหัสผ่านของคุณ"
 
 #: assets/templates/auth/recover.jet.html:60
 msgid "Your password has been changed."
@@ -354,7 +356,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/base.jet.html:90
 msgid "Did you know?"
-msgstr ""
+msgstr "คุณรู้หรือไม่?"
 
 #: assets/templates/bookmarks/base.jet.html:91
 #: assets/templates/bookmarks/index.jet.html:91
@@ -420,7 +422,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "จาก %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:17
 #: assets/templates/bookmarks/components/sidebar.jet.html:95
@@ -490,7 +492,7 @@ msgstr ""
 #: assets/templates/bookmarks/collection.jet.html:47
 #: assets/templates/bookmarks/collection.jet.html:60
 msgid "Edit"
-msgstr ""
+msgstr "แก้ไข"
 
 #: assets/templates/bookmarks/collection.jet.html:62
 #: assets/templates/bookmarks/index.jet.html:133
