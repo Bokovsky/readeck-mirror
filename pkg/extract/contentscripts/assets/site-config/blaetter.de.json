@@ -1,19 +1,17 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article-content ')]"
+    "//main//article"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//p[contains(concat(' ',normalize-space(@class),' '),' author-card__title ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' author ')]//a"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//article[contains(@class, 'media')]"
+  ],
   "strip_id_or_class": [
-    "embed-container",
-    "listplans-shortcode-container",
-    "see-more",
-    "stretched-link-container",
-    "to-read"
+    "teaser"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -26,7 +24,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.frandroid.com/marques/tesla/770881_tesla-devoile-une-nouvelle-batterie-six-fois-plus-puissante",
+      "url": "https://www.blaetter.de/rss.xml",
+      "contains": []
+    },
+    {
+      "url": "https://www.blaetter.de/ausgabe/2025/september/russlands-rekrutierungsmaschine#_ftnref6",
       "contains": []
     }
   ]

@@ -3,6 +3,7 @@
     "//h1"
   ],
   "body_selectors": [
+    "//main/article",
     "//article"
   ],
   "date_selectors": [
@@ -15,10 +16,22 @@
     "//div[contains(@class, 'authors--withsource')]",
     "//div[@class='toc']",
     "//li[not(.//text()[normalize-space()])][not(@class)]",
+    "//div[contains(@class, 'go-teaser-block')]",
+    "//ul[contains(@class, 'go-alink-list')]",
+    "//hr[contains(@class, 'go-hr')]/following-sibling::div[contains(@class, 'go-grid')]",
+    "//div[contains(@class, 'go-article-header__meta')]",
+    "//div[contains(@class, 'go-article-header__button-bar')]",
+    "//article[contains(@class, 'go-teaser--variant-affiliate')]",
+    "//div[contains(@class, 'go-gallery__actions')]",
+    "//nav[contains(@class, 'go-article__pagination')]",
+    "//div[contains(@class, 'go-article-header__series')][.//a[contains(@class, 'go-label')]]",
+    "//details[contains(@class, 'go-article__index')]",
     "//img[@src='']",
     "//div[contains(@style,'margin')]",
     "//figure[contains(@id,'gvideo')]",
-    "//figure/figcaption[contains(text(), 'Bitte aktivieren Sie Javascript')]"
+    "//figure/figcaption[contains(text(), 'Bitte aktivieren Sie Javascript')]",
+    "//svg[contains(@class, 'go-external-link__icon')]",
+    "//span[@class='go-vh' and normalize-space(text())='(öffnet im neuen Fenster)']"
   ],
   "strip_id_or_class": [
     "iqadtile4",
@@ -33,7 +46,8 @@
     "footer",
     "job-market",
     "tags",
-    "topictags"
+    "topictags",
+    "go-button-bar"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -42,7 +56,7 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": [
-    "//a[@id='atoc_next']"
+    "//li[contains(@class, 'go-pagination__item--next')]/a"
   ],
   "replace_strings": null,
   "http_headers": {
@@ -50,6 +64,10 @@
     "user-agent": "Googlebot"
   },
   "tests": [
+    {
+      "url": "https://www.golem.de/news/onlineshopping-auf-pump-boomt-erstmals-mehr-als-zehn-millionen-neue-ratenkredite-2509-199696.html",
+      "contains": []
+    },
     {
       "url": "http://www.golem.de/news/intel-core-i7-5960x-im-test-die-pc-revolution-beginnt-mit-octacore-und-ddr4-1408-108893.html",
       "contains": []

@@ -23,6 +23,7 @@
     "//p[contains(strong, 'Lire') and a]",
     "//*[contains(@class, 'comments')]",
     "//p[@class='article__status']",
+    "//p[@class='ds-article-status ds-article-status--premium']",
     "//section[@id='js-capping-old-article']",
     "//p[@class='article__quote']/parent::blockquote",
     "//ul[contains(@class, 'meta__social')]",

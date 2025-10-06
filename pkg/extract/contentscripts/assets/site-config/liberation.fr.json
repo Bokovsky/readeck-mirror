@@ -20,7 +20,8 @@
     "mailmunch-giftarticle",
     "flex-chain",
     "c2",
-    "article-dossier"
+    "article-dossier",
+    "custom-card-list"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
