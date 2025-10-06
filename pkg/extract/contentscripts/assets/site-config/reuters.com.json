@@ -1,33 +1,41 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[contains(concat(' ',normalize-space(@class),' '),' content-view ')]",
-    "//div[contains(@class, 'article-body__container_')]",
-    "//div[contains(@class, 'article-body__content_')]",
+    "//main[@id='main-content']/article[1]/div[1]",
     "//div[@id='articleImage' or @id='frame_fd1fade'] | //span[@id='article-text'] | //div[@class='pageNavigation']",
-    "//article[@itemtype=\"http://schema.org/NewsArticle\"]"
+    "//article[@itemtype=\"http://schema.org/NewsArticle\"]",
+    "//article[contains(concat(' ',normalize-space(@class),' '),' content-view ')]"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "substring-after(//p[@itemprop=\"author\"] , 'By ')",
+    "substring-after(//ul[contains(@class, 'article-meta')]//p[@class='byline'] , 'By ')"
+  ],
   "strip_selectors": [
+    "//svg",
+    "//nav",
     "//aside",
     "//header",
-    "//div[contains(@data-testid, 'gallery')]",
     "//li[@class='next']",
     "//span[@class='articleLocation']",
     "//div[contains(@class, 'registration-prompt')]",
     "//*[@data-testid=\"toolbar-container\" or @data-testid=\"ArticleToolbar\" or @data-testid=\"LicenceContentButton\" or @data-testid=\"promo-box\" or @data-testid=\"ResponsiveAdSlot\"]",
-    "//svg",
     "//a//span[contains(., 'opens new tab')]",
     "//a[contains(@class, 'caption__license')]",
     "//div[contains(@class, 'author-bio__')]",
-    "//p[contains(@class, '_promo-box_')]"
+    "//p[contains(@class, '_promo-box_')]",
+    "//div[@data-testid=\"SocialIcon\"]",
+    "//div[@data-testid=\"AuthorBio\"]",
+    "//a[contains(@href, '/about-us/trust-principles')]/parent::*"
   ],
   "strip_id_or_class": [
     "article-meta",
     "related-items",
     "related-container",
-    "share-in-article-container"
+    "share-in-article-container",
+    "meta-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -46,7 +54,9 @@
       "\u003c!-- /noscript --\u003e"
     ]
   ],
-  "http_headers": null,
+  "http_headers": {
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
+  },
   "tests": [
     {
       "url": "https://www.reuters.com/world/us/us-attorney-general-garland-confirms-fbi-investigating-trump-2022-08-11/",
