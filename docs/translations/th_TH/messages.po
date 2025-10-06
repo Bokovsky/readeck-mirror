@@ -8,14 +8,16 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: th\n"
+"PO-Revision-Date: 2025-10-06 23:41+0000\n"
+"Last-Translator: wannaphong <wannaphong@noreply.codeberg.org>\n"
+"Language-Team: Thai <https://translate.codeberg.org/projects/readeck/"
+"documentation/th/>\n"
+"Language: th_TH\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -52,15 +54,15 @@ msgstr ""
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### บทความ"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
+msgstr "บทความคือหน้าที่มีการนำเนื้อหาข้อความมาแสดงเป็นเนื้อหาที่อ่านได้"
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### รูปภาพ"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
