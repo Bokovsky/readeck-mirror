@@ -47,3 +47,17 @@ func GroupList(tr translator, name string, user *User) [][2]string {
 
 	return res
 }
+
+// GroupNames converts a role list to a list of translated names.
+func GroupNames(tr translator, groups []string) []string {
+	res := make([]string, len(groups))
+
+	for i, g := range groups {
+		res[i] = g
+		if n, ok := roleMap[g]; ok {
+			res[i] = tr.Pgettext("role", n)
+		}
+	}
+
+	return res
+}
