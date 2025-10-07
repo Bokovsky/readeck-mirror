@@ -283,6 +283,7 @@ func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
+		"__ROOT_URI__", strings.TrimSuffix(urls.AbsoluteURL(r, "/").String(), "/"),
 		"__BASE_URI__", urls.AbsoluteURL(r, "/api").String(),
 	)
 
