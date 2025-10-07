@@ -80,6 +80,14 @@ func TestAPI(t *testing.T) {
 			}`,
 		},
 		RequestTest{
+			Method: "GET",
+			Target: "/api/profile",
+			Headers: map[string]string{
+				"Authorization": "Bearer {{ (index .History 0).JSON.token }}",
+			},
+			ExpectStatus: 200,
+		},
+		RequestTest{
 			Method: "POST",
 			Target: "/api/auth",
 			JSON: map[string]string{
@@ -92,6 +100,58 @@ func TestAPI(t *testing.T) {
 					"id": "<<PRESENCE>>",
 					"token": "<<PRESENCE>>"
 			}`,
+		},
+		RequestTest{
+			Method: "POST",
+			Target: "/api/auth",
+			JSON: map[string]any{
+				"application": "test",
+				"username":    "admin@localhost",
+				"password":    "admin",
+				"roles":       []string{"bookmarks:read"},
+			},
+			ExpectStatus: 201,
+			ExpectJSON: `{
+					"id": "<<PRESENCE>>",
+					"token": "<<PRESENCE>>"
+			}`,
+		},
+		RequestTest{
+			Method: "GET",
+			Target: "/api/profile",
+			Headers: map[string]string{
+				"Authorization": "Bearer {{ (index .History 0).JSON.token }}",
+			},
+			ExpectStatus: 200,
+			Assert: func(t *testing.T, r *Response) {
+				r.AssertJQ(t, ".provider.roles", []any{"bookmarks:read"})
+			},
+		},
+		RequestTest{
+			Method: "POST",
+			Target: "/api/auth",
+			JSON: map[string]any{
+				"application": "test",
+				"username":    "admin@localhost",
+				"password":    "admin",
+				"roles":       []string{"scoped_admin_r", "scoped_bookmarks_r"},
+			},
+			ExpectStatus: 201,
+			ExpectJSON: `{
+					"id": "<<PRESENCE>>",
+					"token": "<<PRESENCE>>"
+			}`,
+		},
+		RequestTest{
+			Method: "GET",
+			Target: "/api/profile",
+			Headers: map[string]string{
+				"Authorization": "Bearer {{ (index .History 0).JSON.token }}",
+			},
+			ExpectStatus: 200,
+			Assert: func(t *testing.T, r *Response) {
+				r.AssertJQ(t, ".provider.roles", []any{"admin:read", "bookmarks:read"})
+			},
 		},
 	)
 }

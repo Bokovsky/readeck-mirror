@@ -72,29 +72,29 @@ g, admin, /*/admin/*
 g, admin, /*/cookbook/*
 
 # scopes
-g, scoped_bookmarks_r, __token__
-g, scoped_bookmarks_r, __oauth__
-g, scoped_bookmarks_r, api_common
-g, scoped_bookmarks_r, /api/bookmarks/read
-g, scoped_bookmarks_r, /api/bookmarks/export
-g, scoped_bookmarks_r, /api/bookmarks/collections/read
-g, scoped_bookmarks_r, /api/opds/read
-g, scoped_bookmarks_r, /web/bookmarks/read
+g, bookmarks:read, __token__
+g, bookmarks:read, __oauth__
+g, bookmarks:read, api_common
+g, bookmarks:read, /api/bookmarks/read
+g, bookmarks:read, /api/bookmarks/export
+g, bookmarks:read, /api/bookmarks/collections/read
+g, bookmarks:read, /api/opds/read
+g, bookmarks:read, /web/bookmarks/read
 
-g, scoped_bookmarks_w, __token__
-g, scoped_bookmarks_w, __oauth__
-g, scoped_bookmarks_w, api_common
-g, scoped_bookmarks_w, /api/bookmarks/write
-g, scoped_bookmarks_w, /api/bookmarks/collections/write
+g, bookmarks:write, __token__
+g, bookmarks:write, __oauth__
+g, bookmarks:write, api_common
+g, bookmarks:write, /api/bookmarks/write
+g, bookmarks:write, /api/bookmarks/collections/write
 
-g, scoped_admin_r, __token__
-g, scoped_admin_r, api_common
-g, scoped_admin_r, /api/admin/read
-g, scoped_admin_r, /system/read
+g, admin:read, __token__
+g, admin:read, api_common
+g, admin:read, /api/admin/read
+g, admin:read, /system/read
 
-g, scoped_admin_w, __token__
-g, scoped_admin_w, api_common
-g, scoped_admin_w, /api/admin/write
+g, admin:write, __token__
+g, admin:write, api_common
+g, admin:write, /api/admin/write
 `))
 }
 
@@ -135,10 +135,10 @@ func TestCheckPermission(t *testing.T) {
 		{"user", "bookmarks", "read", true},
 		{"", "bookmarks", "read", false},
 
-		{"scoped_bookmarks_r", "api:bookmarks", "read", true},
-		{"scoped_bookmarks_r", "api:bookmarks", "write", false},
-		{"scoped_bookmarks_w", "api:bookmarks", "read", false},
-		{"scoped_bookmarks_w", "api:bookmarks", "write", true},
+		{"bookmarks:read", "api:bookmarks", "read", true},
+		{"bookmarks:read", "api:bookmarks", "write", false},
+		{"bookmarks:write", "api:bookmarks", "read", false},
+		{"bookmarks:write", "api:bookmarks", "write", true},
 
 		{"admin", "email", "send", true},
 		{"staff", "email", "send", true},
@@ -165,23 +165,23 @@ func TestGetPermissions(t *testing.T) {
 		Expected []string
 	}{
 		{
-			[]string{"scoped_admin_r"},
+			[]string{"admin:read"},
 			[]string{"api:admin:users:read", "api:profile:read", "api:profile:tokens:delete", "system:read"},
 		},
 		{
-			[]string{"scoped_admin_w"},
+			[]string{"admin:write"},
 			[]string{"api:admin:users:write", "api:profile:read", "api:profile:tokens:delete"},
 		},
 		{
-			[]string{"scoped_admin_r", "scoped_admin_w"},
+			[]string{"admin:read", "admin:write"},
 			[]string{"api:admin:users:read", "api:admin:users:write", "api:profile:read", "api:profile:tokens:delete", "system:read"},
 		},
 		{
-			[]string{"scoped_bookmarks_r"},
+			[]string{"bookmarks:read"},
 			[]string{"api:bookmarks:collections:read", "api:bookmarks:export", "api:bookmarks:read", "api:opds:read", "api:profile:read", "api:profile:tokens:delete", "bookmarks:read"},
 		},
 		{
-			[]string{"scoped_bookmarks_w"},
+			[]string{"bookmarks:write"},
 			[]string{"api:bookmarks:collections:write", "api:bookmarks:write", "api:profile:read", "api:profile:tokens:delete"},
 		},
 		{
@@ -210,9 +210,9 @@ func TestInGroup(t *testing.T) {
 		{"user", "user", true},
 		{"user", "admin", true},
 		{"admin", "user", false},
-		{"scoped_bookmarks_r", "user", true},
-		{"scoped_admin_r", "user", false},
-		{"scoped_admin_r", "admin", true},
+		{"bookmarks:read", "user", true},
+		{"admin:read", "user", false},
+		{"admin:read", "admin", true},
 	}
 
 	policy, err := LoadPolicy(basePolicy())
@@ -237,11 +237,11 @@ func TestListGroups(t *testing.T) {
 		},
 		{
 			"__token__",
-			[]string{"scoped_admin_r", "scoped_admin_w", "scoped_bookmarks_r", "scoped_bookmarks_w"},
+			[]string{"admin:read", "admin:write", "bookmarks:read", "bookmarks:write"},
 		},
 		{
 			"__oauth__",
-			[]string{"scoped_bookmarks_r", "scoped_bookmarks_w"},
+			[]string{"bookmarks:read", "bookmarks:write"},
 		},
 	}
 
@@ -295,7 +295,7 @@ func BenchmarkCheckPermission(b *testing.B) {
 		{"", "api:profile", "read"},
 
 		{"admin", "bookmarks", "read"},
-		{"scoped_bookmarks_r", "api:bookmarks", "read"},
+		{"bookmarks:read", "api:bookmarks", "read"},
 		{"", "bookmarks", "read"},
 
 		{"user", "email", "send"},
@@ -317,10 +317,10 @@ func BenchmarkCheckPermission(b *testing.B) {
 func BenchmarkGetPermissions(b *testing.B) {
 	tests := [][]string{
 		{"admin"},
-		{"scoped_admin_r"},
-		{"scoped_bookmarks_w"},
+		{"admin:read"},
+		{"bookmarks:write"},
 		{"admin", "user", "staff"},
-		{"user", "scoped_bookmarks_w"},
+		{"user", "bookmarks:write"},
 	}
 
 	policy, err := LoadPolicy(basePolicy())
@@ -343,9 +343,9 @@ func BenchmarkInGroup(t *testing.B) {
 		{"user", "user"},
 		{"user", "admin"},
 		{"admin", "user"},
-		{"scoped_bookmarks_r", "user"},
-		{"scoped_admin_r", "user"},
-		{"scoped_admin_r", "admin"},
+		{"bookmarks:read", "user"},
+		{"admin:read", "user"},
+		{"admin:read", "admin"},
 	}
 
 	policy, err := LoadPolicy(basePolicy())

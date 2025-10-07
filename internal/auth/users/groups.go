@@ -20,10 +20,11 @@ var roleMap = map[string]string{
 	"staff": pgettext("role", "staff"),
 	"admin": pgettext("role", "admin"),
 
-	"scoped_bookmarks_r": pgettext("role", "Bookmarks : Read Only"),
-	"scoped_bookmarks_w": pgettext("role", "Bookmarks : Write Only"),
-	"scoped_admin_r":     pgettext("role", "Admin : Read Only"),
-	"scoped_admin_w":     pgettext("role", "Admin : Write Only"),
+	"profile:read":    pgettext("role", "Profile : Read Only"),
+	"bookmarks:read":  pgettext("role", "Bookmarks : Read Only"),
+	"bookmarks:write": pgettext("role", "Bookmarks : Write Only"),
+	"admin:read":      pgettext("role", "Admin : Read Only"),
+	"admin:write":     pgettext("role", "Admin : Write Only"),
 }
 
 // GroupList returns a list of available groups identified by a permission name

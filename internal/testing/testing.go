@@ -12,6 +12,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"maps"
 	"net/http"
 	"net/http/cookiejar"
 	"net/http/httptest"
@@ -380,6 +381,7 @@ func (c *Client) Request(req *http.Request) *Response {
 
 	// Prepare response instance
 	rsp, err := NewResponse(w, req)
+	rsp.Request = req
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -428,26 +430,53 @@ func (c *Client) RequestJSON(method string, target string, data interface{}) *Re
 	return c.Request(c.NewJSONRequest(method, target, data))
 }
 
-// RenderTemplate executes a template string using some properties of the client.
+// renderTemplateString executes a template string using some properties of the client.
 // (Users, URL). Extra data can be sent using the extra map.
-func (c *Client) RenderTemplate(src string, extra map[string]interface{}) (string, error) {
+func (c *Client) renderTemplateString(src string, extra map[string]interface{}) (string, error) {
 	tpl, err := template.New("").Parse(src)
 	if err != nil {
 		return "", err
 	}
 	buf := bytes.Buffer{}
-	data := map[string]interface{}{
+	data := map[string]any{
 		"Users": c.app.Users,
 		"URL":   "http://" + c.URL.Host,
 	}
-	for k, v := range extra {
-		data[k] = v
-	}
+	maps.Copy(data, extra)
 
 	if err = tpl.Execute(&buf, data); err != nil {
 		return "", err
 	}
 	return buf.String(), nil
+}
+
+// renderTemplate executes [renderTemplateString] on the given variable when its
+// type is string, map[string]any and []any. This lets us use template values
+// in JSON payloads.
+func (c *Client) renderTemplate(src any, extra map[string]any) (any, error) {
+	var err error
+	switch s := src.(type) {
+	case string:
+		return c.renderTemplateString(s, extra)
+	case map[string]any:
+		for k, v := range s {
+			s[k], err = c.renderTemplate(v, extra)
+			if err != nil {
+				return nil, err
+			}
+		}
+		return s, nil
+	case []any:
+		for i, v := range s {
+			s[i], err = c.renderTemplate(v, extra)
+			if err != nil {
+				return nil, err
+			}
+		}
+		return s, nil
+	}
+
+	return src, nil
 }
 
 // Response is a wrapper around http.Response where the body is stored and
@@ -568,6 +597,7 @@ func (r *Response) AssertJQ(t *testing.T, q string, expected ...any) {
 
 // RequestTest contains data that are used to perform requests and assert some results.
 type RequestTest struct {
+	Name           string
 	Method         string
 	Target         string
 	Form           url.Values
@@ -582,7 +612,7 @@ type RequestTest struct {
 }
 
 // RunRequestSequence performs a serie of requests using RequestTest instances.
-func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTest) {
+func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTest) { //nolint:gocognit
 	if user != "" {
 		c.app.Users[user].Login(c)
 		defer c.Logout()
@@ -595,13 +625,13 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 
 	t.Run(fmt.Sprintf("sequence (%s)", user), func(t *testing.T) {
 		history := []*Response{}
-		templateData := map[string]interface{}{
+		templateData := map[string]any{
 			"History": &history,
 			"User":    c.app.Users[user],
 		}
 
 		for _, test := range tests {
-			target, err := c.RenderTemplate(test.Target, templateData)
+			target, err := c.renderTemplateString(test.Target, templateData)
 			if err != nil {
 				t.Error(err)
 				return
@@ -610,15 +640,24 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 				test.Method = "GET"
 			}
 
-			t.Run(fmt.Sprintf("%s %s", test.Method, target), func(t *testing.T) {
+			name := test.Name
+			if name == "" {
+				name = fmt.Sprintf("%s %s", test.Method, target)
+			}
+
+			t.Run(name, func(t *testing.T) {
 				var req *http.Request
 
 				switch {
 				case test.JSON != nil:
-					var data interface{}
+					var data any
 					switch test.Method {
 					case "POST", "PATCH", "PUT":
-						data = test.JSON
+						data, err = c.renderTemplate(test.JSON, templateData)
+						if err != nil {
+							t.Error(err)
+							return
+						}
 					default:
 						data = nil
 					}
@@ -641,7 +680,12 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 				}
 
 				for k, v := range test.Headers {
-					req.Header.Add(k, v)
+					V, err := c.renderTemplateString(v, templateData)
+					if err != nil {
+						t.Error(err)
+						return
+					}
+					req.Header.Add(k, V)
 				}
 
 				// Perform request
@@ -659,7 +703,7 @@ func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTe
 				}
 
 				if test.ExpectJSON != "" {
-					s, err := c.RenderTemplate(test.ExpectJSON, templateData)
+					s, err := c.renderTemplateString(test.ExpectJSON, templateData)
 					if err != nil {
 						t.Error(err)
 						return

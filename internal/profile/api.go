@@ -37,10 +37,11 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	r := server.AuthenticatedRouter()
 	api := &profileAPI{r, s}
 
-	r.With(server.WithPermission("api:profile", "read")).Group(func(r chi.Router) {
-		r.Get("/", api.profileInfo)
-		r.With(api.withTokenList).Get("/tokens", api.tokenList)
-	})
+	r.With(server.WithPermission("api:profile", "info")).
+		Get("/", api.profileInfo)
+
+	r.With(server.WithPermission("api:profile:tokens", "read"), api.withTokenList).
+		Get("/tokens", api.tokenList)
 
 	r.With(server.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
@@ -63,11 +64,11 @@ type profileInfoProvider struct {
 	Permissions []string `json:"permissions"`
 }
 type profileInfoUser struct {
-	Username string              `json:"username"`
-	Email    string              `json:"email"`
-	Created  time.Time           `json:"created"`
-	Updated  time.Time           `json:"updated"`
-	Settings *users.UserSettings `json:"settings"`
+	Username string              `json:"username,omitempty"`
+	Email    string              `json:"email,omitempty"`
+	Created  *time.Time          `json:"created,omitempty"`
+	Updated  *time.Time          `json:"updated,omitempty"`
+	Settings *users.UserSettings `json:"settings,omitempty"`
 }
 type profileInfo struct {
 	Provider profileInfoProvider `json:"provider"`
@@ -88,11 +89,14 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 		},
 		User: profileInfoUser{
 			Username: info.User.Username,
-			Email:    info.User.Email,
-			Created:  info.User.Created,
-			Updated:  info.User.Updated,
-			Settings: info.User.Settings,
 		},
+	}
+
+	if auth.HasPermission(r, "api:profile", "read") {
+		res.User.Email = info.User.Email
+		res.User.Created = &info.User.Created
+		res.User.Updated = &info.User.Updated
+		res.User.Settings = info.User.Settings
 	}
 
 	if res.Provider.Roles == nil {
