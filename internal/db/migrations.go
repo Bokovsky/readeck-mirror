@@ -101,4 +101,5 @@ var migrationList = []migrationEntry{
 	newMigrationEntry(19, "bookmark_text_normalization", migrations.M19bookmarkTextNormalization),
 	newMigrationEntry(20, "bookmark_removed", applyMigrationFile("20_bookmark_removed.sql")),
 	newMigrationEntry(21, "token_roles", migrations.M21tokenRoles),
+	newMigrationEntry(22, "oauth2", applyMigrationFile("22_oauth2.sql")),
 }

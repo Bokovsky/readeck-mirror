@@ -218,7 +218,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	token, err := tokens.EncodeToken(ti.UID)
+	token, err := configs.Keys.TokenKey().Encode(ti.UID)
 	if err != nil {
 		server.Status(w, r, http.StatusInternalServerError)
 		return

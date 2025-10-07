@@ -6,6 +6,7 @@ package server
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -19,13 +20,7 @@ import (
 type Message struct {
 	Status  int     `json:"status"`
 	Message string  `json:"message"`
-	Errors  []Error `json:"errors,omitempty"`
-}
-
-// Error is mainly used to return payload/querystring errors.
-type Error struct {
-	Location string `json:"location"`
-	Error    string `json:"error"`
+	Errors  []error `json:"-"`
 }
 
 // Link contains a "Link" header information.
@@ -90,7 +85,12 @@ func Msg(w http.ResponseWriter, r *http.Request, message *Message) {
 
 	// Log errors only in debug
 	if message.Status >= 400 && configs.Config.Main.LogLevel <= slog.LevelDebug {
-		Log(r).Warn(message.Message, slog.Any("message", message))
+		attrs := make([]slog.Attr, 1+len(message.Errors))
+		attrs[0] = slog.Int("status", message.Status)
+		for i, e := range message.Errors {
+			attrs[i+1] = slog.Any("err", e)
+		}
+		Log(r).LogAttrs(context.Background(), slog.LevelWarn, message.Message, attrs...)
 	}
 }
 
@@ -110,10 +110,31 @@ func Status(w http.ResponseWriter, _ *http.Request, status int) {
 	fmt.Fprintln(w, http.StatusText(status))
 }
 
-// Err sends an HTTP 500 and log the given error.
+// Err renders an error.
+// If the error is "classic", it returns a 500 response and logs
+// the error.
+// If the errors provides a Status(), Log() or MarshalJSON() functions
+// we use them when applicable.
 func Err(w http.ResponseWriter, r *http.Request, err error) {
-	Log(r).Error("server error", slog.Any("err", err))
-	Status(w, r, 500)
+	status := 500
+	if e, ok := err.(interface{ StatusCode() int }); ok {
+		// If the error has a StatusCode() method, use this instead
+		status = e.StatusCode()
+	}
+
+	if e, ok := err.(interface{ Log(*slog.Logger) }); ok {
+		// If the error has a Log() method, use this instead
+		e.Log(Log(r))
+	} else {
+		Log(r).Error("server error", slog.Any("err", err))
+	}
+
+	if e, ok := err.(json.Marshaler); ok {
+		// If the error provides a JSON marshaller, we render it as JSON.
+		Render(w, r, status, e)
+	} else {
+		Status(w, r, status)
+	}
 }
 
 // Redirect yields a 303 redirection with a location header.

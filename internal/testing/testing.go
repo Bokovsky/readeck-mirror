@@ -196,7 +196,7 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 	if err := tokens.Tokens.Create(res.Token); err != nil {
 		return nil, err
 	}
-	token, err := tokens.EncodeToken(res.Token.UID)
+	token, err := configs.Keys.TokenKey().Encode(res.Token.UID)
 	if err != nil {
 		return nil, err
 	}

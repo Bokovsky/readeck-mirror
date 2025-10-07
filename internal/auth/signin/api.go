@@ -5,10 +5,12 @@
 package signin
 
 import (
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -31,6 +33,8 @@ func newAuthAPI(s *server.Server) *authAPI {
 // auth performs the user authentication with its username and
 // password and then, returns a token tied to this user.
 func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
+	server.Log(r).Warn("this route is deprecated and will be removed in Readeck 0.22", slog.String("path", r.RequestURI))
+
 	f := newTokenLoginForm(server.Locale(r))
 
 	forms.Bind(f, r)
@@ -64,7 +68,7 @@ func (api *authAPI) auth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := tokens.EncodeToken(t.UID)
+	token, err := configs.Keys.TokenKey().Encode(t.UID)
 	if err != nil {
 		server.Err(w, r, err)
 		return

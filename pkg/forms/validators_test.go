@@ -352,6 +352,31 @@ func TestValidators(t *testing.T) {
 		},
 	}))
 
+	t.Run("strLen", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			data:   `"abc"`,
+			expect: "abc",
+		},
+		{
+			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			data:   `"問掃玉光尤向入神間示"`,
+			expect: "問掃玉光尤向入神間示",
+		},
+		{
+			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			data:   `"a"`,
+			expect: "a",
+			errors: []error{errors.New("text must contain between 2 and 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			data:   `"abcdefghijk"`,
+			expect: "abcdefghijk",
+			errors: []error{errors.New("text must contain between 2 and 10 characters")},
+		},
+	}))
+
 	t.Run("default", func(t *testing.T) {
 		tests := []struct {
 			f forms.Field
