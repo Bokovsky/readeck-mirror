@@ -7,8 +7,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-09-26 11:02+0000\n"
-"Last-Translator: micash <micash@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-10-10 17:17+0000\n"
+"Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
 "application/pl/>\n"
 "Language: pl_PL\n"
@@ -1100,9 +1100,8 @@ msgstr "Opis"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
-#, fuzzy
 msgid "Link address"
-msgstr "Adres email"
+msgstr "Adres linku"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:62
