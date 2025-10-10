@@ -59,6 +59,10 @@ exports.setConfig = function (config) {
   $.overrideConfig(config, "")
 }
 
+exports.documentDone = () => {
+  $.site = "Reddit"
+}
+
 /**
  * @param {Node} document
  */
