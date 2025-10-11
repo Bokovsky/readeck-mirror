@@ -110,6 +110,10 @@ func NewFullExporter(w io.Writer, usernames []string) (*FullExporter, error) {
 		return nil, err
 	}
 
+	if len(userIDs) == 0 {
+		return nil, errors.New("no user to export")
+	}
+
 	ex := &FullExporter{
 		userIDs: userIDs,
 		zfs:     zipfs.NewZipRW(w, nil, 0),
@@ -141,7 +145,7 @@ func (ex *FullExporter) SetLogger(fn func(string, ...any)) {
 func (ex *FullExporter) getUsers() ([]*users.User, error) {
 	return marshalItems[*users.User](
 		users.Users.Query().
-			SelectAppend(goqu.V(0).As("seed")).
+			SelectAppend(goqu.V("0").As("seed")).
 			Where(goqu.C("id").In(ex.userIDs)).
 			Order(goqu.C("username").Asc()),
 	)
