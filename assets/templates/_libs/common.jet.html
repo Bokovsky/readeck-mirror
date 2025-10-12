@@ -10,16 +10,18 @@ viewbox="{{ viewBox }}" class="inline-block {{ svgClass }}"><use
 href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
-{{- block message(type="info", removable=false, delay=0, class="") -}}
+{{- block message(type="info", removable=false, delay=0, class="", attrs=attrList()) -}}
 {{- icon := "o-info" -}}
 {{- if type == "success" -}}
   {{- icon = "o-check-on" -}}
 {{- else if type == "error" -}}
   {{- icon = "o-error" -}}
 {{- end -}}
-<div class="message {{ type }} {{ class }}"
- {{- if removable || delay > 0 -}} data-controller="remover" {{- end -}} data-remover-delay-value="{{ delay }}"
->
+{{- if removable || delay > 0 -}}
+  {{- attrs.Set("data-controller", "remover") -}}
+{{- end -}}
+{{- attrs.Set("data-remover-delay-value", delay) -}}
+<div class="message {{ type }} {{ class }}" {{ attrs }}>
   <div>
     {{- yield icon(name=icon) -}}
   </div>
@@ -41,8 +43,12 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
   <div class="toaster">
   {{- range flashes -}}
       {{- if !hasPrefix(.Type, "_") -}}
+        {{- attrs := attrList("role", "status") -}}
+        {{- if .Type == "error" -}}
+          {{- attrs.Set("role", "alert") -}}
+        {{- end -}}
         <div class="drop-shadow-sm mb-1">
-          {{- yield message(type=.Type, delay=3, removable=true) content -}}
+          {{- yield message(type=.Type, delay=5, removable=true, attrs=attrs) content -}}
             <strong>{{ .Message }}</strong>
           {{- end -}}
         </div>
