@@ -7,14 +7,16 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-07-26 09:45+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-10-15 05:42+0000\n"
+"Last-Translator: damrtom1991 <damrtom1991@noreply.codeberg.org>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
+"application/fr/>\n"
 "Language: fr_FR\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -185,7 +187,7 @@ msgstr "n'est pas modifié si non renseigné"
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
-msgstr "Enregister"
+msgstr "Enregistrer"
 
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
@@ -2707,4 +2709,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Fermer l'image"
-
