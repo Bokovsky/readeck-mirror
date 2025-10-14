@@ -43,12 +43,14 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		"graph.title",
 		"twitter.title",
 		"html.title",
+		"schema.name",
 	)
 
 	d.Description = d.Meta.LookupGet(
 		"graph.description",
 		"twitter.description",
 		"html.description",
+		"schema.description",
 	)
 	// Keep a short description (60 words)
 	parts := strings.Split(d.Description, " ")
@@ -66,7 +68,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 	if site := d.Meta.LookupGet(
 		"graph.site_name",
-		"schema.name",
+		"schema.publisher",
 	); site != "" {
 		d.Site = site
 	}
@@ -224,6 +226,14 @@ var specList = []rawSpec{
 		"schema", "//*[contains(concat(' ',normalize-space(@itemprop),' '),' author ')]//*[contains(concat(' ',normalize-space(@itemprop),' '),' name ')]",
 		func(n *html.Node) (string, string) {
 			return "author", dom.TextContent(n)
+		},
+	},
+
+	// Schema.org publisher in content
+	{
+		"schema", "//*[@itemscope][contains(concat(' ',normalize-space(@itemprop),' '),' publisher ')]//*[contains(concat(' ',normalize-space(@itemprop),' '),' name ')]",
+		func(n *html.Node) (string, string) {
+			return "publisher", dom.TextContent(n)
 		},
 	},
 

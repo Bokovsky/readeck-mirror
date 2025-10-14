@@ -56,7 +56,7 @@ func TestMeta(t *testing.T) {
 			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
-		t.Run("process", func(t *testing.T) {
+		t.Run("process meta1", func(t *testing.T) {
 			assert := require.New(t)
 			ex, _ := extract.New("http://example.net/", nil)
 			pm := ex.NewProcessMessage(extract.StepDom)
@@ -90,6 +90,19 @@ func TestMeta(t *testing.T) {
 				"twitter.title":       {"My Document Title"},
 				"twitter.url":         {"http://localhost:8000/"},
 			}, ex.Drop().Meta)
+		})
+
+		t.Run("process meta2", func(t *testing.T) {
+			assert := require.New(t)
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta2.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal("Article Title", ex.Drop().Title)
+			assert.Equal("Insert hot take here", ex.Drop().Description)
+			assert.Equal("The Bloggiest Blog", ex.Drop().Site)
 		})
 
 		t.Run("text direction", func(t *testing.T) {
