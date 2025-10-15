@@ -1,13 +1,13 @@
 module codeberg.org/readeck/readeck
 
-go 1.25.2
+go 1.25.3
 
 require (
 	codeberg.org/readeck/go-readability v0.0.0-20251005211427-4c1efefded6a
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.4.0
 	github.com/antchfx/htmlquery v1.3.4
-	github.com/antchfx/xmlquery v1.4.4
+	github.com/antchfx/xmlquery v1.5.0
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
@@ -48,7 +48,7 @@ require (
 	golang.org/x/term v0.36.0
 	golang.org/x/text v0.30.0
 	gopkg.in/yaml.v3 v3.0.1
-	modernc.org/sqlite v1.39.0
+	modernc.org/sqlite v1.39.1
 )
 
 require (
