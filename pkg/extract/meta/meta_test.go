@@ -99,7 +99,7 @@ func TestMeta(t *testing.T) {
 			ExtractMeta(pm, nil)
 
 			assert.Equal(t, "为何前端圈现在不关注源码了？", ex.Drop().Title)
-			assert.Equal(t, "", ex.Drop().Description)
+			assert.Empty(t, ex.Drop().Description)
 			assert.Equal(t, "掘金", ex.Drop().Site)
 			assert.Equal(t, []string{"Another Human", "前端双越老师"}, ex.Drop().Authors)
 		})
