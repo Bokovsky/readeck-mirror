@@ -161,6 +161,24 @@ func (arc *Archiver) processHTML(ctx context.Context, doc *html.Node, baseURL *u
 		arc.removeDataAttributes(ctx, doc)
 	}
 
+	// Remove nodes with empty sources
+	for node := range resourceNodes {
+		attrName := ""
+		switch dom.TagName(node) {
+		case "link", "use":
+			attrName = "href"
+		case "object":
+			attrName = "data"
+		case "script", "embed", "iframe", "img", "video", "audio", "source":
+			attrName = "src"
+		}
+
+		if attrName != "" && dom.GetAttribute(node, attrName) == "" {
+			dom.RemoveNodes([]*html.Node{node}, nil)
+			arc.log().LogAttrs(ctx, levelTrace, "removed node", slog.Any("node", NodeLogValue(node)))
+		}
+	}
+
 	arc.setLazyImages(ctx, doc)
 
 	return nil
@@ -208,6 +226,9 @@ func (arc *Archiver) processURLNode(ctx context.Context, node *html.Node, attrNa
 	res, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{headers: headers})
 	if err != nil {
 		if errors.Is(err, errSkippedURL) {
+			if errors.Is(err, errRemoveSrc) {
+				dom.RemoveAttribute(node, attrName)
+			}
 			return nil
 		}
 		return err
@@ -270,6 +291,9 @@ func (arc *Archiver) processScriptNode(ctx context.Context, node *html.Node) err
 	info, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{})
 	if err != nil {
 		if errors.Is(err, errSkippedURL) {
+			if errors.Is(err, errRemoveSrc) {
+				dom.RemoveAttribute(node, "src")
+			}
 			return nil
 		}
 		return err
@@ -292,6 +316,9 @@ func (arc *Archiver) processEmbedNode(ctx context.Context, node *html.Node) erro
 	info, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{})
 	if err != nil {
 		if errors.Is(err, errSkippedURL) {
+			if errors.Is(err, errRemoveSrc) {
+				dom.RemoveAttribute(node, attrName)
+			}
 			return nil
 		}
 		return err
