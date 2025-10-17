@@ -71,6 +71,10 @@ func TestScriptVideoEmbed(t *testing.T) {
 
     <p>This is a video:</p>
     <figure class="content"><img srcset="https://i.ytimg.com/vi/haAimDKxo40/maxresdefault.jpg, https://i.ytimg.com/vi/haAimDKxo40/hqdefault.jpg" alt="Youtube - Test Embed" data-iframe-params="src=https%3A%2F%2Fwww.youtube-nocookie.com%2Fembed%2FhaAimDKxo40%3Fsi%3DXZY%26start%3D123&amp;w=560&amp;h=315"/><figcaption><a href="https://www.youtube.com/watch?v=haAimDKxo40&amp;t=123s">Youtube - Test Embed</a></figcaption></figure>
+    <p>Relative path iframe:</p>
+    <iframe src="http://example.net/page2"></iframe>
+    <p>Lazy-loaded iframe:</p>
+    <figure class="content"><img srcset="https://i.ytimg.com/vi/xyz123/maxresdefault.jpg, https://i.ytimg.com/vi/xyz123/hqdefault.jpg" alt="Youtube - Test Embed" data-iframe-params="src=https%3A%2F%2Fwww.youtube-nocookie.com%2Fembed%2Fxyz123&amp;w=0&amp;h=0"/><figcaption><a href="https://www.youtube.com/watch?v=xyz123">Youtube - Test Embed</a></figcaption></figure>
     <p>Conclusion</p>`
 
 	assert.Equal(expectHTML, strings.TrimSpace(string(ex.HTML)))
