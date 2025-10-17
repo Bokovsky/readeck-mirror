@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-10-15 05:42+0000\n"
+"PO-Revision-Date: 2025-10-17 08:59+0000\n"
 "Last-Translator: damrtom1991 <damrtom1991@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/"
 "application/fr/>\n"
@@ -343,7 +343,7 @@ msgstr "Aller à la page de connexion"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr "Annotations de bookmarks"
+msgstr "Annotations de marque-pages"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
@@ -378,7 +378,7 @@ msgstr "Recherche"
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
-msgstr "Bookmarks"
+msgstr "Marque-pages"
 
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
@@ -415,7 +415,7 @@ msgstr "Photos"
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
 #: assets/templates/bookmarks/label.jet.html:25
 msgid "Labels"
-msgstr "Labels"
+msgstr "Étiquettes"
 
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/components/sidebar.jet.html:122
@@ -465,15 +465,15 @@ msgstr "Fermer le panneau"
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:126
 msgid "Bookmark information"
-msgstr "Informations sur le bookmark"
+msgstr "Informations sur le marque-page"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr "Bookmark en cours de chargement"
+msgstr "Marque-pages en cours de chargement"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr "Le bookmark est en cours de chargement"
+msgstr "Le marque-page est en cours de chargement"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -514,7 +514,7 @@ msgstr[1] "Environ %d minutes de lecture"
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr "Bookmark non trouvé"
+msgstr "Marque-page non trouvé"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
@@ -602,7 +602,7 @@ msgstr "Nouvelle collection"
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:75
 msgid "Bookmark Collections"
-msgstr "Collections de bookmarks"
+msgstr "Collections de marque-pages"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
@@ -619,9 +619,11 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Les collections vous permettent d'organiser et exporter facilement vos bookmarks\n"
+"          Les collections vous permettent d'organiser et exporter facilement "
+"vos marque-pages\n"
 "en conservant vos critères de recherche.\n"
-"Quand vous créez un bookmark qui correspond aux critères d'une collection,\n"
+"Quand vous créez un marque-page qui correspond aux critères d'une collection,"
+"\n"
 "celui-ci apparaîtra immédiatement.\n"
 "Voici quelques exemples :\n"
 "        "
@@ -636,7 +638,7 @@ msgstr "Les articles archivés de \"wikipedia.org\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr "Les photos avec le label \"chat\""
+msgstr "Les photos avec l'étiquette \"chat\""
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
@@ -654,7 +656,7 @@ msgstr "Exporter et partager"
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr "Supprimer ce bookmark"
+msgstr "Supprimer ce marque-page"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
@@ -691,7 +693,7 @@ msgstr "Ajouter aux favoris"
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
-msgstr "Ce bookmark sera supprimé dans quelques secondes."
+msgstr "Ce marque-page sera supprimé dans quelques secondes."
 
 #: assets/templates/bookmarks/components/actions.jet.html:23
 msgid "Undo"
@@ -792,7 +794,7 @@ msgstr "Site"
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:11
 msgid "Label"
-msgstr "Label"
+msgstr "Étiquette"
 
 #: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
@@ -845,7 +847,7 @@ msgstr "Chargé"
 
 #: assets/templates/bookmarks/components/filters.jet.html:153
 msgid "With Labels"
-msgstr "Avec des labels"
+msgstr "Avec des étiquettes"
 
 #: assets/templates/bookmarks/components/filters.jet.html:163
 msgid "With Errors"
@@ -853,15 +855,15 @@ msgstr "Avec des erreurs"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr "Supprimer le label"
+msgstr "Supprimer l'étiquette"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr "Ajouter un label"
+msgstr "Ajouter une étiquette"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr "Ajouter le label"
+msgstr "Ajouter l'étiquette"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
@@ -878,7 +880,7 @@ msgstr "Vue mosaïque"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
-msgstr "Trier les bookmarks"
+msgstr "Trier les marque-pages"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
@@ -918,11 +920,11 @@ msgstr "Césure"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr "Envoie le contenu de ce bookmark dans le message."
+msgstr "Envoie le contenu de ce marque-page dans le message."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr "Envoie ce bookmark comme fichier EPUB en pièce jointe."
+msgstr "Envoie ce marque-page comme fichier EPUB en pièce jointe."
 
 # | msgid "From date"
 #: assets/templates/bookmarks/components/share_email.jet.html:29
@@ -940,12 +942,12 @@ msgstr "Envoyer le message"
 #: assets/templates/bookmarks/components/share_email.jet.html:48
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr "Le bookmark a été envoyé à %s"
+msgstr "Le marque-page a été envoyé à %s"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:55
 #: assets/templates/bookmarks/components/share_link.jet.html:28
 msgid "Go back to the bookmark"
-msgstr "Retour aux bookmark"
+msgstr "Retour aux marque-pages"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:9
 msgid "You can share the following link with your friends."
@@ -987,7 +989,7 @@ msgstr "Liens"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:9
 msgid "Import your Browser's Bookmarks"
-msgstr "Importez les signets de votre navigateur"
+msgstr "Importez les marque-pages de votre navigateur"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:15
 msgid ""
@@ -998,9 +1000,11 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Dans votre navigateur, exportez vos signets sous la forme d'un fichier HTML.<br>\n"
-"Déposez ce fichier dans le formulaire ci-dessous et Readeck va créer et extraire\n"
-"chaque signet trouvé dans le fichier.\n"
+"    Dans votre navigateur, exportez vos marque-pages sous la forme d'un "
+"fichier HTML.<br>\n"
+"Déposez ce fichier dans le formulaire ci-dessous et Readeck va créer et "
+"extraire\n"
+"chaque marque-page trouvé dans le fichier.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
@@ -1024,11 +1028,11 @@ msgstr "Fichier"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:41
 msgid "Convert section titles to labels"
-msgstr "Transformer les titres de section en labels"
+msgstr "Transformer les titres de section en étiquettes"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:43
 msgid "Adds a label on links, based on their section title"
-msgstr "Ajoute un label aux liens à partir du titre de leur section"
+msgstr "Ajoute une étiquette aux liens à partir du titre de leur section"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:47
 #: assets/templates/bookmarks/import/form-csv.jet.html:33
@@ -1040,7 +1044,7 @@ msgstr "Ajoute un label aux liens à partir du titre de leur section"
 #: assets/templates/bookmarks/import/form-text.jet.html:34
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:68
 msgid "Import Bookmarks"
-msgstr "Importer les bookmarks"
+msgstr "Importer les marque-pages"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
@@ -1091,12 +1095,12 @@ msgstr "Adresse du lien"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:62
 msgid "Bookmark title"
-msgstr "Titre du bookmark"
+msgstr "Titre du marque-page"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:67
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr "État archivé du bookmark ; la seule valeur possible est \"%s\""
+msgstr "État archivé du marque-page ; la seule valeur possible est \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:72
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
@@ -1104,7 +1108,7 @@ msgstr "Date de création, peut être un timestamp UNIX ou une date au format RF
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:77
 msgid "A JSON encoded list of labels"
-msgstr "Liste de labels au format JSON"
+msgstr "Liste des étiquettes au format JSON"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:82
 msgid "Example"
@@ -1126,7 +1130,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importez les bookmarks d'un ficher d'export Linkwarden"
+msgstr "Importez les marque-pages d'un ficher d'export Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -1244,12 +1248,14 @@ msgstr "Le statut archivé d'un article,"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr "\"%s\" comme label Readeck,"
+msgstr "\"%s\" comme étiquettes Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr "Quand les tags contiennent \"%s\", le bookmark sera ajouté aux favoris Readeck."
+msgstr ""
+"Quand les tags contiennent \"%s\", le marque-page sera ajouté aux favoris "
+"Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
@@ -1280,8 +1286,9 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Déposez un fichier texte contenant un lien par ligne et Readeck va tous les extraire et\n"
-"les enregistrer dans votre liste de bookmarks.\n"
+"    Déposez un fichier texte contenant un lien par ligne et Readeck va tous "
+"les extraire et\n"
+"les enregistrer dans votre liste de marque-pages.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:9
@@ -1331,7 +1338,7 @@ msgstr "Clé secrète"
 
 #: assets/templates/bookmarks/import/index.jet.html:9
 msgid "Import your Bookmarks"
-msgstr "Importez vos bookmarks"
+msgstr "Importez vos marque-pages"
 
 #: assets/templates/bookmarks/import/index.jet.html:25
 msgid ""
@@ -1340,18 +1347,19 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Ici vous pouvez importer dans Readeck votre collection de bookmarks depuis différentes sources.\n"
+"    Ici vous pouvez importer dans Readeck votre collection de marque-pages "
+"depuis différentes sources.\n"
 "  "
 
 #: assets/templates/bookmarks/import/index.jet.html:34
 #: assets/templates/profile/export.jet.html:35
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
-msgstr "Signets de navigateur"
+msgstr "Marque-pages de navigateur"
 
 #: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr "Importez les signets de votre navigateur, Pinboard, Instapaper"
+msgstr "Importez les marque-pages de votre navigateur, Pinboard, Instapaper"
 
 #: assets/templates/bookmarks/import/index.jet.html:41
 #: assets/templates/profile/export.jet.html:43
@@ -1369,7 +1377,7 @@ msgstr "Importez vos articles GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importez vos bookmarks Linkwarden"
+msgstr "Importez vos marque-pages Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
@@ -1386,11 +1394,11 @@ msgstr "Options"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr "Un label à ajouter à tous les bookmarks importé"
+msgstr "Une étiquette à ajouter à tous les marque-pages importés"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
-msgstr "Ignorer les liens déjà présents dans vos bookmarks"
+msgstr "Ignorer les liens déjà présents dans vos marque-pages"
 
 #: assets/templates/bookmarks/import/options.jet.html:21
 msgid "Archive all links"
@@ -1432,12 +1440,13 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Vos bookmarks sont maintenant disponibles dans votre <a class=\"%s\" href=\"%s\">liste de bookmarks</a>.\n"
+"      Vos marque-pages sont maintenant disponibles dans votre <a class=\"%s\""
+" href=\"%s\">liste de marque-pages</a>.\n"
 "      "
 
 #: assets/templates/bookmarks/index.jet.html:1
 msgid "Bookmark filters"
-msgstr "Filtres des bookmarks"
+msgstr "Filtres des marque-pages"
 
 #: assets/templates/bookmarks/index.jet.html:32
 msgid "Save a new link"
@@ -1455,12 +1464,16 @@ msgstr "\"%s\" n'est pas une adresse valide. Vouliez-vous chercher %s à la plac
 
 #: assets/templates/bookmarks/index.jet.html:77
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
-msgstr "Vous n'avez aucun bookmark pour le moment<br> Copiez un lien dans le champ au dessus pour commencer."
+msgstr ""
+"Vous n'avez aucun marque-pages pour le moment<br> Copiez un lien dans le "
+"champ au dessus pour commencer."
 
 #: assets/templates/bookmarks/index.jet.html:79
 #, python-format
 msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "En savoir plus sur les bookmarks dans la <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr ""
+"En savoir plus sur les marque-pages dans la <a class=\"%s\" href=\"%s\""
+">documentation</a>."
 
 #: assets/templates/bookmarks/index.jet.html:89
 msgid "Readeck Browser Extension"
@@ -1468,7 +1481,7 @@ msgstr "Extension Readeck pour navigateur"
 
 #: assets/templates/bookmarks/index.jet.html:105
 msgid "Import existing bookmarks"
-msgstr "Importer des bookmarks existants"
+msgstr "Importer des marque-pages existants"
 
 #: assets/templates/bookmarks/index.jet.html:107
 msgid ""
@@ -1478,7 +1491,8 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"              Souhaitez-vous importer depuis un outil similaire ou depuis un fichier contenant des liens existant ?\n"
+"              Souhaitez-vous importer depuis un outil similaire ou depuis un "
+"fichier contenant des marque-pages existants ?\n"
 "Essayez l'outil d'importation de Readeck.\n"
 "            "
 
@@ -1488,7 +1502,7 @@ msgstr "Importer des liens et articles"
 
 #: assets/templates/bookmarks/index.jet.html:141
 msgid "Import bookmarks"
-msgstr "Importer des bookmarks"
+msgstr "Importer des marque-pages"
 
 #: assets/templates/bookmarks/index.jet.html:150
 msgid "Your search query yielded <strong>no results</strong>."
@@ -1520,11 +1534,11 @@ msgstr "Supprimer"
 
 #: assets/templates/bookmarks/label.jet.html:56
 msgid "Label will be removed in a few seconds."
-msgstr "Le label sera supprimé dans quelques secondes."
+msgstr "L'étiquette sera supprimée dans quelques secondes."
 
 #: assets/templates/bookmarks/labels.jet.html:8
 msgid "Bookmark Labels"
-msgstr "Labels des bookmarks"
+msgstr "Étiquettes des marque-pages"
 
 #: assets/templates/bookmarks/labels.jet.html:14
 msgid ""
@@ -1533,8 +1547,10 @@ msgid ""
 "  You can set anything to a label, including emojis!\n"
 msgstr ""
 "\n"
-"Les labels vous permettent d'organiser vos bookmark comme vous l'entendez.\n"
-"Un label peut contenir n'importe quel caractère, y compris des emojis !\n"
+"  Les étiquettes vous permettent d'organiser vos marque-pages comme vous "
+"l'entendez.\n"
+"Une étiquettes peut contenir n'importe quel caractère, y compris des émojis !"
+"\n"
 
 #: assets/templates/docs/about.jet.html:20
 #: assets/templates/docs/base.jet.html:27 docs/http.go:269
@@ -1821,8 +1837,9 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Ceci vous permet de télécharger un fichier zip contenant toutes les données de votre profil,\n"
-"y-compris les bookmarks, collections, etc.\n"
+"    Ceci vous permet de télécharger un fichier zip contenant toutes les "
+"données de votre profil,\n"
+"y-compris les marque-pages, collections, etc.\n"
 "    "
 
 #: assets/templates/profile/export.jet.html:24
@@ -1831,19 +1848,20 @@ msgstr "Exporter les données"
 
 #: assets/templates/profile/export.jet.html:36
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr "Liste des bookmarks au format signets de navigateur"
+msgstr "Liste des marque-pages au format du navigateur"
 
 #: assets/templates/profile/export.jet.html:44
 msgid "Bookmark List as Comma Separated Values"
-msgstr "Liste des bookmarks au format CSV"
+msgstr "Liste des marque-pages au format CSV"
 
 #: assets/templates/profile/export.jet.html:49
 msgid "Export Bookmarks"
-msgstr "Exporter des bookmarks"
+msgstr "Exporter des marque-pages"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
-msgstr "Vous pouvez exporter votre liste de bookmarks dans les formats suivants :"
+msgstr ""
+"Vous pouvez exporter votre liste de marque-pages dans les formats suivants :"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
@@ -1875,7 +1893,7 @@ msgstr ""
 
 #: assets/templates/profile/import.jet.html:49
 msgid "Import bookmarks from other services"
-msgstr "Importer des bookmarks d'autres services"
+msgstr "Importer des marque-pages d'autres services"
 
 #: assets/templates/profile/import.jet.html:52
 #, python-format
@@ -1886,7 +1904,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"  Si vous avez des bookmarks d'un autre service, vous pouvez les importer\n"
+"  Si vous avez des marque-pages d'un autre service, vous pouvez les "
+"importer\n"
 "dans la <a href=\"%s\">section dédiée</a>.\n"
 "  "
 
@@ -2123,11 +2142,11 @@ msgstr "le mot de passe est vide"
 
 #: internal/auth/users/forms.go:205
 msgid "Bookmarks : Read Only"
-msgstr "Bookmarks : Lecture seule"
+msgstr "Marque-pages : Lecture seule"
 
 #: internal/auth/users/forms.go:206
 msgid "Bookmarks : Write Only"
-msgstr "Bookmarks : Écriture seule"
+msgstr "Marque-pages : Écriture seule"
 
 #: internal/auth/users/forms.go:207
 msgid "Admin : Read Only"
@@ -2252,11 +2271,11 @@ msgstr "Durée, le plus long en premier"
 
 #: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
-msgstr "Bookmarks Readeck"
+msgstr "Marque-pages Readeck"
 
 #: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
-msgstr "Collections de bookmarks Readeck"
+msgstr "Collections de marque-pages Readeck"
 
 #: internal/bookmarks/routes/opds.go:139
 #, python-format
@@ -2275,23 +2294,23 @@ msgstr "Explorer la collection : %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
-msgstr "Tous vos bookmarks"
+msgstr "Tous vos marque-pages"
 
 #: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
-msgstr "Recherche de bookmarks"
+msgstr "Recherche de marque-pages"
 
 #: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
 msgid "Unread Bookmarks"
-msgstr "Bookmarks non lus"
+msgstr "Marque-pages non lus"
 
 #: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
 msgid "Archived Bookmarks"
-msgstr "Bookmarks archivés"
+msgstr "Marque-pages archivés"
 
 #: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
-msgstr "Bookmarks favoris"
+msgstr "Marque-pages favoris"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2303,7 +2322,7 @@ msgstr "Progression"
 
 #: internal/opds/http.go:71
 msgid "All Bookmarks"
-msgstr "Tous les bookmarks"
+msgstr "Tous les marque-pages"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
