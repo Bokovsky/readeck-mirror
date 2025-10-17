@@ -21,6 +21,7 @@ import (
 	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -66,7 +67,7 @@ func TestMeta(t *testing.T) {
 
 			assert.Equal("My Document Title", ex.Drop().Title)
 			assert.Equal("Some description here", ex.Drop().Description)
-			assert.Equal([]string{"Olivier", "schema author"}, ex.Drop().Authors)
+			assert.Equal([]string{"author 3", "author 4"}, ex.Drop().Authors)
 			assert.Equal("My website", ex.Drop().Site)
 			assert.Equal("en", ex.Drop().Lang)
 
@@ -82,8 +83,6 @@ func TestMeta(t *testing.T) {
 				"html.keywords":       {"a reporter at large, biology,space exploration,magazine"},
 				"html.lang":           {"en"},
 				"html.title":          {"My Document"},
-				"schema.author":       {"schema author", "Olivier"},
-				"schema.editor":       {"some editor"},
 				"twitter.card":        {"summary"},
 				"twitter.description": {"Some description here"},
 				"twitter.image":       {"/squirrel.jpg"},
@@ -93,16 +92,16 @@ func TestMeta(t *testing.T) {
 		})
 
 		t.Run("process meta2", func(t *testing.T) {
-			assert := require.New(t)
 			ex, _ := extract.New("http://example.net/", nil)
 			pm := ex.NewProcessMessage(extract.StepDom)
 			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta2.html")))
 
 			ExtractMeta(pm, nil)
 
-			assert.Equal("Article Title", ex.Drop().Title)
-			assert.Equal("Insert hot take here", ex.Drop().Description)
-			assert.Equal("The Bloggiest Blog", ex.Drop().Site)
+			assert.Equal(t, "为何前端圈现在不关注源码了？", ex.Drop().Title)
+			assert.Equal(t, "", ex.Drop().Description)
+			assert.Equal(t, "掘金", ex.Drop().Site)
+			assert.Equal(t, []string{"Another Human", "前端双越老师"}, ex.Drop().Authors)
 		})
 
 		t.Run("text direction", func(t *testing.T) {
