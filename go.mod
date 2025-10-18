@@ -14,7 +14,7 @@ require (
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/cristalhq/acmd v0.12.0
 	github.com/dop251/goja v0.0.0-20251008123653-cf18d89f3cf6
-	github.com/dop251/goja_nodejs v0.0.0-20250409162600-f7acab6894b0
+	github.com/dop251/goja_nodejs v0.0.0-20251015164255-5e94316bedaf
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.10
 	github.com/go-chi/chi/v5 v5.2.3
@@ -37,7 +37,7 @@ require (
 	github.com/sergeymakinen/go-ico v1.0.0-beta.0
 	github.com/skip2/go-qrcode v0.0.0-20200617195104-da1b6568686e
 	github.com/stretchr/testify v1.11.1
-	github.com/tdewolff/parse/v2 v2.8.3
+	github.com/tdewolff/parse/v2 v2.8.4
 	github.com/wneessen/go-mail v0.7.2
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-meta v1.1.0
@@ -84,7 +84,7 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/exp v0.0.0-20251009144603-d2f985daa21b // indirect
+	golang.org/x/exp v0.0.0-20251017212417-90e834f514db // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
