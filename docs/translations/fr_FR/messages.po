@@ -6,16 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-10-18 08:17+0200\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/documentation/fr/>\n"
 "Language: fr_FR\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/documentation/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Poedit 3.7\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -587,6 +586,7 @@ msgstr "Cette opération peut être annulée pendant quelques secondes, au cas o
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -609,19 +609,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Aide Readeck"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr "Bienvenue dans Readeck ! Vous trouverez ici les réponses à la plupart de vos questions concernant Readeck ainsi que quelques astuces pour en tirer encore plus parti."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## Table des matières"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -848,3 +848,4 @@ msgstr "À la place, vous pouvez donner votre nom d'utilisateur et un jeton de v
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Note** : même si vous pouvez accéder à l'API avec un mot de passe d'application, il est préférable d'utiliser les jetons API quand c'est possible."
+

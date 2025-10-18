@@ -1,23 +1,20 @@
-# Translations template for Readeck User Documentation.
+# Korean (South Korea) translations for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-10-18 06:01+0000\n"
 "Last-Translator: dewyeyed <dewyeyed@noreply.codeberg.org>\n"
-"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/"
-"documentation/ko/>\n"
 "Language: ko_KR\n"
+"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/documentation/ko/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -34,9 +31,7 @@ msgstr "## 새 북마크 생성"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr ""
-"마음에 드는 웹 페이지를 찾으셨나요? 좋아요! 해당 링크를 [북마크 목록]"
-"(readeck-instance://bookmarks)의 **새 북마크**라는 텍스트 필드에 복사하세요."
+msgstr "마음에 드는 웹 페이지를 찾으셨나요? 좋아요! 해당 링크를 [북마크 목록](readeck-instance://bookmarks)의 **새 북마크**라는 텍스트 필드에 복사하세요."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -44,10 +39,7 @@ msgstr "![New Bookmark form](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr ""
-"잠시뒤, 북마크가 준비됩니다. 이후 북마크를 열어 내용을 읽거나 시청하고, "
-"라벨을 추가하거나, 텍스트를 강조 표시하거나, 전자책을 내보낼 수 있습니다. "
-"자세한 내용은 [북마크 보기](./bookmark.md) 섹션을 참고하세요."
+msgstr "잠시뒤, 북마크가 준비됩니다. 이후 북마크를 열어 내용을 읽거나 시청하고, 라벨을 추가하거나, 텍스트를 강조 표시하거나, 전자책을 내보낼 수 있습니다. 자세한 내용은 [북마크 보기](./bookmark.md) 섹션을 참고하세요."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -63,8 +55,7 @@ msgstr "### 기사"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr "기사는 텍스트 콘텐츠가 추출된 페이지입니다. 해당 콘텐츠를 읽기 쉬운 형태로 "
-"표시합니다."
+msgstr "기사는 텍스트 콘텐츠가 추출된 페이지입니다. 해당 콘텐츠를 읽기 쉬운 형태로 표시합니다."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
@@ -72,8 +63,7 @@ msgstr "### 이미지"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr "이미지는 이미지 컨테이너(예: Unsplash 링크)로 인식된 페이지입니다. 저장된 "
-"이미지를 표시합니다."
+msgstr "이미지는 이미지 컨테이너(예: Unsplash 링크)로 인식된 페이지입니다. 저장된 이미지를 표시합니다."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -81,9 +71,7 @@ msgstr "### 동영상"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
-"동영상은 동영상 컨테이너(예: 유튜브 또는 비메오 링크)로 식별된 페이지입니다. "
-"동영상은 Readeck서버에 저장되지 않고, 원 주소에서 재생된다는 점을 유의하세요."
+msgstr "동영상은 동영상 컨테이너(예: 유튜브 또는 비메오 링크)로 식별된 페이지입니다. 동영상은 Readeck서버에 저장되지 않고, 원 주소에서 재생된다는 점을 유의하세요."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
@@ -91,8 +79,7 @@ msgstr "## Bookmark List"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr "[북마크 목록](readeck-instance://bookmarks)은 저장한 모든 북마크를 확인할 수 "
-"있는 곳입니다."
+msgstr "[북마크 목록](readeck-instance://bookmarks)은 저장한 모든 북마크를 확인할 수 있는 곳입니다."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -100,8 +87,7 @@ msgstr "### 탐색"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr "사이드바에는 검색 필드와 필터링된 북마크 목록으로 이동할 수 있는 링크가 "
-"있습니다."
+msgstr "사이드바에는 검색 필드와 필터링된 북마크 목록으로 이동할 수 있는 링크가 있습니다."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
@@ -231,10 +217,7 @@ msgstr "### Compact List"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr ""
-"북마크 그리드 보기가 너무 난잡하다고 생각한다면 이미지가 적은 간결한 "
-"목록으로 전환할 수 있습니다. 제목 옆에 있는 버튼을 클릭하면 그리드 보기에서 "
-"압축 보기로 전환할 수 있습니다."
+msgstr "북마크 그리드 보기가 너무 난잡하다고 생각한다면 이미지가 적은 간결한 목록으로 전환할 수 있습니다. 제목 옆에 있는 버튼을 클릭하면 그리드 보기에서 압축 보기로 전환할 수 있습니다."
 
 #: en-US/bookmark-list.md:98
 msgid ""
@@ -251,9 +234,7 @@ msgstr "## 북마크 필터 {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr ""
-"북마크 목록에서 하나 또는 여러 가지 기준에 따라 결과를 필터링할 수 있습니다. "
-"페이지 제목 옆에 있는 '필터 목록' 버튼을 클릭하면 필터링 양식이 열립니다."
+msgstr "북마크 목록에서 하나 또는 여러 가지 기준에 따라 결과를 필터링할 수 있습니다. 페이지 제목 옆에 있는 '필터 목록' 버튼을 클릭하면 필터링 양식이 열립니다."
 
 #: en-US/bookmark-list.md:105
 msgid ""
@@ -293,8 +274,7 @@ msgid ""
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
 "- **검색**\\\n"
-"북마크의 텍스트, 제목, 저자, 사이트 이름 및 도메인(사이트주소), 라벨에서 검색"
-"합니다.\n"
+"북마크의 텍스트, 제목, 저자, 사이트 이름 및 도메인(사이트주소), 라벨에서 검색합니다.\n"
 "- **제목**\\\n"
 "제목에서 검색합니다.\n"
 "- **저자**\\\n"
@@ -306,8 +286,7 @@ msgstr ""
 "- **즐겨찾기**, **보관됨**, **유형**\\\n"
 "이 필터는 검색을 해당 기준 중 하나로 제한합니다.\n"
 "- **시작 날짜**, **종료 날짜**\\\n"
-"이 마지막 필터는 북마크가 저장된 시기를 제한합니다. 예를 들어, 지난 4주 동안 "
-"저장된 북마크 목록을 검색하되 지난주 이후 저장된 항목은 제외할 수 있습니다."
+"이 마지막 필터는 북마크가 저장된 시기를 제한합니다. 예를 들어, 지난 4주 동안 저장된 북마크 목록을 검색하되 지난주 이후 저장된 항목은 제외할 수 있습니다."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -315,8 +294,7 @@ msgstr "### 검색어"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr "**검색**, **제목**, **저자**, **사이트** 및 **라벨** 필드는 검색 기준이 동일"
-"합니다.:"
+msgstr "**검색**, **제목**, **저자**, **사이트** 및 **라벨** 필드는 검색 기준이 동일합니다.:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -325,19 +303,14 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `startled cat`은 **startled**와 **cat**이라는 단어가 포함된 콘텐츠를 찾습니"
-"다.\n"
-"- `“startled cat”`은 **startled cat**이라는 정확한 단어 조합이 함께 포함된 콘"
-"텐츠를 찾습니다.\n"
-"- `cat*`은 **cat**으로 시작하는 단어가 포함된 콘텐츠를 찾습니다 (cat, catnip,"
-" caterpillar 등이 일치합니다).\n"
-"- `-startled cat`은 **cat**이라는 단어는 포함하지만 **startled**라는 단어는 "
-"포함하지 않는 콘텐츠를 찾습니다."
+"- `startled cat`은 **startled**와 **cat**이라는 단어가 포함된 콘텐츠를 찾습니다.\n"
+"- `“startled cat”`은 **startled cat**이라는 정확한 단어 조합이 함께 포함된 콘텐츠를 찾습니다.\n"
+"- `cat*`은 **cat**으로 시작하는 단어가 포함된 콘텐츠를 찾습니다 (cat, catnip, caterpillar 등이 일치합니다).\n"
+"- `-startled cat`은 **cat**이라는 단어는 포함하지만 **startled**라는 단어는 포함하지 않는 콘텐츠를 찾습니다."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr "검색을 수행한 후에는 이를 새로운 [컬렉션](./collections.md)에 저장하여 영구적"
-"으로 보관할 수 있습니다."
+msgstr "검색을 수행한 후에는 이를 새로운 [컬렉션](./collections.md)에 저장하여 영구적으로 보관할 수 있습니다."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
@@ -357,10 +330,7 @@ msgstr "### 북마크 내보내기"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr ""
-"필터 버튼 옆의 메뉴 버튼을 누르면 현재 북마크 목록의 EPUB 파일을 다운로드할 "
-"수 있습니다. 이 기능은 모든 기사를 장(章)별로 정리한 하나의 전자책을 내보냅니"
-"다."
+msgstr "필터 버튼 옆의 메뉴 버튼을 누르면 현재 북마크 목록의 EPUB 파일을 다운로드할 수 있습니다. 이 기능은 모든 기사를 장(章)별로 정리한 하나의 전자책을 내보냅니다."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
@@ -368,10 +338,7 @@ msgstr "### 북마크 가져오기"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr ""
-"동일한 메뉴에서 [북마크 가져오기](readeck-instance://bookmarks/import) 링크를"
-" 찾을 수 있습니다. 이 링크를 클릭하면 다양한 출처에서 기존 북마크를 가져올 수"
-" 있는 가져오기 마법사로 이동합니다."
+msgstr "동일한 메뉴에서 [북마크 가져오기](readeck-instance://bookmarks/import) 링크를 찾을 수 있습니다. 이 링크를 클릭하면 다양한 출처에서 기존 북마크를 가져올 수 있는 가져오기 마법사로 이동합니다."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
@@ -417,8 +384,7 @@ msgstr "북마크 보기 상단에 있는 링크를 클릭하면 이전 페이�
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr "북마크에 문서가 포함된 경우, 반대쪽에 있는 버튼을 통해 일부 타이포그래피 설정"
-"을 변경할 수 있습니다."
+msgstr "북마크에 문서가 포함된 경우, 반대쪽에 있는 버튼을 통해 일부 타이포그래피 설정을 변경할 수 있습니다."
 
 #: en-US/bookmark.md:36
 msgid ""
@@ -433,8 +399,7 @@ msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
-"해당 설정에서 텍스트에 사용되는 글꼴, 글꼴 크기 및 줄 간격을 지정할 수 있습니"
-"다.\n"
+"해당 설정에서 텍스트에 사용되는 글꼴, 글꼴 크기 및 줄 간격을 지정할 수 있습니다.\n"
 "이 설정은 자동으로 저장되며, 이후 읽는 모든 문서에 적용됩니다."
 
 #: en-US/bookmark.md:43
@@ -443,9 +408,7 @@ msgstr "## 제목변경 방법"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr ""
-"북마크 제목은 생성 시 자동으로 생성됩니다. 어떤 이유로든 다른 제목이 필요하다"
-"면, 북마크를 클릭한 후 제목 옆의 버튼을 클릭하여 변경할 수 있습니다."
+msgstr "북마크 제목은 생성 시 자동으로 생성됩니다. 어떤 이유로든 다른 제목이 필요하다면, 북마크를 클릭한 후 제목 옆의 버튼을 클릭하여 변경할 수 있습니다."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -477,13 +440,11 @@ msgstr "### 공유"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr "공유 버튼을 누르면 메뉴가 열리며, 문서를 다른 사람과 공유하고 싶을 때 링크를 "
-"생성할 수 있습니다."
+msgstr "공유 버튼을 누르면 메뉴가 열리며, 문서를 다른 사람과 공유하고 싶을 때 링크를 생성할 수 있습니다."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr "동일한 메뉴에서 북마크를 내보내(현재는 EPUB형식으로만 내보내기 가능) 다른 기"
-"기에서 읽을 수 있습니다."
+msgstr "동일한 메뉴에서 북마크를 내보내(현재는 EPUB형식으로만 내보내기 가능) 다른 기기에서 읽을 수 있습니다."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
@@ -495,8 +456,7 @@ msgid ""
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
 "이것은 삭제 예정 표시 입니다.\\\n"
-"실수로 클릭하셔도 걱정하지 마세요! 실제 삭제 전에 이 작업을 취소할 수 있습니"
-"다."
+"실수로 클릭하셔도 걱정하지 마세요! 실제 삭제 전에 이 작업을 취소할 수 있습니다."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
@@ -504,10 +464,7 @@ msgstr "## 라벨"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr ""
-"북마크에는 원하는 만큼 라벨을 추가할 수 있습니다. 라벨 필드에 텍스트를 입력한"
-" 후 **라벨 추가**를 클릭하세요. 라벨로 사용할 수 있는 내용에는 제한이 없습니"
-"다. 원한다면 이모티콘도 추가할 수 있습니다."
+msgstr "북마크에는 원하는 만큼 라벨을 추가할 수 있습니다. 라벨 필드에 텍스트를 입력한 후 **라벨 추가**를 클릭하세요. 라벨로 사용할 수 있는 내용에는 제한이 없습니다. 원한다면 이모티콘도 추가할 수 있습니다."
 
 #: en-US/bookmark.md:77
 msgid ""
@@ -547,8 +504,7 @@ msgstr "강조표시 항목은 사이드바에 표시됩니다."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr "강조표시를 제거해야 할 때는 사이드바에서 또는 문서에서 해당 강조표시를 선택하"
-"여 제거할 수 있습니다."
+msgstr "강조표시를 제거해야 할 때는 사이드바에서 또는 문서에서 해당 강조표시를 선택하여 제거할 수 있습니다."
 
 #: en-US/collections.md:1
 msgid "# Collections"
@@ -586,9 +542,7 @@ msgstr "## 새로운 컬렉션 생성"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr ""
-"새 컬렉션을 만들려면 [컬렉션 목록](readeck-instance://bookmarks/collections)"
-"으로 이동한 후 **새 컬렉션 만들기**를 클릭하세요."
+msgstr "새 컬렉션을 만들려면 [컬렉션 목록](readeck-instance://bookmarks/collections)으로 이동한 후 **새 컬렉션 만들기**를 클릭하세요."
 
 #: en-US/collections.md:18
 msgid ""
@@ -604,8 +558,7 @@ msgstr "어떤 기준이든 입력하고 **저장**을 클릭하세요."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr "필터링에 대한 자세한 내용은 [북마크 필터](./bookmark-list.md#filters)를 참조"
-"하십시오."
+msgstr "필터링에 대한 자세한 내용은 [북마크 필터](./bookmark-list.md#filters)를 참조하십시오."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
@@ -635,6 +588,7 @@ msgstr "실수로 실행한 경우, 몇 초 동안 이 작업을 취소할 수 �
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -657,21 +611,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Readeck 도움말"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr ""
-"Readeck에 오신 것을 환영합니다! 여기에서는 Readeck에 관한 대부분의 질문에 대"
-"한 답변과 경험을 더욱 향상시키는 몇 가지 팁을 찾을 수 있습니다."
+msgstr "Readeck에 오신 것을 환영합니다! 여기에서는 Readeck에 관한 대부분의 질문에 대한 답변과 경험을 더욱 향상시키는 몇 가지 팁을 찾을 수 있습니다."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## 목차"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -697,8 +649,7 @@ msgid ""
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
 "북마크에는 원하는 만큼 라벨을 추가할 수 있습니다.\\\n"
-"라벨로 사용할 수 있는 항목에는 제한이 없습니다. 원한다면 이모티콘도 추가할 수"
-" 있습니다."
+"라벨로 사용할 수 있는 항목에는 제한이 없습니다. 원한다면 이모티콘도 추가할 수 있습니다."
 
 #: en-US/labels.md:6
 msgid "## Label List"
@@ -706,9 +657,7 @@ msgstr "## 라벨 목록"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr ""
-"[라벨 목록](readeck-instance://bookmarks/labels)은 북마크 컬렉션의 모든 라벨"
-"을 표시하며, 각 라벨이 지정된 북마크 수를 나타내는 숫자와 함께 표시됩니다."
+msgstr "[라벨 목록](readeck-instance://bookmarks/labels)은 북마크 컬렉션의 모든 라벨을 표시하며, 각 라벨이 지정된 북마크 수를 나타내는 숫자와 함께 표시됩니다."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
@@ -767,16 +716,12 @@ msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
-"카탈로그는 OPDS 형식을 지원하는 모든 앱 또는 전자책 리더에서 접근할 수 있습니"
-"다.\n"
-"카탈로그 접근 권한을 부여하려면 먼저 [API 토큰]"
-"(readeck-instance://profile/tokens)을 생성해야 합니다."
+"카탈로그는 OPDS 형식을 지원하는 모든 앱 또는 전자책 리더에서 접근할 수 있습니다.\n"
+"카탈로그 접근 권한을 부여하려면 먼저 [API 토큰](readeck-instance://profile/tokens)을 생성해야 합니다."
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
-"**참고**: 토큰을 텍스트 파일로 다운로드하여 전자책 리더기로 전송하는 것이 더 "
-"쉽습니다. 그런 다음 파일을 열고 토큰을 복사할 수 있습니다."
+msgstr "**참고**: 토큰을 텍스트 파일로 다운로드하여 전자책 리더기로 전송하는 것이 더 쉽습니다. 그런 다음 파일을 열고 토큰을 복사할 수 있습니다."
 
 #: en-US/opds.md:26
 msgid ""
@@ -800,15 +745,11 @@ msgstr "## 설정 예시: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr ""
-"[Koreader](https://koreader.rocks/)는 E-Ink 기기용 문서 뷰어입니다. Kindle, "
-"Kobo, PocketBook, Android 및 데스크톱 Linux에서 사용할 수 있습니다. 매우 우수"
-"한 OPDS 지원을 제공합니다."
+msgstr "[Koreader](https://koreader.rocks/)는 E-Ink 기기용 문서 뷰어입니다. Kindle, Kobo, PocketBook, Android 및 데스크톱 Linux에서 사용할 수 있습니다. 매우 우수한 OPDS 지원을 제공합니다."
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr "API 토큰을 획득한 후에는 Koreader의 조회 메뉴에서 OPDS 섹션에 접근할 수 있습"
-"니다:"
+msgstr "API 토큰을 획득한 후에는 Koreader의 조회 메뉴에서 OPDS 섹션에 접근할 수 있습니다:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
@@ -816,9 +757,7 @@ msgstr "![Koreader 조회 메뉴](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr ""
-"이 섹션에는 사전 구성된 OPDS 소스 목록이 표시되며, 왼쪽 상단 모서리의 “+” 아"
-"이콘을 눌러 사용자 지정 소스를 추가할 수 있습니다:"
+msgstr "이 섹션에는 사전 구성된 OPDS 소스 목록이 표시되며, 왼쪽 상단 모서리의 “+” 아이콘을 눌러 사용자 지정 소스를 추가할 수 있습니다:"
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
@@ -856,9 +795,7 @@ msgstr "# 사용자 프로필"
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr ""
-"Readeck의 [프로필 섹션](readeck-instance://profile)에서는 개인 정보, 비밀번호"
-" 및 기타 설정을 변경할 수 있습니다."
+msgstr "Readeck의 [프로필 섹션](readeck-instance://profile)에서는 개인 정보, 비밀번호 및 기타 설정을 변경할 수 있습니다."
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
@@ -866,8 +803,7 @@ msgstr "## 프로필 수정"
 
 #: en-US/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
-msgstr "메인 프로필 페이지에서 사용자 이름, 이메일 주소를 변경하고 앱의 언어를 선택할"
-" 수 있습니다."
+msgstr "메인 프로필 페이지에서 사용자 이름, 이메일 주소를 변경하고 앱의 언어를 선택할 수 있습니다."
 
 #: en-US/user-profile.md:9
 msgid "## Change your password"
@@ -875,9 +811,7 @@ msgstr "## 비밀번호 변경"
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr ""
-"[비밀번호](readeck-instance://profile/password) 페이지에서 Readeck에 연결할 "
-"때 사용하는 비밀번호를 변경할 수 있습니다."
+msgstr "[비밀번호](readeck-instance://profile/password) 페이지에서 Readeck에 연결할 때 사용하는 비밀번호를 변경할 수 있습니다."
 
 #: en-US/user-profile.md:13
 msgid "## API Tokens"
@@ -885,22 +819,17 @@ msgstr "## API 토큰"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr ""
-"API 토큰을 사용하면 [Readeck API](readeck-instance://docs/api)에 접근하여 원"
-"하는 모든 것을 이용할 수 있습니다. 사용자 프로필의 [API 토큰]"
-"(readeck-instance://profile/tokens) 섹션에서 토큰을 생성하고 관리할 수 있습니"
-"다."
+msgstr "API 토큰을 사용하면 [Readeck API](readeck-instance://docs/api)에 접근하여 원하는 모든 것을 이용할 수 있습니다. 사용자 프로필의 [API 토큰](readeck-instance://profile/tokens) 섹션에서 토큰을 생성하고 관리할 수 있습니다."
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr "API를 통해 특정 토큰이 접근할 수 있는 범위를 제한하고, 해당 토큰의 유효 기간"
-"을 설정할 수 있습니다."
+msgstr "API를 통해 특정 토큰이 접근할 수 있는 범위를 제한하고, 해당 토큰의 유효 기간을 설정할 수 있습니다."
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr "서비스나 앱에 Readeck 계정 접근 권한을 부여해야 할 경우, 주 사용자 이름과 비"
-"밀번호를 입력해서는 안됩니다."
+msgstr "서비스나 앱에 Readeck 계정 접근 권한을 부여해야 할 경우, 주 사용자 이름과 비밀번호를 입력해서는 안됩니다."
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "대신 사용자 이름과 선택한 토큰을 인증 자격 증명서로 제공할 수 있습니다."
+

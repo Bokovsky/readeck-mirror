@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-08-13 16:09+0000\n"
 "Last-Translator: 0alai <0alai@noreply.codeberg.org>\n"
-"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/"
-"documentation/ca/>\n"
 "Language: ca_ES\n"
+"Language-Team: Catalan <https://translate.codeberg.org/projects/readeck/documentation/ca/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -93,8 +91,7 @@ msgstr "A la barra lateral, trobaràs un camp de cerca i enllaços que et portar
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr ""
-"![Barra lateral amb la llista de marcadors](./img/bookmark-sidebar.webp)"
+msgstr "![Barra lateral amb la llista de marcadors](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -212,8 +209,7 @@ msgstr ""
 "- **Arxivar** \\\n"
 "Això mou el marcador als arxivats (o l'elimina d'allà).\n"
 "- **Esborra** \\\n"
-"Això marca el marcador per ser esborrat (es pot cancel·lar durant uns "
-"segons)."
+"Això marca el marcador per ser esborrat (es pot cancel·lar durant uns segons)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
@@ -278,8 +274,7 @@ msgid ""
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
 "- **Cerca**\\\n"
-"Cerca al text del marcador, al seu títol, als seus autors, al nom i domini "
-"del lloc web i a les etiquetes.\n"
+"Cerca al text del marcador, al seu títol, als seus autors, al nom i domini del lloc web i a les etiquetes.\n"
 "- **Títol**\\\n"
 "Cerca només al títol.\n"
 "- **Autor**\\\n"
@@ -289,12 +284,9 @@ msgstr ""
 "- **Etiqueta**\\\n"
 "Cerca etiquetes específiques.\n"
 "- **És preferit**, **Està arxivat**, **Tipus**\\\n"
-"Aquests filtres permeten restringir la cerca a qualsevol d'aquests criteris."
-"\n"
+"Aquests filtres permeten restringir la cerca a qualsevol d'aquests criteris.\n"
 "- **Data d'inici**, **Data de finalització**\\\n"
-"Aquests últims filtres permeten restringir des de quan i fins a quan es va "
-"desar el marcador. Per exemple, això permet recuperar la llista de marcadors "
-"desats durant les últimes 4 setmanes, però no després de la setmana passada."
+"Aquests últims filtres permeten restringir des de quan i fins a quan es va desar el marcador. Per exemple, això permet recuperar la llista de marcadors desats durant les últimes 4 setmanes, però no després de la setmana passada."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -302,9 +294,7 @@ msgstr "### Terme de cerca"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr ""
-"Els camps de **Cerca**, **Títol**, **Autor**, **Lloc web** i **Etiqueta** "
-"entenen els criteris de cerca de la mateixa manera:"
+msgstr "Els camps de **Cerca**, **Títol**, **Autor**, **Lloc web** i **Etiqueta** entenen els criteris de cerca de la mateixa manera:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -313,14 +303,10 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `gat espantat` trobarà el contingut amb les paraules **gat** i ** "
-"espantat**\n"
-"- `\"gat espantat\"` trobarà el contingut amb les paraules **gat espantat** "
-"juntes.\n"
-"- `gat*` trobarà el contingut amb les paraules que comencen per **gat** ("
-"gat, gatejar i gatamoixes coincidirien).\n"
-"- `gat -espantat` trobarà el contingut amb la paraula **gat** però NO la "
-"paraula **espantat**."
+"- `gat espantat` trobarà el contingut amb les paraules **gat** i ** espantat**\n"
+"- `\"gat espantat\"` trobarà el contingut amb les paraules **gat espantat** juntes.\n"
+"- `gat*` trobarà el contingut amb les paraules que comencen per **gat** (gat, gatejar i gatamoixes coincidirien).\n"
+"- `gat -espantat` trobarà el contingut amb la paraula **gat** però NO la paraula **espantat**."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
@@ -344,10 +330,7 @@ msgstr "### Exportar marcadors"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr ""
-"El botó de menú que hi ha al costat del botó de filtres permet descarregar "
-"un fitxer EPUB de la llista actual de marcadors. Exporta un llibre "
-"electrònic que conté tots els articles organitzats en capítols."
+msgstr "El botó de menú que hi ha al costat del botó de filtres permet descarregar un fitxer EPUB de la llista actual de marcadors. Exporta un llibre electrònic que conté tots els articles organitzats en capítols."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
@@ -389,8 +372,7 @@ msgstr ""
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr ""
-"Un marcador mostra el seu contingut segons el seu tipus. N'hi ha 3 tipus:"
+msgstr "Un marcador mostra el seu contingut segons el seu tipus. N'hi ha 3 tipus:"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
@@ -398,23 +380,18 @@ msgstr "## Configuració de la navegació i la presentació"
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
-msgstr ""
-"A la part superior de la vista de marcadors, un enllaç et porta de tornada a "
-"la pàgina anterior."
+msgstr "A la part superior de la vista de marcadors, un enllaç et porta de tornada a la pàgina anterior."
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr ""
-"Si el marcador conté un article, un botó a l'altre costat permet canviar "
-"alguns paràmetres de tipografia."
+msgstr "Si el marcador conté un article, un botó a l'altre costat permet canviar alguns paràmetres de tipografia."
 
 #: en-US/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
-"![Configuració de la tipografia dels marcadors](./img/bookmark-"
-"typography.webp)\n"
+"![Configuració de la tipografia dels marcadors](./img/bookmark-typography.webp)\n"
 "Configuració de la tipografia."
 
 #: en-US/bookmark.md:39
@@ -422,10 +399,8 @@ msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
-"Allà pots definir la font que s'utilitzarà per al text, la mida de la font i "
-"l'alçada de la línia.\\\n"
-"Aquesta configuració es desa automàticament i s'aplicarà a qualsevol article "
-"que llegeixis més tard."
+"Allà pots definir la font que s'utilitzarà per al text, la mida de la font i l'alçada de la línia.\\\n"
+"Aquesta configuració es desa automàticament i s'aplicarà a qualsevol article que llegeixis més tard."
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
@@ -433,10 +408,7 @@ msgstr "## Canviar el títol"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr ""
-"El títol del marcador s'obtén automàticament quan el crees. Si per alguna "
-"raó els vols canviar, pots fer-ho clicant-hi clic i després fent clic al "
-"botó del costat del títol."
+msgstr "El títol del marcador s'obtén automàticament quan el crees. Si per alguna raó els vols canviar, pots fer-ho clicant-hi clic i després fent clic al botó del costat del títol."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -484,8 +456,7 @@ msgid ""
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
 "Això marca el marcador per ser esborrat.\\\n"
-"No et preocupis si fas clic aquí per error! Aquesta acció es pot cancel·lar "
-"abans d'esborrar-lo realment."
+"No et preocupis si fas clic aquí per error! Aquesta acció es pot cancel·lar abans d'esborrar-lo realment."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
@@ -493,11 +464,7 @@ msgstr "## Etiquetes"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr ""
-"Pots afegir tantes etiquetes com vulguis a un marcador. Per fer-ho, "
-"introdueix text al camp d'etiqueta i fes clic a **Afegeix etiqueta**. No hi "
-"ha límit pel que fa al que pot ser una etiqueta, fins i tot pots afegir "
-"emojis si t'agraden."
+msgstr "Pots afegir tantes etiquetes com vulguis a un marcador. Per fer-ho, introdueix text al camp d'etiqueta i fes clic a **Afegeix etiqueta**. No hi ha límit pel que fa al que pot ser una etiqueta, fins i tot pots afegir emojis si t'agraden."
 
 #: en-US/bookmark.md:77
 msgid ""
@@ -551,11 +518,9 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"Les col·leccions et permeten organitzar i exportar fàcilment els teus "
-"marcadors\n"
+"Les col·leccions et permeten organitzar i exportar fàcilment els teus marcadors\n"
 "desant les sol·licituds de cerca que triïs.\n"
-"Quan creïs un marcador nou que coincideixi amb els criteris d'una col·lecció,"
-"\n"
+"Quan creïs un marcador nou que coincideixi amb els criteris d'una col·lecció,\n"
 "apareixerà immediatament.\n"
 "Aquí tens alguns exemples:"
 
@@ -577,9 +542,7 @@ msgstr "## Crear una col·lecció nova"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr ""
-"Per crear una nova col·lecció, aneu a la [Llista de col·leccions](readeck-"
-"instance://bookmarks/collections) i feu clic a **Crea una nova col·lecció**."
+msgstr "Per crear una nova col·lecció, aneu a la [Llista de col·leccions](readeck-instance://bookmarks/collections) i feu clic a **Crea una nova col·lecció**."
 
 #: en-US/collections.md:18
 msgid ""
@@ -595,9 +558,7 @@ msgstr "Introdueix qualsevol criteri i fes clic a **Desa**."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr ""
-"Si vols més informació sobre el filtratge, consulta els "
-"[filtres de marcadors](./bookmark-list.md#filters)."
+msgstr "Si vols més informació sobre el filtratge, consulta els [filtres de marcadors](./bookmark-list.md#filters)."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
@@ -605,15 +566,11 @@ msgstr "## Exportar una col·lecció"
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr ""
-"En una pàgina de col·lecció, pots exportar la col·lecció completa a un "
-"fitxer."
+msgstr "En una pàgina de col·lecció, pots exportar la col·lecció completa a un fitxer."
 
 #: en-US/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr ""
-"De moment, només hi ha disponible l'EPUB i s'exporta la col·lecció completa "
-"com un sol llibre."
+msgstr "De moment, només hi ha disponible l'EPUB i s'exporta la col·lecció completa com un sol llibre."
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
@@ -621,20 +578,17 @@ msgstr "## Esborra una col·lecció"
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr ""
-"A la pàgina d'una col·lecció, obriu el quadre **Edita** i feu clic a "
-"**Esborra**."
+msgstr "A la pàgina d'una col·lecció, obriu el quadre **Edita** i feu clic a **Esborra**."
 
 #: en-US/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
-msgstr ""
-"Aquesta operació es pot cancel·lar durant uns segons, en cas que ho hagis "
-"fet sense voler."
+msgstr "Aquesta operació es pot cancel·lar durant uns segons, en cas que ho hagis fet sense voler."
 
 #: en-US/index.md:1
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -657,22 +611,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Ajuda del Readeck"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr ""
-"Benvingut al Readeck! Aquí trobaràs les respostes a la majoria de les teves "
-"preguntes sobre el Readeck i alguns consells per millorar encara més la teva "
-"experiència."
+msgstr "Benvingut al Readeck! Aquí trobaràs les respostes a la majoria de les teves preguntes sobre el Readeck i alguns consells per millorar encara més la teva experiència."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## Contingut"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -697,10 +648,8 @@ msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
-"Pots [afegir tantes etiquetes com vulguis a un marcador](./"
-"bookmark.md#labels).\\\n"
-"No hi ha límit pel que fa al que pot ser una etiqueta. Fins i tot pots "
-"afegir emojis si t'agraden."
+"Pots [afegir tantes etiquetes com vulguis a un marcador](./bookmark.md#labels).\\\n"
+"No hi ha límit pel que fa al que pot ser una etiqueta. Fins i tot pots afegir emojis si t'agraden."
 
 #: en-US/labels.md:6
 msgid "## Label List"
@@ -708,16 +657,11 @@ msgstr "## Llista d'etiquetes"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr ""
-"La [Llista d'etiquetes](readeck-instance://bookmarks/labels) mostra totes "
-"les etiquetes de la col·lecció de marcadors, amb un número que indica quants "
-"marcadors porten una etiqueta."
+msgstr "La [Llista d'etiquetes](readeck-instance://bookmarks/labels) mostra totes les etiquetes de la col·lecció de marcadors, amb un número que indica quants marcadors porten una etiqueta."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr ""
-"Quan fas clic en una etiqueta, pots llistar tots els marcadors que porten "
-"l'etiqueta."
+msgstr "Quan fas clic en una etiqueta, pots llistar tots els marcadors que porten l'etiqueta."
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
@@ -725,9 +669,7 @@ msgstr "## Canviar el títol d'una etiqueta"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr ""
-"En una pàgina d'etiquetes, pots fer clic al títol de la pàgina (l'etiqueta) "
-"per canviar-ne el nom."
+msgstr "En una pàgina d'etiquetes, pots fer clic al títol de la pàgina (l'etiqueta) per canviar-ne el nom."
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
@@ -735,9 +677,7 @@ msgstr "# Catàleg de llibres electrònics"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr ""
-"El Readeck ofereix un catàleg de llibres electrònics amb tots els teus "
-"marcadors, organitzats en un catàleg amb la següent estructura:"
+msgstr "El Readeck ofereix un catàleg de llibres electrònics amb tots els teus marcadors, organitzats en un catàleg amb la següent estructura:"
 
 #: en-US/opds.md:5
 msgid ""
@@ -761,15 +701,11 @@ msgstr ""
 
 #: en-US/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr ""
-"Cada secció, excepte les col·leccions, proporciona tots els marcadors com a "
-"llibre electrònic."
+msgstr "Cada secció, excepte les col·leccions, proporciona tots els marcadors com a llibre electrònic."
 
 #: en-US/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr ""
-"A la secció d'una col·lecció, pots descarregar la col·lecció completa com un "
-"únic llibre electrònic."
+msgstr "A la secció d'una col·lecció, pots descarregar la col·lecció completa com un únic llibre electrònic."
 
 #: en-US/opds.md:19
 msgid "## Catalog access"
@@ -780,17 +716,12 @@ msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
-"Es pot accedir al catàleg des de qualsevol aplicació o lector electrònic que "
-"admeti el format OPDS.\n"
-"Per donar accés al catàleg, primer has de crear un [testimoni d'API](readeck-"
-"instance://profile/tokens)."
+"Es pot accedir al catàleg des de qualsevol aplicació o lector electrònic que admeti el format OPDS.\n"
+"Per donar accés al catàleg, primer has de crear un [testimoni d'API](readeck-instance://profile/tokens)."
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
-"**Nota**: És més fàcil descarregar el testimoni com a fitxer de text i "
-"transferir-lo al lector electrònic. Aleshores, pots obrir el fitxer i copiar "
-"el testimoni."
+msgstr "**Nota**: És més fàcil descarregar el testimoni com a fitxer de text i transferir-lo al lector electrònic. Aleshores, pots obrir el fitxer i copiar el testimoni."
 
 #: en-US/opds.md:26
 msgid ""
@@ -814,16 +745,11 @@ msgstr "## Configuració d'exemple: KOReader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr ""
-"[KOReader](https://koreader.rocks/) és un visor de documents per a "
-"dispositius de paper electrònic. Està disponible per a Kindle, Kobo, "
-"PocketBook, Android i Linux. Té molt bona compatibilitat amb el format OPDS."
+msgstr "[KOReader](https://koreader.rocks/) és un visor de documents per a dispositius de paper electrònic. Està disponible per a Kindle, Kobo, PocketBook, Android i Linux. Té molt bona compatibilitat amb el format OPDS."
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr ""
-"Un cop tinguis un testimoni d'API, pots accedir a la secció OPDS al menú de "
-"cerca:"
+msgstr "Un cop tinguis un testimoni d'API, pots accedir a la secció OPDS al menú de cerca:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
@@ -831,9 +757,7 @@ msgstr "![Menú de cerca a KOReader](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr ""
-"Aquesta secció mostra una llista de fonts OPDS preconfigurades. Hi pots "
-"afegir la teva prement la icona \"+\" a la cantonada superior esquerra:"
+msgstr "Aquesta secció mostra una llista de fonts OPDS preconfigurades. Hi pots afegir la teva prement la icona \"+\" a la cantonada superior esquerra:"
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
@@ -871,10 +795,7 @@ msgstr "# Perfil d'usuari"
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr ""
-"La [secció del Perfil](readeck-instance://profile) del Readeck et permet "
-"canviar la teva informació personal, la teva contrasenya i altres "
-"configuracions."
+msgstr "La [secció del Perfil](readeck-instance://profile) del Readeck et permet canviar la teva informació personal, la teva contrasenya i altres configuracions."
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
@@ -882,9 +803,7 @@ msgstr "## Editar el teu perfil"
 
 #: en-US/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
-msgstr ""
-"A la pàgina principal del perfil, pots canviar el teu nom d'usuari, la teva "
-"adreça de correu electrònic i triar l'idioma de l'aplicació."
+msgstr "A la pàgina principal del perfil, pots canviar el teu nom d'usuari, la teva adreça de correu electrònic i triar l'idioma de l'aplicació."
 
 #: en-US/user-profile.md:9
 msgid "## Change your password"
@@ -892,9 +811,7 @@ msgstr "## Canviar la teva contrasenya"
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr ""
-"A la pàgina [Contrasenya](readeck-instance://profile/password), pots canviar "
-"la contrasenya que fas servir per connectar-te al Readeck."
+msgstr "A la pàgina [Contrasenya](readeck-instance://profile/password), pots canviar la contrasenya que fas servir per connectar-te al Readeck."
 
 #: en-US/user-profile.md:13
 msgid "## API Tokens"
@@ -902,27 +819,17 @@ msgstr "## Testimonis d'API"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr ""
-"Un testimoni d'API et permet accedir i utilitzar l'[API del Readeck](readeck-"
-"instance://docs/api) per a qualsevol cosa que vulguis crear. Pots crear i "
-"gestionar testimoni a la secció [Tokens d'API](readeck-instance://profile/"
-"tokens) del teu perfil d'usuari."
+msgstr "Un testimoni d'API et permet accedir i utilitzar l'[API del Readeck](readeck-instance://docs/api) per a qualsevol cosa que vulguis crear. Pots crear i gestionar testimoni a la secció [Tokens d'API](readeck-instance://profile/tokens) del teu perfil d'usuari."
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr ""
-"Podeu limitar a què pot accedir un testimoni a través de l'API i durant "
-"quant de temps és vàlid."
+msgstr "Podeu limitar a què pot accedir un testimoni a través de l'API i durant quant de temps és vàlid."
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr ""
-"Si necessites concedir accés al teu compte de Readeck a un servei o una "
-"aplicació, no pots proporcionar el teu nom d'usuari i contrasenya principals;"
-" no funcionarà."
+msgstr "Si necessites concedir accés al teu compte de Readeck a un servei o una aplicació, no pots proporcionar el teu nom d'usuari i contrasenya principals; no funcionarà."
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
-"En comptes d'això, pots proporcionar el teu nom d'usuari i un testimoni com "
-"a credencials d'autenticació."
+msgstr "En comptes d'això, pots proporcionar el teu nom d'usuari i un testimoni com a credencials d'autenticació."
+
