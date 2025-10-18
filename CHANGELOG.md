@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.20.4] - 2025-10-18
+### Changed
+- Updated Go to 1.25.3
+
+### Improved
+- Aria roles on forms and messages
+- Prioritize PNG and JPEG images when fetching images
+
+### Fixed
+- PostgreSQL bugs on full export
+- Always remove remote source URLs that can't be retrieved during the archive process
+
 ## [0.20.3] - 2025-09-16
 ### Changed
 - Updated Go to 1.25.1
