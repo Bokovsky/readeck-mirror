@@ -56,6 +56,7 @@ type config struct {
 type configMain struct {
 	LogLevel      slog.Level `json:"log_level" env:"LOG_LEVEL"`
 	LogFormat     string     `json:"log_format" env:"LOG_FORMAT"`
+	LogTimeFormat string     `json:"log_time_format" env:"LOG_TIME_FORMAT"`
 	SecretKey     string     `json:"secret_key" env:"SECRET_KEY,unset"`
 	DataDirectory string     `json:"data_directory" env:"DATA_DIRECTORY,unset"`
 }
