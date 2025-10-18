@@ -182,22 +182,32 @@ func Text(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	return next
 }
 
-func findFirstContentNode(node *html.Node) *html.Node {
-	children := dom.ChildNodes(node)
-	count := 0
-	for _, x := range children {
-		if x.Type == html.TextNode && strings.TrimSpace(x.Data) != "" {
-			count++
-		} else if x.Type == html.ElementNode {
-			count++
+// Traverses down the DOM to find the first element node that contains multiple elements or a
+// non-whitespace text node. Only ever skip elements that are DIV, SECTION, MAIN, or ARTICLE.
+func findFirstContentNode(parent *html.Node) *html.Node {
+	var elementChild *html.Node
+	for child := parent.FirstChild; child != nil; child = child.NextSibling {
+		if child.Type == html.TextNode && strings.TrimSpace(child.Data) != "" {
+			return parent
+		} else if child.Type == html.ElementNode {
+			if elementChild == nil {
+				elementChild = child
+			} else {
+				// parent has multiple element children
+				return parent
+			}
 		}
 	}
-
-	if count > 1 || dom.FirstElementChild(node) == nil {
-		return node
+	if elementChild == nil {
+		return parent
 	}
-
-	return findFirstContentNode(dom.FirstElementChild(node))
+	switch elementChild.Data {
+	case "div", "section", "main", "article":
+		// Nothing should be lost semantically should we unwrap these container elements.
+		return findFirstContentNode(elementChild)
+	default:
+		return elementChild
+	}
 }
 
 // prepareTitles moves the "id" and "class" attributes from h* and h* a tags
