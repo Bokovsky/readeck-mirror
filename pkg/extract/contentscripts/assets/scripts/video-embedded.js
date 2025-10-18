@@ -35,7 +35,15 @@ exports.documentDone = function (document) {
  */
 exports.documentReady = function (document) {
   document.querySelectorAll("iframe[src]").forEach((iframe) => {
-    const src = new URL(iframe.getAttribute("src"))
+    let srcValue = iframe.getAttribute("src")
+    if (!srcValue) {
+      srcValue = iframe.getAttribute("data-src")
+    }
+    if (!srcValue) {
+      return
+    }
+    
+    const src = new URL(srcValue)
     if (src.protocol != "http:" && src.protocol != "https:") {
       return
     }
