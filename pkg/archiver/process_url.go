@@ -15,7 +15,10 @@ import (
 	"strings"
 )
 
-var errSkippedURL = errors.New("skip processing url")
+var (
+	errSkippedURL = errors.New("skip processing url")
+	errRemoveSrc  = errors.New("remove source")
+)
 
 type processOptions struct {
 	headers http.Header
@@ -49,8 +52,8 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, options process
 		} else {
 			attr = slog.Int("status", res.status)
 		}
-		log.LogAttrs(context.Background(), slog.LevelWarn, "faile to fetch resource", attr)
-		return nil, errors.Join(errSkippedURL, err)
+		log.LogAttrs(context.Background(), slog.LevelWarn, "failed to fetch resource", attr)
+		return nil, errors.Join(errSkippedURL, errRemoveSrc, err)
 	}
 	defer body.Close() //nolint:errcheck
 
