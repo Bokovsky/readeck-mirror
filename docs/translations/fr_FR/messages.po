@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-10-18 06:01+0000\n"
+"PO-Revision-Date: 2025-07-26 09:45+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/"
 "documentation/fr/>\n"
@@ -16,44 +16,36 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr "# Marque-pages"
+msgstr "# Bookmarks"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr ""
-"Les marque-pages vous permettent d'enregistrer les contenus que vous aimez."
+msgstr "Dans les bookmarks se trouve le contenu web que vous appréciez."
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr "## Créer un marque-page"
+msgstr "## Créer un bookmark"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr ""
-"Vous avez trouvé une page que vous aimez ? Parfait, copiez son adresse (lien)"
-" dans le champ texte nommé **Enregistrer un lien** sur la "
-"[liste des marque-pages](readeck-instance://bookmarks)."
+msgstr "Vous avez trouvé une page que vous aimez ? Parfait, copiez son adresse (lien) dans le champ texte nommé **Enregistrer un lien** sur la [liste des bookmarks](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr "![Formulaire de création de marque-pages](./img/bookmark-new.webp)"
+msgstr "![Formulaire de cŕeation de bookmark](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr ""
-"Après quelques secondes, votre marque-pages est prêt. Vous pouvez l'ouvrir "
-"pour en consulter le contenu, ajouter des étiquettes, annoter le texte ou "
-"exporter un e-book. Pour plus d'informations, veuillez lire la section "
-"[Détails d'un marque-page](./bookmark.md)."
+msgstr "Après quelques secondes, votre bookmark est prêt. Vous pouvez l'ouvrir pour en consulter le contenu, ajouter des labels, annoter le texte ou exporter un e-book. Pour plus d'information, veuillez lire la section [Détails d'un bookmark](./bookmark)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr "## Types de marque-pages"
+msgstr "## Types de bookmark"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
@@ -65,9 +57,7 @@ msgstr "### Article"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
-"Un article est une page depuis laquelle on peut extraire un contenu textuel. "
-"L'article est affiché comme la version lisible de son contenu."
+msgstr "Un article est une page depuis laquelle on peut extraire un contenu text. L'article est affiché comme la version lisible de son contenu."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
@@ -75,9 +65,7 @@ msgstr "### Photo"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
-"Une photo est une page qui a été reconnue comme un conteneur pour une image "
-"(ex. un lien vers Unsplash). Le marque-pages affiche l'image enregistrée."
+msgstr "Une photo est une page qui a été reconnue comme un conteneur pour une image (ex. un lien vers Unsplash). Le bookmark affiche l'image enregistée."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -85,20 +73,15 @@ msgstr "### Vidéo"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
-"Une vidéo est une page qui a été reconnue comme un conteneur pour une vidéo "
-"(ex. un lien vers Youtube ou Vimeo). Le marque-pages affiche un lecteur de "
-"vidéo. Veuillez noter que les vidéos sont jouées depuis le serveur d'origine."
+msgstr "Une vidéo est une page qui a été reconnue comme un conteneur pour une vidéo (ex. un lien vers Youtube ou Vimeo). Le bookmark affiche un lecteur de vidéo. Veuillez noter que les vidéos sont jouées depuis le serveur d'origine."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr "## Liste des marque-pages"
+msgstr "## Liste des bookmarks"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
-"La [liste des marque-pages](readeck-instance://bookmarks) contient tous vos "
-"marque-pages."
+msgstr "La [liste des bookmarks](readeck-instance://bookmarks) contient tous vos bookmarks."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -106,13 +89,11 @@ msgstr "### Navigation"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr ""
-"Dans la barre latérale, se trouvent un champ de recherche et des liens qui "
-"vous mènent vers des listes des marque-pages déjà filtrés."
+msgstr "Dans la barre latérale, se trouvent un champ de recherche et des liens qui vous mènent vers des listes de bookmarks déjà filtrées."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr "![Menu de la liste des marque-pages](./img/bookmark-sidebar.webp)"
+msgstr "![Menu de la liste des bookmarks](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -130,19 +111,17 @@ msgstr ""
 "- **Recherche** \\\n"
 "  Indiquez ce que vous cherchez (titre, contenu, site web...)\n"
 "- **Tous** \\\n"
-"  Tous vos marque-pages.\n"
+"  Tous vos bookmarks.\n"
 "- **Non lus** \\\n"
-"  Les marque-pages qui ne sont pas dans l'archive.\n"
+"  Les bookmarks qui ne sont pas dans l'archive.\n"
 "- **Archive** \\\n"
-"  Les marque-pages marqués comme archivés.\n"
+"  Les bookmarks marqués comme archivés.\n"
 "- **Favoris** \\\n"
-"  Les marque-pages marqués comme favoris."
+"  Les bookmarks marqués comme favoris."
 
 #: en-US/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
-"Dès que vous commencez à créer des marque-pages, vous verrez les liens "
-"suivants :"
+msgstr "Dès que vous commencez à créer des bookmarks, vous verrez les liens suivants :"
 
 #: en-US/bookmark-list.md:54
 msgid ""
@@ -162,9 +141,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
-"Enfin, se trouvent 3 autres sections qui mènent vers des pages liées aux "
-"marque-pages :"
+msgstr "Enfin, se trouvent 3 autres sections qui mènent vers des pages liées aux bookmarks :"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -175,28 +152,28 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
-"- **[Étiquettes](./labels.md)** \\\n"
-"  Toutes les étiquettes ajoutées aux marque-pages\n"
+"- **[Labels](./labels.md)** \\\n"
+"  Tous les labels ajoutés aux bookmarks\n"
 "- **Annotations** \\\n"
-"  Toutes les annotations ajoutées aux marque-pages\n"
+"  Toutes les annotations ajoutées aux bookmarks\n"
 "- **[Collections](./collections.md)** \\\n"
 "  Liste des collections"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr "### Cartes des marque-pages"
+msgstr "### Cartes"
 
 #: en-US/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr "Chaque élément de la liste des marque-pages est une carte."
+msgstr "Chaque élément de la liste des bookmarks est une carte."
 
 #: en-US/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
-"![Liste des marque-pages](./img/bookmark-list.webp)\n"
-"Liste des marque-pages en grille"
+"![Liste des bookmarks](./img/bookmark-list.webp)\n"
+"Liste des bookmarks en grille"
 
 #: en-US/bookmark-list.md:77
 msgid "A card shows:"
@@ -210,10 +187,10 @@ msgid ""
 "- the **label list**,\n"
 "- **action buttons**"
 msgstr ""
-"- le **titre** sur lequel vous pouvez cliquer pour accéder au contenu,\n"
+"- le **title** sur lequel vous pouvez cliquer pour accéder au contenu,\n"
 "- le **nom du site**,\n"
 "- le **temps de lecture** estimé,\n"
-"- la **liste des étiquettes**,\n"
+"- la **liste des labels**,\n"
 "- **boutons d'action**"
 
 #: en-US/bookmark-list.md:85
@@ -230,12 +207,11 @@ msgid ""
 "  This marks the bookmark for deletion (it can be canceled during a few seconds)."
 msgstr ""
 "- **Favori** \\\n"
-"  Change l'état favori ou non d'un marque-page.\n"
+"  Change l'état favori ou non d'un bookmark.\n"
 "- **Archive** \\\n"
-"  Archive un marque-page (ou le retire des archives).\n"
+"  Archive un bookmark (ou le retire des archives).\n"
 "- **Supprimer** \\\n"
-"  Marque le marque-page pour suppression "
-"(cette action peut être annulée pendant quelques secondes)."
+"  Marque le bookmark pour suppression (cette action peut être annulée pendant quelques secondes)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
@@ -243,38 +219,31 @@ msgstr "### Liste compacte"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr ""
-"Si vous trouvez la liste de marque-pages sous forme de grille trop "
-"encombrée, vous pouvez changer pour une liste plus compacte contenant moins "
-"d'images. Cliquez sur le bouton près du titre pour passer à la vue compacte."
+msgstr "Si vous trouvez la liste de bookmarks sous forme de grille trop encombrée, vous pouvez changer pour une liste plus compacte contenant moins d'images. Cliquez sur le bouton près du titre pour passer à la vue compacte."
 
 #: en-US/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
-"![Liste compacte des marque-pages](./img/bookmark-list-compact.webp)\n"
-"Liste compacte de marque-pages"
+"![Liste compacte des bookmarks](./img/bookmark-list-compact.webp)\n"
+"Liste compacte de bookmarks"
 
 #: en-US/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr "## Filtrer les marque-pages {#filters}"
+msgstr "## Filtrer les bookmarks {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr ""
-"Sur la liste des marque-pages, vous pouvez filtrer les éléments sur la base "
-"de plusieurs critères de recherche. Cliquez sur le bouton "
-"\"Filtrer la liste\" près du titre de la page pour ouvrir le formulaire de "
-"recherche."
+msgstr "Sur la liste des bookmarks, vous pouvez filtrer les éléments sur la base de plusieurs critères de recherche. Cliquez sur le bouton \"Filtrer la liste\" près du titre de la page pour ouvrir le formulaire de recherche."
 
 #: en-US/bookmark-list.md:105
 msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
 msgstr ""
-"![Filtres de la liste de marque-pages](./img/bookmark-filters.webp)\n"
+"![Filtres de la liste de bookmarks](./img/bookmark-filters.webp)\n"
 "Le formulaire de recherche"
 
 #: en-US/bookmark-list.md:108
@@ -307,23 +276,19 @@ msgid ""
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
 "- **Recherche**\\\n"
-"  Recherche dans le texte d'un marque-pages, son titre, ses auteurs, le nom "
-"du site et du domaine et les étiquettes.\n"
+"  Recherche dans le texte d'un bookmark, son titre, ses auteurs, le nom du site et du domaine et les labels.\n"
 "- **Titre**\\\n"
 "  Recherche uniquement dans le titre.\n"
 "- **Auteur**\\\n"
 "  Recherche uniquement dans la liste des auteurs.\n"
 "- **Site**\\\n"
 "  Recherche uniquement le nom du site ou son domaine.\n"
-"- **Étiquette**\\\n"
-"  Recherche des étiquettes données.\n"
+"- **Label**\\\n"
+"  Recherche des labels donnés.\n"
 "- **Favori**, **Archivé**, **Type**\\\n"
 "  Ce filtre permet de restreindre la recherche sur ces critères.\n"
 "- **Depuis**, **Jusqu'à**\\\n"
-"  Ces derniers filtres vous permettent de limiter les résultats par date de "
-"création des marque-pages. Par exemple, vous pouvez obtenir la liste des "
-"marque-pages créés pendant les 4 dernières semaines mais pas après la "
-"dernière semaine."
+"  Ces derniers filtres vous permettent de limiter les résultats par date de création des bookmarks. Par example, vous pouvez obtenir la liste des bookmarks créés pendant les 4 dernières semaines mais pas après la dernière semaine."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -331,9 +296,7 @@ msgstr "### Critères de recherche"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr ""
-"Les champs **Recherche**, **Titre**, **Auteur**, **Site** et **Étiquette** "
-"comprennent les critères de recherche de la même façon :"
+msgstr "Les champs **Recherche**, **Titre**, **Auteur**, **Site** et **Label** comprennent les critères de recherche de la même façon :"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -353,7 +316,7 @@ msgstr "Après avoir effectué une recherche, vous pouvez l'enregistrer en tant 
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr "## Exporter et importer des marque-pages"
+msgstr "## Exporter et importer des bookmarks"
 
 #: en-US/bookmark-list.md:143
 msgid ""
@@ -361,33 +324,27 @@ msgid ""
 "Bookmark list menu"
 msgstr ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
-"Menu de la liste des marque-pages"
+"Menu de la liste des bookmarks"
 
 #: en-US/bookmark-list.md:146
 msgid "### Export bookmarks"
-msgstr "### Exporter des marque-pages"
+msgstr "### Exporter des bookmarks"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr ""
-"Le bouton de menu près des filtres vous permet de télécharger un fichier "
-"EPUB de la liste de marque-pages affichés. Il créer un e-book contenant tous "
-"les articles organisés en chapitres."
+msgstr "Le bouton de menu près des filtres vous permet de télécharger un fichier EPUB de la liste de bookmarks affichée. Il créer un e-book contenant tous les articles organisés en chapitres."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
-msgstr "### Importer des marque-pages"
+msgstr "### Importer des bookmarks"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr ""
-"Dans le même menu, vous trouverez un lien [Importer des marque-pages]"
-"(readeck-instance://bookmarks/import). Il vous mènera à un assistant vous "
-"permettant d'importer des liens existants depuis différentes sources."
+msgstr "Dans le même menu, vous trouverez un lien [Importer des bookmarks](readeck-instance://bookmarks/import). Il vous mènera à un assistant vous permettant d'importer des liens existants depuis différentes sources."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
-msgstr "# Détails d'un marque-page"
+msgstr "# Détails d'un bookmark"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
@@ -403,7 +360,7 @@ msgstr ""
 
 #: en-US/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr "La vue principale d'un marque-page se divise en 3 sections :"
+msgstr "La vue principale d'un bookmark se divise en 3 sections :"
 
 #: en-US/bookmark.md:10
 msgid ""
@@ -413,12 +370,11 @@ msgid ""
 msgstr ""
 "- Au dessus, la navigation et les paramètres de présentation,\n"
 "- Le contenu,\n"
-"- Une barre latérale avec des informations, les étiquettes, annotations et "
-"actions."
+"- Une barre latérale avec des informations, les labels, annotations et actions."
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr "Un marque-page affiche son contenu selon son type. Il existe 3 types :"
+msgstr "Un bookmark affiche son contenu selon son type. Il existe 3 types :"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
@@ -430,17 +386,14 @@ msgstr "Au dessus de la vue principale, un lien vous permet de retourner à la p
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr ""
-"Si le marque-page contient un article, un bouton sur le côté gauche vous "
-"permet de modifier les paramètres de présentation."
+msgstr "Si le bookmark contient un article, un bouton sur le côté gauche vous permet de modifier les paramètres de présentation."
 
 #: en-US/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
-"![Paramètres de présentation d'un marque-page]"
-"(./img/bookmark-typography.webp)\n"
+"![Paramètres de présentation d'un article](./img/bookmark-typography.webp)\n"
 "Paramètres de présentation."
 
 #: en-US/bookmark.md:39
@@ -457,11 +410,7 @@ msgstr "## Modifier le titre"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr ""
-"Le titre d'un marque-page est automatiquement récupéré lors de sa création. "
-"Si, pour diverses raisons, vous souhaitez le corriger, vous pouvez le "
-"modifier en cliquant dessus puis en validant vos changements avec le bouton "
-"à côté du titre."
+msgstr "Le titre d'un bookmark est automatiquement récupéré lors de sa création. Si, pour diverses raisons, vous souhaitez le corriger, vous pouvez le modifier en cliquant dessus puis en validant vos changements avec le bouton à côté du titre."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -469,7 +418,7 @@ msgstr "## Actions"
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr "La barre latérale d'un marque-page propose diverses actions."
+msgstr "La barre latérale d'un bookmark propose diverses actions."
 
 #: en-US/bookmark.md:52
 msgid "### Favorite"
@@ -477,7 +426,7 @@ msgstr "### Favori"
 
 #: en-US/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr "Ceci change l'état favori du marque-page."
+msgstr "Ceci change l'état favori du bookmark."
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
@@ -485,9 +434,7 @@ msgstr "### Archive"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr ""
-"Ceci déplace le marque-page dans les archive (ou l'en retire s'il y est déjà)"
-"."
+msgstr "Ceci déplace le bookmark dans les archive (ou l'en retire s'il y est déjà)."
 
 #: en-US/bookmark.md:60
 msgid "### Share"
@@ -499,9 +446,7 @@ msgstr "Le bouton de partage ouvre un menu depuis lequel vous pouvez créer un l
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr ""
-"Dans le même menu, vous pouvez exporter votre marque-page "
-"(seulement EPUB pour le moment) pour le lire sur un autre périphérique."
+msgstr "Dans le même menu, vous pouvez exporter votre bookmark (seulement EPUB pour le moment) pour le lire sur un autre périphérique."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
@@ -512,36 +457,28 @@ msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
-"Ceci marque le marque-page pour suppression.\\\n"
-"Aucune inquiétude si vous cliquez par erreur ! Cette action peut être "
-"annulée avant que la suppression soit effective."
+"Ceci marque le bookmark pour suppression.\\\n"
+"Aucune inquiétude si vous cliquez par erreur ! Cette action peut être annulée avant que la suppression soit effective."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr "## Étiquettes"
+msgstr "## Labels"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr ""
-"Vous pouvez ajouter autant de étiquettes que vous voulez à un marque-page. "
-"Pour cela, indiquez le texte de l'étiquette dans le champ correspondant et "
-"cliquez sur **Ajouter une étiquette**. Il n'y a aucune limite quant aux "
-"caractères permis dans un label. Vous pouvez même utiliser des émojis si "
-"vous le souhaitez."
+msgstr "Vous pouvez ajouter autant de labels que vous voulez à un bookmark. Pour cela, indiquez le texte du label dans le champ correspondant et cliquez sur **Ajouter un label**. Il n'y a aucune limite quant aux caractères permis dans un label. Vous pouvez même utiliser des emojis si vous le souhaitez."
 
 #: en-US/bookmark.md:77
 msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
-"![Formulaire des étiquettes](./img/bookmark-labels.webp)\n"
-"Ajouter une étiquette."
+"![Formulaire de labels](./img/bookmark-labels.webp)\n"
+"Ajouter un label."
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr ""
-"Veuillez consulter la section [Étiquettes](./labels.md) pour plus "
-"d'informations."
+msgstr "Veuillez consulter la section [Labels](./labels.md) pour plus d'informations."
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
@@ -583,10 +520,8 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"Les collections vous permettent de facilement organiser et exporter vos "
-"marque-pages en enregistrant les critères de recherche de votre choix.\n"
-"Quand vous créez un marque-page qui correspond aux critères d'une "
-"collection, il apparaîtra immédiatement.\n"
+"Les collections vous permettent de facilement organiser et exporter vos bookmarks en enregistrant les critères de recherche de votre choix.\n"
+"Quand vous créez un bookmark qui correspond aux critères d'une collection, il apparaîtra immédiatement.\n"
 "Voici quelques exemples :"
 
 #: en-US/collections.md:9
@@ -598,8 +533,8 @@ msgid ""
 msgstr ""
 "- Les articles non lus (pas de photo ou de vidéo),\n"
 "- Les articles archivés de \"wikipedia.org\",\n"
-"- Les photos avec l'étiquette \"chat\",\n"
-"- Les articles qui contiennent \"climat\" dans leur titre."
+"- Les photos avec le label \"chat\",\n"
+"- The articles qui contiennent \"climat\" dans leur titre."
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
@@ -623,9 +558,7 @@ msgstr "Indiquez les critères de recherche et cliquez sur **Enregistrer**."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr ""
-"Consultez l'aide des [filtres de marque-pages](./bookmark-list#filters) pour "
-"plus d'information concernant les filtres."
+msgstr "Consultez l'aide des [filtres de bookmarks](./bookmark-list#filters) pour plus d'information concernant les filtres."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
@@ -671,7 +604,7 @@ msgstr ""
 "    - \"\"\n"
 "    - bookmark-list\n"
 "    - bookmark\n"
-"    - étiquettes\n"
+"    - labels\n"
 "    - collections\n"
 "    - opds\n"
 "    - user-profile\n"
@@ -698,53 +631,44 @@ msgid ""
 "- [Ebook Catalog](./opds.md)\n"
 "- [User Profile](./user-profile.md)"
 msgstr ""
-"- [Marque-pages](./bookmark-list.md)\n"
-"- [Détails d'un marque-page](./bookmark.md)\n"
-"- [Étiquettes](./labels.md)\n"
+"- [Bookmarks](./bookmark-list.md)\n"
+"- [Détails d'un bookmark](./bookmark.md)\n"
+"- [Labels](./labels.md)\n"
 "- [Collections](./collections.md)\n"
 "- [Catalogue e-book](./opds.md)\n"
 "- [Profil utilisateur](./user-profile.md)"
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr "# Étiquettes"
+msgstr "# Labels"
 
 #: en-US/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
-"Vous pouvez ajouter [autant d'étiquettes que vous voulez sur un marque-page]"
-"(./bookmark.md#labels).\\\n"
-"Il n'y a aucune limite quant aux caractères permis dans une étiquette. Vous "
-"pouvez même utiliser des émojis si vous le souhaitez."
+"Vous pouvez ajouter [autant de labels que vous voulez sur un bookmark](./bookmark.md#labels).\\\n"
+"Il n'y a aucune limite quant aux caractères permis dans un label. Vous pouvez même utiliser des emojis si vous le souhaitez."
 
 #: en-US/labels.md:6
 msgid "## Label List"
-msgstr "## Liste des étiquettes"
+msgstr "## Liste des labels"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr ""
-"La [liste des étiquettes](readeck-instance://bookmarks/labels) affiche "
-"toutes les étiquettes de vos marque-pages, avec un chiffre indiquant le "
-"nombre de marque-pages portant une étiquette donnée."
+msgstr "La [liste des labels](readeck-instance://bookmarks/labels) affiche tous les labels de vos bookmarks, avec un nombre indiquant combien de bookmarks portent un label donné."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr ""
-"En cliquant sur une étiquette, vous pouvez lister tous les marque-pages "
-"portant celui-ci."
+msgstr "En cliquant sur un label, vous pouvez lister tous les bookmarks portant celui-ci."
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
-msgstr "## Renommer une étiquette"
+msgstr "## Renommer un label"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr ""
-"Sur la page d'une étiquette, vous pouvez cliquer sur le titre (l'étiquette) "
-"pour en changer le nom."
+msgstr "Sur la page d'un label, vous pouvez cliquer sur le titre (le label) pour en changer le nom."
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
@@ -752,9 +676,7 @@ msgstr "# Catalogue e-book"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr ""
-"Readeck fournit un catalogue d'e-book de tous vos marque-pages, organisés "
-"selon la structure suivante :"
+msgstr "Readeck fournit un catalogue d'e-book de tous vos bookmarks, organisés selon la structure suivante :"
 
 #: en-US/opds.md:5
 msgid ""
@@ -767,20 +689,18 @@ msgid ""
 "    - Collection E-book\n"
 "    - Browse Collection"
 msgstr ""
-"- Marque-pages non lus\n"
-"- Marque-pages archivés\n"
-"- Marque-pages favoris\n"
-"- Tous les marque-pages\n"
-"- Collections de marque-pages\n"
+"- Bookmarks non lus\n"
+"- Bookmarks archivés\n"
+"- Bookmarks favoris\n"
+"- Tous les bookmarks\n"
+"- Collections de bookmarks\n"
 "  - (Nom de la collection)\n"
 "    - e-book de la collection\n"
 "    - naviguer dans la collection"
 
 #: en-US/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr ""
-"Chaque section, à l'exception des Collections, fournit les marque-pages en "
-"tant qu'e-book."
+msgstr "Chaque section, à l'exception des Collections, fournit les bookmarks en tant qu'e-book."
 
 #: en-US/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
@@ -810,8 +730,7 @@ msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"Vous pouvez restreindre les permissions de ce jeton à "
-"\"Marque-pages : lecture seule\".\n"
+"Vous pouvez restreindre les permissions de ce jeton à \"Bookmarks : lecture seule\".\n"
 "Notez le mot de passe généré et passez au paramétrage de l'application."
 
 #: en-US/opds.md:29
@@ -866,7 +785,7 @@ msgstr "![Ajouter un catalogue dans Koreader](../img/koreader-3.webp)"
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr "Vous pouvez maintenant accéder à vos marque-pages depuis Koreader !"
+msgstr "Vous pouvez maintenant accéder à vos bookmarks depuis Koreader !"
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
