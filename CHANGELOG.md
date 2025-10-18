@@ -3,6 +3,8 @@
 ## [unreleased]
 ### Added
 - HTTPS listener with certificate/key pair
+- handle lazy-loading "data-src" pattern for embedded videos, by [@mislav](https://codeberg.org/mislav)
+- log_time_format (and READECK_LOG_TIME_FORMAT) configuration option, by [@mislav](https://codeberg.org/mislav)
 
 ### Changed
 - Replaced the ACL policy enforcer for better performances and less dependencies
@@ -12,6 +14,7 @@
 - Cut words on runes, not bytes
 - Silent bug in internal/db/scanner
 - Disable bfcache after side effect requests (post, put, patch, delete)
+- Readability: avoid unwrapping meaningful HTML elements, by [@mislav](https://codeberg.org/mislav)
 
 ## [0.20.4] - 2025-10-18
 ### Changed
