@@ -1,4 +1,4 @@
-# Dutch (Netherlands) translations for Readeck User Documentation.
+# Thai (Thailand) translations for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
@@ -7,11 +7,11 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-18 09:09+0200\n"
-"PO-Revision-Date: 2025-10-09 06:09+0000\n"
-"Last-Translator: Domenico <domenico@noreply.codeberg.org>\n"
-"Language: nl_NL\n"
-"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/documentation/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"PO-Revision-Date: 2025-10-06 23:41+0000\n"
+"Last-Translator: wannaphong <wannaphong@noreply.codeberg.org>\n"
+"Language: th_TH\n"
+"Language-Team: Thai <https://translate.codeberg.org/projects/readeck/documentation/th/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -19,15 +19,15 @@ msgstr ""
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr "# Bladwijzers"
+msgstr ""
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr "Bladwijzers is waar je de webinhoud opslaat die leuk vindt."
+msgstr ""
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr "## Maak een nieuwe Bladwijzer aan"
+msgstr ""
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
@@ -43,23 +43,23 @@ msgstr ""
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr "## Bladwijzertype"
+msgstr ""
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr "Readeck herkent 3 verschillende typen webinhoud:"
+msgstr ""
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr "### Artikel"
+msgstr "### บทความ"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
+msgstr "บทความคือหน้าที่มีการนำเนื้อหาข้อความมาแสดงเป็นเนื้อหาที่อ่านได้"
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr "### Afbeelding"
+msgstr "### รูปภาพ"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
@@ -75,7 +75,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr "## Bladwijzerlijst"
+msgstr ""
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
@@ -83,7 +83,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr "### Navigatie"
+msgstr ""
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
@@ -211,7 +211,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:110
 msgid "### Available filters"
-msgstr "### Beschikbare filters"
+msgstr ""
 
 #: en-US/bookmark-list.md:112
 msgid "You can combine the following filters:"
@@ -257,7 +257,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr "## Exporteer en Importeer Bladwijzers"
+msgstr ""
 
 #: en-US/bookmark-list.md:143
 msgid ""
@@ -312,7 +312,7 @@ msgstr ""
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr "## Navigatie- en presentatie-instellingen"
+msgstr ""
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
@@ -344,7 +344,7 @@ msgstr ""
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
-msgstr "## Acties"
+msgstr ""
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
@@ -360,7 +360,7 @@ msgstr ""
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr "### Archiveer"
+msgstr ""
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
@@ -380,7 +380,7 @@ msgstr ""
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr "### Verwijder"
+msgstr ""
 
 #: en-US/bookmark.md:69
 msgid ""
@@ -390,7 +390,7 @@ msgstr ""
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr "## Labels"
+msgstr ""
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
@@ -408,7 +408,7 @@ msgstr ""
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr "## Markeringen"
+msgstr ""
 
 #: en-US/bookmark.md:84
 msgid ""
@@ -432,7 +432,7 @@ msgstr ""
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr "# Verzamelingen"
+msgstr ""
 
 #: en-US/collections.md:3
 msgid ""
@@ -453,7 +453,7 @@ msgstr ""
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
-msgstr "## Maak een nieuwe verzameling aan"
+msgstr ""
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
@@ -475,7 +475,7 @@ msgstr ""
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
-msgstr "## Exporteer een verzameling"
+msgstr ""
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
@@ -487,7 +487,7 @@ msgstr ""
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
-msgstr "## Verwijder een verzameling"
+msgstr ""
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
@@ -515,7 +515,7 @@ msgstr ""
 
 #: en-US/index.md:14
 msgid "# Readeck Help"
-msgstr "# Readeck Hulp"
+msgstr ""
 
 #: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
@@ -523,7 +523,7 @@ msgstr ""
 
 #: en-US/index.md:18
 msgid "## Contents"
-msgstr "## Inhoud"
+msgstr ""
 
 #: en-US/index.md:20
 msgid ""
@@ -537,7 +537,7 @@ msgstr ""
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr "# Labels"
+msgstr ""
 
 #: en-US/labels.md:3
 msgid ""
@@ -567,7 +567,7 @@ msgstr ""
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
-msgstr "# E-book Catalogus"
+msgstr ""
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
@@ -660,7 +660,7 @@ msgstr ""
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr "Je hebt vanaf nu toegang tot je bladwijzers uit Koreader!"
+msgstr ""
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
@@ -668,7 +668,7 @@ msgstr ""
 
 #: en-US/user-profile.md:1
 msgid "# User Profile"
-msgstr "# Gebruikersprofiel"
+msgstr ""
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
@@ -676,7 +676,7 @@ msgstr ""
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
-msgstr "## Wijzig je profiel"
+msgstr ""
 
 #: en-US/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
@@ -684,7 +684,7 @@ msgstr ""
 
 #: en-US/user-profile.md:9
 msgid "## Change your password"
-msgstr "## Wijzig je wachtwoord"
+msgstr ""
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-06-02 06:20+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language: cs_CZ\n"
@@ -586,6 +586,7 @@ msgstr "Tuto operaci lze během několika sekund zrušit pro případ, že jste 
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -608,19 +609,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Nápověda Readecku"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr "Vítejte na Readecku! Zde naleznete odpovědi na většinu vašich otázek týkajících se Readecku a několik tipů, jak ještě více zlepšit váš zážitek."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## Obsah"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"

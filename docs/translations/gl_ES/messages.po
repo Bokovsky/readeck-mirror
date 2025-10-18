@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-07-29 08:09+0000\n"
 "Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
-"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/"
-"documentation/gl/>\n"
 "Language: gl_ES\n"
+"Language-Team: Galician <https://translate.codeberg.org/projects/readeck/documentation/gl/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.12.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -590,6 +588,7 @@ msgstr "Esta operación pode cancelarse durante uns segundos, se lle deches a el
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -612,19 +611,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Axuda de Readeck"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr "Benvida a Readeck! Aquí tes as respostas ás preguntas máis comúns en relación a Readeck, así como indicacións para mellorar a túa experiencia de uso aínda máis."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## Contido"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -722,9 +721,7 @@ msgstr ""
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
-"**Nota**: é máis fácil descargar o token como ficheiro de texto e movelo ao "
-"teu lector electrónico, así podes abrir o ficheiro e copiar o token."
+msgstr "**Nota**: é máis fácil descargar o token como ficheiro de texto e movelo ao teu lector electrónico, así podes abrir o ficheiro e copiar o token."
 
 #: en-US/opds.md:26
 msgid ""
@@ -835,3 +832,4 @@ msgstr "Se precisas conceder acceso á túa conta Readeck a un servizo ou a unha
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "No seu lugar podes utilizar o identificador e un token da túa elección como credenciais para a autenticación."
+

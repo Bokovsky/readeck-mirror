@@ -1,23 +1,20 @@
-# Translations template for Readeck User Documentation.
+# Portuguese (Portugal) translations for Readeck User Documentation.
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
+"POT-Creation-Date: 2025-10-18 09:09+0200\n"
 "PO-Revision-Date: 2025-09-23 22:09+0000\n"
 "Last-Translator: Ninguem <ninguem@noreply.codeberg.org>\n"
-"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
-"projects/readeck/documentation/pt_PT/>\n"
 "Language: pt_PT\n"
+"Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/documentation/pt_PT/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -34,9 +31,7 @@ msgstr "## Criar um Marcador novo"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr ""
-"Descobriu uma página de que gosta? Óptimo! Copie o endereço para o campo **"
-"novo marcador** na [Lista de Marcadores](readeck-instance://bookmarks)."
+msgstr "Descobriu uma página de que gosta? Óptimo! Copie o endereço para o campo **novo marcador** na [Lista de Marcadores](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -44,11 +39,7 @@ msgstr "![Formulário de novo marcador](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr ""
-"Após alguns segundos, o seu marcadorr estará pronto. Depois, pode abri-lo "
-"para o ler ou ver o seu conteúdo, adicionar etiquetas, sublinhar texto ou "
-"exportá-lo como ebook. Para mais informação, por favor leia a secção "
-"[Vista de Marcador](./bookmark.md)."
+msgstr "Após alguns segundos, o seu marcadorr estará pronto. Depois, pode abri-lo para o ler ou ver o seu conteúdo, adicionar etiquetas, sublinhar texto ou exportá-lo como ebook. Para mais informação, por favor leia a secção [Vista de Marcador](./bookmark.md)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -64,9 +55,7 @@ msgstr "### Artigo"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
-"Um artigo é uma página da qual é extraído texto. É apresentado como uma "
-"versão legível do seu conteúdo."
+msgstr "Um artigo é uma página da qual é extraído texto. É apresentado como uma versão legível do seu conteúdo."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
@@ -74,10 +63,7 @@ msgstr "### Imagem"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
-"Uma imagem é uma página reconhecida como um elemento que contém uma imagem ("
-"p.e. uma ligação para o Unsplash). É apresentada a imagem armazenada no "
-"Readeck."
+msgstr "Uma imagem é uma página reconhecida como um elemento que contém uma imagem (p.e. uma ligação para o Unsplash). É apresentada a imagem armazenada no Readeck."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -85,10 +71,7 @@ msgstr "### Vídeo"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
-"Um vídeo é uma página reconhecida como um elemento que contém um vídeo (p.e. "
-"uma ligação para o YouTube ou Vimeo). É apresentado um reprodutor de vídeo. "
-"Tenha em atenção que o vídeo é reproduzido do respectivo servidor original."
+msgstr "Um vídeo é uma página reconhecida como um elemento que contém um vídeo (p.e. uma ligação para o YouTube ou Vimeo). É apresentado um reprodutor de vídeo. Tenha em atenção que o vídeo é reproduzido do respectivo servidor original."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
@@ -96,9 +79,7 @@ msgstr "## Lista de marcadores"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
-"A [lista de marcadores](readeck-instance://bookmarks) é onde encontra todos "
-"os seus marcadores guardados."
+msgstr "A [lista de marcadores](readeck-instance://bookmarks) é onde encontra todos os seus marcadores guardados."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -106,9 +87,7 @@ msgstr "### Navegação"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr ""
-"Na barra lateral, encontra um campo de pesquisa e ligações para listas de "
-"marcadores filtradas."
+msgstr "Na barra lateral, encontra um campo de pesquisa e ligações para listas de marcadores filtradas."
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
@@ -160,9 +139,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
-"Finalmente, verá mais três secções que levam às páginas de marcadores "
-"relacionadas:"
+msgstr "Finalmente, verá mais três secções que levam às páginas de marcadores relacionadas:"
 
 #: en-US/bookmark-list.md:63
 msgid ""
@@ -232,8 +209,7 @@ msgstr ""
 "- **Arquivar** \\\n"
 "  Arquiva o marcador (ou retira do arquivo\n"
 "- **Apagar** \\\n"
-"  Sinaliza o marcador para eliminação (pode ser cancelado durante alguns "
-"segundos)."
+"  Sinaliza o marcador para eliminação (pode ser cancelado durante alguns segundos)."
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
@@ -241,10 +217,7 @@ msgstr "### Lista compacta"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr ""
-"Se achar a lista de marcadores em grelha demasiado cheia, pode mudar para "
-"uma lista com menos imagens. Clique no botão ao pé do título para mudar da "
-"vista de grelha para a vista compacta."
+msgstr "Se achar a lista de marcadores em grelha demasiado cheia, pode mudar para uma lista com menos imagens. Clique no botão ao pé do título para mudar da vista de grelha para a vista compacta."
 
 #: en-US/bookmark-list.md:98
 msgid ""
@@ -261,10 +234,7 @@ msgstr "## Filtrar marcadores {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr ""
-"Na lista de marcadores, pode filtrar os resultados com base num ou em vários "
-"critérios. Clique no botão \"Filtrar lista\" perto do título da página para "
-"abrir a seleção de filtros."
+msgstr "Na lista de marcadores, pode filtrar os resultados com base num ou em vários critérios. Clique no botão \"Filtrar lista\" perto do título da página para abrir a seleção de filtros."
 
 #: en-US/bookmark-list.md:105
 msgid ""
@@ -304,8 +274,7 @@ msgid ""
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
 "- **Procurar**\\\n"
-"  Procure no texto, no título, nos autores, no nome do site e domínimo e nas "
-"etiquetas do marcador.\n"
+"  Procure no texto, no título, nos autores, no nome do site e domínimo e nas etiquetas do marcador.\n"
 "- **Título**\\\n"
 "  Procure apenas no título dos marcadores.\n"
 "- **Autor**\\\n"
@@ -317,9 +286,7 @@ msgstr ""
 "- **É favorito**, **Está arquivado**, **Tipo**\\\n"
 "  Procure apenas marcadores que cumprem este critérios.\n"
 "- **A partir da data**, **À data**\\\n"
-"  Este últimoo filtro permite-lhe restringir a procura a um intervalo de "
-"datas em que o marcador pode ter sido guardado. Por exemplo, pode encontrar "
-"todos os marcadores guardados nas últimas 4 semana, excepto na última semana."
+"  Este últimoo filtro permite-lhe restringir a procura a um intervalo de datas em que o marcador pode ter sido guardado. Por exemplo, pode encontrar todos os marcadores guardados nas últimas 4 semana, excepto na última semana."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -327,9 +294,7 @@ msgstr "### Termos de pesquisa"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr ""
-"Os campos **Procurar**, **Título**, **Autor**, **Site** e **Etiqueta** "
-"interpretam os critérios de pesquisa da mesma forma:"
+msgstr "Os campos **Procurar**, **Título**, **Autor**, **Site** e **Etiqueta** interpretam os critérios de pesquisa da mesma forma:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -338,20 +303,14 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `gato escaldado` vai encontrar conteúdo com as palavras **gato** e "
-"**escaldado**\n"
-"- `\"gato escaldado\"` vai encontrar conteúdo com as palavras **gato "
-"escaldado** nesta sequência exacta.\n"
-"- `esca*` vai encontrar conteúdo com palavras que comecem com **esca** ("
-"escaldado, escalar, escamas apareceriam como resultados).\n"
-"- `gato -escaldado` vai encontrar conteúdo com a palavra **gato** mas SEM a "
-"palavra **escaldado**."
+"- `gato escaldado` vai encontrar conteúdo com as palavras **gato** e **escaldado**\n"
+"- `\"gato escaldado\"` vai encontrar conteúdo com as palavras **gato escaldado** nesta sequência exacta.\n"
+"- `esca*` vai encontrar conteúdo com palavras que comecem com **esca** (escaldado, escalar, escamas apareceriam como resultados).\n"
+"- `gato -escaldado` vai encontrar conteúdo com a palavra **gato** mas SEM a palavra **escaldado**."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr ""
-"Depois de ter procurado artigos, pode guardar os critérios de pesquisa numa "
-"nova [coleção](./collections.md) para os tornar permanentes."
+msgstr "Depois de ter procurado artigos, pode guardar os critérios de pesquisa numa nova [coleção](./collections.md) para os tornar permanentes."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
@@ -371,10 +330,7 @@ msgstr "### Exportar marcadores"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr ""
-"O botão do menu perto do botão de filtros permite-lhe descarregar um "
-"ficheiro EPUB com a lista de marcadores actual. Exporta um e-book com todos "
-"os artigos organizados em capítulos."
+msgstr "O botão do menu perto do botão de filtros permite-lhe descarregar um ficheiro EPUB com a lista de marcadores actual. Exporta um e-book com todos os artigos organizados em capítulos."
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
@@ -382,10 +338,7 @@ msgstr "### Importar marcadores"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr ""
-"No mesmo menu, encontra uma ligação [Importar marcadores](readeck-instance://"
-"bookmarks/import). Esta ligação apresenta-lhe o assistente de importação, "
-"que permite importar os seus marcadores de outras fontes."
+msgstr "No mesmo menu, encontra uma ligação [Importar marcadores](readeck-instance://bookmarks/import). Esta ligação apresenta-lhe o assistente de importação, que permite importar os seus marcadores de outras fontes."
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
@@ -422,15 +375,11 @@ msgstr ""
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
-msgstr ""
-"No cimo da vista de marcadores, uma ligação trás-te de volta para a página "
-"anterior."
+msgstr "No cimo da vista de marcadores, uma ligação trás-te de volta para a página anterior."
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr ""
-"Se o marcador contiver um artigo, o botão do lado oposto permite alterar "
-"algumas configurações tipográficas."
+msgstr "Se o marcador contiver um artigo, o botão do lado oposto permite alterar algumas configurações tipográficas."
 
 #: en-US/bookmark.md:36
 msgid ""
@@ -482,9 +431,7 @@ msgstr "### Partilha"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr ""
-"O botão de partilha abre um menú que permite criar uma ligação, se quiseres "
-"partilhar o artigo com alguém."
+msgstr "O botão de partilha abre um menú que permite criar uma ligação, se quiseres partilhar o artigo com alguém."
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
@@ -613,6 +560,7 @@ msgstr ""
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -624,19 +572,19 @@ msgid ""
 "---"
 msgstr ""
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr ""
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr ""
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr ""
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -820,3 +768,4 @@ msgstr ""
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
+

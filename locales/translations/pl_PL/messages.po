@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-09-26 11:02+0000\n"
+"PO-Revision-Date: 2025-10-10 17:17+0000\n"
 "Last-Translator: micash <micash@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/"
 "application/pl/>\n"
@@ -1100,9 +1100,8 @@ msgstr "Opis"
 
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
-#, fuzzy
 msgid "Link address"
-msgstr "Adres email"
+msgstr "Adres linku"
 
 # | msgid "Bookmark Labels"
 #: assets/templates/bookmarks/import/form-csv.jet.html:62
@@ -1138,9 +1137,8 @@ msgid ""
 msgstr ""
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
-#, fuzzy
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importuj linki z pliku tekstowego"
+msgstr "Importuj Zakładki z pliku eksportu Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -1225,9 +1223,8 @@ msgstr ""
 # | msgid "Import Links from a Text File"
 # | msgid "Import Links from a CSV File"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:9
-#, fuzzy
 msgid "Import Links from Readwise Reader CSV export"
-msgstr "Importuj linki z pliku CSV"
+msgstr "Importuj linki z pliku eksportu Readwise Reader CSV"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:15
 msgid ""
@@ -1377,9 +1374,8 @@ msgid "Import your GoodLinks Articles"
 msgstr "Importuj swoje artykuły GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
-#, fuzzy
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importuj swoje zakładki"
+msgstr "Importuj swoje zakładki z Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
