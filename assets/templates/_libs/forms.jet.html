@@ -5,7 +5,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{- block formErrors(form) -}}
   {{- if !form.IsValid() -}}
-    <div class="max-w-std">
+    <div class="max-w-std" role="alert">
     {{- yield message(type="error") content -}}
       <strong class="text-red-800">{{ gettext("Errors") }}</strong>
       {{- if len(form.Errors()) > 0 -}}
@@ -20,6 +20,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 {{- end -}}
 
+{{- block ariaAttrs(attrs=attrList(), field, name, help) -}}
+  {{- if !name -}}{{ name = field.Name() }}{{- end -}}
+  {{- if help }}{{ attrs.Set("aria-describedby", "description-"+name) }}{{ end }}
+  {{- if field.Errors() -}}
+    {{- attrs.Set("aria-errormessage", "errors-"+name) -}}
+    {{- attrs.Set("aria-invalid", "true") -}}
+  {{- end -}}
+{{- end -}}
 
 {{- block formField(field, name, label, help, class="", required=false, controlAttrs=attrList()) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
@@ -29,20 +37,22 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{ if label -}}
       <label for="{{ name }}">
         {{- label -}}
-        {{- if required }} <span title="{{ gettext(`Required`) }}" aria-hidden class="text-red-600">•</span>{{- end -}}
-        {{- if required }} <span class="sr-only">{{ gettext("Required") }}</span>{{- end -}}
+        {{- if required -}}
+          <span title="{{ gettext(`Required`) }}" aria-hidden="true" class="text-red-600">&#x2009;•</span>
+          <span aria-hidden="true" class="sr-only">{{ gettext("Required") }}</span>
+        {{- end -}}
       </label>
     {{- end }}
     <div class="flex-grow min-w-0" {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors() }}
-        <ul class="mt-1 list-disc list-inside text-red-800">
+        <ul id="errors-{{ name }}" class="mt-1 list-disc list-inside text-red-800">
         {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
       {{ end }}
-      {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
+      {{ if help }}<span id="description-{{ name }}" class="block mt-1 text-green-700">{{ help }}{{ end }}
     </div>
   </div>
 {{- end -}}
@@ -60,6 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if required -}}
     {{ inputAttrs.Set("required", true) }}
   {{- end -}}
+  {{- yield ariaAttrs(attrs=inputAttrs, field=field, name=name, help=help) -}}
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       required=required, controlAttrs=controlAttrs) content -}}
@@ -120,6 +131,8 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if required -}}
     {{ inputAttrs.Set("required", true) }}
   {{- end -}}
+  {{- yield ariaAttrs(attrs=inputAttrs, field=field, name=name, help=help) -}}
+
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       required=required, controlAttrs=controlAttrs) content -}}
     <select name="{{ name }}" id="{{ name }}" class="{{ inputClass }}" {{ inputAttrs }}>
@@ -146,6 +159,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          <li class="space-x-1">
           <input type="{{ type }}" name="{{ name }}" id="{{ name }}_{{ .Value }}" value="{{ .Value }}"
            class="{{ inputClass }}"
+           aria-label="{{ label}}: {{ .Name }}"
            {{- if isList(field.V()) && .In(field.V()) || field.V() == .Value }} checked
            {{- end }}>
           <label for="{{ name }}_{{ .Value }}">{{ .Name }}</label>
@@ -173,6 +187,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- if required -}}
     {{ inputAttrs.Set("required", true) }}
   {{- end -}}
+  {{- yield ariaAttrs(attrs=inputAttrs, field=field, name=name, help=help) -}}
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       required=required, controlAttrs=controlAttrs) content -}}
@@ -249,6 +264,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       "data-dropzone-focus-class", "bg-primary-100",
     ),
   ) content }}
+    {{- if !name -}}{{ name = field.Name() }}{{- end -}}
     <p class="no-js:hidden border-2 border-primary border-dashed rounded px-4 py-6 flex items-center justify-between gap-3"
       data-dropzone-target="zone">
       <button type="button" class="mx-auto link"
