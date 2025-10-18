@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-09-12 16:17+0000\n"
+"PO-Revision-Date: 2025-10-18 14:59+0000\n"
 "Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/"
 "projects/readeck/application/pt_PT/>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.2\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -513,8 +513,8 @@ msgstr "Por %s"
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "Cerca de %d minuto lido"
-msgstr[1] "Cerca de %d minutos lidos"
+msgstr[0] "Cerca de %d minuto de leitura"
+msgstr[1] "Cerca de %d minutos de leitura"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
@@ -1043,7 +1043,7 @@ msgstr "Converter títulos de secções em etiquetas"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:43
 msgid "Adds a label on links, based on their section title"
-msgstr "Adiciona um rótulo às ligações com base no título da secção"
+msgstr "Adiciona uma etiqueta às ligações com base no título da secção"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:47
 #: assets/templates/bookmarks/import/form-csv.jet.html:33
@@ -1412,7 +1412,7 @@ msgstr "Opções"
 
 #: assets/templates/bookmarks/import/options.jet.html:12
 msgid "A label to add to all imported bookmarks"
-msgstr "Um rótulo para adicionar a todos os favoritos importados"
+msgstr "Uma etiqueta para adicionar a todos os marcadores importados"
 
 #: assets/templates/bookmarks/import/options.jet.html:16
 msgid "Ignore links already in your bookmarks"
@@ -1569,7 +1569,7 @@ msgid ""
 msgstr ""
 "\n"
 "  As etiquetas permitem organizar os seus favoritos da forma que desejar. \n"
-"Pode definir qualquer coisa num rótulo, incluindo emojis!\n"
+"Pode definir qualquer coisa numa etiqueta, incluindo emojis!\n"
 
 #: assets/templates/docs/about.jet.html:20
 #: assets/templates/docs/base.jet.html:27 docs/http.go:269
