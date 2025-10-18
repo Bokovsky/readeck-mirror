@@ -6,6 +6,7 @@
 package archiver
 
 import (
+	"cmp"
 	"context"
 	"iter"
 	"log/slog"
@@ -29,15 +30,15 @@ const (
 	maxImageSize = 30 << 20
 )
 
-var supportedImageTypes = map[string]struct{}{
-	"image/bmp":                {},
-	"image/gif":                {},
-	"image/x-icon":             {},
-	"image/vnd.microsoft.icon": {},
-	"image/jpeg":               {},
-	"image/png":                {},
-	"image/tiff":               {},
-	"image/webp":               {},
+var imagePriority = []string{
+	"image/jpeg",
+	"image/png",
+	"image/gif",
+	"image/webp",
+	"image/vnd.microsoft.icon",
+	"image/x-icon",
+	"image/bmp",
+	"image/tiff",
 }
 
 func (arc *Archiver) processBestImages(ctx context.Context, doc *html.Node) {
@@ -63,7 +64,7 @@ func (arc *Archiver) processPictureNode(ctx context.Context, node *html.Node) {
 		if dom.TagName(n) == "source" && dom.HasAttribute(n, "type") {
 			// Discard types we know we don't support
 			mt := strings.TrimSpace(strings.Split(dom.GetAttribute(n, "type"), ";")[0])
-			if _, ok := supportedImageTypes[mt]; !ok {
+			if slices.Index(imagePriority, mt) == -1 {
 				return
 			}
 		}
@@ -201,7 +202,10 @@ func (arc *Archiver) findBestImage(ctx context.Context, seq iter.Seq[string]) *R
 	}
 
 	slices.SortStableFunc(candidates, func(a, b *Resource) int {
-		return b.Width - a.Width
+		return cmp.Or(
+			cmp.Compare(b.Width, a.Width),
+			-cmp.Compare(slices.Index(imagePriority, b.ContentType), slices.Index(imagePriority, a.ContentType)),
+		)
 	})
 
 	if len(candidates) > 0 {
