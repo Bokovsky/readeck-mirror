@@ -34,3 +34,8 @@ routes:
                       build:
                         type: string
                         description: Build number (can be empty)
+                  features:
+                    type: array
+                    items:
+                      type: string
+                    description: Available features
