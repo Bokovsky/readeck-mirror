@@ -42,12 +42,6 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
       {{ yield mainMenuItem(name=gettext("Documentation"), path="/docs/", icon="o-help",
                             current=pathIs(`/docs/*`)) }}
-      <li>
-        <form action="{{ urlFor(`/logout`)}}" method="post">
-          <button type="submit" title="{{ gettext(`Sign out`) }}">{{ yield icon(name="o-logout") }}
-          <span class="sr-only">{{ gettext("Sign out") }}</span></button>
-        </form>
-      </li>
     </menu>
     {{- end -}}
   </div>

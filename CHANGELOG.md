@@ -8,6 +8,7 @@
 
 ### Changed
 - Replaced the ACL policy enforcer for better performances and less dependencies
+- Removed sign-out button from main menu (now available in the profile page)
 
 ### Fixed
 - Reddit content-script, by [@linsui](https://codeberg.org/linsui)
