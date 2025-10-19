@@ -6,17 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
+"POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-09-15 19:09+0000\n"
 "Last-Translator: eih <eih@noreply.codeberg.org>\n"
-"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/"
-"application/tr/>\n"
 "Language: tr_TR\n"
+"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -48,7 +46,7 @@ msgid "Home Page"
 msgstr "Ana Sayfa"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Gerekli"
@@ -61,36 +59,36 @@ msgstr "Hatalar"
 msgid "Please check your form for errors."
 msgstr "Formunuzda hata olup olmadığını kontrol edin."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Önceki"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Gün(ler)"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Hafta(lar)"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Ay(lar)"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "Yıllar"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "ya da"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Dosya seç ya da bırak"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "kaldır"
 
@@ -119,7 +117,7 @@ msgstr "Sonraki"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:42 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Kullanıcılar"
@@ -172,7 +170,7 @@ msgstr "Grup"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:130
 msgid "Password"
 msgstr "Parola"
 
@@ -970,8 +968,7 @@ msgid ""
 "          a workaround."
 msgstr ""
 "\n"
-"          Hataya bağlı olarak Readeck'in tarayıcı eklentisi bir çözüm "
-"sağlayabilir."
+"          Hataya bağlı olarak Readeck'in tarayıcı eklentisi bir çözüm sağlayabilir."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
 msgid "View log"
@@ -1251,9 +1248,7 @@ msgstr "\"%s\" Readeck etiketleri olarak,"
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
-"Bir belge etiketi \"%s\" içerdiğinde, yer imi Readeck Favorilerine "
-"eklenecektir."
+msgstr "Bir belge etiketi \"%s\" içerdiğinde, yer imi Readeck Favorilerine eklenecektir."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
@@ -1738,8 +1733,7 @@ msgstr ""
 "\n"
 "Merhaba,\r\n"
 "\r\n"
-"Bir Readeck hesabının şifresini değiştirmeye çalışırken bu e-posta adresini\r"
-"\n"
+"Bir Readeck hesabının şifresini değiştirmeye çalışırken bu e-posta adresini\r\n"
 "siz (veya başka biri) girdiniz (%s).\r\n"
 "\r\n"
 "Ancak, bu e-posta adresi herhangi bir hesaba bağlı değil ve bu nedenle\r\n"
@@ -1783,28 +1777,28 @@ msgstr "Menüyü aç"
 msgid "Change color theme"
 msgstr "Renk temasını değiştir"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Ayarlar"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:94
 #: internal/profile/views.go:129 internal/profile/views.go:173
 #: internal/profile/views.go:233 internal/profile/views.go:285
 #: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:174
 #: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "API Token'ları"
 
-#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/base.jet.html:31
 #: assets/templates/profile/export.jet.html:10
 msgid "Export"
 msgstr "Dışa aktar"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
@@ -1826,8 +1820,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    Bu, yer imleriniz, koleksiyonlarınız vb. dahil tüm profil verilerinizi\r"
-"\n"
+"    Bu, yer imleriniz, koleksiyonlarınız vb. dahil tüm profil verilerinizi\r\n"
 "    içeren bir zip dosyası indirmenizi sağlar.\n"
 "    "
 
@@ -1857,8 +1850,7 @@ msgstr "Bir Readeck Profili İçe Aktar"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
-"Önceki bir profil dışa aktarımından elde edilen bir dosyayı içe aktarın."
+msgstr "Önceki bir profil dışa aktarımından elde edilen bir dosyayı içe aktarın."
 
 #: assets/templates/profile/import.jet.html:30
 msgid "Confirm your user name"
@@ -1934,9 +1926,7 @@ msgstr "Yanıt Adresi"
 
 #: assets/templates/profile/index.jet.html:57
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
-"Giden e-postalarınıza bu e-posta adresini ekleyin böylece alıcılar "
-"yanıtlayabilir."
+msgstr "Giden e-postalarınıza bu e-posta adresini ekleyin böylece alıcılar yanıtlayabilir."
 
 #: assets/templates/profile/index.jet.html:62
 msgid "Send EPUB to"
@@ -1944,9 +1934,7 @@ msgstr "EPUB Gönder"
 
 #: assets/templates/profile/index.jet.html:63
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
-"E-posta ile e-kitap gönderirken alıcıyı önceden doldurmak için bu adres "
-"kullanılır."
+msgstr "E-posta ile e-kitap gönderirken alıcıyı önceden doldurmak için bu adres kullanılır."
 
 #: assets/templates/profile/index.jet.html:71
 msgid ""
@@ -1956,8 +1944,7 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Bir Kindle cihazına e-kitap göndermeyi planlıyorsanız, Kindle "
-"Hesabınızda\r\n"
+"          Bir Kindle cihazına e-kitap göndermeyi planlıyorsanız, Kindle Hesabınızda\r\n"
 "          aşağıdaki e-posta adresini onaylamanız gerekir:\n"
 "          "
 
@@ -2060,9 +2047,7 @@ msgstr "Bearer Token olarak"
 
 #: assets/templates/profile/token.jet.html:105
 msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
-msgstr ""
-"Bu token'ı <strong>Authorization: Bearer</strong> HTTP başlığı olarak "
-"ileterek kullanabilirsiniz."
+msgstr "Bu token'ı <strong>Authorization: Bearer</strong> HTTP başlığı olarak ileterek kullanabilirsiniz."
 
 #: assets/templates/profile/token.jet.html:107
 msgid "HTTP Header"
@@ -2075,19 +2060,15 @@ msgstr "Şifre olarak"
 
 #: assets/templates/profile/token.jet.html:120
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
-msgstr ""
-"Alternatif olarak, bu token'ı HTTP Temel Kimlik Doğrulaması için şifre "
-"olarak kullanabilirsiniz."
+msgstr "Alternatif olarak, bu token'ı HTTP Temel Kimlik Doğrulaması için şifre olarak kullanabilirsiniz."
 
 #: assets/templates/profile/token.jet.html:121
 msgid ""
 "For example, if an application only accepts a username and password, you can provide this token as a password.\n"
 "  The username is ignored and can be anything, including an empty value."
 msgstr ""
-"Örneğin, bir uygulama yalnızca kullanıcı adı ve şifre kabul ediyorsa, bu "
-"token'ı şifre olarak sağlayabilirsiniz.\r\n"
-"  Kullanıcı adı dikkate alınmaz ve herhangi bir değer, boş değer dahil olmak "
-"üzere olabilir."
+"Örneğin, bir uygulama yalnızca kullanıcı adı ve şifre kabul ediyorsa, bu token'ı şifre olarak sağlayabilirsiniz.\r\n"
+"  Kullanıcı adı dikkate alınmaz ve herhangi bir değer, boş değer dahil olmak üzere olabilir."
 
 #: assets/templates/profile/token_list.jet.html:10
 msgid "My API Tokens"
@@ -2100,16 +2081,13 @@ msgid ""
 "  access to the Readeck API.\n"
 msgstr ""
 "\n"
-"  Bir API Token'ı, size (veya bir tarayıcı eklentisi gibi başka bir araca)\r"
-"\n"
+"  Bir API Token'ı, size (veya bir tarayıcı eklentisi gibi başka bir araca)\r\n"
 "  Readeck API'sine erişim izni veren bir anahtardır.\n"
 
 #: assets/templates/profile/token_list.jet.html:20
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr ""
-"Kullanmayı planlıyorsanız lütfen <a href=\"%s\">API Dokümantasyonu</a>'nu "
-"okuyun."
+msgstr "Kullanmayı planlıyorsanız lütfen <a href=\"%s\">API Dokümantasyonu</a>'nu okuyun."
 
 #: assets/templates/profile/token_list.jet.html:25
 msgid "Create a new API token"
@@ -2142,24 +2120,55 @@ msgstr "Kullanıcı güncellendi."
 msgid "Invalid user and/or password"
 msgstr "Geçersiz kullanıcı ve/veya şifre"
 
+#: internal/auth/users/forms.go:54
+#, fuzzy
+msgctxt "role"
+msgid "no group"
+msgstr "Grup"
+
 # | msgid "Password recovery"
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "şifre boş"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+#, fuzzy
+msgctxt "role"
+msgid "user"
+msgstr "Kullanıcılar"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr ""
+
+#: internal/auth/users/groups.go:21
+#, fuzzy, python-format
+msgctxt "role"
+msgid "admin"
+msgstr "%d dk."
+
+#: internal/auth/users/groups.go:23
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Yer İmleri: Salt Okunur"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:24
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Yer İmleri: Salt Yazılır"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:25
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Yönetici: Salt Okunur"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:26
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Yönetici: Salt Yazılır"
 
@@ -2742,3 +2751,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Menüyü kapat"
+

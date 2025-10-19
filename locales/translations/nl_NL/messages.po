@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
+"POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-07-28 04:09+0000\n"
 "Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
 "Language: nl_NL\n"
@@ -46,7 +46,7 @@ msgid "Home Page"
 msgstr "Startpagina"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Vereist"
@@ -59,36 +59,36 @@ msgstr "Foutmeldingen"
 msgid "Please check your form for errors."
 msgstr "Los de foutmeldingen op."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Afgelopen"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "dag(en)"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "week/weken"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "maand(en)"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "jaar"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "of"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Kies een bestand/Sleep een bestand hierheen"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "verwijderen"
 
@@ -117,7 +117,7 @@ msgstr "Volgende"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:42 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Gebruikers"
@@ -170,7 +170,7 @@ msgstr "Groep"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:130
 msgid "Password"
 msgstr "Wachtwoord"
 
@@ -1802,28 +1802,28 @@ msgstr "Menu openen"
 msgid "Change color theme"
 msgstr "Kleurenschema wĳzigen"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Instellingen"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:94
 #: internal/profile/views.go:129 internal/profile/views.go:173
 #: internal/profile/views.go:233 internal/profile/views.go:285
 #: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profiel"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:174
 #: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "Api-toegangssleutels"
 
-#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/base.jet.html:31
 #: assets/templates/profile/export.jet.html:10
 msgid "Export"
 msgstr "Exporteren"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
@@ -2142,24 +2142,55 @@ msgstr "De gebruiker is bijgewerkt."
 msgid "Invalid user and/or password"
 msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
+#: internal/auth/users/forms.go:54
+#, fuzzy
+msgctxt "role"
+msgid "no group"
+msgstr "Groep"
+
 # | msgid "Password ID"
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "Geen wachtwoord ingevoerd"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+#, fuzzy
+msgctxt "role"
+msgid "user"
+msgstr "Gebruikers"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr ""
+
+#: internal/auth/users/groups.go:21
+#, fuzzy, python-format
+msgctxt "role"
+msgid "admin"
+msgstr "%d min."
+
+#: internal/auth/users/groups.go:23
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Bladwijzers: alleen-lezen"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:24
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Bladwijzers: alleen-schrijven"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:25
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Beheerder: alleen-lezen"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:26
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Beheerder: alleen-schrijven"
 

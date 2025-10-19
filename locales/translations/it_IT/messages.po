@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
+"POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-07-30 22:07+0000\n"
 "Last-Translator: skypixel <skypixel@noreply.codeberg.org>\n"
 "Language: it_IT\n"
@@ -46,7 +46,7 @@ msgid "Home Page"
 msgstr "Pagina principale"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Necessario"
@@ -59,36 +59,36 @@ msgstr "Errori"
 msgid "Please check your form for errors."
 msgstr "Controlla il tuo form per vedere gli errori."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "I(l) precedente/i"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Giorno/i"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Settimana/e"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Mese/i"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "Anno/i"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "o"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Seleziona o trascina un file"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "rimuovi"
 
@@ -117,7 +117,7 @@ msgstr "Successivo"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:42 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Utenti"
@@ -170,7 +170,7 @@ msgstr "Gruppo"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:130
 msgid "Password"
 msgstr "Password"
 
@@ -1814,29 +1814,29 @@ msgstr "Apri il menu"
 msgid "Change color theme"
 msgstr "Cambia il tema di colori"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Impostazioni"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:94
 #: internal/profile/views.go:129 internal/profile/views.go:173
 #: internal/profile/views.go:233 internal/profile/views.go:285
 #: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profilo"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:174
 #: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "Gettoni API"
 
-#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/base.jet.html:31
 #: assets/templates/profile/export.jet.html:10
 #, fuzzy
 msgid "Export"
 msgstr "Importa"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
@@ -2154,24 +2154,56 @@ msgstr "Utente aggiornato."
 msgid "Invalid user and/or password"
 msgstr "Utente o password non validi"
 
+#: internal/auth/users/forms.go:54
+#, fuzzy
+msgctxt "role"
+msgid "no group"
+msgstr "Gruppo"
+
 # | msgid "Password ID"
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "la password è vuota"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+#, fuzzy
+msgctxt "role"
+msgid "user"
+msgstr "Utenti"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr ""
+
+# | msgid "%d min"
+#: internal/auth/users/groups.go:21
+#, fuzzy, python-format
+msgctxt "role"
+msgid "admin"
+msgstr "%d minuto"
+
+#: internal/auth/users/groups.go:23
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Bookmark: sola lettura"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:24
+#, fuzzy
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Bookmark: sola scrittura"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:25
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Admin: sola lettura"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:26
+#, fuzzy
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Admin: sola scrittura"
 

@@ -6,18 +6,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-10-18 18:13+0000\n"
+"POT-Creation-Date: 2025-10-19 11:45+0200\n"
+"PO-Revision-Date: 2025-10-19 11:47+0200\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/"
-"application/fr/>\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
+"X-Generator: Poedit 3.7\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
@@ -48,7 +47,7 @@ msgid "Home Page"
 msgstr "Accueil"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Champ obligatoire"
@@ -61,36 +60,36 @@ msgstr "Erreurs"
 msgid "Please check your form for errors."
 msgstr "Veuillez vérifier les erreurs du formulaire."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Le(s) précédent(s)"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Jour(s)"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Semaine(s)"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Mois"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "Année(s)"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "ou"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Sélectionnez ou déposez un fichier"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "supprimer"
 
@@ -119,7 +118,7 @@ msgstr "Suivante"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:42 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Utilisateurs"
@@ -172,7 +171,7 @@ msgstr "Groupe"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:130
 msgid "Password"
 msgstr "Mot de passe"
 
@@ -1778,28 +1777,28 @@ msgstr "Ouvrir le menu"
 msgid "Change color theme"
 msgstr "Changer le thème de couleurs"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Paramètres"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:94
 #: internal/profile/views.go:129 internal/profile/views.go:173
 #: internal/profile/views.go:233 internal/profile/views.go:285
 #: internal/profile/views.go:316
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:174
 #: internal/profile/views.go:234
 msgid "API Tokens"
 msgstr "Jetons API"
 
-#: assets/templates/profile/base.jet.html:29
+#: assets/templates/profile/base.jet.html:31
 #: assets/templates/profile/export.jet.html:10
 msgid "Export"
 msgstr "Exporter"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
@@ -2117,23 +2116,48 @@ msgstr "Utilisateur mis à jour."
 msgid "Invalid user and/or password"
 msgstr "Utilisateur et/ou mot de passe invalide"
 
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:54
+msgctxt "role"
+msgid "no group"
+msgstr "pas de groupe"
+
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "le mot de passe est vide"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "utilisateur"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "gestion"
+
+#: internal/auth/users/groups.go:21
+#, python-format
+msgctxt "role"
+msgid "admin"
+msgstr "admin"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Bookmarks : Lecture seule"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:24
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Bookmarks : Écriture seule"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:25
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Admin : Lecture seule"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:26
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Admin : Écriture seule"
 
