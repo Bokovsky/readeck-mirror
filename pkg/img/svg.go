@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"image"
 	"io"
+	"math"
 	"regexp"
 	"strconv"
 	"strings"
@@ -160,10 +161,8 @@ func getSVGDimensions(top *xmlquery.Node) (rect image.Rectangle) {
 	}
 
 	// We have a width and height, it gets priority
-	w, h := parseSVGdimension(
-		node.SelectAttr("width"),
-		node.SelectAttr("height"),
-	)
+	w := cssDimensionToPixels(node.SelectAttr("width"))
+	h := cssDimensionToPixels(node.SelectAttr("height"))
 	if w > 0 && h > 0 {
 		rect.Max.X = w
 		rect.Max.Y = h
@@ -176,7 +175,8 @@ func getSVGDimensions(top *xmlquery.Node) (rect image.Rectangle) {
 		return
 	}
 
-	vbw, vbh := parseSVGdimension(parts[2], parts[3])
+	vbw := svgNumberToInt(parts[2])
+	vbh := svgNumberToInt(parts[3])
 	if vbw == 0 || vbh == 0 {
 		return
 	}
@@ -201,20 +201,45 @@ func getSVGDimensions(top *xmlquery.Node) (rect image.Rectangle) {
 	return
 }
 
-func parseSVGdimension(width, height string) (int, int) {
-	if strings.HasSuffix(width, "%") && strings.HasSuffix(height, "%") {
-		width = strings.TrimSuffix(width, "%")
-		height = strings.TrimSuffix(height, "%")
+const (
+	// The default font size in web browsers is 16px.
+	cssEmDefaultSize = 16
+	// Size of ex is roughly 50% of em.
+	cssExDefaultSize = 8
+)
+
+func cssDimensionToPixels(v string) int {
+	if strings.HasSuffix(v, "%") {
+		px, _ := strconv.Atoi(strings.TrimSuffix(v, "%"))
+		return px
 	}
 
-	width, _, _ = strings.Cut(width, ".")
-	height, _, _ = strings.Cut(height, ".")
+	// https://developer.mozilla.org/en-US/docs/Web/CSS/length
+	multiplier := 1
+	if strings.HasSuffix(v, "rem") {
+		v = strings.TrimSuffix(v, "rem")
+		multiplier = cssEmDefaultSize
+	} else if strings.HasSuffix(v, "rex") {
+		v = strings.TrimSuffix(v, "rex")
+		multiplier = cssExDefaultSize
+	} else if strings.HasSuffix(v, "em") {
+		v = strings.TrimSuffix(v, "em")
+		multiplier = cssEmDefaultSize
+	} else if strings.HasSuffix(v, "ex") {
+		v = strings.TrimSuffix(v, "ex")
+		multiplier = cssExDefaultSize
+	} else if strings.HasSuffix(v, "px") {
+		v = strings.TrimSuffix(v, "px")
+	}
 
-	var w, h int
-	w, _ = strconv.Atoi(width)
-	h, _ = strconv.Atoi(height)
+	vv, _ := strconv.ParseFloat(v, 32)
+	return int(math.Round(vv * float64(multiplier)))
+}
 
-	return w, h
+// https://developer.mozilla.org/en-US/docs/Web/SVG/Guides/Content_type#number
+func svgNumberToInt(v string) int {
+	vv, _ := strconv.ParseFloat(v, 32)
+	return int(math.Floor(vv))
 }
 
 type svgTagCleaner func(*xmlquery.Node) bool

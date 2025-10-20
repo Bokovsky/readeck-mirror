@@ -109,6 +109,14 @@ func TestSvgImage(t *testing.T) {
 			{
 				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 				<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+				 width="1280px" height="720px">
+				</svg>
+				`,
+				1280, 720,
+			},
+			{
+				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
 				 width="100%" height="50%">
 				</svg>
 				`,
@@ -120,7 +128,23 @@ func TestSvgImage(t *testing.T) {
 				 width="100%" height="50">
 				</svg>
 				`,
-				300, 150,
+				100, 50,
+			},
+			{
+				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+					width="2.5ex" height="2em">
+				</svg>
+				`,
+				20, 32,
+			},
+			{
+				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+				<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1"
+					width="2rem" height="1.5rex">
+				</svg>
+				`,
+				32, 12,
 			},
 			{
 				`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
