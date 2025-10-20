@@ -2,12 +2,13 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# dewyeyed <dewyeyed@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-10-18 06:01+0000\n"
+"PO-Revision-Date: 2025-10-19 20:44+0000\n"
 "Last-Translator: dewyeyed <dewyeyed@noreply.codeberg.org>\n"
 "Language: ko_KR\n"
 "Language-Team: Korean <https://translate.codeberg.org/projects/readeck/documentation/ko/>\n"
@@ -170,7 +171,7 @@ msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
-"북마크 목록](./img/bookmark-list.webp)\n"
+"![북마크 목록](./img/bookmark-list.webp)\n"
 "그리드 북마크 목록"
 
 #: en-US/bookmark-list.md:77
@@ -230,7 +231,7 @@ msgstr ""
 #: en-US/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr "## 북마크 필터 {#filters}"
+msgstr "## Filter Bookmarks {#filters}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
@@ -601,6 +602,7 @@ msgid ""
 msgstr ""
 "---\n"
 "제목: 목차\n"
+"# !! 중요: 아래 부분은 번역하지 마십시오\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -648,7 +650,7 @@ msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
-"북마크에는 원하는 만큼 라벨을 추가할 수 있습니다.\\\n"
+"[북마크에 원하는 만큼 레이블을 추가할 수 있습니다](./bookmark.md#labels).\\\n"
 "라벨로 사용할 수 있는 항목에는 제한이 없습니다. 원한다면 이모티콘도 추가할 수 있습니다."
 
 #: en-US/labels.md:6

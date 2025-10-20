@@ -2,13 +2,14 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Jorge Santos <kkillermachine@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-10-18 14:59+0000\n"
-"Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-10-19 18:39+0000\n"
+"Last-Translator: Jorge Santos <kkillermachine@gmail.com>\n"
 "Language: pt_PT\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
@@ -2147,10 +2148,9 @@ msgid "Invalid user and/or password"
 msgstr "Utilizador e/ou palavra-passe inválidos"
 
 #: internal/auth/users/forms.go:54
-#, fuzzy
 msgctxt "role"
 msgid "no group"
-msgstr "Grupo"
+msgstr "nenhum grupo"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:72
@@ -2158,46 +2158,40 @@ msgid "password is empty"
 msgstr "A palavra-passe está vazia"
 
 #: internal/auth/users/groups.go:19
-#, fuzzy
 msgctxt "role"
 msgid "user"
-msgstr "Utilizadores"
+msgstr "utilizador"
 
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "pessoal"
 
 # | msgid "%d min"
 #: internal/auth/users/groups.go:21
-#, fuzzy, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d min"
+msgstr "administrador"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Marcadores: Leitura apenas"
+msgstr "Marcadores: Apenas leitura"
 
 #: internal/auth/users/groups.go:24
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Marcadores: Só gravação"
+msgstr "Marcadores: Só Escrita"
 
 #: internal/auth/users/groups.go:25
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Administrador: Leitura apenas"
+msgstr "Admin: Apenas leitura"
 
 #: internal/auth/users/groups.go:26
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Administrador: Apenas gravação"
+msgstr "Admin: Apenas gravação"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"

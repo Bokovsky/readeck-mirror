@@ -2,12 +2,13 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# liilliil <liilliil@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-07-29 08:09+0000\n"
+"PO-Revision-Date: 2025-10-19 18:39+0000\n"
 "Last-Translator: liilliil <liilliil@noreply.codeberg.org>\n"
 "Language: ru_RU\n"
 "Language-Team: Russian <https://translate.codeberg.org/projects/readeck/application/ru/>\n"
@@ -2154,10 +2155,9 @@ msgid "Invalid user and/or password"
 msgstr "Нет такой пары пользователя/пароля"
 
 #: internal/auth/users/forms.go:54
-#, fuzzy
 msgctxt "role"
 msgid "no group"
-msgstr "Группа"
+msgstr "без группы"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:72
@@ -2165,46 +2165,40 @@ msgid "password is empty"
 msgstr "пустой пароль"
 
 #: internal/auth/users/groups.go:19
-#, fuzzy
 msgctxt "role"
 msgid "user"
-msgstr "Пользователи"
+msgstr "пользователь"
 
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "персонал"
 
 # | msgid "%d min"
 #: internal/auth/users/groups.go:21
-#, fuzzy, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d минута"
+msgstr "админ"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Закладки: только чтение"
+msgstr "Закладки: Только чтение"
 
 #: internal/auth/users/groups.go:24
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Закладки: только запись"
+msgstr "Закладки: Только запись"
 
 #: internal/auth/users/groups.go:25
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Админ: только чтение"
+msgstr "Админ: Только чтение"
 
 #: internal/auth/users/groups.go:26
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Админ: только запись"
+msgstr "Админ: Только запись"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"

@@ -2,13 +2,14 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Jorge Santos <kkillermachine@gmail.com>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-09-23 22:09+0000\n"
-"Last-Translator: Ninguem <ninguem@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-10-19 20:44+0000\n"
+"Last-Translator: Jorge Santos <kkillermachine@gmail.com>\n"
 "Language: pt_PT\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/documentation/pt_PT/>\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
@@ -353,6 +354,8 @@ msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
 msgstr ""
+"![Visualização de favoritos](./img/bookmark-view.webp)\n"
+"Visualização de favoritos de um artigo."
 
 #: en-US/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
@@ -364,14 +367,17 @@ msgid ""
 "- The content,\n"
 "- A sidebar with information, labels, highlights and actions."
 msgstr ""
+"- Na parte superior, as definições de navegação e apresentação,\n"
+"- O conteúdo,\n"
+"- Uma barra lateral com informações, etiquetas, destaques e ações."
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr ""
+msgstr "Um marcador renderiza o seu conteúdo com base no seu tipo. Existem 3 tipos:"
 
 #: en-US/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr ""
+msgstr "## Definições de navegação e apresentação"
 
 #: en-US/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
@@ -386,12 +392,16 @@ msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
+"![Definições de tipografia dos favoritos](./img/bookmark-typography.webp)\n"
+"Configurações de tipografia."
 
 #: en-US/bookmark.md:39
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
+"Aí pode definir a fonte utilizada no texto, o tamanho da fonte e a altura da linha.\n"
+"Estas definições são guardadas automaticamente e serão aplicadas a qualquer artigo que leia posteriormente."
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
@@ -399,7 +409,7 @@ msgstr "## Alterar o título"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr ""
+msgstr "O título do marcador é obtido automaticamente quando o cria. Se, por algum motivo, precisar de algo diferente, pode alterá-lo clicando nele e, em seguida, no botão junto ao título."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -435,63 +445,71 @@ msgstr "O botão de partilha abre um menú que permite criar uma ligação, se q
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr ""
+msgstr "No mesmo menu, pode exportar o seu favorito (apenas EPUB por enquanto) para o ler num dispositivo diferente."
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr ""
+msgstr "### Eliminar"
 
 #: en-US/bookmark.md:69
 msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
+"Isto marca o marcador para exclusão.\n"
+"Não se preocupe se clicar aqui por engano! Esta ação pode ser cancelada antes da eliminação efetiva."
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr ""
+msgstr "## Etiquetas"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr ""
+msgstr "Pode adicionar quantos marcadores quiser a um favorito. Para tal, introduza algum texto no campo dos marcadores e clique em **Adicionar marcador**. Não há limite para o que pode ser um marcador. Pode até adicionar emojis, se quiser."
 
 #: en-US/bookmark.md:77
 msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
+"![Formulário de marcadores](./img/bookmark-labels.webp)\n"
+"Adicione um novo marcador."
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr ""
+msgstr "Leia a secção [Labels](./labels.md) para mais informações."
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr ""
+msgstr "## Destaques"
 
 #: en-US/bookmark.md:84
 msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
+"Encontrou alguma parte interessante num artigo? Pode destacá-la!\n"
+"Ao selecionar qualquer texto no artigo, surge um menu permitindo criar um novo destaque."
 
 #: en-US/bookmark.md:87
 msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
 msgstr ""
+"![Criação de destaque de marcadores](./img/bookmark-highlight.webp)\n"
+"Criar um novo destaque."
 
 #: en-US/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr ""
+msgstr "Os seus destaques aparecem na barra lateral."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr ""
+msgstr "Quando precisar de remover um destaque, pode fazê-lo na barra lateral ou selecionando-o no artigo."
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr ""
+msgstr "# Coleções"
 
 #: en-US/collections.md:3
 msgid ""
@@ -501,6 +519,11 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
+"As coleções permitem organizar e exportar os seus favoritos facilmente,\n"
+"guardando as consultas de pesquisa da sua escolha.\n"
+"Ao criar um novo favorito que corresponda aos critérios de uma coleção,\n"
+"aparecerá imediatamente.\n"
+"Aqui estão alguns exemplos:"
 
 #: en-US/collections.md:9
 msgid ""
@@ -509,52 +532,58 @@ msgid ""
 "- The pictures with the label \"cat\",\n"
 "- The articles that contain \"climate\" in their title."
 msgstr ""
+"- Os artigos não lidos (sem fotos ou vídeos),\n"
+"- Os artigos arquivados da \"wikipedia.org\",\n"
+"- As fotos com a etiqueta \"gato\",\n"
+"- Os artigos que contêm \"clima\" no título."
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
-msgstr ""
+msgstr "## Criar uma nova coleção"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr ""
+msgstr "Para criar uma nova coleção, aceda à [Lista de coleções](readeck-instance://bookmarks/collections) e clique em **Criar uma nova coleção**."
 
 #: en-US/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
+"![Novo formulário de recolha](./img/collection-new.webp)\n"
+"O formulário de recolha"
 
 #: en-US/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr ""
+msgstr "Introduza qualquer critério e clique em **Guardar**."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr ""
+msgstr "Consulte [filtros de favoritos](./bookmark-list.md#filters) para obter mais detalhes sobre a filtragem."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
-msgstr ""
+msgstr "## Exportar uma coleção"
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr ""
+msgstr "Numa página de coleção, pode exportar a coleção completa para um ficheiro."
 
 #: en-US/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr ""
+msgstr "Por enquanto, apenas o EPUB está disponível e exporta a coleção completa como um único livro."
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
-msgstr ""
+msgstr "## Apagar uma coleção"
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr ""
+msgstr "Numa página de coleção, abra a caixa **Editar** e clique em **Apagar**."
 
 #: en-US/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
-msgstr ""
+msgstr "Esta operação pode ser cancelada em poucos segundos, caso cometa um erro."
 
 #: en-US/index.md:1
 msgid ""
@@ -571,18 +600,30 @@ msgid ""
 "    - user-profile\n"
 "---"
 msgstr ""
+"---\n"
+"Título: Índice\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
 
 #: en-US/index.md:14
 msgid "# Readeck Help"
-msgstr ""
+msgstr "# Ajuda Readeck"
 
 #: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr ""
+msgstr "Bem-vindo ao Readeck! Aqui encontrará as respostas à maioria das suas perguntas sobre o Readeck e algumas dicas para melhorar ainda mais a sua experiência."
 
 #: en-US/index.md:18
 msgid "## Contents"
-msgstr ""
+msgstr "## Conteúdo"
 
 #: en-US/index.md:20
 msgid ""
@@ -593,44 +634,52 @@ msgid ""
 "- [Ebook Catalog](./opds.md)\n"
 "- [User Profile](./user-profile.md)"
 msgstr ""
+"- [Favoritos](./bookmark-list.md)\n"
+"- [Visualização de Favoritos](./bookmark.md)\n"
+"- [Etiquetas](./labels.md)\n"
+"- [Coleções](./collections.md)\n"
+"- [Catálogo de E-books](./opds.md)\n"
+"- [Perfil de Utilizador](./user-profile.md)"
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr ""
+msgstr "# Etiquetas"
 
 #: en-US/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
+"Pode [adicionar quantos marcadores desejar a um favorito](./bookmark.md#labels).\n"
+"Não há limite para o que pode ser um marcador. Pode até adicionar emojis, se quiser."
 
 #: en-US/labels.md:6
 msgid "## Label List"
-msgstr ""
+msgstr "## Lista de etiquetas"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr ""
+msgstr "A [Lista de etiquetas](readeck-instance://bookmarks/labels) mostra todos os rótulos da sua coleção de favoritos, com um número a indicar quantos favoritos contêm um determinado rótulo."
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr ""
+msgstr "Ao clicar num rótulo, pode listar todos os favoritos que contêm o rótulo."
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
-msgstr ""
+msgstr "## Renomear um rótulo"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr ""
+msgstr "Numa determinada página de etiqueta, pode clicar no título da página (a etiqueta) para alterar o seu nome."
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
-msgstr ""
+msgstr "# Catálogo E-book"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr ""
+msgstr "A Readeck disponibiliza um Catálogo de E-books com todos os seus favoritos, organizados num catálogo com a estrutura abaixo:"
 
 #: en-US/opds.md:5
 msgid ""
@@ -643,68 +692,82 @@ msgid ""
 "    - Collection E-book\n"
 "    - Browse Collection"
 msgstr ""
+"- Favoritos não lidos\n"
+"- Favoritos arquivados\n"
+"- Favoritos favoritos\n"
+"- Todos os favoritos\n"
+"- Coleções de favoritos\n"
+"  - (Nome da coleção)\n"
+"     - Coleção de e-books\n"
+"     - Navegar pela coleção"
 
 #: en-US/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr ""
+msgstr "Cada secção, exceto Coleções, fornece cada marcador como um E-book."
 
 #: en-US/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr ""
+msgstr "Na secção de uma coleção, pode descarregar a coleção completa como um único E-book."
 
 #: en-US/opds.md:19
 msgid "## Catalog access"
-msgstr ""
+msgstr "## Acesso ao catálogo"
 
 #: en-US/opds.md:21
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
+"O catálogo pode ser acedido por qualquer aplicação ou leitor eletrónico compatível com o formato OPDS.\n"
+"Para conceder acesso ao catálogo, deve primeiro criar um [API token](readeck-instance://profile/tokens)."
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
+msgstr "**Nota**: É mais fácil descarregar o token como um ficheiro de texto e transferi-lo para o seu leitor eletrónico. Pode então abrir o ficheiro e copiar o token."
 
 #: en-US/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
+"Pode restringir a permissão deste token a \"Favoritos: Apenas Leitura\".\n"
+"Anote o valor do token e configure a sua aplicação."
 
 #: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
+"O URL do seu catálogo OPDS é: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
 
 #: en-US/opds.md:33
 msgid "## Example setup: Koreader"
-msgstr ""
+msgstr "## Exemplo de configuração: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr ""
+msgstr "[Koreader](https://koreader.rocks/) é um visualizador de documentos para dispositivos E Ink. Está disponível para Kindle, Kobo, PocketBook, Android e Linux para desktop. Possui um excelente suporte a OPDS."
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr ""
+msgstr "Depois de ter um token API, pode aceder à secção OPDS no menu de pesquisa do Koreader:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr ""
+msgstr "![Menu de pesquisa do Koreader](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr ""
+msgstr "Esta secção mostra uma lista de fontes OPDS pré-configuradas e pode adicionar a sua premindo o ícone \"+\" no canto superior esquerdo:"
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
-msgstr ""
+msgstr "![Lista de catálogo do Koreader](../img/koreader-2.webp)"
 
 #: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
-msgstr ""
+msgstr "Nesta caixa de diálogo substitua os campos abaixo por:"
 
 #: en-US/opds.md:47
 msgid ""
@@ -712,60 +775,63 @@ msgid ""
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: o seu nome de utilizador\n"
+"- o seu token API no último campo"
 
 #: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
-msgstr ""
+msgstr "![Koreader adicionar catálogo](../img/koreader-3.webp)"
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr ""
+msgstr "Agora pode aceder aos seus favoritos do Koreader!"
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
-msgstr ""
+msgstr "![Catálogo de leitura do Koreader](../img/koreader-4.webp)"
 
 #: en-US/user-profile.md:1
 msgid "# User Profile"
-msgstr ""
+msgstr "# Perfil do Utilizador"
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr ""
+msgstr "A [secção Perfil](readeck-instance://profile) do Readeck permite-lhe alterar as suas informações pessoais, a sua palavra-passe e algumas outras definições."
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
-msgstr ""
+msgstr "## Edite o seu perfil"
 
 #: en-US/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
-msgstr ""
+msgstr "Na página principal do perfil, pode alterar o seu nome de utilizador, o seu endereço de e-mail e escolher o idioma da aplicação."
 
 #: en-US/user-profile.md:9
 msgid "## Change your password"
-msgstr ""
+msgstr "## Altere a sua palavra-passe"
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr ""
+msgstr "Na página [Password](readeck-instance://profile/password), pode alterar a password utilizada para se ligar ao Readeck."
 
 #: en-US/user-profile.md:13
 msgid "## API Tokens"
-msgstr ""
+msgstr "## Tokens API"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr ""
+msgstr "Um API Token permite-lhe aceder e utilizar a [API Readeck](readeck-instance://docs/api) para qualquer coisa que queira criar. Pode criar e gerir tokens na secção [API tokens](readeck-instance://profile/tokens) do seu perfil de utilizador."
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr ""
+msgstr "Pode limitar o que um determinado token pode aceder através da API e por quanto tempo é válido."
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr ""
+msgstr "Se precisar de conceder acesso à sua conta Readeck para um serviço ou aplicação, não poderá fornecer o seu nome de utilizador e palavra-passe principais; não funcionará."
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
+msgstr "Em vez disso, pode fornecer o seu nome de utilizador e um token à sua escolha como credenciais de autenticação."
 

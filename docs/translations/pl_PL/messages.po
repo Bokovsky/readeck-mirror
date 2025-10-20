@@ -2,12 +2,13 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# micash <micash@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-09-26 11:02+0000\n"
+"PO-Revision-Date: 2025-10-19 20:44+0000\n"
 "Last-Translator: micash <micash@noreply.codeberg.org>\n"
 "Language: pl_PL\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/documentation/pl/>\n"
@@ -709,7 +710,6 @@ msgid "## Catalog access"
 msgstr "## Dostęp do katalogu"
 
 #: en-US/opds.md:21
-#, fuzzy
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
