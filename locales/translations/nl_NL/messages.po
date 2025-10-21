@@ -2,19 +2,21 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-07-28 04:09+0000\n"
-"Last-Translator: Vistaus <vistaus@noreply.codeberg.org>\n"
-"Language: nl_NL\n"
+"PO-Revision-Date: 2025-10-21 18:24+0000\n"
+"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: nl_NL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2143,7 +2145,6 @@ msgid "Invalid user and/or password"
 msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
 #: internal/auth/users/forms.go:54
-#, fuzzy
 msgctxt "role"
 msgid "no group"
 msgstr "Groep"
@@ -2154,7 +2155,6 @@ msgid "password is empty"
 msgstr "Geen wachtwoord ingevoerd"
 
 #: internal/auth/users/groups.go:19
-#, fuzzy
 msgctxt "role"
 msgid "user"
 msgstr "Gebruikers"
@@ -2767,4 +2767,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Afbeelding sluiten"
-
