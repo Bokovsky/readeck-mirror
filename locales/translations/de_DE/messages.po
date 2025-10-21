@@ -2,19 +2,23 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# altruizine <altruizine@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-08-30 09:59+0000\n"
-"Last-Translator: ckafi <ckafi@noreply.codeberg.org>\n"
-"Language: de_DE\n"
+"PO-Revision-Date: 2025-10-21 17:24+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2128,17 +2132,15 @@ msgid "Invalid user and/or password"
 msgstr "Ungültiger Benutzername und/oder ungültiges Passwort"
 
 #: internal/auth/users/forms.go:54
-#, fuzzy
 msgctxt "role"
 msgid "no group"
-msgstr "Gruppe"
+msgstr "ohne Gruppe"
 
 #: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "Passwort ist leer"
 
 #: internal/auth/users/groups.go:19
-#, fuzzy
 msgctxt "role"
 msgid "user"
 msgstr "Benutzer"
@@ -2146,38 +2148,34 @@ msgstr "Benutzer"
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "Mitarbeiter"
 
 # | msgid "%d min"
 #: internal/auth/users/groups.go:21
-#, fuzzy, python-format
+#, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d min"
+msgstr "Administratoren"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Lesezeichen: Nur lesen"
+msgstr "Lesezeichen : Nur lesen"
 
 #: internal/auth/users/groups.go:24
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Lesezeichen: Nur schreiben"
+msgstr "Lesezeichen : Nur schreiben"
 
 #: internal/auth/users/groups.go:25
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Admin: Nur lesen"
+msgstr "Administrator : Nur lesen"
 
 #: internal/auth/users/groups.go:26
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Admin: Nur schreiben"
+msgstr "Administrator : Nur schreiben"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
@@ -2755,4 +2753,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Bild schließen"
-
