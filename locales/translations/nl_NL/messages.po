@@ -3,13 +3,14 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# Gusted <postmaster@gusted.xyz>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-10-21 18:24+0000\n"
-"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Last-Translator: Gusted <postmaster@gusted.xyz>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
 "Language: nl_NL\n"
 "MIME-Version: 1.0\n"
@@ -2147,7 +2148,7 @@ msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 #: internal/auth/users/forms.go:54
 msgctxt "role"
 msgid "no group"
-msgstr "Groep"
+msgstr "geen groep"
 
 # | msgid "Password ID"
 #: internal/auth/users/forms.go:72
@@ -2157,7 +2158,7 @@ msgstr "Geen wachtwoord ingevoerd"
 #: internal/auth/users/groups.go:19
 msgctxt "role"
 msgid "user"
-msgstr "Gebruikers"
+msgstr "gebruiker"
 
 #: internal/auth/users/groups.go:20
 msgctxt "role"
