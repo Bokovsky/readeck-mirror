@@ -3,13 +3,14 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# altruizine <altruizine@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-10-21 17:24+0000\n"
-"Last-Translator: Anonymous <anonymous@noreply.codeberg.org>\n"
+"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
@@ -2132,7 +2133,7 @@ msgstr "Ungültiger Benutzername und/oder ungültiges Passwort"
 #: internal/auth/users/forms.go:54
 msgctxt "role"
 msgid "no group"
-msgstr "Gruppe"
+msgstr "ohne Gruppe"
 
 #: internal/auth/users/forms.go:72
 msgid "password is empty"
@@ -2146,34 +2147,34 @@ msgstr "Benutzer"
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "Mitarbeiter"
 
 # | msgid "%d min"
 #: internal/auth/users/groups.go:21
 #, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d min"
+msgstr "Administratoren"
 
 #: internal/auth/users/groups.go:23
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Lesezeichen: Nur lesen"
+msgstr "Lesezeichen : Nur lesen"
 
 #: internal/auth/users/groups.go:24
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Lesezeichen: Nur schreiben"
+msgstr "Lesezeichen : Nur schreiben"
 
 #: internal/auth/users/groups.go:25
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Admin: Nur lesen"
+msgstr "Administrator : Nur lesen"
 
 #: internal/auth/users/groups.go:26
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Admin: Nur schreiben"
+msgstr "Administrator : Nur schreiben"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
