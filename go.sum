@@ -99,8 +99,8 @@ github.com/jarcoal/httpmock v1.4.1 h1:0Ju+VCFuARfFlhVXFc2HxlcQkfB+Xq12/EotHko+x2
 github.com/jarcoal/httpmock v1.4.1/go.mod h1:ftW1xULwo+j0R0JJkJIIi7UKigZUXCLLanykgjwBXL0=
 github.com/kinbiko/jsonassert v1.2.0 h1:+/JthIVXdIrThrOtSN9ry0mNtWKXMWuvxR0nU7gQ+tI=
 github.com/kinbiko/jsonassert v1.2.0/go.mod h1:pCc3uudOt+lVAbkji9O0uw8MSVt4s+1ZJ0y8Ux2F1Og=
-github.com/klauspost/compress v1.18.0 h1:c/Cqfb0r+Yi+JtIEq73FWXVkRonBlf0CRNYc8Zttxdo=
-github.com/klauspost/compress v1.18.0/go.mod h1:2Pp+KzxcywXVXMr50+X0Q/Lsb43OQHYWRCY2AiWywWQ=
+github.com/klauspost/compress v1.18.1 h1:bcSGx7UbpBqMChDtsF28Lw6v/G94LPrrbMbdC3JH2co=
+github.com/klauspost/compress v1.18.1/go.mod h1:ZQFFVG+MdnR0P+l6wpXgIL4NTtwiKIdBnrBd8Nrxr+0=
 github.com/komkom/toml v0.1.2 h1:SexwnY3JOR0kU9F/xxw/129BPCvuKi6/E89PZ4kSSBo=
 github.com/komkom/toml v0.1.2/go.mod h1:cgnL/ntRyMHaZuDy9wREJHWY1Cb2HEINK7U0YhpcTa8=
 github.com/kr/pretty v0.3.1 h1:flRD4NNwYAUpkphVc1HcthR4KEIFJ65n8Mw5qdRn3LE=

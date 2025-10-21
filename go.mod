@@ -25,7 +25,7 @@ require (
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/kinbiko/jsonassert v1.2.0
-	github.com/klauspost/compress v1.18.0
+	github.com/klauspost/compress v1.18.1
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.2
 	github.com/mangoumbrella/goldmark-figure v1.3.0
