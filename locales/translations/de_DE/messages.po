@@ -4,13 +4,14 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 # Anonymous <anonymous@noreply.codeberg.org>, 2025.
 # altruizine <altruizine@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
 "PO-Revision-Date: 2025-10-21 17:24+0000\n"
-"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/application/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
