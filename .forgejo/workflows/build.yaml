@@ -1,7 +1,7 @@
 ---
 
 name: Readeck Build
-run-name: ${{ gitea.actor }} build
+run-name: ${{ github.actor }} build
 on:
   workflow_dispatch:
 

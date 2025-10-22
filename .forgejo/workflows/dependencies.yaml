@@ -1,7 +1,7 @@
 ---
 
 name: Readeck Dependencies
-run-name: ${{ gitea.actor }} dependencies updater
+run-name: ${{ github.actor }} dependencies updater
 on:
   workflow_dispatch:
   schedule:
