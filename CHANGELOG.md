@@ -12,6 +12,7 @@
 
 ### Improved
 - Support CSS units when parsing SVG element dimensions, by [@mislav](https://codeberg.org/mislav)
+- Stop tracking reading progress once it reaches 100%
 
 ### Fixed
 - Reddit content-script, by [@linsui](https://codeberg.org/linsui)

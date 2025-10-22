@@ -22,12 +22,14 @@ export default class extends Controller {
   }
 
   connect() {
+    this.notifyEnabled = true
     this.current = undefined
     if (this.hasValueTarget && this.hasAnchorTarget) {
       this.current = {
         p: parseInt(this.valueTarget.value, 10) || 0,
         s: String(this.anchorTarget.value),
       }
+      this.notifyEnabled = this.current.p < 100
     }
 
     // skipEvent holds a boolean that is reset to false the first time
@@ -145,10 +147,6 @@ export default class extends Controller {
       data.p = parseInt(evt.params.position) || 0
     }
 
-    if (data.p == this.current.p && data.s == this.current.s) {
-      return
-    }
-
     this.current = {...data}
     let notify = true
     if (evt.params.notify !== undefined) {
@@ -173,20 +171,30 @@ export default class extends Controller {
    * and dispatch the progress event to every trigger.
    */
   updatePositionTargets(notify = true) {
-    if (this.hasValueTarget) {
-      this.valueTarget.value = this.current.p
-    }
-    if (this.hasAnchorTarget) {
-      this.anchorTarget.value = this.current.s
-    }
+    this.valueTargets.forEach((t) => {
+      t.value = this.current.p
+    })
+    this.anchorTargets.forEach((t) => {
+      t.value = this.current.s
+    })
 
     if (!notify) {
+      // no notification means it's called from another component
+      // and we can update the notifyEnabled value.
+      this.notifyEnabled = this.current.p < 100
+      return
+    }
+
+    if (!this.notifyEnabled) {
       return
     }
 
     this.triggerTargets.forEach((t) => {
       this.dispatch("progress", {target: t})
     })
+
+    // update the notifyEnabled value after dispatch.
+    this.notifyEnabled = this.current.p < 100
   }
 
   /**
