@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-10-21 18:24+0000\n"
+"PO-Revision-Date: 2025-10-21 19:54+0000\n"
 "Last-Translator: Gusted <postmaster@gusted.xyz>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
 "Language: nl_NL\n"
@@ -2163,37 +2163,33 @@ msgstr "gebruiker"
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "personeel"
 
 #: internal/auth/users/groups.go:21
-#, fuzzy, python-format
+#, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d min."
+msgstr "beheerder"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Bladwijzers: alleen-lezen"
+msgstr "Bladwijzers : Alleen lezen"
 
 #: internal/auth/users/groups.go:24
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Bladwijzers: alleen-schrijven"
+msgstr "Bladwijzers : Alleen schrijven"
 
 #: internal/auth/users/groups.go:25
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Beheerder: alleen-lezen"
+msgstr "Beheerder : Alleen lezen"
 
 #: internal/auth/users/groups.go:26
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Beheerder: alleen-schrijven"
+msgstr "Admin : Alleen schrijven"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
