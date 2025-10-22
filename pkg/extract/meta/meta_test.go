@@ -104,6 +104,26 @@ func TestMeta(t *testing.T) {
 			assert.Equal(t, []string{"Another Human", "前端双越老师"}, ex.Drop().Authors)
 		})
 
+		t.Run("process meta3", func(t *testing.T) {
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta3.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal(t, "The AWS Outage Bricked People’s $2,700 Smartbeds", ex.Drop().Title)
+			assert.Equal(t, "When Amazon Web Services went offline, people lost control of their cloud-connected smart beds, getting stuck in reclined positions or roasting with the heat turned all the way up.", ex.Drop().Description)
+			assert.Equal(t, []string{"Matthew Gault", "Samantha Cole"}, ex.Drop().Authors)
+			assert.Equal(t, "404 Media", ex.Drop().Site)
+			assert.Equal(t, time.Date(2025, time.October, 22, 13, 40, 3, 0, time.UTC), ex.Drop().Date)
+			assert.Equal(t, "en", ex.Drop().Lang)
+
+			assert.Equal(t, extract.DropMeta{
+				"html.lang":  {"en"},
+				"html.title": {"This is ignored"},
+			}, ex.Drop().Meta)
+		})
+
 		t.Run("text direction", func(t *testing.T) {
 			tests := []struct {
 				dir      string
