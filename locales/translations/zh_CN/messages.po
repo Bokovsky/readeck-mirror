@@ -2,15 +2,15 @@
 # SPDX-FileCopyrightText: © 2023 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# linsui <user-4173@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-10-19 10:24+0000\n"
-"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
+"PO-Revision-Date: 2025-10-24 14:20+0000\n"
+"Last-Translator: linsui <user-4173@noreply.codeberg.org>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -508,7 +508,7 @@ msgstr "作者 %s"
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] "阅读约 %d 分钟"
+msgstr[0] "阅读约需 %d 分钟"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
@@ -1099,7 +1099,7 @@ msgstr "书签标题"
 #: assets/templates/bookmarks/import/form-csv.jet.html:67
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr "书签的归档状态；只有有效的值是“%s”"
+msgstr "书签的归档状态；唯一有效的值是“%s”"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:72
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
@@ -1574,7 +1574,7 @@ msgstr "主网站"
 
 #: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues"
-msgstr "来源和问题"
+msgstr "源代码和问题追踪器"
 
 #: assets/templates/docs/about.jet.html:61
 msgid "How to contribute"
@@ -1586,7 +1586,7 @@ msgstr "社区论坛"
 
 #: assets/templates/docs/about.jet.html:63
 msgid "Matrix Chat"
-msgstr "Matrix 聊天"
+msgstr "Matrix 聊天室"
 
 #: assets/templates/docs/about.jet.html:66
 msgid "License"
@@ -1667,7 +1667,7 @@ msgstr "第三方许可"
 
 #: assets/templates/docs/about.jet.html:157
 msgid "Readeck includes and/or uses the following open source assets:"
-msgstr "Readeck 包括和/或使用以下开源资产："
+msgstr "Readeck 包含和/或使用以下开源资产："
 
 #: assets/templates/docs/api-docs.jet.html:8
 #: assets/templates/docs/base.jet.html:21

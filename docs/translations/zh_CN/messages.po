@@ -2,19 +2,24 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# linsui <linsui@noreply.codeberg.org>, 2025.
+# linsui <user-4173@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-06-03 11:06+0000\n"
-"Last-Translator: Outbreak2096 <outbreak2096@noreply.codeberg.org>\n"
-"Language: zh_CN\n"
+"PO-Revision-Date: 2025-10-24 14:20+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/documentation/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -23,7 +28,7 @@ msgstr "# 书签"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
-msgstr "书签是你在网页上保存的感兴趣的内容。"
+msgstr "书签是您在网页上保存的感兴趣的内容。"
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
@@ -31,7 +36,7 @@ msgstr "## 创建新的书签"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr "发现了一个你喜欢的页面? 很棒! 将链接复制到 [书签列表](readeck-instance://bookmarks) 上方的输入框中。"
+msgstr "发现了一个您喜欢的页面? 很棒! 将链接复制到[书签列表](readeck-instance://bookmarks)上方的输入框中。"
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -39,7 +44,7 @@ msgstr "![新书签表单](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr "几秒钟后，您的书签将准备就绪。 然后，您可以打开它阅读或观看其内容，添加标签，突出显示文本或导出电子书。 更多信息, 请阅读 [书签视图](./bookmark.md) 部分。"
+msgstr "几秒钟后，您的书签将准备就绪。 然后，您可以打开它阅读或观看其内容，添加标签，突出显示文本或导出电子书。 更多信息，请阅读[书签](./bookmark.md)部分。"
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -47,7 +52,7 @@ msgstr "## 书签类型"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr "Readeck 识别3种不同类型的网络内容:"
+msgstr "Readeck 识别 3 种不同类型的网络内容:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
@@ -63,7 +68,7 @@ msgstr "### 图片"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr "图片是一个被识别为图片容器的页面（即指向Unsplash的链接）。它渲染存储的图片。"
+msgstr "图片是一个被识别为图片容器的页面（即指向 Unsplash 的链接）。它渲染存储的图片。"
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
@@ -71,7 +76,7 @@ msgstr "### 视频"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr "视频是一个被标识为视频容器的页面（即指向Youtube或Vimeo的链接）。它渲染视频播放器。请注意，视频是从各自的远程服务器播放的。"
+msgstr "视频是一个被标识为视频容器的页面（即指向 Youtube 或 Vimeo 的链接）。它渲染视频播放器。请注意，视频是从各自的远程服务器播放的。"
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
@@ -79,7 +84,7 @@ msgstr "## 书签列表"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr "[书签列表](readeck-instance://bookmarks) 您可以在此处找到所有已保存的书签。"
+msgstr "您可以在[书签列表](readeck-instance://bookmarks)中找到所有已保存的书签。"
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
@@ -109,7 +114,7 @@ msgstr ""
 "- **搜索** \\\n"
 "  输入任何搜索词（标题、内容、网站…）。\n"
 "- **全部** \\\n"
-"  你的全部书签。\n"
+"  您的全部书签。\n"
 "- **未读** \\\n"
 "  没有归档的书签。\n"
 "- **已归档** \\\n"
@@ -131,11 +136,11 @@ msgid ""
 "  Your picture bookmarks"
 msgstr ""
 "- **文章** \\\n"
-"  你的文章书签。\n"
+"  您的文章书签。\n"
 "- **视频** \\\n"
-"  你的视频书签。\n"
+"  您的视频书签。\n"
 "- **图片** \\\n"
-"  你的图片书签。"
+"  您的图片书签"
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
@@ -154,8 +159,8 @@ msgstr ""
 "  所有书签标签。\n"
 "- **高亮** \\\n"
 "  书签上的所有高亮内容。\n"
-"- **[集合](./collections.md)** \\\n"
-"  所有集合列表。"
+"- **[收藏集](./collections.md)** \\\n"
+"  所有收藏集列表"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
@@ -217,7 +222,7 @@ msgstr "### 紧凑视图"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr "如果您觉得书签网格视图图像太拥挤，可以切换到图像较少的更紧凑的列表。单击标题旁边的按钮，从网格视图切换到紧凑视图。"
+msgstr "如果您觉得书签网格视图图像太拥挤，可以切换到图像较少的更紧凑的列表。点击标题旁边的按钮，从网格视图切换到紧凑视图。"
 
 #: en-US/bookmark-list.md:98
 msgid ""
@@ -234,7 +239,7 @@ msgstr "## 筛选书签 {#筛选}"
 
 #: en-US/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr "在书签列表中，您可以根据一个或多个条件筛选结果。单击页面标题旁边的“筛选列表”按钮打开筛选表单。"
+msgstr "在书签列表中，您可以根据一个或多个条件筛选结果。点击页面标题旁边的“筛选列表”按钮打开筛选表单。"
 
 #: en-US/bookmark-list.md:105
 msgid ""
@@ -246,7 +251,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
-msgstr "输入任何条件并单击 **搜索**."
+msgstr "输入任何条件并点击**搜索**。"
 
 #: en-US/bookmark-list.md:110
 msgid "### Available filters"
@@ -283,10 +288,10 @@ msgstr ""
 "  仅搜索书签网站。\n"
 "- **标签** \\\n"
 "  仅搜索书签标签。\n"
-"- **是否收藏**, **是否归档**, **类型** \\\n"
+"- **是否收藏**，**是否归档**，**类型** \\\n"
 "  筛选书签收藏、归档和类型。\n"
-"- **起始日期**, **结束日期** \\\n"
-"  最后一个过滤器允许您限制书签的保存时间。例如，这允许您检索过去4周内保存的书签列表，但不包括上周之后的书签列表。"
+"- **起始日期**，**结束日期** \\\n"
+"  最后一个过滤器允许您限制书签的保存时间。例如，这允许您检索过去 4 周内保存的书签列表，但不包括上周之后的书签列表。"
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -294,7 +299,7 @@ msgstr "### 搜索查询"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr "**搜索**, **标题**, **作者**, **网站** 和 **标签** 字段以相同的方式理解搜索条件:"
+msgstr "**搜索**，**标题**，**作者**，**网站** 和 **标签** 字段以相同的方式理解搜索条件:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -305,12 +310,12 @@ msgid ""
 msgstr ""
 "- `startled cat` 会查找包括 **startled** 和 **cat** 的内容。\n"
 "- `\"startled cat\"` 会查找和 **startled cat** 完全一致的内容。\n"
-"- `cat*` 会查找以 **cat** 开头的内容 (包括 cat, catnip 和 caterpillar)。\n"
+"- `cat*` 会查找以 **cat** 开头的内容 (包括 cat，catnip 和 caterpillar)。\n"
 "- `-startled cat` 会查找包括 **cat** 但不包括 **startled** 的内容。"
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr "执行搜索后, 你可以将其保存到一个新的 [集合](./collections.md) 使其永久保存。"
+msgstr "执行搜索后，您可以将其保存到一个新的[收藏集](./collections.md)使其永久保存。"
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
@@ -368,7 +373,7 @@ msgid ""
 msgstr ""
 "- 最上面是导航和演示设置\n"
 "- 内容\n"
-"- 带有信息、标签、突出显示和操作的侧边栏"
+"- 带有信息、标签、突出显示和操作的侧边栏。"
 
 #: en-US/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
@@ -384,7 +389,7 @@ msgstr "在书签视图的顶部，有一个链接可以带您返回上一页。
 
 #: en-US/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr "如果书签包含一篇文章，另一侧的按钮可以让你更改一些排版设置。"
+msgstr "如果书签包含一篇文章，另一侧的按钮可以让您更改一些排版设置。"
 
 #: en-US/bookmark.md:36
 msgid ""
@@ -392,7 +397,7 @@ msgid ""
 "Typography settings."
 msgstr ""
 "![书签排版设置](./img/bookmark-typography.webp)\n"
-"书签排版设置"
+"书签排版设置。"
 
 #: en-US/bookmark.md:39
 msgid ""
@@ -406,7 +411,7 @@ msgstr "## 修改标题"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr "书签的标题在您创建时会自动抓取。如果出于某种原因，您需要其他内容，您可以通过单击它，然后单击标题侧的按钮来更改它。"
+msgstr "书签的标题在您创建时会自动抓取。如果出于某种原因，您需要其他内容，您可以通过点击它，然后点击标题侧的按钮来更改它。"
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -438,7 +443,7 @@ msgstr "### 分享"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr "共享按钮打开一个菜单，如果你想与某人共享一篇文章，可以从中创建链接。"
+msgstr "共享按钮打开一个菜单，如果您想与某人共享一篇文章，可以从中创建链接。"
 
 #: en-US/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
@@ -454,7 +459,7 @@ msgid ""
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
 "这将标记书签以进行删除。\n"
-"如果你误点击了这个，不用担心！此操作可以在实际删除之前取消。"
+"如果您不小心点到了这个，别担心！此操作可以在实际删除之前取消。"
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
@@ -462,7 +467,7 @@ msgstr "## 标签"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr "您可以在书签中添加任意数量的标签。为此，请在标签字段中输入一些文本，然后单击 **添加标签**。 标签是没有限制的。如果你喜欢，你甚至可以添加表情符号。"
+msgstr "您可以在书签中添加任意数量的标签。为此，请在标签字段中输入一些文本，然后点击 **添加标签**。 标签是没有限制的。如果您喜欢，您甚至可以添加表情符号。"
 
 #: en-US/bookmark.md:77
 msgid ""
@@ -474,7 +479,7 @@ msgstr ""
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr "请阅读 [标签](./labels.md) 部分了解更多信息。"
+msgstr "请阅读[标签](./labels.md)部分了解更多信息。"
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
@@ -485,7 +490,7 @@ msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
-"在一篇文章中发现了一些有趣的部分？你可以突出它。\n"
+"在一篇文章中发现了一些有趣的部分？您可以突出它。\n"
 "当您选择文章中的任何文本时，会出现一个菜单，允许您创建新的突出显示。"
 
 #: en-US/bookmark.md:87
@@ -502,11 +507,11 @@ msgstr "您的高亮显示在侧边栏中。"
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr "当你需要删除高亮时，你可以从侧边栏中删除，也可以在文章中选择它。"
+msgstr "当您需要删除高亮时，您可以从侧边栏中删除，也可以在文章中选择它。"
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr "# 集合"
+msgstr "# 收藏集"
 
 #: en-US/collections.md:3
 msgid ""
@@ -516,9 +521,9 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"集合让您能够通过保存您选择的搜索请求轻松组织和导出书签。\n"
-"当您创建符合集合标准的新书签时，它将立即出现。\n"
-"例如:"
+"收藏集让您能够通过保存您选择的搜索请求轻松组织和导出书签。\n"
+"当您创建符合收藏集标准的新书签时，它将立即出现。\n"
+"例如："
 
 #: en-US/collections.md:9
 msgid ""
@@ -530,51 +535,51 @@ msgstr ""
 "- 未读文章（无图片或视频）\n"
 "- 来自“wikipedia.org”的归档文章\n"
 "- 带有“cat”标签的图片\n"
-"- 标题中包含“climate”的文章"
+"- 标题中包含“climate”的文章。"
 
 #: en-US/collections.md:14
 msgid "## Create a new collection"
-msgstr "## 创建集合"
+msgstr "## 创建收藏集"
 
 #: en-US/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr "要创建集合, 请查看 [集合列表](readeck-instance://bookmarks/collections) 并点击 **创建集合**."
+msgstr "要创建收藏集，请查看[收藏集列表](readeck-instance://bookmarks/collections) 并点击**创建新收藏集**。"
 
 #: en-US/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
-"![新集合表单](./img/collection-new.webp)\n"
-"集合表单"
+"![新收藏集表单](./img/collection-new.webp)\n"
+"收藏集表单"
 
 #: en-US/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr "输入任何条件并单击 **保存**."
+msgstr "输入任何条件并点击 **保存**。"
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr "请跳转 [书签筛选](./bookmark-list.md#filters) 查看更多筛选相关的内容。"
+msgstr "请到[书签筛选](./bookmark-list.md#filters)查看更多筛选相关的内容。"
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
-msgstr "## 导出集合"
+msgstr "## 导出收藏集"
 
 #: en-US/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr "在收藏页面上，您可以将完整收藏导出到文件中。"
+msgstr "在收藏集页面上，您可以将完整收藏集导出到文件中。"
 
 #: en-US/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr "目前，只有 EPUB 可用，并将整个收藏导出为一本书。"
+msgstr "目前，只有 EPUB 可用，并将整个收藏集导出为一本书。"
 
 #: en-US/collections.md:32
 msgid "## Delete a collection"
-msgstr "## 删除集合"
+msgstr "## 删除收藏集"
 
 #: en-US/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr "在集合页面, 打开 **编辑** 框然后点击 **删除**."
+msgstr "在收藏集页面，打开**编辑**菜单然后点击**删除**。"
 
 #: en-US/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
@@ -613,7 +618,7 @@ msgstr "# Readeck 帮助"
 
 #: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr "欢迎来到 Readeck! 在这里，您将找到有关 Readeck 的大多数问题的答案，以及一些进一步改善您体验的提示。"
+msgstr "欢迎来到 Readeck！您将在这里找到有关 Readeck 的大多数问题的答案，以及一些进一步改善您体验的技巧。"
 
 #: en-US/index.md:18
 msgid "## Contents"
@@ -631,7 +636,7 @@ msgstr ""
 "- [书签列表](./bookmark-list.md)\n"
 "- [书签](./bookmark.md)\n"
 "- [标签](./labels.md)\n"
-"- [集合](./collections.md)\n"
+"- [收藏集](./collections.md)\n"
 "- [opds](./opds.md)\n"
 "- [个人信息](./user-profile.md)"
 
@@ -644,8 +649,8 @@ msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
-"你可以 [为书签添加任意数量的标签](./bookmark.md#labels).\n"
-"标签是没有限制的。如果你喜欢，你甚至可以添加表情符号。"
+"您可以[为书签添加任意数量的标签](./bookmark.md#labels)。\n"
+"标签是没有限制的。如果您喜欢，您甚至可以添加表情符号。"
 
 #: en-US/labels.md:6
 msgid "## Label List"
@@ -653,11 +658,11 @@ msgstr "## 标签列表"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr "[标签列表](readeck-instance://bookmarks/labels) 显示书签集合中的所有标签，并用数字表示有多少书签带有给定的标签。"
+msgstr "[标签列表](readeck-instance://bookmarks/labels)显示书签收藏集中的所有标签，并用数字表示有多少书签带有给定的标签。"
 
 #: en-US/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr "当你点击标签时，你可以列出所有带有标签的书签。"
+msgstr "当您点击标签时，您可以列出所有带有标签的书签。"
 
 #: en-US/labels.md:12
 msgid "## Rename a label"
@@ -665,7 +670,7 @@ msgstr "## 重命名标签"
 
 #: en-US/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr "在给定的标签页面上，您可以单击页面的标题（标签）以更改其名称。"
+msgstr "在给定的标签页面上，您可以点击页面的标题（标签）以更改其名称。"
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
@@ -673,7 +678,7 @@ msgstr "# OPDS"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr "Readeck 提供了一个包含您所有书签的OPDS，按以下结构组织在目录中："
+msgstr "Readeck 提供了一个包含您所有书签的 OPDS，按以下结构组织在目录中："
 
 #: en-US/opds.md:5
 msgid ""
@@ -690,50 +695,48 @@ msgstr ""
 "- 归档书签\n"
 "- 收藏书签\n"
 "- 所有书签\n"
-"- 书签集合\n"
-"  - (集合名称)\n"
-"    - 搜集电子书\n"
-"    - 选择集合"
+"- 书签收藏集\n"
+"  - (收藏集名称)\n"
+"    - 收藏集电子书\n"
+"    - 选择收藏集"
 
 #: en-US/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr "除集合外，每个部分都将每个书签作为电子书提供。"
+msgstr "除收藏集外，每个部分都将每个书签作为电子书提供。"
 
 #: en-US/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr "在集合部分，您可以将完整的集合作为一本电子书下载。"
+msgstr "在收藏集部分，您可以将整个收藏集作为一本电子书下载。"
 
 #: en-US/opds.md:19
 msgid "## Catalog access"
 msgstr "## 目录访问"
 
 #: en-US/opds.md:21
-#, fuzzy
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
-"任何支持OPDS格式的应用程序或电子阅读器都可以访问该目录。\n"
-"要授予对目录的访问权限，您必须首先创建 [应用密码](readeck-instance://profile/credentials)."
+"任何支持 OPDS 格式的应用程序或电子阅读器都可以访问该目录。\n"
+"要授予对该目录的访问权限，您必须首先创建[应用密码](readeck-instance://profile/credentials)。"
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
+msgstr "**注意**：将令牌下载为文本文件并传输到您的电子阅读器会更方便。然后您可以打开文件并复制令牌。"
 
 #: en-US/opds.md:26
-#, fuzzy
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"您可以将此密码的权限限制为“书签：只读”。\n"
-"记下密码并设置应用程序。"
+"您可以将此令牌的权限限制为“书签：只读”。\n"
+"写下令牌并设置应用程序。"
 
 #: en-US/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
-msgstr "你的OPDS的URL 是: [readeck-instance://opds](readeck-instance://opds)"
+msgstr "您的OPDS的URL 是: [readeck-instance://opds](readeck-instance://opds)"
 
 #: en-US/opds.md:33
 msgid "## Example setup: Koreader"
@@ -741,12 +744,11 @@ msgstr "## 示例设置: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr "[Koreader](https://koreader.rocks/) 是 E Ink设备的文档查看器。它适用于Kindle、Kobo、PocketBook、Android和桌面Linux。它有很好的OPDS支持。"
+msgstr "[Koreader](https://koreader.rocks/) 是 E Ink设备的文档查看器。它适用于Kindle、Kobo、PocketBook、Android 和桌面 Linux。它有很好的 OPDS 支持。"
 
 #: en-US/opds.md:37
-#, fuzzy
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr "一旦您有了应用程序密码，您就可以访问Koreander查找菜单中的OPDS部分："
+msgstr "一旦您有了应用程序令牌，您就可以在 Koreander 的查找菜单中访问 OPDS 部分："
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
@@ -754,7 +756,7 @@ msgstr "![Koreader's lookup menu](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr "本节显示了预配置的OPDS源列表，您可以通过按左上角的“+”图标添加您的源："
+msgstr "此处显示了一个预配置的 OPDS 源列表，您可以点按左上角的“+”图标添加您的源："
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
@@ -765,15 +767,14 @@ msgid "In this dialog replace the fields below with:"
 msgstr "在此对话框中，将以下字段替换为："
 
 #: en-US/opds.md:47
-#, fuzzy
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
-"- alice: 你的用户名\n"
-"- 最后一个字段中的应用程序密码"
+"- alice: 您的用户名\n"
+"- 在最后一个字段中填入您的 API 令牌"
 
 #: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
@@ -781,7 +782,7 @@ msgstr "![Koreader add catalog](../img/koreader-3.webp)"
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr "你现在可以从 Koreader 访问你的书签!"
+msgstr "您现在可以从 Koreader 访问您的书签了!"
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
@@ -793,7 +794,7 @@ msgstr "# 个人信息"
 
 #: en-US/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr "Readeck [个人信息](readeck-instance://profile) 允许您更改个人信息、密码和其他一些设置。"
+msgstr "Readeck 中的[个人信息页面](readeck-instance://profile)允许您更改个人信息、密码和其他一些设置。"
 
 #: en-US/user-profile.md:5
 msgid "## Edit your profile"
@@ -809,27 +810,27 @@ msgstr "## 修改密码"
 
 #: en-US/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr "在 [密码](readeck-instance://profile/password) 页面, 您可以更改 Readeck 的密码。"
+msgstr "在[密码](readeck-instance://profile/password)页面，您可以更改 Readeck 的密码。"
 
 #: en-US/user-profile.md:13
 msgid "## API Tokens"
-msgstr "## API Tokens"
+msgstr "## API 令牌"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr "API Token 允许您访问和使用 [Readeck API](readeck-instance://docs/api) 任何你想建造的东西。 你可以在 [API Tokens](readeck-instance://profile/tokens) 上创建和管理 API Tokens。"
+msgstr "API 令牌允许您访问和使用 [Readeck API](readeck-instance://docs/api) 构建任何您想要的东西。 您可以在 [API 令牌](readeck-instance://profile/tokens)中创建和管理 API 令牌。"
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr "您可以限制给定令牌可以通过API访问的内容以及其有效期。"
+msgstr "您可以限制给定令牌可以通过 API 访问的内容及其有效期。"
 
 #: en-US/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr "如果您需要将Readeck帐户的访问权限授予服务或应用程序，则无法提供主用户名和密码；这行不通。"
+msgstr "如果您需要将 Readeck 帐户的访问权限授予服务或应用程序，则无法提供主用户名和密码；这行不通。"
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
+msgstr "但您可以提供您的用户名和一个您选择的令牌作为认证凭据。"
 
 #~ msgid "## Application Passwords"
 #~ msgstr "## 应用密码"
@@ -848,4 +849,3 @@ msgstr ""
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**注意**: 虽然您可以使用应用程序密码访问API，但建议尽可能使用 API Token。"
-
