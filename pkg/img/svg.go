@@ -216,20 +216,22 @@ func cssDimensionToPixels(v string) int {
 
 	// https://developer.mozilla.org/en-US/docs/Web/CSS/length
 	multiplier := 1
-	if strings.HasSuffix(v, "rem") {
+	switch {
+	case strings.HasSuffix(v, "rem"):
 		v = strings.TrimSuffix(v, "rem")
 		multiplier = cssEmDefaultSize
-	} else if strings.HasSuffix(v, "rex") {
+	case strings.HasSuffix(v, "rex"):
 		v = strings.TrimSuffix(v, "rex")
 		multiplier = cssExDefaultSize
-	} else if strings.HasSuffix(v, "em") {
+	case strings.HasSuffix(v, "em"):
 		v = strings.TrimSuffix(v, "em")
 		multiplier = cssEmDefaultSize
-	} else if strings.HasSuffix(v, "ex") {
+	case strings.HasSuffix(v, "ex"):
 		v = strings.TrimSuffix(v, "ex")
 		multiplier = cssExDefaultSize
-	} else if strings.HasSuffix(v, "px") {
+	case strings.HasSuffix(v, "px"):
 		v = strings.TrimSuffix(v, "px")
+
 	}
 
 	vv, _ := strconv.ParseFloat(v, 32)
