@@ -13,7 +13,7 @@ from tempfile import TemporaryDirectory
 from urllib import parse, request
 from urllib.error import HTTPError
 
-SITE_CONFIG_REPO = "https://github.com/j0k3r/graby-site-config.git"
+SITE_CONFIG_REPO = "https://github.com/fivefilters/ftr-site-config"
 
 
 def versiontuple(v):
