@@ -1,11 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "/html/body/main"
+    "//main[@id='main']//article"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'article_articleHeaderSocialWrapper__')]",
+    "//div[contains(@class, 'soft-paywall_wrapper__')]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -18,7 +21,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://danluu.com/look-stupid/",
+      "url": "https://www.berliner-zeitung.de/wirtschaft-verantwortung/militarisierung-in-adlershof-so-bereiten-chemiker-die-bundeswehr-auf-krieg-vor-li.2361153",
       "contains": []
     }
   ]

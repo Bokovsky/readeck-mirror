@@ -1,0 +1,46 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "(//div[contains(concat(' ',normalize-space(@class),' '),' main ')]//div[contains(@class, 'main-column')])[1]//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//hr",
+    "//nav",
+    "//aside",
+    "//footer",
+    "//article//h1"
+  ],
+  "strip_id_or_class": [
+    "snark-line"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "src=\"data:image",
+      "foosrc=\"data:image"
+    ],
+    [
+      "data-runner-src=\"https",
+      "src=\"https"
+    ],
+    [
+      "width=\"100%\" height=\"auto\"",
+      "width=\"580\" height=\"326\""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://qc.rollingstone.com/coeur-de-pirate-couverture-fr/",
+      "contains": []
+    }
+  ]
+}

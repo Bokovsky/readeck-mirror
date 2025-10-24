@@ -1,18 +1,25 @@
 {
   "title_selectors": [
-    "//span[@itemprop='mainEntityOfPage']"
+    "substring-before(//meta[@property='og:title']/@content , ' | Common Dreams')"
   ],
   "body_selectors": [
-    "//div[@itemprop='articleBody']"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' lead_post_body_main ')]//article[1]"
   ],
-  "date_selectors": [
-    "//span[@class='date-display-single']"
-  ],
+  "date_selectors": null,
   "author_selectors": [
-    "//div[@id='field-wrapper-authors']"
+    "(//*[contains(concat(' ',normalize-space(@class),' '),' social-author ')])[1]/a"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'social-date')]/ancestor::article[1]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' tags ')]/self::* | //div[contains(concat(' ',normalize-space(@class),' '),' tags ')]/following-sibling::*",
+    "//div[contains(@class, 'creative_common_work')]/ancestor::article[1]/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "widget__headline",
+    "lead_post_share_social",
+    "hidden",
+    "social-author"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' main ')] | //div[contains(concat(' ',normalize-space(@class),' '),' notes ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' editorial ')] | //div[contains(concat(' ',normalize-space(@class),' '),' notes ')]"
   ],
   "date_selectors": [
     "//time[@pubdate='pubdate']/@datetime"
