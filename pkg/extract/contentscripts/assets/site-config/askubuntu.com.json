@@ -1,0 +1,45 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(@class,'post-layout')]"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
+  "author_selectors": [
+    "(//div[@itemprop=\"author\"])[1]/a"
+  ],
+  "strip_selectors": [
+    "//button",
+    "//svg",
+    "//a[contains(@href, '/users/')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' answer ')]/text()",
+    "//span[@itemprop=\"commentCount\"]"
+  ],
+  "strip_id_or_class": [
+    "post-taglist",
+    "js-post-menu",
+    "-flair",
+    "js-post-comments-component"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": true,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"js-vote-count",
+      "\u003chr\u003e\u003cdiv class=\"foo-js-vote-count"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://askubuntu.com/questions/766048/mount-unknown-filesystem-type-lvm2-member",
+      "contains": []
+    }
+  ]
+}

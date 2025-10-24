@@ -1,13 +1,13 @@
 {
   "title_selectors": [
-    "//h1"
+    "substring-before( //meta[@property=\"og:title\"]/@content , ' - Golem.de' )"
   ],
   "body_selectors": [
     "//main/article",
     "//article"
   ],
   "date_selectors": [
-    "//time"
+    "//time/@datetime"
   ],
   "author_selectors": [
     "//a[@rel='author']"
@@ -34,6 +34,7 @@
     "//span[@class='go-vh' and normalize-space(text())='(öffnet im neuen Fenster)']"
   ],
   "strip_id_or_class": [
+    "go-heading--h1",
     "iqadtile4",
     "gbox_affiliate",
     "seminars",
@@ -58,12 +59,25 @@
   "next_page_link_selectors": [
     "//li[contains(@class, 'go-pagination__item--next')]/a"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003ch1",
+      "\u003ch2"
+    ],
+    [
+      "\u003c/h1\u003e",
+      "\u003c/h2\u003e"
+    ]
+  ],
   "http_headers": {
     "Cookie": "golem_multipage=single",
     "user-agent": "Googlebot"
   },
   "tests": [
+    {
+      "url": "https://www.golem.de/news/arbeitsplatz-unter-druck-was-haelt-dich-noch-im-job-2509-200011.html",
+      "contains": []
+    },
     {
       "url": "https://www.golem.de/news/onlineshopping-auf-pump-boomt-erstmals-mehr-als-zehn-millionen-neue-ratenkredite-2509-199696.html",
       "contains": []
