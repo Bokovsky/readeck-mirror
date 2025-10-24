@@ -112,8 +112,8 @@ schemas:
           "id": "X4bmnMRcnDhQtu5y33qzTp",
           "application": "internal",
           "roles": [
-            "scoped_bookmarks_r",
-            "scoped_bookmarks_w"
+            "bookmarks:read",
+            "bookmarks:write"
           ],
           "permissions": [
             "api:bookmarks:collections:read",

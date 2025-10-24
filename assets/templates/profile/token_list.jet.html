@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <turbo-frame id="token-list"
  data-controller="turbo-refresh"
  data-turbo-refresh-interval-value="10"
- data-turbo-refresh-on-value="[data-user-deleted='true']">
+ data-turbo-refresh-on-value="[data-token-deleted='true']">
   {{ yield list() content }}
   {{ range .Tokens }}
     {{ yield list_item(class="flex gap-2 items-center hfw:bg-gray-100 max-md:block") content }}
@@ -56,7 +56,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       </a>
       {{- if .IsDeleted -}}
         <div class="flex items-center max-w-xs m-4 max-md:mt-0"
-          data-user-deleted="true">
+          data-token-deleted="true">
           <span class="text-red-700 text-xs font-semibold">
             {{ gettext("This token will be removed in a few seconds.") }}
           </span>

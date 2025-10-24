@@ -45,6 +45,11 @@ func (p Policy) Set(name string, values ...string) {
 	p[name] = values
 }
 
+// Del removes a directive from the policy.
+func (p Policy) Del(name string) {
+	delete(p, name)
+}
+
 // Clone returns a copy of the policy.
 func (p Policy) Clone() Policy {
 	return maps.Clone(p)

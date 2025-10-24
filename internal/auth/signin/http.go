@@ -20,6 +20,7 @@ import (
 func SetupRoutes(s *server.Server) {
 	newAuthHandler(s)
 
+	// Deprecated auth API
 	api := newAuthAPI(s)
 	s.AddRoute("/api/auth", api)
 }
@@ -42,6 +43,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 	r.Get("/", h.login)
 	r.Post("/", h.login)
 
+	// Recovery
 	r.With(server.WithPermission("email", "send")).Route("/recover", func(r chi.Router) {
 		r.Get("/", h.recover)
 		r.Post("/", h.recover)
@@ -57,7 +59,6 @@ func newAuthHandler(s *server.Server) *authHandler {
 		auth.Required,
 	)
 	s.AddRoute("/logout", ar)
-
 	ar.Post("/", h.logout)
 
 	return h

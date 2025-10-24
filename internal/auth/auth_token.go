@@ -12,6 +12,7 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 )
@@ -36,7 +37,7 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, errors.New("invalid authentication header")
 	}
 
-	uid, err := tokens.DecodeToken(token)
+	uid, err := configs.Keys.TokenKey().Decode(token)
 	if err != nil {
 		p.denyAccess(w)
 		return r, err

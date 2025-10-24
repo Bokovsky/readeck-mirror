@@ -20,10 +20,11 @@ var roleMap = map[string]string{
 	"staff": pgettext("role", "staff"),
 	"admin": pgettext("role", "admin"),
 
-	"scoped_bookmarks_r": pgettext("role", "Bookmarks : Read Only"),
-	"scoped_bookmarks_w": pgettext("role", "Bookmarks : Write Only"),
-	"scoped_admin_r":     pgettext("role", "Admin : Read Only"),
-	"scoped_admin_w":     pgettext("role", "Admin : Write Only"),
+	"profile:read":    pgettext("role", "Profile : Read Only"),
+	"bookmarks:read":  pgettext("role", "Bookmarks : Read Only"),
+	"bookmarks:write": pgettext("role", "Bookmarks : Write Only"),
+	"admin:read":      pgettext("role", "Admin : Read Only"),
+	"admin:write":     pgettext("role", "Admin : Write Only"),
 }
 
 // GroupList returns a list of available groups identified by a permission name
@@ -42,6 +43,20 @@ func GroupList(tr translator, name string, user *User) [][2]string {
 		}
 
 		res = append(res, [2]string{g, label})
+	}
+
+	return res
+}
+
+// GroupNames converts a role list to a list of translated names.
+func GroupNames(tr translator, groups []string) []string {
+	res := make([]string, len(groups))
+
+	for i, g := range groups {
+		res[i] = g
+		if n, ok := roleMap[g]; ok {
+			res[i] = tr.Pgettext("role", n)
+		}
 	}
 
 	return res

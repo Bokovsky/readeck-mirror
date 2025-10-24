@@ -6,7 +6,6 @@ package profile
 
 import (
 	"context"
-	"errors"
 	"net/http"
 	"time"
 
@@ -14,16 +13,32 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
+	"codeberg.org/readeck/readeck/internal/auth/oauth2"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db/scanner"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 type (
 	ctxTokenListKey struct{}
 	ctxtTokenKey    struct{}
+)
+
+var (
+	withTokenList, getTokenList = ctxr.WithGetter[*tokenItemList](ctxTokenListKey{})
+	withToken, getToken         = ctxr.WithGetter[*tokenItem](ctxtTokenKey{})
+)
+
+type tokenType int8
+
+const (
+	anyToken tokenType = iota
+	userToken
+	clientToken
 )
 
 // profileAPI is the base settings API router.
@@ -37,10 +52,11 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	r := server.AuthenticatedRouter()
 	api := &profileAPI{r, s}
 
-	r.With(server.WithPermission("api:profile", "read")).Group(func(r chi.Router) {
-		r.Get("/", api.profileInfo)
-		r.With(api.withTokenList).Get("/tokens", api.tokenList)
-	})
+	r.With(server.WithPermission("api:profile", "info")).
+		Get("/", api.profileInfo)
+
+	r.With(server.WithPermission("api:profile:tokens", "read"), api.withTokenList(anyToken)).
+		Get("/tokens", api.tokenList)
 
 	r.With(server.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
@@ -48,7 +64,7 @@ func newProfileAPI(s *server.Server) *profileAPI {
 	})
 
 	r.With(server.WithPermission("api:profile:tokens", "delete")).Group(func(r chi.Router) {
-		r.With(api.withToken).Delete("/tokens/{uid}", api.tokenDelete)
+		r.With(api.withToken(anyToken)).Delete("/tokens/{uid}", api.tokenDelete)
 	})
 
 	return api
@@ -63,11 +79,11 @@ type profileInfoProvider struct {
 	Permissions []string `json:"permissions"`
 }
 type profileInfoUser struct {
-	Username string              `json:"username"`
-	Email    string              `json:"email"`
-	Created  time.Time           `json:"created"`
-	Updated  time.Time           `json:"updated"`
-	Settings *users.UserSettings `json:"settings"`
+	Username string              `json:"username,omitempty"`
+	Email    string              `json:"email,omitempty"`
+	Created  *time.Time          `json:"created,omitempty"`
+	Updated  *time.Time          `json:"updated,omitempty"`
+	Settings *users.UserSettings `json:"settings,omitempty"`
 }
 type profileInfo struct {
 	Provider profileInfoProvider `json:"provider"`
@@ -88,11 +104,14 @@ func (api *profileAPI) profileInfo(w http.ResponseWriter, r *http.Request) {
 		},
 		User: profileInfoUser{
 			Username: info.User.Username,
-			Email:    info.User.Email,
-			Created:  info.User.Created,
-			Updated:  info.User.Updated,
-			Settings: info.User.Settings,
 		},
+	}
+
+	if auth.HasPermission(r, "api:profile", "read") {
+		res.User.Email = info.User.Email
+		res.User.Created = &info.User.Created
+		res.User.Updated = &info.User.Updated
+		res.User.Settings = info.User.Settings
 	}
 
 	if res.Provider.Roles == nil {
@@ -142,79 +161,94 @@ func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-func (api *profileAPI) withTokenList(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		res := tokenList{}
-
-		pf := server.GetPageParams(r, 30)
-		if pf == nil {
-			server.Status(w, r, http.StatusNotFound)
-			return
-		}
-
-		ds := tokens.Tokens.Query().
-			Where(
-				goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
-			).
-			Order(goqu.C("last_used").Desc(), goqu.C("created").Desc()).
-			Limit(uint(pf.Limit())).
-			Offset(uint(pf.Offset()))
-
-		count, err := ds.ClearOrder().ClearLimit().ClearOffset().Count()
-		if err != nil {
-			if errors.Is(err, tokens.ErrNotFound) {
-				server.TextMsg(w, r, http.StatusNotFound, "not found")
-			} else {
-				server.Err(w, r, err)
+func (api *profileAPI) withTokenList(t tokenType) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			pf := server.GetPageParams(r, 30)
+			if pf == nil {
+				server.Status(w, r, http.StatusNotFound)
+				return
 			}
-			return
-		}
 
-		items := []*tokens.Token{}
-		if err := ds.ScanStructs(&items); err != nil {
-			server.Err(w, r, err)
-			return
-		}
+			ds := tokens.Tokens.Query().
+				LeftOuterJoin(goqu.T(oauth2.TableName).As("c"), goqu.On(goqu.I("c.id").Eq(goqu.I("t.client_id")))).
+				Where(
+					goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
+				).
+				Order(
+					goqu.C("last_used").Table("t").Desc().NullsLast(),
+					goqu.C("created").Table("t").Desc(),
+				).
+				Limit(uint(pf.Limit())).
+				Offset(uint(pf.Offset()))
 
-		res.Pagination = server.NewPagination(r.Context(), int(count), pf.Limit(), pf.Offset())
+			switch t {
+			case userToken:
+				ds = ds.Where(goqu.C("client_id").Is(nil))
+			case clientToken:
+				ds = ds.Where(goqu.C("client_id").IsNot(nil))
+			}
 
-		res.Items = make([]tokenItem, len(items))
-		for i, item := range items {
-			res.Items[i] = newTokenItem(r, item, ".")
-		}
+			var res *tokenItemList
+			var err error
+			if res, err = newTokenItemList(r.Context(), ds); err != nil {
+				server.Err(w, r, err)
+				return
+			}
 
-		ctx := context.WithValue(r.Context(), ctxTokenListKey{}, res)
-		next.ServeHTTP(w, r.WithContext(ctx))
-	})
+			ctx := withTokenList(r.Context(), res)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		})
+	}
 }
 
-func (api *profileAPI) withToken(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		uid := chi.URLParam(r, "uid")
-		t, err := tokens.Tokens.GetOne(
-			goqu.C("uid").Eq(uid),
-			goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
-		)
-		if err != nil {
-			server.Status(w, r, http.StatusNotFound)
-			return
-		}
+func (api *profileAPI) withToken(t tokenType) func(next http.Handler) http.Handler {
+	return func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			uid := chi.URLParam(r, "uid")
 
-		item := newTokenItem(r, t, ".")
-		ctx := context.WithValue(r.Context(), ctxtTokenKey{}, item)
-		next.ServeHTTP(w, r.WithContext(ctx))
-	})
+			ds := tokens.Tokens.Query().
+				LeftOuterJoin(goqu.T(oauth2.TableName).As("c"), goqu.On(goqu.I("c.id").Eq(goqu.I("t.client_id")))).
+				Where(
+					goqu.C("uid").Table("t").Eq(uid),
+					goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
+				)
+
+			switch t {
+			case userToken:
+				ds = ds.Where(goqu.C("client_id").Is(nil))
+			case clientToken:
+				ds = ds.Where(goqu.C("client_id").IsNot(nil))
+			}
+
+			t := new(tokenAndClient)
+			found, err := ds.ScanStruct(t)
+
+			if !found {
+				server.Status(w, r, http.StatusNotFound)
+				return
+			}
+			if err != nil {
+				server.Err(w, r, err)
+				return
+			}
+
+			item := newTokenItem(r.Context(), t)
+			ctx := withToken(r.Context(), item)
+			next.ServeHTTP(w, r.WithContext(ctx))
+		})
+	}
 }
 
 func (api *profileAPI) tokenList(w http.ResponseWriter, r *http.Request) {
-	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
+	tl := getTokenList(r.Context())
 
 	server.SendPaginationHeaders(w, r, tl.Pagination)
 	server.Render(w, r, http.StatusOK, tl.Items)
 }
 
 func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
-	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
+	ti := getToken(r.Context())
 	if err := ti.Delete(); err != nil {
 		server.Err(w, r, err)
 		return
@@ -223,34 +257,91 @@ func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-type tokenList struct {
+type tokenAndClient struct {
+	*tokens.Token `db:"t"`
+	Client        struct {
+		UID     *string `db:"uid"`
+		Name    *string `db:"name"`
+		URI     *string `db:"website"`
+		Logo    *string `db:"logo"`
+		Version *string `db:"software_version"`
+	} `db:"c"`
+}
+
+type tokenItemList struct {
+	Count      int64
 	Pagination server.Pagination
-	Items      []tokenItem
+	Items      []*tokenItem
 }
 
 type tokenItem struct {
 	*tokens.Token `json:"-"`
 
-	ID        string     `json:"id"`
-	Href      string     `json:"href"`
-	Created   time.Time  `json:"created"`
-	LastUsed  *time.Time `json:"last_used"`
-	Expires   *time.Time `json:"expires"`
-	IsEnabled bool       `json:"is_enabled"`
-	IsDeleted bool       `json:"is_deleted"`
-	Roles     []string   `json:"roles"`
+	ID            string     `json:"id"`
+	Href          string     `json:"href"`
+	Created       time.Time  `json:"created"`
+	LastUsed      *time.Time `json:"last_used"`
+	Expires       *time.Time `json:"expires"`
+	IsEnabled     bool       `json:"is_enabled"`
+	IsDeleted     bool       `json:"is_deleted"`
+	Roles         []string   `json:"roles"`
+	RoleNames     []string   `json:"-"`
+	ClientName    string     `json:"client_name"`
+	ClientURI     string     `json:"client_uri"`
+	ClientLogo    string     `json:"client_logo"`
+	ClientVersion string     `json:"client_version"`
 }
 
-func newTokenItem(r *http.Request, t *tokens.Token, base string) tokenItem {
-	return tokenItem{
-		Token:     t,
+func newTokenItem(ctx context.Context, t *tokenAndClient) *tokenItem {
+	tr := server.LocaleContext(ctx)
+	res := &tokenItem{
+		Token:     t.Token,
 		ID:        t.UID,
-		Href:      urls.AbsoluteURL(r, base, t.UID).String(),
+		Href:      urls.AbsoluteURLContext(ctx, ".", t.UID).String(),
 		Created:   t.Created,
 		LastUsed:  t.LastUsed,
 		Expires:   t.Expires,
 		IsEnabled: t.IsEnabled,
 		IsDeleted: deleteTokenTask.IsRunning(t.ID),
 		Roles:     t.Roles,
+		RoleNames: users.GroupNames(tr, t.Roles),
 	}
+
+	if t.Client.UID != nil {
+		res.ClientName = *t.Client.Name
+		res.ClientURI = *t.Client.URI
+		res.ClientLogo = *t.Client.Logo
+		res.ClientVersion = *t.Client.Version
+	}
+
+	return res
+}
+
+func newTokenItemList(ctx context.Context, ds *goqu.SelectDataset) (*tokenItemList, error) {
+	res := &tokenItemList{
+		Items: []*tokenItem{},
+	}
+
+	var err error
+	if res.Count, err = ds.ClearOrder().ClearLimit().ClearOffset().Count(); err != nil {
+		return nil, err
+	}
+
+	if limit, ok := ds.GetClauses().Limit().(uint); ok {
+		res.Pagination = server.NewPagination(ctx,
+			int(res.Count), int(limit), int(ds.GetClauses().Offset()),
+		)
+	}
+
+	if res.Count == 0 {
+		return res, nil
+	}
+
+	for item, err := range scanner.IterTransform(ctx, ds, newTokenItem) {
+		if err != nil {
+			return nil, err
+		}
+		res.Items = append(res.Items, item)
+	}
+	return res, nil
 }

@@ -12,6 +12,7 @@ import (
 	"os"
 	"path"
 	"runtime"
+	"slices"
 	"strings"
 	"time"
 
@@ -127,7 +128,8 @@ func infoRoutes() http.Handler {
 	}
 
 	type serviceInfo struct {
-		Version versionInfo `json:"version"`
+		Version  versionInfo `json:"version"`
+		Features []string    `json:"features"`
 	}
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
@@ -140,7 +142,15 @@ func infoRoutes() http.Handler {
 				Release:   release,
 				Build:     build,
 			},
+			Features: []string{
+				"oauth",
+			},
 		}
+
+		if auth.HasPermission(r, "email", "send") {
+			res.Features = append(res.Features, "email")
+		}
+		slices.Sort(res.Features)
 
 		Render(w, r, 200, res)
 	})
