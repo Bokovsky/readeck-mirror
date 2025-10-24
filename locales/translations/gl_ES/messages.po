@@ -2,19 +2,23 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# ghose <ghose@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:45+0200\n"
-"PO-Revision-Date: 2025-07-29 08:09+0000\n"
-"Last-Translator: ghose <ghose@noreply.codeberg.org>\n"
-"Language: gl_ES\n"
+"PO-Revision-Date: 2025-10-24 14:20+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: gl_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2127,52 +2131,46 @@ msgid "Invalid user and/or password"
 msgstr "Credenciais non válidas"
 
 #: internal/auth/users/forms.go:54
-#, fuzzy
 msgctxt "role"
 msgid "no group"
-msgstr "Grupo"
+msgstr "sen grupo"
 
 #: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "o contrasinal está baleiro"
 
 #: internal/auth/users/groups.go:19
-#, fuzzy
 msgctxt "role"
 msgid "user"
-msgstr "Usuarias"
+msgstr "usuaria"
 
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "xestión"
 
 #: internal/auth/users/groups.go:21
-#, fuzzy, python-format
+#, python-format
 msgctxt "role"
 msgid "admin"
-msgstr "%d min"
+msgstr "admin"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Marcadores: Só lectura"
 
 #: internal/auth/users/groups.go:24
-#, fuzzy
 msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Marcadores: Só escritura"
 
 #: internal/auth/users/groups.go:25
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Admin: Só lectura"
 
 #: internal/auth/users/groups.go:26
-#, fuzzy
 msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Admin: Só escritura"
@@ -2721,4 +2719,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Fechar imaxe"
-
