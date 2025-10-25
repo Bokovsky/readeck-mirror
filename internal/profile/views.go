@@ -299,7 +299,7 @@ func (v *profileViews) exportData(w http.ResponseWriter, r *http.Request) {
 	ctx := server.TC{}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
-		{tr.Gettext("Import")},
+		{tr.Gettext("Export")},
 	})
 	server.RenderTemplate(w, r, 200, "profile/export", ctx)
 }
