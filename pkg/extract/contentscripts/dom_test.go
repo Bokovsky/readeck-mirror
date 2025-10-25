@@ -150,6 +150,9 @@ func TestGetters(t *testing.T) {
 		doc.body.querySelector("p") == doc.body.firstChild
 		`,
 		`
+		doc.body.querySelector("#unknown-element") === null
+		`,
+		`
 		res = false
 		try {
 		  doc.body.querySelector(123)

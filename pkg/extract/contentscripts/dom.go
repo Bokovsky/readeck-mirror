@@ -534,7 +534,10 @@ func (m *domModule) createNodePrototype() *goja.Object { //nolint:gocognit,gocyc
 			panic(m.r.ToValue("selector must be a string"))
 		}
 
-		return m.newNodeValue(dom.QuerySelector(np.node, arg))
+		if n := dom.QuerySelector(np.node, arg); n != nil {
+			return m.newNodeValue(n)
+		}
+		return goja.Null()
 	}))
 
 	// https://developer.mozilla.org/en-US/docs/Web/API/Element/querySelectorAll
