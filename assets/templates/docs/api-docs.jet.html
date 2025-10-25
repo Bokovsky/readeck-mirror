@@ -21,19 +21,21 @@ SPDX-License-Identifier: AGPL-3.0-only
   <div class="grow md:overflow-y-auto" id="content" lang="en-US">
     <rapi-doc
      spec-url="{{ .Schema }}"
-     persist-auth="true"
-     load-fonts="false"
-     theme="light"
-     nav-bg-color="#ffffff"
-     show-method-in-nav-bar="as-colored-text"
-     show-header="false"
+
      allow-server-selection="false"
-     show-curl-before-try="true"
-     schema-style="tree"
-     schema-description-expanded="true"
-     sort-endpoints-by="none"
+     allow-spec-file-download="true"
      default-schema-tab="schema"
+     load-fonts="false"
+     nav-bg-color="#ffffff"
+     persist-auth="true"
      render-style="focus"
+     schema-description-expanded="true"
+     schema-style="tree"
+     show-curl-before-try="true"
+     show-header="false"
+     show-method-in-nav-bar="as-colored-text"
+     sort-endpoints-by="none"
+     theme="light"
     >
       {{ yield breadcrumbs() }}
     </rapi-doc>
