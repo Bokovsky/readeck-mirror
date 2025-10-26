@@ -134,7 +134,7 @@ vulncheck:
 # Single lines of code
 .PHONY: sloc
 sloc:
-	$(GO) run $(SLOC_PKG) -i go,js,sass,html,md
+	$(GO) run $(SLOC_PKG) -i go,js,scss,html,md
 
 
 # Update site-config folder with definitions from
