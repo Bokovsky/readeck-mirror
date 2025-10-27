@@ -5,7 +5,6 @@
 UV=$(shell command -pv uv)
 
 GO ?= go
-FILE_COMPOSE_PKG ?= codeberg.org/readeck/file-compose@latest
 
 all: compile
 
@@ -43,8 +42,8 @@ else
 endif
 
 build: generate
-	$(GO) run $(FILE_COMPOSE_PKG) -format json api/api.yaml assets/api.json
 	$(GO) run ../tools/docs src assets
+	$(GO) run ../tools/yaml-compose api/api.yaml assets/api.json
 
 clean:
 	rm -rf assets/*
