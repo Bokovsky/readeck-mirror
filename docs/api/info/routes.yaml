@@ -9,6 +9,9 @@ routes:
     get:
       tags: [info]
       security: []
+      x-badges:
+        - color: green
+          label: public
 
       summary: Information
       description: |

@@ -142,12 +142,11 @@ routes:
     get:
       tags: [dev tools]
       $merge:
+        - "traits.yaml#.admin-only"
         - "traits.yaml#.authenticated"
 
       summary: Extract Link
       description: |
-        **NOTE: Only available to users in the admin group.**
-
         This route extracts a link and returns the extraction result.
 
         You can pass an `Accept` header to the request, with one of the following values:
@@ -163,12 +162,11 @@ routes:
     post:
       tags: [dev tools]
       $merge:
+        - "traits.yaml#.admin-only"
         - "traits.yaml#.authenticated"
 
       summary: Extract Link with content
       description: |
-        **NOTE: Only available to users in the admin group.**
-
         This route extracts a link and returns the extraction result.
 
         You can pass an `Accept` header to the request, with one of the following values:
@@ -205,12 +203,11 @@ routes:
     get:
       tags: [dev tools]
       $merge:
+        - "traits.yaml#.admin-only"
         - "traits.yaml#.authenticated"
 
       summary: List test URLs
       description: |
-        **NOTE: Only available for users in the admin group.**
-
         Lists test URLs gathered from `pkg/extract/contentscripts/assets/site-config`
 
       responses:

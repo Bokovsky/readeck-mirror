@@ -1,0 +1,63 @@
+---
+# SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+routes:
+  /bookmarks/sync:
+    get:
+      tags: [bookmark sync]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Bookmark Sync List
+      description: |
+        This route returns a non-paginated list of all bookmarks ordered by last update dates.
+
+        You can retrieve only bookmarks updated and deleted since a given date by using the
+        `since` parameter. Please note that without the parameter, it only returns updated
+        bookmarks.
+
+      parameters:
+        - name: since
+          in: query
+          description: A datetime to retrieve updated and deleted IDs including and after this value.
+          schema:
+            type: string
+            format: date-time
+
+      responses:
+        '200':
+          description: Item list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bookmarkSyncList"
+
+    post:
+      tags: [bookmark sync]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Bookmark Sync
+      description:
+        $include: "bookmarks/doc-sync.md"
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkSyncParams"
+
+      responses:
+        '200':
+          description: Item list
+          content:
+            multipart/mixed:
+              schema:
+                type: string
+                format: binary

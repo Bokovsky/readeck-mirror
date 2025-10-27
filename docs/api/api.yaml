@@ -7,66 +7,10 @@ openapi: 3.0.0
 info:
   version: 1.0.0
   title: Readeck API
-  description: |
-    # Introduction
-
-    The Readeck API provides REST endpoints that can be used for any purpose, should it be a
-    mobile application, a script, you name it.
-
-    ## API Endpoint
-
-    You can access this API on `__BASE_URI__`.
-
-    Most of your requests and responses are using JSON as the exchange format.
-
-    ## Test the API
-
-    On this documentation, you can test every route.
-
-    If you don't provide an API token in [Authentication](#auth), you can still test all the routes
-    but note that the given curl examples only work with an API token.
-
-    ## Authentication
-
-    ### Create your own token
-
-    If you're writing a script for yourself, the easiest way is to
-    [generate an API token](../profile/tokens) that you can use using
-    the `Bearer` HTTP authorization scheme.
-
-    For example, you first request will look like:
-
-    ```sh
-    curl -H "Authorization: Bearer <TOKEN>" __BASE_URI__/bookmarks
-    ```
-
-    Or, in NodeJS:
-
-    ```js
-    fetch("__BASE_URI__/bookmarks", {
-      headers: {
-        "Authorization": "Bearer <TOKEN>",
-      },
-    })
-    ```
-
-    ### OAuth
-
-    If you're writing an application, Readeck provides the OAuth 2 authorization code flow.
-
-    #### Client Registration
-
-    Before you can send your app's user to the authorization URL, you first need to register a
-    client on the Readeck instance.
-
-    Please refere to the [Client Creation Route](#post-/oauth/client) for more information.
-
-
-    #### Authorization flow
-
-    Once you received a `client_id`, you can build an authorization URL as explained in the
-    [OAuth Token route](#post-/oauth/token). The rest of the process is following the OAuth 2
-    specifications.
+  description:
+    $include:
+      - base.md
+      - oauth.md
 
 
 servers:
@@ -93,20 +37,28 @@ tags:
   - name: user profile
   - name: bookmarks
   - name: bookmark export
-  - name: bookmark sync
   - name: bookmark sharing
   - name: bookmark labels
   - name: bookmark highlights
   - name: bookmark collections
+  - name: bookmark sync
+    x-tag-expanded: false
   - name: bookmark import
+    x-tag-expanded: false
   - name: dev tools
-  - name: oauth client
+    x-tag-expanded: false
   - name: oauth authorization
+    x-tag-expanded: false
+  - name: oauth client
+    x-tag-expanded: false
 
 paths:
   $merge:
     - "info/routes.yaml#.routes"
     - "oauth/routes.yaml#.routes"
     - "profile/routes.yaml#.routes"
-    - "bookmarks/routes.yaml#.routes"
+    - "bookmarks/routes-bookmarks.yaml#.routes"
+    - "bookmarks/routes-collections.yaml#.routes"
+    - "bookmarks/routes-import.yaml#.routes"
+    - "bookmarks/routes-sync.yaml#.routes"
     - "cookbook/routes.yaml#.routes"

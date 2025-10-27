@@ -3,6 +3,11 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
+admin-only:
+  x-badges:
+    - color: red
+      label: admin only
+
 authenticated:
   responses:
     "401":
@@ -21,6 +26,10 @@ authenticated:
             $ref: "#/components/schemas/message"
 
 paginated:
+  x-badges:
+    - color: purple
+      label: paginated
+
   parameters:
     - name: limit
       in: query
