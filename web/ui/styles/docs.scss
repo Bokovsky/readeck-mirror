@@ -165,7 +165,11 @@
 
     &::part(section-main-content) {
       padding: 2rem 1.5rem;
-      /* margin-left: 0 1.5rem */
+      scrollbar-width: auto;
+    }
+
+    &::part(section-inner-content) {
+      max-width: 70rem;
     }
 
     &::part(label-operation-method) {
