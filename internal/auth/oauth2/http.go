@@ -22,6 +22,7 @@ func SetupRoutes(s *server.Server) {
 
 	s.AddRoute("/api/oauth", newOAuthAPI())
 	s.AddRoute("/authorize", newAuthorizeViewRouter())
+	s.AddRoute("/device", newDeviceViewRouter())
 }
 
 // serverMetadata implements OAuth 2.0 Authorization Server Metadata
@@ -30,6 +31,7 @@ type serverMetadata struct {
 	Issuer                            string   `json:"issuer,omitempty"`
 	AuthorizationEndpoint             string   `json:"authorization_endpoint,omitempty"`
 	TokenEndpoint                     string   `json:"token_endpoint,omitempty"`
+	DeviceAuthorizationEndpoint       string   `json:"device_authorization_endpoint"`
 	RegistrationEndpoint              string   `json:"registration_endpoint,omitempty"`
 	RevocationEndpoint                string   `json:"revocation_endpoint,omitempty"`
 	GrantTypesSupported               []string `json:"grant_types_supported,omitempty"`
@@ -45,9 +47,10 @@ func metadataHandler(w http.ResponseWriter, r *http.Request) {
 		Issuer:                            urls.AbsoluteURL(r, "/").String(),
 		AuthorizationEndpoint:             urls.AbsoluteURL(r, "/authorize").String(),
 		TokenEndpoint:                     urls.AbsoluteURL(r, "/api/oauth/token").String(),
+		DeviceAuthorizationEndpoint:       urls.AbsoluteURL(r, "/api/oauth/device").String(),
 		RegistrationEndpoint:              urls.AbsoluteURL(r, "/api/oauth/client").String(),
 		RevocationEndpoint:                urls.AbsoluteURL(r, "/api/oauth/revoke").String(),
-		GrantTypesSupported:               []string{"authorization_code"},
+		GrantTypesSupported:               []string{grantTypeAuthCode, grantTypeDeviceCode},
 		ResponseTypesSupported:            []string{"code"},
 		ScopesSupported:                   []string{},
 		CodeChallengeMethodsSupported:     []string{"S256"},

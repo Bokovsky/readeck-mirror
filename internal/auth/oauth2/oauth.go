@@ -36,6 +36,7 @@ type oauthAPI struct {
 func newOAuthAPI() *oauthAPI {
 	router := &oauthAPI{chi.NewRouter()}
 	router.Mount("/client", newClientAPI())
+	router.Post("/device", router.deviceHandler)
 	router.Post("/token", router.tokenHandler)
 	router.With(withAuthenticatedClient).Post("/revoke", router.revokeToken)
 
@@ -57,7 +58,12 @@ func (api *oauthAPI) tokenHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := withTokenForm(r.Context(), f)
 	r = r.WithContext(ctx)
 
-	api.authorizationCodeHandler(w, r)
+	switch f.Get("grant_type").String() {
+	case grantTypeAuthCode:
+		api.authorizationCodeHandler(w, r)
+	case grantTypeDeviceCode:
+		api.deviceCodeHandler(w, r)
+	}
 }
 
 func (api *oauthAPI) revokeToken(w http.ResponseWriter, r *http.Request) {

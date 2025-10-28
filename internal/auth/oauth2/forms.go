@@ -32,6 +32,11 @@ type (
 	ctxClientFormKey struct{}
 )
 
+const (
+	grantTypeAuthCode   = "authorization_code"
+	grantTypeDeviceCode = "urn:ietf:params:oauth:grant-type:device_code"
+)
+
 type clientForm struct {
 	*forms.Form
 }
@@ -63,8 +68,13 @@ func newClientForm(tr forms.Translator) *clientForm {
 
 			// Ignored fields but we want to coerce their values
 			forms.NewTextField("token_endpoint_auth_method", forms.ChoicesPairs([][2]string{{"none", "none"}})),
-			forms.NewTextListField("grant_types", forms.ChoicesPairs([][2]string{{"authorization_code", "authorization_code"}})),
-			forms.NewTextListField("response_types", forms.ChoicesPairs([][2]string{{"code", "code"}})),
+			forms.NewTextListField("grant_types", forms.ChoicesPairs([][2]string{
+				{grantTypeAuthCode, grantTypeAuthCode},
+				{grantTypeDeviceCode, grantTypeDeviceCode},
+			})),
+			forms.NewTextListField("response_types", forms.ChoicesPairs([][2]string{
+				{"code", "code"},
+			})),
 		),
 	}
 }
@@ -194,22 +204,72 @@ func (f *authorizationForm) getError() oauthError {
 	}
 }
 
+type deviceForm struct {
+	*forms.Form
+}
+
+func newDeviceForm(tr forms.Translator) *deviceForm {
+	return &deviceForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("client_id", forms.Trim, forms.Required),
+		newScopeField("scope",
+			forms.Trim,
+			forms.Required,
+			forms.ChoicesPairs(users.GroupList(tr, "__oauth_scope__", nil)),
+		),
+	)}
+}
+
+func (f *deviceForm) getError() oauthError {
+	switch {
+	case len(f.Get("scope").Errors()) > 0:
+		return errInvalidScope.withDescription(f.Get("scope").Errors().Error())
+	default:
+		return newFormError(f)
+	}
+}
+
 type tokenForm struct {
 	*forms.Form
 }
 
 func newTokenForm(tr forms.Translator) *tokenForm {
+	requiredByGrantType := func(t string) forms.FieldValidator {
+		return forms.FieldValidatorFunc(func(f forms.Field) error {
+			if forms.GetForm(f).Get("grant_type").String() == t {
+				return forms.Required(f)
+			}
+			return nil
+		})
+	}
+
 	return &tokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("grant_type",
 			forms.Trim,
 			forms.Required,
 			forms.ChoicesPairs([][2]string{
-				{"authorization_code", "authorization_code"},
+				{grantTypeAuthCode, grantTypeAuthCode},
+				{grantTypeDeviceCode, grantTypeDeviceCode},
 			}),
 		),
-		forms.NewTextField("code", forms.Trim, forms.Required),
-		forms.NewTextField("code_verifier", forms.Trim, forms.Required),
+		forms.NewTextField("code",
+			forms.Trim,
+			requiredByGrantType(grantTypeAuthCode),
+		),
+		forms.NewTextField("code_verifier",
+			forms.Trim,
+			requiredByGrantType(grantTypeAuthCode),
+		),
+
+		forms.NewTextField("device_code",
+			forms.Trim,
+			requiredByGrantType(grantTypeDeviceCode),
+		),
+		forms.NewTextField("client_id",
+			forms.Trim,
+			requiredByGrantType(grantTypeDeviceCode),
+		),
 	)}
 }
 
