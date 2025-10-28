@@ -5,7 +5,19 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 # Authentication with OAuth
 
-If you're writing an application that requires a user to grant the application permission to access its Readeck instance, you should not ask a user to create an API Token but, instead, implement the necessary OAuth flow so your application can retrieve a token in a user friendly way.
+If you're writing an application that requires a user to grant the application permission to access their Readeck instance, you should not ask a user to create an API Token but, instead, implement the necessary OAuth flow so your application can retrieve a token in a user friendly way.
+
+## Available Scopes
+
+An OAuth token grants the application some permissions based on the requested scopes. This are the available scopes you can request:
+
+| Name              | Description                    |
+| :---------------- | ------------------------------ |
+| `bookmarks:read`  | Read only access to bookmarks  |
+| `bookmarks:write` | Write only access to bookmarks |
+| `profile:read`    | Extended profile information   |
+
+You can see which scope applies on each route of this documentation. A route without a scope (and not "public") is not available with an OAuth token.
 
 ## Client Registration
 
@@ -18,6 +30,7 @@ You can register a client by querying the [Client Creation Route](#post-/oauth/c
 Upon registration, you'll receive a `client_id` and a `registration_access_token`. You'll need them if you want to fetch, update or delete the client later. You must store this information as safely as a password.
 
 Client registration flow:
+
 ```
 +---------+                        +---------------+
 | Client  |                        | Registration  |
@@ -39,6 +52,7 @@ Once you have a client, you can retrieve its information, update it or delete it
 - [Client Delete](#delete-/oauth/client/-id-)
 
 Client management flow:
+
 ```
 +---------+                        +---------------+
 | Client  |                        | Registration  |
@@ -78,21 +92,16 @@ async function clientFlow() {
 
   if (!store.clientID) {
     // New client, create one
-    rsp = await fetch(
-      "__BASE_URI__/oauth/client",
-      {
-        "method": "POST",
-        "body": json.Stringify({
-          "client_name": "My new client",
-          "client_uri": "https://example.org/",
-          "redirect_uris": [
-            "https://example.org/callback"
-          ],
-          "software_id": "some-uuid",
-          "software_version": "1.0.0",
-        })
-      },
-    )
+    rsp = await fetch("__BASE_URI__/oauth/client", {
+      method: "POST",
+      body: json.Stringify({
+        client_name: "My new client",
+        client_uri: "https://example.org/",
+        redirect_uris: ["https://example.org/callback"],
+        software_id: "some-uuid",
+        software_version: "1.0.0",
+      }),
+    })
     let data = await rsp.json()
     store.clientID = data["client_id"]
     store.registrationAccessToken = data["registration_access_token"]
@@ -102,42 +111,25 @@ async function clientFlow() {
   }
 
   // We have a client id, check if we need to update it
-  rsp = await fetch(
-    `__BASE_URI__/oauth/client/${store.clientID}`,
-    {
-      "headers": {"Authorization": `Bearer ${store.registrationAccessToken}`}
-    },
-  )
+  rsp = await fetch(`__BASE_URI__/oauth/client/${store.clientID}`, {
+    headers: { Authorization: `Bearer ${store.registrationAccessToken}` },
+  })
   let data = await rsp.json()
 
   if (data["software_version"] != appVersion) {
     // We need to update the client
-    rsp = await fetch(
-      `__BASE_URI__/oauth/client/${store.clientID}`,
-      {
-        "method": "PUT",
-        "body": json.Stringify({
-          ...data,
-          "software_version": appVersion,
-        }),
-        "headers": {"Authorization": `Bearer ${store.registrationAccessToken}`}
-      },
-    )
+    rsp = await fetch(`__BASE_URI__/oauth/client/${store.clientID}`, {
+      method: "PUT",
+      body: json.Stringify({
+        ...data,
+        software_version: appVersion,
+      }),
+      headers: { Authorization: `Bearer ${store.registrationAccessToken}` },
+    })
     let data = await rsp.json()
   }
 }
 ```
-
-## Available Scopes
-
-An OAuth token grants the application some permissions based on the requested scopes. This are the available scopes you can request:
-
-| Name              | Description
-| :---------------- | ------------
-| `bookmarks:read`  | Read only access to bookmarks
-| `bookmarks:write` | Write only access to bookmarks
-| `profile:read`    | Extended profile information
-
 
 ## OAuth Authorization Code Flow
 
@@ -147,14 +139,14 @@ With the `client_id`, you can use the authorization code flow. You first need to
 
 The authorization route is: `__ROOT_URI__/authorize` and it receives the following query parameters:
 
-| Name                    | Description
-| :---------------------- | :-----------------------------
-| `client_id`             | OAuth Client ID
-| `redirect_uri`          | Redirection URI (must match exactly one given during client registration)
-| `scope`                 | Space separated list of scopes
-| `code_challenge`        | PKCE Challenge (mandatory)
-| `code_challenge_method` | Only `S256` is allowed
-| `state`                 | Optional client state
+| Name                    | Description                                                               |
+| :---------------------- | :------------------------------------------------------------------------ |
+| `client_id`             | OAuth Client ID                                                           |
+| `redirect_uri`          | Redirection URI (must match exactly one given during client registration) |
+| `scope`                 | Space separated list of scopes                                            |
+| `code_challenge`        | PKCE Challenge (mandatory)                                                |
+| `code_challenge_method` | Only `S256` is allowed                                                    |
+| `state`                 | Optional client state                                                     |
 
 Sending a state is not mandatory but strongly advised to ensure that your side of the authorization flow has not been tampered.
 
@@ -162,18 +154,18 @@ Sending a state is not mandatory but strongly advised to ensure that your side o
 
 Once a user grants or denies an authorization request, it will be redirected to the `redirect_uri` with the following query parameters:
 
-| Name    | Description
-| :------ | :--------------------------------------------------------------------
-| `code`  | The authorization code that the client must pass to the token request
-| `state` | The state as initially set by the client
+| Name    | Description                                                           |
+| :------ | :-------------------------------------------------------------------- |
+| `code`  | The authorization code that the client must pass to the token request |
+| `state` | The state as initially set by the client                              |
 
 In case of error (request denied by the user or something else), the redirection contains
 the following query parameters:
 
-| Name                | Description
-| :------------------ | :--------------------------------------------------------------------
-| `error`             | Error code (can be `invalid_request` or `access_denied`)
-| `error_description` | Error description
+| Name                | Description                                              |
+| :------------------ | :------------------------------------------------------- |
+| `error`             | Error code (can be `invalid_request` or `access_denied`) |
+| `error_description` | Error description                                        |
 
 Once you receive a code, you can proceed to the [Token Request](#post-/oauth/token) to eventually receive an access token that will let you use the API.
 
@@ -187,7 +179,8 @@ Here's a Javascript example of a verifier and challenge generation:
 
 ```js
 function generateRandomString() {
-  const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  const alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
   let res = ""
   const buf = new Uint8Array(64)
   crypto.getRandomValues(buf)
@@ -206,7 +199,7 @@ async function pkceChallengeFromVerifier(v) {
 }
 
 const verifier = generateRandomString()
-pkceChallengeFromVerifier(verifier).then(challenge => {
+pkceChallengeFromVerifier(verifier).then((challenge) => {
   console.log(verifier)
   console.log(challenge)
 })
@@ -215,6 +208,7 @@ pkceChallengeFromVerifier(verifier).then(challenge => {
 ### Workflow
 
 Authorization flow:
+
 ```
 +-------+                +---------+                                 +---------------+    +-----+
 | User  |                | Client  |                                 | Authorization |    | API |

@@ -8,10 +8,8 @@ routes:
   /info:
     get:
       tags: [info]
-      security: []
-      x-badges:
-        - color: green
-          label: public
+      $merge:
+        - "traits.yaml#public"
 
       summary: Information
       description: |

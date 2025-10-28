@@ -30,11 +30,14 @@ routes:
   /oauth/client:
     post:
       tags: [oauth client]
-      security: []
+      $merge:
+        - "traits.yaml#public"
 
       summary: Client Create
       description: |
         This route creates a new OAuth client. You must create a new client before you can request permissions and receive a token.
+
+        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
 
         This route implements [RFC 7591: OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591).
 
@@ -69,6 +72,8 @@ routes:
         This route returns a registered client information. You must pass the received `registration_access_token`
         after creating the client in a `Authorization: Bearer registration_access_token` header.
 
+        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
+
         This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
 
       responses:
@@ -87,6 +92,8 @@ routes:
       summary: Client Update
       description: |
         This route updates an existing client.
+
+        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
 
         This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
 
@@ -119,6 +126,8 @@ routes:
       description: |
         This route deletes an existing client.
 
+        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
+
         This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
 
       responses:
@@ -128,7 +137,8 @@ routes:
   /oauth/token:
     post:
       tags: [oauth authorization]
-      security: []
+      $merge:
+        - "traits.yaml#public"
 
       summary: Access Token
       description: |

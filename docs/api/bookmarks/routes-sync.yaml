@@ -8,6 +8,7 @@ routes:
     get:
       tags: [bookmark sync]
       $merge:
+        - "traits.yaml#scope-bookmarks-read"
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
 
@@ -40,6 +41,7 @@ routes:
     post:
       tags: [bookmark sync]
       $merge:
+        - "traits.yaml#scope-bookmarks-read"
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
 

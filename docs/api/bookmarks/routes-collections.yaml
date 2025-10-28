@@ -18,6 +18,7 @@ routes:
     get:
       tags: [bookmark collections]
       $merge:
+        - "traits.yaml#scope-bookmarks-read"
         - "traits.yaml#.authenticated"
         - "traits.yaml#.paginated"
 
@@ -38,6 +39,7 @@ routes:
     post:
       tags: [bookmark collections]
       $merge:
+        - "traits.yaml#scope-bookmarks-write"
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
         - "traits.yaml#.created"
@@ -59,6 +61,7 @@ routes:
     get:
       tags: [bookmark collections]
       $merge:
+        - "traits.yaml#scope-bookmarks-read"
         - "traits.yaml#.authenticated"
 
       summary: Collection Details
@@ -76,6 +79,7 @@ routes:
     patch:
       tags: [bookmark collections]
       $merge:
+        - "traits.yaml#scope-bookmarks-write"
         - "traits.yaml#.authenticated"
         - "traits.yaml#.validator"
 
@@ -100,6 +104,7 @@ routes:
     delete:
       tags: [bookmark collections]
       $merge:
+        - "traits.yaml#scope-bookmarks-write"
         - "traits.yaml#.authenticated"
 
       summary: Collection Delete

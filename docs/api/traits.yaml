@@ -3,10 +3,31 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
+public:
+  security: []
+  x-badges:
+    - color: green
+      label: public
+
 admin-only:
   x-badges:
     - color: red
       label: admin only
+
+scope-bookmarks-read:
+  x-badges:
+    - color: blue
+      label: "oauth | bookmarks:read"
+
+scope-bookmarks-write:
+  x-badges:
+    - color: blue
+      label: "oauth | bookmarks:write"
+
+scope-profile-read:
+  x-badges:
+    - color: blue
+      label: "oauth | profile:read"
 
 authenticated:
   responses:
