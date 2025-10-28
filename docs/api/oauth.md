@@ -23,13 +23,8 @@ You can see which scope applies on each route of this documentation. A route wit
 
 Before you can start the authorization flow, you first need to register a client on the Readeck instance.
 
-Readeck implement [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591) and [OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
-
-You can register a client by querying the [Client Creation Route](#post-/oauth/client).
-
-Upon registration, you'll receive a `client_id` and a `registration_access_token`. You'll need them if you want to fetch, update or delete the client later. You must store this information as safely as a password.
-
-Client registration flow:
+<details>
+<summary>Client Registration Flow</summary>
 
 ```
 +---------+                        +---------------+
@@ -45,13 +40,10 @@ Client registration flow:
     |                                     |
 ```
 
-Once you have a client, you can retrieve its information, update it or delete it. See:
+</details>
 
-- [Client Info](#get-/oauth/client/-id-)
-- [Client Update](#put-/oauth/client/-id-)
-- [Client Delete](#delete-/oauth/client/-id-)
-
-Client management flow:
+<details>
+<summary>Client Management Flow</summary>
 
 ```
 +---------+                        +---------------+
@@ -81,7 +73,22 @@ Client management flow:
     |                                     |
 ```
 
-Here's, in Javascript, an example of a client flow for an app:
+</details>
+
+Readeck implement [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591) and [OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
+
+You can register a client by querying the [Client Creation Route](#post-/oauth/client).
+
+Upon registration, you'll receive a `client_id` and a `registration_access_token`. You'll need them if you want to fetch, update or delete the client later. You must store this information as safely as a password.
+
+Once you have a client, you can retrieve its information, update it or delete it. See:
+
+- [Client Info](#get-/oauth/client/-id-)
+- [Client Update](#put-/oauth/client/-id-)
+- [Client Delete](#delete-/oauth/client/-id-)
+
+<details>
+<summary>Javascript example of a client flow for an app</summary>
 
 ```js
 async function clientFlow() {
@@ -131,83 +138,12 @@ async function clientFlow() {
 }
 ```
 
+</details>
+
 ## OAuth Authorization Code Flow
 
-With the `client_id`, you can use the authorization code flow. You first need to build an authorization URL.
-
-### Authorization
-
-The authorization route is: `__ROOT_URI__/authorize` and it receives the following query parameters:
-
-| Name                    | Description                                                               |
-| :---------------------- | :------------------------------------------------------------------------ |
-| `client_id`             | OAuth Client ID                                                           |
-| `redirect_uri`          | Redirection URI (must match exactly one given during client registration) |
-| `scope`                 | Space separated list of scopes                                            |
-| `code_challenge`        | PKCE Challenge (mandatory)                                                |
-| `code_challenge_method` | Only `S256` is allowed                                                    |
-| `state`                 | Optional client state                                                     |
-
-Sending a state is not mandatory but strongly advised to ensure that your side of the authorization flow has not been tampered.
-
-### Authorization result
-
-Once a user grants or denies an authorization request, it will be redirected to the `redirect_uri` with the following query parameters:
-
-| Name    | Description                                                           |
-| :------ | :-------------------------------------------------------------------- |
-| `code`  | The authorization code that the client must pass to the token request |
-| `state` | The state as initially set by the client                              |
-
-In case of error (request denied by the user or something else), the redirection contains
-the following query parameters:
-
-| Name                | Description                                              |
-| :------------------ | :------------------------------------------------------- |
-| `error`             | Error code (can be `invalid_request` or `access_denied`) |
-| `error_description` | Error description                                        |
-
-Once you receive a code, you can proceed to the [Token Request](#post-/oauth/token) to eventually receive an access token that will let you use the API.
-
-### PKCE
-
-The authorization code flow requires that you use [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) with an S256 method only (the "plain" method is not allowed).
-
-**Important**: The challenge must be base64 encoded, **with URL encoding** and **without padding**.
-
-Here's a Javascript example of a verifier and challenge generation:
-
-```js
-function generateRandomString() {
-  const alphabet =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-  let res = ""
-  const buf = new Uint8Array(64)
-  crypto.getRandomValues(buf)
-  for (let i in buf) {
-    res += alphabet[buf[i] % alphabet.length]
-  }
-  return res
-}
-
-async function pkceChallengeFromVerifier(v) {
-  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v))
-  return btoa(String.fromCharCode(...new Uint8Array(b)))
-    .replaceAll("+", "-")
-    .replaceAll("/", "_")
-    .replaceAll("=", "")
-}
-
-const verifier = generateRandomString()
-pkceChallengeFromVerifier(verifier).then((challenge) => {
-  console.log(verifier)
-  console.log(challenge)
-})
-```
-
-### Workflow
-
-Authorization flow:
+<details>
+<summary>Authorization Code Flow</summary>
 
 ```
 +-------+                +---------+                                 +---------------+    +-----+
@@ -260,3 +196,92 @@ Authorization flow:
     |                         |<-------------------------------------------------------------|
     |                         |                                              |               |
 ```
+
+</details>
+
+With the `client_id`, you can use the authorization code flow. You first need to build an authorization URL.
+
+### Authorization
+
+The authorization route is: `__ROOT_URI__/authorize` and it receives the following query parameters:
+
+| Name                    | Description                                                                  |
+| :---------------------- | :--------------------------------------------------------------------------- |
+| `client_id`             | OAuth Client ID                                                              |
+| `redirect_uri`          | Redirection URI (must match exactly one given during client registration)    |
+| `scope`                 | Space separated list of [scopes](#overview--available-scopes). At least one. |
+| `code_challenge`        | [PKCE](#overview--pkce) Challenge (mandatory)                                |
+| `code_challenge_method` | Only `S256` is allowed                                                       |
+| `state`                 | Optional [client state](#overview--state)                                    |
+
+Sending a state is not mandatory but strongly advised to ensure that your side of the authorization flow has not been tampered with.
+
+### Authorization result
+
+Once a user grants or denies an authorization request, it will be redirected to the `redirect_uri` with the following query parameters:
+
+| Name    | Description                                                           |
+| :------ | :-------------------------------------------------------------------- |
+| `code`  | The authorization code that the client must pass to the token request |
+| `state` | The state as initially set by the client                              |
+
+In case of error (request denied by the user or something else), the redirection contains
+the following query parameters:
+
+| Name                | Description                                              |
+| :------------------ | :------------------------------------------------------- |
+| `error`             | Error code (can be `invalid_request` or `access_denied`) |
+| `error_description` | Error description                                        |
+
+Once you receive a code, you can proceed to the [Token Request](#post-/oauth/token) to eventually receive an access token that will let you use the API.
+
+### PKCE
+
+The authorization code flow requires that you use [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) with an S256 method only (the "plain" method is not allowed).
+
+The client creates a random **verifier** and produces a SHA-256 hash that is encoded in base64 to make a **challenge**.
+
+The **challenge** is added to the authorization URL as `code_challenge` query parameter.
+
+When requesting the token, the client sends the **verifier** as `code_verifier` parameter. Then the server, that kept track of the challenge can check it matches the received verifier.
+
+**Important**: The challenge must be base64 encoded, **with URL encoding** and **without padding**.
+
+<details part="details">
+<summary>Javascript example of a verifier and challenge generation</summary>
+
+```js
+// This generates a 64 character long random alphanumeric string.
+function generateRandomString() {
+  const alphabet =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+  let res = ""
+  const buf = new Uint8Array(64)
+  crypto.getRandomValues(buf)
+  for (let i in buf) {
+    res += alphabet[buf[i] % alphabet.length]
+  }
+  return res
+}
+
+// This hashes the verifier and encodes the hash to URL safe base64.
+async function pkceChallengeFromVerifier(v) {
+  const b = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v))
+  return btoa(String.fromCharCode(...new Uint8Array(b)))
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "")
+}
+
+const verifier = generateRandomString()
+pkceChallengeFromVerifier(verifier).then((challenge) => {
+  console.log(verifier)
+  console.log(challenge)
+})
+```
+
+</details>
+
+### State
+
+The `state` parameter that the client can add to the authorization URL is for the client only. When present, it is sent back in the redirection URI that contains the authorization code. The client can keep track of it and check it matches its initial value. It is strongly recommended to use it.

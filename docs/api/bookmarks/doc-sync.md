@@ -5,7 +5,10 @@ SPDX-License-Identifier: AGPL-3.0-only
 -->
 This route returns a `multipart/mixed` response with all the bookmarks passed in `id` (or all of them if unset).
 
-Here is an example:
+The response's content is a stream and should be processed while the data is received, part by part.
+
+<details>
+<summary>Multipart Response Example</summary>
 
 ```
 --910345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b
@@ -59,26 +62,36 @@ Type: resource
 
 --965dd10345ce0f660bda92b9e8a1192532f999a51151dccb7227d784049b--
 ```
+</details>
 
+### Part types
 
-For each bookmark, there will be entries with a `Type` header:
+A "part" is a chunk found between the multipart boundary.
 
-- a `Type: json` entry, controlled by `with_json`. It contains the same output as an API bookmark information.
-- a `Type: html` entry, controlled by `with_html`. It contains the HTML content (article), if any.
-- a `Type: markdown` entry, controlled by `with_markdown`. It contains the bookmark converted to Markdown.
-- several `Type: resource` entries, controlled by `with_resources`. Each entry is a resource (icon, images, article images).
+Each part has a `Type` header that takes the following values:
 
-Each entry has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.
+| value      | description                                                                             |
+| :--------- | :-------------------------------------------------------------------------------------- |
+| `json`     | controlled by `with_json`. It contains the same output as an API bookmark information.  |
+| `html`     | controlled by `with_html`. It contains the HTML content (article), if any.              |
+| `markdown` | controlled by `with_markdown`. It contains the bookmark converted to Markdown.          |
+| `resource` | controlled by `with_resources`. Each part is a resource (icon, images, article images). |
 
-Each `Type: resource` entry contains a `Path` header that's based on the `resource_prefix`
-parameter.
+**Note**: There is only one part per bookmark for `json`, `html` and `markdown` types.
 
-Each `Type: resource` entry contains a `Group` header that can take the following values:
+Each part has a `Bookmark-Id` attribute that indicates the bookmark it belongs to.
 
-- `icon`: the bookmark's icon,
-- `image`: the bookmark's image (main picture for photo types, and placeholder for videos),
-- `thumbnail`: thumbnail of the image,
-- `embedded`: included in the article itself.
+### Resources
 
-The response's content is a stream and should be processed while the data is coming, part by
-part.
+A resource is a `Type: resource` part which is usually an image.
+
+Each resource part contains a `Path` header that's based on the `resource_prefix` parameter.
+
+Each `Type: resource` part contains a `Group` header that can take the following values:
+
+| value       | description                                                                      |
+| :---------- | :------------------------------------------------------------------------------- |
+| `icon`      | the bookmark's icon,                                                             |
+| `image`     | the bookmark's image (main picture for photo types, and placeholder for videos), |
+| `thumbnail` | thumbnail of the image,                                                          |
+| `embedded`  | included in the article itself.                                                  |
