@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//aside",
+    "//article/div[@class='post-content']/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "post-title",
+    "post-byline",
+    "post-traduccion",
+    "post-footer-share"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://jacobin.com.br/2025/10/quando-uma-superpotencia-cai-a-percepcao-social-da-realidade-se-dissolve/",
+      "contains": []
+    }
+  ]
+}
