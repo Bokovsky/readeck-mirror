@@ -8,12 +8,16 @@ routes:
     get:
       tags: [user profile]
       $merge:
+        - "traits.yaml#scope-profile-read"
         - "traits.yaml#.authenticated"
 
       summary: User Profile
       description: |
         This route returns the current user's profile information. This includes the user information
         and preferences, and the authentication provider with its permissions.
+
+        **Note**: This route is available with any OAuth scope but you only receive extended
+        profile information, such as `user.email`, with the `profile:read` scope.
 
       responses:
         "200":

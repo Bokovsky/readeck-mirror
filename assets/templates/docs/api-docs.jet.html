@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   slice("menu", "Menu"),
   slice("content", "Main content"),
 )) -}}
-<div class="max-w-layout flex h-screen max-sm:flex-col">
+<div class="max-w-full flex h-screen max-sm:flex-col">
   {{ include "/menu" }}
   <div class="grow md:overflow-y-auto" id="content" lang="en-US">
     <rapi-doc
@@ -24,10 +24,14 @@ SPDX-License-Identifier: AGPL-3.0-only
 
      allow-server-selection="false"
      allow-spec-file-download="true"
+     allow-spec-file-load="false"
+     allow-spec-url-load="false"
      default-schema-tab="schema"
+     info-description-headings-in-navbar="true"
      load-fonts="false"
      nav-bg-color="#ffffff"
      persist-auth="true"
+     remove-endpoints-with-badge-label-as="{{ .HideBadges }}"
      render-style="focus"
      schema-description-expanded="true"
      schema-style="tree"

@@ -76,13 +76,13 @@ schemas:
         description: Client supported response type
 
   oauthClientUpdate:
-    $merge:
-      - "#.schemas.oauthClientCreate"
     required: [client_id, client_name, client_uri, software_id, software_version, redirect_uris]
     properties:
       client_id:
         type: string
         description: Client's ID
+      $merge:
+        - "#.schemas.oauthClientCreate.properties"
 
   oauthClientResponse:
     properties:

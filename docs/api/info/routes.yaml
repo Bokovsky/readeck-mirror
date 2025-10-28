@@ -8,7 +8,8 @@ routes:
   /info:
     get:
       tags: [info]
-      security: []
+      $merge:
+        - "traits.yaml#public"
 
       summary: Information
       description: |

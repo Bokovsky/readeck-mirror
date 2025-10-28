@@ -115,7 +115,7 @@
     --primary-color-invert: rgb(var(--color-gray-light));
     --primary-color-trans: rgb(var(--color-blue-200) / 0.4);
 
-    --code-bg: rgb(var(--color-gray-100));
+    --code-bg: rgb(var(--color-gray-100) / 0.8);
     --code-fg: rgb(var(--color-grey-900));
 
     --inline-code-fg: rgb(var(--color-red-700));
@@ -165,7 +165,11 @@
 
     &::part(section-main-content) {
       padding: 2rem 1.5rem;
-      /* margin-left: 0 1.5rem */
+      scrollbar-width: auto;
+    }
+
+    &::part(section-inner-content) {
+      max-width: 70rem;
     }
 
     &::part(label-operation-method) {
