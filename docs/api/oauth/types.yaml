@@ -9,14 +9,17 @@ schemas:
       error:
         type: string
         enum:
-          - invalid_request
-          - invalid_client
-          - invalid_grant
-          - invalid_scope
           - access_denied
-          - server_error
+          - authorization_pending
+          - expired_token
+          - invalid_client
           - invalid_client_metadata
+          - invalid_grant
           - invalid_redirect_uri
+          - invalid_request
+          - invalid_scope
+          - server_error
+          - slow_down
       error_description:
         type: string
         description: Error description, if any
@@ -66,13 +69,16 @@ schemas:
         type: array
         items:
           type: string
-          enum: [authorization_code]
+          enum:
+            - authorization_code
+            - urn:ietf:params:oauth:grant-type:device_code
         description: Client supported grant types
       response_types:
         type: array
         items:
           type: string
-          enum: [code]
+          enum:
+            - code
         description: Client supported response type
 
   oauthClientUpdate:
@@ -134,17 +140,27 @@ schemas:
 
   oauthTokenCreate:
     required: [grant_type, code, code_verifier]
-    properties:
-      grant_type:
-        type: string
-        enum: [authorization_code]
-        description: The OAuth Grant Type. Only `authorization_code` is allowed.
-      code:
-        type: string
-        description: The code as received in the authorization redirection
-      code_verifier:
-        type: string
-        description: The PKCE Verifier
+    oneOf:
+      - properties:
+          grant_type:
+            const: authorization_code
+            description: Authorization Code grant type
+          code:
+            type: string
+            description: The code as received in the authorization redirection
+          code_verifier:
+            type: string
+            description: The PKCE Verifier
+      - properties:
+          grant_type:
+            const: "urn:ietf:params:oauth:grant-type:device_code"
+            description: Device Code grant type
+          device_code:
+            type: string
+            description: The device code
+          client_id:
+            type: string
+            description: The client ID
 
   oauthTokenResponse:
     properties:
@@ -161,3 +177,35 @@ schemas:
       scope:
         type: string
         description: Space separated scope list
+
+  oauthDeviceCreate:
+    properties:
+      client_id:
+        type: string
+        description: The client ID
+      scope:
+        type: string
+        description: Space separated list of scopes granted to the device
+
+  oauthDevice:
+    properties:
+      device_code:
+        type: string
+        description: The device verification code
+      user_code:
+        type: string
+        description: The end-user verification code
+      verification_uri:
+        type: string
+        description: The end-user verification URI
+      verification_uri_complete:
+        type: string
+        description: The end-user verification URI that includes the `user_code`
+      expires_in:
+        type: number
+        description: The lifetime in seconds of the `device_code` and `user_code`
+      interval:
+        type: number
+        description: |
+          The minimum amount of time in seconds that the client must wait
+          between polling requests to the token endpoint
