@@ -94,8 +94,8 @@ func (e EPUBExporter) IterExport(ctx context.Context, w io.Writer, r *http.Reque
 			w.Header().Set("Content-Type", "application/epub+zip")
 			w.Header().Set("Content-Disposition", fmt.Sprintf(
 				`attachment; filename="%s-%s.epub"`,
-				date.Format(time.DateOnly),
 				utils.Slug(strings.TrimSuffix(utils.ShortText(title, 40), "...")),
+				date.Format(time.DateOnly),
 			))
 		}
 

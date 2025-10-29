@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/csv"
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 	"strconv"
@@ -23,7 +24,10 @@ type CSVExporter struct{}
 func (e CSVExporter) IterExport(_ context.Context, w io.Writer, _ *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
-		w.Header().Set("Content-Disposition", `attachment; filename="bookmarks.csv"`)
+		w.Header().Set("Content-Disposition", fmt.Sprintf(
+			`attachment; filename="readeck-bookmarks-%s.csv"`,
+			time.Now().Format(time.DateOnly),
+		))
 	}
 
 	cw := csv.NewWriter(w)
