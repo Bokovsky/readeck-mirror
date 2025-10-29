@@ -25,54 +25,54 @@ Before you can start the authorization flow, you first need to register a client
 
 <details>
 <summary>Client Registration Flow</summary>
-
-```
-+---------+                        +---------------+
-| Client  |                        | Registration  |
-+---------+                        +---------------+
-    |                                     |
-    | Client Registration Request         |
-    | POST /api/oauth/client              |
-    |------------------------------------>|
-    |                                     |
-    |         Client Information Response |
-    |<------------------------------------|
-    |                                     |
-```
-
+<pre role="img" aria-label="Client Registration sequence diagram">
+ ┌──────┐                 ┌────────────┐
+ │Client│                 │Registration│
+ └──┬───┘                 └─────┬──────┘
+    │                           │
+    │Client Registration Request│
+    │POST /api/oauth/client     │
+    │──────────────────────────>│
+    │                           │
+    │Client Information Response│
+    │<──────────────────────────│
+ ┌──┴───┐                 ┌─────┴──────┐
+ │Client│                 │Registration│
+ └──────┘                 └────────────┘
+</pre>
 </details>
 
 <details>
 <summary>Client Management Flow</summary>
-
-```
-+---------+                        +---------------+
-| Client  |                        | Registration  |
-+---------+                        +---------------+
-    |                                     |
-    | Client Information Request          |
-    | GET /api/oauth/client/{id}          |
-    |------------------------------------>|
-    |                                     |
-    |         Client Information Response |
-    |<------------------------------------|
-    |                                     |
-    | Read or Update Request              |
-    | GET or PUT /api/oauth/client/{id}   |
-    |------------------------------------>|
-    |                                     |
-    |         Client Information Response |
-    |<------------------------------------|
-    |                                     |
-    | Delete Request                      |
-    | DELETE /api/oauth/client/{id}       |
-    |------------------------------------>|
-    |                                     |
-    |                 Delete Confirmation |
-    |<------------------------------------|
-    |                                     |
-```
-
+<pre role="img" aria-label="Client Management sequence diagram">
+ ┌──────┐                       ┌────────────┐
+ │Client│                       │Registration│
+ └──┬───┘                       └─────┬──────┘
+    │                                 │
+    │   Client Information Request    │
+    │   GET /api/oauth/client/{id}    │
+    │────────────────────────────────>│
+    │                                 │
+    │   Client Information Response   │
+    │<────────────────────────────────│
+    │                                 │
+    │Read or Update Request           │
+    │GET or PUT /api/oauth/client/{id}│
+    │────────────────────────────────>│
+    │                                 │
+    │   Client Information Response   │
+    │<────────────────────────────────│
+    │                                 │
+    │  Delete Request                 │
+    │  DELETE /api/oauth/client/{id}  │
+    │────────────────────────────────>│
+    │                                 │
+    │       Delete Confirmation       │
+    │<────────────────────────────────│
+ ┌──┴───┐                       ┌─────┴──────┐
+ │Client│                       │Registration│
+ └──────┘                       └────────────┘
+</pre>
 </details>
 
 Readeck implement [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591) and [OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
@@ -145,57 +145,56 @@ async function clientFlow() {
 <details>
 <summary>Authorization Code Flow</summary>
 
-```
-+-------+                +---------+                                 +---------------+    +-----+
-| User  |                | Client  |                                 | Authorization |    | API |
-+-------+                +---------+                                 +---------------+    +-----+
-    |                         |                                              |               |
-    | Enter instance URL      |                                              |               |
-    |------------------------>|                                              |               |
-    |                         |                                              |               |
-    |                         | Generate PKCE verifier and challenge         |               |
-    |                         |-------------------------------------         |               |
-    |                         |                                    |         |               |
-    |                         |<------------------------------------         |               |
-    |                         |                                              |               |
-    |                         | Open authorization URL                       |               |
-    |                         | GET /authorize?...                           |               |
-    |                         |--------------------------------------------->|               |
-    |                         |                                              |               |
-    |                                 Redirect to login/authorization prompt |               |
-    |<-----------------------------------------------------------------------|               |
-    |                         |                                              |               |
-    | Authorize Client        |                                              |               |
-    | POST /authorize?...                                                    |               |
-    |----------------------------------------------------------------------->|               |
-    |                         |                                              |               |
-    |                         |                           Authorization code |               |
-    |                         |<---------------------------------------------|               |
-    |                         |                                              |               |
-    |                         | Check state                                  |               |
-    |                         |------------                                  |               |
-    |                         |           |                                  |               |
-    |                         |<-----------                                  |               |
-    |                         |                                              |               |
-    |                         | Request Token (with code and verifier)       |               |
-    |                         | POST /api/oauth/token                        |               |
-    |                         |--------------------------------------------->|               |
-    |                         |                                              |               |
-    |                         |                                              | Check PKCE    |
-    |                         |                                              |-----------    |
-    |                         |                                              |          |    |
-    |                         |                                              |<----------    |
-    |                         |                                              |               |
-    |                         |                                 Access Token |               |
-    |                         |<---------------------------------------------|               |
-    |                         |                                              |               |
-    |                         | Request data with Access Token               |               |
-    |                         |------------------------------------------------------------->|
-    |                         |                                              |               |
-    |                         |                                              |      Response |
-    |                         |<-------------------------------------------------------------|
-    |                         |                                              |               |
-```
+<pre role="img" aria-label="Authorization Code sequence diagram">
+ ┌────┐            ┌──────┐                               ┌─────────────┐      ┌───┐
+ │User│            │Client│                               │Authorization│      │API│
+ └─┬──┘            └──┬───┘                               └──────┬──────┘      └─┬─┘
+   │                  │                                          │               │
+   │Enter instance URL│                                          │               │
+   │─────────────────>│                                          │               │
+   │                  │                                          │               │
+   │                  │──┐                                       │               │
+   │                  │  │ Generate PKCE verifier and challenge  │               │
+   │                  │<─┘                                       │               │
+   │                  │                                          │               │
+   │                  │        Open Authorization URL            │               │
+   │                  │        GET /authorize?...                │               │
+   │                  │─────────────────────────────────────────>│               │
+   │                  │                                          │               │
+   │         Redirect to login/authorization prompt              │               │
+   │<────────────────────────────────────────────────────────────│               │
+   │                  │                                          │               │
+   │Authorize Client                                             │               │
+   │POST /authorize?...                                          │               │
+   │────────────────────────────────────────────────────────────>│               │
+   │                  │                                          │               │
+   │                  │          Authorization Code              │               │
+   │                  │<─────────────────────────────────────────│               │
+   │                  │                                          │               │
+   │                  │──┐                                       │               │
+   │                  │  │ Check state                           │               │
+   │                  │<─┘                                       │               │
+   │                  │                                          │               │
+   │                  │Request Token (with code and verifier)    │               │
+   │                  │POST /api/oauth/token                     │               │
+   │                  │─────────────────────────────────────────>│               │
+   │                  │                                          │               │
+   │                  │                                          │──┐            │
+   │                  │                                          │  │ Check PKCE │
+   │                  │                                          │<─┘            │
+   │                  │                                          │               │
+   │                  │             Access Token                 │               │
+   │                  │<─────────────────────────────────────────│               │
+   │                  │                                          │               │
+   │                  │         Request data with Access Token   │               │
+   │                  │─────────────────────────────────────────────────────────>│
+   │                  │                                          │               │
+   │                  │                    Response              │               │
+   │                  │<─────────────────────────────────────────────────────────│
+ ┌─┴──┐            ┌──┴───┐                               ┌──────┴──────┐      ┌─┴─┐
+ │User│            │Client│                               │Authorization│      │API│
+ └────┘            └──────┘                               └─────────────┘      └───┘
+</pre>
 
 </details>
 
@@ -214,7 +213,7 @@ The authorization route is: `__ROOT_URI__/authorize` and it receives the followi
 | `code_challenge_method` | Only `S256` is allowed                                                       |
 | `state`                 | Optional [client state](#overview--state)                                    |
 
-Sending a state is not mandatory but strongly advised to ensure that your side of the authorization flow has not been tampered with.
+Sending a state is not mandatory but strongly advised to prevent cross site request forgery.
 
 ### Authorization result
 
