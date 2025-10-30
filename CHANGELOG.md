@@ -20,6 +20,7 @@
 - Cut words on runes, not bytes
 - Silent bug in internal/db/scanner
 - Disable bfcache after side effect requests (post, put, patch, delete)
+- Layout but with modal image button on small images
 - Readability: avoid unwrapping meaningful HTML elements, by [@mislav](https://codeberg.org/mislav)
 
 ## [0.20.4] - 2025-10-18
