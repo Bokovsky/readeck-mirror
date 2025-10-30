@@ -19,6 +19,8 @@ import (
 
 var (
 	errAccessDenied          = oauthError{name: "access_denied"}
+	errAuthorizationPending  = oauthError{name: "authorization_pending"}
+	errExpiredToken          = oauthError{name: "expired_token"}
 	errInvalidClient         = oauthError{name: "invalid_client", status: http.StatusUnauthorized}
 	errInvalidClientMetadata = oauthError{name: "invalid_client_metadata"}
 	errInvalidGrant          = oauthError{name: "invalid_grant"}
@@ -26,6 +28,7 @@ var (
 	errInvalidRequest        = oauthError{name: "invalid_request"}
 	errInvalidScope          = oauthError{name: "invalid_scope"}
 	errServerError           = oauthError{name: "server_error", status: http.StatusInternalServerError}
+	errSlowDown              = oauthError{name: "slow_down"}
 )
 
 // oauthError describes an OAuth error as specified in

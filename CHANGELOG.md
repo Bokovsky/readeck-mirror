@@ -5,7 +5,8 @@
 - HTTPS listener with certificate/key pair
 - handle lazy-loading "data-src" pattern for embedded videos, by [@mislav](https://codeberg.org/mislav)
 - log_time_format (and READECK_LOG_TIME_FORMAT) configuration option, by [@mislav](https://codeberg.org/mislav)
-- OAuth2 authorization flow
+- OAuth2 authorization code flow
+- OAuth2 device code flow
 
 ### Changed
 - Replaced the ACL policy enforcer for better performances and less dependencies

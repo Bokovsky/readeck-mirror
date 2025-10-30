@@ -3,6 +3,7 @@ SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 -->
+
 # Authentication with OAuth
 
 If you're writing an application that requires a user to grant the application permission to access their Readeck instance, you should not ask a user to create an API Token but, instead, implement the necessary OAuth flow so your application can retrieve a token in a user friendly way.
@@ -142,6 +143,17 @@ async function clientFlow() {
 
 ## OAuth Authorization Code Flow
 
+The Authorization Code Flow is used by confidential and public clients to exchange an authorization code for an access token.
+
+After the user returns to the client via the redirect URL, the application will get the authorization code from the URL and use it to request an access token.
+
+This flow can only be used when, on the same device, the client can:
+
+- send the user to the authorization page
+- intercept the redirect URL to retrieve the authorization code
+
+On a device without a browser, a client can use the [Device Code Flow](#overview--oauth-device-code-flow).
+
 <details>
 <summary>Authorization Code Flow</summary>
 
@@ -198,11 +210,11 @@ async function clientFlow() {
 
 </details>
 
-With the `client_id`, you can use the authorization code flow. You first need to build an authorization URL.
+With a `client_id`, you can use the authorization code flow. You first need to build an authorization URL.
 
 ### Authorization
 
-The authorization route is: `__ROOT_URI__/authorize` and it receives the following query parameters:
+The authorization URL is: `__ROOT_URI__/authorize` and it receives the following query parameters:
 
 | Name                    | Description                                                                  |
 | :---------------------- | :--------------------------------------------------------------------------- |
@@ -238,11 +250,9 @@ Once you receive a code, you can proceed to the [Token Request](#post-/oauth/tok
 
 The authorization code flow requires that you use [PKCE](https://datatracker.ietf.org/doc/html/rfc7636) with an S256 method only (the "plain" method is not allowed).
 
-The client creates a random **verifier** and produces a SHA-256 hash that is encoded in base64 to make a **challenge**.
-
-The **challenge** is added to the authorization URL as `code_challenge` query parameter.
-
-When requesting the token, the client sends the **verifier** as `code_verifier` parameter. Then the server, that kept track of the challenge can check it matches the received verifier.
+1. The client creates a random **verifier** and produces a SHA-256 hash that is encoded in base64 to make a **challenge**.
+2. The **challenge** is added to the authorization URL as `code_challenge` query parameter.
+3. When requesting the token, the client sends the **verifier** as `code_verifier` parameter. Then the server, that kept track of the challenge can check it matches the received verifier.
 
 **Important**: The challenge must be base64 encoded, **with URL encoding** and **without padding**.
 
@@ -284,3 +294,156 @@ pkceChallengeFromVerifier(verifier).then((challenge) => {
 ### State
 
 The `state` parameter that the client can add to the authorization URL is for the client only. When present, it is sent back in the redirection URI that contains the authorization code. The client can keep track of it and check it matches its initial value. It is strongly recommended to use it.
+
+## OAuth Device Code Flow
+
+The Device Code Flow is used by browserless or input-constrained devices in the device flow to exchange a previously obtained device code for an access token. An e-reader is a good candidate for using this flow.
+
+<details>
+<summary>Device Code Flow</summary>
+<pre role="img" aria-label="Device Code sequence diagram">
+ ┌────┐               ┌──────┐                         ┌─────────────┐
+ │User│               │Client│                         │Authorization│
+ └─┬──┘               └──┬───┘                         └──────┬──────┘
+   │                     │                                    │
+   │                     │(1) Request device code             │
+   │                     │───────────────────────────────────>│
+   │                     │                                    │
+   │                     │(2) Return device code, user code,  │
+   │                     │URL and interval                    │
+   │                     │<───────────────────────────────────│
+   │                     │                                    │
+   │(3) Provide user code│                                    │
+   │    and URL to user  │                                    │
+   │ <───────────────────│                                    │
+   │                   ┌────┐───────────────────────────────────┐
+   │                   │Loop│                                 │ │
+   │                   └────┘                                 │ │
+   │                   │ │                                    │ │
+   │                   │ │(4) Poll for authorization          │ │
+   │                   │ │───────────────────────────────────>│ │
+   │                   │ │                                    │ │
+   │                   │ │               authorization_pending│ │
+   │                   │ │<───────────────────────────────────│ │
+   │                   │ │                                    │ │
+   │                   └────────────────────────────────────────┘
+   │                     │                                    │
+   │(5) Open authorization URL and enter user code            │
+   ├ ────────────────────────────────────────────────────────>│
+   │                     │                                    │
+   │(5) Approve client access                                 │
+   ├ ────────────────────────────────────────────────────────>│
+   │                     │                                    │
+   │                     │             (6) Return access_token│
+   │                     │<───────────────────────────────────│
+   │                     │                                    │
+ ┌─┴──┐               ┌──┴───┐                         ┌──────┴──────┐
+ │User│               │Client│                         │Authorization│
+ └────┘               └──────┘                         └─────────────┘
+</pre>
+</details>
+
+1. The client request access from Readeck on the [Device Authorization route](#post-/oauth/device)
+2. Readeck issues a device code, an end-user code and provides the end-user verification URI. This information is valid for 5 minutes.
+3. The client instructs the user to visit the provided end-user verification URI. The client provides the user with the end-user code to enter in order to review the authorization request.
+4. While the user reviews the client's request (step 5), the client repeatedly polls the [Token route](#post-/oauth/token) to find out if the user completed the user authorization step. The client includes the device code and its client identifier. The token route can only be polled every 5 seconds.
+5. After authentication, Readeck prompts the user to input the user code provided by the device client and prompts the user to accept or decline the request.
+6. Readeck validates the device code provided by the client and responds with the access token if the client is granted access, an error if they are denied access, or a pending state, indicating that the client should continue to poll.
+
+<details>
+<summary>Python example of the device flow</summary>
+
+```python
+import json
+import time
+
+import httpx
+
+CLIENT_ID = "YOUR CLIENT ID"
+
+
+def main():
+    client = httpx.Client(base_url="__ROOT_URI__")
+
+    # Get user code.
+    rsp = client.post(
+        "api/oauth/device",
+        data={
+            "client_id": CLIENT_ID,
+            "scope": "bookmarks:read bookmarks:write",
+        },
+    )
+    rsp.raise_for_status()
+
+    req_data = rsp.json()
+
+    # The client keeps the device code for itself.
+    device_code = req_data["device_code"]
+
+    # User code with a separator for better readability
+    user_code = f"{req_data['user_code'][0:4]}-{req_data['user_code'][4:]}"
+
+    # Refresh interval
+    interval = req_data["interval"]
+
+    # Information the client must provide the user with.
+    # HINT: here you can show a QR code of the complete URI.
+    print(f"CODE         : {user_code}")
+    print(f"URI          : {req_data['verification_uri']}")
+    print(f"COMPLETE URI : {req_data['verification_uri_complete']}")
+
+    # Now, the client waits for the user to accept or deny
+    # the authorization request.
+    wait = 0
+    while True:
+        if wait > 0:
+            # wait before the request so we can use continue in the loop
+            time.sleep(wait)
+        else:
+            wait = interval
+
+        rsp = client.post(
+            "api/oauth/token",
+            data={
+                "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
+                "client_id": CLIENT_ID,
+                "device_code": device_code,
+            },
+        )
+        if rsp.status_code >= 500:
+            rsp.raise_for_status()
+
+        data = rsp.json()
+
+        if data.get("access_token"):
+            print("Token retrieved!")
+            print(json.dumps(data, indent=2))
+            return
+
+        error = data.get("error")
+        match error:
+            case "access_denied":
+                # The user denied the request
+                print("Access was denied")
+                return
+            case "slow_down":
+                # Server asks to slow down, we'll sleep 5s
+                continue
+            case "authorization_pending":
+                # Still waiting
+                print("Waiting for authorization...")
+                continue
+            case "expired_token":
+                # The request has expired
+                print("Request has expired")
+                return
+            case _:
+                print(f"Fatal error: {error}")
+                return
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>

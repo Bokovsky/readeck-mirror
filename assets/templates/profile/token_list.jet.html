@@ -13,10 +13,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
 <div class="prose mb-4">
-<p>{{ gettext(`
-  An API Token is a key that grants you (or another tool like a browser extension)
-  access to the Readeck API.
-`) }}</p>
+<p>{{ gettext(`An API Token is a key that grants you access to the Readeck API.`) }}</p>
 <p>{{ gettext(`Please read the <a href="%s">API Documentation</a> if you plan to use it.`, urlFor("/docs/api"))|raw }}</p>
 </div>
 
