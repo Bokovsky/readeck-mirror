@@ -29,6 +29,7 @@ var (
 	errInvalidScope          = oauthError{name: "invalid_scope"}
 	errServerError           = oauthError{name: "server_error", status: http.StatusInternalServerError}
 	errSlowDown              = oauthError{name: "slow_down"}
+	errUnauthorizedClient    = oauthError{name: "unauthorized_client"}
 )
 
 // oauthError describes an OAuth error as specified in

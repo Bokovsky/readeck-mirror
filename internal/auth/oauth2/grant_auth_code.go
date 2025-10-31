@@ -111,36 +111,12 @@ func newAuthorizeViewRouter() *authorizeViewRouter {
 		server.WithSession(),
 		server.WithRedirectLogin,
 		auth.Required,
-		router.withClient,
 	).Route("/", func(r chi.Router) {
 		r.Get("/", router.authorizeHandler)
 		r.Post("/", router.authorizeHandler)
 	})
 
 	return router
-}
-
-func (h *authorizeViewRouter) withClient(next http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		clientID := r.URL.Query().Get("client_id")
-		if clientID == "" {
-			server.Err(w, r, errInvalidClient)
-			return
-		}
-
-		client, err := Clients.GetOne(goqu.C("uid").Eq(clientID))
-		if err != nil {
-			if errors.Is(err, ErrNotFound) {
-				server.Err(w, r, errInvalidClient)
-			} else {
-				server.Err(w, r, errServerError.withError(err))
-			}
-			return
-		}
-
-		ctx := withClient(r.Context(), client)
-		next.ServeHTTP(w, r.WithContext(ctx))
-	})
 }
 
 // authorizeHandler is the authorization page returned to a user.
@@ -161,7 +137,11 @@ func (h *authorizeViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Re
 		forms.Bind(f, r)
 	}
 
-	client := getClient(r.Context())
+	client, err := loadClient(f.Get("client_id").String(), grantTypeAuthCode)
+	if err != nil {
+		server.Err(w, r, err)
+		return
+	}
 
 	// Validate redirect URI first
 	redir, _ := url.Parse(f.Get("redirect_uri").String())
@@ -208,6 +188,7 @@ func (h *authorizeViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Re
 		}
 
 		if !f.Get("granted").(*forms.BooleanField).V() {
+			client.remove() //nolint:errcheck
 			errAccessDenied.withDescription("access denied").redirect(w, r, redir, params)
 			return
 		}
@@ -248,19 +229,20 @@ func (api *oauthAPI) authorizationCodeHandler(w http.ResponseWriter, r *http.Req
 		return
 	}
 
-	client, err := Clients.GetOne(goqu.C("uid").Eq(req.ClientID))
+	client, err := loadClient(req.ClientID, grantTypeAuthCode)
 	if err != nil {
-		server.Err(w, r, errInvalidClient.withDescription("client not found").withError(err))
+		server.Err(w, r, err)
 		return
 	}
+	defer client.remove() //nolint:errcheck
 
 	t := &tokens.Token{
 		UID:         req.TokenID,
 		UserID:      &user.ID,
-		ClientID:    &client.ID,
 		IsEnabled:   true,
 		Application: client.Name,
 		Roles:       req.Scopes,
+		ClientInfo:  client.toClientInfo(),
 	}
 	if err = tokens.Tokens.Create(t); err != nil {
 		server.Err(w, r,

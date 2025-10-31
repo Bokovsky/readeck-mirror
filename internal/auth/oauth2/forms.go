@@ -12,6 +12,8 @@ import (
 	"encoding/json"
 	"errors"
 	"image/png"
+	"net"
+	"net/http"
 	"net/netip"
 	"net/url"
 	"slices"
@@ -19,17 +21,15 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/google/uuid"
+	"golang.org/x/net/idna"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
-	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/forms"
-)
-
-type (
-	ctxClientFormKey struct{}
 )
 
 const (
@@ -45,43 +45,49 @@ func newClientForm(tr forms.Translator) *clientForm {
 	return &clientForm{
 		forms.Must(
 			forms.WithTranslator(context.Background(), tr),
-			forms.NewTextField("client_id", forms.Trim, forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
-				c, _ := forms.GetForm(f).Context().Value(ctxClientFormKey{}).(*Client)
-				if c == nil {
-					return nil
-				}
-
-				// Per RFC 7592:
-				// The client MUST include its "client_id" field in the request, and it
-				// MUST be the same as its currently issued client identifier.
-				if c.UID != v {
-					return errors.New("client ID doesn't match")
-				}
-				return nil
-			})),
 			forms.NewTextField("client_name", forms.Trim, forms.Required, forms.StrLen(0, 128)),
-			forms.NewTextField("client_uri", forms.Trim, forms.Required, forms.StrLen(0, 256), forms.IsURL("https")),
+			forms.NewTextField("client_uri", forms.Trim, forms.Required, forms.StrLen(0, 256), isValidClientURI),
 			forms.NewTextField("logo_uri", forms.Trim, forms.StrLen(0, 8<<10), isValidLogoURI),
 			forms.NewTextField("software_id", forms.Trim, forms.Required, forms.StrLen(0, 128)),
 			forms.NewTextField("software_version", forms.Trim, forms.Required, forms.StrLen(0, 64)),
-			forms.NewTextListField("redirect_uris", forms.Trim, forms.Required, isValidRedirectURI),
+			forms.NewTextListField("redirect_uris",
+				forms.Trim,
+				forms.FieldValidatorFunc(func(f forms.Field) error {
+					if !slices.Contains(
+						forms.GetForm(f).Get("grant_types").(*forms.TextListField).V(),
+						grantTypeAuthCode,
+					) {
+						return nil
+					}
+
+					if len(f.(*forms.ListField[string]).V()) == 0 {
+						return forms.ErrRequired
+					}
+					return nil
+				}),
+				isValidRedirectURI,
+			),
+			forms.NewTextListField("grant_types",
+				forms.ChoicesPairs([][2]string{
+					{grantTypeAuthCode, grantTypeAuthCode},
+					{grantTypeDeviceCode, grantTypeDeviceCode},
+				}),
+				forms.Default([]string{grantTypeAuthCode, grantTypeDeviceCode}),
+			),
 
 			// Ignored fields but we want to coerce their values
-			forms.NewTextField("token_endpoint_auth_method", forms.ChoicesPairs([][2]string{{"none", "none"}})),
-			forms.NewTextListField("grant_types", forms.ChoicesPairs([][2]string{
-				{grantTypeAuthCode, grantTypeAuthCode},
-				{grantTypeDeviceCode, grantTypeDeviceCode},
-			})),
-			forms.NewTextListField("response_types", forms.ChoicesPairs([][2]string{
-				{"code", "code"},
-			})),
+			forms.NewTextField("token_endpoint_auth_method",
+				forms.ChoicesPairs([][2]string{{"none", "none"}}),
+				forms.Default("none"),
+			),
+			forms.NewTextListField("response_types",
+				forms.ChoicesPairs([][2]string{
+					{"code", "code"},
+				}),
+				forms.Default([]string{"code"}),
+			),
 		),
 	}
-}
-
-func (f *clientForm) setClient(c *Client) {
-	ctx := context.WithValue(f.Context(), ctxClientFormKey{}, c)
-	f.SetContext(ctx)
 }
 
 func (f *clientForm) getError() oauthError {
@@ -93,58 +99,25 @@ func (f *clientForm) getError() oauthError {
 	}
 }
 
-func (f *clientForm) createClient() (*Client, error) {
-	client := &Client{
-		Name:            f.Get("client_name").String(),
-		Website:         f.Get("client_uri").String(),
-		Logo:            f.Get("logo_uri").String(),
-		RedirectURIs:    f.Get("redirect_uris").Value().([]string),
-		SoftwareID:      f.Get("software_id").String(),
-		SoftwareVersion: f.Get("software_version").String(),
+func (f *clientForm) createClient() (*oauthClient, error) {
+	client := &oauthClient{
+		ID:                      uuid.New().URN(),
+		Name:                    f.Get("client_name").String(),
+		URI:                     f.Get("client_uri").String(),
+		Logo:                    f.Get("logo_uri").String(),
+		RedirectURIs:            f.Get("redirect_uris").(*forms.TextListField).V(),
+		GrantTypes:              f.Get("grant_types").(*forms.TextListField).V(),
+		TokenEndpointAuthMethod: f.Get("token_endpoint_auth_method").String(),
+		ResponseTypes:           f.Get("response_types").(*forms.TextListField).V(),
+		SoftwareID:              f.Get("software_id").String(),
+		SoftwareVersion:         f.Get("software_version").String(),
 	}
 
-	if err := Clients.Create(client); err != nil {
+	if err := client.store(); err != nil {
 		return nil, err
 	}
 
 	return client, nil
-}
-
-func (f *clientForm) updateClient(client *Client) (res map[string]any, err error) {
-	if !f.IsBound() {
-		err = errors.New("form is not bound")
-		return
-	}
-
-	res = make(map[string]any)
-	for _, field := range f.Fields() {
-		if !field.IsBound() || field.IsNil() {
-			continue
-		}
-		switch field.Name() {
-		case "client_name":
-			res["name"] = field.String()
-		case "client_uri":
-			res["website"] = field.String()
-		case "logo_uri":
-			res["logo"] = field.String()
-		case "redirect_uris":
-			res["redirect_uris"] = types.Strings(field.Value().([]string))
-		case "software_version":
-			res["software_version"] = field.String()
-		}
-	}
-
-	if len(res) == 0 {
-		return
-	}
-
-	if err = client.Update(res); err != nil {
-		f.AddErrors("", forms.ErrUnexpected)
-		return
-	}
-
-	return
 }
 
 type authorizationForm struct {
@@ -318,27 +291,61 @@ func newRevokeTokenForm(tr forms.Translator) *revokeTokenForm {
 	)}
 }
 
-func (f *revokeTokenForm) revoke(client *Client) error {
+func (f *revokeTokenForm) revoke(r *http.Request) error {
 	tokenID, err := configs.Keys.TokenKey().Decode(f.Get("token").String())
 	if err != nil {
 		return err
 	}
 
-	token, err := tokens.Tokens.GetOne(goqu.C("uid").Eq(tokenID))
-	if err != nil && !errors.Is(err, tokens.ErrNotFound) {
-		return err
-	}
-	if token == nil {
-		return nil
+	// must be authenticated with the same token
+	if tokenID != auth.GetRequestAuthInfo(r).Provider.ID {
+		return errAccessDenied
 	}
 
-	// A client can only remove its own tokens
-	if *token.ClientID != client.ID {
-		return errInvalidRequest
+	token, err := tokens.Tokens.GetOne(goqu.C("uid").Eq(tokenID))
+	if err != nil {
+		if errors.Is(err, tokens.ErrNotFound) {
+			return nil
+		}
+		return err
 	}
 
 	return token.Delete()
 }
+
+// isValidClientURI checks the given client URL.
+// It must be https only and resolve to an ip that is not
+// private or a loopback address.
+var isValidClientURI = forms.TypedValidator(func(v string) bool {
+	u, err := url.Parse(v)
+	if err != nil {
+		return false
+	}
+
+	if u.Scheme != "https" {
+		return false
+	}
+	if u.Hostname() == "" {
+		return false
+	}
+	host, err := idna.ToASCII(u.Hostname())
+	if err != nil {
+		return false
+	}
+	ips, err := net.LookupIP(host)
+	if err != nil {
+		return false
+	}
+
+	// Private and loopback is not allowed
+	for _, ip := range ips {
+		if ip.IsLoopback() || ip.IsPrivate() {
+			return false
+		}
+	}
+
+	return true
+}, errors.New("invalid client URI"))
 
 var isValidLogoURI = forms.TypedValidator(func(v string) bool {
 	if v == "" {
