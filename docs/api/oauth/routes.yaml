@@ -3,37 +3,14 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-withClient:
-  parameters:
-    - name: id
-      in: path
-      required: true
-      description: Client ID
-      schema:
-        type: string
-        format: short-uid
-        example: cient_id
-        description: The client ID received after registration
-    - name: Authorization
-      in: header
-      required: true
-      description: Access Token received after registration, passed as a `Bearer` value
-      example: "Bearer registration_access_token"
-      schema:
-        type: string
-
-  responses:
-    "403":
-      description: Wrong Client ID and/or Access Token
-
 routes:
   /oauth/client:
     post:
-      tags: [oauth client]
+      tags: [oauth]
       $merge:
         - "traits.yaml#public"
 
-      summary: Client Create
+      summary: Client Registration
       description: |
         This route creates a new OAuth client. You must create a new client before you can request permissions and receive a token.
 
@@ -41,7 +18,7 @@ routes:
 
         This route implements [RFC 7591: OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591).
 
-        Note: checks on `token_endpoint_auth_method`, `grant_types` and `response_types` are enforced but their respective values are not used internaly. A client has always access to any grant type supported by Readeck.
+        Note: checks on `token_endpoint_auth_method` and `response_types` are enforced but their respective values are not used internaly.
 
       requestBody:
         content:
@@ -62,83 +39,9 @@ routes:
               schema:
                 $ref: "#/components/schemas/oauthError"
 
-  /oauth/client/{id}:
-    get:
-      tags: [oauth client]
-      $merge:
-        - "#.withClient"
-      security: []
-
-      summary: Client Info
-      description: |
-        This route returns a registered client information. You must pass the received `registration_access_token`
-        after creating the client in a `Authorization: Bearer registration_access_token` header.
-
-        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
-
-        This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
-
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/oauthClientResponse"
-
-    put:
-      tags: [oauth client]
-      $merge:
-        - "#.withClient"
-      security: []
-
-      summary: Client Update
-      description: |
-        This route updates an existing client.
-
-        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
-
-        This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/oauthClientUpdate"
-
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/oauthClientResponse"
-
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/oauthError"
-
-    delete:
-      tags: [oauth client]
-      $merge:
-        - "#.withClient"
-      security: []
-
-      summary: Client Delete
-      description: |
-        This route deletes an existing client.
-
-        Please refer to the [Client Registration Documentation](#overview--client-registration) for more details.
-
-        This route implements [RFC 7592: OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
-
-      responses:
-        "204":
-          description: Deleted
-
   /oauth/token:
     post:
-      tags: [oauth authorization]
+      tags: [oauth]
       $merge:
         - "traits.yaml#public"
 
@@ -174,7 +77,7 @@ routes:
 
   /oauth/device:
     post:
-      tags: [oauth authorization]
+      tags: [oauth]
       $merge:
         - "traits.yaml#public"
 
@@ -210,24 +113,14 @@ routes:
 
   /oauth/revoke:
     post:
-      tags: [oauth authorization]
-      security: []
+      tags: [oauth]
 
       summary: Revoke Token
       description: |
-        This route lets a client revokes an access token. It must authenticate using its
-        `registration_access_token` and provides the access token to revoke.
+        This route lets a client revokes an access token. It must authenticate using the same
+        access token than the one provided in the request body.
 
         You can use this route if you want to provide a log-out option to users.
-
-      parameters:
-        - name: Authorization
-          in: header
-          required: true
-          description: Client Registration Access Token, passed as a `Bearer` value
-          example: "Bearer registration_access_token"
-          schema:
-            type: string
 
       requestBody:
         content:

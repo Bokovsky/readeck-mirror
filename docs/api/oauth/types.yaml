@@ -20,12 +20,13 @@ schemas:
           - invalid_scope
           - server_error
           - slow_down
+          - unauthorized_client
       error_description:
         type: string
         description: Error description, if any
 
   oauthClientCreate:
-    required: [client_name, client_uri, software_id, software_version, redirect_uris]
+    required: [client_name, client_uri, software_id, software_version]
     properties:
       client_name:
         type: string
@@ -33,7 +34,10 @@ schemas:
       client_uri:
         type: string
         format: uri
-        description: An URL where client information can be found. HTTPS only.
+        description: |
+          An URL where client information can be found. HTTPS only.
+
+          The URL must resolve to a non local and non private IP address.
       logo_uri:
         type: string
         format: uri
@@ -61,10 +65,13 @@ schemas:
           - http URI for loopback IP address (`127.0.0.0/8` or `[::1]`)
           - any other app link scheme (ie `my-app.org:/callback`)
 
+          This field is required when `grant_types` contains `authorization_code`.
+
       token_endpoint_auth_method:
         type: string
         description: Client supported auth method
         enum: [none]
+        default: none
       grant_types:
         type: array
         items:
@@ -72,13 +79,16 @@ schemas:
           enum:
             - authorization_code
             - urn:ietf:params:oauth:grant-type:device_code
+          default:
+            - authorization_code
+            - urn:ietf:params:oauth:grant-type:device_code
         description: Client supported grant types
       response_types:
         type: array
         items:
           type: string
-          enum:
-            - code
+          enum: [code]
+          default: code
         description: Client supported response type
 
   oauthClientUpdate:
