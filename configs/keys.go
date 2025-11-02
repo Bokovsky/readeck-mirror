@@ -14,19 +14,17 @@ import (
 var Keys = KeyMaterial{}
 
 const (
-	keyToken            = "api_token"
-	keySession          = "session"
-	keyOauthClientToken = "oauth_client_token" //nolint:gosec
-	keyOauthRequest     = "oauth_request"
+	keyToken        = "api_token"
+	keySession      = "session"
+	keyOauthRequest = "oauth_request"
 )
 
 // KeyMaterial contains the signing and encryption keys.
 type KeyMaterial struct {
-	prk                 []byte // Main pseudorandom key
-	tokenKey            SigningKey
-	sessionKey          []byte
-	oauthClientTokenKey SigningKey
-	oauthRequestKey     []byte
+	prk             []byte // Main pseudorandom key
+	tokenKey        SigningKey
+	sessionKey      []byte
+	oauthRequestKey []byte
 }
 
 func hkdfHashFunc() hash.Hash {
@@ -49,12 +47,6 @@ func (km KeyMaterial) TokenKey() SigningKey {
 // SessionKey returns a 256-bit key used by the session's secure cookie.
 func (km KeyMaterial) SessionKey() []byte {
 	return km.sessionKey
-}
-
-// OauthClientTokenKey returns the key used to generate a client's
-// authorization token.
-func (km KeyMaterial) OauthClientTokenKey() SigningKey {
-	return km.oauthClientTokenKey
 }
 
 // OauthRequestKey returns a 256-bit key used to encode the oauth
@@ -86,6 +78,5 @@ func loadKeys() {
 	Keys.tokenKey = Keys.mustExpand(keyToken, 32)
 	Keys.sessionKey = Keys.mustExpand(keySession, 32)
 
-	Keys.oauthClientTokenKey = Keys.mustExpand(keyOauthClientToken, 32)
 	Keys.oauthRequestKey = Keys.mustExpand(keyOauthRequest, 32)
 }

@@ -13,7 +13,6 @@ import (
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/internal/auth"
-	"codeberg.org/readeck/readeck/internal/auth/oauth2"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db/scanner"
@@ -171,7 +170,6 @@ func (api *profileAPI) withTokenList(t tokenType) func(next http.Handler) http.H
 			}
 
 			ds := tokens.Tokens.Query().
-				LeftOuterJoin(goqu.T(oauth2.TableName).As("c"), goqu.On(goqu.I("c.id").Eq(goqu.I("t.client_id")))).
 				Where(
 					goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 				).
@@ -184,9 +182,9 @@ func (api *profileAPI) withTokenList(t tokenType) func(next http.Handler) http.H
 
 			switch t {
 			case userToken:
-				ds = ds.Where(goqu.C("client_id").Is(nil))
+				ds = ds.Where(goqu.C("client_info").IsNull())
 			case clientToken:
-				ds = ds.Where(goqu.C("client_id").IsNot(nil))
+				ds = ds.Where(goqu.C("client_info").IsNotNull())
 			}
 
 			var res *tokenItemList
@@ -208,7 +206,6 @@ func (api *profileAPI) withToken(t tokenType) func(next http.Handler) http.Handl
 			uid := chi.URLParam(r, "uid")
 
 			ds := tokens.Tokens.Query().
-				LeftOuterJoin(goqu.T(oauth2.TableName).As("c"), goqu.On(goqu.I("c.id").Eq(goqu.I("t.client_id")))).
 				Where(
 					goqu.C("uid").Table("t").Eq(uid),
 					goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
@@ -216,12 +213,12 @@ func (api *profileAPI) withToken(t tokenType) func(next http.Handler) http.Handl
 
 			switch t {
 			case userToken:
-				ds = ds.Where(goqu.C("client_id").Is(nil))
+				ds = ds.Where(goqu.C("client_info").IsNull())
 			case clientToken:
-				ds = ds.Where(goqu.C("client_id").IsNot(nil))
+				ds = ds.Where(goqu.C("client_info").IsNotNull())
 			}
 
-			t := new(tokenAndClient)
+			t := new(tokens.Token)
 			found, err := ds.ScanStruct(t)
 
 			if !found {
@@ -257,17 +254,6 @@ func (api *profileAPI) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNoContent)
 }
 
-type tokenAndClient struct {
-	*tokens.Token `db:"t"`
-	Client        struct {
-		UID     *string `db:"uid"`
-		Name    *string `db:"name"`
-		URI     *string `db:"website"`
-		Logo    *string `db:"logo"`
-		Version *string `db:"software_version"`
-	} `db:"c"`
-}
-
 type tokenItemList struct {
 	Count      int64
 	Pagination server.Pagination
@@ -277,25 +263,24 @@ type tokenItemList struct {
 type tokenItem struct {
 	*tokens.Token `json:"-"`
 
-	ID            string     `json:"id"`
-	Href          string     `json:"href"`
-	Created       time.Time  `json:"created"`
-	LastUsed      *time.Time `json:"last_used"`
-	Expires       *time.Time `json:"expires"`
-	IsEnabled     bool       `json:"is_enabled"`
-	IsDeleted     bool       `json:"is_deleted"`
-	Roles         []string   `json:"roles"`
-	RoleNames     []string   `json:"-"`
-	ClientName    string     `json:"client_name"`
-	ClientURI     string     `json:"client_uri"`
-	ClientLogo    string     `json:"client_logo"`
-	ClientVersion string     `json:"client_version"`
+	ID         string     `json:"id"`
+	Href       string     `json:"href"`
+	Created    time.Time  `json:"created"`
+	LastUsed   *time.Time `json:"last_used"`
+	Expires    *time.Time `json:"expires"`
+	IsEnabled  bool       `json:"is_enabled"`
+	IsDeleted  bool       `json:"is_deleted"`
+	Roles      []string   `json:"roles"`
+	RoleNames  []string   `json:"-"`
+	ClientName string     `json:"client_name"`
+	ClientURI  string     `json:"client_uri"`
+	ClientLogo string     `json:"client_logo"`
 }
 
-func newTokenItem(ctx context.Context, t *tokenAndClient) *tokenItem {
+func newTokenItem(ctx context.Context, t *tokens.Token) *tokenItem {
 	tr := server.LocaleContext(ctx)
 	res := &tokenItem{
-		Token:     t.Token,
+		Token:     t,
 		ID:        t.UID,
 		Href:      urls.AbsoluteURLContext(ctx, ".", t.UID).String(),
 		Created:   t.Created,
@@ -307,11 +292,10 @@ func newTokenItem(ctx context.Context, t *tokenAndClient) *tokenItem {
 		RoleNames: users.GroupNames(tr, t.Roles),
 	}
 
-	if t.Client.UID != nil {
-		res.ClientName = *t.Client.Name
-		res.ClientURI = *t.Client.URI
-		res.ClientLogo = *t.Client.Logo
-		res.ClientVersion = *t.Client.Version
+	if t.ClientInfo != nil && t.ClientInfo.ID != "" {
+		res.ClientName = t.ClientInfo.Name
+		res.ClientURI = t.ClientInfo.Website
+		res.ClientLogo = t.ClientInfo.Logo
 	}
 
 	return res

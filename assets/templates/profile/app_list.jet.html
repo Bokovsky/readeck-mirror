@@ -42,7 +42,6 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="py-4 max-md:pl-4 grow">
         <h2 class="title text-lg mb-0">{{ .ClientName }}</h2>
         <p><a class="link" href="{{ .ClientURI }}" target="_blank">{{ .ClientURI }}</a></p>
-        <p>{{ gettext("Version: %s", .ClientVersion) }}</p>
 
         <p class="mt-1 text-sm">{{ gettext("Authorized on: %s", date(.Created, pgettext("datetime", "%e %B %Y"))) }}
         {{- if .LastUsed -}}

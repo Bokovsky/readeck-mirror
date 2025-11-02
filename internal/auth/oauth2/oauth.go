@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -35,10 +36,10 @@ type oauthAPI struct {
 
 func newOAuthAPI() *oauthAPI {
 	router := &oauthAPI{chi.NewRouter()}
-	router.Mount("/client", newClientAPI())
+	router.Post("/client", router.clientCreate)
 	router.Post("/device", router.deviceHandler)
 	router.Post("/token", router.tokenHandler)
-	router.With(withAuthenticatedClient).Post("/revoke", router.revokeToken)
+	router.With(auth.Required).Post("/revoke", router.revokeToken)
 
 	return router
 }
@@ -75,8 +76,7 @@ func (api *oauthAPI) revokeToken(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client := getClient(r.Context())
-	if err := f.revoke(client); err != nil {
+	if err := f.revoke(r); err != nil {
 		switch err.(type) {
 		case oauthError:
 			server.Err(w, r, err)

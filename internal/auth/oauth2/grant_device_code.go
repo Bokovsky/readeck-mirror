@@ -7,7 +7,6 @@ package oauth2
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -80,7 +79,7 @@ type deviceAuthorizationResponse struct {
 // The request is stored in Readeck's key/value store with
 // a TTL of 5 minutes.
 type deviceAuthorizationRequest struct {
-	ClientID    int       `json:"c"`
+	ClientID    string    `json:"c"`
 	UserID      int       `json:"u"`
 	TokenID     int       `json:"t"`
 	Expires     time.Time `json:"e"`
@@ -90,27 +89,15 @@ type deviceAuthorizationRequest struct {
 }
 
 func (r *deviceAuthorizationRequest) store(code userCode) error {
-	data, err := json.Marshal(r)
-	if err != nil {
-		return err
-	}
-	duration := r.Expires.Sub(time.Now().UTC())
-
-	return bus.Store().Set(
-		fmt.Sprintf("oauth:device-code:%s", code),
-		string(data),
-		duration,
-	)
+	return bus.SetJSON("oauth:device-code:"+string(code), r, r.Expires.Sub(time.Now().UTC()))
 }
 
 func loadDeviceAuthorizationRequest(code userCode) (*deviceAuthorizationRequest, error) {
-	data := bus.Store().Get(fmt.Sprintf("oauth:device-code:%s", code))
-	if data == "" {
-		return &deviceAuthorizationRequest{}, nil
-	}
 	r := &deviceAuthorizationRequest{}
-	err := json.Unmarshal([]byte(data), r)
-	return r, err
+	if err := bus.GetJSON("oauth:device-code:"+string(code), r); err != nil {
+		return nil, errServerError.withError(err)
+	}
+	return r, nil
 }
 
 // newUserCode generate a random [userCode] of 8 letters from [deviceCodeAlphabet].
@@ -210,7 +197,7 @@ func (h *deviceViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Reque
 
 		switch req.Status {
 		case codeRequestPending:
-			client, err := Clients.GetOne(goqu.C("id").Eq(req.ClientID))
+			client, err := loadClient(req.ClientID, grantTypeDeviceCode)
 			if err != nil {
 				server.Err(w, r, err)
 				return
@@ -278,9 +265,9 @@ func (api *oauthAPI) deviceHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	client, err := Clients.GetOne(goqu.C("uid").Eq(f.Get("client_id").String()))
+	client, err := loadClient(f.Get("client_id").String(), grantTypeDeviceCode)
 	if err != nil {
-		server.Err(w, r, errInvalidClient)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -326,9 +313,9 @@ func (api *oauthAPI) deviceHandler(w http.ResponseWriter, r *http.Request) {
 // "urn:ietf:params:oauth:grant-type:device_code" grant_type.
 func (api *oauthAPI) deviceCodeHandler(w http.ResponseWriter, r *http.Request) {
 	f := getTokenForm(r.Context())
-	client, err := Clients.GetOne(goqu.C("uid").Eq(f.Get("client_id").String()))
+	client, err := loadClient(f.Get("client_id").String(), grantTypeDeviceCode)
 	if err != nil {
-		server.Err(w, r, errInvalidClient)
+		server.Err(w, r, err)
 		return
 	}
 
@@ -375,10 +362,10 @@ func (api *oauthAPI) deviceCodeHandler(w http.ResponseWriter, r *http.Request) {
 			// Create a token when it doesn't exist.
 			t = &tokens.Token{
 				UserID:      &user.ID,
-				ClientID:    &client.ID,
 				IsEnabled:   true,
 				Application: client.Name,
 				Roles:       req.Scopes,
+				ClientInfo:  client.toClientInfo(),
 			}
 			if err = tokens.Tokens.Create(t); err != nil {
 				server.Err(w, r,

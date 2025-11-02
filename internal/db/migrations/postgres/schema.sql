@@ -21,32 +21,19 @@ CREATE TABLE IF NOT EXISTS "user" (
     seed     integer      NOT NULL DEFAULT 0
 );
 
-CREATE TABLE IF NOT EXISTS oauth2_client (
-    id               SERIAL        PRIMARY KEY,
-    uid              varchar(32)   UNIQUE NOT NULL,
-    created          timestamptz   NOT NULL,
-    name             varchar(128)  NOT NULL,
-    website          varchar(256)  NULL,
-    logo             text          NULL,
-    redirect_uris    jsonb         NOT NULL,
-    software_id      varchar(128)  NOT NULL,
-    software_version varchar(128)  NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS token (
     id          SERIAL        PRIMARY KEY,
     uid         varchar(32)   UNIQUE NOT NULL,
     user_id     integer       NOT NULL,
-    client_id   integer       NULL,
     created     timestamptz   NOT NULL,
     last_used   timestamptz   NULL,
     expires     timestamptz   NULL,
     is_enabled  boolean       NOT NULL DEFAULT true,
     application varchar(128)  NOT NULL,
     roles       jsonb         NOT NULL DEFAULT '[]',
+    client_info jsonb         NULL,
 
     CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE,
-    CONSTRAINT fk_token_oauth2_client FOREIGN KEY (client_id) REFERENCES oauth2_client(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "credential" (

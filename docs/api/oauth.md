@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 # Authentication with OAuth
 
-If you're writing an application that requires a user to grant the application permission to access their Readeck instance, you should not ask a user to create an API Token but, instead, implement the necessary OAuth flow so your application can retrieve a token in a user friendly way.
+If you're writing an application that requires a user to grant the application permission to access their Readeck instance, you should not ask a user to create an API Token but instead, implement the necessary OAuth flow so your application can retrieve a token in a user friendly way.
 
 ## Available Scopes
 
@@ -43,114 +43,25 @@ Before you can start the authorization flow, you first need to register a client
 </pre>
 </details>
 
-<details>
-<summary>Client Management Flow</summary>
-<pre role="img" aria-label="Client Management sequence diagram">
- ┌──────┐                       ┌────────────┐
- │Client│                       │Registration│
- └──┬───┘                       └─────┬──────┘
-    │                                 │
-    │   Client Information Request    │
-    │   GET /api/oauth/client/{id}    │
-    │────────────────────────────────>│
-    │                                 │
-    │   Client Information Response   │
-    │<────────────────────────────────│
-    │                                 │
-    │Read or Update Request           │
-    │GET or PUT /api/oauth/client/{id}│
-    │────────────────────────────────>│
-    │                                 │
-    │   Client Information Response   │
-    │<────────────────────────────────│
-    │                                 │
-    │  Delete Request                 │
-    │  DELETE /api/oauth/client/{id}  │
-    │────────────────────────────────>│
-    │                                 │
-    │       Delete Confirmation       │
-    │<────────────────────────────────│
- ┌──┴───┐                       ┌─────┴──────┐
- │Client│                       │Registration│
- └──────┘                       └────────────┘
-</pre>
-</details>
+Readeck implement [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591). You can register a client by querying the [Client Creation Route](#post-/oauth/client).
 
-Readeck implement [OAuth 2.0 Dynamic Client Registration Protocol](https://datatracker.ietf.org/doc/html/rfc7591) and [OAuth 2.0 Dynamic Client Registration Management Protocol](https://datatracker.ietf.org/doc/html/rfc7592).
+Upon registration, you'll receive a `client_id` that you can use in the next authorization step.
 
-You can register a client by querying the [Client Creation Route](#post-/oauth/client).
+Unlike more traditional client implementations, Readeck OAuth clients are ephemeral:
 
-Upon registration, you'll receive a `client_id` and a `registration_access_token`. You'll need them if you want to fetch, update or delete the client later. You must store this information as safely as a password.
-
-Once you have a client, you can retrieve its information, update it or delete it. See:
-
-- [Client Info](#get-/oauth/client/-id-)
-- [Client Update](#put-/oauth/client/-id-)
-- [Client Delete](#delete-/oauth/client/-id-)
-
-<details>
-<summary>Javascript example of a client flow for an app</summary>
-
-```js
-async function clientFlow() {
-  // Where you store the client_id and registration_access_token
-  const appVersion = "1.1.0"
-  const store = {}
-  let rsp
-
-  if (!store.clientID) {
-    // New client, create one
-    rsp = await fetch("__BASE_URI__/oauth/client", {
-      method: "POST",
-      body: json.Stringify({
-        client_name: "My new client",
-        client_uri: "https://example.org/",
-        redirect_uris: ["https://example.org/callback"],
-        software_id: "some-uuid",
-        software_version: "1.0.0",
-      }),
-    })
-    let data = await rsp.json()
-    store.clientID = data["client_id"]
-    store.registrationAccessToken = data["registration_access_token"]
-
-    // we're done
-    return
-  }
-
-  // We have a client id, check if we need to update it
-  rsp = await fetch(`__BASE_URI__/oauth/client/${store.clientID}`, {
-    headers: { Authorization: `Bearer ${store.registrationAccessToken}` },
-  })
-  let data = await rsp.json()
-
-  if (data["software_version"] != appVersion) {
-    // We need to update the client
-    rsp = await fetch(`__BASE_URI__/oauth/client/${store.clientID}`, {
-      method: "PUT",
-      body: json.Stringify({
-        ...data,
-        software_version: appVersion,
-      }),
-      headers: { Authorization: `Bearer ${store.registrationAccessToken}` },
-    })
-    let data = await rsp.json()
-  }
-}
-```
-
-</details>
+- You **must** register a new client each time you start an authorization flow.
+- The Client is valid for 10 minutes after creation.
 
 ## OAuth Authorization Code Flow
 
-The Authorization Code Flow is used by confidential and public clients to exchange an authorization code for an access token.
+The Authorization Code Flow is used by clients to exchange an authorization code for an access token.
 
 After the user returns to the client via the redirect URL, the application will get the authorization code from the URL and use it to request an access token.
 
 This flow can only be used when, on the same device, the client can:
 
 - send the user to the authorization page
-- intercept the redirect URL to retrieve the authorization code
+- process the redirect URL to retrieve the authorization code
 
 On a device without a browser, a client can use the [Device Code Flow](#overview--oauth-device-code-flow).
 
@@ -243,6 +154,7 @@ the following query parameters:
 | :------------------ | :------------------------------------------------------- |
 | `error`             | Error code (can be `invalid_request` or `access_denied`) |
 | `error_description` | Error description                                        |
+| `state`             | The state as initially set by the client                 |
 
 Once you receive a code, you can proceed to the [Token Request](#post-/oauth/token) to eventually receive an access token that will let you use the API.
 
@@ -359,17 +271,29 @@ import time
 
 import httpx
 
-CLIENT_ID = "YOUR CLIENT ID"
-
 
 def main():
     client = httpx.Client(base_url="__ROOT_URI__")
+
+    # Create a client
+    rsp = client.post(
+        "api/oauth/client",
+        data={
+            "client_name": "Test App",
+            "client_uri": "https://example.net/",
+            "software_id": uuid.uuid4(),
+            "software_version": "1.0.2",
+            "grant_types": ["urn:ietf:params:oauth:grant-type:device_code"],
+        },
+    )
+    rsp.raise_for_status()
+    client_id = rsp.json()["client_id"]
 
     # Get user code.
     rsp = client.post(
         "api/oauth/device",
         data={
-            "client_id": CLIENT_ID,
+            "client_id": client_id,
             "scope": "bookmarks:read bookmarks:write",
         },
     )
@@ -387,10 +311,9 @@ def main():
     interval = req_data["interval"]
 
     # Information the client must provide the user with.
-    # HINT: here you can show a QR code of the complete URI.
     print(f"CODE         : {user_code}")
-    print(f"URI          : {req_data['verification_uri']}")
-    print(f"COMPLETE URI : {req_data['verification_uri_complete']}")
+    print(f"URL          : {req_data['verification_uri']}")
+    print(f"COMPLETE URL : {req_data['verification_uri_complete']}")
 
     # Now, the client waits for the user to accept or deny
     # the authorization request.
@@ -406,7 +329,7 @@ def main():
             "api/oauth/token",
             data={
                 "grant_type": "urn:ietf:params:oauth:grant-type:device_code",
-                "client_id": CLIENT_ID,
+                "client_id": client_id,
                 "device_code": device_code,
             },
         )

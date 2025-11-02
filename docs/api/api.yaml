@@ -47,9 +47,7 @@ tags:
     x-tag-expanded: false
   - name: dev tools
     x-tag-expanded: false
-  - name: oauth authorization
-    x-tag-expanded: false
-  - name: oauth client
+  - name: oauth
     x-tag-expanded: false
 
 paths:
