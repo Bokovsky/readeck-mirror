@@ -100,6 +100,8 @@ func (e SyncExporter) IterExport(ctx context.Context, w io.Writer, _ *http.Reque
 		w.Header().Set("Content-Type", `multipart/mixed; boundary="`+mp.Boundary()+`"`)
 	}
 
+	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
+
 	for b, err := range bookmarkSeq.Items {
 		if err != nil {
 			return err
