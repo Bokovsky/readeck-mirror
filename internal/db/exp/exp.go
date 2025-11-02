@@ -21,6 +21,18 @@ func BooleanExpresion(expr exp.Expression, value bool) exp.Expression {
 	return goqu.Func("NOT", expr)
 }
 
+// DateExpression returns a [exp.Comparable] for a datetime. It wraps the expression
+// in a "datetime" function with SQLite.
+func DateExpression(dialect goqu.SQLDialect, value any) interface {
+	exp.Comparable
+} {
+	if dialect.Dialect() == "sqlite3" {
+		return goqu.Func("datetime", value)
+	}
+
+	return goqu.V(value)
+}
+
 // JSONArrayLength returns a json(b)_array_length statement of the given identifier.
 func JSONArrayLength(dialect goqu.SQLDialect, identifier exp.IdentifierExpression) exp.SQLFunctionExpression {
 	switch dialect.Dialect() {

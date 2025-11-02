@@ -9,13 +9,14 @@ import (
 	"net/http"
 
 	"github.com/doug-martin/goqu/v9"
-	"github.com/doug-martin/goqu/v9/exp"
+	goquExp "github.com/doug-martin/goqu/v9/exp"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -30,20 +31,34 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	ds := bookmarks.Bookmarks.Query().
-		Select("b.uid", goqu.C("updated").Table("b").As("time"), goqu.V("update").As("type")).
+		Select(
+			goqu.C("uid").Table("b"),
+			goqu.C("updated").Table("b").As("time"),
+			goqu.V("update").As("type"),
+		).
 		Where(goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID))
 
 	if !f.Get("since").IsEmpty() {
 		// When querying with ?since=, we perform a union with bookmark_removed
 		// to build some kind of update/delete log.
-		ds = ds.Where(goqu.C("updated").Table("b").Gte(f.Get("since").(*forms.DatetimeField).V().UTC()))
+		since := f.Get("since").(*forms.DatetimeField).V().UTC()
+
+		ds = ds.Where(
+			exp.DateExpression(ds.Dialect(), goqu.C("updated").Table("b")).
+				Gte(exp.DateExpression(ds.Dialect(), since)),
+		)
 		ds = ds.Union(
 			db.Q().
-				From(goqu.T(bookmarks.TableNameRemoved).As("b")).
-				Select("b.uid", goqu.C("deleted").Table("b").As("time"), goqu.V("delete").As("type")).
+				From(goqu.T(bookmarks.TableNameRemoved).As("r")).
+				Select(
+					goqu.C("uid").Table("r"),
+					goqu.C("deleted").Table("r").As("time"),
+					goqu.V("delete").As("type"),
+				).
 				Where(
-					goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
-					goqu.C("deleted").Table("b").Gte(f.Get("since").(*forms.DatetimeField).V().UTC()),
+					goqu.C("user_id").Table("r").Eq(auth.GetRequestUser(r).ID),
+					exp.DateExpression(ds.Dialect(), goqu.C("deleted").Table("r")).
+						Gte(exp.DateExpression(ds.Dialect(), since)),
 				),
 		)
 	}
@@ -64,7 +79,7 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
-	of := newOrderForm("sort", map[string]exp.Orderable{
+	of := newOrderForm("sort", map[string]goquExp.Orderable{
 		"updated": goqu.C("updated"),
 		"created": goqu.C("created"),
 	})
