@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-10-21 17:24+0000\n"
+"PO-Revision-Date: 2025-10-29 19:09+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/documentation/fr/>\n"
 "Language: fr_FR\n"
@@ -41,7 +41,7 @@ msgstr "![Formulaire de création de bookmark](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr "Après quelques secondes, votre bookmark est prêt. Vous pouvez l'ouvrir pour en consulter le contenu, ajouter des labels, annoter le texte ou exporter un e-book. Pour plus d'information, veuillez lire la section [Détails d'un bookmark](./bookmark)."
+msgstr "Après quelques secondes, votre bookmark est prêt. Vous pouvez l'ouvrir pour en consulter le contenu, ajouter des labels, annoter le texte ou exporter un e-book. Pour plus d'information, veuillez lire la section [Détails d'un bookmark](./bookmark.md)."
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -558,7 +558,7 @@ msgstr "Indiquez les critères de recherche et cliquez sur **Enregistrer**."
 
 #: en-US/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr "Consultez l'aide des [filtres de bookmarks](./bookmark-list#filters) pour plus d'information concernant les filtres."
+msgstr "Consultez l'aide des [filtres de bookmarks](./bookmark-list.md#filters) pour plus d'information concernant les filtres."
 
 #: en-US/collections.md:25
 msgid "## Export a collection"
