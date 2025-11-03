@@ -11,6 +11,7 @@
 ### Changed
 - Replaced the ACL policy enforcer for better performances and less dependencies
 - Removed sign-out button from main menu (now available in the profile page)
+- Go-Readability v2, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - Support CSS units when parsing SVG element dimensions, by [@mislav](https://codeberg.org/mislav)
@@ -23,6 +24,7 @@
 - Disable bfcache after side effect requests (post, put, patch, delete)
 - Layout but with modal image button on small images
 - Readability: avoid unwrapping meaningful HTML elements, by [@mislav](https://codeberg.org/mislav)
+- Sync API date selection with SQLite
 
 ## [0.20.4] - 2025-10-18
 ### Changed
