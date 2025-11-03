@@ -12,20 +12,15 @@ import (
 	"fmt"
 	"log/slog"
 	"math/rand/v2"
-	"regexp"
 	"strings"
 
 	"golang.org/x/net/html"
 
 	"github.com/go-shiori/dom"
 
-	"codeberg.org/readeck/go-readability"
+	"codeberg.org/readeck/go-readability/v2"
+	readabilityRender "codeberg.org/readeck/go-readability/v2/render"
 	"codeberg.org/readeck/readeck/pkg/extract"
-)
-
-var (
-	rxSpace   = regexp.MustCompile(`[ ]+`)
-	rxNewLine = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
 )
 
 type ctxKeyReadabilityEnabled struct{}
@@ -172,13 +167,7 @@ func Text(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	m.Log().Debug("get text content")
 
 	doc, _ := html.Parse(bytes.NewReader(m.Extractor.HTML))
-	text := dom.TextContent(doc)
-
-	text = rxSpace.ReplaceAllString(text, " ")
-	text = rxNewLine.ReplaceAllString(text, "\n\n")
-	text = strings.TrimSpace(text)
-
-	m.Extractor.Text = text
+	m.Extractor.Text = readabilityRender.InnerText(doc)
 	return next
 }
 

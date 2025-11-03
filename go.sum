@@ -1,5 +1,5 @@
-codeberg.org/readeck/go-readability v0.0.0-20251031135857-1d11bda81b3a h1:E8CzEo80tOz3IxXFZ/IQt/3Nn9S9+fvkjBqhCVpyvbg=
-codeberg.org/readeck/go-readability v0.0.0-20251031135857-1d11bda81b3a/go.mod h1:j2ebxyRhpa95RJTFC9EYVUxtJwN851fcTscqJWxKJQU=
+codeberg.org/readeck/go-readability/v2 v2.0.0 h1:P6prvYBNuloYQnBqpy3jnZLqgINNDZrm+CFOAKjvvaY=
+codeberg.org/readeck/go-readability/v2 v2.0.0/go.mod h1:x3WG9GpWWnkRb7ajP1NmOKSHbafxNUb736lrDZXeXrs=
 github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 h1:sR+/8Yb4slttB4vD+b9btVEnWgL3Q00OBTzVT8B9C0c=
 github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53/go.mod h1:+3IMCy2vIlbG1XG/0ggNQv0SvxCAIpPM5b1nCz56Xno=
 github.com/CloudyKit/jet/v6 v6.3.1 h1:6IAo5Cx21xrHVaR8zzXN5gJatKV/wO7Nf6bfCnCSbUw=
