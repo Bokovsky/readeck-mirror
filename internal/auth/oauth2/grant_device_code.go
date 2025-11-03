@@ -46,17 +46,12 @@ type deviceViewRouter struct {
 }
 
 func newDeviceViewRouter() *deviceViewRouter {
-	router := &deviceViewRouter{chi.NewRouter()}
+	router := &deviceViewRouter{
+		server.AuthenticatedRouter(server.WithRedirectLogin),
+	}
 
-	router.With(
-		server.Csrf,
-		server.WithSession(),
-		server.WithRedirectLogin,
-		auth.Required,
-	).Route("/", func(r chi.Router) {
-		r.Get("/", router.authorizeHandler)
-		r.Post("/", router.authorizeHandler)
-	})
+	router.Get("/", router.authorizeHandler)
+	router.Post("/", router.authorizeHandler)
 
 	return router
 }

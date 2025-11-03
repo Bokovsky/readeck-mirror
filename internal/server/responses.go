@@ -14,6 +14,7 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/http/accept"
 )
 
 // Message is used by the server's Message() method.
@@ -129,7 +130,8 @@ func Err(w http.ResponseWriter, r *http.Request, err error) {
 		Log(r).Error("server error", slog.Any("err", err))
 	}
 
-	if e, ok := err.(json.Marshaler); ok {
+	if e, ok := err.(json.Marshaler); ok &&
+		accept.NegotiateContentType(r.Header, acceptOffers, "application/json") == "application/json" {
 		// If the error provides a JSON marshaller, we render it as JSON.
 		Render(w, r, status, e)
 	} else {

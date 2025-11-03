@@ -104,17 +104,12 @@ type authorizeViewRouter struct {
 }
 
 func newAuthorizeViewRouter() *authorizeViewRouter {
-	router := &authorizeViewRouter{chi.NewRouter()}
+	router := &authorizeViewRouter{
+		server.AuthenticatedRouter(server.WithRedirectLogin),
+	}
 
-	router.With(
-		server.Csrf,
-		server.WithSession(),
-		server.WithRedirectLogin,
-		auth.Required,
-	).Route("/", func(r chi.Router) {
-		r.Get("/", router.authorizeHandler)
-		r.Post("/", router.authorizeHandler)
-	})
+	router.Get("/", router.authorizeHandler)
+	router.Post("/", router.authorizeHandler)
 
 	return router
 }
