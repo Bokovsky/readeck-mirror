@@ -93,6 +93,9 @@ type nodeLogValue struct {
 // NodeLogValue is an [slog.LogValuer] for an [*html.Node].
 // Its LogValue method renders and truncate the node as HTML.
 func NodeLogValue(n *html.Node) slog.LogValuer {
+	if n == nil {
+		return nil
+	}
 	return &nodeLogValue{n}
 }
 

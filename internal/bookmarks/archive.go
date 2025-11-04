@@ -10,7 +10,6 @@ import (
 	"context"
 	"io"
 	"log/slog"
-	"net/http"
 	"path"
 	"strconv"
 	"strings"
@@ -24,6 +23,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/archiver"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/img"
 )
 
@@ -91,8 +91,17 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 	}
 
 	node := archiver.GetNodeContext(ctx)
-
 	l := archiver.Logger(c).With(slog.Any("url", archiver.URLLogValue(res.URL())))
+	readabilityEnabled, _ := contents.IsReadabilityEnabled(ctx)
+
+	// First pass ignoring icons
+	if readabilityEnabled && contents.IsIcon(node, res.Width, res.Height, 64) {
+		l.Debug("remove icon image",
+			slog.Int("w", res.Width),
+			slog.Int("h", res.Height),
+		)
+		return nil, archiver.ErrRemoveSrc
+	}
 
 	// Direct copy of small enough images and in a compatible format.
 	if _, ok := directCopyFormats[res.ContentType]; ok && res.Width <= extract.ImageSizeWide {
@@ -106,7 +115,7 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 
 	err := imgSem.Acquire(imgCtx, 1)
 	if err != nil {
-		return nil, err
+		return nil, archiver.ErrRemoveSrc
 	}
 	defer imgSem.Release(1)
 
@@ -117,13 +126,22 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 			slog.String("format", res.ContentType),
 			slog.Any("err", err),
 		)
-		return http.NoBody, nil
+		return nil, archiver.ErrRemoveSrc
 	}
 	defer func() {
 		if err := im.Close(); err != nil {
 			l.Warn("closing image", slog.Any("err", err))
 		}
 	}()
+
+	// Second pass ignoring icons
+	if readabilityEnabled && contents.IsIcon(node, int(im.Width()), int(im.Height()), 64) {
+		l.Debug("remove icon image",
+			slog.Int("w", int(im.Width())),
+			slog.Int("h", int(im.Height())),
+		)
+		return nil, archiver.ErrRemoveSrc
+	}
 
 	if err = img.Pipeline(im,
 		func(im img.Image) error { return im.Clean() },
@@ -132,7 +150,7 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 		func(im img.Image) error { return img.Fit(im, extract.ImageSizeWide, 0) },
 	); err != nil {
 		l.Warn("convert image", slog.Any("err", err))
-		return http.NoBody, nil
+		return nil, archiver.ErrRemoveSrc
 	}
 
 	if node != nil && dom.TagName(node) == "img" {
@@ -143,14 +161,14 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 	buf := new(bytes.Buffer)
 	if err = im.Encode(buf); err != nil {
 		l.Warn("encode image", slog.Any("err", err))
-		return http.NoBody, nil
+		return nil, archiver.ErrRemoveSrc
 	}
 
 	l.Debug("convert image",
 		slog.Group("resource",
 			slog.String("type", res.ContentType),
-			slog.Int("w", res.Width),
-			slog.Int("h", res.Height),
+			slog.Int("w", int(im.Width())),
+			slog.Int("h", int(im.Height())),
 		),
 		slog.Group("image",
 			slog.String("format", im.Format()),
