@@ -225,12 +225,12 @@ func (p *processMessageProxy) setHTML(val string) error {
 }
 
 func (p *processMessageProxy) getReadability() bool {
-	enabled, _ := contents.IsReadabilityEnabled(p.getProcessMessage().Extractor)
+	enabled, _ := contents.IsReadabilityEnabled(p.getProcessMessage().Extractor.Context)
 	return enabled
 }
 
 func (p *processMessageProxy) setReadability(val bool) {
-	contents.EnableReadability(p.getProcessMessage().Extractor, val)
+	p.getProcessMessage().Extractor.Context = contents.EnableReadability(p.getProcessMessage().Extractor.Context, val)
 }
 
 func (p *processMessageProxy) overrideConfig(cfg *SiteConfig, src string) error {

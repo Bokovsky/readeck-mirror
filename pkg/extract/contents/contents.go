@@ -53,8 +53,8 @@ func (h *readabilitySlogHandler) WithGroup(name string) slog.Handler {
 
 // IsReadabilityEnabled returns true when readability is enabled
 // in the extractor context.
-func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
-	if v, ok := e.Context.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
+func IsReadabilityEnabled(ctx context.Context) (enabled bool, forced bool) {
+	if v, ok := ctx.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
 		return v, true
 	}
 	// Default to true when the context value doest not exist
@@ -63,8 +63,8 @@ func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
 
 // EnableReadability enables or disable readability in the extractor
 // context.
-func EnableReadability(e *extract.Extractor, v bool) {
-	e.Context = context.WithValue(e.Context, ctxKeyReadabilityEnabled{}, v)
+func EnableReadability(ctx context.Context, v bool) context.Context {
+	return context.WithValue(ctx, ctxKeyReadabilityEnabled{}, v)
 }
 
 // Readability is a processor that executes readability on the drop content.
@@ -74,7 +74,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 			return next
 		}
 
-		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor)
+		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor.Context)
 
 		// Immediate stop on a media where readability is not explicitly set.
 		if m.Extractor.Drop().IsMedia() && !readabilityForced {
