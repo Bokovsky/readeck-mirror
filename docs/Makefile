@@ -2,7 +2,11 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-UV=$(shell command -pv uv)
+ifneq ($(shell command -v uv),)
+PYRUN=$(shell command -v uv) run
+else ifeq ($(shell python3 -c "import babel" 2>/dev/null && echo ok),ok)
+PYRUN=$(shell command -v python3)
+endif
 
 GO ?= go
 
@@ -10,35 +14,36 @@ all: compile
 
 # Extract all the messages
 extract:
-ifneq ($(UV),)
-	uv run messages.py extract
+ifneq ($(PYRUN),)
+	$(PYRUN) messages.py extract
 else
-	@echo "ERROR: uv not found"
+	@echo "ERROR: python with babel not found"
 	@false
 endif
 
 # Update po files
 update:
-ifneq ($(UV),)
-	uv run messages.py update
+ifneq ($(PYRUN),)
+	$(PYRUN) messages.py update
 else
-	@echo "ERROR: uv not found"
+	@echo "ERROR: python with babel not found"
 	@false
 endif
 
 # Generate markdown from po files.
 generate:
-ifneq ($(UV),)
-	$(UV) run messages.py generate
+ifneq ($(PYRUN),)
+	$(PYRUN) messages.py generate
 else
-	@echo "WARNING: uv not found, not compiling locales"
+	@echo "WARNING: python with babel not found, not translating docs"
 endif
 
 check:
-ifneq ($(UV),)
-	$(UV) run messages.py check
+ifneq ($(PYRUN),)
+	$(PYRUN) messages.py check
 else
-	@echo "WARNING: uv not found, not compiling locales"
+	@echo "ERROR: python with babel not found"
+	@false
 endif
 
 build: generate
