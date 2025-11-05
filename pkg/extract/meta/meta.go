@@ -11,6 +11,7 @@ import (
 	"log/slog"
 	"maps"
 	"regexp"
+	"slices"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -43,6 +44,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		"graph.title",
 		"twitter.title",
 		"html.title",
+		"schema.headline",
 	)
 
 	d.Description = d.Meta.LookupGet(
@@ -66,7 +68,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 	if site := d.Meta.LookupGet(
 		"graph.site_name",
-		"schema.name",
+		"schema.publisher",
 	); site != "" {
 		d.Site = site
 	}
@@ -213,18 +215,10 @@ var specList = []rawSpec{
 		extMeta("name", "content", ":"),
 	},
 
-	// Schema.org meta tags
+	// Schema.org microdata
 	{
-		"schema", "//meta[@content][@itemprop]",
-		extMeta("itemprop", "content", ""),
-	},
-
-	// Schema.org author in content
-	{
-		"schema", "//*[contains(concat(' ',normalize-space(@itemprop),' '),' author ')]//*[contains(concat(' ',normalize-space(@itemprop),' '),' name ')]",
-		func(n *html.Node) (string, string) {
-			return "author", dom.TextContent(n)
-		},
+		"schema", "//*[@itemscope]//*[@itemprop]",
+		extractSchemaDotOrgMicrodata,
 	},
 
 	// Fediverse meta tags
@@ -261,4 +255,50 @@ func ParseMeta(doc *html.Node) extract.DropMeta {
 	}
 
 	return res
+}
+
+// Extract the value of "itemprop" elements that are nested within "itemscope" elements.
+//
+// https://schema.org/docs/gs.html#microdata_itemscope_itemtype
+func extractSchemaDotOrgMicrodata(n *html.Node) (string, string) {
+	itemprop := strings.Fields(dom.GetAttribute(n, "itemprop"))
+	if slices.Contains(itemprop, "headline") {
+		// At this point we could check for `itemtype="http://schema.org/Article"` on the
+		// parent `itemscope` element, but so many CreativeWork sub-types (such as
+		// BlogPosting) also expose a headline that it would be too noisy to list them all
+		// here. Instead, assume that the headline is that of the main article.
+		//
+		// https://schema.org/CreativeWork
+		return "headline", microdataContent(n)
+	} else if slices.Contains(itemprop, "name") {
+		itemscopeNode := closestParentWithAttribute(n, "itemscope")
+		if itemscopeNode == nil {
+			return "", ""
+		}
+		scopeItemprop := strings.Fields(dom.GetAttribute(itemscopeNode, "itemprop"))
+		if slices.Contains(scopeItemprop, "author") {
+			// typically itemtype="http://schema.org/Person"
+			return "author", microdataContent(n)
+		} else if slices.Contains(scopeItemprop, "publisher") {
+			// typically itemtype="http://schema.org/Organization"
+			return "publisher", microdataContent(n)
+		}
+	}
+	return "", ""
+}
+
+func closestParentWithAttribute(n *html.Node, attr string) *html.Node {
+	for p := n.Parent; p != nil; p = p.Parent {
+		if dom.HasAttribute(p, attr) {
+			return p
+		}
+	}
+	return nil
+}
+
+func microdataContent(n *html.Node) string {
+	if n.Data == "meta" {
+		return dom.GetAttribute(n, "content")
+	}
+	return dom.TextContent(n)
 }
