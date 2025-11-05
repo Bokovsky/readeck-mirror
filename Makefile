@@ -32,9 +32,9 @@ export GOARCH?=
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
-GOLANGCI_PKG ?= github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.4.0
-AIR_PKG ?= github.com/air-verse/air@v1.61.7
-SLOC_PKG ?= github.com/boyter/scc/v3@v3.4.0
+GOLANGCI_PKG ?= github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.6.1
+AIR_PKG ?= github.com/air-verse/air@v1.63.0
+SLOC_PKG ?= github.com/boyter/scc/v3@v3.6.0
 
 # -------------------------------------------------------------------
 # Base targets

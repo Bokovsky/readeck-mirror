@@ -149,7 +149,7 @@ func GetExtension(mimeType string) string {
 }
 
 func commonPrefix(strs ...string) string {
-	longestPrefix := ""
+	longestPrefix := new(strings.Builder)
 	endPrefix := false
 
 	if len(strs) > 0 {
@@ -159,13 +159,13 @@ func commonPrefix(strs ...string) string {
 
 		for i := 0; i < len(first); i++ {
 			if !endPrefix && string(last[i]) == string(first[i]) {
-				longestPrefix += string(last[i])
+				longestPrefix.WriteByte(last[i])
 			} else {
 				endPrefix = true
 			}
 		}
 	}
-	return longestPrefix
+	return longestPrefix.String()
 }
 
 func requestURI(s string) (uri string) {

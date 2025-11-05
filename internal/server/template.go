@@ -75,9 +75,9 @@ func RenderTurboStream(
 		return
 	}
 
-	extraAttrs := ""
+	extraAttrs := new(strings.Builder)
 	for k, v := range attrs {
-		extraAttrs += k + `="` + html.EscapeString(v) + `" `
+		extraAttrs.WriteString(k + `="` + html.EscapeString(v) + `" `)
 	}
 
 	w.Header().Set("Content-Type", "text/vnd.turbo-stream.html; charset=utf-8")
