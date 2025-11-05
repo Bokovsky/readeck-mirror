@@ -2,19 +2,22 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# SomeTr <sometr@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-10-19 10:31+0000\n"
-"Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language: uk_UA\n"
+"PO-Revision-Date: 2025-11-05 09:15+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -240,57 +243,55 @@ msgstr "Забули пароль?"
 #: assets/templates/auth/oauth/device-code.jet.html:9
 #: assets/templates/auth/oauth/form.jet.html:14
 msgid "Authorization required"
-msgstr ""
+msgstr "Необхідна авторизація"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
-#, fuzzy
 msgid "Go back to Readeck"
-msgstr "Увійти до Readeck"
+msgstr "Повернутися до Readeck"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
 #: assets/templates/auth/oauth/device-code.jet.html:54
 msgid "Connect a device"
-msgstr ""
+msgstr "Підключити пристрій"
 
 #: assets/templates/auth/oauth/device-code.jet.html:32
 msgid "Enter the code displayed on your device"
-msgstr ""
+msgstr "Уведіть код, який показано на вашому пристрої"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
-#, fuzzy
 msgid "Next"
-msgstr "Наступна"
+msgstr "Далі"
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid "Authorization request was denied."
-msgstr ""
+msgstr "Запит на авторизацію відхилено."
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid " You can now close this page."
-msgstr ""
+msgstr " Тепер цю сторінку можна закрити."
 
 #: assets/templates/auth/oauth/device-code.jet.html:57
 msgid "Authorization granted. Connecting device..."
-msgstr ""
+msgstr "Авторизацію надано. Підключення пристрою..."
 
 #: assets/templates/auth/oauth/device-code.jet.html:61
 #, python-format
 msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
-msgstr ""
+msgstr "<a href=\"%s\">Перезавантажте цю сторінку</a>, якщо вона не оновиться через кілька секунд."
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "Device is connected!"
-msgstr ""
+msgstr "Пристрій підключено!"
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "You can now close this page."
-msgstr ""
+msgstr "Тепер цю сторінку можна закрити."
 
 #: assets/templates/auth/oauth/form.jet.html:12
 #, python-format
 msgid "Signed in as: <strong>%s</strong>"
-msgstr ""
+msgstr "Підключений як: <strong>%s</strong>"
 
 #: assets/templates/auth/oauth/form.jet.html:20
 #, python-format
@@ -300,16 +301,18 @@ msgid ""
 "      Only approve this request if you recognize and trust this source.\n"
 "    "
 msgstr ""
+"\n"
+"      <strong>%s</strong> хоче отримати доступ до вашого облікового запису.\n"
+"      Схвалюйте цей запит лише якщо ви знаєте це джерело та довіряєте йому.\n"
+"    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
-#, fuzzy
 msgid "Review permissions"
-msgstr "Дозволи"
+msgstr "Переглянути дозволи"
 
 #: assets/templates/auth/oauth/form.jet.html:33
-#, fuzzy
 msgid "Application information"
-msgstr "Застосунок"
+msgstr "Інформація про застосунок"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
@@ -319,23 +322,20 @@ msgid "Name"
 msgstr "Назва"
 
 #: assets/templates/auth/oauth/form.jet.html:36
-#, fuzzy
 msgid "Website"
-msgstr "Головний вебсайт"
+msgstr "Вебсайт"
 
 #: assets/templates/auth/oauth/form.jet.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Версія:"
+msgstr "Версія"
 
 #: assets/templates/auth/oauth/form.jet.html:42
-#, fuzzy
 msgid "Authorize"
-msgstr "Автор"
+msgstr "Дозволити"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
-msgstr ""
+msgstr "Відхилити"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -1890,9 +1890,8 @@ msgstr "Налаштування"
 
 #: assets/templates/profile/app_list.jet.html:10
 #: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
-#, fuzzy
 msgid "Applications"
-msgstr "Застосунок"
+msgstr "Застосунки"
 
 #: assets/templates/profile/app_list.jet.html:16
 msgid ""
@@ -1901,15 +1900,19 @@ msgid ""
 "  If there are applications you do not recognize here, or an application is misbehaving,\n"
 "  you can revoke its access.\n"
 msgstr ""
+"\n"
+"  Застосунки — це зареєстровані клієнти, які мають доступ до вашого облікового запису Readeck.\n"
+"  Якщо тут є застосунки, які ви не впізнаєте, або якийсь застосунок працює неправильно,\n"
+"  ви можете скасувати його доступ.\n"
 
 #: assets/templates/profile/app_list.jet.html:24
 msgid "You have no registered application at the moment."
-msgstr ""
+msgstr "Наразі у вас немає зареєстрованих застосунків."
 
 #: assets/templates/profile/app_list.jet.html:46
-#, fuzzy, python-format
+#, python-format
 msgid "Authorized on: %s"
-msgstr "Востаннє використано: %s"
+msgstr "Авторизовано: %s"
 
 #: assets/templates/profile/app_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:50
@@ -1918,19 +1921,16 @@ msgid "Last used on: %s"
 msgstr "Востаннє використано: %s"
 
 #: assets/templates/profile/app_list.jet.html:60
-#, fuzzy
 msgid "This client will be revoked in a few seconds."
-msgstr "Цей токен буде видалено через кілька секунд."
+msgstr "Доступ для цього клієнта буде відкликано через кілька секунд."
 
 #: assets/templates/profile/app_list.jet.html:74
-#, fuzzy
 msgid "Revoke application"
-msgstr "Застосунок"
+msgstr "Відкликати доступ"
 
 #: assets/templates/profile/app_list.jet.html:87
-#, fuzzy
 msgid "Developer information"
-msgstr "Інформація про закладку"
+msgstr "Інформація для розробників"
 
 #: assets/templates/profile/app_list.jet.html:88
 #, python-format
@@ -1940,6 +1940,10 @@ msgid ""
 "    <a href=\"%s\">API Documentation</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Якщо ви плануєте створити застосунок, ознайомтеся з\n"
+"    <a href=\"%s\">документацією API</a>.\n"
+"  "
 
 #: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
 #: internal/profile/views.go:130 internal/profile/views.go:174
@@ -2053,9 +2057,9 @@ msgid "My profile"
 msgstr "Мій профіль"
 
 #: assets/templates/profile/index.jet.html:16
-#, fuzzy, python-format
+#, python-format
 msgid "You are connected as <strong>%s</strong>"
-msgstr "Ваш пошуковий запит дав <strong>%d результат</strong>."
+msgstr "Ви підключені як <strong>%s</strong>"
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Sign out"
@@ -2236,12 +2240,8 @@ msgid "My API Tokens"
 msgstr "Мої токени API"
 
 #: assets/templates/profile/token_list.jet.html:16
-#, fuzzy
 msgid "An API Token is a key that grants you access to the Readeck API."
-msgstr ""
-"\n"
-"  Токен API — це ключ, який надає вам (або іншому інструменту, наприклад, розширенню браузера)\n"
-"  доступ до API Readeck\n"
+msgstr "Токен API — це ключ, який надає вам доступ до API Readeck."
 
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
@@ -2298,10 +2298,9 @@ msgid "admin"
 msgstr "адміністратор"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Profile : Read Only"
-msgstr "Адміністратор: лише читання"
+msgstr "Профіль: тільки читання"
 
 #: internal/auth/users/groups.go:24
 msgctxt "role"
@@ -2560,7 +2559,7 @@ msgstr "має бути меншим або дорівнювати %d"
 #: pkg/forms/validators.go:347
 #, python-format
 msgid "text must contain between %d and %d characters"
-msgstr ""
+msgstr "текст повинен бути від %d до %d символів"
 
 #: pkg/forms/validators.go:406
 #, python-format
@@ -2881,4 +2880,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Закрити зображення"
-
