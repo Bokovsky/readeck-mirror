@@ -273,7 +273,10 @@ import httpx
 
 
 def main():
-    client = httpx.Client(base_url="__ROOT_URI__")
+    client = httpx.Client(
+        base_url="__ROOT_URI__",
+        headers={"Accept": "application/json"},
+    )
 
     # Create a client
     rsp = client.post(

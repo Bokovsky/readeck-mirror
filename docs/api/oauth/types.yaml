@@ -105,13 +105,6 @@ schemas:
       client_id:
         type: string
         description: Client ID
-      registration_client_uri:
-        type: string
-        format: uri
-        description: URI to the client information
-      registration_access_token:
-        type: string
-        description: Access token for client information, update or deletion
       client_name:
         type: string
         description: Client's name
