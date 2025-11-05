@@ -324,7 +324,7 @@ func extractPageHandler(data interface{}) {
 
 	if !params.FindMain {
 		// Disable readability when find_main=0
-		contents.EnableReadability(ex, false)
+		ex.Context = contents.EnableReadability(ex.Context, false)
 	}
 
 	ex.Run()
@@ -538,7 +538,7 @@ func createZipFile(b *bookmarks.Bookmark, ex *extract.Extractor, resourceCount *
 
 	// Archive page
 	if len(ex.HTML) > 0 && ex.Drop().IsHTML() {
-		*resourceCount, err = bookmarks.ArchiveDocument(context.Background(), z.Dest(), ex)
+		*resourceCount, err = bookmarks.ArchiveDocument(ex.Context, z.Dest(), ex)
 		if err != nil {
 			return err
 		}

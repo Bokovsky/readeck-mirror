@@ -225,8 +225,8 @@ func (arc *Archiver) processURLNode(ctx context.Context, node *html.Node, attrNa
 
 	res, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{headers: headers})
 	if err != nil {
-		if errors.Is(err, errSkippedURL) {
-			if errors.Is(err, errRemoveSrc) {
+		if errors.Is(err, ErrSkippedURL) {
+			if errors.Is(err, ErrRemoveSrc) {
 				dom.RemoveAttribute(node, attrName)
 			}
 			return nil
@@ -290,8 +290,8 @@ func (arc *Archiver) processScriptNode(ctx context.Context, node *html.Node) err
 	uri := dom.GetAttribute(node, "src")
 	info, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{})
 	if err != nil {
-		if errors.Is(err, errSkippedURL) {
-			if errors.Is(err, errRemoveSrc) {
+		if errors.Is(err, ErrSkippedURL) {
+			if errors.Is(err, ErrRemoveSrc) {
 				dom.RemoveAttribute(node, "src")
 			}
 			return nil
@@ -315,8 +315,8 @@ func (arc *Archiver) processEmbedNode(ctx context.Context, node *html.Node) erro
 	uri := dom.GetAttribute(node, attrName)
 	info, err := arc.processURL(withNodeContext(ctx, node), uri, processOptions{})
 	if err != nil {
-		if errors.Is(err, errSkippedURL) {
-			if errors.Is(err, errRemoveSrc) {
+		if errors.Is(err, ErrSkippedURL) {
+			if errors.Is(err, ErrRemoveSrc) {
 				dom.RemoveAttribute(node, attrName)
 			}
 			return nil

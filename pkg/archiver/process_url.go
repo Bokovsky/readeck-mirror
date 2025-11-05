@@ -16,8 +16,12 @@ import (
 )
 
 var (
-	errSkippedURL = errors.New("skip processing url")
-	errRemoveSrc  = errors.New("remove source")
+	// ErrSkippedURL is an error returned so the current URL is not processed.
+	ErrSkippedURL = errors.New("skip processing url")
+
+	// ErrRemoveSrc joins [ErrSkippedURL] and instructs the archiver to
+	// skip the URL and remove the related node.
+	ErrRemoveSrc = errors.Join(ErrSkippedURL, errors.New("remove source"))
 )
 
 type processOptions struct {
@@ -28,7 +32,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, options process
 	// Make sure this URL is not empty, data or hash. If yes, just skip it.
 	uri = strings.TrimSpace(uri)
 	if uri == "" || strings.HasPrefix(uri, "#") {
-		return nil, fmt.Errorf("%w: %s", errSkippedURL, uri)
+		return nil, fmt.Errorf("%w: %s", ErrSkippedURL, uri)
 	}
 
 	uri = requestURI(uri)
@@ -53,7 +57,7 @@ func (arc *Archiver) processURL(ctx context.Context, uri string, options process
 			attr = slog.Int("status", res.status)
 		}
 		log.LogAttrs(context.Background(), slog.LevelWarn, "failed to fetch resource", attr)
-		return nil, errors.Join(errSkippedURL, errRemoveSrc, err)
+		return nil, errors.Join(ErrRemoveSrc, err)
 	}
 	defer body.Close() //nolint:errcheck
 
