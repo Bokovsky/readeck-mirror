@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-10-24 14:20+0000\n"
+"PO-Revision-Date: 2025-11-05 09:15+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: gl_ES\n"
 "Language-Team: Galician <https://translate.codeberg.org/projects/readeck/application/gl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: gl_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -243,57 +244,55 @@ msgstr "Esqueceches o contrasinal?"
 #: assets/templates/auth/oauth/device-code.jet.html:9
 #: assets/templates/auth/oauth/form.jet.html:14
 msgid "Authorization required"
-msgstr ""
+msgstr "Requírese autorización"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
-#, fuzzy
 msgid "Go back to Readeck"
-msgstr "Accede a Readeck"
+msgstr "Volver a Readeck"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
 #: assets/templates/auth/oauth/device-code.jet.html:54
 msgid "Connect a device"
-msgstr ""
+msgstr "Conecta un dispositivo"
 
 #: assets/templates/auth/oauth/device-code.jet.html:32
 msgid "Enter the code displayed on your device"
-msgstr ""
+msgstr "Escribe o código mostrado no teu dispositivo"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
-#, fuzzy
 msgid "Next"
 msgstr "Seguinte"
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid "Authorization request was denied."
-msgstr ""
+msgstr "Rexeitouse a solicitude de autorización."
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid " You can now close this page."
-msgstr ""
+msgstr " Xa podes fechar esta páxina."
 
 #: assets/templates/auth/oauth/device-code.jet.html:57
 msgid "Authorization granted. Connecting device..."
-msgstr ""
+msgstr "Concedida a autorización. Conectando o dipositivo…"
 
 #: assets/templates/auth/oauth/device-code.jet.html:61
 #, python-format
 msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
-msgstr ""
+msgstr "<a href=\"%s\">Recarga esta páxina</a> se non se actualiza após uns poucos segundos."
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "Device is connected!"
-msgstr ""
+msgstr "Conectouse o dispositivo!"
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "You can now close this page."
-msgstr ""
+msgstr "Xa podes fechar esta páxina."
 
 #: assets/templates/auth/oauth/form.jet.html:12
 #, python-format
 msgid "Signed in as: <strong>%s</strong>"
-msgstr ""
+msgstr "Sesión de: <strong>%s</strong>"
 
 #: assets/templates/auth/oauth/form.jet.html:20
 #, python-format
@@ -303,16 +302,18 @@ msgid ""
 "      Only approve this request if you recognize and trust this source.\n"
 "    "
 msgstr ""
+"\n"
+"      <strong>%s</strong> solicita poder acceder á túa conta.\n"
+"      Aproba esta petición só se recoñeces e confías na súa orixe.\n"
+"    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
-#, fuzzy
 msgid "Review permissions"
-msgstr "Permisos"
+msgstr "Revisar permisos"
 
 #: assets/templates/auth/oauth/form.jet.html:33
-#, fuzzy
 msgid "Application information"
-msgstr "Aplicación"
+msgstr "Información sobre a aplicación"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
@@ -322,23 +323,20 @@ msgid "Name"
 msgstr "Nome"
 
 #: assets/templates/auth/oauth/form.jet.html:36
-#, fuzzy
 msgid "Website"
 msgstr "Sitio web"
 
 #: assets/templates/auth/oauth/form.jet.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Versión:"
+msgstr "Versión"
 
 #: assets/templates/auth/oauth/form.jet.html:42
-#, fuzzy
 msgid "Authorize"
-msgstr "Autoría"
+msgstr "Autorizar"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
-msgstr ""
+msgstr "Rexeitar"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -1890,9 +1888,8 @@ msgstr "Axustes"
 
 #: assets/templates/profile/app_list.jet.html:10
 #: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
-#, fuzzy
 msgid "Applications"
-msgstr "Aplicación"
+msgstr "Aplicacións"
 
 #: assets/templates/profile/app_list.jet.html:16
 msgid ""
@@ -1901,15 +1898,19 @@ msgid ""
 "  If there are applications you do not recognize here, or an application is misbehaving,\n"
 "  you can revoke its access.\n"
 msgstr ""
+"\n"
+"  As aplicacións son clientes rexistrados que teñen acceso á túa conta en Readeck.\n"
+"  Se ves aquí aplicacións que non recoñeces, ou unha aplicación compórtase como non debe,\n"
+"  podes retirarlle aquí o acceso.\n"
 
 #: assets/templates/profile/app_list.jet.html:24
 msgid "You have no registered application at the moment."
-msgstr ""
+msgstr "Neste momento non tes aplicacións rexistradas."
 
 #: assets/templates/profile/app_list.jet.html:46
-#, fuzzy, python-format
+#, python-format
 msgid "Authorized on: %s"
-msgstr "Último uso: %s"
+msgstr "Autorizada o: %s"
 
 #: assets/templates/profile/app_list.jet.html:48
 #: assets/templates/profile/token_list.jet.html:50
@@ -1918,19 +1919,16 @@ msgid "Last used on: %s"
 msgstr "Último uso: %s"
 
 #: assets/templates/profile/app_list.jet.html:60
-#, fuzzy
 msgid "This client will be revoked in a few seconds."
-msgstr "Nuns segundos vaise eliminar o token."
+msgstr "Vaise retirar a autorización ao cliente nuns segundos."
 
 #: assets/templates/profile/app_list.jet.html:74
-#, fuzzy
 msgid "Revoke application"
-msgstr "Aplicación"
+msgstr "Revogar aplicación"
 
 #: assets/templates/profile/app_list.jet.html:87
-#, fuzzy
 msgid "Developer information"
-msgstr "Información do marcador"
+msgstr "Información de desenvolvemento"
 
 #: assets/templates/profile/app_list.jet.html:88
 #, python-format
@@ -1940,6 +1938,10 @@ msgid ""
 "    <a href=\"%s\">API Documentation</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Se tes pensado crear unha aplicación, por favor le a\n"
+"    <a href=\"%s\">Documentación da API</a>.\n"
+"  "
 
 #: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
 #: internal/profile/views.go:130 internal/profile/views.go:174
@@ -2053,9 +2055,9 @@ msgid "My profile"
 msgstr "O meu perfil"
 
 #: assets/templates/profile/index.jet.html:16
-#, fuzzy, python-format
+#, python-format
 msgid "You are connected as <strong>%s</strong>"
-msgstr "A busca obtivo <strong>%d resultado</strong>."
+msgstr "Iniciaches sesión como <strong>%s</strong>"
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Sign out"
@@ -2236,12 +2238,8 @@ msgid "My API Tokens"
 msgstr "Tokens da API"
 
 #: assets/templates/profile/token_list.jet.html:16
-#, fuzzy
 msgid "An API Token is a key that grants you access to the Readeck API."
-msgstr ""
-"\n"
-"  Un Token da API é unha clave que che concede a ti (ou a outra ferramenta como un complemento do navegador)\n"
-"  acceso á API de Readeck.\n"
+msgstr "Un Token da API é unha clave que che da acceso á API de Readeck."
 
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
@@ -2298,10 +2296,9 @@ msgid "admin"
 msgstr "admin"
 
 #: internal/auth/users/groups.go:23
-#, fuzzy
 msgctxt "role"
 msgid "Profile : Read Only"
-msgstr "Admin: Só lectura"
+msgstr "Perfil: Só lectura"
 
 #: internal/auth/users/groups.go:24
 msgctxt "role"
@@ -2560,7 +2557,7 @@ msgstr "ten que ser igual ou inferior de %d"
 #: pkg/forms/validators.go:347
 #, python-format
 msgid "text must contain between %d and %d characters"
-msgstr ""
+msgstr "o texto ten que conter entre %d e %d caracteres"
 
 #: pkg/forms/validators.go:406
 #, python-format
@@ -2872,4 +2869,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Fechar imaxe"
-
