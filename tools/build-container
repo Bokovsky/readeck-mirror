@@ -25,6 +25,7 @@ def work_container(image: str, arch: str):
     container = check_output(
         [
             BUILDAH,
+            "--pull=newer",
             "from",
             f"--arch={arch}",
             image,
@@ -54,9 +55,6 @@ def build_image(version: str, arch: str):
     """
     This builds an image using Readeck binary file for the given architecture.
     """
-
-    check_call([BUILDAH, "pull", f"--arch={arch}", BASE_IMAGE])
-    check_call([BUILDAH, "pull", f"--arch={arch}", ALPINE_IMAGE])
 
     # Start with a busybox container
     with work_container(BASE_IMAGE, arch) as container:
