@@ -12,7 +12,7 @@ from pathlib import Path
 from subprocess import check_call, check_output
 
 BASE_IMAGE = "docker.io/library/busybox:uclibc"
-ALPINE_IMAGE = "docker.io/library/alpine:edge"
+ALPINE_IMAGE = "docker.io/library/alpine:latest"
 
 BUILDAH = "/usr/bin/buildah"
 SKOPEO = "/usr/bin/skopeo"
@@ -54,6 +54,9 @@ def build_image(version: str, arch: str):
     """
     This builds an image using Readeck binary file for the given architecture.
     """
+
+    check_call([BUILDAH, "pull", f"--arch={arch}", BASE_IMAGE])
+    check_call([BUILDAH, "pull", f"--arch={arch}", ALPINE_IMAGE])
 
     # Start with a busybox container
     with work_container(BASE_IMAGE, arch) as container:
