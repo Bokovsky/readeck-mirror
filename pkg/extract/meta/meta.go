@@ -8,11 +8,13 @@ package meta
 
 import (
 	"fmt"
+	"iter"
 	"log/slog"
 	"maps"
 	"regexp"
 	"slices"
 	"strings"
+	"time"
 
 	"golang.org/x/net/html"
 
@@ -39,45 +41,88 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	maps.Copy(d.Meta, ParseMeta(m.Dom))
 	maps.Copy(d.Properties, ParseProps(m.Dom))
 
-	// Set some values
-	d.Title = d.Meta.LookupGet(
-		"graph.title",
-		"twitter.title",
-		"html.title",
-		"schema.headline",
-	)
+	// Extract article information from any article-like items encoded as JSON-LD.
+	if jsonLD, ok := d.Properties["json-ld"].([]any); ok {
+		for article := range linkedDataItems(jsonLD) {
+			if !isArticleType(article) {
+				continue
+			}
+			if headline, ok := article["headline"].(string); ok {
+				d.Title = headline
+			}
+			if description, ok := article["description"].(string); ok {
+				d.Description = description
+			}
+			if language, ok := article["inLanguage"].(string); ok && len(language) >= 2 {
+				d.Lang = language[0:2]
+			}
+			if datePublished, ok := article["datePublished"].(string); ok {
+				if t, err := time.Parse(time.RFC3339, datePublished); err == nil && !t.IsZero() {
+					d.Date = t
+				}
+			}
+			for publisher := range namedEntities(article["publisher"]) {
+				if publisher != "" {
+					d.Site = publisher
+					break
+				}
+			}
+			for author := range namedEntities(article["author"]) {
+				if author != "" {
+					d.AddAuthors(author)
+				}
+			}
+			break
+		}
+	}
 
-	d.Description = d.Meta.LookupGet(
-		"graph.description",
-		"twitter.description",
-		"html.description",
-	)
+	if d.Title == "" {
+		d.Title = d.Meta.LookupGet(
+			"graph.title",
+			"twitter.title",
+			"schema.headline",
+			"html.title",
+		)
+	}
+
+	if d.Description == "" {
+		d.Description = d.Meta.LookupGet(
+			"graph.description",
+			"twitter.description",
+			"html.description",
+		)
+	}
+
 	// Keep a short description (60 words)
 	parts := strings.Split(d.Description, " ")
 	if len(parts) > 60 {
 		d.Description = strings.Join(parts[:60], " ") + "..."
 	}
 
-	d.AddAuthors(d.Meta.Lookup(
-		"schema.author",
-		"dc.creator",
-		"html.author",
-		"html.byl",
-		"fediverse.creator",
-	)...)
-
-	if site := d.Meta.LookupGet(
-		"graph.site_name",
-		"schema.publisher",
-	); site != "" {
-		d.Site = site
+	if len(d.Authors) == 0 {
+		d.AddAuthors(d.Meta.Lookup(
+			"schema.author",
+			"dc.creator",
+			"html.author",
+			"html.byl",
+			"fediverse.creator",
+		)...)
 	}
 
-	if lang := d.Meta.LookupGet(
-		"html.lang",
-		"html.language",
-	); len(lang) >= 2 {
-		d.Lang = lang[0:2]
+	if d.Site == "" {
+		d.Site = d.Meta.LookupGet(
+			"graph.site_name",
+			"schema.publisher",
+		)
+	}
+
+	if d.Lang == "" {
+		if lang := d.Meta.LookupGet(
+			"html.lang",
+			"html.language",
+		); len(lang) >= 2 {
+			d.Lang = lang[0:2]
+		}
 	}
 
 	d.TextDirection = d.Meta.LookupGet("html.dir")
@@ -95,8 +140,10 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 
 	d := m.Extractor.Drop()
 
-	// Set publication date
-	d.Date, _ = dateparse.ParseLocal(d.Meta.LookupGet("html.date"))
+	if htmlDate := d.Meta.LookupGet("html.date"); d.Date.IsZero() && htmlDate != "" {
+		// Set publication date
+		d.Date, _ = dateparse.ParseLocal(htmlDate)
+	}
 
 	// We might have a picture here
 	if d.Meta.LookupGet("dc.type") == "image" {
@@ -301,4 +348,85 @@ func microdataContent(n *html.Node) string {
 		return dom.GetAttribute(n, "content")
 	}
 	return dom.TextContent(n)
+}
+
+const schemaDotOrgContext = "https://schema.org"
+
+// List taken from https://schema.org/Article#subtypes
+// TODO: consider allow-listing more types from https://schema.org/CreativeWork#subtypes
+var schemaDotOrgArticleTypes = map[string]struct{}{
+	"Article":                  {},
+	"AdvertiserContentArticle": {},
+	"NewsArticle":              {},
+	"AnalysisNewsArticle":      {},
+	"AskPublicNewsArticle":     {},
+	"BackgroundNewsArticle":    {},
+	"OpinionNewsArticle":       {},
+	"ReportageNewsArticle":     {},
+	"ReviewNewsArticle":        {},
+	"Report":                   {},
+	"SatiricalArticle":         {},
+	"ScholarlyArticle":         {},
+	"MedicalScholarlyArticle":  {},
+	"SocialMediaPosting":       {},
+	"BlogPosting":              {},
+	"LiveBlogPosting":          {},
+	"DiscussionForumPosting":   {},
+	"TechArticle":              {},
+	"APIReference":             {},
+}
+
+// Returns whether the linked data structure looks like a schema.org Article type.
+func isArticleType(item map[string]any) bool {
+	// TODO: support @context being a map containing @vocab
+	if c, ok := item["@context"].(string); !ok || c != schemaDotOrgContext {
+		return false
+	}
+	// TODO: traverse @graph when @type is missing
+	t, ok := item["@type"].(string)
+	if !ok {
+		return false
+	}
+	_, isArticle := schemaDotOrgArticleTypes[t]
+	return isArticle
+}
+
+// Traverse linked data to iterate over all top-level items.
+func linkedDataItems[V map[string]any](items []any) iter.Seq[V] {
+	return func(yield func(V) bool) {
+		for _, ldItem := range items {
+			switch typedItem := ldItem.(type) {
+			case []any:
+				for _, subitem := range typedItem {
+					if i, ok := subitem.(map[string]any); ok && !yield(i) {
+						return
+					}
+				}
+			case map[string]any:
+				if !yield(typedItem) {
+					return
+				}
+			}
+		}
+	}
+}
+
+// Iterates over nested entity or an array of entities that have a "name" attribute.
+func namedEntities(v any) iter.Seq[string] {
+	return func(yield func(string) bool) {
+		switch typedItem := v.(type) {
+		case []any:
+			for _, subitem := range typedItem {
+				if i, ok := subitem.(map[string]any); ok {
+					if name, ok := i["name"].(string); ok && !yield(name) {
+						return
+					}
+				}
+			}
+		case map[string]any:
+			if name, ok := typedItem["name"].(string); ok && !yield(name) {
+				return
+			}
+		}
+	}
 }
