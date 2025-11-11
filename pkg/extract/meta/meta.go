@@ -325,6 +325,13 @@ func extractSchemaDotOrgMicrodata(n *html.Node) (string, string) {
 		if itemscopeNode == nil {
 			return "", ""
 		}
+		articleNode := closestParentWithAttribute(itemscopeNode, "itemscope")
+		if articleNode == nil {
+			return "", ""
+		}
+		if !isArticleTypeURI(dom.GetAttribute(articleNode, "itemtype")) {
+			return "", ""
+		}
 		scopeItemprop := strings.Fields(dom.GetAttribute(itemscopeNode, "itemprop"))
 		if slices.Contains(scopeItemprop, "author") {
 			// typically itemtype="http://schema.org/Person"
@@ -359,6 +366,18 @@ const schemaDotOrgContext = "https://schema.org"
 func isSchemaDotOrg(s string) bool {
 	s = strings.TrimSuffix(s, "/")
 	return strings.Replace(s, "http:", "https:", 1) == schemaDotOrgContext
+}
+
+func isArticleTypeURI(s string) bool {
+	idx := strings.LastIndexByte(s, '/')
+	if idx < 0 {
+		return false
+	}
+	if !isSchemaDotOrg(s[:idx]) {
+		return false
+	}
+	_, found := schemaDotOrgArticleTypes[s[idx+1:]]
+	return found
 }
 
 // List taken from https://schema.org/Article#subtypes
