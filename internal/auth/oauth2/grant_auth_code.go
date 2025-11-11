@@ -9,8 +9,6 @@ package oauth2
 // https://datatracker.ietf.org/doc/html/rfc7636
 
 import (
-	"crypto/rand"
-	"encoding/json"
 	"errors"
 	"fmt"
 	"net/http"
@@ -21,7 +19,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
-	"golang.org/x/crypto/chacha20poly1305"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
@@ -29,11 +26,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
-)
-
-const (
-	nonceSize = chacha20poly1305.NonceSizeX
-	overhead  = chacha20poly1305.Overhead
 )
 
 var (
@@ -52,51 +44,6 @@ type authCodeRequest struct {
 	Challenge string    `json:"ch"`
 	UserID    int       `json:"u"`
 	Expires   time.Time `json:"e"`
-}
-
-// encode turns an [authCodeRequest] into JSON and encodes it.
-func (r authCodeRequest) encode() ([]byte, error) {
-	var data []byte
-	data, err := json.Marshal(r)
-	if err != nil {
-		return nil, err
-	}
-
-	nonce := make([]byte, nonceSize, len(data)+overhead+nonceSize)
-	rand.Read(nonce)
-
-	aead, err := chacha20poly1305.NewX(configs.Keys.OauthRequestKey())
-	if err != nil {
-		return nil, err
-	}
-
-	return aead.Seal(nonce, nonce, data, nil), nil
-}
-
-// loadAuthCodeRequest returns a new [authCodeRequest] from
-// encoded bytes.
-func loadAuthCodeRequest(data []byte) (*authCodeRequest, error) {
-	if len(data) < nonceSize+overhead {
-		return nil, errors.New("payload is too short")
-	}
-
-	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
-	aead, err := chacha20poly1305.NewX(configs.Keys.OauthRequestKey())
-	if err != nil {
-		return nil, err
-	}
-
-	content, err := aead.Open(nil, nonce, ciphertext, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	req := new(authCodeRequest)
-	if err := json.Unmarshal(content, req); err != nil {
-		return nil, err
-	}
-
-	return req, nil
 }
 
 type authorizeViewRouter struct {

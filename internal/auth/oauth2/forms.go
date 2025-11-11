@@ -160,7 +160,8 @@ func (f *authorizationForm) getCode(user *users.User) (string, error) {
 	slices.Sort(req.Scopes)
 	req.Scopes = slices.Compact(req.Scopes)
 
-	code, err := req.encode()
+	// Encode the request
+	code, err := configs.Keys.OauthRequestKey().EncodeJSON(req)
 	if err != nil {
 		return "", err
 	}
@@ -252,8 +253,9 @@ func (f *tokenForm) loadRequest() (*authCodeRequest, error) {
 		return nil, err
 	}
 
-	req, err := loadAuthCodeRequest(data)
-	if err != nil {
+	// Decode encrypted request
+	req := new(authCodeRequest)
+	if err = configs.Keys.OauthRequestKey().DecodeJSON(data, req); err != nil {
 		return nil, err
 	}
 

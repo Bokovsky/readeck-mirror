@@ -24,7 +24,7 @@ type KeyMaterial struct {
 	prk             []byte // Main pseudorandom key
 	tokenKey        SigningKey
 	sessionKey      []byte
-	oauthRequestKey []byte
+	oauthRequestKey EncodingKey
 }
 
 func hkdfHashFunc() hash.Hash {
@@ -51,7 +51,7 @@ func (km KeyMaterial) SessionKey() []byte {
 
 // OauthRequestKey returns a 256-bit key used to encode the oauth
 // authorization payload.
-func (km KeyMaterial) OauthRequestKey() []byte {
+func (km KeyMaterial) OauthRequestKey() EncodingKey {
 	return km.oauthRequestKey
 }
 

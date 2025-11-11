@@ -7,7 +7,6 @@ package oauth2
 import (
 	"crypto/rand"
 	"encoding/base64"
-	"errors"
 	"fmt"
 	"log/slog"
 	"net/http"
@@ -17,7 +16,6 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/go-chi/chi/v5"
-	"golang.org/x/crypto/chacha20poly1305"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth"
@@ -114,17 +112,7 @@ func userCodeFromDeviceCode(c string) (userCode, error) {
 		return "", err
 	}
 
-	if len(data) < nonceSize+overhead {
-		return "", errors.New("payload is too short")
-	}
-
-	nonce, ciphertext := data[:nonceSize], data[nonceSize:]
-	aead, err := chacha20poly1305.NewX(configs.Keys.OauthRequestKey())
-	if err != nil {
-		return "", err
-	}
-
-	content, err := aead.Open(nil, nonce, ciphertext, nil)
+	content, err := configs.Keys.OauthRequestKey().Decode(data)
 	if err != nil {
 		return "", err
 	}
@@ -136,16 +124,12 @@ func userCodeFromDeviceCode(c string) (userCode, error) {
 // This is the symetric encoding of the [userCode] with an
 // internal key.
 func (c userCode) toDeviceCode() (string, error) {
-	data := []byte(c)
-	nonce := make([]byte, nonceSize, len(data)+overhead+nonceSize)
-	rand.Read(nonce)
-
-	aead, err := chacha20poly1305.NewX(configs.Keys.OauthRequestKey())
+	data, err := configs.Keys.OauthRequestKey().Encode([]byte(c))
 	if err != nil {
 		return "", err
 	}
 
-	return base64.RawURLEncoding.EncodeToString(aead.Seal(nonce, nonce, data, nil)), nil
+	return base64.RawURLEncoding.EncodeToString(data), nil
 }
 
 // authorizeHandler is the view that presents the device code flow to
