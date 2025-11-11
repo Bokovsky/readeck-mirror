@@ -43,33 +43,36 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 	// Extract article information from any article-like items encoded as JSON-LD.
 	if jsonLD, ok := d.Properties["json-ld"].([]any); ok {
-		for article := range linkedDataItems(jsonLD) {
-			if !isArticleType(article) {
+		for article := range eachSchemaDotOrgNode(jsonLD) {
+			if !article.isArticle() {
 				continue
 			}
-			if headline, ok := article["headline"].(string); ok {
+			if headline, ok := article.textProperty("headline"); ok {
 				d.Title = headline
 			}
-			if description, ok := article["description"].(string); ok {
+			if description, ok := article.textProperty("description"); ok {
 				d.Description = description
 			}
-			if language, ok := article["inLanguage"].(string); ok && len(language) >= 2 {
+			if imageURL, ok := article.textProperty("image", "url"); ok {
+				d.Meta.Add("x.picture_url", imageURL)
+			}
+			if language, _ := article.textProperty("inLanguage", "alternateName"); len(language) >= 2 {
 				d.Lang = language[0:2]
 			}
-			if datePublished, ok := article["datePublished"].(string); ok {
+			if datePublished, ok := article.textProperty("datePublished"); ok {
 				if t, err := time.Parse(time.RFC3339, datePublished); err == nil && !t.IsZero() {
 					d.Date = t
 				}
 			}
-			for publisher := range namedEntities(article["publisher"]) {
-				if publisher != "" {
-					d.Site = publisher
+			for publisher := range article.nestedNodes("publisher") {
+				if publisherName, _ := publisher.textProperty("name"); publisherName != "" {
+					d.Site = publisherName
 					break
 				}
 			}
-			for author := range namedEntities(article["author"]) {
-				if author != "" {
-					d.AddAuthors(author)
+			for author := range article.nestedNodes("author") {
+				if authorName, _ := author.textProperty("name"); authorName != "" {
+					d.AddAuthors(authorName)
 				}
 			}
 			break
@@ -352,6 +355,12 @@ func microdataContent(n *html.Node) string {
 
 const schemaDotOrgContext = "https://schema.org"
 
+// Returns whether a string is a schema.org URI.
+func isSchemaDotOrg(s string) bool {
+	s = strings.TrimSuffix(s, "/")
+	return strings.Replace(s, "http:", "https:", 1) == schemaDotOrgContext
+}
+
 // List taken from https://schema.org/Article#subtypes
 // TODO: consider allow-listing more types from https://schema.org/CreativeWork#subtypes
 var schemaDotOrgArticleTypes = map[string]struct{}{
@@ -376,23 +385,59 @@ var schemaDotOrgArticleTypes = map[string]struct{}{
 	"APIReference":             {},
 }
 
-// Returns whether the linked data structure looks like a schema.org Article type.
-func isArticleType(item map[string]any) bool {
-	// TODO: support @context being a map containing @vocab
-	if c, ok := item["@context"].(string); !ok || c != schemaDotOrgContext {
-		return false
-	}
-	// TODO: traverse @graph when @type is missing
-	t, ok := item["@type"].(string)
+type dataNode map[string]any
+
+func (n dataNode) isArticle() bool {
+	nodeType, ok := n["@type"].(string)
 	if !ok {
 		return false
 	}
-	_, isArticle := schemaDotOrgArticleTypes[t]
-	return isArticle
+	_, found := schemaDotOrgArticleTypes[nodeType]
+	return found
 }
 
-// Traverse linked data to iterate over all top-level items.
-func linkedDataItems[V map[string]any](items []any) iter.Seq[V] {
+func (n dataNode) nestedNodes(key string) iter.Seq[dataNode] {
+	return func(yield func(dataNode) bool) {
+		v, ok := n[key]
+		if !ok {
+			return
+		}
+		switch typedItem := v.(type) {
+		case []any:
+			for _, subitem := range typedItem {
+				if i, ok := subitem.(map[string]any); ok && !yield(i) {
+					return
+				}
+			}
+		case map[string]any:
+			if !yield(typedItem) {
+				return
+			}
+		}
+	}
+}
+
+func (n dataNode) textProperty(key string, subkeys ...string) (string, bool) {
+	v, ok := n[key]
+	if !ok {
+		return "", false
+	}
+	switch typedItem := v.(type) {
+	case string:
+		// https://www.w3.org/TR/json-ld11/#restrictions-for-contents-of-json-ld-script-elements
+		return html.UnescapeString(typedItem), true
+	case map[string]any:
+		if len(subkeys) < 1 {
+			return "", false
+		}
+		return dataNode(typedItem).textProperty(subkeys[0], subkeys[:1]...)
+	default:
+		return "", false
+	}
+}
+
+// Iterate through all JSON-LD nodes that are directly under `<script>` tags.
+func topLevelNodes[V dataNode](items []any) iter.Seq[V] {
 	return func(yield func(V) bool) {
 		for _, ldItem := range items {
 			switch typedItem := ldItem.(type) {
@@ -411,20 +456,20 @@ func linkedDataItems[V map[string]any](items []any) iter.Seq[V] {
 	}
 }
 
-// Iterates over nested entity or an array of entities that have a "name" attribute.
-func namedEntities(v any) iter.Seq[string] {
-	return func(yield func(string) bool) {
-		switch typedItem := v.(type) {
-		case []any:
-			for _, subitem := range typedItem {
-				if i, ok := subitem.(map[string]any); ok {
-					if name, ok := i["name"].(string); ok && !yield(name) {
+// Iterate through all JSON-LD nodes, including ones that are part of the graph.
+func eachSchemaDotOrgNode[V dataNode](items []any) iter.Seq[V] {
+	return func(yield func(V) bool) {
+		for node := range topLevelNodes(items) {
+			if c, ok := node.textProperty("@context", "@vocab"); !ok || !isSchemaDotOrg(c) {
+				continue
+			}
+			if nodes, ok := node["@graph"].([]any); ok {
+				for _, nn := range nodes {
+					if graphNode, ok := nn.(map[string]any); ok && !yield(V(graphNode)) {
 						return
 					}
 				}
-			}
-		case map[string]any:
-			if name, ok := typedItem["name"].(string); ok && !yield(name) {
+			} else if !yield(V(node)) {
 				return
 			}
 		}
