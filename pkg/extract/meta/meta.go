@@ -97,8 +97,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	}
 
 	// Keep a short description (60 words)
-	parts := strings.Split(d.Description, " ")
-	if len(parts) > 60 {
+	if parts := strings.Fields(d.Description); len(parts) > 60 {
 		d.Description = strings.Join(parts[:60], " ") + "..."
 	}
 
@@ -112,11 +111,11 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		)...)
 	}
 
-	if d.Site == "" {
-		d.Site = d.Meta.LookupGet(
-			"graph.site_name",
-			"schema.publisher",
-		)
+	if site := d.Meta.LookupGet(
+		"graph.site_name",
+		"schema.publisher",
+	); site != "" && (d.Site == "" || d.Site == d.URL.Hostname()) {
+		d.Site = site
 	}
 
 	if d.Lang == "" {
