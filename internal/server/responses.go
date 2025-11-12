@@ -131,8 +131,9 @@ func Err(w http.ResponseWriter, r *http.Request, err error) {
 	}
 
 	if e, ok := err.(json.Marshaler); ok &&
-		accept.NegotiateContentType(r.Header, acceptOffers, "application/json") == "application/json" {
+		accept.NegotiateContentType(r.Header, []string{"application/json"}, "application/json") == "application/json" {
 		// If the error provides a JSON marshaller, we render it as JSON.
+		// The request must accept application/json or nothing.
 		Render(w, r, status, e)
 	} else {
 		Status(w, r, status)
