@@ -6,7 +6,7 @@ require (
 	codeberg.org/readeck/go-readability/v2 v2.0.0
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.4.0
-	github.com/antchfx/htmlquery v1.3.4
+	github.com/antchfx/htmlquery v1.3.5
 	github.com/antchfx/xmlquery v1.5.0
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
@@ -41,12 +41,12 @@ require (
 	github.com/wneessen/go-mail v0.7.2
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/crypto v0.43.0
-	golang.org/x/image v0.32.0
-	golang.org/x/net v0.46.0
+	golang.org/x/crypto v0.44.0
+	golang.org/x/image v0.33.0
+	golang.org/x/net v0.47.0
 	golang.org/x/sync v0.18.0
-	golang.org/x/term v0.36.0
-	golang.org/x/text v0.30.0
+	golang.org/x/term v0.37.0
+	golang.org/x/text v0.31.0
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.40.0
 )
