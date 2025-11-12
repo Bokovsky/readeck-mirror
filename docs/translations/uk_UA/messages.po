@@ -2,19 +2,21 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# SomeTr <sometr@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-08-22 12:09+0000\n"
+"PO-Revision-Date: 2025-11-05 14:09+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language: uk_UA\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/documentation/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -601,6 +603,7 @@ msgid ""
 msgstr ""
 "---\n"
 "Title: Зміст\n"
+"# !! ВАЖЛИВО: НЕ ТРЕБА ПЕРЕКЛАДАТИ ЧАСТИНУ, ЩО НИЖЧЕ\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -832,4 +835,3 @@ msgstr "Якщо вам потрібно надати якому-небудь с
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "Натомість у якості облікових даних для автентифікації ви можете вказати своє ім’я користувача і токен на ваш вибір."
-
