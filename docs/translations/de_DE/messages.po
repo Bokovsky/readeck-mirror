@@ -3,20 +3,21 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # olivier <olivier@noreply.codeberg.org>, 2025.
+# altruizine <altruizine@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-10-29 19:09+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-11-08 00:09+0000\n"
+"Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
 "Language-Team: German <https://translate.codeberg.org/projects/readeck/documentation/de/>\n"
 "Language: de_DE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -33,7 +34,7 @@ msgstr "## Erstellen Sie ein neues Lesezeichen"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr "Haben Sie eine Webseite gefunden, die Ihnen gefällt? Großartig! Kopieren Sie den Link in das Textfeld **Neues Lesezeichen** in der [Lesezeichenliste] (readeck-instance://bookmarks)."
+msgstr "Haben Sie eine Webseite gefunden, die Ihnen gefällt? Großartig! Kopieren Sie den Link in das Textfeld **Neues Lesezeichen** in der [Lesezeichenliste](readeck-instance://bookmarks)."
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -281,8 +282,8 @@ msgstr ""
 "  Nur im Titel suchen.\n"
 "- **Autor**\\\n"
 "  Nur in der Autorenliste suchen.\n"
-"- **Website**\\\n"
-"  Suchen Sie im Site-Titel und im Site-Domainnamen.\n"
+"- **Seite**\\\n"
+"  Suchen Sie im Website-Titel und im Website-Domainnamen.\n"
 "- **Tag**\\\n"
 "  Suchen Sie nach bestimmten Tags.\n"
 "- **Ist Favorit**, **Ist archiviert**, **Typ**\\\n"
@@ -296,7 +297,7 @@ msgstr "### Suchanfrage"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr "Die Felder **Suche**, **Titel**, **Autor**, **Site** und **Label** verstehen Suchkriterien auf die gleiche Weise:"
+msgstr "Die Felder **Suche**, **Titel**, **Autor**, **Seite** und **Tag** verstehen Suchkriterien auf die gleiche Weise:"
 
 #: en-US/bookmark-list.md:133
 msgid ""
@@ -305,14 +306,14 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
-"- `erschrockene Katze` findet den Inhalt mit den Wörtern **erschrocken** und **Katze**\n"
-"- `\"erschrockene Katze\"` findet den Inhalt mit den genauen Wörtern **erschrockene Katze** zusammen.\n"
-"- `Katze*` findet den Inhalt mit Wörtern, die mit **Katze** beginnen (Katze, Katzenminze und Raupe würden übereinstimmen).\n"
-"- `-erschrockene Katze` findet den Inhalt mit dem Wort **Katze**, aber NICHT mit dem Wort **erschrocke**."
+"- `erschrockene Katze` findet den Inhalt mit den Wörtern **erschrockene** und **Katze**\n"
+"- `\"erschrockene Katze\"` findet den Inhalt mit den genauen Wörtern **erschrockene Katze** nebeneinander.\n"
+"- `Katze*` findet den Inhalt mit Wörtern, die mit **Katze** beginnen (Katze, Katzenminze und Katzenfutter würden übereinstimmen).\n"
+"- `-erschrockene Katze` findet den Inhalt mit dem Wort **Katze**, aber NICHT mit dem Wort **erschrockene**."
 
 #: en-US/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr "Nachdem Sie eine Suche durchgeführt haben, können Sie sie in einer neuen [Sammlung](./collections.md) speichern, um sie dauerhaft zu machen."
+msgstr "Nachdem Sie eine Suche durchgeführt haben, können Sie sie in einer neuen [Sammlung](./collections.md) speichern, um sie dauerhaft zu behalten."
 
 #: en-US/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
@@ -410,7 +411,7 @@ msgstr "## Den Titel verändern"
 
 #: en-US/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr "Der Titel des Lesezeichens wird automatisch übernommen, wenn Sie ein Lesezeichen erstellen. Sie können diesen abändern wenn Sie darauf klicken und dann auf die Schaltfläche auf der Titelseite klicken."
+msgstr "Der Titel des Lesezeichens wird automatisch übernommen, wenn Sie ein Lesezeichen erstellen. Sie können diesen abändern, indem Sie darauf klicken und dann auf die Schaltfläche neben dem Titel klicken."
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
@@ -466,7 +467,7 @@ msgstr "## Tags"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr "Sie können einem Lesezeichen beliebig viele Tags hinzufügen. Geben Sie dazu einen Text in das Beschriftungsfeld ein und klicken Sie auf **Tag hinzufügen**. Es gibt keine Begrenzung, was ein Etikett sein kann. Sie können sogar Emojis hinzufügen, wenn Sie diese mögen."
+msgstr "Sie können einem Lesezeichen beliebig viele Tags hinzufügen. Geben Sie dazu einen Text in das Beschriftungsfeld ein und klicken Sie auf **Tag hinzufügen**. Es gibt keine Begrenzung, was ein Tag sein kann. Sie können sogar Emojis hinzufügen, wenn Sie diese mögen."
 
 #: en-US/bookmark.md:77
 msgid ""
@@ -489,7 +490,7 @@ msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
-"Haben Sie einen interessanten Teil in einem Artikel gefunden? Sie können es markieren!\\\n"
+"Haben Sie einen interessanten Teil in einem Artikel gefunden? Sie können ihn markieren!\\\n"
 "Wenn Sie einen beliebigen Text im Artikel auswählen, wird ein Menü angezeigt, mit dem Sie eine neue Markierung erstellen können."
 
 #: en-US/bookmark.md:87
@@ -603,6 +604,7 @@ msgid ""
 msgstr ""
 "---\n"
 "Titel: Inhaltsverzeichnis\n"
+"#\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -747,7 +749,7 @@ msgstr "## Beispiel-Setup: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr "[Koreader](https://koreader.rocks/) ist ein Dokumentenbetrachter für E-Ink-Geräte. Es ist für Kindle, Kobo, PocketBook, Android und Desktop-Linux verfügbar. Es verfügt über eine sehr gute OPDS-Unterstützung."
+msgstr "[Koreader](https://koreader.rocks/) ist ein Dokumentenbetrachter für E-Ink-Geräte. Er ist für Kindle, Kobo, PocketBook, Android und Desktop-Linux verfügbar. Er verfügt über eine sehr gute OPDS-Unterstützung."
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
@@ -821,7 +823,7 @@ msgstr "## API-Token"
 
 #: en-US/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr "Mit einem API-Token können Sie auf die [Readeck-API] (readeck-instance://docs/api) zugreifen und sie für alles verwenden, was Sie erstellen möchten. Sie können Token im Abschnitt [API-Tokens](readeck-instance://profile/tokens) Ihres Benutzerprofils erstellen und verwalten."
+msgstr "Mit einem API-Token können Sie auf die [Readeck-API](readeck-instance://docs/api) zugreifen und sie für alles verwenden, was Sie erstellen möchten. Sie können Token im Abschnitt [API-Tokens](readeck-instance://profile/tokens) Ihres Benutzerprofils erstellen und verwalten."
 
 #: en-US/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."

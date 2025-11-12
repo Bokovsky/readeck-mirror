@@ -11,15 +11,15 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-10-24 14:20+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-11-05 10:09+0000\n"
+"Last-Translator: linsui <linsui@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/documentation/zh_Hans/>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.13.3\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -36,7 +36,7 @@ msgstr "## 创建新的书签"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr "发现了一个您喜欢的页面? 很棒! 将链接复制到[书签列表](readeck-instance://bookmarks)上方的输入框中。"
+msgstr "发现了一个您喜欢的页面? 很棒! 将链接复制到[书签列表](readeck-instance://bookmarks)上方的**保存新链接**输入框中。"
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -403,7 +403,9 @@ msgstr ""
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
-msgstr "在那里，您可以设置文本使用的字体、字体大小和行高。此设置会自动为您保存，并将应用于您以后阅读的任何文章。"
+msgstr ""
+"在那里，您可以设置文本使用的字体、字体大小和行高。\n"
+"此设置会自动为您保存，并将应用于您以后阅读的任何文章。"
 
 #: en-US/bookmark.md:43
 msgid "## Change the title"
@@ -602,6 +604,7 @@ msgid ""
 msgstr ""
 "---\n"
 "Title: 目录\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -736,7 +739,9 @@ msgstr ""
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
-msgstr "您的OPDS的URL 是: [readeck-instance://opds](readeck-instance://opds)"
+msgstr ""
+"您的OPDS的URL 是:\n"
+"[readeck-instance://opds](readeck-instance://opds)"
 
 #: en-US/opds.md:33
 msgid "## Example setup: Koreader"
@@ -752,7 +757,7 @@ msgstr "一旦您有了应用程序令牌，您就可以在 Koreander 的查找�
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr "![Koreader's lookup menu](../img/koreader-1.webp)"
+msgstr "![Koreader 的查找菜单](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
@@ -760,7 +765,7 @@ msgstr "此处显示了一个预配置的 OPDS 源列表，您可以点按左上
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
-msgstr "![Koreader catalog list](../img/koreader-2.webp)"
+msgstr "![Koreader 目录列表](../img/koreader-2.webp)"
 
 #: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
@@ -778,7 +783,7 @@ msgstr ""
 
 #: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
-msgstr "![Koreader add catalog](../img/koreader-3.webp)"
+msgstr "![Koreader 添加目录](../img/koreader-3.webp)"
 
 #: en-US/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
@@ -786,7 +791,7 @@ msgstr "您现在可以从 Koreader 访问您的书签了!"
 
 #: en-US/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
-msgstr "![Koreader readeck catalog](../img/koreader-4.webp)"
+msgstr "![Koreader readeck 目录](../img/koreader-4.webp)"
 
 #: en-US/user-profile.md:1
 msgid "# User Profile"

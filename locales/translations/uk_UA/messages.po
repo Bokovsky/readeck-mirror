@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-11-05 09:15+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"PO-Revision-Date: 2025-11-07 19:09+0000\n"
+"Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
 "Language: uk_UA\n"
 "MIME-Version: 1.0\n"
@@ -2246,7 +2246,7 @@ msgstr "Токен API — це ключ, який надає вам досту�
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr "Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте його використовувати."
+msgstr "Будь ласка, прочитайте <a href=\"%s\">документацію API</a>, якщо ви плануєте його використовувати."
 
 #: assets/templates/profile/token_list.jet.html:22
 msgid "Create a new API token"
@@ -2451,7 +2451,7 @@ msgstr "Колекція Readeck: %s"
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr "Електронна книга колекції - %s"
+msgstr "Електронна книга колекції — %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
@@ -2699,62 +2699,62 @@ msgstr "Грудень"
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr "Січ"
+msgstr "січ"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr "Лют"
+msgstr "лют"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr "Бер"
+msgstr "бер"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr "Кві"
+msgstr "кві"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr "Тра"
+msgstr "тра"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr "Чер"
+msgstr "чер"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr "Лип"
+msgstr "лип"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr "Сер"
+msgstr "сер"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr "Вер"
+msgstr "вер"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr "Жов"
+msgstr "жов"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr "Лис"
+msgstr "лис"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr "Гру"
+msgstr "гру"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
@@ -2770,7 +2770,7 @@ msgstr "пп"
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr "%a %e %b %y %H:%M:%S"
+msgstr "%a %e %b %Y %H:%M:%S"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
