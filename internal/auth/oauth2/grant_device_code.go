@@ -11,6 +11,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
+	"slices"
 	"strings"
 	"time"
 
@@ -184,7 +185,14 @@ func (h *deviceViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Reque
 
 			tc["Step"] = "pending"
 			tc["Client"] = client
-			tc["Scopes"] = req.Scopes
+
+			availableScopes := users.GroupList(server.Locale(r), "__oauth_scope__", auth.GetRequestUser(r))
+			tc["Scopes"] = []string{}
+			for _, x := range availableScopes {
+				if slices.Contains(req.Scopes, x[0]) {
+					tc["Scopes"] = append(tc["Scopes"].([]string), x[1])
+				}
+			}
 
 			if r.Method == http.MethodPost {
 				if !f.Get("granted").IsNil() {
