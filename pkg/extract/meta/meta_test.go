@@ -119,9 +119,27 @@ func TestMeta(t *testing.T) {
 			assert.Equal(t, "en", ex.Drop().Lang)
 
 			assert.Equal(t, extract.DropMeta{
-				"html.lang":  {"en"},
-				"html.title": {"This is ignored"},
+				"html.lang":     {"en"},
+				"html.title":    {"This is ignored"},
+				"x.picture_url": {"https://www.404media.co/content/images/size/w1200/2025/10/PodBed-1.jpg"},
 			}, ex.Drop().Meta)
+		})
+
+		t.Run("process meta4", func(t *testing.T) {
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta4.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal(t, "Issues list such as unescaped </script> or -->", ex.Drop().Title)
+			assert.Empty(t, ex.Drop().Description)
+			assert.Empty(t, ex.Drop().Authors)
+			assert.Equal(t, "It's FOSS", ex.Drop().Site)
+			assert.True(t, ex.Drop().Date.IsZero())
+			assert.Equal(t, "zh", ex.Drop().Lang)
+
+			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("text direction", func(t *testing.T) {
