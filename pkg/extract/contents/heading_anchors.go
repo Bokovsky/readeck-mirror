@@ -30,8 +30,13 @@ func StripHeadingAnchors(m *extract.ProcessMessage, next extract.Processor) extr
 			continue
 		}
 		fragmentID := unescape(href[1:])
-		// handle Docsify fragment prefix:
-		fragmentID = strings.TrimPrefix(fragmentID, "/?id=")
+		if strings.HasPrefix(fragmentID, "/") {
+			// Handle Docsify hash router URLs of the format `#/path?id=fragment`
+			// Conveniently, the "data-id" attribute contains just the fragment part.
+			if dataID := dom.GetAttribute(a, "data-id"); dataID != "" {
+				fragmentID = dataID
+			}
+		}
 
 		isAnchor := false
 		var headingElement *html.Node
