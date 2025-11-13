@@ -5,6 +5,8 @@
 package contents
 
 import (
+	"iter"
+	"log/slog"
 	"net/url"
 	"strings"
 	"unicode"
@@ -22,75 +24,45 @@ func StripHeadingAnchors(m *extract.ProcessMessage, next extract.Processor) extr
 		return next
 	}
 
-	m.Log().Debug("strip heading anchors")
+	numStripped := 0
+	for href, a := range eachHyperlink(m.Dom) {
+		if !strings.HasPrefix(href, "#") {
+			continue
+		}
+		fragmentID := unescape(href[1:])
+		// handle Docsify fragment prefix:
+		fragmentID = strings.TrimPrefix(fragmentID, "/?id=")
 
-	var traverse func(*html.Node)
-	traverse = func(n *html.Node) {
-		for child := n.FirstChild; child != nil; {
-			if child.Type == html.ElementNode && child.Data == "a" {
-				a := child
-				if isHeadingAnchor(a) {
-					if !containsSingleIcon(a) {
-						// Unwrap the <a> element by reparenting its contents
-						for c := a.FirstChild; c != nil; {
-							nextSibling := c.NextSibling
-							dom.DetachChild(c)
-							a.Parent.InsertBefore(c, a)
-							c = nextSibling
-						}
-					}
-					child = child.NextSibling
-					a.Parent.RemoveChild(a)
-					continue
-				}
+		isAnchor := false
+		var headingElement *html.Node
+		for el := range traverseAdjacent(a) {
+			elementID := unescape(dom.GetAttribute(el, "id"))
+			if len(elementID) > 0 && elementID == fragmentID || strings.TrimPrefix(elementID, "user-content-") == fragmentID {
+				isAnchor = true
 			}
-			traverse(child)
-			child = child.NextSibling
+			switch el.Data {
+			case "h1", "h2", "h3", "h4", "h5", "h6":
+				headingElement = el
+			}
+			if isAnchor && headingElement != nil {
+				if !containsSingleIcon(a) {
+					unwrapElement(a)
+				}
+				if aID := dom.GetAttribute(a, "id"); aID != "" && !dom.HasAttribute(headingElement, "id") {
+					// The <a id="..."> element is going away, so preserve its ID attribute by
+					// moving it onto the heading element.
+					dom.SetAttribute(headingElement, "id", aID)
+				}
+				a.Parent.RemoveChild(a)
+				numStripped++
+				break
+			}
 		}
 	}
-	traverse(m.Dom)
+
+	m.Log().Debug("strip heading anchors", slog.Int("nodes", numStripped))
 
 	return next
-}
-
-func isHeadingAnchor(a *html.Node) bool {
-	href := dom.GetAttribute(a, "href")
-	if !strings.HasPrefix(href, "#") {
-		return false
-	}
-	fragment := unescape(href[1:])
-	// handle Docsify fragment prefix:
-	fragment = strings.TrimPrefix(fragment, "/?id=")
-
-	isAnchor := false
-	isHeading := false
-	detect := func(node *html.Node) {
-		if node == nil || node.Type != html.ElementNode {
-			return
-		}
-		id := unescape(dom.GetAttribute(node, "id"))
-		if len(id) > 0 && id == fragment || strings.TrimPrefix(id, "user-content-") == fragment {
-			isAnchor = true
-		}
-		switch node.Data {
-		case "h1", "h2", "h3", "h4", "h5", "h6":
-			isHeading = true
-		}
-	}
-
-	ancestor := a
-	for depth := 0; ancestor != nil && depth < 3; depth++ {
-		detect(ancestor)
-		ancestor = ancestor.Parent
-	}
-	if !isHeading {
-		detect(a.PrevSibling)
-	}
-	if !isHeading {
-		detect(a.NextSibling)
-	}
-
-	return isAnchor && isHeading
 }
 
 func containsSingleIcon(a *html.Node) bool {
@@ -99,7 +71,10 @@ func containsSingleIcon(a *html.Node) bool {
 		return false
 	}
 	if child.Type == html.ElementNode {
-		return child.Data == "svg" || child.Data == "img" || containsSingleIcon(child)
+		return child.Data == "svg" ||
+			child.Data == "img" ||
+			isHiddenElement(child) ||
+			containsSingleIcon(child)
 	}
 	if child.Type != html.TextNode {
 		return false
@@ -120,6 +95,73 @@ func containsSingleIcon(a *html.Node) bool {
 	default:
 		// Font Awesome icons are assigned codepoints in the Unicode "Private Use" category
 		return unicode.Is(unicode.Co, firstRune)
+	}
+}
+
+func isHiddenElement(el *html.Node) bool {
+	for _, attr := range el.Attr {
+		if attr.Key == "aria-hidden" {
+			return attr.Val == "" || attr.Val == "true"
+		}
+	}
+	return false
+}
+
+// Iterates through every <a href> element in the given DOM and yields the href value and the <a>
+// element node. The yielded node is safe to detach from the DOM mid-iteration.
+func eachHyperlink(node *html.Node) iter.Seq2[string, *html.Node] {
+	return func(yield func(string, *html.Node) bool) {
+		var traverse func(*html.Node) bool
+		traverse = func(n *html.Node) bool {
+			for child := n.FirstChild; child != nil; {
+				nextSibling := child.NextSibling
+				if child.Type == html.ElementNode {
+					if child.Data == "a" {
+						for _, attr := range child.Attr {
+							if attr.Key == "href" {
+								if !yield(attr.Val, child) {
+									return false
+								}
+							}
+						}
+					} else if !traverse(child) {
+						return false
+					}
+				}
+				child = nextSibling
+			}
+			return true
+		}
+		_ = traverse(node)
+	}
+}
+
+// Traverses adjacent node elements: self, the closest two ancestors, and previous and next element siblings.
+func traverseAdjacent(node *html.Node) iter.Seq[*html.Node] {
+	return func(yield func(*html.Node) bool) {
+		ancestor := node
+		for depth := 0; ancestor != nil && depth < 3; depth++ {
+			if ancestor.Type == html.ElementNode && !yield(ancestor) {
+				return
+			}
+			ancestor = ancestor.Parent
+		}
+		if prevElement := dom.PreviousElementSibling(node); prevElement != nil && !yield(prevElement) {
+			return
+		}
+		if nextElement := dom.NextElementSibling(node); nextElement != nil && !yield(nextElement) {
+			return
+		}
+	}
+}
+
+// Unwrap an HTML element by reparenting its contents.
+func unwrapElement(node *html.Node) {
+	for c := node.FirstChild; c != nil; {
+		nextSibling := c.NextSibling
+		dom.DetachChild(c)
+		node.Parent.InsertBefore(c, node)
+		c = nextSibling
 	}
 }
 
