@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-11-07 17:10+0000\n"
+"PO-Revision-Date: 2025-11-14 15:09+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
 "Language: es_ES\n"
@@ -872,7 +872,7 @@ msgstr "Resaltar"
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
-msgstr "Copiar a portapapeles"
+msgstr "copiar a portapapeles"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -1143,7 +1143,7 @@ msgstr "Añade una etiqueta a los enlaces en función del título de sección"
 #: assets/templates/bookmarks/import/form-text.jet.html:34
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:68
 msgid "Import Bookmarks"
-msgstr "Importar marcadores"
+msgstr "Importar Marcadores"
 
 # | msgid "Import Links from a Text File"
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
@@ -1238,7 +1238,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr "Importar marcadores desde un archivo de exportación de Linkwarden"
+msgstr "Importar Marcadores desde un archivo de exportación de Linkwarden"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -1484,7 +1484,7 @@ msgstr "Importar sus artículos de GoodLinks"
 
 #: assets/templates/bookmarks/import/index.jet.html:56
 msgid "Import your Linkwarden Bookmarks"
-msgstr "Importa tus marcadores de Linkwarden"
+msgstr "Importa tus Marcadores de Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
@@ -2016,7 +2016,7 @@ msgstr "Marcadores como valores separados por coma"
 
 #: assets/templates/profile/export.jet.html:49
 msgid "Export Bookmarks"
-msgstr "Exportar marcadores"
+msgstr "Exportar Marcadores"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
