@@ -2,19 +2,23 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# Joedmin <joedmin@joedmin.cz>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-06-02 06:20+0000\n"
-"Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language: cs_CZ\n"
+"PO-Revision-Date: 2025-11-14 14:09+0000\n"
+"Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/documentation/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -476,7 +480,7 @@ msgstr ""
 
 #: en-US/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr "Další informace naleznete v části [Štítky](./štítky.md)."
+msgstr "Prosím přečtěte si [Štítky](./labels.md)."
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
@@ -518,8 +522,10 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
-"Sbírky umožňují snadné uspořádání a export záložek uložením vybraných požadavků na vyhledávání.\n"
-"Když vytvoříte novou záložku, která odpovídá kritériím sbírky, okamžitě se zobrazí.\n"
+"Sbírky umožňují snadné uspořádání a export záložek\n"
+"uložením vybraných vyhledávacích dotazů.\n"
+"Nově vytvořené záložky, odpovídající kritériím\n"
+"sbírky, se okamžitě zobrazí.\n"
 "Zde je několik příkladů:"
 
 #: en-US/collections.md:9
@@ -710,26 +716,24 @@ msgid "## Catalog access"
 msgstr "## Přístup ke katalogu"
 
 #: en-US/opds.md:21
-#, fuzzy
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
 "Ke katalogu lze přistupovat pomocí jakékoliv aplikace nebo elektronické čtečky podporující formát OPDS.\n"
-"Pro poskytnutí přístupu ke katalogu musíte nejprve vytvořit [Heslo aplikace](readeck-instance://profile/credentials)."
+"Pro poskytnutí přístupu ke katalogu musíte nejprve vytvořit [token API](readeck-instance://profile/tokens)."
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
+msgstr "**Poznámka **: Token je snažší stáhnout jako textový soubor a přenést jej do čtečky elektronických knih. Poté můžete soubor otevřít a token zkopírovat."
 
 #: en-US/opds.md:26
-#, fuzzy
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"Oprávnění tohoto hesla můžete omezit na „Záložky : Pouze pro čtení“.\n"
-"Zapište si heslo a nastavte aplikaci."
+"Můžete omezit oprávnění tohoto tokenu na „Záložky : Pouze pro čtení“.\n"
+"Zapište si token a nastavte si Vaši aplikaci."
 
 #: en-US/opds.md:29
 msgid ""
@@ -748,13 +752,12 @@ msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink device
 msgstr "[KOReader](https://koreader.rocks/) je prohlížeč dokumentů pro zařízení s elektronickým inkoustrem. Je dostupný pro Kindle, Kobo, PocketBook, Android a desktopový Linux. Má velmi dobrou podporu OPDS."
 
 #: en-US/opds.md:37
-#, fuzzy
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr "Po zadání Hesla aplikace můžete přistupovat k sekci OPDS v nabídce vyhledávání KOReaderu:"
+msgstr "Po získání API tokenu můžete přistupovat k sekci OPDS ve vyhledávací nabídce v KOReaderu:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr "[Nabídka vyhledávání v KOReaderu](../img/koreader-1.webp)."
+msgstr "[Vyhledávací nabídka v KOReaderu](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
@@ -769,15 +772,14 @@ msgid "In this dialog replace the fields below with:"
 msgstr "V tomto dialogovém okně nahraďte níže uvedená pole následujícími údaji:"
 
 #: en-US/opds.md:47
-#, fuzzy
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
-"- alice: vaše uživatelské jméno\n"
-"- vaše heslo aplikace v posledním poli"
+"- alice: Vasše uživatelské jméno\n"
+"- Váš API token v posledním poli"
 
 #: en-US/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
@@ -833,7 +835,7 @@ msgstr "Pokud potřebujete udělit přístup ke svému účtu Readeck nějaké s
 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
+msgstr "Místo toho můžete jako ověřovací údaje zadat své uživatelské jméno a token podle vlastního výběru."
 
 #~ msgid "## Application Passwords"
 #~ msgstr "## Hesla aplikací"
@@ -852,4 +854,3 @@ msgstr ""
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Poznámka**: Ačkoliv můžete pro přístup k rozhraní API použít heslo aplikace, doporučuje se používat token API, pokud je to možné."
-
