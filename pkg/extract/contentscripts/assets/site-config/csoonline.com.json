@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[@class='article__main']",
     "//div[@itemprop=\"articleBody\"]",
     "//div[@itemprop=\"reviewBody\"]",
     "//figcaption|//div[@class=\"img-wrapper\"]/noscript/img"
@@ -32,7 +33,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.csoonline.com/article/3168357/security/windows-trojan-hacks-into-embedded-devices-to-install-mirai.html",
+      "url": "https://www.csoonline.com/article/4063908/genai-infrastruktur-anfallig-fur-cyberattacken.html",
       "contains": []
     }
   ]

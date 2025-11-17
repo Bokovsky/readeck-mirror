@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[@class='article__main']",
     "//div[@itemprop=\"articleBody\"]",
     "//div[@itemprop=\"reviewBody\"]",
     "//figcaption|//div[@class=\"img-wrapper\"]/noscript/img"
@@ -32,7 +33,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.infoworld.com/article/3053563/it-management/disrupt-or-die-beware-the-siren-calls-of-tech-consultants.html",
+      "url": "https://www.infoworld.com/article/4087007/ai-is-all-about-inference-now.html",
       "contains": []
     }
   ]
