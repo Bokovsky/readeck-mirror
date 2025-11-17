@@ -196,6 +196,15 @@ Copyright (c) 2015 Taco de Wolff
 """
 
 [[licenses]]
+name = "glob"
+license = "MIT"
+author = "Sergey Kamardin"
+url = "https://github.com/gobwas/glob"
+copyright = """
+Copyright (c) 2016 Sergey Kamardin
+"""
+
+[[licenses]]
 name = "go-mail"
 license = "MIT"
 author = "The go-mail Authors"
