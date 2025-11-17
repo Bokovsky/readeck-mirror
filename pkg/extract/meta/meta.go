@@ -58,7 +58,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 		if headline, ok := md.getProp("Article.name", "*.headline", "{Movie,VideObject}.name").(string); ok {
 			d.Title = headline
 		}
-		if description, ok := md.getProp("*.description").(string); ok {
+		if description, ok := md.getProp("{Article,NewsArticle,WebPage}.description", "*.description").(string); ok {
 			d.Description = description
 		}
 		if image, ok := md.getProp("*.{image,image.url,thumbnailUrl}").(string); ok {

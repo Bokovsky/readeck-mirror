@@ -18,11 +18,11 @@ exports.isActive = function () {
  */
 exports.setConfig = function (config) {
   switch (true) {
+    case $.domain == "arstechnica.co.uk":
+      $.overrideConfig(config, "https://arstechnica.com/")
     case $.domain == "arstechnica.com":
-      config.replaceStrings = [
-        ['" data-src="', '"><img src="'],
-        ['" data-responsive="', '" /><span data-responsive="'],
-        ['<figure style="', '</span><figure data-style="'],
+      config.bodySelectors = [
+        "//div[contains(concat(' ',normalize-space(@class),' '),' post-content ')]",
       ]
       break
 
