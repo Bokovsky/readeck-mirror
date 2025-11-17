@@ -20,10 +20,6 @@ import (
 func ParseProps(doc *html.Node) extract.DropProperties {
 	res := extract.DropProperties{}
 
-	if plist := fetchProps(doc, "script[type='application/ld+json']", jsonNode); plist != nil {
-		res["json-ld"] = plist
-	}
-
 	if plist := fetchProps(doc, "script[type='application/json']", jsonNode); plist != nil {
 		res["json"] = plist
 	}

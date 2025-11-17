@@ -12,17 +12,18 @@ import (
 	"log/slog"
 	"maps"
 	"regexp"
-	"slices"
 	"strings"
-	"time"
+	"sync"
 
 	"golang.org/x/net/html"
 
 	"github.com/antchfx/htmlquery"
 	"github.com/araddon/dateparse"
 	"github.com/go-shiori/dom"
+	"github.com/gobwas/glob"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
+	"codeberg.org/readeck/readeck/pkg/extract/microdata"
 )
 
 var rxOpenGraphType = regexp.MustCompile(`^([^:]*:)?(.+?)(\..*|$)`)
@@ -41,41 +42,47 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	maps.Copy(d.Meta, ParseMeta(m.Dom))
 	maps.Copy(d.Properties, ParseProps(m.Dom))
 
-	// Extract article information from any article-like items encoded as JSON-LD.
-	if jsonLD, ok := d.Properties["json-ld"].([]any); ok {
-		for article := range eachSchemaDotOrgNode(jsonLD) {
-			if !article.isArticle() {
-				continue
+	// Extract JSON-LD and microdata from page
+	var md *mdProp
+	if x, err := microdata.ParseNode(m.Dom, m.Extractor.URL.String()); err == nil {
+		md = &mdProp{x}
+	} else {
+		m.Log().Error("parse microdata", slog.Any("err", err))
+	}
+
+	if md != nil {
+		// Add the raw JSON-LD + microdata to properties
+		d.Properties["json-ld"] = md.Raw()
+
+		// fetch relevant information
+		if headline, ok := md.getProp("Article.name", "*.headline", "{Movie,VideObject}.name").(string); ok {
+			d.Title = headline
+		}
+		if description, ok := md.getProp("*.description").(string); ok {
+			d.Description = description
+		}
+		if image, ok := md.getProp("*.{image,image.url,thumbnailUrl}").(string); ok {
+			d.Meta.Add("x.picture_url", image)
+		}
+
+		if lang, ok := md.getProp("*.{inLanguage,inLanguage.alternateName}").(string); ok {
+			d.Lang = lang[0:2]
+		}
+		if published, ok := md.getProp("*.datePublished").(string); ok {
+			if t, err := dateparse.ParseAny(published); err == nil {
+				d.Date = t
 			}
-			if headline, ok := article.textProperty("headline"); ok {
-				d.Title = headline
+		}
+		if publisher, ok := md.getProp("{*.publisher,*.publisher.name,{Blog,WebPage,WebSite}.name}").(string); ok {
+			d.Site = publisher
+		}
+
+		// note: this will stop at the first matches
+		// (if we have 3 entries in *.author.name, it won't check Person.name)
+		for x := range md.iterProps("*.author.name", "Person.name", "*.comment.author.alternateName") {
+			if x, ok := x.(string); ok {
+				d.AddAuthors(x)
 			}
-			if description, ok := article.textProperty("description"); ok {
-				d.Description = description
-			}
-			if imageURL, ok := article.textProperty("image", "url"); ok {
-				d.Meta.Add("x.picture_url", imageURL)
-			}
-			if language, _ := article.textProperty("inLanguage", "alternateName"); len(language) >= 2 {
-				d.Lang = language[0:2]
-			}
-			if datePublished, ok := article.textProperty("datePublished"); ok {
-				if t, err := time.Parse(time.RFC3339, datePublished); err == nil && !t.IsZero() {
-					d.Date = t
-				}
-			}
-			for publisher := range article.nestedNodes("publisher") {
-				if publisherName, _ := publisher.textProperty("name"); publisherName != "" {
-					d.Site = publisherName
-					break
-				}
-			}
-			for author := range article.nestedNodes("author") {
-				if authorName, _ := author.textProperty("name"); authorName != "" {
-					d.AddAuthors(authorName)
-				}
-			}
-			break
 		}
 	}
 
@@ -199,12 +206,6 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 	return next
 }
 
-type rawSpec struct {
-	name     string
-	selector string
-	fn       func(*html.Node) (string, string)
-}
-
 func extMeta(k, v, sep string) func(*html.Node) (string, string) {
 	return func(n *html.Node) (string, string) {
 		_, k, _ := strings.Cut(strings.TrimSpace(dom.GetAttribute(n, k)), sep)
@@ -216,7 +217,11 @@ func extMeta(k, v, sep string) func(*html.Node) (string, string) {
 	}
 }
 
-var specList = []rawSpec{
+var specList = []struct {
+	name     string
+	selector string
+	fn       func(*html.Node) (string, string)
+}{
 	{"html", "//title", func(n *html.Node) (string, string) {
 		return "title", dom.TextContent(n)
 	}},
@@ -264,12 +269,6 @@ var specList = []rawSpec{
 		extMeta("name", "content", ":"),
 	},
 
-	// Schema.org microdata
-	{
-		"schema", "//*[@itemscope]//*[@itemprop]",
-		extractSchemaDotOrgMicrodata,
-	},
-
 	// Fediverse meta tags
 	{
 		"fediverse", "//meta[@content][starts-with(@name, 'fediverse:')]",
@@ -306,190 +305,52 @@ func ParseMeta(doc *html.Node) extract.DropMeta {
 	return res
 }
 
-// Extract the value of "itemprop" elements that are nested within "itemscope" elements.
-//
-// https://schema.org/docs/gs.html#microdata_itemscope_itemtype
-func extractSchemaDotOrgMicrodata(n *html.Node) (string, string) {
-	itemprop := strings.Fields(dom.GetAttribute(n, "itemprop"))
-	if slices.Contains(itemprop, "headline") {
-		// At this point we could check for `itemtype="http://schema.org/Article"` on the
-		// parent `itemscope` element, but so many CreativeWork sub-types (such as
-		// BlogPosting) also expose a headline that it would be too noisy to list them all
-		// here. Instead, assume that the headline is that of the main article.
-		//
-		// https://schema.org/CreativeWork
-		return "headline", microdataContent(n)
-	} else if slices.Contains(itemprop, "name") {
-		itemscopeNode := closestParentWithAttribute(n, "itemscope")
-		if itemscopeNode == nil {
-			return "", ""
-		}
-		articleNode := closestParentWithAttribute(itemscopeNode, "itemscope")
-		if articleNode == nil {
-			return "", ""
-		}
-		if !isArticleTypeURI(dom.GetAttribute(articleNode, "itemtype")) {
-			return "", ""
-		}
-		scopeItemprop := strings.Fields(dom.GetAttribute(itemscopeNode, "itemprop"))
-		if slices.Contains(scopeItemprop, "author") {
-			// typically itemtype="http://schema.org/Person"
-			return "author", microdataContent(n)
-		} else if slices.Contains(scopeItemprop, "publisher") {
-			// typically itemtype="http://schema.org/Organization"
-			return "publisher", microdataContent(n)
-		}
-	}
-	return "", ""
+var mdGlobCache sync.Map
+
+type mdProp struct {
+	*microdata.Microdata
 }
 
-func closestParentWithAttribute(n *html.Node, attr string) *html.Node {
-	for p := n.Parent; p != nil; p = p.Parent {
-		if dom.HasAttribute(p, attr) {
-			return p
+// iterProps returns an iterator over [microdata.Node] of type [microdata.Property].
+// It uses a list of glob matchers. The loop stops after the first matcher that yields
+// results.
+// That way, if you need to yield all the result for Article.name and WebSite.name, you
+// call iterProps("{Article,WebSite}.name").
+// If you want to stop on the first match, you then call iterProps("Article.name", "WebSite.name").
+func (md *mdProp) iterProps(matchers ...string) iter.Seq[any] {
+	patterns := []glob.Glob{}
+	for _, x := range matchers {
+		if g, ok := mdGlobCache.Load(x); ok {
+			patterns = append(patterns, g.(glob.Glob))
+		} else {
+			g := glob.MustCompile(x, '.')
+			patterns = append(patterns, g)
+			mdGlobCache.Store(x, g)
 		}
+	}
+
+	return func(yield func(any) bool) {
+		for _, g := range patterns {
+			match := false
+			for node := range md.All(func(n *microdata.Node) bool { return n.Type == microdata.Property }) {
+				if g.Match(node.Path) {
+					if !yield(node.Data) {
+						return
+					}
+					match = true
+				}
+			}
+			if match {
+				return
+			}
+		}
+	}
+}
+
+// getProp returns the first property found using [mdProp.iterProps].
+func (md *mdProp) getProp(names ...string) any {
+	for res := range md.iterProps(names...) {
+		return res
 	}
 	return nil
-}
-
-func microdataContent(n *html.Node) string {
-	if n.Data == "meta" {
-		return dom.GetAttribute(n, "content")
-	}
-	return dom.TextContent(n)
-}
-
-const schemaDotOrgContext = "https://schema.org"
-
-// Returns whether a string is a schema.org URI.
-func isSchemaDotOrg(s string) bool {
-	s = strings.TrimSuffix(s, "/")
-	return strings.Replace(s, "http:", "https:", 1) == schemaDotOrgContext
-}
-
-func isArticleTypeURI(s string) bool {
-	idx := strings.LastIndexByte(s, '/')
-	if idx < 0 {
-		return false
-	}
-	if !isSchemaDotOrg(s[:idx]) {
-		return false
-	}
-	_, found := schemaDotOrgArticleTypes[s[idx+1:]]
-	return found
-}
-
-// List taken from https://schema.org/Article#subtypes
-// TODO: consider allow-listing more types from https://schema.org/CreativeWork#subtypes
-var schemaDotOrgArticleTypes = map[string]struct{}{
-	"Article":                  {},
-	"AdvertiserContentArticle": {},
-	"NewsArticle":              {},
-	"AnalysisNewsArticle":      {},
-	"AskPublicNewsArticle":     {},
-	"BackgroundNewsArticle":    {},
-	"OpinionNewsArticle":       {},
-	"ReportageNewsArticle":     {},
-	"ReviewNewsArticle":        {},
-	"Report":                   {},
-	"SatiricalArticle":         {},
-	"ScholarlyArticle":         {},
-	"MedicalScholarlyArticle":  {},
-	"SocialMediaPosting":       {},
-	"BlogPosting":              {},
-	"LiveBlogPosting":          {},
-	"DiscussionForumPosting":   {},
-	"TechArticle":              {},
-	"APIReference":             {},
-}
-
-type dataNode map[string]any
-
-func (n dataNode) isArticle() bool {
-	nodeType, ok := n["@type"].(string)
-	if !ok {
-		return false
-	}
-	_, found := schemaDotOrgArticleTypes[nodeType]
-	return found
-}
-
-func (n dataNode) nestedNodes(key string) iter.Seq[dataNode] {
-	return func(yield func(dataNode) bool) {
-		v, ok := n[key]
-		if !ok {
-			return
-		}
-		switch typedItem := v.(type) {
-		case []any:
-			for _, subitem := range typedItem {
-				if i, ok := subitem.(map[string]any); ok && !yield(i) {
-					return
-				}
-			}
-		case map[string]any:
-			if !yield(typedItem) {
-				return
-			}
-		}
-	}
-}
-
-func (n dataNode) textProperty(key string, subkeys ...string) (string, bool) {
-	v, ok := n[key]
-	if !ok {
-		return "", false
-	}
-	switch typedItem := v.(type) {
-	case string:
-		// https://www.w3.org/TR/json-ld11/#restrictions-for-contents-of-json-ld-script-elements
-		return html.UnescapeString(typedItem), true
-	case map[string]any:
-		if len(subkeys) < 1 {
-			return "", false
-		}
-		return dataNode(typedItem).textProperty(subkeys[0], subkeys[:1]...)
-	default:
-		return "", false
-	}
-}
-
-// Iterate through all JSON-LD nodes that are directly under `<script>` tags.
-func topLevelNodes[V dataNode](items []any) iter.Seq[V] {
-	return func(yield func(V) bool) {
-		for _, ldItem := range items {
-			switch typedItem := ldItem.(type) {
-			case []any:
-				for _, subitem := range typedItem {
-					if i, ok := subitem.(map[string]any); ok && !yield(i) {
-						return
-					}
-				}
-			case map[string]any:
-				if !yield(typedItem) {
-					return
-				}
-			}
-		}
-	}
-}
-
-// Iterate through all JSON-LD nodes, including ones that are part of the graph.
-func eachSchemaDotOrgNode[V dataNode](items []any) iter.Seq[V] {
-	return func(yield func(V) bool) {
-		for node := range topLevelNodes(items) {
-			if c, ok := node.textProperty("@context", "@vocab"); !ok || !isSchemaDotOrg(c) {
-				continue
-			}
-			if nodes, ok := node["@graph"].([]any); ok {
-				for _, nn := range nodes {
-					if graphNode, ok := nn.(map[string]any); ok && !yield(V(graphNode)) {
-						return
-					}
-				}
-			} else if !yield(V(node)) {
-				return
-			}
-		}
-	}
 }
