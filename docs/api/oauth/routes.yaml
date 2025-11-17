@@ -114,6 +114,8 @@ routes:
   /oauth/revoke:
     post:
       tags: [oauth]
+      $merge:
+        - "traits.yaml#.authenticated"
 
       summary: Revoke Token
       description: |
