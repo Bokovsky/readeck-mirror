@@ -437,6 +437,29 @@ func (e *Extractor) Run() {
 			return
 		}
 
+		// Final metadata cleanup
+		for i := range d.Authors {
+			d.Authors[i] = stripHTML(d.Authors[i])
+		}
+		d.Title = stripHTML(d.Title)
+		d.Description = stripHTML(d.Description)
+		d.Site = stripHTML(d.Site)
+		if !d.Date.IsZero() {
+			d.Date = d.Date.UTC()
+		}
+
+		if len(d.Lang) > 2 {
+			d.Lang = d.Lang[0:2]
+		}
+
+		switch d.TextDirection {
+		case "ltr", "rtl":
+		case "LTR", "RTL":
+			d.TextDirection = strings.ToLower(d.TextDirection)
+		default:
+			d.TextDirection = ""
+		}
+
 		// A processor can change the position in the loop
 		i = m.position + 1
 	}
@@ -495,4 +518,11 @@ func (e *Extractor) setFinalHTML() {
 		buf.WriteString("\n")
 	}
 	e.HTML = buf.Bytes()
+}
+
+func stripHTML(s string) string {
+	if n, err := html.Parse(strings.NewReader(s)); err == nil {
+		return dom.TextContent(n)
+	}
+	return s
 }
