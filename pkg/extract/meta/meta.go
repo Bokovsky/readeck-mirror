@@ -73,7 +73,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 				d.Date = t
 			}
 		}
-		if publisher, ok := md.getProp("{*.publisher,*.publisher.name,{Blog,WebPage,WebSite}.name}").(string); ok {
+		if publisher, ok := md.getProp("{*.publisher,*.publisher.name,{Blog,WebSite}.name}").(string); ok {
 			d.Site = publisher
 		}
 
