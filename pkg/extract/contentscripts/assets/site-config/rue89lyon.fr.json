@@ -1,16 +1,18 @@
 {
-  "title_selectors": [
-    "//h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//artcile[@class='full article']"
+    "//main/figure | //main/div[contains(@class, 'entry-content')]"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//a[@class='author']"
+    "//meta[@name='author']/@content"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//aside"
+  ],
+  "strip_id_or_class": [
+    "ad-block"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -22,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://reflets.info/articles/monetiser-ses-donnees-personnelles-l-arbre-qui-cache-la-foret",
+      "url": "https://www.rue89lyon.fr/2025/11/06/lyon-extreme-droite-et-wauquiez-veulent-encore-la-peau-de-lantifa-fest/",
       "contains": []
     }
   ]
