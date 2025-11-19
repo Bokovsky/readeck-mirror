@@ -3,13 +3,16 @@
     "//meta[@name='og:title']/@content"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' td-post-header ')]//*[contains(concat(' ',normalize-space(@class),' '),' td-post-sub-title ')] | //div[contains(concat(' ',normalize-space(@class),' '),' td-post-content ')]"
+    "//main/article"
   ],
   "date_selectors": null,
   "author_selectors": [
     "//meta[@name='author']/@content"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//footer",
+    "//blockquote[contains(@class, 'wp-embedded-content')]"
+  ],
   "strip_id_or_class": [
     "send-gift-article-email",
     "point-final",
@@ -27,7 +30,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.mediacites.fr/actu/2017/12/05/lhistoire-de-mediacites-a-laube-de-son-1er-anniversaire/",
+      "url": "https://www.mediacites.fr/decryptage/toulouse/2024/04/22/les-parents-du-college-berthelot-de-toulouse-tirent-la-sonnette-dalarme/",
       "contains": []
     },
     {

@@ -3,7 +3,7 @@
     "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]/h1"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
+    "//article[@class='article']/div[@id='ShareTest']/div[contains(@class, 'article-body')]"
   ],
   "date_selectors": [
     "//time[contains(concat(' ',normalize-space(@class),' '),' publication-date ')]/@datetime"
@@ -28,12 +28,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": {
-    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
-  },
+  "http_headers": null,
   "tests": [
     {
-      "url": "http://www.arretsurimages.net/chroniques/2017-03-04/Mathilde-Larrere-aux-vraies-origines-du-8-mars-id9619",
+      "url": "https://www.arretsurimages.net/articles/sur-le-site-de-ouest-france-des-contenus-ecrits-en-partie-par-lia",
       "contains": []
     }
   ]

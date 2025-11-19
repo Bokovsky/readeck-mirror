@@ -1,14 +1,22 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article-text ')]"
+    "//main[@id='main']/section[@class='section_top']//div[@class='extrait'] | //main[@id='main']/section[@class='section_content']"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' article-author-sign ')]//a[@itemprop='author']"
+    "//a[contains(@href, '/auteurs/')]"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//section[@class='section_plus_articles'] | //section[@class='section_plus_articles']/following-sibling::*"
+  ],
+  "strip_id_or_class": [
+    "gt_abonnement",
+    "bloc_right",
+    "section_best_of",
+    "section_don_politis",
+    "partage_sociaux"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
