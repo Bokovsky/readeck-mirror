@@ -361,7 +361,7 @@ func (bi *Bookmark) SetEmbed() error {
 		dom.SetAttribute(embed, "src", src.String())
 		dom.SetAttribute(embed, "credentialless", "true")
 		dom.SetAttribute(embed, "allowfullscreen", "true")
-		dom.SetAttribute(embed, "referrerpolicy", "no-referrer")
+		dom.SetAttribute(embed, "referrerpolicy", "strict-origin-when-cross-origin")
 		dom.SetAttribute(embed, "sandbox", "allow-scripts allow-same-origin")
 		dom.SetAttribute(embed, "allow", "accelerometer 'none'; ambient-light-sensor 'none'; autoplay 'none'; battery 'none'; browsing-topics 'none'; camera 'none'; display-capture 'none'; domain-agent 'none'; document-domain 'none'; encrypted-media 'none'; execution-while-not-rendered 'none'; execution-while-out-of-viewport ''; gamepad 'none'; geolocation 'none'; gyroscope 'none'; hid 'none'; identity-credentials-get 'none'; idle-detection 'none'; local-fonts 'none'; magnetometer 'none'; microphone 'none'; midi 'none'; otp-credentials 'none'; payment 'none'; publickey-credentials-create 'none'; publickey-credentials-get 'none'; screen-wake-lock 'none'; serial 'none'; speaker-selection 'none'; usb 'none'; window-management 'none'; xr-spatial-tracking 'none'")
 		dom.SetAttribute(embed, "csp", "sandbox allow-scripts allow-same-origin")
