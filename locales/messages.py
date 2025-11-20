@@ -21,7 +21,7 @@ from babel.messages.mofile import write_mo
 from babel.messages.pofile import read_po, write_po
 
 # Percentage of translated content under which a translation won't be loaded.
-COMPLETION_CUTOFF = 0.85
+COMPLETION_CUTOFF = 0.90
 
 HERE = Path(__file__).parent
 ROOT = (HERE / "..").resolve()
@@ -423,13 +423,13 @@ def compile(_):
             nb_translated, total_strings, round(pct * 100)
         )
         if round(pct, 2) < COMPLETION_CUTOFF:
-            print(f"[-] {code} {count_info}")
+            print("[-] {:8} {}".format(code, count_info))
             continue
 
         dest = po_file.with_suffix(".mo")
         with dest.open("wb") as fp:
             write_mo(fp, catalog, use_fuzzy=False)
-            print(f"[+] {code} {count_info} -> {dest}")
+            print("[+] {:8} {} -- {}".format(code, count_info, dest.relative_to(HERE)))
 
 
 def check(_):
