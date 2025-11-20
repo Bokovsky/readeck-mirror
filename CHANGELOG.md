@@ -1,6 +1,6 @@
 # Changelog
 
-## [unreleased]
+## [0.21.0] - 2025-11-20
 ### Added
 - HTTPS listener with certificate/key pair
 - log_time_format (and READECK_LOG_TIME_FORMAT) configuration option, by [@mislav](https://codeberg.org/mislav)
