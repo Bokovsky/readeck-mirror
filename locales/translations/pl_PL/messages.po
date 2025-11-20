@@ -2,19 +2,23 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# liilliil <liilliil@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-10-10 17:17+0000\n"
-"Last-Translator: micash <micash@noreply.codeberg.org>\n"
-"Language: pl_PL\n"
+"PO-Revision-Date: 2025-11-17 20:51+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/application/pl/>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -240,22 +244,21 @@ msgstr "Zapomniałaś(-eś) hasła?"
 #: assets/templates/auth/oauth/device-code.jet.html:9
 #: assets/templates/auth/oauth/form.jet.html:14
 msgid "Authorization required"
-msgstr ""
+msgstr "Wymagana autoryzacja"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
-#, fuzzy
 msgid "Go back to Readeck"
-msgstr "Zaloguj się do Readeck"
+msgstr "Wróć do Readeck"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
 #: assets/templates/auth/oauth/device-code.jet.html:54
 msgid "Connect a device"
-msgstr ""
+msgstr "Podłącz urządzenie"
 
 #: assets/templates/auth/oauth/device-code.jet.html:32
 msgid "Enter the code displayed on your device"
-msgstr ""
+msgstr "Wprowadź kod wyświetlony na swoim urządzeniu"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
 #, fuzzy
@@ -264,33 +267,33 @@ msgstr "Następna"
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid "Authorization request was denied."
-msgstr ""
+msgstr "Żądanie autoryzacji zostało odrzucone."
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid " You can now close this page."
-msgstr ""
+msgstr " Możesz teraz zamknąć tę stronę."
 
 #: assets/templates/auth/oauth/device-code.jet.html:57
 msgid "Authorization granted. Connecting device..."
-msgstr ""
+msgstr "Autoryzacja przyznana. Łączenie urządzenia..."
 
 #: assets/templates/auth/oauth/device-code.jet.html:61
 #, python-format
 msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
-msgstr ""
+msgstr "<a href=\"%s\">Odśwież tę stronę</a>, jeśli nie odświeży się ona po paru sekundach."
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "Device is connected!"
-msgstr ""
+msgstr "Urządzenie jest podłączone!"
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "You can now close this page."
-msgstr ""
+msgstr "Możesz teraz zamknąć tę stronę."
 
 #: assets/templates/auth/oauth/form.jet.html:12
 #, python-format
 msgid "Signed in as: <strong>%s</strong>"
-msgstr ""
+msgstr "Zalogowany jako: <strong>%s</strong>"
 
 #: assets/templates/auth/oauth/form.jet.html:20
 #, python-format
@@ -300,16 +303,18 @@ msgid ""
 "      Only approve this request if you recognize and trust this source.\n"
 "    "
 msgstr ""
+"\n"
+"      <strong>%s</strong> prosi o pozwolenie na dostęp do Twojego konta.\n"
+"      Zatwierdź to żądanie tylko, jeśli rozpoznajesz i ufasz temu źródłu.\n"
+"    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
-#, fuzzy
 msgid "Review permissions"
-msgstr "Uprawnienia"
+msgstr "Przeglądaj uprawnienia"
 
 #: assets/templates/auth/oauth/form.jet.html:33
-#, fuzzy
 msgid "Application information"
-msgstr "Aplikacja"
+msgstr "Informacje o aplikacji"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
@@ -319,23 +324,20 @@ msgid "Name"
 msgstr "Nazwa"
 
 #: assets/templates/auth/oauth/form.jet.html:36
-#, fuzzy
 msgid "Website"
-msgstr "Główna strona internetowa"
+msgstr "Strona internetowa"
 
 #: assets/templates/auth/oauth/form.jet.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Wersja:"
+msgstr "Wersja"
 
 #: assets/templates/auth/oauth/form.jet.html:42
-#, fuzzy
 msgid "Authorize"
-msgstr "Autor"
+msgstr "Autoryzuj"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
-msgstr ""
+msgstr "Zaprzecz"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -1075,6 +1077,9 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          W zależności od błędu, rozszerzenie przeglądarki Readeck może zapewnić\n"
+"          rozwiązanie problemu."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
 msgid "View log"
@@ -1205,11 +1210,11 @@ msgstr "Tytuł zakładki"
 #: assets/templates/bookmarks/import/form-csv.jet.html:67
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Archiwizowany stan zakładki; poprawną wartością jest tylko \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:72
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
+msgstr "Data utworzenia, może to być sygnatura czasowa UNIX lub data w formacie RFC-3339"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:77
 msgid "A JSON encoded list of labels"
@@ -1221,7 +1226,7 @@ msgstr "Przykład"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "Importuj linki z pliku eksportu GoodLinks"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -1229,6 +1234,9 @@ msgid ""
 "    Upload a JSON file obtained from your GoodLinks app.\n"
 "  "
 msgstr ""
+"\n"
+"    Prześlij plik JSON uzyskany z aplikacji GoodLinks.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
@@ -1240,11 +1248,14 @@ msgid ""
 "    Upload a JSON file obtained from your Linkwarden app.\n"
 "  "
 msgstr ""
+"\n"
+"    Prześlij plik JSON uzyskany z aplikacji Linkwarden.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:63
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Zaimportuj artykuły z Omnivore"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -1312,7 +1323,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:43
 msgid "Note: upload the ZIP file directly, not its contents"
-msgstr ""
+msgstr "Uwaga: prześlij sam plik ZIP, a nie jego zawartość"
 
 # | msgid "Import Links from a Text File"
 # | msgid "Import Links from a CSV File"
@@ -1326,44 +1337,47 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Prześlij poniżej plik CSV wyeksportowany z konta Readwise Reader.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:38
 msgid "Which information is imported"
-msgstr ""
+msgstr "Jakie informacje są importowane"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:41
 msgid "Article title, URL, and when it was first saved,"
-msgstr ""
+msgstr "Tytuł artykułu, adres URL i data pierwszego zapisania,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:42
 msgid "The archived state of an article,"
-msgstr ""
+msgstr "Archiwalny stan artykułu,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" jako etykiety Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
 msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
-msgstr ""
+msgstr "Gdy tag dokumentu zawiera \"%s\", zakładka zostanie dodana do ulubionych Readeck."
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
-msgstr ""
+msgstr "Czego nie importujemy:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:48
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Postęp czytania artykułu i status przeczytania,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Artykuły przesłane do Readwise Reader przez email,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Przesłane dokumenty, takie jak pliki PDF lub EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:84
@@ -1449,7 +1463,7 @@ msgstr "Zakładki przeglądarki"
 
 #: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
-msgstr ""
+msgstr "Zaimportuj zakładki przeglądarki, z Pinboard, Instapaper"
 
 # | msgid "File"
 #: assets/templates/bookmarks/import/index.jet.html:41
@@ -1473,7 +1487,7 @@ msgstr "Importuj swoje zakładki z Linkwarden"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Zaimportuj swoją bibliotekę Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:83
 #: internal/bookmarks/importer/text.go:24
@@ -1499,7 +1513,7 @@ msgstr "Zarchiwizuj wszystkie linki"
 
 #: assets/templates/bookmarks/import/options.jet.html:23
 msgid "Moves all links to archive, regardless of their original status"
-msgstr ""
+msgstr "Przenosi wszystkie linki do archiwum, niezależnie od ich statusu"
 
 #: assets/templates/bookmarks/import/options.jet.html:27
 msgid "Mark all links as read"
@@ -1507,7 +1521,7 @@ msgstr "Oznacz wszystkie linki jako przeczytane"
 
 #: assets/templates/bookmarks/import/options.jet.html:29
 msgid "Marks all links as read, regardless of their original status"
-msgstr ""
+msgstr "Oznacza wszystkie linki jako przeczytane, niezależnie od ich pierwotnego statusu"
 
 #: assets/templates/bookmarks/import/progress.jet.html:15
 msgid "Import operation will launch momentarily."
@@ -1579,7 +1593,6 @@ msgstr "Importuj zakładki"
 # | from a file with existing bookmarks?\n" "          Try Readeck's import
 # | tool.\n" "        "
 #: assets/templates/bookmarks/index.jet.html:107
-#, fuzzy
 msgid ""
 "\n"
 "              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
@@ -1587,9 +1600,9 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"          Czy chciałbyś zaimportować z podobnego narzędzia lub z pliku z istniejącymi zakładkami?\n"
+"              Czy chciałbyś zaimportować z podobnego narzędzia lub z pliku z istniejącymi zakładkami?\n"
 "          Wypróbuj narzędzie importowania Readeck.\n"
-"        "
+"            "
 
 #: assets/templates/bookmarks/index.jet.html:114
 msgid "Import links and articles"
@@ -1794,6 +1807,10 @@ msgid ""
 "\n"
 "Here is your ebook for: **%s**\n"
 msgstr ""
+"\n"
+"Cześć,\n"
+"\n"
+"Oto Twój e-book dla: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
 #, python-format
@@ -1901,7 +1918,7 @@ msgstr ""
 
 #: assets/templates/profile/app_list.jet.html:24
 msgid "You have no registered application at the moment."
-msgstr ""
+msgstr "W tej chwili nie masz zarejestrowanej aplikacji."
 
 # | msgid "Created on: %s"
 #: assets/templates/profile/app_list.jet.html:46
@@ -1987,11 +2004,11 @@ msgstr "Eksportuj i udostępniaj"
 
 #: assets/templates/profile/export.jet.html:36
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Lista zakładek w formacie zakładek przeglądarki"
 
 #: assets/templates/profile/export.jet.html:44
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Lista zakładek jako wartości oddzielone przecinkami"
 
 #: assets/templates/profile/export.jet.html:49
 #, fuzzy
@@ -2000,19 +2017,19 @@ msgstr "Importuj zakładki"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Możesz wyeksportować listę zakładek w następujących formatach:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Importuj profil Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
+msgstr "Zaimportuj plik uzyskany poprzez wcześniejszy eksport profilu."
 
 #: assets/templates/profile/import.jet.html:30
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Potwierdź swoją nazwę użytkownika"
 
 # | msgid "API authentication"
 #: assets/templates/profile/import.jet.html:35
@@ -2047,9 +2064,9 @@ msgid "My profile"
 msgstr "Mój profil"
 
 #: assets/templates/profile/index.jet.html:16
-#, fuzzy, python-format
+#, python-format
 msgid "You are connected as <strong>%s</strong>"
-msgstr "Twoje wyszukiwanie znalazło <strong>%d wynik</strong>."
+msgstr "Twoje wyszukiwanie znalazło wynik <strong>%d</strong>"
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Sign out"
@@ -2079,6 +2096,9 @@ msgid ""
 "    These, optional, parameters are used when Readeck sends emails.\n"
 "    "
 msgstr ""
+"\n"
+"    Te opcjonalne parametry są używane, gdy Readeck wysyła e-maile.\n"
+"    "
 
 #: assets/templates/profile/index.jet.html:65
 msgid "Reply To"
@@ -2086,7 +2106,7 @@ msgstr "Odpowiedz"
 
 #: assets/templates/profile/index.jet.html:66
 msgid "Add this email address in your outgoing emails so recipients can reply."
-msgstr ""
+msgstr "Dodaj ten adres e-mail do swoich wiadomości wychodzących, aby odbiorcy mogli odpowiedzieć."
 
 #: assets/templates/profile/index.jet.html:71
 msgid "Send EPUB to"
@@ -2094,7 +2114,7 @@ msgstr "Wyślij EPUB do"
 
 #: assets/templates/profile/index.jet.html:72
 msgid "This address is used to prefill the recipient when you send an e-book by email."
-msgstr ""
+msgstr "Ten adres jest używany do wstępnego wypełniania pola odbiorcy, gdy wysyłasz e-booka e-mailem."
 
 #: assets/templates/profile/index.jet.html:80
 msgid ""
@@ -2188,7 +2208,7 @@ msgstr "Twój token API"
 
 #: assets/templates/profile/token.jet.html:97
 msgid "Download as a text file"
-msgstr ""
+msgstr "Pobierz jako plik tekstowy"
 
 #: assets/templates/profile/token.jet.html:101
 msgid "How to use it"
@@ -2215,7 +2235,7 @@ msgstr "Jako hasło"
 
 #: assets/templates/profile/token.jet.html:120
 msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
-msgstr ""
+msgstr "Alternatywnie, możesz użyć tego tokena jako hasła do HTTP Basic Authentication."
 
 #: assets/templates/profile/token.jet.html:121
 msgid ""
@@ -2228,12 +2248,8 @@ msgid "My API Tokens"
 msgstr "Moje tokeny API"
 
 #: assets/templates/profile/token_list.jet.html:16
-#, fuzzy
 msgid "An API Token is a key that grants you access to the Readeck API."
-msgstr ""
-"\n"
-"  Token API to klucz, który przyznaje ci (lub innemu narzędziu jak rozszerzenie\n"
-"  przeglądarki) dostęp do API Readek.\n"
+msgstr "Token API to klucz, który przyznaje ci dostęp do API Readeck."
 
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
@@ -2285,7 +2301,7 @@ msgstr "Użytkownicy"
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "załoga"
 
 # | msgid "%d min"
 #: internal/auth/users/groups.go:21
@@ -2342,7 +2358,7 @@ msgstr "Nieprawidłowy klucz API"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV dla Readwise Reader"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
@@ -2358,7 +2374,7 @@ msgstr "Nie znaleziono tokena dostępowego"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:143
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Nie można przetworzyć danych wejściowych"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:506
 msgid "Article"
@@ -2912,4 +2928,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Zamknij obraz"
-
