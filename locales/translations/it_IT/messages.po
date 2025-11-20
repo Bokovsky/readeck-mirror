@@ -2,19 +2,25 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# liilliil <liilliil@noreply.codeberg.org>, 2025.
+# gifilo <gifilo@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-07-30 22:07+0000\n"
-"Last-Translator: skypixel <skypixel@noreply.codeberg.org>\n"
-"Language: it_IT\n"
+"PO-Revision-Date: 2025-11-20 07:20+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -240,22 +246,21 @@ msgstr "Hai dimenticato la password?"
 #: assets/templates/auth/oauth/device-code.jet.html:9
 #: assets/templates/auth/oauth/form.jet.html:14
 msgid "Authorization required"
-msgstr ""
+msgstr "Autorizzazione richiesta"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
-#, fuzzy
 msgid "Go back to Readeck"
-msgstr "Accedi a Readeck"
+msgstr "Torna a Readeck"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
 #: assets/templates/auth/oauth/device-code.jet.html:54
 msgid "Connect a device"
-msgstr ""
+msgstr "Connetti un dispositivo"
 
 #: assets/templates/auth/oauth/device-code.jet.html:32
 msgid "Enter the code displayed on your device"
-msgstr ""
+msgstr "Inserisci il codice presente sul tuo dispositivo"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
 #, fuzzy
@@ -264,33 +269,33 @@ msgstr "Successivo"
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid "Authorization request was denied."
-msgstr ""
+msgstr "L'autorizzazione è stata rifiutata."
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid " You can now close this page."
-msgstr ""
+msgstr " Ora puoi chiudere questa pagina."
 
 #: assets/templates/auth/oauth/device-code.jet.html:57
 msgid "Authorization granted. Connecting device..."
-msgstr ""
+msgstr "Autorizzazione concessa. Sto connettendo il dispositivo..."
 
 #: assets/templates/auth/oauth/device-code.jet.html:61
 #, python-format
 msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
-msgstr ""
+msgstr "<a href=\"%s\">Ricarica questa pagina</a> se non si aggiorna in pochi secondi."
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "Device is connected!"
-msgstr ""
+msgstr "Il dispositivo è connesso!"
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "You can now close this page."
-msgstr ""
+msgstr "Puoi chiudere questa pagina."
 
 #: assets/templates/auth/oauth/form.jet.html:12
 #, python-format
 msgid "Signed in as: <strong>%s</strong>"
-msgstr ""
+msgstr "Connesso come: <strong>%s</strong>"
 
 #: assets/templates/auth/oauth/form.jet.html:20
 #, python-format
@@ -302,9 +307,8 @@ msgid ""
 msgstr ""
 
 #: assets/templates/auth/oauth/form.jet.html:26
-#, fuzzy
 msgid "Review permissions"
-msgstr "Permessi"
+msgstr "Rivedi i permessi"
 
 #: assets/templates/auth/oauth/form.jet.html:33
 #, fuzzy
@@ -324,18 +328,16 @@ msgid "Website"
 msgstr "Sito principale"
 
 #: assets/templates/auth/oauth/form.jet.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Versione:"
+msgstr "Versione"
 
 #: assets/templates/auth/oauth/form.jet.html:42
-#, fuzzy
 msgid "Authorize"
-msgstr "Autore"
+msgstr "Autorizza"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
-msgstr ""
+msgstr "Rifiuta"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -841,14 +843,12 @@ msgid "Remove Highlight(s)"
 msgstr "Rimuovi parte/i evidenziata/e"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Chiudi menu"
+msgstr "Chiudi"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Show image"
-msgstr "Pagina principale"
+msgstr "Visualizza immagine"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 #, fuzzy
@@ -877,9 +877,8 @@ msgstr "Evidenzia"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
-#, fuzzy
 msgid "copy to clipboard"
-msgstr "Copia il link"
+msgstr "copia negli appunti"
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
@@ -998,7 +997,7 @@ msgstr "Importa ed esporta"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Feed Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
@@ -1080,6 +1079,9 @@ msgid ""
 "          Depending on the error, Readeck's browser extension may provide\n"
 "          a workaround."
 msgstr ""
+"\n"
+"          A seconda dell'errore, l'estensione del browser di Readeck potrebbe fornire\n"
+"          una soluzione alternativa."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:31
 #, fuzzy
@@ -1349,10 +1351,13 @@ msgid ""
 "    Upload a CSV file exported from your Readwise Reader account below.\n"
 "  "
 msgstr ""
+"\n"
+"    Carica qui sotto un file CSV esportato dal tuo account Readwise Reader.\n"
+"  "
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:38
 msgid "Which information is imported"
-msgstr ""
+msgstr "Quali informazioni vengono importate"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:41
 msgid "Article title, URL, and when it was first saved,"
@@ -1365,7 +1370,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-readwise.jet.html:43
 #, python-format
 msgid "\"%s\" as Readeck labels,"
-msgstr ""
+msgstr "\"%s\" come etichette Readeck,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:44
 #, python-format
@@ -1374,19 +1379,19 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:46
 msgid "What is not imported:"
-msgstr ""
+msgstr "Cosa non è stato importato:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:48
 msgid "Article reading progress and seen status,"
-msgstr ""
+msgstr "Avanzamento della lettura dell'articolo e stato di visualizzazione,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:49
 msgid "Articles forwarded to Readwise Reader by email,"
-msgstr ""
+msgstr "Articoli inoltrati a Readwise Reader via email,"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:50
 msgid "Uploaded documents such as PDFs or EPUB."
-msgstr ""
+msgstr "Documenti caricati come PDF o EPUB."
 
 #: assets/templates/bookmarks/import/form-text.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:84
@@ -1497,7 +1502,7 @@ msgstr "Importa i tuoi bookmark"
 
 #: assets/templates/bookmarks/import/index.jet.html:77
 msgid "Import your Readwise Reader Library"
-msgstr ""
+msgstr "Importa la tua libreria Readwise Reader"
 
 #: assets/templates/bookmarks/import/index.jet.html:83
 #: internal/bookmarks/importer/text.go:24
@@ -1928,7 +1933,7 @@ msgstr ""
 
 #: assets/templates/profile/app_list.jet.html:24
 msgid "You have no registered application at the moment."
-msgstr ""
+msgstr "Non hai applicazioni registrate al momento."
 
 # | msgid "Created on: %s"
 #: assets/templates/profile/app_list.jet.html:46
@@ -1954,9 +1959,8 @@ msgid "Revoke application"
 msgstr "Applicazione"
 
 #: assets/templates/profile/app_list.jet.html:87
-#, fuzzy
 msgid "Developer information"
-msgstr "Informazioni sul bookmark"
+msgstr "Informazioni sullo sviluppatore"
 
 #: assets/templates/profile/app_list.jet.html:88
 #, python-format
@@ -1966,6 +1970,10 @@ msgid ""
 "    <a href=\"%s\">API Documentation</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Se vuoi sviluppare un'applicazione, consulta la\n"
+"    <a href=\"%s\">Documentazione API</a>.\n"
+"  "
 
 #: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
 #: internal/profile/views.go:130 internal/profile/views.go:174
@@ -1981,9 +1989,8 @@ msgstr "Gettoni API"
 
 #: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
-#, fuzzy
 msgid "Export"
-msgstr "Importa"
+msgstr "Esporta"
 
 #: assets/templates/profile/base.jet.html:37
 #: assets/templates/profile/import.jet.html:9
@@ -2027,11 +2034,11 @@ msgstr "Importa dei bookmark"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Ora puoi esportare i tuoi segnalibri nei seguenti formati:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Importa un profilo Readeck"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
@@ -2039,7 +2046,7 @@ msgstr ""
 
 #: assets/templates/profile/import.jet.html:30
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Conferma il tuo nome utente"
 
 # | msgid "API authentication"
 #: assets/templates/profile/import.jet.html:35
@@ -2074,9 +2081,9 @@ msgid "My profile"
 msgstr "Il mio profilo"
 
 #: assets/templates/profile/index.jet.html:16
-#, fuzzy, python-format
+#, python-format
 msgid "You are connected as <strong>%s</strong>"
-msgstr "La tua ricerca ha fornito <strong>%d risultato</strong>."
+msgstr "Sei connesso come <strong>%s</strong>"
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Sign out"
@@ -2223,7 +2230,7 @@ msgstr "Il tuo gettone API"
 
 #: assets/templates/profile/token.jet.html:97
 msgid "Download as a text file"
-msgstr ""
+msgstr "Scarica come file di testo"
 
 #: assets/templates/profile/token.jet.html:101
 msgid "How to use it"
@@ -2262,12 +2269,8 @@ msgid "My API Tokens"
 msgstr "I miei gettoni API"
 
 #: assets/templates/profile/token_list.jet.html:16
-#, fuzzy
 msgid "An API Token is a key that grants you access to the Readeck API."
-msgstr ""
-"\n"
-"  Un gettone API è una chiave che permette a te (o a un altro software come un’estensione browser)\n"
-"  di accedere all’API di Readeck.\n"
+msgstr "Un Token API è una chiave che garantisce l'accesso alla API di Readeck."
 
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
@@ -2376,7 +2379,7 @@ msgstr "Chiave API non valida"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "CSV di Readwise Reader"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
@@ -2528,7 +2531,7 @@ msgstr "Tutti i bookmark"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Il file di importazione deve contenere un solo utente"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2540,7 +2543,7 @@ msgstr "Password non valida"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "l'username non corrisponde"
 
 #: internal/profile/views.go:82
 msgid "Profile updated."
@@ -2596,7 +2599,7 @@ msgstr "deve essere minore o uguale a %d"
 #: pkg/forms/validators.go:347
 #, python-format
 msgid "text must contain between %d and %d characters"
-msgstr ""
+msgstr "il testo deve contenere da %d a %d caratteri"
 
 #: pkg/forms/validators.go:406
 #, python-format
@@ -2937,4 +2940,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Chiudi menu"
-
