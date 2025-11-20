@@ -1,0 +1,838 @@
+# Dutch (Netherlands) translations for Readeck User Documentation.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# Gusted <postmaster@gusted.xyz>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Readeck User Documentation 1.0.0\n"
+"Report-Msgid-Bugs-To: translate@readeck.com\n"
+"POT-Creation-Date: 2025-10-19 11:48+0200\n"
+"PO-Revision-Date: 2025-10-22 02:09+0000\n"
+"Last-Translator: Gusted <postmaster@gusted.xyz>\n"
+"Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/documentation/nl/>\n"
+"Language: nl_NL\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.13.3\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: en-US/bookmark-list.md:1
+msgid "# Bookmarks"
+msgstr "# Bladwijzers"
+
+#: en-US/bookmark-list.md:3
+msgid "Bookmarks are where you save the web content you like."
+msgstr "Bladwijzers is waar je de webinhoud opslaat die leuk vindt."
+
+#: en-US/bookmark-list.md:5
+msgid "## Create a new Bookmark"
+msgstr "## Maak een nieuwe Bladwijzer aan"
+
+#: en-US/bookmark-list.md:7
+msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
+msgstr "Een webpagina gevonden die je leuk vindt? Geweldig! Kopieer de link naar de pagina in het tekstveld **nieuwe bladwijzer** in de [Bladwijzerlijst](readeck-instance://bookmarks)."
+
+#: en-US/bookmark-list.md:9
+msgid "![New Bookmark form](./img/bookmark-new.webp)"
+msgstr "![Nieuw bladwijzerformulier](./img/bookmark-new.webp)"
+
+#: en-US/bookmark-list.md:11
+msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
+msgstr "Na een paar seconden is uw bladwijzer klaar. U kunt hem dan openen om de inhoud te lezen of te bekijken, labels toe te voegen, tekst te markeren of een ebook te exporteren. Lees voor meer informatie de sectie [Bladwijzerweergave](./bookmark.md)."
+
+#: en-US/bookmark-list.md:13
+msgid "## Bookmark type"
+msgstr "## Bladwijzertype"
+
+#: en-US/bookmark-list.md:15
+msgid "Readeck recognizes 3 different types of web content:"
+msgstr "Readeck herkent 3 verschillende typen webinhoud:"
+
+#: en-US/bookmark-list.md:17 en-US/bookmark.md:17
+msgid "### Article"
+msgstr "### Artikel"
+
+#: en-US/bookmark-list.md:19 en-US/bookmark.md:19
+msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
+msgstr "Een artikel is een pagina waaruit de tekstinhoud is gehaald. Het wordt weergegeven als een leesbare versie van de inhoud."
+
+#: en-US/bookmark-list.md:21 en-US/bookmark.md:21
+msgid "### Picture"
+msgstr "### Afbeelding"
+
+#: en-US/bookmark-list.md:23 en-US/bookmark.md:23
+msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
+msgstr "Een afbeelding is een pagina die werd herkend als een afbeeldingscontainer (d.w.z. een link naar Unsplash). De opgeslagen afbeelding wordt weergegeven."
+
+#: en-US/bookmark-list.md:25 en-US/bookmark.md:25
+msgid "### Video"
+msgstr "### Video"
+
+#: en-US/bookmark-list.md:27 en-US/bookmark.md:27
+msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
+msgstr "Een video is een pagina die werd geïdentificeerd als een video-container (d.w.z. een link naar Youtube of Vimeo). Er wordt een videospeler weergegeven. Houd er rekening mee dat video's worden afgespeeld vanaf hun respectieve externe servers."
+
+#: en-US/bookmark-list.md:30
+msgid "## Bookmark List"
+msgstr "## Bladwijzerlijst"
+
+#: en-US/bookmark-list.md:32
+msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
+msgstr "In de [bladwijzerlijst](readeck-instance://bookmarks) vind u al uw opgeslagen bladwijzers."
+
+#: en-US/bookmark-list.md:34
+msgid "### Navigation"
+msgstr "### Navigatie"
+
+#: en-US/bookmark-list.md:36
+msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
+msgstr "In de zijbalk vind je een zoekveld en links die je naar gefilterde bladwijzerlijsten brengen."
+
+#: en-US/bookmark-list.md:38
+msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
+msgstr "![Bladwijzerlijst zijbalk](./img/bookmark-sidebar.webp)"
+
+#: en-US/bookmark-list.md:40
+msgid ""
+"- **Search** \\\n"
+"  Enter any search term (title, content, website...)\n"
+"- **All** \\\n"
+"  All your bookmarks.\n"
+"- **Unread** \\\n"
+"  The bookmarks that are not in the archive.\n"
+"- **Archive** \\\n"
+"  The bookmarks you marked as archived.\n"
+"- **Favorites** \\\n"
+"  The bookmarks you marked as favorite."
+msgstr ""
+"- **Zoeken** \\\n"
+"  Voer een zoekterm in (titel, inhoud, website...)\n"
+"- **Alles** \\\n"
+"  Al uw bladwijzers.\n"
+"- **Ongelezen** \\\n"
+"  De bladwijzers die niet in het archief zitten.\n"
+"- **Archief** \\\n"
+"  De bladwijzers die u als gearchiveerd hebt gemarkeerd.\n"
+"- **Favorieten** \\\n"
+"  De bladwijzers die u als favoriet hebt gemarkeerd."
+
+#: en-US/bookmark-list.md:52
+msgid "Once you start saving pages, you'll see the following additional links:"
+msgstr "Zodra u pagina's begint op te slaan, ziet u de volgende extra links:"
+
+#: en-US/bookmark-list.md:54
+msgid ""
+"- **Articles** \\\n"
+"  Your article bookmarks\n"
+"- **Videos** \\\n"
+"  Your video bookmarks\n"
+"- **Pictures** \\\n"
+"  Your picture bookmarks"
+msgstr ""
+"- **Artikelen** \\\n"
+"  Uw bladwijzers voor artikelen\n"
+"- **Video's** \\\n"
+"  Uw bladwijzers voor video's\n"
+"- **Foto's** \\\n"
+"  Uw bladwijzers voor foto's"
+
+#: en-US/bookmark-list.md:61
+msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
+msgstr "Tot slot zie u nog 3 secties die je naar bladwijzers voor gerelateerde pagina's brengen:"
+
+#: en-US/bookmark-list.md:63
+msgid ""
+"- **[Labels](./labels.md)** \\\n"
+"  All your bookmark labels\n"
+"- **Highlights** \\\n"
+"  All the highlights created on your bookmarks\n"
+"- **[Collections](./collections.md)** \\\n"
+"  The list of all your collections"
+msgstr ""
+"- **[Labels](./labels.md)** \\\n"
+"  Al uw bladwijzerlabels\n"
+"- **Hoogtepunten** \\\n"
+"  Alle hoogtepunten gemaakt op uw bladwijzers\n"
+"- **[Collecties](./collections.md)** \\\n"
+"  De lijst met al uw collecties"
+
+#: en-US/bookmark-list.md:70
+msgid "### Bookmark Cards"
+msgstr "### Bladwijzerkaarten"
+
+#: en-US/bookmark-list.md:72
+msgid "Each item on a list is called a Bookmark Card."
+msgstr "Elk item op een lijst wordt een Bladwijzerkaart genoemd."
+
+#: en-US/bookmark-list.md:74
+msgid ""
+"![Bookmark List](./img/bookmark-list.webp)\n"
+"Grid Bookmark List"
+msgstr ""
+"![Bladwijzerlijst](./img/bookmark-list.webp)\n"
+"Raster Bladwijzerlijst"
+
+#: en-US/bookmark-list.md:77
+msgid "A card shows:"
+msgstr "Op een kaart staat:"
+
+#: en-US/bookmark-list.md:79
+msgid ""
+"- the **title** on which you can click to watch or read the bookmark,\n"
+"- the **site name**,\n"
+"- the estimated **reading time**,\n"
+"- the **label list**,\n"
+"- **action buttons**"
+msgstr ""
+"- de **titel** waarop u kunt klikken om de bladwijzer te bekijken of te lezen,\n"
+"- de **site naam**,\n"
+"- de geschatte **leestijd**,\n"
+"- de **labellijst**,\n"
+"- **actieknoppen**"
+
+#: en-US/bookmark-list.md:85
+msgid "The action buttons perform the following:"
+msgstr "De actieknoppen voeren het volgende uit:"
+
+#: en-US/bookmark-list.md:87
+msgid ""
+"- **Favorite** \\\n"
+"  This toggles the favorite status of the bookmark.\n"
+"- **Archive** \\\n"
+"  This moves the bookmark to the archives (or removes it from there).\n"
+"- **Delete** \\\n"
+"  This marks the bookmark for deletion (it can be canceled during a few seconds)."
+msgstr ""
+"- **Favoriet** \\\n"
+"  Hiermee schakelt u de favorietenstatus van de bladwijzer in.\n"
+"- **Archiveren** \\\n"
+"  Dit verplaatst de bladwijzer naar de archieven (of verwijdert het daar).\n"
+"- **Verwijderen** \\\n"
+"  Hiermee wordt de bladwijzer gemarkeerd voor verwijdering (dit kan gedurende enkele seconden worden geannuleerd)."
+
+#: en-US/bookmark-list.md:94
+msgid "### Compact List"
+msgstr "### Compacte lijst"
+
+#: en-US/bookmark-list.md:96
+msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
+msgstr "Als u de bladwijzerrasterweergave te druk vindt, kunt u overschakelen naar een compactere lijst met minder afbeeldingen. Klik op de knop naast de titel om over te schakelen van de rasterweergave naar de compacte weergave."
+
+#: en-US/bookmark-list.md:98
+msgid ""
+"![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
+"Compact Bookmark List"
+msgstr ""
+"![Bladwijzer Compacte Lijst](./img/bookmark-list-compact.webp)\n"
+"Compacte bladwijzerlijst"
+
+#: en-US/bookmark-list.md:101
+#, python-brace-format
+msgid "## Filter Bookmarks {#filters}"
+msgstr "## Bladwijzers filteren {#filters}"
+
+#: en-US/bookmark-list.md:103
+msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
+msgstr "In de bladwijzerlijst kunt u uw resultaten filteren op basis van één of meerdere criteria. Klik op de knop “Filterlijst” naast de paginatitel om het filterformulier te openen."
+
+#: en-US/bookmark-list.md:105
+msgid ""
+"![Bookmark list filters](./img/bookmark-filters.webp)\n"
+"The filter form"
+msgstr ""
+"![Filters voor bladwijzerlijst](./img/bookmark-filters.webp)\n"
+"De filter formulier"
+
+#: en-US/bookmark-list.md:108
+msgid "Enter any criteria and click on **Search**."
+msgstr "Voer willekeurige criteria in en klik op **Zoeken**."
+
+#: en-US/bookmark-list.md:110
+msgid "### Available filters"
+msgstr "### Beschikbare filters"
+
+#: en-US/bookmark-list.md:112
+msgid "You can combine the following filters:"
+msgstr "U kunt de volgende filters combineren:"
+
+#: en-US/bookmark-list.md:114
+msgid ""
+"- **Search**\\\n"
+"  Search in the bookmark's text, its title, its authors, its site name and domain and the labels.\n"
+"- **Title**\\\n"
+"  Search in the title only.\n"
+"- **Author**\\\n"
+"  Search in the author list only.\n"
+"- **Site**\\\n"
+"  Search in the site title and the site domain name.\n"
+"- **Label**\\\n"
+"  Search for specific labels.\n"
+"- **Is Favorite**, **Is Archived**, **Type**\\\n"
+"  This filters let you restrict your search to any of these criteria.\n"
+"- **From date**, **To date**\\\n"
+"  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
+msgstr ""
+"- **Zoeken**\\\n"
+"  Zoek in de tekst van de bladwijzer, de titel, de auteurs, de sitenaam en het domein en de labels.\n"
+"- **Titel**\\\n"
+"  Zoek alleen in de titel.\n"
+"- **Auteur**\\\n"
+"  Zoek alleen in de auteurslijst.\n"
+"- **Site**\\\n"
+"  Zoek in de sitetitel en de domeinnaam van de site.\n"
+"- **Label**\\\n"
+"  Zoek naar specifieke labels.\n"
+"- **Is Favoriet**, **Is Gearchiveerd**, **Type**\\\n"
+"  Met deze filters kunt u uw zoekopdracht beperken tot een van deze criteria.\n"
+"- **Vanaf datum**, **Tot datum**\\\n"
+"  Met deze laatste filters kun u instellen vanaf wanneer en tot wanneer de bladwijzer is opgeslagen. Zo kun u bijvoorbeeld de bladwijzerlijst opvragen die de afgelopen 4 weken is opgeslagen, maar niet van na de afgelopen week."
+
+#: en-US/bookmark-list.md:129
+msgid "### Search query"
+msgstr "### Zoekopdracht"
+
+#: en-US/bookmark-list.md:131
+msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
+msgstr "De velden **Zoeken**, **Titel**, **Auteur**, **Site** en **Label** begrijpen zoekcriteria op dezelfde manier:"
+
+#: en-US/bookmark-list.md:133
+msgid ""
+"- `startled cat` will find the content with the words **startled** and **cat**\n"
+"- `\"startled cat\"` will find the content with the exact words **startled cat** together.\n"
+"- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
+"- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
+msgstr ""
+"- `geschrokken kat` zal de inhoud vinden met de woorden **geschrokken** en **kat**\n"
+"- `\"geschrokken kat\"` zal de inhoud vinden met de exacte woorden **geschrokken kat** samen.\n"
+"- `kat*` zal de inhoud vinden met de woorden die beginnen met **kat** (kat en kattenkruid zou een match zijn).\n"
+"- `-geschrokken kat` zal de inhoud vinden met het woord **kat** maar NIET het woord **geschrokken**."
+
+#: en-US/bookmark-list.md:139
+msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
+msgstr "Nadat u een zoekopdracht heeft uitgevoerd, kun u deze opslaan in een nieuwe [collectie](./collections.md) om deze permanent te maken."
+
+#: en-US/bookmark-list.md:141
+msgid "## Export and Import Bookmarks"
+msgstr "## Exporteer en Importeer Bladwijzers"
+
+#: en-US/bookmark-list.md:143
+msgid ""
+"![Menu](./img/bookmark-list-menu.webp)\n"
+"Bookmark list menu"
+msgstr ""
+"![Menu](./img/bookmark-list-menu.webp)\n"
+"Menu met bladwijzerlijst"
+
+#: en-US/bookmark-list.md:146
+msgid "### Export bookmarks"
+msgstr "### Bladwijzers exporteren"
+
+#: en-US/bookmark-list.md:148
+msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
+msgstr "Met de menuknop naast de filterknop kunt u een EPUB-bestand van de huidige lijst met bladwijzers downloaden. Hiermee wordt één e-book geëxporteerd dat alle artikelen bevat, geordend in hoofdstukken."
+
+#: en-US/bookmark-list.md:150
+msgid "### Import bookmarks"
+msgstr "### Bladwijzers importeren"
+
+#: en-US/bookmark-list.md:152
+msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
+msgstr "In hetzelfde menu vindt u een link [Bladwijzers importeren](readeck-instance://bookmarks/import). Deze link brengt u naar een importwizard waarmee u uw bestaande bladwijzers uit verschillende bronnen kunt importeren."
+
+#: en-US/bookmark.md:1
+msgid "# Bookmark View"
+msgstr "# Bladwijzerweergave"
+
+#: en-US/bookmark.md:3
+msgid "## The view"
+msgstr "## Het uitzicht"
+
+#: en-US/bookmark.md:5
+msgid ""
+"![The bookmark view](./img/bookmark-view.webp)\n"
+"The bookmark view of an article."
+msgstr ""
+"![De bladwijzerweergave](./img/bookmark-view.webp)\n"
+"De bladwijzerweergave van een artikel."
+
+#: en-US/bookmark.md:8
+msgid "The bookmark view is divided in 3 sections:"
+msgstr "De bladwijzerweergave is onderverdeeld in 3 secties:"
+
+#: en-US/bookmark.md:10
+msgid ""
+"- On top, the navigation and presentation settings,\n"
+"- The content,\n"
+"- A sidebar with information, labels, highlights and actions."
+msgstr ""
+"- Bovenaan, de navigatie- en presentatie-instellingen,\n"
+"- De inhoud,\n"
+"- Een zijbalk met informatie, labels, hoogtepunten en acties."
+
+#: en-US/bookmark.md:15
+msgid "A bookmark renders its content based on its type. There are 3 types:"
+msgstr "Een bladwijzer geeft de inhoud weer op basis van het type. Er zijn 3 soorten:"
+
+#: en-US/bookmark.md:30
+msgid "## Navigation and presentation settings"
+msgstr "## Navigatie- en presentatie-instellingen"
+
+#: en-US/bookmark.md:32
+msgid "On top of the bookmark view, a link takes you back to the previous page."
+msgstr "Boven aan de bladwijzerweergave staat een link waarmee u teruggaat naar de vorige pagina."
+
+#: en-US/bookmark.md:34
+msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
+msgstr "Als de bladwijzer een artikel bevat, kunt u met een knop aan de andere kant enkele typografische instellingen wijzigen."
+
+#: en-US/bookmark.md:36
+msgid ""
+"![Bookmark typography settings](./img/bookmark-typography.webp)\n"
+"Typography settings."
+msgstr ""
+"![Instellingen voor typografie van bladwijzers](./img/bookmark-typography.webp)\n"
+"Instellingen voor typografie."
+
+#: en-US/bookmark.md:39
+msgid ""
+"There you can set the font used for the text, the font size and the line height.\\\n"
+"This settings are automatically saved for you and will apply to any article you read later."
+msgstr ""
+"Daar kunt u het lettertype voor de tekst, de lettergrootte en de regelafstand instellen.\n"
+"Deze instellingen worden automatisch voor u opgeslagen en zijn van toepassing op alle artikelen die u later leest."
+
+#: en-US/bookmark.md:43
+msgid "## Change the title"
+msgstr "## De titel wijzigen"
+
+#: en-US/bookmark.md:45
+msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
+msgstr "De titel van de bladwijzer wordt automatisch overgenomen wanneer u deze aanmaakt. Als u om een of andere reden iets anders nodig hebt, kunt u dit wijzigen door erop te klikken en vervolgens op de knop aan de titelzijde te klikken."
+
+#: en-US/bookmark.md:48
+msgid "## Actions"
+msgstr "## Acties"
+
+#: en-US/bookmark.md:50
+msgid "On the bookmark sidebar, you can perform actions."
+msgstr "In de zijbalk met bladwijzers kunt u acties uitvoeren."
+
+#: en-US/bookmark.md:52
+msgid "### Favorite"
+msgstr "### Favoriet"
+
+#: en-US/bookmark.md:54
+msgid "This toggles the favorite status of the bookmark."
+msgstr "Hiermee schakelt u de favorietenstatus van de bladwijzer in of uit."
+
+#: en-US/bookmark.md:56
+msgid "### Archive"
+msgstr "### Archiveer"
+
+#: en-US/bookmark.md:58
+msgid "This moves the bookmark to the archives (or removes it from there)."
+msgstr "Hiermee wordt de bladwijzer naar het archief verplaatst (of daaruit verwijderd)."
+
+#: en-US/bookmark.md:60
+msgid "### Share"
+msgstr "### Delen"
+
+#: en-US/bookmark.md:62
+msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
+msgstr "De deelknop opent een menu waarin u een link kunt maken als u een artikel met iemand wilt delen."
+
+#: en-US/bookmark.md:64
+msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
+msgstr "In hetzelfde menu kun u uw bladwijzer exporteren (momenteel alleen EPUB) om deze op een ander apparaat te lezen."
+
+#: en-US/bookmark.md:67
+msgid "### Delete"
+msgstr "### Verwijder"
+
+#: en-US/bookmark.md:69
+msgid ""
+"This marks the bookmark for deletion.\\\n"
+"No worries if you click on this by mistake! This action can be canceled before actual deletion."
+msgstr ""
+"Dit markeert de bladwijzer voor verwijdering.\n"
+"Maak je geen zorgen als je hier per ongeluk op klikt! Deze actie kan worden geannuleerd voordat de daadwerkelijke verwijdering plaatsvindt."
+
+#: en-US/bookmark.md:73
+msgid "## Labels"
+msgstr "## Labels"
+
+#: en-US/bookmark.md:75
+msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr "U kunt zoveel labels toevoegen aan een bladwijzer als u wilt. Voer hiervoor tekst in het labelveld in en klik op **Label toevoegen**. Er zijn geen beperkingen voor wat een label kan zijn. U kunt zelfs emoji's toevoegen als U dat wilt."
+
+#: en-US/bookmark.md:77
+msgid ""
+"![Bookmark labels form](./img/bookmark-labels.webp)\n"
+"Add a new label."
+msgstr ""
+"![Formulier voor bladwijzerlabels](./img/bookmark-labels.webp)\n"
+"Voeg een nieuw label toe."
+
+#: en-US/bookmark.md:80
+msgid "Please read the [Labels](./labels.md) section for more information."
+msgstr "Lees het gedeelte [Labels](./labels.md) voor meer informatie."
+
+#: en-US/bookmark.md:82
+msgid "## Highlights"
+msgstr "## Markeringen"
+
+#: en-US/bookmark.md:84
+msgid ""
+"Found some interesting part in an article? You can highlight it!\\\n"
+"When you select any text in the article, a menu appears that lets you create a new highlight."
+msgstr ""
+"Heeft u een interessant gedeelte in een artikel gevonden? U kunt het markeren!\n"
+"Wanneer u tekst in het artikel selecteert, verschijnt er een menu waarmee u een nieuwe markering kunt aanmaken."
+
+#: en-US/bookmark.md:87
+msgid ""
+"![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
+"Create a new highlight."
+msgstr ""
+"![Bladwijzer markering aanmaken](./img/bookmark-highlight.webp)\n"
+"Maak een nieuwe markering aan."
+
+#: en-US/bookmark.md:90
+msgid "Your highlights appear in the sidebar."
+msgstr "Uw hoogtepunten verschijnen in de zijbalk."
+
+#: en-US/bookmark.md:92
+msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
+msgstr "Wanneer u een markering wilt verwijderen, kunt u dit doen via de zijbalk of door deze in het artikel te selecteren."
+
+#: en-US/collections.md:1
+msgid "# Collections"
+msgstr "# Verzamelingen"
+
+#: en-US/collections.md:3
+msgid ""
+"Collections let you easily organize and export your bookmarks\n"
+"by saving search requests of your choice.\n"
+"When you create a new bookmark that matches a collection's criteria,\n"
+"it will appear immediately.\n"
+"Here are some examples:"
+msgstr ""
+"Met collecties kunt u uw bladwijzers eenvoudig ordenen en exporteren\n"
+"door zoekopdrachten naar keuze op te slaan.\n"
+"Wanneer u een nieuwe bladwijzer aanmaakt die voldoet aan de criteria van een collectie,\n"
+"verschijnt deze onmiddellijk.\n"
+"Hier volgen enkele voorbeelden:"
+
+#: en-US/collections.md:9
+msgid ""
+"- The unread articles (no picture or videos),\n"
+"- The archived articles from \"wikipedia.org\",\n"
+"- The pictures with the label \"cat\",\n"
+"- The articles that contain \"climate\" in their title."
+msgstr ""
+"- De ongelezen artikelen (zonder foto's of video's),\n"
+"- De gearchiveerde artikelen van “wikipedia.org”,\n"
+"- De foto's met het label \"kat\",\n"
+"- De artikelen met “klimaat” in de titel."
+
+#: en-US/collections.md:14
+msgid "## Create a new collection"
+msgstr "## Maak een nieuwe verzameling aan"
+
+#: en-US/collections.md:16
+msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
+msgstr "Om een nieuwe collectie aan te maken, gaat u naar de [Collectielijst](readeck-instance://bookmarks/collections) en klik u op **Een nieuwe collectie aanmaken**."
+
+#: en-US/collections.md:18
+msgid ""
+"![New Collection form](./img/collection-new.webp)\n"
+"The collection form"
+msgstr ""
+"![Nieuw collectieformulier](./img/collection-new.webp)\n"
+"Het collectieformulier"
+
+#: en-US/collections.md:21
+msgid "Enter any criteria and click on **Save**."
+msgstr "Voer de gewenste criteria in en klik op **Opslaan**."
+
+#: en-US/collections.md:23
+msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
+msgstr "Raadpleeg [bladwijzerfilters](./bookmark-list.md#filters) voor meer informatie over filteren."
+
+#: en-US/collections.md:25
+msgid "## Export a collection"
+msgstr "## Exporteer een verzameling"
+
+#: en-US/collections.md:27
+msgid "On a collection page, you can export the full collection to a file."
+msgstr "Op een collectiepagina kunt u de volledige collectie naar een bestand exporteren."
+
+#: en-US/collections.md:29
+msgid "For now, only EPUB is available and exports the full collection as a single book."
+msgstr "Voorlopig is alleen EPUB beschikbaar en wordt de volledige collectie als één boek geëxporteerd."
+
+#: en-US/collections.md:32
+msgid "## Delete a collection"
+msgstr "## Verwijder een verzameling"
+
+#: en-US/collections.md:34
+msgid "On a collection page, open the **Edit** box and click on **Delete**."
+msgstr "Open op een collectiepagina het vak **Bewerken** en klik op **Verwijderen**."
+
+#: en-US/collections.md:36
+msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
+msgstr "Deze bewerking kan binnen enkele seconden worden geannuleerd, voor het geval u een fout hebt gemaakt."
+
+#: en-US/index.md:1
+msgid ""
+"---\n"
+"Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+msgstr ""
+"---\n"
+"Title: Inhoudsopgave\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+
+#: en-US/index.md:14
+msgid "# Readeck Help"
+msgstr "# Readeck Hulp"
+
+#: en-US/index.md:16
+msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
+msgstr "Welkom bij Readeck! Hier vindt u de antwoorden op de meeste vragen over Readeck en enkele tips om uw ervaring nog verder te verbeteren."
+
+#: en-US/index.md:18
+msgid "## Contents"
+msgstr "## Inhoud"
+
+#: en-US/index.md:20
+msgid ""
+"- [Bookmarks](./bookmark-list.md)\n"
+"- [Bookmark View](./bookmark.md)\n"
+"- [Labels](./labels.md)\n"
+"- [Collections](./collections.md)\n"
+"- [Ebook Catalog](./opds.md)\n"
+"- [User Profile](./user-profile.md)"
+msgstr ""
+"- [Bladwijzers](./bookmark-list.md)\n"
+"- [Bladwijzerweergave](./bookmark.md)\n"
+"- [Labels](./labels.md)\n"
+"- [Collecties](./collections.md)\n"
+"- [E-boekcatalogus](./opds.md)\n"
+"- [Gebruikersprofiel](./user-profile.md)"
+
+#: en-US/labels.md:1
+msgid "# Labels"
+msgstr "# Labels"
+
+#: en-US/labels.md:3
+msgid ""
+"You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
+"There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr ""
+"U kunt [zoveel labels toevoegen als je wilt aan een bladwijzer](./bookmark.md#labels).\n"
+"Er is geen beperking wat betreft wat een label kan zijn. U kunt zelfs emoji's toevoegen als u die leuk vindt."
+
+#: en-US/labels.md:6
+msgid "## Label List"
+msgstr "## Label lijst"
+
+#: en-US/labels.md:8
+msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
+msgstr "De [Lijst met labels](readeck-instance://bookmarks/labels) toont alle labels in uw bladwijzerverzameling, met een getal dat aangeeft hoeveel bladwijzers een bepaald label hebben."
+
+#: en-US/labels.md:10
+msgid "When you click on a label, you can list all the bookmarks carrying the label."
+msgstr "Wanneer u op een label klikt, kunt u alle bladwijzers met dat label weergeven."
+
+#: en-US/labels.md:12
+msgid "## Rename a label"
+msgstr "## Een label hernoemen"
+
+#: en-US/labels.md:14
+msgid "On a given label page, you can click on the page's title (the label) to change its name."
+msgstr "Op een bepaalde labelpagina kunt u op de titel van de pagina (het label) klikken om de naam ervan te wijzigen."
+
+#: en-US/opds.md:1
+msgid "# E-book Catalog"
+msgstr "# E-book Catalogus"
+
+#: en-US/opds.md:3
+msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
+msgstr "Readeck biedt een e-boekcatalogus van al uw bladwijzers, geordend in een catalogus met de onderstaande structuur:"
+
+#: en-US/opds.md:5
+msgid ""
+"- Unread Bookmarks\n"
+"- Archived Bookmarks\n"
+"- Favorite Bookmarks\n"
+"- All Bookmarks\n"
+"- Bookmark Collections\n"
+"  - (Collection Name)\n"
+"    - Collection E-book\n"
+"    - Browse Collection"
+msgstr ""
+"- Ongelezen bladwijzers\n"
+"- Gearchiveerde bladwijzers\n"
+"- Favoriete bladwijzers\n"
+"- Alle bladwijzers\n"
+"- Bladwijzercollecties\n"
+"  - (Naam collectie)\n"
+"    - Collectie e-book\n"
+"    - Collectie doorbladeren"
+
+#: en-US/opds.md:14
+msgid "Each section, except Collections, provides every bookmark as an E-book."
+msgstr "Elke sectie, behalve Collecties, biedt elke bladwijzer als e-book aan."
+
+#: en-US/opds.md:16
+msgid "On a collection's section, you can download the full collection as a single E-book."
+msgstr "In een sectie van een collectie kunt u de volledige collectie als één e-book downloaden."
+
+#: en-US/opds.md:19
+msgid "## Catalog access"
+msgstr "## Catalogus toegang"
+
+#: en-US/opds.md:21
+msgid ""
+"The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
+"To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
+msgstr ""
+"De catalogus is toegankelijk voor elke app of e-reader die het OPDS-formaat ondersteunt.\n"
+"Om toegang te geven tot de catalogus moet u eerst een [API Token](readeck-instance://profile/tokens) aanmaken."
+
+#: en-US/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr "**Noot**: Het is makkelijker om de token te downloaden als tekstbestand en het over te zetten naar uw e-reader. U kunt het bestand dan openen en de token kopiëren."
+
+#: en-US/opds.md:26
+msgid ""
+"You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
+"Write the token value down and setup your app."
+msgstr ""
+"U kunt de rechten van deze token beperken tot \"Bladwijzers : Alleen lezen\".\n"
+"Schrijf de tokenwaarde op en stel uw app in."
+
+#: en-US/opds.md:29
+msgid ""
+"The URL of your OPDS catalog is: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+msgstr ""
+"The URL of your OPDS catalog is:\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+
+#: en-US/opds.md:33
+msgid "## Example setup: Koreader"
+msgstr "## Voorbeeld setup: Koreader"
+
+#: en-US/opds.md:35
+msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
+msgstr "[Koreader](https://koreader.rocks/) is een documentviewer voor E Ink apparaten. Het is beschikbaar voor Kindle, Kobo, PocketBook, Android en desktop Linux. Het heeft zeer goede ondersteuning voor OPDS."
+
+#: en-US/opds.md:37
+msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
+msgstr "Zodra u een API Token heeft, hebt u toegang tot de OPDS-sectie in het opzoekmenu van Koreader:"
+
+#: en-US/opds.md:39
+msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
+msgstr "![Koreader's opzoekmenu](../img/koreader-1.webp)"
+
+#: en-US/opds.md:41
+msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
+msgstr "Deze sectie toont een lijst met vooraf geconfigureerde OPDS bronnen en u kunt de uwe toevoegen door op het \"+\" pictogram in de linkerbovenhoek te drukken:"
+
+#: en-US/opds.md:43
+msgid "![Koreader catalog list](../img/koreader-2.webp)"
+msgstr "![Koreader cataloguslijst](../img/koreader-2.webp)"
+
+#: en-US/opds.md:45
+msgid "In this dialog replace the fields below with:"
+msgstr "Vervang in dit dialoogvenster de onderstaande velden door:"
+
+#: en-US/opds.md:47
+msgid ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: your username\n"
+"- your API Token in the last field"
+msgstr ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: uw gebruikersnaam\n"
+"- uw API Token in het laatste veld"
+
+#: en-US/opds.md:51
+msgid "![Koreader add catalog](../img/koreader-3.webp)"
+msgstr "![Koreader catalogus toevoegen](../img/koreader-3.webp)"
+
+#: en-US/opds.md:53
+msgid "You can now access your bookmarks from Koreader!"
+msgstr "Je hebt vanaf nu toegang tot je bladwijzers uit Koreader!"
+
+#: en-US/opds.md:55
+msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
+msgstr "![Koreader readeck catalogus](../img/koreader-4.webp)"
+
+#: en-US/user-profile.md:1
+msgid "# User Profile"
+msgstr "# Gebruikersprofiel"
+
+#: en-US/user-profile.md:3
+msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
+msgstr "In het [Profielgedeelte](readeck-instance://profiel) van Readeck kunt u uw persoonlijke gegevens, uw wachtwoord en enkele andere instellingen wijzigen."
+
+#: en-US/user-profile.md:5
+msgid "## Edit your profile"
+msgstr "## Wijzig je profiel"
+
+#: en-US/user-profile.md:7
+msgid "On the main profile page, you can change your username, your email address and choose the app's language."
+msgstr "Op de hoofdprofielpagina kun u uw gebruikersnaam en e-mailadres wijzigen en de taal van de app kiezen."
+
+#: en-US/user-profile.md:9
+msgid "## Change your password"
+msgstr "## Wijzig je wachtwoord"
+
+#: en-US/user-profile.md:11
+msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
+msgstr "Op de pagina [Wachtwoord](readeck-instance://profiel/wachtwoord) kunt u het wachtwoord wijzigen dat u gebruikt om verbinding te maken met Readeck."
+
+#: en-US/user-profile.md:13
+msgid "## API Tokens"
+msgstr "## API tokens"
+
+#: en-US/user-profile.md:15
+msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
+msgstr "Met een API-token heeft u toegang tot de [Readeck API](readeck-instance://docs/api) en kun u deze gebruiken voor alles wat u wilt bouwen. U kunt tokens aanmaken en beheren in de [API Tokens](readeck-instance://profile/tokens) sectie van uw gebruikersprofiel."
+
+#: en-US/user-profile.md:17
+msgid "You can limit what a given token can access through the API and for how long it's valid."
+msgstr "U kunt beperken waartoe een gegeven token toegang heeft via de API en hoe lang het geldig is."
+
+#: en-US/user-profile.md:19
+msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
+msgstr "Als u een service of app toegang moet geven tot uw Readeck-account, kunt u niet uw hoofdgebruikersnaam en -wachtwoord opgeven; dat werkt niet."
+
+#: en-US/user-profile.md:21
+msgid "Instead, you can give your username and a token of your choice as authentication credentials."
+msgstr "In plaats daarvan kun u uw gebruikersnaam en een token naar keuze opgeven als authenticatiegegevens."

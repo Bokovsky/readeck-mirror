@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//div[@class='article__main']",
     "//div[@itemprop=\"articleBody\"]",
     "//div[@itemprop=\"reviewBody\"]",
     "//figcaption|//div[@class=\"img-wrapper\"]/noscript/img"
@@ -32,31 +33,11 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.networkworld.com/index.rss",
+      "url": "https://www.networkworld.com/feed/",
       "contains": []
     },
     {
-      "url": "http://www.networkworld.com/article/2952852/email-services/4-great-gmail-tips-you-might-not-know-about.html#tk.rss_all",
-      "contains": []
-    },
-    {
-      "url": "http://www.networkworld.com/article/2951819/infrastructure-management/cios-say-applecare-for-enterprise-is-lacking.html",
-      "contains": []
-    },
-    {
-      "url": "http://www.networkworld.com/article/2951823/cisco-subnet/early-access-qa-new-cisco-ceo-chuck-robbins-heads-into-hyper-connected-mode.html",
-      "contains": []
-    },
-    {
-      "url": "http://www.networkworld.com/article/2947478/mobile/what-if-the-apple-watch-really-is-a-flop.html",
-      "contains": []
-    },
-    {
-      "url": "http://www.networkworld.com/article/2953522/cloud-computing/nfv-a-hit-for-opendaylight.html",
-      "contains": []
-    },
-    {
-      "url": "http://www.networkworld.com/article/2960522/wi-fi/best-wi-fi-stumblers-for-the-mac.html",
+      "url": "https://www.networkworld.com/article/3630303/2025-global-network-outage-report-and-internet-health-check.html",
       "contains": []
     }
   ]

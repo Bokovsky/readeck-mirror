@@ -89,16 +89,24 @@ func InitApp() {
 			Level: configs.Config.Main.LogLevel,
 		})
 	case "text":
+		timeFormat := time.RFC3339Nano
+		if configs.Config.Main.LogTimeFormat != "" {
+			timeFormat = configs.Config.Main.LogTimeFormat
+		}
 		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
 			Level:      configs.Config.Main.LogLevel,
 			Theme:      stdLogTheme,
-			TimeFormat: time.RFC3339Nano,
+			TimeFormat: timeFormat,
 		})
 	case "dev":
+		timeFormat := "15:04:05.0000"
+		if configs.Config.Main.LogTimeFormat != "" {
+			timeFormat = configs.Config.Main.LogTimeFormat
+		}
 		handler = console.NewHandler(os.Stdout, &console.HandlerOptions{
 			Level:      configs.Config.Main.LogLevel,
 			Theme:      devLogTheme,
-			TimeFormat: "15:04:05.0000",
+			TimeFormat: timeFormat,
 		})
 	default:
 		fatal("can't setup logger", fmt.Errorf("unknown format %s", f))
@@ -148,13 +156,16 @@ func InitApp() {
 		fatal("can't initialize database", err)
 	}
 
+	// Init ACLs
+	if err = acls.Load(strings.NewReader(configs.Config.Customize.ExtraPermissions)); err != nil {
+		fatal("can't initialize ACLs", err)
+	}
+
 	// Init email sending
 	email.InitSender()
 	if !email.CanSendEmail() {
 		// If we can't send email, remnove the mail permission.
-		if _, err = acls.DeleteRole("/email/send"); err != nil {
-			panic(err)
-		}
+		acls.DeletePermission("email", "send")
 	}
 
 	// Set the commissioned flag

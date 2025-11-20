@@ -32,9 +32,9 @@ export GOARCH?=
 SITECONFIG_SRC=./ftr-site-config
 SITECONFIG_DEST=pkg/extract/contentscripts/assets/site-config
 
-GOLANGCI_PKG ?= github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.1.6
-AIR_PKG ?= github.com/air-verse/air@v1.61.7
-SLOC_PKG ?= github.com/boyter/scc/v3@v3.4.0
+GOLANGCI_PKG ?= github.com/golangci/golangci-lint/v2/cmd/golangci-lint@v2.6.2
+AIR_PKG ?= github.com/air-verse/air@v1.63.1
+SLOC_PKG ?= github.com/boyter/scc/v3@v3.6.0
 
 # -------------------------------------------------------------------
 # Base targets
@@ -134,7 +134,7 @@ vulncheck:
 # Single lines of code
 .PHONY: sloc
 sloc:
-	$(GO) run $(SLOC_PKG) -i go,js,sass,html,md
+	$(GO) run $(SLOC_PKG) -i go,js,scss,html,md
 
 
 # Update site-config folder with definitions from

@@ -10,7 +10,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 // Store is a very basic key/value store.
@@ -66,13 +66,15 @@ func (s *RedisStore) Del(key string) error {
 // MemStore is a KvStore implementation using a simple in memory map.
 type MemStore struct {
 	sync.RWMutex
-	data map[string]string
+	data   map[string]string
+	timers map[string]*time.Timer
 }
 
 // NewMemStore returns a MemStore instance.
 func NewMemStore() *MemStore {
 	return &MemStore{
-		data: make(map[string]string),
+		data:   make(map[string]string),
+		timers: make(map[string]*time.Timer),
 	}
 }
 
@@ -90,12 +92,24 @@ func (s *MemStore) Set(key, value string, expiration time.Duration) error {
 	defer s.Unlock()
 	s.data[key] = value
 
+	// Remove the expiration timer when expiration is zero and the timer exists.
+	if t, ok := s.timers[key]; ok && expiration == 0 {
+		t.Stop()
+		delete(s.timers, key)
+	}
+
+	// Set or update the expiration timer.
 	if expiration > 0 {
-		time.AfterFunc(expiration, func() {
-			s.Lock()
-			defer s.Unlock()
-			delete(s.data, key)
-		})
+		if t, ok := s.timers[key]; ok {
+			t.Reset(expiration)
+		} else {
+			s.timers[key] = time.AfterFunc(expiration, func() {
+				s.Lock()
+				defer s.Unlock()
+				delete(s.data, key)
+				delete(s.timers, key)
+			})
+		}
 	}
 
 	return nil
@@ -105,6 +119,10 @@ func (s *MemStore) Set(key, value string, expiration time.Duration) error {
 func (s *MemStore) Del(key string) error {
 	s.Lock()
 	defer s.Unlock()
+	if t, ok := s.timers[key]; ok {
+		t.Stop()
+		delete(s.timers, key)
+	}
 	delete(s.data, key)
 	return nil
 }
@@ -114,4 +132,5 @@ func (s *MemStore) Clear() {
 	s.Lock()
 	defer s.Unlock()
 	s.data = make(map[string]string)
+	s.timers = make(map[string]*time.Timer)
 }

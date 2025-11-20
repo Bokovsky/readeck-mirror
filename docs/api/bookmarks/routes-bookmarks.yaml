@@ -1,0 +1,547 @@
+---
+# SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+withBookmark:
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Bookmark ID
+      schema:
+        type: string
+        format: short-uid
+
+withLabel:
+  parameters:
+    - name: name
+      in: path
+      required: true
+      description: Label
+      schema:
+        type: string
+
+withAnnotation:
+  parameters:
+    - name: annotation_id
+      in: path
+      required: true
+      description: Highlight ID
+      schema:
+        type: string
+        format: short-uid
+
+routes:
+  /bookmarks:
+    get:
+      tags: [bookmarks]
+
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+        - "bookmarks/traits.yaml#.sortable"
+
+      summary: Bookmark List
+      description: |
+            This route returns a paginated bookmark list.
+
+      parameters:
+        - name: search
+          in: query
+          description: A full text search string
+          schema:
+            type: string
+        - name: title
+          in: query
+          description: Bookmark title
+          schema:
+            type: string
+        - name: author
+          in: query
+          description: Author's name
+          schema:
+            type: string
+        - name: site
+          in: query
+          description: Bookmark site name or domain
+          schema:
+            type: string
+        - name: type
+          in: query
+          description: Bookmark type
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [article, photo, video]
+        - name: labels
+          in: query
+          description: One or several labels
+          schema:
+            type: string
+        - name: is_loaded
+          in: query
+          description: Filter by loaded state
+          schema:
+            type: boolean
+        - name: has_errors
+          in: query
+          description: Filter bookmarks with or without errors
+          schema:
+            type: boolean
+        - name: has_labels
+          in: query
+          description: Filter bookmarks with or without labels
+          schema:
+            type: boolean
+        - name: is_marked
+          in: query
+          description: Filter by marked (favorite) status
+          schema:
+            type: boolean
+        - name: is_archived
+          in: query
+          description: Filter by archived status
+          schema:
+            type: boolean
+        - name: range_start
+          in: query
+          schema:
+            type: string
+        - name: range_end
+          in: query
+          schema:
+            type: string
+        - name: read_status
+          in: query
+          description: Read progress status
+          schema:
+            type: array
+            items:
+              type: string
+              enum: [unread, reading, read]
+        - name: id
+          in: query
+          description: One or more bookmark ID
+          schema:
+            type: string
+        - name: collection
+          in: query
+          description: A collection ID
+          schema:
+            type: string
+
+      responses:
+        200:
+          description: List of bookmark items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/bookmarkSummary"
+
+    post:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+
+      summary: Bookmark Create
+      description: Creates a new bookmark
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkCreate"
+
+      responses:
+        202:
+          headers:
+            Bookmark-Id:
+              schema:
+                type: string
+              description: ID of the created bookmark
+
+  /bookmarks/{id}:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Details
+      description: Retrieves a saved bookmark
+
+      responses:
+        200:
+          description: Bookmark details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkInfo"
+
+    patch:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Bookmark Update
+      description: |
+        This route updates some bookmark's properties. Every input value is optional.
+        Upon success, it returns a mapping of changed values.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkUpdate"
+
+      responses:
+        200:
+          description: Bookmark updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkUpdated"
+
+    delete:
+      tags: [bookmarks]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Delete
+      description: Deletes a saved bookmark
+
+      responses:
+        "204":
+          description: The bookmark was successfuly deleted.
+
+  /bookmarks/{id}/article:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark export]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Article
+      description: |
+        This route returns the bookmark's article if it exists.
+
+      responses:
+        200:
+          description: |
+            A `text/html` response, containing the article body.
+            Please note that it's only the fragment and not a full HTML document.
+          content:
+            text/html:
+              schema:
+                type: string
+                description: Article in HTML
+
+  /bookmarks/{id}/article.{format}:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark export]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Export
+      description: This route exports a bookmark to another format.
+
+      parameters:
+        - name: format
+          in: path
+          required: true
+          description: Export format
+          schema:
+            type: string
+            enum: [epub, md]
+
+      responses:
+        200:
+          content:
+            application/epub+zip:
+              schema:
+                type: string
+                format: binary
+            text/markdown:
+              schema:
+                type: string
+
+  /bookmarks/{id}/share/link:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark sharing]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Share by link
+      description: This route produces a publicly accessible link to share a bookmark.
+
+      responses:
+        200:
+          description: Public link information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/bookmarkShareLink"
+
+  /bookmarks/{id}/share/email:
+    $merge:
+      - "#.withBookmark"
+
+    post:
+      tags: [bookmark sharing]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Share by email
+      description: This route sends a bookmark to an email address.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/bookmarkShareEmail"
+
+      responses:
+        200:
+          description: Message sent
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/message"
+
+  /bookmarks/labels:
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Label List
+      description: |
+        This route returns all the labels associated to a bookmark for the current user.
+
+      responses:
+        200:
+          description: Label list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/labelInfo"
+
+  /bookmarks/labels?name={name}:
+    $merge:
+      - "#.withLabel"
+
+    get:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Label Info
+      description:
+        This route returns information about a given bookmark label.
+
+      responses:
+        200:
+          description: Label information
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/labelInfo"
+
+    patch:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Label Update
+      description: |
+        This route renames a label.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/labelUpdate"
+
+      responses:
+        200:
+          description: Label renamed
+
+    delete:
+      tags: [bookmark labels]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+
+      summary: Label Delete
+      description: |
+        This route remove a label from all associated bookmarks.
+
+        Please note that it does not remove the bookmarks themselves.
+
+      responses:
+        204:
+          description: Label removed
+
+  /bookmarks/annotations:
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+
+      summary: Highlight List
+      description: |
+        This route returns all the highlights created by the current user.
+
+      responses:
+        "200":
+          description: Highlight list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/annotationSummary"
+
+  /bookmarks/{id}/annotations:
+    $merge:
+      - "#.withBookmark"
+
+    get:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Bookmark Highlights
+      description: |
+        This route returns a given bookmark's highlights.
+
+      responses:
+        "200":
+          description: Highlight list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/annotationInfo"
+
+    post:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.created"
+
+      summary: Highlight Create
+      description: |
+        This route creates a new highlight on a given bookmarks.
+
+        The highlight format is similar to the [Range API](https://developer.mozilla.org/en-US/docs/Web/API/Range)
+        with some differences:
+
+        - A range's start and end selectors are XPath selectors and must target an element.
+        - The offset is the text length from the begining of the selector, regardless of the traversed
+          potential children.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/annotationCreate"
+
+      responses:
+        201:
+          description: Highlight created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/annotationInfo"
+
+  /bookmarks/{id}annotations/{annotation_id}:
+    $merge:
+      - "#.withBookmark"
+      - "#.withAnnotation"
+
+    patch:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Highlight Update
+      description: |
+        This route updates then given highlight in the given bookmark.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/annotationUpdate"
+
+      responses:
+        "200":
+          description: Update result
+          content:
+            application/json:
+              schema:
+                properties:
+                  updated:
+                    type: string
+                    format: date-time
+                  annotations:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/annotationInfo"
+
+    delete:
+      tags: [bookmark highlights]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+
+      summary: Highlight Delete
+      description: |
+        This route removes the given highlight in the given bookmark.
+
+      responses:
+        "204":
+          description: Highlight removed

@@ -1,0 +1,116 @@
+---
+# SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+withCollection:
+  parameters:
+    - name: id
+      in: path
+      required: true
+      description: Collection ID
+      schema:
+        type: string
+        format: short-uid
+
+routes:
+  /bookmarks/collections:
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.paginated"
+
+      summary: Collection List
+      description: |
+        This route returns all the current user's collections.
+
+      responses:
+        "200":
+          description: Collection list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/collectionInfo"
+
+    post:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.created"
+
+      summary: Collection Create
+      description: |
+        This route creates a new collection.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/collectionCreate"
+
+  /bookmarks/collections/{id}:
+    $merge:
+      - "#.withCollection"
+
+    get:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#scope-bookmarks-read"
+        - "traits.yaml#.authenticated"
+
+      summary: Collection Details
+      description: |
+        This route returns a given collection information.
+
+      responses:
+        "200":
+          description: Collection information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/collectionInfo"
+
+    patch:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+
+      summary: Collection Update
+      description: |
+        This route updates a given collection. It returns a mapping of updated fields.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/collectionUpdate"
+
+      responses:
+        "200":
+          description: Updated fields
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/collectionSummary"
+
+    delete:
+      tags: [bookmark collections]
+      $merge:
+        - "traits.yaml#scope-bookmarks-write"
+        - "traits.yaml#.authenticated"
+
+      summary: Collection Delete
+      description: |
+        This route deletes a given collection.
+
+      responses:
+        "204":
+          description: Collection deleted

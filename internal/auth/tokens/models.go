@@ -7,6 +7,8 @@
 package tokens
 
 import (
+	"database/sql/driver"
+	"encoding/json"
 	"errors"
 	"strings"
 	"time"
@@ -37,6 +39,7 @@ type Token struct {
 	ID          int           `db:"id" goqu:"skipinsert,skipupdate"`
 	UID         string        `db:"uid"`
 	UserID      *int          `db:"user_id"`
+	ClientInfo  *ClientInfo   `db:"client_info"`
 	Created     time.Time     `db:"created" goqu:"skipupdate"`
 	LastUsed    *time.Time    `db:"last_used"`
 	Expires     *time.Time    `db:"expires"`
@@ -102,8 +105,10 @@ func (m *Manager) Create(token *Token) error {
 		return errors.New("no application")
 	}
 
-	token.Created = time.Now()
-	token.UID = base58.NewUUID()
+	token.Created = time.Now().UTC()
+	if token.UID == "" {
+		token.UID = base58.NewUUID()
+	}
 
 	ds := db.Q().Insert(TableName).
 		Rows(token).
@@ -153,6 +158,44 @@ func (t *Token) IsExpired() bool {
 		return false
 	}
 	return time.Now().UTC().After(*t.Expires)
+}
+
+// ClientInfo contains a token's OAuth registered client.
+type ClientInfo struct {
+	ID              string   `json:"id"`
+	Name            string   `json:"name"`
+	Website         string   `json:"website"`
+	Logo            string   `json:"logo"`
+	SoftwareID      string   `json:"software_id"`
+	SoftwareVersion string   `json:"software_version"`
+	GrantTypes      []string `json:"grant_types"`
+}
+
+// Scan loads a UserSettings instance from a column.
+func (s *ClientInfo) Scan(value any) error {
+	if value == nil {
+		return nil
+	}
+
+	v, err := types.JSONBytes(value)
+	if err != nil {
+		return err
+	}
+	json.Unmarshal(v, s) //nolint:errcheck
+	return nil
+}
+
+// Value encodes a UserSettings value for storage.
+func (s *ClientInfo) Value() (driver.Value, error) {
+	if s == nil {
+		return nil, nil
+	}
+
+	v, err := json.Marshal(s)
+	if err != nil {
+		return "", err
+	}
+	return string(v), nil
 }
 
 // TokenAndUser is a result of a joint query on user and token tables.

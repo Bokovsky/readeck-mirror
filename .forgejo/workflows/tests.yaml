@@ -1,7 +1,7 @@
 ---
 
 name: Readeck Tests
-run-name: ${{ gitea.actor }} tests
+run-name: ${{ github.actor }} tests
 on:
   push:
   pull_request:

@@ -24,9 +24,9 @@ func TestExtractor_StripHeadingAnchors(t *testing.T) {
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
-	httpmock.RegisterResponder("GET", "/page1", NewHTMLResponder(200, "heading_anchors.html"))
+	httpmock.RegisterResponder("GET", "/page1/okay.html", NewHTMLResponder(200, "heading_anchors.html"))
 
-	ex, _ := extract.New("http://example.net/page1")
+	ex, _ := extract.New("http://example.net/page1/okay.html")
 	ex.AddProcessors(contents.StripHeadingAnchors)
 	ex.Run()
 	assert.Empty(ex.Errors())

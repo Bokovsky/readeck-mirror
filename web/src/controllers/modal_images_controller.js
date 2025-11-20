@@ -31,6 +31,11 @@ export default class extends Controller {
       return
     }
 
+    // Disable on small images (icons, etc.)
+    if (e.width < 48 || e.height < 48 || (e.width < 128 && e.height < 128)) {
+      return
+    }
+
     const wrapper = this.triggerTarget.content.cloneNode(true).firstElementChild
     const b = wrapper.firstElementChild
 

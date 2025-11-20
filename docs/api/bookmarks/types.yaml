@@ -588,6 +588,7 @@ schemas:
 
 
   collectionCreate:
+    required: [name]
     properties:
       name:
         type: string
@@ -643,7 +644,28 @@ schemas:
     allOf:
       - $ref: "#/components/schemas/collectionCreate"
 
+  baseImport:
+    properties:
+      label:
+        type: string
+        description: Label to add to all imported bookmarks.
+      ignore_duplicates:
+        type: boolean
+        default: true
+        description: Ignore links that already exist.
+      archive:
+        type: boolean
+        default: false
+        description: Moved imported bookmarks to archive.
+      mark_read:
+        type: boolean
+        default: false
+        description: Mark imported bookmarks as read.
+
   wallabagImport:
+    allOf:
+      - $ref: "#components/schemas/baseImport"
+    required: [url, username, password, client_id, client_secret]
     properties:
       url:
         type: string

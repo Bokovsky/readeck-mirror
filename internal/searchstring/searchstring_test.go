@@ -32,23 +32,23 @@ func TestParseQuery(t *testing.T) {
 		{fmt.Sprintf("%s %s %s %s",
 			strconv.Quote("quoted"),
 			strconv.Quote(`q "test`),
-			strconv.Quote(`tt\ab`),
+			strconv.Quote(`tt\Ab`),
 			strconv.Quote(`test]\`),
 		), []SearchTerm{
 			{Exact: true, Field: "", Value: "quoted"},
 			{Exact: true, Field: "", Value: `q "test`},
-			{Exact: true, Field: "", Value: `tt\ab`},
+			{Exact: true, Field: "", Value: `tt\Ab`},
 			{Exact: true, Field: "", Value: `test]\`},
 		}},
 		{fmt.Sprintf("%s %s %s label:%s",
 			strconv.Quote("quoted"),
 			strconv.Quote(`q "test`),
-			strconv.Quote(`tt\ab`),
+			strconv.Quote(`tt\Ab`),
 			strconv.Quote(`test" label]\`),
 		), []SearchTerm{
 			{Exact: true, Field: "", Value: "quoted"},
 			{Exact: true, Field: "", Value: `q "test`},
-			{Exact: true, Field: "", Value: `tt\ab`},
+			{Exact: true, Field: "", Value: `tt\Ab`},
 			{Exact: true, Field: "label", Value: `test" label]\`},
 		}},
 		{`-test1 test2 -label:"name" label2:-name`, []SearchTerm{
@@ -81,12 +81,25 @@ func TestParseQuery(t *testing.T) {
 		{`"some * tesxt *"`, []SearchTerm{
 			{Value: "some * tesxt *", Exact: true},
 		}},
+		{`"🧑‍🎓 learn"`, []SearchTerm{
+			{Value: "🧑‍🎓 learn", Exact: true},
+		}},
+		{strconv.Quote("🧑‍🎓 learn"), []SearchTerm{
+			{Value: "🧑‍🎓 learn", Exact: true},
+		}},
+		{`label:"🧑‍🎓 learn"`, []SearchTerm{
+			{Field: "label", Value: "🧑‍🎓 learn", Exact: true},
+		}},
+		{`label:` + strconv.Quote("🧑‍🎓 learn"), []SearchTerm{
+			{Field: "label", Value: "🧑‍🎓 learn", Exact: true},
+		}},
 		{"some*full* test:* not*hing", []SearchTerm{
 			{Value: "some*full", Wildcard: true},
 			{Field: "test", Wildcard: true},
 			{Value: "not*hing"},
 		}},
 	}
+
 	for i, test := range tests {
 		t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 			q := ParseQuery(test.s)

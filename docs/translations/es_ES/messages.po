@@ -2,19 +2,22 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# imposible01 <imposible01@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-07-05 14:47+0000\n"
-"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
-"Language: es_ES\n"
+"POT-Creation-Date: 2025-10-19 11:48+0200\n"
+"PO-Revision-Date: 2025-11-14 15:09+0000\n"
+"Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: es_ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -27,7 +30,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:5
 msgid "## Create a new Bookmark"
-msgstr ""
+msgstr "## Crea un nuevo marcador"
 
 #: en-US/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
@@ -35,7 +38,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
-msgstr ""
+msgstr "![Formulario de nuevo marcador](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
@@ -43,47 +46,47 @@ msgstr ""
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr ""
+msgstr "## Tipo de Marcador"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "Readeck reconoce 3 tipos diferentes de contenido web:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### Artículo"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
+msgstr "Un artículo es una página desde la cual el texto es extraído. Se mostrará como una versión legible del contenido."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### Imagen"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
+msgstr "Una imagen es una página que fue reconocida como un contenedor de imágenes (ej. un enlace a Unsplash). Mostrará la imagen almacenada."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr ""
+msgstr "### Video"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
+msgstr "Un video es una página que fue identificada como un contenedor de video (ej. un enlace a Youtube o Vimeo). Mostrará un reproductor de video. Por favor considera que los videos son reproducidos desde su respectivo servidor remoto."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr ""
+msgstr "## Lista de Marcadores"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
+msgstr "La [lista de marcadores](readeck-instance://bookmarks) es donde encontrarás todos tus marcadores almacenados."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr ""
+msgstr "### Navegación"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
@@ -91,7 +94,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
-msgstr ""
+msgstr "![Panel lateral con lista de marcadores](./img/bookmark-sidebar.webp)"
 
 #: en-US/bookmark-list.md:40
 msgid ""
@@ -137,21 +140,23 @@ msgstr ""
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr ""
+msgstr "### Tarjetas de Marcador"
 
 #: en-US/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr ""
+msgstr "Cada ítem en una lista es llamado Tarjeta de Marcador."
 
 #: en-US/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
+"![Lista de Marcadores](./img/bookmark-list.webp)\n"
+"Cuadrícula de Lista de Marcadores"
 
 #: en-US/bookmark-list.md:77
 msgid "A card shows:"
-msgstr ""
+msgstr "Una tarjeta muestra:"
 
 #: en-US/bookmark-list.md:79
 msgid ""
@@ -178,7 +183,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
-msgstr ""
+msgstr "### Lista compacta"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
@@ -211,7 +216,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:110
 msgid "### Available filters"
-msgstr ""
+msgstr "### Filtros disponibles"
 
 #: en-US/bookmark-list.md:112
 msgid "You can combine the following filters:"
@@ -237,7 +242,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
-msgstr ""
+msgstr "### Consulta de búsqueda"
 
 #: en-US/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
@@ -267,7 +272,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:146
 msgid "### Export bookmarks"
-msgstr ""
+msgstr "### Exportar marcadores"
 
 #: en-US/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
@@ -275,7 +280,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:150
 msgid "### Import bookmarks"
-msgstr ""
+msgstr "### Importar marcadores"
 
 #: en-US/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
@@ -283,11 +288,11 @@ msgstr ""
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
-msgstr ""
+msgstr "# Vista de Marcadores"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
-msgstr ""
+msgstr "## La vista"
 
 #: en-US/bookmark.md:5
 msgid ""
@@ -344,7 +349,7 @@ msgstr ""
 
 #: en-US/bookmark.md:48
 msgid "## Actions"
-msgstr ""
+msgstr "## Acciones"
 
 #: en-US/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
@@ -352,7 +357,7 @@ msgstr ""
 
 #: en-US/bookmark.md:52
 msgid "### Favorite"
-msgstr ""
+msgstr "### Favorito"
 
 #: en-US/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
@@ -360,7 +365,7 @@ msgstr ""
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr ""
+msgstr "### Archivo"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
@@ -368,7 +373,7 @@ msgstr ""
 
 #: en-US/bookmark.md:60
 msgid "### Share"
-msgstr ""
+msgstr "### Compartir"
 
 #: en-US/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
@@ -380,7 +385,7 @@ msgstr ""
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr ""
+msgstr "### Eliminar"
 
 #: en-US/bookmark.md:69
 msgid ""
@@ -390,7 +395,7 @@ msgstr ""
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr ""
+msgstr "## Etiquetas"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
@@ -432,7 +437,7 @@ msgstr ""
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr ""
+msgstr "# Colecciones"
 
 #: en-US/collections.md:3
 msgid ""
@@ -501,6 +506,7 @@ msgstr ""
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -512,19 +518,19 @@ msgid ""
 "---"
 msgstr ""
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
-msgstr ""
+msgstr "# Ayuda de Readeck"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr ""
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
-msgstr ""
+msgstr "## Contenidos"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -536,7 +542,7 @@ msgstr ""
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr ""
+msgstr "# Etiquetas"
 
 #: en-US/labels.md:3
 msgid ""
@@ -546,7 +552,7 @@ msgstr ""
 
 #: en-US/labels.md:6
 msgid "## Label List"
-msgstr ""
+msgstr "## Lista de etiquetas"
 
 #: en-US/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
@@ -566,7 +572,7 @@ msgstr ""
 
 #: en-US/opds.md:1
 msgid "# E-book Catalog"
-msgstr ""
+msgstr "# Catálogo de E-book"
 
 #: en-US/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
@@ -594,7 +600,7 @@ msgstr ""
 
 #: en-US/opds.md:19
 msgid "## Catalog access"
-msgstr ""
+msgstr "## Acceso al catálogo"
 
 #: en-US/opds.md:21
 msgid ""
@@ -632,7 +638,7 @@ msgstr ""
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr ""
+msgstr "![Menú de búsqueda de KOReader](../img/koreader-1.webp)"
 
 #: en-US/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
@@ -640,7 +646,7 @@ msgstr ""
 
 #: en-US/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
-msgstr ""
+msgstr "![Lista de catálogo de KOReader](../img/koreader-2.webp)"
 
 #: en-US/opds.md:45
 msgid "In this dialog replace the fields below with:"
@@ -708,4 +714,3 @@ msgstr ""
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
-

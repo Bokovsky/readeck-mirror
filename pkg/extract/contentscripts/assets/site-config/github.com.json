@@ -13,7 +13,11 @@
   "author_selectors": [
     "//a[contains(concat(' ',normalize-space(@class),' '),' fn ')]"
   ],
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//select-panel",
+    "//dialog",
+    "//dialog-helper"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,

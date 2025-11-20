@@ -3,178 +3,222 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
-# GET /cookbook/extract
-# POST /cookbook/extract
-extract:
-  summary: Extract Link
-  description: |
-    **NOTE: Only available to users in the admin group.**
-
-    This route extracts a link and returns the extraction result.
-
-    You can pass an `Accept` header to the request, with one of the following values:
-
-    - `application/json` (default) returns a JSON response
-    - `text/html` returns an HTML response with all the media included as base64 encoded
-      URLs.
-
-    To pass the entire contents of a page together with its url, make a POST request with
-    the `Content-Type: text/html` header and the page contents as the request body. This
-    way, the article fetcher can use that instead of having to fetch the page at url.
-
-  parameters:
-    - name: url
-      in: query
-      required: true
-      schema:
-        type: string
-        format: uri
-      description: URL to extract
-
-  requestBody:
-    required: false
+withExtractResponse:
+  "200":
+    description: |
+      Extraction result.
     content:
+      application/json:
+        schema:
+          properties:
+            url:
+              type: string
+              format: uri
+              description: The extracted URL
+            logs:
+              type: array
+              items:
+                type: string
+              description: Extraction log
+            errors:
+              type: array
+              items:
+                type: string
+              description: Extraction errors, if any
+            meta:
+              type: object
+              additionalProperties:
+                type: array
+                items:
+                  type: string
+              description: |
+                Contains the meta tags extracted from the page.
+            properties:
+              properties:
+                json-ld:
+                  type: array
+                  items:
+                    type: object
+                  description: A list of JSON-LD documents retrieved during the extraction
+                link:
+                  type: array
+                  items:
+                    type: object
+                    patternProperties:
+                      "^@.+":
+                        type: string
+                        description: Link attribute, always starting with `@`
+                  description: A list of all `link` tags retrieved during the extraction
+                meta:
+                  type: array
+                  items:
+                    type: object
+                    patternProperties:
+                      "^@.+":
+                        type: string
+                        description: Meta attribute, always starting with `@`
+                  description: A list of all `meta` tags retrieved during the extraction
+            domain:
+              type: string
+              format: hostname
+              description: Page's domain name
+            title:
+              type: string
+              description: Page's title
+            authors:
+              type: "[string]"
+              description: Page's author list
+            site:
+              type: string
+              format: hostname
+              description: Page's site
+            site_name:
+              type: string
+              description: Page's site name
+            lang:
+              type: string
+              description: Language Code
+            text_direction:
+              type: string
+              enum: [rtl, ltr]
+              description: |
+                Direction of the article's text. It can be empty when it's unknown.
+            date:
+              type: [string]
+              format: date-time
+              nullable: true
+              description: Publication date. Can be `null` when unknown.
+            document_type:
+              type: string
+              description: |
+                The detected document type. The value is usualy `article`, `photo` or `video`
+                but can vary, based on the extraction process.
+            description:
+              type: string
+              description: |
+                Page's short description, when it exists. It's always an unformatted text.
+            html:
+              type: string
+              description: |
+                The HTML content after processing.
+            embed:
+              type: string
+              description: |
+                The oembed HTML fragment, when it exists. It usualy contains an iframe when
+                extracting videos.
+            images:
+              properties:
+                additionalProperties:
+                  properties:
+                    size:
+                      type: "[integer]"
+                      description: The image size in pixels
+                    encoded:
+                      type: string
+                      description: The base64 URI encoded image
+
       text/html:
         schema:
           type: string
-        description:
-          Optional HTML content of the resource at url
+          description: HTML after extraction
 
-  responses:
-    "200":
+routes:
+  /cookbook/extract:
+    parameters:
+      - name: url
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uri
+        description: URL to extract
+      - name: Accept
+        in: header
+        required: false
+        schema:
+          type: string
+          enum: ["application/json", "text/html"]
+
+    get:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.admin-only"
+        - "traits.yaml#.authenticated"
+
+      summary: Extract Link
       description: |
-        Extraction result.
-      content:
-        application/json:
+        This route extracts a link and returns the extraction result.
+
+        You can pass an `Accept` header to the request, with one of the following values:
+
+        - `application/json` (default) returns a JSON response
+        - `text/html` returns an HTML response with all the media included as base64 encoded
+          URLs.
+
+      responses:
+        $merge:
+          - "#.withExtractResponse"
+
+    post:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.admin-only"
+        - "traits.yaml#.authenticated"
+
+      summary: Extract Link with content
+      description: |
+        This route extracts a link and returns the extraction result.
+
+        You can pass an `Accept` header to the request, with one of the following values:
+
+        - `application/json` (default) returns a JSON response
+        - `text/html` returns an HTML response with all the media included as base64 encoded
+          URLs.
+
+        To pass the entire contents of a page together with its url, send this request with
+        the `Content-Type: text/html` header and the page contents as the request body. This
+        way, the article fetcher can use that instead of having to fetch the page at url.
+
+      parameters:
+        - name: Content-Type
+          in: header
+          required: false
           schema:
-            properties:
-              url:
-                type: string
-                format: uri
-                description: The extracted URL
-              logs:
-                type: array
-                items:
-                  type: string
-                description: Extraction log
-              errors:
-                type: array
-                items:
-                  type: string
-                description: Extraction errors, if any
-              meta:
+            type: string
+            enum: ["text/html"]
+
+      requestBody:
+        required: false
+        content:
+          text/html:
+            schema:
+              type: string
+              description: Optional HTML content of the resource at url
+
+      responses:
+        $merge:
+          - "#.withExtractResponse"
+
+  /cookbook/urls:
+    get:
+      tags: [dev tools]
+      $merge:
+        - "traits.yaml#.admin-only"
+        - "traits.yaml#.authenticated"
+
+      summary: List test URLs
+      description: |
+        Lists test URLs gathered from `pkg/extract/contentscripts/assets/site-config`
+
+      responses:
+        "200":
+          description: Test URLs for content extraction
+          content:
+            application/json:
+              schema:
                 type: object
                 additionalProperties:
                   type: array
                   items:
                     type: string
-                description: |
-                  Contains the meta tags extracted from the page.
-              properties:
-                properties:
-                  json-ld:
-                    type: array
-                    items:
-                      type: object
-                    description: A list of JSON-LD documents retrieved during the extraction
-                  link:
-                    type: array
-                    items:
-                      type: object
-                      patternProperties:
-                        "^@.+":
-                          type: string
-                          description: Link attribute, always starting with `@`
-                    description: A list of all `link` tags retrieved during the extraction
-                  meta:
-                    type: array
-                    items:
-                      type: object
-                      patternProperties:
-                        "^@.+":
-                          type: string
-                          description: Meta attribute, always starting with `@`
-                    description: A list of all `meta` tags retrieved during the extraction
-              domain:
-                type: string
-                format: hostname
-                description: Page's domain name
-              title:
-                type: string
-                description: Page's title
-              authors:
-                type: "[string]"
-                description: Page's author list
-              site:
-                type: string
-                format: hostname
-                description: Page's site
-              site_name:
-                type: string
-                description: Page's site name
-              lang:
-                type: string
-                description: Language Code
-              text_direction:
-                type: string
-                enum: [rtl, ltr]
-                description: |
-                  Direction of the article's text. It can be empty when it's unknown.
-              date:
-                type: [string]
-                format: date-time
-                nullable: true
-                description: Publication date. Can be `null` when unknown.
-              document_type:
-                type: string
-                description: |
-                  The detected document type. The value is usualy `article`, `photo` or `video`
-                  but can vary, based on the extraction process.
-              description:
-                type: string
-                description: |
-                  Page's short description, when it exists. It's always an unformatted text.
-              html:
-                type: string
-                description: |
-                  The HTML content after processing.
-              embed:
-                type: string
-                description: |
-                  The oembed HTML fragment, when it exists. It usualy contains an iframe when
-                  extracting videos.
-              images:
-                properties:
-                  additionalProperties:
-                    properties:
-                      size:
-                        type: "[integer]"
-                        description: The image size in pixels
-                      encoded:
-                        type: string
-                        description: The base64 URI encoded image
-
-        text/html:
-          schema:
-            type: string
-
-# GET /cookbook/urls
-urls:
-  summary: List test URLs
-  description: |
-    **NOTE: Only available for users in the admin group.**
-
-    Lists test URLs gathered from `pkg/extract/contentscripts/assets/site-config`
-
-  responses:
-    "200":
-      description: Test URLs for content extraction
-      content:
-        application/json:
-          schema:
-            type: object
-            additionalProperties:
-              type: array
-              items:
-                type: string
-                format: uri
+                    format: uri

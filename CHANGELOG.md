@@ -1,5 +1,36 @@
 # Changelog
 
+## [unreleased]
+### Added
+- HTTPS listener with certificate/key pair
+- log_time_format (and READECK_LOG_TIME_FORMAT) configuration option, by [@mislav](https://codeberg.org/mislav)
+- OAuth2 authorization code flow
+- OAuth2 device code flow
+
+### Changed
+- Replaced the ACL policy enforcer for better performances and less dependencies
+- Removed sign-out button from main menu (now available in the profile page)
+- Go-Readability v2, by [@mislav](https://codeberg.org/mislav)
+
+### Improved
+- Handle lazy-loading "data-src" pattern for embedded videos, by [@mislav](https://codeberg.org/mislav)
+- Support CSS units when parsing SVG element dimensions, by [@mislav](https://codeberg.org/mislav)
+- Stop tracking reading progress once it reaches 100%
+- ARIA attributes on forms and messages
+- Better JSON-LD and microdata support in content extraction
+- Split token for password recovery
+
+### Fixed
+- Reddit content-script, by [@linsui](https://codeberg.org/linsui)
+- Cut words on runes, not bytes
+- Silent bug in internal/db/scanner
+- Disable bfcache after side effect requests (post, put, patch, delete)
+- Layout but with modal image button on small images
+- Readability: avoid unwrapping meaningful HTML elements, by [@mislav](https://codeberg.org/mislav)
+- Sync API date selection with SQLite
+- Retrieve label with zero width joiner (ie. compound emojis)
+- Content Script for arstechnica (com and co.uk)
+
 ## [0.20.4] - 2025-10-18
 ### Changed
 - Updated Go to 1.25.3
@@ -26,8 +57,6 @@
 
 ### Fixed
 - make CSRF protection compatible with the browser add-on
-
-###
 
 ## [0.20.0] - 2025-08-30
 ### Added

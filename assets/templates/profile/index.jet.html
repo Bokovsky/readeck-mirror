@@ -11,6 +11,15 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
+<form action="{{ urlFor(`/logout`)}}" method="post" class="my-8">
+  <p class="btn-block items-center">
+    <span class="grow">{{ gettext("You are connected as <strong>%s</strong>", html(user.Username))|raw }}</span>
+    <button type="submit" class="btn-outlined btn-danger">{{ yield icon(name="o-logout") }}
+    <span>{{ gettext("Sign out") }}</span></button>
+  </p>
+</form>
+
+
 <form action="{{ urlFor() }}" method="post">
   {{ yield formErrors(form=.Form) }}
 

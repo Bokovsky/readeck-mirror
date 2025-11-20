@@ -3,6 +3,32 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 
+public:
+  security: []
+  x-badges:
+    - color: green
+      label: public
+
+admin-only:
+  x-badges:
+    - color: red
+      label: admin only
+
+scope-bookmarks-read:
+  x-badges:
+    - color: blue
+      label: "oauth | bookmarks:read"
+
+scope-bookmarks-write:
+  x-badges:
+    - color: blue
+      label: "oauth | bookmarks:write"
+
+scope-profile-read:
+  x-badges:
+    - color: blue
+      label: "oauth | profile:read"
+
 authenticated:
   responses:
     "401":
@@ -14,14 +40,17 @@ authenticated:
             $ref: "#/components/schemas/message"
     "403":
       description: |
-        Forbidden. The user doesn't have permission to fetch users for the specified,
-        but has other account permissions
+        Forbidden. The user doesn't have permission to perform the request but has other permissions.
       content:
         application/json:
           schema:
             $ref: "#/components/schemas/message"
 
 paginated:
+  x-badges:
+    - color: purple
+      label: paginated
+
   parameters:
     - name: limit
       in: query

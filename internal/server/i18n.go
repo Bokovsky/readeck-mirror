@@ -5,6 +5,7 @@
 package server
 
 import (
+	"context"
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth"
@@ -38,9 +39,14 @@ func LoadLocale(next http.Handler) http.Handler {
 	})
 }
 
-// Locale returns the current user's locale.
+// Locale returns the current request's locale.
 func Locale(r *http.Request) *locales.Locale {
-	if t, ok := getLocale(r.Context()); ok {
+	return LocaleContext(r.Context())
+}
+
+// LocaleContext returns the given context's locale or defaults to en-US.
+func LocaleContext(ctx context.Context) *locales.Locale {
+	if t, ok := getLocale(ctx); ok {
 		return t
 	}
 	return locales.LoadTranslation("en-US")

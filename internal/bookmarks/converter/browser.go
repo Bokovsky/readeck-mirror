@@ -6,13 +6,16 @@ package converter
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"net/http"
 	"strings"
+	"time"
+
+	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
-	"golang.org/x/net/html"
 )
 
 // BrowserExporter is an [IterExporter] that produces a browser bookmark file.
@@ -22,7 +25,10 @@ type BrowserExporter struct{}
 func (e BrowserExporter) IterExport(_ context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
 	if w, ok := w.(http.ResponseWriter); ok {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
-		w.Header().Set("Content-Disposition", `attachment; filename="bookmarks.html"`)
+		w.Header().Set("Content-Disposition", fmt.Sprintf(
+			`attachment; filename="readeck-bookmarks-%s.html"`,
+			time.Now().Format(time.DateOnly),
+		))
 	}
 
 	uncategorized := []*dataset.Bookmark{}

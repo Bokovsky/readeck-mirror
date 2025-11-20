@@ -28,8 +28,6 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ end }}
 </form>
 
-
-
 {{- if .Result != nil -}}
 <div class="tabs" data-controller="tabs" data-tabs-hidden-class="js:hidden">
   <div role="tablist"
@@ -47,26 +45,47 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   <div role="tabpanel" tabindex="0" aria-labelledby="tab-article" class="my-4">
     <h3 class="title text-h3">Info</h3>
-    <table class="data-table mt-4 mb-8">
-      <tr><th>DocumentType</th><td>{{ .Result.DocumentType }}</td></tr>
-      <tr><th>Title</th><td class="w-full">{{ .Result.Title }}</td></tr>
-      <tr><th>Description</th><td>{{ .Result.Description }}</td></tr>
-      <tr><th>Authors</th><td>
-      {{- if isset(.Result.Authors) -}}
-        <ul>
-        {{- range .Result.Authors -}}
-          <li>{{ . }}</li>
+    <div class="flex gap-4 mt-4 mb-8">
+      <div class="grow">
+        <table class="data-table">
+          <tr><th>DocumentType</th><td>{{ .Result.DocumentType }}</td></tr>
+          <tr><th>Title</th><td class="w-full">{{ .Result.Title }}</td></tr>
+          <tr><th>Description</th><td>{{ .Result.Description }}</td></tr>
+          <tr><th>Authors</th><td>
+          {{- if isset(.Result.Authors) -}}
+            <ul>
+            {{- range .Result.Authors -}}
+              <li>{{ . }}</li>
+            {{- end -}}
+            </ul>
+          {{- end -}}
+          </td></tr>
+          <tr><th>Lang</th><td>{{ .Result.Lang }}</td></tr>
+          <tr><th>TextDirection</th><td>{{ .Result.TextDirection }}</td></tr>
+          <tr><th>Date</th><td>{{ isset(.Result.Date) ? .Result.Date : "" }}</td></tr>
+          <tr><th>SiteName</th><td>{{ .Result.SiteName }}</td></tr>
+          <tr><th>Site</th><td>{{ .Result.Site }}</td></tr>
+          <tr><th>Domain</th><td>{{ .Result.Domain }}</td></tr>
+        </table>
+      </div>
+      <div class="max-w-xs">
+        {{- if isset(.Result.Images["thumbnail"]) -}}
+          <img src="{{ .Result.Images[`thumbnail`].Encoded }}"
+           width="{{ .Result.Images[`thumbnail`].Size[0] }}"
+           height="{{ .Result.Images[`thumbnail`].Size[1] }}"
+           alt="">
         {{- end -}}
-        </ul>
-      {{- end -}}
-      </td></tr>
-      <tr><th>Lang</th><td>{{ .Result.Lang }}</td></tr>
-      <tr><th>TextDirection</th><td>{{ .Result.TextDirection }}</td></tr>
-      <tr><th>Date</th><td>{{ isset(.Result.Date) ? .Result.Date : "" }}</td></tr>
-      <tr><th>SiteName</th><td>{{ .Result.SiteName }}</td></tr>
-      <tr><th>Site</th><td>{{ .Result.Site }}</td></tr>
-      <tr><th>Domain</th><td>{{ .Result.Domain }}</td></tr>
-    </table>
+      </div>
+    </div>
+
+    {{- if .Result.DocumentType == "photo" && isset(.Result.Images["image"]) -}}
+      <p>
+        <img src="{{ .Result.Images[`image`].Encoded }}"
+         width="{{ .Result.Images[`image`].Size[0] }}"
+         height="{{ .Result.Images[`image`].Size[1] }}"
+         alt="">
+      </p>
+    {{- end -}}
 
     <div class="prose"
     lang="{{ .Result.Lang }}"
@@ -109,7 +128,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- range k, v := orderMap(.Result.Properties) -}}
       <tr>
         <th class="whitespace-nowrap">{{ k }}</th>
-        <td class="text-xs"><pre class="whitespace-pre-wrap">{{ v|niceJSON }}</pre></td>
+        <td class="text-xs"><pre class="whitespace-pre-wrap">{{ v|json(true) }}</pre></td>
       </tr>
     {{- end -}}
     </table>

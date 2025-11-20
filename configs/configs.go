@@ -49,12 +49,14 @@ type config struct {
 	Bookmarks    configBookmarks `json:"bookmarks"`
 	Worker       configWorker    `json:"worker"`
 	Metrics      configMetrics   `json:"metrics"`
+	Customize    configCustomize `json:"customize"`
 	Commissioned bool            `json:"-"`
 }
 
 type configMain struct {
 	LogLevel      slog.Level `json:"log_level" env:"LOG_LEVEL"`
 	LogFormat     string     `json:"log_format" env:"LOG_FORMAT"`
+	LogTimeFormat string     `json:"log_time_format" env:"LOG_TIME_FORMAT"`
 	SecretKey     string     `json:"secret_key" env:"SECRET_KEY,unset"`
 	DataDirectory string     `json:"data_directory" env:"DATA_DIRECTORY,unset"`
 }
@@ -66,6 +68,8 @@ type configServer struct {
 	Prefix         string        `json:"prefix" env:"SERVER_PREFIX"`
 	TrustedProxies []configIPNet `json:"trusted_proxies" env:"TRUSTED_PROXIES,unset"`
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
+	CertFile       string        `json:"cert_file" env:"CERT_FILE"`
+	KeyFile        string        `json:"key_file" env:"KEY_FILE"`
 	Session        configSession `json:"session"`
 }
 
@@ -110,6 +114,11 @@ type configExtractor struct {
 type configMetrics struct {
 	Host string `json:"host" env:"METRICS_HOST"`
 	Port int    `json:"port" env:"METRICS_PORT"`
+}
+
+type configCustomize struct {
+	ExtraPermissions string `json:"extra_permissions"`
+	ExtraTemplates   string `json:"extra_templates"`
 }
 
 type configEmailAddr struct {

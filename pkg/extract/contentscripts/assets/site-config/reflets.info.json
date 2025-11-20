@@ -2,7 +2,9 @@
   "title_selectors": [
     "//h1"
   ],
-  "body_selectors": null,
+  "body_selectors": [
+    "//artcile[@class='full article']"
+  ],
   "date_selectors": null,
   "author_selectors": [
     "//a[@class='author']"

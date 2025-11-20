@@ -27,10 +27,11 @@ func ShortText(s string, maxChars int) string {
 	res := &strings.Builder{}
 	j := 0
 	for i, word := range strings.FieldsFunc(s, unicode.IsSpace) {
-		j += len(word)
+		w := []rune(word)
+		j += len(w)
 		if j >= maxChars {
-			if len(word) > maxChars {
-				res.WriteString(word[0:maxChars])
+			if len(w) > maxChars {
+				res.WriteString(string(w[0:maxChars]))
 			}
 			break
 		}

@@ -21,7 +21,16 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "${formatId}",
+      "906"
+    ],
+    [
+      "data-url=\"https",
+      "src=\"https"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {

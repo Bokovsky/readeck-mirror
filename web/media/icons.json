@@ -1,4 +1,5 @@
 {
+  "o-applications": "node_modules/boxicons/svg/solid/bxs-category.svg",
   "o-archive-off":  "node_modules/boxicons/svg/regular/bx-archive.svg",
   "o-archive-on":   "node_modules/boxicons/svg/solid/bxs-archive.svg",
   "o-calendar":     "node_modules/boxicons/svg/regular/bx-calendar.svg",

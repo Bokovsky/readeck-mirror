@@ -19,6 +19,9 @@ from babel.messages.catalog import Catalog
 from babel.messages.extract import extract_from_file
 from babel.messages.pofile import read_po, write_po
 
+# Percentage of translated content under which a translation won't be loaded.
+COMPLETION_CUTOFF = 0.90
+
 HERE = Path(__file__).parent
 ROOT = HERE / "src"
 
@@ -156,7 +159,11 @@ def generate(_):
     translations = HERE / "translations"
     po_files = translations.glob("*/messages.po")
 
-    for po_file in po_files:
+    with (translations / "messages.pot").open("rb") as fp:
+        template = read_po(fp)
+    total_strings = len(template)
+
+    for po_file in sorted(po_files):
         code = po_file.parent.name
 
         if code == "en_US":
@@ -165,11 +172,36 @@ def generate(_):
         # Write markdown files
         with po_file.open("rb") as fp:
             catalog = read_po(fp)
-            destdir = HERE / "src" / str(catalog.locale_identifier).replace("_", "-")
-            os.makedirs(destdir, exist_ok=True)
-            print(f"{po_file} -> {destdir}")
-            for x in po2text(catalog, destdir):
-                print(f"  - {x} written")
+
+        nb_translated = 0
+        for k, m in catalog._messages.items():
+            tm = template._messages[k]
+            if m.fuzzy:
+                continue
+            if tm.string == m.string:
+                continue
+            if isinstance(m.string, str) and m.string.strip() == "":
+                continue
+            if isinstance(m.string, tuple) and any([x.strip() == "" for x in m.string]):
+                continue
+            nb_translated += 1
+
+        pct = float(nb_translated / total_strings)
+        count_info = "{:>4}/{:<4} {:>4}%".format(
+            nb_translated, total_strings, round(pct * 100)
+        )
+        if round(pct, 2) < COMPLETION_CUTOFF:
+            print("[-] {:8} {}".format(code, count_info))
+            continue
+
+        destdir = HERE / "src" / str(catalog.locale_identifier).replace("_", "-")
+        os.makedirs(destdir, exist_ok=True)
+
+        nb_files = 0
+        for _ in po2text(catalog, destdir):
+            nb_files += 1
+
+        print("[+] {:8} {} -- {}/".format(code, count_info, destdir.relative_to(HERE)))
 
 
 def check(_):

@@ -6,13 +6,13 @@ package auth
 
 import (
 	"errors"
-	"log/slog"
 	"net/http"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 )
@@ -37,7 +37,7 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, errors.New("invalid authentication header")
 	}
 
-	uid, err := tokens.DecodeToken(token)
+	uid, err := configs.Keys.TokenKey().Decode(token)
 	if err != nil {
 		p.denyAccess(w)
 		return r, err
@@ -79,9 +79,7 @@ func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 	}
 
 	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
-		if ok, err := acls.Check(scope, obj, act); err != nil {
-			slog.Error("ACL check error", slog.Any("err", err))
-		} else if ok {
+		if acls.Enforce(scope, obj, act) {
 			return true
 		}
 	}
@@ -96,8 +94,7 @@ func (p *TokenAuthProvider) GetPermissions(r *http.Request) []string {
 		return nil
 	}
 
-	plist, _ := acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
-	return plist
+	return acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
 }
 
 // CsrfExempt is always true for this provider.

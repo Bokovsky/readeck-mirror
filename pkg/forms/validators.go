@@ -339,6 +339,14 @@ func Lte(value int) ValueValidator[int] {
 	}, Gettext("must be lower or equal than %d", value))
 }
 
+// StrLen is a string validator that checks if
+// its length is between a min/max boundary.
+func StrLen(minLen, maxLen int) ValueValidator[string] {
+	return TypedValidator(func(s string) bool {
+		return len([]rune(s)) >= minLen && len([]rune(s)) <= maxLen
+	}, Gettext("text must contain between %d and %d characters", minLen, maxLen))
+}
+
 // ValueChoice is a key/value pair.
 type ValueChoice[T comparable] struct {
 	Name  string

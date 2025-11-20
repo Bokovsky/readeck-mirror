@@ -48,14 +48,15 @@ func newProfileViews(api *profileAPI) *profileViews {
 	})
 
 	r.With(server.WithPermission("profile:tokens", "read")).Group(func(r chi.Router) {
-		r.With(api.withTokenList).Get("/tokens", v.tokenList)
-		r.With(api.withToken).Get("/tokens/{uid}", v.tokenInfo)
+		r.With(api.withTokenList(clientToken)).Get("/applications", v.applicationList)
+		r.With(api.withTokenList(userToken)).Get("/tokens", v.tokenList)
+		r.With(api.withToken(userToken)).Get("/tokens/{uid}", v.tokenInfo)
 	})
 
 	r.With(server.WithPermission("profile:tokens", "write")).Group(func(r chi.Router) {
 		r.Post("/tokens", v.tokenCreate)
-		r.With(api.withToken).Post("/tokens/{uid}", v.tokenInfo)
-		r.With(api.withToken).Post("/tokens/{uid}/delete", v.tokenDelete)
+		r.With(api.withToken(userToken)).Post("/tokens/{uid}", v.tokenInfo)
+		r.With(api.withToken(anyToken)).Post("/tokens/{uid}/delete", v.tokenDelete)
 	})
 
 	return v
@@ -161,8 +162,24 @@ func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
 	server.Render(w, r, http.StatusOK, updated)
 }
 
+func (v *profileViews) applicationList(w http.ResponseWriter, r *http.Request) {
+	tl := getTokenList(r.Context())
+	tr := server.Locale(r)
+
+	ctx := server.TC{
+		"Pagination": tl.Pagination,
+		"Tokens":     tl.Items,
+	}
+	ctx.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Applications")},
+	})
+
+	server.RenderTemplate(w, r, 200, "profile/app_list", ctx)
+}
+
 func (v *profileViews) tokenList(w http.ResponseWriter, r *http.Request) {
-	tl := r.Context().Value(ctxTokenListKey{}).(tokenList)
+	tl := getTokenList(r.Context())
 	tr := server.Locale(r)
 
 	ctx := server.TC{
@@ -197,7 +214,7 @@ func (v *profileViews) tokenCreate(w http.ResponseWriter, r *http.Request) {
 
 func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
-	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
+	ti := getToken(r.Context())
 	f := newTokenForm(server.Locale(r), auth.GetRequestUser(r))
 
 	if r.Method == http.MethodGet {
@@ -218,7 +235,7 @@ func (v *profileViews) tokenInfo(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	token, err := tokens.EncodeToken(ti.UID)
+	token, err := configs.Keys.TokenKey().Encode(ti.UID)
 	if err != nil {
 		server.Status(w, r, http.StatusInternalServerError)
 		return
@@ -243,8 +260,7 @@ func (v *profileViews) tokenDelete(w http.ResponseWriter, r *http.Request) {
 	f.Get("_to").Set("/profile/tokens")
 	forms.Bind(f, r)
 
-	ti := r.Context().Value(ctxtTokenKey{}).(tokenItem)
-
+	ti := getToken(r.Context())
 	if err := f.trigger(ti.Token); err != nil {
 		server.Err(w, r, err)
 		return
@@ -283,7 +299,7 @@ func (v *profileViews) exportData(w http.ResponseWriter, r *http.Request) {
 	ctx := server.TC{}
 	ctx.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
-		{tr.Gettext("Import")},
+		{tr.Gettext("Export")},
 	})
 	server.RenderTemplate(w, r, 200, "profile/export", ctx)
 }

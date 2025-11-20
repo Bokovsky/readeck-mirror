@@ -12,7 +12,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/pkg/superbus"

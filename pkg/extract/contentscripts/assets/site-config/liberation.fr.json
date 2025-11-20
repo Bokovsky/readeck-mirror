@@ -11,7 +11,10 @@
     "//figure[@class=\"lead-art-wrapper\"]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' default__OutbrainWrapper')]",
     "//h1[contains(concat(' ',normalize-space(@class),' '),' styled__CardTitle')]",
-    "//button"
+    "//button",
+    "//p[text() = \"A lire aussi\"]",
+    "//div[text() = \"Dans la même rubrique\"]",
+    "//h5[text() = \"Pour aller plus loin :\"]/parent::div"
   ],
   "strip_id_or_class": [
     "closed",
@@ -20,7 +23,9 @@
     "mailmunch-giftarticle",
     "flex-chain",
     "c2",
-    "article-dossier"
+    "article-dossier",
+    "custom-card-list",
+    "related-link-list-wrapper"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,

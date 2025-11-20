@@ -2,19 +2,23 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# Joedmin <joedmin@joedmin.cz>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-08-13 16:09+0000\n"
+"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"PO-Revision-Date: 2025-11-14 14:09+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
-"Language: cs_CZ\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -46,7 +50,7 @@ msgid "Home Page"
 msgstr "Domovská stránka"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Vyžadováno"
@@ -59,36 +63,36 @@ msgstr "Chyby"
 msgid "Please check your form for errors."
 msgstr "Zkontrolujte, zda ve formuláři nejsou chyby."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Předchozí"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Dny"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Týdny"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Měsíce"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "Roky"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "nebo"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Vyberte nebo přetáhněte soubor"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "odebrat"
 
@@ -117,7 +121,7 @@ msgstr "Další"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Uživatelé"
@@ -140,8 +144,9 @@ msgstr "Uživatel bude za několik sekund odebrán"
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 #: assets/templates/bookmarks/label.jet.html:57
+#: assets/templates/profile/app_list.jet.html:66
 #: assets/templates/profile/token.jet.html:19
-#: assets/templates/profile/token_list.jet.html:66
+#: assets/templates/profile/token_list.jet.html:63
 msgid "Cancel"
 msgstr "Storno"
 
@@ -149,7 +154,7 @@ msgstr "Storno"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:21
+#: assets/templates/profile/index.jet.html:30
 msgid "Username"
 msgstr "Uživatelské jméno"
 
@@ -170,7 +175,7 @@ msgstr "Skupina"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "Heslo"
 
@@ -181,7 +186,7 @@ msgstr "nezmění se, pokud je prázdné"
 #: assets/templates/admin/user.jet.html:50
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:83
+#: assets/templates/profile/index.jet.html:92
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
@@ -204,7 +209,7 @@ msgid "Add a new user"
 msgstr "Přidat nového uživatele"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "Vytvořen: %s"
@@ -234,6 +239,104 @@ msgstr "Uživatelské jméno nebo e-mailová adresa"
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
 msgstr "Neznáte heslo?"
+
+#: assets/templates/auth/oauth/auth-code.jet.html:8
+#: assets/templates/auth/oauth/device-code.jet.html:9
+#: assets/templates/auth/oauth/form.jet.html:14
+msgid "Authorization required"
+msgstr "Je nutná autorizace"
+
+#: assets/templates/auth/oauth/device-code.jet.html:13
+msgid "Go back to Readeck"
+msgstr "Vrátit se do Readecku"
+
+#: assets/templates/auth/oauth/device-code.jet.html:28
+#: assets/templates/auth/oauth/device-code.jet.html:47
+#: assets/templates/auth/oauth/device-code.jet.html:54
+msgid "Connect a device"
+msgstr "Připojit zařízení"
+
+#: assets/templates/auth/oauth/device-code.jet.html:32
+msgid "Enter the code displayed on your device"
+msgstr "Zadejte kód, který se zobrazil na Vašem zařízení"
+
+#: assets/templates/auth/oauth/device-code.jet.html:37
+msgid "Next"
+msgstr "Další"
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid "Authorization request was denied."
+msgstr "Žádost o autorizaci byla zamítnuta."
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid " You can now close this page."
+msgstr " Tuto stránku můžete zavřít."
+
+#: assets/templates/auth/oauth/device-code.jet.html:57
+msgid "Authorization granted. Connecting device..."
+msgstr "Autorizace povolena. Připojuji zařízení..."
+
+#: assets/templates/auth/oauth/device-code.jet.html:61
+#, python-format
+msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
+msgstr "<a href=\"%s\">Obnovte tuto stránku</a> pokud se po několika vteřinách sama neobnoví."
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "Device is connected!"
+msgstr "Zařízení připojeno!"
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "You can now close this page."
+msgstr "Tuto stránku můžete zavřít."
+
+#: assets/templates/auth/oauth/form.jet.html:12
+#, python-format
+msgid "Signed in as: <strong>%s</strong>"
+msgstr "Přihlášen jako: <strong>%s</strong>"
+
+#: assets/templates/auth/oauth/form.jet.html:20
+#, python-format
+msgid ""
+"\n"
+"      <strong>%s</strong> would like permission to access your account.\n"
+"      Only approve this request if you recognize and trust this source.\n"
+"    "
+msgstr ""
+"\n"
+"      <strong>%s</strong> požaduje přístup k Vašemu účtu.\n"
+"      Tuto žádost povolte pouze pokud ji poznáváte a věříte jejímu původu.\n"
+"    "
+
+#: assets/templates/auth/oauth/form.jet.html:26
+msgid "Review permissions"
+msgstr "Přehled oprávnění"
+
+#: assets/templates/auth/oauth/form.jet.html:33
+msgid "Application information"
+msgstr "Informace o aplikaci"
+
+#: assets/templates/auth/oauth/form.jet.html:35
+#: assets/templates/bookmarks/collection.jet.html:72
+#: assets/templates/bookmarks/collection_create.jet.html:22
+#: assets/templates/profile/token.jet.html:42
+msgid "Name"
+msgstr "Název"
+
+#: assets/templates/auth/oauth/form.jet.html:36
+msgid "Website"
+msgstr "Webová stránka"
+
+#: assets/templates/auth/oauth/form.jet.html:37
+msgid "Version"
+msgstr "Verze"
+
+#: assets/templates/auth/oauth/form.jet.html:42
+msgid "Authorize"
+msgstr "Autorizovat"
+
+#: assets/templates/auth/oauth/form.jet.html:44
+msgid "Deny"
+msgstr "Zamítnout"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -581,15 +684,10 @@ msgstr "Filtry"
 
 #: assets/templates/bookmarks/collection.jet.html:65
 #: assets/templates/bookmarks/index.jet.html:173
-#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
-#: docs/http.go:306
+#: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
+#: docs/http.go:308
 msgid "Documentation"
 msgstr "Dokumentace"
-
-#: assets/templates/bookmarks/collection.jet.html:72
-#: assets/templates/bookmarks/collection_create.jet.html:22
-msgid "Name"
-msgstr "Název"
 
 #: assets/templates/bookmarks/collection.jet.html:84
 msgid "Delete collection"
@@ -1564,7 +1662,7 @@ msgstr ""
 "  Do štítku můžete nastavit cokoliv, včetně emotikonů!\n"
 
 #: assets/templates/docs/about.jet.html:20
-#: assets/templates/docs/base.jet.html:27 docs/http.go:269
+#: assets/templates/docs/base.jet.html:27 docs/http.go:270
 msgid "About Readeck"
 msgstr "O Readecku"
 
@@ -1622,6 +1720,7 @@ msgid "Here's a short summary of the license conditions:"
 msgstr "Zde je krátké shrnutí licenčních podmínek:"
 
 #: assets/templates/docs/about.jet.html:77
+#: assets/templates/profile/app_list.jet.html:51
 msgid "Permissions"
 msgstr "Oprávnění"
 
@@ -1793,10 +1892,6 @@ msgstr "Vyskytla se chyba."
 msgid "Change theme"
 msgstr "Změnit téma"
 
-#: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
-msgid "Sign out"
-msgstr "Odhlásit se"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "Otevřít nabídku"
@@ -1805,34 +1900,90 @@ msgstr "Otevřít nabídku"
 msgid "Change color theme"
 msgstr "Změnit barevné téma"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Nastavení"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
-#: internal/profile/views.go:129 internal/profile/views.go:173
-#: internal/profile/views.go:233 internal/profile/views.go:285
-#: internal/profile/views.go:316
+#: assets/templates/profile/app_list.jet.html:10
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+msgid "Applications"
+msgstr "Aplikace"
+
+#: assets/templates/profile/app_list.jet.html:16
+msgid ""
+"\n"
+"  Applications are registered clients that have permissions to access your Readeck account.\n"
+"  If there are applications you do not recognize here, or an application is misbehaving,\n"
+"  you can revoke its access.\n"
+msgstr ""
+"\n"
+"  Aplikace jsou registrovaní klienti, kteří mají oprávnění k přístupu k Vašemu účtu Readeck.\n"
+"  Pokud zde najdete aplikace, které neznáte, nebo pokud se nějaká aplikace chová podezřele,\n"
+"  můžete jí přístup odebrat.\n"
+
+#: assets/templates/profile/app_list.jet.html:24
+msgid "You have no registered application at the moment."
+msgstr "V tuto chvíli nemáte registrované žádné aplikace."
+
+#: assets/templates/profile/app_list.jet.html:46
+#, python-format
+msgid "Authorized on: %s"
+msgstr "Autorizováno: %s"
+
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr "Naposledy použito: %s"
+
+#: assets/templates/profile/app_list.jet.html:60
+msgid "This client will be revoked in a few seconds."
+msgstr "Přístup tohoto klienta bude za několik vteřin odebrán."
+
+#: assets/templates/profile/app_list.jet.html:74
+msgid "Revoke application"
+msgstr "Odebrat aplikaci"
+
+#: assets/templates/profile/app_list.jet.html:87
+msgid "Developer information"
+msgstr "Informace pro vývojáře"
+
+#: assets/templates/profile/app_list.jet.html:88
+#, python-format
+msgid ""
+"\n"
+"    If you plan to build an application, please refer to the\n"
+"    <a href=\"%s\">API Documentation</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Pokud plánujete vyvíjet aplikaci, podívejte se na\n"
+"<a href=\"%s\">dokumentaci API</a>.\n"
+"  "
+
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
+#: internal/profile/views.go:130 internal/profile/views.go:174
+#: internal/profile/views.go:190 internal/profile/views.go:250
+#: internal/profile/views.go:301 internal/profile/views.go:332
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
-#: internal/profile/views.go:234
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
+#: internal/profile/views.go:251
 msgid "API Tokens"
 msgstr "Tokeny API"
 
-#: assets/templates/profile/base.jet.html:29
-#: assets/templates/profile/export.jet.html:10
+#: assets/templates/profile/base.jet.html:34
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
 msgid "Export"
 msgstr "Exportovat"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:37
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
-#: internal/profile/views.go:317
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
 msgid "Import"
 msgstr "Import"
 
@@ -1921,25 +2072,34 @@ msgstr ""
 msgid "My profile"
 msgstr "Můj profil"
 
-# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:16
+#, python-format
+msgid "You are connected as <strong>%s</strong>"
+msgstr "Jste přihlášen jako <strong>%s</strong>"
+
 #: assets/templates/profile/index.jet.html:18
+msgid "Sign out"
+msgstr "Odhlásit se"
+
+# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:27
 msgid "Base settings"
 msgstr "Základní nastavení"
 
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:36
 msgid "Email Address"
 msgstr "E-mailová adresa"
 
-#: assets/templates/profile/index.jet.html:32
+#: assets/templates/profile/index.jet.html:41
 msgid "Language"
 msgstr "Jazyk"
 
 # | msgid "Settings"
-#: assets/templates/profile/index.jet.html:49
+#: assets/templates/profile/index.jet.html:58
 msgid "Email settings"
 msgstr "Nastavení e-mailu"
 
-#: assets/templates/profile/index.jet.html:50
+#: assets/templates/profile/index.jet.html:59
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -1949,23 +2109,23 @@ msgstr ""
 "    Tyto nepovinné parametry se používají, když Readeck odesílá e-maily.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:56
+#: assets/templates/profile/index.jet.html:65
 msgid "Reply To"
 msgstr "Odpovědět na"
 
-#: assets/templates/profile/index.jet.html:57
+#: assets/templates/profile/index.jet.html:66
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "Přidejte tuto e-mailovou adresu do odchozích e-mailů, aby příjemci mohli odpovědět."
 
-#: assets/templates/profile/index.jet.html:62
+#: assets/templates/profile/index.jet.html:71
 msgid "Send EPUB to"
 msgstr "Odeslat EPUB na"
 
-#: assets/templates/profile/index.jet.html:63
+#: assets/templates/profile/index.jet.html:72
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Tato adresa se používá k předvyplnění příjemce při odesílání e-knihy e-mailem."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -2017,10 +2177,6 @@ msgstr "Naposledy použité"
 #: assets/templates/profile/token.jet.html:36
 msgid "never used"
 msgstr "nikdy nepoužité"
-
-#: assets/templates/profile/token.jet.html:42
-msgid "Application"
-msgstr "Aplikace"
 
 #: assets/templates/profile/token.jet.html:48
 msgid "Enabled"
@@ -2101,35 +2257,24 @@ msgid "My API Tokens"
 msgstr "Mé tokeny API"
 
 #: assets/templates/profile/token_list.jet.html:16
-msgid ""
-"\n"
-"  An API Token is a key that grants you (or another tool like a browser extension)\n"
-"  access to the Readeck API.\n"
-msgstr ""
-"\n"
-"  Token API je klíč, který vám (nebo jinému nástroji, jako je rozšíření prohlížeče)\n"
-"  umožňuje přístup k API Readecku.\n"
+msgid "An API Token is a key that grants you access to the Readeck API."
+msgstr "API token je klíč, který vám umožňuje přístup k API Readecku."
 
-#: assets/templates/profile/token_list.jet.html:20
+#: assets/templates/profile/token_list.jet.html:17
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr "Přečtěte si <a href=\"%s\">Dokumentaci API</a>, pokud ho plánujete používat."
 
-#: assets/templates/profile/token_list.jet.html:25
+#: assets/templates/profile/token_list.jet.html:22
 msgid "Create a new API token"
 msgstr "Vytvořit nový token API"
 
-#: assets/templates/profile/token_list.jet.html:49
+#: assets/templates/profile/token_list.jet.html:46
 #, python-format
 msgid "Expires on: %s"
 msgstr "Vyprší: %s"
 
-#: assets/templates/profile/token_list.jet.html:53
-#, python-format
-msgid "Last used on: %s"
-msgstr "Naposledy použito: %s"
-
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Tento token bude za několik sekund odebrán."
 
@@ -2145,24 +2290,53 @@ msgstr "Uživatel byl aktualizován."
 msgid "Invalid user and/or password"
 msgstr "Neplatný uživatel a/nebo heslo"
 
+#: internal/auth/users/forms.go:54
+msgctxt "role"
+msgid "no group"
+msgstr "žádná skupina"
+
 # | msgid "Password ID"
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "heslo je prázdné"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "uživatel"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "personál"
+
+#: internal/auth/users/groups.go:21
+msgctxt "role"
+msgid "admin"
+msgstr "administrátor"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
+msgid "Profile : Read Only"
+msgstr "Profil : Pouze ke čtení"
+
+#: internal/auth/users/groups.go:24
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Záložky : Pouze ke čtení"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:25
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Záložky : Pouze k zápisu"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:26
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Administrátor : Pouze ke čtení"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:27
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Administrátor : Pouze k zápisu"
 
@@ -2350,27 +2524,27 @@ msgstr "neplatné heslo"
 msgid "username does not match"
 msgstr "uživatelské jméno se neshoduje"
 
-#: internal/profile/views.go:81
+#: internal/profile/views.go:82
 msgid "Profile updated."
 msgstr "Profil byl aktualizován."
 
-#: internal/profile/views.go:117
+#: internal/profile/views.go:118
 msgid "Your password was changed."
 msgstr "Vaše heslo bylo změněno."
 
-#: internal/profile/views.go:189
+#: internal/profile/views.go:206
 msgid "An error occurred while creating your token."
 msgstr "Při vytváření vašeho tokenu se vyskytla chyba."
 
-#: internal/profile/views.go:194
+#: internal/profile/views.go:211
 msgid "New token created."
 msgstr "Nový token byl vytvořen."
 
-#: internal/profile/views.go:213
+#: internal/profile/views.go:230
 msgid "Token was updated."
 msgstr "Token byl aktualizován."
 
-#: internal/profile/views.go:303
+#: internal/profile/views.go:319
 msgid "Profile imported."
 msgstr "Profil byl importován."
 
@@ -2400,7 +2574,12 @@ msgstr "musí být větší nebo rovno %d"
 msgid "must be lower or equal than %d"
 msgstr "musí být menší nebo rovno %d"
 
-#: pkg/forms/validators.go:398
+#: pkg/forms/validators.go:347
+#, python-format
+msgid "text must contain between %d and %d characters"
+msgstr "text musí obsahovat mezi %d a %d znaky"
+
+#: pkg/forms/validators.go:406
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v nepatří mezi %s"
@@ -2742,4 +2921,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Zavřít obrázek"
-

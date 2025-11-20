@@ -1,0 +1,28 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//main[@id='main']//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'article_articleHeaderSocialWrapper__')]",
+    "//div[contains(@class, 'soft-paywall_wrapper__')]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.berliner-zeitung.de/wirtschaft-verantwortung/militarisierung-in-adlershof-so-bereiten-chemiker-die-bundeswehr-auf-krieg-vor-li.2361153",
+      "contains": []
+    }
+  ]
+}

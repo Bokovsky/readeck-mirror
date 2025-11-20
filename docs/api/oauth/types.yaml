@@ -1,0 +1,214 @@
+---
+# SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+
+schemas:
+  oauthError:
+    properties:
+      error:
+        type: string
+        enum:
+          - access_denied
+          - authorization_pending
+          - expired_token
+          - invalid_client
+          - invalid_client_metadata
+          - invalid_grant
+          - invalid_redirect_uri
+          - invalid_request
+          - invalid_scope
+          - server_error
+          - slow_down
+          - unauthorized_client
+      error_description:
+        type: string
+        description: Error description, if any
+
+  oauthClientCreate:
+    required: [client_name, client_uri, software_id, software_version]
+    properties:
+      client_name:
+        type: string
+        description: The client's name
+      client_uri:
+        type: string
+        format: uri
+        description: |
+          An URL where client information can be found. HTTPS only.
+
+          The URL must resolve to a non local and non private IP address.
+      logo_uri:
+        type: string
+        format: uri
+        pattern: "^data:image/png;base64,[A-Za-z0-9+/]+$"
+        maxLength: 8192
+        description: |
+          An URL for the client's logo.
+
+          Only data URI of a base64 PNG encoded image is allowed.
+      software_id:
+        type: string
+        description: A unique identifier for the application, for example a UUID
+      software_version:
+        type: string
+        description: Version of the client
+      redirect_uris:
+        type: array
+        items:
+          type: string
+          format: uri
+        description: |
+          A list of possible redirection URIs. URIs must be one of:
+
+          - any https URI
+          - http URI for loopback IP address (`127.0.0.0/8` or `[::1]`)
+          - any other app link scheme (ie `my-app.org:/callback`)
+
+          This field is required when `grant_types` contains `authorization_code`.
+
+      token_endpoint_auth_method:
+        type: string
+        description: Client supported auth method
+        enum: [none]
+        default: none
+      grant_types:
+        type: array
+        items:
+          type: string
+          enum:
+            - authorization_code
+            - urn:ietf:params:oauth:grant-type:device_code
+          default:
+            - authorization_code
+            - urn:ietf:params:oauth:grant-type:device_code
+        description: Client supported grant types
+      response_types:
+        type: array
+        items:
+          type: string
+          enum: [code]
+          default: code
+        description: Client supported response type
+
+  oauthClientUpdate:
+    required: [client_id, client_name, client_uri, software_id, software_version, redirect_uris]
+    properties:
+      client_id:
+        type: string
+        description: Client's ID
+      $merge:
+        - "#.schemas.oauthClientCreate.properties"
+
+  oauthClientResponse:
+    properties:
+      client_id:
+        type: string
+        description: Client ID
+      client_name:
+        type: string
+        description: Client's name
+      client_uri:
+        type: string
+        format: uri
+        description: Client's website
+      logo_uri:
+        type: string
+        format: uri
+        description: Client's logo
+      redirect_uris:
+        type: array
+        items:
+          type: string
+          format: uri
+        description: List of available redirect URIs.
+      software_id:
+        type: string
+        description: Client's unique software ID
+      software_version:
+        type: string
+        description: Client's version
+      token_endpoint_auth_method:
+        type: string
+        description: Client supported auth method
+        example: none
+      grant_types:
+        type: string
+        description: Client supported grant types
+        example: authorization_code
+      response_types:
+        type: string
+        description: Client supported response type
+        example: code
+
+  oauthTokenCreate:
+    required: [grant_type, code, code_verifier]
+    oneOf:
+      - properties:
+          grant_type:
+            const: authorization_code
+            description: Authorization Code grant type
+          code:
+            type: string
+            description: The code as received in the authorization redirection
+          code_verifier:
+            type: string
+            description: The PKCE Verifier
+      - properties:
+          grant_type:
+            const: "urn:ietf:params:oauth:grant-type:device_code"
+            description: Device Code grant type
+          device_code:
+            type: string
+            description: The device code
+          client_id:
+            type: string
+            description: The client ID
+
+  oauthTokenResponse:
+    properties:
+      id:
+        type: string
+        description: Token ID
+      access_token:
+        type: string
+        description: Token
+      token_type:
+        type: string
+        description: Token Type
+        enum: [Bearer]
+      scope:
+        type: string
+        description: Space separated scope list
+
+  oauthDeviceCreate:
+    properties:
+      client_id:
+        type: string
+        description: The client ID
+      scope:
+        type: string
+        description: Space separated list of scopes granted to the device
+
+  oauthDevice:
+    properties:
+      device_code:
+        type: string
+        description: The device verification code
+      user_code:
+        type: string
+        description: The end-user verification code
+      verification_uri:
+        type: string
+        description: The end-user verification URI
+      verification_uri_complete:
+        type: string
+        description: The end-user verification URI that includes the `user_code`
+      expires_in:
+        type: number
+        description: The lifetime in seconds of the `device_code` and `user_code`
+      interval:
+        type: number
+        description: |
+          The minimum amount of time in seconds that the client must wait
+          between polling requests to the token endpoint

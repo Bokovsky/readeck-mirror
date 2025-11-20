@@ -254,6 +254,13 @@ func newSearchTerm(tl []token, ignoreField bool) SearchTerm {
 		}
 	}
 
+	// unquote value
+	if res.Exact {
+		if x, err := strconv.Unquote(`"` + res.Value + `"`); err == nil {
+			res.Value = x
+		}
+	}
+
 	return res
 }
 

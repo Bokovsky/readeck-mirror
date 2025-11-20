@@ -284,6 +284,9 @@ func newManifest(fileList []*File) (*Manifest, error) {
 func main() {
 	flag.Parse()
 
+	log.SetFlags(0)
+	log.SetOutput(os.Stdout)
+
 	if len(flag.Args()) < 2 {
 		log.Fatalf("Usage: build_help <src> <dest>")
 	}
@@ -364,7 +367,9 @@ func main() {
 
 		fileList = append(fileList, file)
 
-		log.Printf("%s -> %s", src, dst)
+		_src, _ := filepath.Rel(filepath.Dir(srcDir), src)
+		_dst, _ := filepath.Rel(filepath.Dir(destDir), dst)
+		log.Printf("- %s -> %s", _src, _dst)
 		return nil
 	})
 	if err != nil {

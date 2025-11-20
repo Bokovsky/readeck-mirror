@@ -5,6 +5,8 @@ SPDX-License-Identifier: AGPL-3.0-only
 *}
 {{ extends "/_layouts/sidemenu_std" }}
 
+{{- block __sideMenuExtended() -}}{{- end -}}
+
 {{- block sideMenu() -}}
 {{- yield sideMenuTitle() content -}}{{ gettext("Settings") }}{{- end }}
 
@@ -16,6 +18,9 @@ SPDX-License-Identifier: AGPL-3.0-only
     data-current="{{ pathIs(`/profile/password`) }}">{{ yield icon(name="o-lock") }}
       {{ gettext("Password") }}</a></li>
     {{ if hasPermission("profile:tokens", "read") -}}
+      <li><a href="{{ urlFor(`/profile/applications`) }}"
+      data-current="{{ pathIs(`/profile/applications`) }}">{{ yield icon(name="o-applications") }}
+        {{ gettext("Applications") }}</a></li>
       <li><a href="{{ urlFor(`/profile/tokens`) }}"
       data-current="{{ pathIs(`/profile/tokens`, `/profile/tokens/*`) }}">{{ yield icon(name="o-key") }}
         {{ gettext("API Tokens") }}</a></li>
@@ -40,4 +45,5 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{ gettext("Users") }}</a></li>
     </menu>
   {{- end -}}
+  {{ yield __sideMenuExtended() }}
 {{- end -}}

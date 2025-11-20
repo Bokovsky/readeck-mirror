@@ -2,19 +2,24 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# micash <micash@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# liilliil <liilliil@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-07-26 11:28+0200\n"
-"PO-Revision-Date: 2025-07-08 21:08+0000\n"
-"Last-Translator: Kropotkin <kropotkin@noreply.codeberg.org>\n"
-"Language: pl_PL\n"
+"POT-Creation-Date: 2025-10-19 11:48+0200\n"
+"PO-Revision-Date: 2025-11-20 07:20+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Polish <https://translate.codeberg.org/projects/readeck/documentation/pl/>\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: pl_PL\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -585,6 +590,7 @@ msgstr "Jeśli popełniłeś błąd, to a operacja może zostać anulowana w ci�
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
 "TOC:\n"
 "    - \"\"\n"
 "    - bookmark-list\n"
@@ -607,19 +613,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:13
+#: en-US/index.md:14
 msgid "# Readeck Help"
 msgstr "# Pomoc Readeck"
 
-#: en-US/index.md:15
+#: en-US/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr "Witaj w Readeck! Tutaj znajdziesz odpowiedzi na większość swoich pytań o Readeck i kilka porad jak poprawić swoje wrażenia z jego używania."
 
-#: en-US/index.md:17
+#: en-US/index.md:18
 msgid "## Contents"
 msgstr "## Zawartość"
 
-#: en-US/index.md:19
+#: en-US/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -708,7 +714,6 @@ msgid "## Catalog access"
 msgstr "## Dostęp do katalogu"
 
 #: en-US/opds.md:21
-#, fuzzy
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
@@ -718,15 +723,14 @@ msgstr ""
 
 #: en-US/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
+msgstr "**Uwaga**: Łatwiej jest pobrać token jako plik tekstowy i przenieść go do czytnika e-booków. Następnie można otworzyć plik i skopiować token."
 
 #: en-US/opds.md:26
-#, fuzzy
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
-"Możesz ograniczyć prawa dostępu hasła tylko do \"Zakładki : Tylko odczyt\".\n"
+"Możesz ograniczyć prawa dostępu hasła tylko do \"Zakładki : Tylko odczyt\". \n"
 "Zapisz sobie hasło i skonfiguruj aplikację."
 
 #: en-US/opds.md:29
@@ -746,9 +750,8 @@ msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink device
 msgstr "[Koreader](https://koreader.rocks/) jest przeglądarką dokumentów dla urządzeń z ekranem E-Ink. Jest ona dostępna dla Kindle, Kobo, PocketBook'a, Android'a i Linux's. Posiada bardzo dobre wsparcie OPDS."
 
 #: en-US/opds.md:37
-#, fuzzy
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr "Gdy będziesz miał Hasło Aplikacji możesz uzyskać dostęp do sekcji OPDS w menu wyszukiwanie Koreader:"
+msgstr "Gdy będziesz miał Token API, możesz uzyskać dostęp do sekcji OPDS w menu wyszukiwania Koreader:"
 
 #: en-US/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
@@ -767,14 +770,13 @@ msgid "In this dialog replace the fields below with:"
 msgstr "W tym oknie dialogowym zamień pola poniżej na:"
 
 #: en-US/opds.md:47
-#, fuzzy
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
-"- [https://readeck.example.com](https://readeck.example.com) : `readeck-instance://opds`\n"
-"- alice: twoja nazwa użytkownika\n"
+"- https://readeck.example.com : `readeck-instance://opds` \n"
+"- alice: twoja nazwa użytkownika \n"
 "- twoje hasło aplikacji w ostatnim polu"
 
 #: en-US/opds.md:51
@@ -850,4 +852,3 @@ msgstr "Zamiast tego możesz podać swoją nazwę użytkownika i wybrany token j
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Uwaga**: nawet jeśli możesz użyć hasła aplikacji to dostępu do API, rekomendowane jest użycie tokena API gdy tylko możliwe."
-

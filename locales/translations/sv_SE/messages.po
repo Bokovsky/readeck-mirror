@@ -2,19 +2,24 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# terminalnode <terminalnode@noreply.codeberg.org>, 2025.
+# apq <apq@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-07-11 20:08+0000\n"
-"Last-Translator: terminalnode <terminalnode@noreply.codeberg.org>\n"
-"Language: sv_SE\n"
+"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"PO-Revision-Date: 2025-11-11 17:09+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language-Team: Swedish <https://translate.codeberg.org/projects/readeck/application/sv/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: sv_SE\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -46,7 +51,7 @@ msgid "Home Page"
 msgstr "Startsida"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Obligatorisk"
@@ -59,36 +64,36 @@ msgstr "Fel"
 msgid "Please check your form for errors."
 msgstr "Kontrollera fel i formuläret."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Den föregående"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Dag(ar)"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Vecka/veckor"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Månad(er)"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "År"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "eller"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Välj eller släpp fil"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "ta bort"
 
@@ -117,7 +122,7 @@ msgstr "Nästa"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Användare"
@@ -140,8 +145,9 @@ msgstr "Användaren kommer raderas inom ett par sekunder"
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 #: assets/templates/bookmarks/label.jet.html:57
+#: assets/templates/profile/app_list.jet.html:66
 #: assets/templates/profile/token.jet.html:19
-#: assets/templates/profile/token_list.jet.html:66
+#: assets/templates/profile/token_list.jet.html:63
 msgid "Cancel"
 msgstr "Avbryt"
 
@@ -149,7 +155,7 @@ msgstr "Avbryt"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:21
+#: assets/templates/profile/index.jet.html:30
 msgid "Username"
 msgstr "Användarnamn"
 
@@ -170,7 +176,7 @@ msgstr "Grupp"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "Lösenord"
 
@@ -181,7 +187,7 @@ msgstr "kommer inte ändras om tomt"
 #: assets/templates/admin/user.jet.html:50
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:83
+#: assets/templates/profile/index.jet.html:92
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
@@ -204,7 +210,7 @@ msgid "Add a new user"
 msgstr "Lägg till ny användare"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "Skapad: %s"
@@ -234,6 +240,104 @@ msgstr "Användarnamn eller epostadress"
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
 msgstr "Glömt lösenord?"
+
+#: assets/templates/auth/oauth/auth-code.jet.html:8
+#: assets/templates/auth/oauth/device-code.jet.html:9
+#: assets/templates/auth/oauth/form.jet.html:14
+msgid "Authorization required"
+msgstr "Autentisering krävs"
+
+#: assets/templates/auth/oauth/device-code.jet.html:13
+msgid "Go back to Readeck"
+msgstr "Gå tillbaka till Readeck"
+
+#: assets/templates/auth/oauth/device-code.jet.html:28
+#: assets/templates/auth/oauth/device-code.jet.html:47
+#: assets/templates/auth/oauth/device-code.jet.html:54
+msgid "Connect a device"
+msgstr "Anslut en enhet"
+
+#: assets/templates/auth/oauth/device-code.jet.html:32
+msgid "Enter the code displayed on your device"
+msgstr "Skriv in koden som visas på din enhet"
+
+#: assets/templates/auth/oauth/device-code.jet.html:37
+msgid "Next"
+msgstr "Nästa"
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid "Authorization request was denied."
+msgstr "Autentiseringsförsöket nekades."
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid " You can now close this page."
+msgstr " Du kan nu stänga denna sida."
+
+#: assets/templates/auth/oauth/device-code.jet.html:57
+msgid "Authorization granted. Connecting device..."
+msgstr "Autentisering godkänd. Ansluter enhet..."
+
+#: assets/templates/auth/oauth/device-code.jet.html:61
+#, python-format
+msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
+msgstr "<a href=\"%s\">Ladda om denna sida</a> om den inte laddats om inom några sekunder."
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "Device is connected!"
+msgstr "Enhet ansluten!"
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "You can now close this page."
+msgstr "Du kan nu stänga denna sida."
+
+#: assets/templates/auth/oauth/form.jet.html:12
+#, python-format
+msgid "Signed in as: <strong>%s</strong>"
+msgstr "Inloggad som: <strong>%s</strong>"
+
+#: assets/templates/auth/oauth/form.jet.html:20
+#, python-format
+msgid ""
+"\n"
+"      <strong>%s</strong> would like permission to access your account.\n"
+"      Only approve this request if you recognize and trust this source.\n"
+"    "
+msgstr ""
+"\n"
+"      <strong>%s</strong>vill ha tillstånd att komma åt ditt konto.\n"
+"      Godkänn denna begäran endast om du känner igen och litar på källan.\n"
+"    "
+
+#: assets/templates/auth/oauth/form.jet.html:26
+msgid "Review permissions"
+msgstr "Granska behörigheter"
+
+#: assets/templates/auth/oauth/form.jet.html:33
+msgid "Application information"
+msgstr "Applikationsinformation"
+
+#: assets/templates/auth/oauth/form.jet.html:35
+#: assets/templates/bookmarks/collection.jet.html:72
+#: assets/templates/bookmarks/collection_create.jet.html:22
+#: assets/templates/profile/token.jet.html:42
+msgid "Name"
+msgstr "Namn"
+
+#: assets/templates/auth/oauth/form.jet.html:36
+msgid "Website"
+msgstr "Webbsida"
+
+#: assets/templates/auth/oauth/form.jet.html:37
+msgid "Version"
+msgstr "Version"
+
+#: assets/templates/auth/oauth/form.jet.html:42
+msgid "Authorize"
+msgstr "Autentisera"
+
+#: assets/templates/auth/oauth/form.jet.html:44
+msgid "Deny"
+msgstr "Neka"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -578,15 +682,10 @@ msgstr "Filter"
 
 #: assets/templates/bookmarks/collection.jet.html:65
 #: assets/templates/bookmarks/index.jet.html:173
-#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
-#: docs/http.go:306
+#: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
+#: docs/http.go:308
 msgid "Documentation"
 msgstr "Dokumentation"
-
-#: assets/templates/bookmarks/collection.jet.html:72
-#: assets/templates/bookmarks/collection_create.jet.html:22
-msgid "Name"
-msgstr "Namn"
 
 #: assets/templates/bookmarks/collection.jet.html:84
 msgid "Delete collection"
@@ -737,18 +836,16 @@ msgid "Remove Highlight(s)"
 msgstr "Radera Markering(ar)"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Close"
-msgstr "Stäng meny"
+msgstr "Stäng"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
 msgstr "Visa bild"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-#, fuzzy
 msgid "Play video"
-msgstr "Video"
+msgstr "Spela video"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
@@ -806,7 +903,6 @@ msgid "Type"
 msgstr "Typ"
 
 #: assets/templates/bookmarks/components/filters.jet.html:119
-#, fuzzy
 msgctxt "filter"
 msgid "Progress"
 msgstr "Progression"
@@ -1255,7 +1351,6 @@ msgid "What is not imported:"
 msgstr "Vad som inte är importerat:"
 
 #: assets/templates/bookmarks/import/form-readwise.jet.html:48
-#, fuzzy
 msgid "Article reading progress and seen status,"
 msgstr "Artikel-läsprogression och sedd-status,"
 
@@ -1537,7 +1632,7 @@ msgstr ""
 "  Du kan sätta vad som helst som etikett, till och med emoji!\n"
 
 #: assets/templates/docs/about.jet.html:20
-#: assets/templates/docs/base.jet.html:27 docs/http.go:269
+#: assets/templates/docs/base.jet.html:27 docs/http.go:270
 msgid "About Readeck"
 msgstr "Om Readeck"
 
@@ -1595,6 +1690,7 @@ msgid "Here's a short summary of the license conditions:"
 msgstr "Här är en kort summering av licensens villkor:"
 
 #: assets/templates/docs/about.jet.html:77
+#: assets/templates/profile/app_list.jet.html:51
 msgid "Permissions"
 msgstr "Tillåtelser"
 
@@ -1627,9 +1723,8 @@ msgid "Private use"
 msgstr "Privat användning"
 
 #: assets/templates/docs/about.jet.html:106
-#, fuzzy
 msgid "Disclose source"
-msgstr "Ange källa"
+msgstr "Avslöja källa"
 
 #: assets/templates/docs/about.jet.html:109
 msgid "License and copyright notice"
@@ -1767,10 +1862,6 @@ msgstr "Ett fel uppstod."
 msgid "Change theme"
 msgstr "Byt tema"
 
-#: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
-msgid "Sign out"
-msgstr "Logga ut"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "Öppna meny"
@@ -1779,42 +1870,96 @@ msgstr "Öppna meny"
 msgid "Change color theme"
 msgstr "Byt färgtema"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Inställningar"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
-#: internal/profile/views.go:129 internal/profile/views.go:173
-#: internal/profile/views.go:233 internal/profile/views.go:285
-#: internal/profile/views.go:316
+#: assets/templates/profile/app_list.jet.html:10
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+msgid "Applications"
+msgstr "Applikationer"
+
+#: assets/templates/profile/app_list.jet.html:16
+msgid ""
+"\n"
+"  Applications are registered clients that have permissions to access your Readeck account.\n"
+"  If there are applications you do not recognize here, or an application is misbehaving,\n"
+"  you can revoke its access.\n"
+msgstr ""
+"\n"
+"  Applikationer är registrerade klienter som har behörighet att komma åt ditt Readeck-konto.\n"
+"  Om det finns applikationer här som du inte känner igen, eller om en applikation bär sig illa åt,\n"
+"  så kan du återkalla dess åtkomst.\n"
+
+#: assets/templates/profile/app_list.jet.html:24
+msgid "You have no registered application at the moment."
+msgstr "Du har ingen registrerad applikation för tillfället."
+
+#: assets/templates/profile/app_list.jet.html:46
+#, python-format
+msgid "Authorized on: %s"
+msgstr "Autentiserad: %s"
+
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr "Senast använd den: %s"
+
+#: assets/templates/profile/app_list.jet.html:60
+msgid "This client will be revoked in a few seconds."
+msgstr "Denna klient kommer att återkallas om ett par sekunder."
+
+#: assets/templates/profile/app_list.jet.html:74
+msgid "Revoke application"
+msgstr "Återkalla applikation"
+
+#: assets/templates/profile/app_list.jet.html:87
+msgid "Developer information"
+msgstr "Utvecklarinformation"
+
+#: assets/templates/profile/app_list.jet.html:88
+#, python-format
+msgid ""
+"\n"
+"    If you plan to build an application, please refer to the\n"
+"    <a href=\"%s\">API Documentation</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Om du planerar att utveckla en applikation, vänligen referera till\n"
+"    <a href=\"%s\">API-dokumentationen</a>.\n"
+"  "
+
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
+#: internal/profile/views.go:130 internal/profile/views.go:174
+#: internal/profile/views.go:190 internal/profile/views.go:250
+#: internal/profile/views.go:301 internal/profile/views.go:332
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
-#: internal/profile/views.go:234
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
+#: internal/profile/views.go:251
 msgid "API Tokens"
 msgstr "API-tokens"
 
-#: assets/templates/profile/base.jet.html:29
-#: assets/templates/profile/export.jet.html:10
-#, fuzzy
+#: assets/templates/profile/base.jet.html:34
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
 msgid "Export"
-msgstr "Import"
+msgstr "Exportera"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:37
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
-#: internal/profile/views.go:317
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
 msgid "Import"
 msgstr "Import"
 
 #: assets/templates/profile/export.jet.html:15
-#, fuzzy
 msgid "Export your Readeck Profile"
-msgstr "Importera dina Pocket-artiklar"
+msgstr "Exportera din Readeck-profil"
 
 #: assets/templates/profile/export.jet.html:19
 msgid ""
@@ -1823,45 +1968,46 @@ msgid ""
 "    bookmarks, collections, etc.\n"
 "    "
 msgstr ""
+"\n"
+"    Här kan du ladda ned en zip-fil som innehåller all din profildata, inklusive\n"
+"    bokmärken, samlingar, etc.\n"
+"    "
 
 #: assets/templates/profile/export.jet.html:24
-#, fuzzy
 msgid "Export Data"
-msgstr "Exportera och Dela"
+msgstr "Exportera data"
 
 #: assets/templates/profile/export.jet.html:36
 msgid "Bookmark List in Browser Bookmarks Format"
-msgstr ""
+msgstr "Bokmärkeslista i webläsarens bokmärkesformat"
 
 #: assets/templates/profile/export.jet.html:44
 msgid "Bookmark List as Comma Separated Values"
-msgstr ""
+msgstr "Bokmärkeslista som \"Comma Separated Values\""
 
 #: assets/templates/profile/export.jet.html:49
-#, fuzzy
 msgid "Export Bookmarks"
-msgstr "Importera bokmärken"
+msgstr "Exportera bokmärken"
 
 #: assets/templates/profile/export.jet.html:51
 msgid "You can export your bookmark list in the following formats:"
-msgstr ""
+msgstr "Du kan exportera din bokmärkeslista i följande format:"
 
 #: assets/templates/profile/import.jet.html:14
 msgid "Import a Readeck Profile"
-msgstr ""
+msgstr "Importera en Readeck-profil"
 
 #: assets/templates/profile/import.jet.html:16
 msgid "Import a file obtained through a previous profile export."
-msgstr ""
+msgstr "Importera en fil du erhållit från en tidigare profilexport."
 
 #: assets/templates/profile/import.jet.html:30
 msgid "Confirm your user name"
-msgstr ""
+msgstr "Bekräfta ditt användarnamn"
 
 #: assets/templates/profile/import.jet.html:35
-#, fuzzy
 msgid "Attention"
-msgstr "Autentisering"
+msgstr "Observera"
 
 #: assets/templates/profile/import.jet.html:37
 msgid ""
@@ -1870,11 +2016,14 @@ msgid ""
 "      replaced with the file's content.\n"
 "      "
 msgstr ""
+"\n"
+"      Detta kommer att rensa din nuvarande profil och all dess data kommer att\n"
+"      ersättas med innehållet från filen.\n"
+"      "
 
 #: assets/templates/profile/import.jet.html:49
-#, fuzzy
 msgid "Import bookmarks from other services"
-msgstr "Importera bokmärken"
+msgstr "Importera bokmärken från andra tjänster"
 
 #: assets/templates/profile/import.jet.html:52
 #, python-format
@@ -1884,28 +2033,41 @@ msgid ""
 "  <a href=\"%s\">dedicated section</a>.\n"
 "  "
 msgstr ""
+"\n"
+"  Om du har bokmärken från andra tjänster kan du importera dem i den\n"
+"  <a href=\"%s\">dedikerade sektionen</a>.\n"
+"  "
 
 #: assets/templates/profile/index.jet.html:9
 msgid "My profile"
 msgstr "Min profil"
 
+#: assets/templates/profile/index.jet.html:16
+#, python-format
+msgid "You are connected as <strong>%s</strong>"
+msgstr "Du är ansluten som <strong>%s</strong>"
+
 #: assets/templates/profile/index.jet.html:18
+msgid "Sign out"
+msgstr "Logga ut"
+
+#: assets/templates/profile/index.jet.html:27
 msgid "Base settings"
 msgstr "Grundinställningar"
 
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:36
 msgid "Email Address"
 msgstr "Epostadress"
 
-#: assets/templates/profile/index.jet.html:32
+#: assets/templates/profile/index.jet.html:41
 msgid "Language"
 msgstr "Språk"
 
-#: assets/templates/profile/index.jet.html:49
+#: assets/templates/profile/index.jet.html:58
 msgid "Email settings"
 msgstr "Epostinställningar"
 
-#: assets/templates/profile/index.jet.html:50
+#: assets/templates/profile/index.jet.html:59
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -1915,23 +2077,23 @@ msgstr ""
 "    Dessa, valfria, parametrar används när Readeck skickar epost.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:56
+#: assets/templates/profile/index.jet.html:65
 msgid "Reply To"
 msgstr "Svara Till"
 
-#: assets/templates/profile/index.jet.html:57
+#: assets/templates/profile/index.jet.html:66
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "Lägg till denna epostadress i dina utgående epost så mottagare kan svara."
 
-#: assets/templates/profile/index.jet.html:62
+#: assets/templates/profile/index.jet.html:71
 msgid "Send EPUB to"
 msgstr "Skicka EPUB till"
 
-#: assets/templates/profile/index.jet.html:63
+#: assets/templates/profile/index.jet.html:72
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Denna adress används för att förhandsfylla mottagare när du skickar en e-bok över epost."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -1983,10 +2145,6 @@ msgstr "Senast använd"
 msgid "never used"
 msgstr "aldrig använd"
 
-#: assets/templates/profile/token.jet.html:42
-msgid "Application"
-msgstr "Applikation"
-
 #: assets/templates/profile/token.jet.html:48
 msgid "Enabled"
 msgstr "Aktiverad"
@@ -2027,7 +2185,7 @@ msgstr "Din API-token"
 
 #: assets/templates/profile/token.jet.html:97
 msgid "Download as a text file"
-msgstr ""
+msgstr "Ladda ned som en textfil"
 
 #: assets/templates/profile/token.jet.html:101
 msgid "How to use it"
@@ -2066,35 +2224,24 @@ msgid "My API Tokens"
 msgstr "Mina API-tokens"
 
 #: assets/templates/profile/token_list.jet.html:16
-msgid ""
-"\n"
-"  An API Token is a key that grants you (or another tool like a browser extension)\n"
-"  access to the Readeck API.\n"
-msgstr ""
-"\n"
-"  En API-token är en nyckel som ger dig (eller ett verktyg såsom ett webläsartillägg)\n"
-"  tillgång till Readecks API.\n"
+msgid "An API Token is a key that grants you access to the Readeck API."
+msgstr "En API-nyckel är en nyckel som ger dig tillgång till Readeck API:t."
 
-#: assets/templates/profile/token_list.jet.html:20
+#: assets/templates/profile/token_list.jet.html:17
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
 msgstr "Vänligen läs <a href=\"%s\">API-dokumentationen</a> om du planerar att använda det."
 
-#: assets/templates/profile/token_list.jet.html:25
+#: assets/templates/profile/token_list.jet.html:22
 msgid "Create a new API token"
 msgstr "Skapa en ny API-token"
 
-#: assets/templates/profile/token_list.jet.html:49
+#: assets/templates/profile/token_list.jet.html:46
 #, python-format
 msgid "Expires on: %s"
 msgstr "Går ut den: %s"
 
-#: assets/templates/profile/token_list.jet.html:53
-#, python-format
-msgid "Last used on: %s"
-msgstr "Senast använd den: %s"
-
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Denna token kommer att raderas om ett par sekunder."
 
@@ -2110,25 +2257,54 @@ msgstr "Användare uppdaterad."
 msgid "Invalid user and/or password"
 msgstr "Ogiltig användare och/eller lösenord"
 
-#: internal/auth/users/forms.go:68
+#: internal/auth/users/forms.go:54
+msgctxt "role"
+msgid "no group"
+msgstr "ingen grupp"
+
+#: internal/auth/users/forms.go:72
 msgid "password is empty"
 msgstr "lösenord är tomt"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "användare"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "personal"
+
+#: internal/auth/users/groups.go:21
+msgctxt "role"
+msgid "admin"
+msgstr "administratör"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
+msgid "Profile : Read Only"
+msgstr "Profil: Skrivskyddad"
+
+#: internal/auth/users/groups.go:24
+msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr "Bokmärken: Läsrättigheter"
+msgstr "Bokmärken: Skrivskyddad"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:25
+msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr "Bokmärken: Skrivrättigheter"
+msgstr "Bokmärken: Lässkyddad"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:26
+msgctxt "role"
 msgid "Admin : Read Only"
-msgstr "Administratör: Läsrättigheter"
+msgstr "Administratör: Skrivskyddad"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:27
+msgctxt "role"
 msgid "Admin : Write Only"
-msgstr "Administratör: Skrivrättigheter"
+msgstr "Administratör: Lässkyddad"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
@@ -2291,7 +2467,6 @@ msgid "Collection updated."
 msgstr "Samling uppdaterad."
 
 #: internal/bookmarks/routes/views_import.go:30
-#, fuzzy
 msgid "Progress"
 msgstr "Progression"
 
@@ -2301,7 +2476,7 @@ msgstr "Alla Bokmärken"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Den importerade filen kan endast innehålla en användare"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
@@ -2313,32 +2488,31 @@ msgstr "ogiltigt lösenord"
 
 #: internal/profile/forms.go:399
 msgid "username does not match"
-msgstr ""
+msgstr "användarnamnet matchar ej"
 
-#: internal/profile/views.go:81
+#: internal/profile/views.go:82
 msgid "Profile updated."
 msgstr "Profil uppdaterad."
 
-#: internal/profile/views.go:117
+#: internal/profile/views.go:118
 msgid "Your password was changed."
 msgstr "Ditt lösenord har ändrats."
 
-#: internal/profile/views.go:189
+#: internal/profile/views.go:206
 msgid "An error occurred while creating your token."
 msgstr "Ett fel uppstod när din token skapades."
 
-#: internal/profile/views.go:194
+#: internal/profile/views.go:211
 msgid "New token created."
 msgstr "Ny token skapad."
 
-#: internal/profile/views.go:213
+#: internal/profile/views.go:230
 msgid "Token was updated."
 msgstr "Token har uppdaterats."
 
-#: internal/profile/views.go:303
-#, fuzzy
+#: internal/profile/views.go:319
 msgid "Profile imported."
-msgstr "Profil uppdaterad."
+msgstr "Profil importerad."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
@@ -2366,7 +2540,12 @@ msgstr "måste vara större än eller lika med %d"
 msgid "must be lower or equal than %d"
 msgstr "måste vara mindre än eller lika med %d"
 
-#: pkg/forms/validators.go:398
+#: pkg/forms/validators.go:347
+#, python-format
+msgid "text must contain between %d and %d characters"
+msgstr "texten måste innehålla mellan %d och %d tecken"
+
+#: pkg/forms/validators.go:406
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v är inte en av %s"
@@ -2584,11 +2763,9 @@ msgid "%m/%d/%Y"
 msgstr "%Y-%m-%d"
 
 #: pkg/strftime/strftime.go:77
-#, fuzzy
 msgctxt "datetime"
 msgid "%H:%M:%S"
 msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Stäng bild"
-

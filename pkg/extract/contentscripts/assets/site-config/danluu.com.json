@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//html"
+    "/html/body/main"
   ],
   "date_selectors": null,
   "author_selectors": null,

@@ -33,7 +33,9 @@ var views *jet.Set
 // InitSender initializes the default email sender base on the
 // configuration.
 func InitSender() {
-	views = templates.Catalog()
+	views = templates.Catalog(
+		os.DirFS(configs.Config.Customize.ExtraTemplates),
+	)
 
 	if Sender != nil { // Sender can be set by the test runner
 		return

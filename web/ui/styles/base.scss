@@ -11,6 +11,10 @@ body.js {
 }
 
 @layer base {
+  @view-transition {
+    navigation: auto;
+  }
+
   svg {
     fill: currentColor;
   }

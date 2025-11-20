@@ -12,20 +12,15 @@ import (
 	"fmt"
 	"log/slog"
 	"math/rand/v2"
-	"regexp"
 	"strings"
 
 	"golang.org/x/net/html"
 
 	"github.com/go-shiori/dom"
 
-	"codeberg.org/readeck/go-readability"
+	"codeberg.org/readeck/go-readability/v2"
+	readabilityRender "codeberg.org/readeck/go-readability/v2/render"
 	"codeberg.org/readeck/readeck/pkg/extract"
-)
-
-var (
-	rxSpace   = regexp.MustCompile(`[ ]+`)
-	rxNewLine = regexp.MustCompile(`\r?\n\s*(\r?\n)+`)
 )
 
 type ctxKeyReadabilityEnabled struct{}
@@ -58,8 +53,8 @@ func (h *readabilitySlogHandler) WithGroup(name string) slog.Handler {
 
 // IsReadabilityEnabled returns true when readability is enabled
 // in the extractor context.
-func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
-	if v, ok := e.Context.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
+func IsReadabilityEnabled(ctx context.Context) (enabled bool, forced bool) {
+	if v, ok := ctx.Value(ctxKeyReadabilityEnabled{}).(bool); ok {
 		return v, true
 	}
 	// Default to true when the context value doest not exist
@@ -68,8 +63,8 @@ func IsReadabilityEnabled(e *extract.Extractor) (enabled bool, forced bool) {
 
 // EnableReadability enables or disable readability in the extractor
 // context.
-func EnableReadability(e *extract.Extractor, v bool) {
-	e.Context = context.WithValue(e.Context, ctxKeyReadabilityEnabled{}, v)
+func EnableReadability(ctx context.Context, v bool) context.Context {
+	return context.WithValue(ctx, ctxKeyReadabilityEnabled{}, v)
 }
 
 // Readability is a processor that executes readability on the drop content.
@@ -79,7 +74,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 			return next
 		}
 
-		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor)
+		readabilityEnabled, readabilityForced := IsReadabilityEnabled(m.Extractor.Context)
 
 		// Immediate stop on a media where readability is not explicitly set.
 		if m.Extractor.Drop().IsMedia() && !readabilityForced {
@@ -172,32 +167,36 @@ func Text(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	m.Log().Debug("get text content")
 
 	doc, _ := html.Parse(bytes.NewReader(m.Extractor.HTML))
-	text := dom.TextContent(doc)
-
-	text = rxSpace.ReplaceAllString(text, " ")
-	text = rxNewLine.ReplaceAllString(text, "\n\n")
-	text = strings.TrimSpace(text)
-
-	m.Extractor.Text = text
+	m.Extractor.Text = readabilityRender.InnerText(doc)
 	return next
 }
 
-func findFirstContentNode(node *html.Node) *html.Node {
-	children := dom.ChildNodes(node)
-	count := 0
-	for _, x := range children {
-		if x.Type == html.TextNode && strings.TrimSpace(x.Data) != "" {
-			count++
-		} else if x.Type == html.ElementNode {
-			count++
+// Traverses down the DOM to find the first element node that contains multiple elements or a
+// non-whitespace text node. Only ever skip elements that are DIV, SECTION, MAIN, or ARTICLE.
+func findFirstContentNode(parent *html.Node) *html.Node {
+	var elementChild *html.Node
+	for child := parent.FirstChild; child != nil; child = child.NextSibling {
+		if child.Type == html.TextNode && strings.TrimSpace(child.Data) != "" {
+			return parent
+		} else if child.Type == html.ElementNode {
+			if elementChild == nil {
+				elementChild = child
+			} else {
+				// parent has multiple element children
+				return parent
+			}
 		}
 	}
-
-	if count > 1 || dom.FirstElementChild(node) == nil {
-		return node
+	if elementChild == nil {
+		return parent
 	}
-
-	return findFirstContentNode(dom.FirstElementChild(node))
+	switch elementChild.Data {
+	case "div", "section", "main", "article":
+		// Nothing should be lost semantically should we unwrap these container elements.
+		return findFirstContentNode(elementChild)
+	default:
+		return elementChild
+	}
 }
 
 // prepareTitles moves the "id" and "class" attributes from h* and h* a tags

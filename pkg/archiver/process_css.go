@@ -66,7 +66,7 @@ func (arc *Archiver) processCSS(ctx context.Context, r io.Reader, parent *Resour
 
 	parentURL, err := url.Parse(parent.url)
 	if err != nil {
-		return nil, errSkippedURL
+		return nil, ErrSkippedURL
 	}
 
 	ctx = withReferrerContext(ctx, parentURL)
@@ -83,7 +83,7 @@ func (arc *Archiver) processCSS(ctx context.Context, r io.Reader, parent *Resour
 			cssURL = toAbsoluteURI(cssURL, parentURL)
 			res, err := arc.processURL(ctx, cssURL, processOptions{})
 			if err != nil {
-				if errors.Is(err, errSkippedURL) {
+				if errors.Is(err, ErrSkippedURL) {
 					return nil
 				}
 				return err

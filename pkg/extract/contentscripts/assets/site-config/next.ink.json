@@ -3,6 +3,8 @@
     "//h1[@id='single-article-title']"
   ],
   "body_selectors": [
+    "//div[@id='next-single-post']",
+    "//article[1]",
     "//div[@id='article-single']"
   ],
   "date_selectors": null,

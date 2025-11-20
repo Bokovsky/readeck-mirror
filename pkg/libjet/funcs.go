@@ -119,12 +119,18 @@ var funcMap = map[string]jet.Func{
 
 		return reflect.ValueOf(utils.FormatBytes(i))
 	},
-	"niceJSON": func(args jet.Arguments) reflect.Value {
-		args.RequireNumOfArguments("niceJSON", 1, 1)
+	"json": func(args jet.Arguments) reflect.Value {
+		args.RequireNumOfArguments("json", 1, 2)
 		v, _ := Indirect(args.Get(0))
 		buf := new(bytes.Buffer)
 		enc := json.NewEncoder(buf)
-		enc.SetIndent("", "  ")
+		enc.SetEscapeHTML(false)
+
+		nice, _ := Indirect(args.Get(1))
+		if _, ok := nice.(bool); ok {
+			enc.SetIndent("", "  ")
+		}
+
 		enc.Encode(v) //nolint:errcheck
 		return reflect.ValueOf(buf.String())
 	},

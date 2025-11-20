@@ -21,6 +21,7 @@ import (
 	"github.com/antchfx/htmlquery"
 	"github.com/go-shiori/dom"
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -56,7 +57,7 @@ func TestMeta(t *testing.T) {
 			assert.Equal(extract.DropMeta{}, ex.Drop().Meta)
 		})
 
-		t.Run("process", func(t *testing.T) {
+		t.Run("process meta1", func(t *testing.T) {
 			assert := require.New(t)
 			ex, _ := extract.New("http://example.net/", nil)
 			pm := ex.NewProcessMessage(extract.StepDom)
@@ -66,7 +67,7 @@ func TestMeta(t *testing.T) {
 
 			assert.Equal("My Document Title", ex.Drop().Title)
 			assert.Equal("Some description here", ex.Drop().Description)
-			assert.Equal([]string{"Olivier", "schema author"}, ex.Drop().Authors)
+			assert.Equal([]string{"author 3", "author 4"}, ex.Drop().Authors)
 			assert.Equal("My website", ex.Drop().Site)
 			assert.Equal("en", ex.Drop().Lang)
 
@@ -82,14 +83,63 @@ func TestMeta(t *testing.T) {
 				"html.keywords":       {"a reporter at large, biology,space exploration,magazine"},
 				"html.lang":           {"en"},
 				"html.title":          {"My Document"},
-				"schema.author":       {"schema author", "Olivier"},
-				"schema.editor":       {"some editor"},
 				"twitter.card":        {"summary"},
 				"twitter.description": {"Some description here"},
 				"twitter.image":       {"/squirrel.jpg"},
 				"twitter.title":       {"My Document Title"},
 				"twitter.url":         {"http://localhost:8000/"},
 			}, ex.Drop().Meta)
+		})
+
+		t.Run("process meta2", func(t *testing.T) {
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta2.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal(t, "为何前端圈现在不关注源码了？", ex.Drop().Title)
+			assert.Empty(t, ex.Drop().Description)
+			assert.Equal(t, "掘金", ex.Drop().Site)
+			assert.Equal(t, []string{"Another Human", "前端双越老师"}, ex.Drop().Authors)
+		})
+
+		t.Run("process meta3", func(t *testing.T) {
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta3.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal(t, "The AWS Outage Bricked People’s $2,700 Smartbeds", ex.Drop().Title)
+			assert.Equal(t, "When Amazon Web Services went offline, people lost control of their cloud-connected smart beds, getting stuck in reclined positions or roasting with the heat turned all the way up.", ex.Drop().Description)
+			assert.Equal(t, []string{"Matthew Gault", "Samantha Cole"}, ex.Drop().Authors)
+			assert.Equal(t, "404 Media", ex.Drop().Site)
+			assert.Equal(t, time.Date(2025, time.October, 22, 13, 40, 3, 0, time.UTC), ex.Drop().Date)
+			assert.Equal(t, "en", ex.Drop().Lang)
+
+			assert.Equal(t, extract.DropMeta{
+				"html.lang":     {"en"},
+				"html.title":    {"This is ignored"},
+				"x.picture_url": {"https://www.404media.co/content/images/size/w1200/2025/10/PodBed-1.jpg"},
+			}, ex.Drop().Meta)
+		})
+
+		t.Run("process meta4", func(t *testing.T) {
+			ex, _ := extract.New("http://example.net/", nil)
+			pm := ex.NewProcessMessage(extract.StepDom)
+			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta4.html")))
+
+			ExtractMeta(pm, nil)
+
+			assert.Equal(t, "Issues list such as unescaped </script> or -->", ex.Drop().Title)
+			assert.Empty(t, ex.Drop().Description)
+			assert.Empty(t, ex.Drop().Authors)
+			assert.Equal(t, "It's FOSS", ex.Drop().Site)
+			assert.True(t, ex.Drop().Date.IsZero())
+			assert.Equal(t, "zh", ex.Drop().Lang)
+
+			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
 		})
 
 		t.Run("text direction", func(t *testing.T) {

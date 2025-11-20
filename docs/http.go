@@ -21,6 +21,7 @@ import (
 	"github.com/komkom/toml"
 
 	"codeberg.org/readeck/readeck/configs"
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
@@ -283,6 +284,7 @@ func (h *helpHandlers) serveAPISchema(w http.ResponseWriter, r *http.Request) {
 	var contents strings.Builder
 	io.Copy(&contents, fd)
 	repl := strings.NewReplacer(
+		"__ROOT_URI__", strings.TrimSuffix(urls.AbsoluteURL(r, "/").String(), "/"),
 		"__BASE_URI__", urls.AbsoluteURL(r, "/api").String(),
 	)
 
@@ -299,13 +301,19 @@ func (h *helpHandlers) serveAPIDocs(w http.ResponseWriter, r *http.Request) {
 	policy.Write(w.Header())
 
 	tr := server.Locale(r)
-	ctx := server.TC{
+	tc := server.TC{
 		"Schema": urls.AbsoluteURL(r, "/docs/api.json"),
 	}
-	ctx.SetBreadcrumbs([][2]string{
+	tc.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Documentation"), urls.AbsoluteURL(r, "/docs", tr.Tag.String(), "/").String()},
 		{"API"},
 	})
 
-	server.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", ctx)
+	hideBadges := []string{}
+	if !auth.GetRequestUser(r).HasPermission("api:cookbook", "read") {
+		hideBadges = append(hideBadges, "admin only")
+	}
+	tc["HideBadges"] = strings.Join(hideBadges, ",")
+
+	server.RenderTemplate(w, r, http.StatusOK, "docs/api-docs", tc)
 }

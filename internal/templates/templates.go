@@ -8,8 +8,10 @@ package templates
 import (
 	"io"
 	"io/fs"
+	"iter"
 	"os"
 	"reflect"
+	"slices"
 	"strings"
 	"time"
 
@@ -27,6 +29,29 @@ type tplLoader struct {
 	fs.FS
 }
 
+type unionFS []fs.FS
+
+func (ufs unionFS) Open(name string) (fs.File, error) {
+	var fn func(unionFS) iter.Seq2[int, fs.FS]
+	fn = slices.All
+
+	if strings.HasPrefix(name, "~") {
+		fn = slices.Backward
+		name = name[1:]
+	}
+
+	for _, f := range fn(ufs) {
+		res, err := f.Open(name)
+		if err == nil {
+			return res, nil
+		} else if !os.IsNotExist(err) {
+			continue
+		}
+	}
+
+	return nil, os.ErrNotExist
+}
+
 // Exists returns true if the template exists in the filesystem.
 func (l *tplLoader) Exists(templatePath string) bool {
 	_, err := l.Open(templatePath)
@@ -40,9 +65,13 @@ func (l *tplLoader) Open(templatePath string) (io.ReadCloser, error) {
 }
 
 // Catalog returns a new template set.
-func Catalog() *jet.Set {
+func Catalog(paths ...fs.FS) *jet.Set {
 	set := jet.NewSet(
-		&tplLoader{assets.TemplatesFS()},
+		&tplLoader{
+			unionFS(
+				append(paths, assets.TemplatesFS()),
+			),
+		},
 		jet.WithTemplateNameExtensions([]string{"", ".jet.html"}),
 	)
 

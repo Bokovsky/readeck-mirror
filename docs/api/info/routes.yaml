@@ -4,27 +4,63 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 
 # Get /info
-info:
-  summary: Information
-  description: |
-    This route returns public information about the Readeck instance.
-  responses:
-    "200":
-      description: Server information
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              version:
+routes:
+  /info:
+    get:
+      tags: [info]
+      $merge:
+        - "traits.yaml#public"
+
+      summary: Information
+      description: |
+        This route returns public information about the Readeck instance.
+
+        The `version` entry contains information about the currently running version, with
+        the following fields:
+
+        | Name        | Description
+        | :---------- | :----------
+        | `release`   | The major + minor + patch number
+        | `canonical` | The full version; release + build number
+        | `build`     | The build number, if any.
+
+        On a stable release, `build` is empty and `release` is the same as `canonical`. On a nightly
+        build, `build` contains the commit information. It looks like `175-g154ad5c1` where the
+        first number is always incrementing one version after another.
+
+        `features` is a list that advertises the available features. It can contain the following
+        values:
+
+        | Name        | Description
+        | :---------- | :----------
+        | `email`     | This instance can send emails
+        | `oauth`     | This instance support OAuth
+
+      responses:
+        "200":
+          description: Server information
+          content:
+            application/json:
+              schema:
                 type: object
                 properties:
-                  canonical:
-                    type: string
-                    description: Canonical (full) version string
-                  release:
-                    type: string
-                    description: Release version number
-                  build:
-                    type: string
-                    description: Build number (can be empty)
+                  version:
+                    type: object
+                    properties:
+                      canonical:
+                        type: string
+                        description: Canonical (full) version string
+                      release:
+                        type: string
+                        description: Release version number
+                      build:
+                        type: string
+                        description: Build number (can be empty)
+                  features:
+                    type: array
+                    items:
+                      type: string
+                      enum:
+                        - email
+                        - oauth
+                    description: Available features

@@ -1,0 +1,66 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": [
+    "//p[contains(@class, 'id-Story-timestamp')]/descendant::time/@datetime"
+  ],
+  "author_selectors": [
+    "substring-after(//p[contains(@class, 'id-Story-authors')] , 'on:')",
+    "//div[contains(@class, 'id-AuthorList')]/descendant::*[contains(@class, 'id-Link')]"
+  ],
+  "strip_selectors": [
+    "//button",
+    "//a[@title='Bilderzoom']",
+    "//a[contains(@href, '/newsletter-anmeldung')]/ancestor::section[1]",
+    "//aside[contains(@class,'relatedStories')]"
+  ],
+  "strip_id_or_class": [
+    "id-Article-content-item-copyright",
+    "id-Article-dateActionboxCombo",
+    "id-Article-headline",
+    "id-Article-kicker",
+    "id-AuthorList",
+    "id-Comments",
+    "id-DonaldBreadcrumb",
+    "id-Headline",
+    "id-js-relatedStory",
+    "id-Mediabox-info-el",
+    "id-Recommendation",
+    "id-Story-authors",
+    "id-Story-interactionBar",
+    "id-Story-timestamp",
+    "id-StoryElement-factBox",
+    "id-StoryElement-timestamp",
+    "id-StoryElement-authors",
+    "id-StoryElement-image-caption",
+    "id-StoryElement-inArticleReco",
+    "id-StoryElement-interactionBar",
+    "id-StoryElement-intestitialLink",
+    "idjs-simpletab-content-close",
+    "idjs-simpletab-nav-item",
+    "id-Article-content-item.id-Article-advert.id-Article-advert--ad3",
+    "id-Article-advert.id-Article-content-item",
+    "id-Article-content-item.id-Article-advert",
+    "id-Article-advert--ad3",
+    "id-Article-advert",
+    "id-TBeepSlot",
+    "ECR-IN_ARTICLE"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.landtiere.de/hunde/zu-schwierig-sind-traum-vom-familienhund-rassen-die-fuer-anfaenger-94022587.html",
+      "contains": []
+    }
+  ]
+}

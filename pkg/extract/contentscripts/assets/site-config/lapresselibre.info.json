@@ -1,0 +1,30 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[@data-cy='article']//div[contains(@class,'article__content-centered')][1]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": [
+    "//a[contains(@class, 'article-hero__partner-website')]/@href"
+  ],
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0",
+    "cookie": "ncc_e=n;ncc_c=ntncc_f"
+  },
+  "tests": [
+    {
+      "url": "https://lapresselibre.info/en/rue89lyon/feminicide-saint-priest-marche-blanche-claudine-prise-conscience",
+      "contains": []
+    }
+  ]
+}

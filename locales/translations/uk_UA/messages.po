@@ -2,19 +2,22 @@
 # SPDX-FileCopyrightText: © 2024 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
+# SomeTr <sometr@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-08-30 07:37+0200\n"
-"PO-Revision-Date: 2025-07-26 18:00+0000\n"
+"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"PO-Revision-Date: 2025-11-07 19:09+0000\n"
 "Last-Translator: SomeTr <sometr@noreply.codeberg.org>\n"
-"Language: uk_UA\n"
 "Language-Team: Ukrainian <https://translate.codeberg.org/projects/readeck/application/uk/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -46,7 +49,7 @@ msgid "Home Page"
 msgstr "Головна"
 
 #: assets/templates/_libs/forms.jet.html:1
-#: assets/templates/_libs/forms.jet.html:33
+#: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
 msgstr "Обов’язково"
@@ -59,36 +62,36 @@ msgstr "Помилки"
 msgid "Please check your form for errors."
 msgstr "Перевірте, будь ласка, вашу форму на наявність помилок."
 
-#: assets/templates/_libs/forms.jet.html:212
+#: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
 msgstr "Попередні"
 
-#: assets/templates/_libs/forms.jet.html:221
+#: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
 msgstr "Дні"
 
-#: assets/templates/_libs/forms.jet.html:222
+#: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
 msgstr "Тижні"
 
-#: assets/templates/_libs/forms.jet.html:223
+#: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
 msgstr "Місяці"
 
-#: assets/templates/_libs/forms.jet.html:224
+#: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
 msgstr "Роки"
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
 msgstr "або"
 
-#: assets/templates/_libs/forms.jet.html:256
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
 msgstr "Виберіть або перетягніть файл"
 
-#: assets/templates/_libs/forms.jet.html:260
+#: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
 msgstr "видалити"
 
@@ -117,7 +120,7 @@ msgstr "Наступна"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
-#: assets/templates/profile/base.jet.html:40 internal/admin/views.go:59
+#: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
 msgstr "Користувачі"
@@ -140,8 +143,9 @@ msgstr "Користувача буде видалено через кілька
 #: assets/templates/bookmarks/import/form-text.jet.html:35
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:69
 #: assets/templates/bookmarks/label.jet.html:57
+#: assets/templates/profile/app_list.jet.html:66
 #: assets/templates/profile/token.jet.html:19
-#: assets/templates/profile/token_list.jet.html:66
+#: assets/templates/profile/token_list.jet.html:63
 msgid "Cancel"
 msgstr "Скасувати"
 
@@ -149,7 +153,7 @@ msgstr "Скасувати"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:21
+#: assets/templates/profile/index.jet.html:30
 msgid "Username"
 msgstr "Ім’я користувача"
 
@@ -170,7 +174,7 @@ msgstr "Група"
 #: assets/templates/auth/login.jet.html:29
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:17 internal/profile/views.go:130
+#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "Пароль"
 
@@ -181,7 +185,7 @@ msgstr "не зміниться, якщо пусте"
 #: assets/templates/admin/user.jet.html:50
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:83
+#: assets/templates/profile/index.jet.html:92
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
@@ -204,7 +208,7 @@ msgid "Add a new user"
 msgstr "Додати нового користувача"
 
 #: assets/templates/admin/user_list.jet.html:30
-#: assets/templates/profile/token_list.jet.html:47
+#: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "Створено: %s"
@@ -234,6 +238,104 @@ msgstr "Ім’я користувача або електронна адрес�
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
 msgstr "Забули пароль?"
+
+#: assets/templates/auth/oauth/auth-code.jet.html:8
+#: assets/templates/auth/oauth/device-code.jet.html:9
+#: assets/templates/auth/oauth/form.jet.html:14
+msgid "Authorization required"
+msgstr "Необхідна авторизація"
+
+#: assets/templates/auth/oauth/device-code.jet.html:13
+msgid "Go back to Readeck"
+msgstr "Повернутися до Readeck"
+
+#: assets/templates/auth/oauth/device-code.jet.html:28
+#: assets/templates/auth/oauth/device-code.jet.html:47
+#: assets/templates/auth/oauth/device-code.jet.html:54
+msgid "Connect a device"
+msgstr "Підключити пристрій"
+
+#: assets/templates/auth/oauth/device-code.jet.html:32
+msgid "Enter the code displayed on your device"
+msgstr "Уведіть код, який показано на вашому пристрої"
+
+#: assets/templates/auth/oauth/device-code.jet.html:37
+msgid "Next"
+msgstr "Далі"
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid "Authorization request was denied."
+msgstr "Запит на авторизацію відхилено."
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid " You can now close this page."
+msgstr " Тепер цю сторінку можна закрити."
+
+#: assets/templates/auth/oauth/device-code.jet.html:57
+msgid "Authorization granted. Connecting device..."
+msgstr "Авторизацію надано. Підключення пристрою..."
+
+#: assets/templates/auth/oauth/device-code.jet.html:61
+#, python-format
+msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
+msgstr "<a href=\"%s\">Перезавантажте цю сторінку</a>, якщо вона не оновиться через кілька секунд."
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "Device is connected!"
+msgstr "Пристрій підключено!"
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "You can now close this page."
+msgstr "Тепер цю сторінку можна закрити."
+
+#: assets/templates/auth/oauth/form.jet.html:12
+#, python-format
+msgid "Signed in as: <strong>%s</strong>"
+msgstr "Підключений як: <strong>%s</strong>"
+
+#: assets/templates/auth/oauth/form.jet.html:20
+#, python-format
+msgid ""
+"\n"
+"      <strong>%s</strong> would like permission to access your account.\n"
+"      Only approve this request if you recognize and trust this source.\n"
+"    "
+msgstr ""
+"\n"
+"      <strong>%s</strong> хоче отримати доступ до вашого облікового запису.\n"
+"      Схвалюйте цей запит лише якщо ви знаєте це джерело та довіряєте йому.\n"
+"    "
+
+#: assets/templates/auth/oauth/form.jet.html:26
+msgid "Review permissions"
+msgstr "Переглянути дозволи"
+
+#: assets/templates/auth/oauth/form.jet.html:33
+msgid "Application information"
+msgstr "Інформація про застосунок"
+
+#: assets/templates/auth/oauth/form.jet.html:35
+#: assets/templates/bookmarks/collection.jet.html:72
+#: assets/templates/bookmarks/collection_create.jet.html:22
+#: assets/templates/profile/token.jet.html:42
+msgid "Name"
+msgstr "Назва"
+
+#: assets/templates/auth/oauth/form.jet.html:36
+msgid "Website"
+msgstr "Вебсайт"
+
+#: assets/templates/auth/oauth/form.jet.html:37
+msgid "Version"
+msgstr "Версія"
+
+#: assets/templates/auth/oauth/form.jet.html:42
+msgid "Authorize"
+msgstr "Дозволити"
+
+#: assets/templates/auth/oauth/form.jet.html:44
+msgid "Deny"
+msgstr "Відхилити"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
@@ -581,15 +683,10 @@ msgstr "Фільтри"
 
 #: assets/templates/bookmarks/collection.jet.html:65
 #: assets/templates/bookmarks/index.jet.html:173
-#: assets/templates/menu.jet.html:43 docs/http.go:181 docs/http.go:268
-#: docs/http.go:306
+#: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
+#: docs/http.go:308
 msgid "Documentation"
 msgstr "Документація"
-
-#: assets/templates/bookmarks/collection.jet.html:72
-#: assets/templates/bookmarks/collection_create.jet.html:22
-msgid "Name"
-msgstr "Назва"
 
 #: assets/templates/bookmarks/collection.jet.html:84
 msgid "Delete collection"
@@ -1549,7 +1646,7 @@ msgstr ""
 "  До мітки можна додати будь-що, зокрема емодзі!\n"
 
 #: assets/templates/docs/about.jet.html:20
-#: assets/templates/docs/base.jet.html:27 docs/http.go:269
+#: assets/templates/docs/base.jet.html:27 docs/http.go:270
 msgid "About Readeck"
 msgstr "Про Readeck"
 
@@ -1607,6 +1704,7 @@ msgid "Here's a short summary of the license conditions:"
 msgstr "Ось короткий огляд ліцензійних умов:"
 
 #: assets/templates/docs/about.jet.html:77
+#: assets/templates/profile/app_list.jet.html:51
 msgid "Permissions"
 msgstr "Дозволи"
 
@@ -1778,10 +1876,6 @@ msgstr "Сталася помилка."
 msgid "Change theme"
 msgstr "Змінити тему"
 
-#: assets/templates/menu.jet.html:1 assets/templates/menu.jet.html:48
-msgid "Sign out"
-msgstr "Вийти"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "Відкрити меню"
@@ -1790,34 +1884,90 @@ msgstr "Відкрити меню"
 msgid "Change color theme"
 msgstr "Змінити колірну тему"
 
-#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:9
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
 msgid "Settings"
 msgstr "Налаштування"
 
-#: assets/templates/profile/base.jet.html:14 internal/profile/views.go:94
-#: internal/profile/views.go:129 internal/profile/views.go:173
-#: internal/profile/views.go:233 internal/profile/views.go:285
-#: internal/profile/views.go:316
+#: assets/templates/profile/app_list.jet.html:10
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+msgid "Applications"
+msgstr "Застосунки"
+
+#: assets/templates/profile/app_list.jet.html:16
+msgid ""
+"\n"
+"  Applications are registered clients that have permissions to access your Readeck account.\n"
+"  If there are applications you do not recognize here, or an application is misbehaving,\n"
+"  you can revoke its access.\n"
+msgstr ""
+"\n"
+"  Застосунки — це зареєстровані клієнти, які мають доступ до вашого облікового запису Readeck.\n"
+"  Якщо тут є застосунки, які ви не впізнаєте, або якийсь застосунок працює неправильно,\n"
+"  ви можете скасувати його доступ.\n"
+
+#: assets/templates/profile/app_list.jet.html:24
+msgid "You have no registered application at the moment."
+msgstr "Наразі у вас немає зареєстрованих застосунків."
+
+#: assets/templates/profile/app_list.jet.html:46
+#, python-format
+msgid "Authorized on: %s"
+msgstr "Авторизовано: %s"
+
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr "Востаннє використано: %s"
+
+#: assets/templates/profile/app_list.jet.html:60
+msgid "This client will be revoked in a few seconds."
+msgstr "Доступ для цього клієнта буде відкликано через кілька секунд."
+
+#: assets/templates/profile/app_list.jet.html:74
+msgid "Revoke application"
+msgstr "Відкликати доступ"
+
+#: assets/templates/profile/app_list.jet.html:87
+msgid "Developer information"
+msgstr "Інформація для розробників"
+
+#: assets/templates/profile/app_list.jet.html:88
+#, python-format
+msgid ""
+"\n"
+"    If you plan to build an application, please refer to the\n"
+"    <a href=\"%s\">API Documentation</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Якщо ви плануєте створити застосунок, ознайомтеся з\n"
+"    <a href=\"%s\">документацією API</a>.\n"
+"  "
+
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
+#: internal/profile/views.go:130 internal/profile/views.go:174
+#: internal/profile/views.go:190 internal/profile/views.go:250
+#: internal/profile/views.go:301 internal/profile/views.go:332
 msgid "Profile"
 msgstr "Профіль"
 
-#: assets/templates/profile/base.jet.html:21 internal/profile/views.go:174
-#: internal/profile/views.go:234
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
+#: internal/profile/views.go:251
 msgid "API Tokens"
 msgstr "Токени API"
 
-#: assets/templates/profile/base.jet.html:29
-#: assets/templates/profile/export.jet.html:10
+#: assets/templates/profile/base.jet.html:34
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
 msgid "Export"
 msgstr "Експортувати"
 
-#: assets/templates/profile/base.jet.html:32
+#: assets/templates/profile/base.jet.html:37
 #: assets/templates/profile/import.jet.html:9
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:286
-#: internal/profile/views.go:317
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
 msgid "Import"
 msgstr "Імпортувати"
 
@@ -1906,25 +2056,34 @@ msgstr ""
 msgid "My profile"
 msgstr "Мій профіль"
 
-# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:16
+#, python-format
+msgid "You are connected as <strong>%s</strong>"
+msgstr "Ви підключені як <strong>%s</strong>"
+
 #: assets/templates/profile/index.jet.html:18
+msgid "Sign out"
+msgstr "Вийти"
+
+# | msgid "Settings"
+#: assets/templates/profile/index.jet.html:27
 msgid "Base settings"
 msgstr "Основні налаштування"
 
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:36
 msgid "Email Address"
 msgstr "Електронна адреса"
 
-#: assets/templates/profile/index.jet.html:32
+#: assets/templates/profile/index.jet.html:41
 msgid "Language"
 msgstr "Мова"
 
 # | msgid "Settings"
-#: assets/templates/profile/index.jet.html:49
+#: assets/templates/profile/index.jet.html:58
 msgid "Email settings"
 msgstr "Налаштування електронних адрес"
 
-#: assets/templates/profile/index.jet.html:50
+#: assets/templates/profile/index.jet.html:59
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -1934,23 +2093,23 @@ msgstr ""
 "    Ці необов’язкові параметри Readeck використовує для надсилання електронних листів.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:56
+#: assets/templates/profile/index.jet.html:65
 msgid "Reply To"
 msgstr "Зворотна адреса"
 
-#: assets/templates/profile/index.jet.html:57
+#: assets/templates/profile/index.jet.html:66
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "Додавати цю електронну адресу до вихідних листів, щоб одержувачі могли відповісти на них."
 
-#: assets/templates/profile/index.jet.html:62
+#: assets/templates/profile/index.jet.html:71
 msgid "Send EPUB to"
 msgstr "Адреса для надсилання EPUB"
 
-#: assets/templates/profile/index.jet.html:63
+#: assets/templates/profile/index.jet.html:72
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Адреса для попереднього заповнення одержувача, коли ви надсилаєте електронну книгу електронною поштою."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -2001,10 +2160,6 @@ msgstr "Останній використаний"
 #: assets/templates/profile/token.jet.html:36
 msgid "never used"
 msgstr "Не використовувався"
-
-#: assets/templates/profile/token.jet.html:42
-msgid "Application"
-msgstr "Застосунок"
 
 #: assets/templates/profile/token.jet.html:48
 msgid "Enabled"
@@ -2085,35 +2240,24 @@ msgid "My API Tokens"
 msgstr "Мої токени API"
 
 #: assets/templates/profile/token_list.jet.html:16
-msgid ""
-"\n"
-"  An API Token is a key that grants you (or another tool like a browser extension)\n"
-"  access to the Readeck API.\n"
-msgstr ""
-"\n"
-"  Токен API — це ключ, який надає вам (або іншому інструменту, наприклад, розширенню браузера)\n"
-"  доступ до API Readeck\n"
+msgid "An API Token is a key that grants you access to the Readeck API."
+msgstr "Токен API — це ключ, який надає вам доступ до API Readeck."
 
-#: assets/templates/profile/token_list.jet.html:20
+#: assets/templates/profile/token_list.jet.html:17
 #, python-format
 msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
-msgstr "Будь ласка, прочитайте <a href=\"%s\">Документацію API</a>, якщо ви плануєте його використовувати."
+msgstr "Будь ласка, прочитайте <a href=\"%s\">документацію API</a>, якщо ви плануєте його використовувати."
 
-#: assets/templates/profile/token_list.jet.html:25
+#: assets/templates/profile/token_list.jet.html:22
 msgid "Create a new API token"
 msgstr "Створити новий токен API"
 
-#: assets/templates/profile/token_list.jet.html:49
+#: assets/templates/profile/token_list.jet.html:46
 #, python-format
 msgid "Expires on: %s"
 msgstr "Закінчується: %s"
 
-#: assets/templates/profile/token_list.jet.html:53
-#, python-format
-msgid "Last used on: %s"
-msgstr "Востаннє використано: %s"
-
-#: assets/templates/profile/token_list.jet.html:61
+#: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Цей токен буде видалено через кілька секунд."
 
@@ -2129,23 +2273,52 @@ msgstr "Користувача оновлено."
 msgid "Invalid user and/or password"
 msgstr "Неправильний користувач і/або пароль"
 
-#: internal/auth/users/forms.go:68
-msgid "password is empty"
-msgstr "Пароль не вказано"
+#: internal/auth/users/forms.go:54
+msgctxt "role"
+msgid "no group"
+msgstr "без групи"
 
-#: internal/auth/users/forms.go:205
+#: internal/auth/users/forms.go:72
+msgid "password is empty"
+msgstr "пароль не вказано"
+
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "користувач"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "персонал"
+
+#: internal/auth/users/groups.go:21
+msgctxt "role"
+msgid "admin"
+msgstr "адміністратор"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
+msgid "Profile : Read Only"
+msgstr "Профіль: тільки читання"
+
+#: internal/auth/users/groups.go:24
+msgctxt "role"
 msgid "Bookmarks : Read Only"
 msgstr "Закладки: лише читання"
 
-#: internal/auth/users/forms.go:206
+#: internal/auth/users/groups.go:25
+msgctxt "role"
 msgid "Bookmarks : Write Only"
 msgstr "Закладки: лише запис"
 
-#: internal/auth/users/forms.go:207
+#: internal/auth/users/groups.go:26
+msgctxt "role"
 msgid "Admin : Read Only"
 msgstr "Адміністратор: лише читання"
 
-#: internal/auth/users/forms.go:208
+#: internal/auth/users/groups.go:27
+msgctxt "role"
 msgid "Admin : Write Only"
 msgstr "Адміністратор: лише запис"
 
@@ -2278,7 +2451,7 @@ msgstr "Колекція Readeck: %s"
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr "Електронна книга колекції - %s"
+msgstr "Електронна книга колекції — %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
@@ -2333,27 +2506,27 @@ msgstr "неправильний пароль"
 msgid "username does not match"
 msgstr "ім’я користувача не збігається"
 
-#: internal/profile/views.go:81
+#: internal/profile/views.go:82
 msgid "Profile updated."
 msgstr "Профіль оновлено."
 
-#: internal/profile/views.go:117
+#: internal/profile/views.go:118
 msgid "Your password was changed."
 msgstr "Ваш пароль змінено."
 
-#: internal/profile/views.go:189
+#: internal/profile/views.go:206
 msgid "An error occurred while creating your token."
 msgstr "Під час створення вашого токена виникла помилка."
 
-#: internal/profile/views.go:194
+#: internal/profile/views.go:211
 msgid "New token created."
 msgstr "Новий токен створено."
 
-#: internal/profile/views.go:213
+#: internal/profile/views.go:230
 msgid "Token was updated."
 msgstr "Токен оновлено."
 
-#: internal/profile/views.go:303
+#: internal/profile/views.go:319
 msgid "Profile imported."
 msgstr "Профіль імпортовано."
 
@@ -2383,7 +2556,12 @@ msgstr "має бути більшим або дорівнювати %d"
 msgid "must be lower or equal than %d"
 msgstr "має бути меншим або дорівнювати %d"
 
-#: pkg/forms/validators.go:398
+#: pkg/forms/validators.go:347
+#, python-format
+msgid "text must contain between %d and %d characters"
+msgstr "текст повинен бути від %d до %d символів"
+
+#: pkg/forms/validators.go:406
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v не є одним із %s"
@@ -2521,62 +2699,62 @@ msgstr "Грудень"
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr "Січ"
+msgstr "січ"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr "Лют"
+msgstr "лют"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr "Бер"
+msgstr "бер"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr "Кві"
+msgstr "кві"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr "Тра"
+msgstr "тра"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr "Чер"
+msgstr "чер"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr "Лип"
+msgstr "лип"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr "Сер"
+msgstr "сер"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr "Вер"
+msgstr "вер"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr "Жов"
+msgstr "жов"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr "Лис"
+msgstr "лис"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr "Гру"
+msgstr "гру"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
@@ -2592,7 +2770,7 @@ msgstr "пп"
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr "%a %e %b %y %H:%M:%S"
+msgstr "%a %e %b %Y %H:%M:%S"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
@@ -2702,4 +2880,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Закрити зображення"
-

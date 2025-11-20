@@ -48,15 +48,6 @@ Copyright (c) 2015 Aymerick JEHANNE
 """
 
 [[licenses]]
-name = "casbin"
-license = "Apache-2.0"
-author = "The casbin Authors"
-url = "https://github.com/casbin/casbin"
-copyright = """
-Copyright 2017 The casbin Authors. All Rights Reserved.
-"""
-
-[[licenses]]
 name = "goja"
 license = "MIT"
 author = "Dmitry Panov"
@@ -202,6 +193,15 @@ author = "Taco de Wolff"
 url = "https://github.com/tdewolff/parse"
 copyright = """
 Copyright (c) 2015 Taco de Wolff
+"""
+
+[[licenses]]
+name = "glob"
+license = "MIT"
+author = "Sergey Kamardin"
+url = "https://github.com/gobwas/glob"
+copyright = """
+Copyright (c) 2016 Sergey Kamardin
 """
 
 [[licenses]]

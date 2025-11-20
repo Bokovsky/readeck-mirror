@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS token (
     is_enabled  integer  NOT NULL DEFAULT 1,
     application text     NOT NULL,
     roles       json     NOT NULL DEFAULT "",
+    client_info json     NULL,
 
     CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );

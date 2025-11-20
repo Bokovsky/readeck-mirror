@@ -93,6 +93,9 @@ type nodeLogValue struct {
 // NodeLogValue is an [slog.LogValuer] for an [*html.Node].
 // Its LogValue method renders and truncate the node as HTML.
 func NodeLogValue(n *html.Node) slog.LogValuer {
+	if n == nil {
+		return nil
+	}
 	return &nodeLogValue{n}
 }
 
@@ -149,7 +152,7 @@ func GetExtension(mimeType string) string {
 }
 
 func commonPrefix(strs ...string) string {
-	longestPrefix := ""
+	longestPrefix := new(strings.Builder)
 	endPrefix := false
 
 	if len(strs) > 0 {
@@ -159,13 +162,13 @@ func commonPrefix(strs ...string) string {
 
 		for i := 0; i < len(first); i++ {
 			if !endPrefix && string(last[i]) == string(first[i]) {
-				longestPrefix += string(last[i])
+				longestPrefix.WriteByte(last[i])
 			} else {
 				endPrefix = true
 			}
 		}
 	}
-	return longestPrefix
+	return longestPrefix.String()
 }
 
 func requestURI(s string) (uri string) {
