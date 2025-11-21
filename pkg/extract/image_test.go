@@ -95,7 +95,7 @@ func TestRemoteImage(t *testing.T) {
 			}{
 				{"auto-png", "/img.png", "", "png"},
 				{"jpeg-jpeg", "/img.jpeg", "jpeg", "jpeg"},
-				{"gif-gif", "/img.gif", "gif", "gif"},
+				{"gif-png", "/img.gif", "gif", "png"},
 				{"png-png", "/img.png", "png", "png"},
 				{"png-gif", "/img.png", "gif", "gif"},
 			}
@@ -116,7 +116,7 @@ func TestRemoteImage(t *testing.T) {
 					assert.NoError(ri.Encode(&buf))
 
 					_, format, _ := image.DecodeConfig(bytes.NewReader(buf.Bytes()))
-					assert.Equal(format, ri.Format())
+					assert.Equal(x.expected, format)
 				})
 			}
 		})

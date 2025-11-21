@@ -126,8 +126,6 @@ func TestWebpLossless(t *testing.T) {
 
 func TestNativeImageOperations(t *testing.T) {
 	tests := []func(*img.NativeImage) error{
-		func(im *img.NativeImage) error { return im.Grayscale() },
-		func(im *img.NativeImage) error { return im.Gray16() },
 		func(im *img.NativeImage) error { return im.Clean() },
 		func(im *img.NativeImage) error { return im.SetCompression(img.CompressionBest) },
 		func(im *img.NativeImage) error { return im.SetQuality(1) },

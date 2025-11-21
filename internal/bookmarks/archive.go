@@ -119,7 +119,8 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 	}
 	defer imgSem.Release(1)
 
-	im, err := img.New(res.ContentType, r)
+	buf := new(bytes.Buffer)
+	im, err := img.New(res.ContentType, io.TeeReader(r, buf))
 	r.Close() //nolint:errcheck
 	if err != nil {
 		l.Warn("open image",
@@ -133,6 +134,16 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 			l.Warn("closing image", slog.Any("err", err))
 		}
 	}()
+
+	// Direct copy of animated images
+	if im, ok := im.(img.MultiFrameImage); ok && im.Frames() > 1 {
+		l.Debug("copy image", slog.Group("resource",
+			slog.String("type", im.ContentType()),
+			slog.Int("w", int(im.Width())),
+			slog.Int("h", int(im.Height())),
+		))
+		return io.NopCloser(buf), nil
+	}
 
 	// Second pass ignoring icons
 	if readabilityEnabled && contents.IsIcon(node, int(im.Width()), int(im.Height()), 64) {
@@ -158,7 +169,7 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 		dom.SetAttribute(node, "height", strconv.FormatUint(uint64(im.Height()), 10))
 	}
 
-	buf := new(bytes.Buffer)
+	buf.Reset()
 	if err = im.Encode(buf); err != nil {
 		l.Warn("encode image", slog.Any("err", err))
 		return nil, archiver.ErrRemoveSrc

@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"errors"
 	"image"
-	"image/draw"
 	"io"
 
 	"image/gif"  // GIF decoder and encoder
@@ -20,7 +19,6 @@ import (
 	_ "golang.org/x/image/tiff"         // TIFF decoder
 	_ "golang.org/x/image/webp"         // WEBP decoder
 
-	"github.com/anthonynsimon/bild/effect"
 	"github.com/anthonynsimon/bild/transform"
 )
 
@@ -30,7 +28,6 @@ func init() {
 			return NewNativeImage(r)
 		},
 		"image/bmp",
-		"image/gif",
 		"image/x-icon",
 		"image/vnd.microsoft.icon",
 		"image/jpeg",
@@ -141,24 +138,6 @@ func (im *NativeImage) SetQuality(q uint8) error {
 // Resize resizes the image to the given width and height.
 func (im *NativeImage) Resize(w, h uint) error {
 	im.m = transform.Resize(im.m, int(w), int(h), transform.Box)
-	return nil
-}
-
-// Grayscale transforms the image to a grayscale version.
-func (im *NativeImage) Grayscale() error {
-	im.m = effect.Grayscale(im.m)
-	return nil
-}
-
-// Gray16 transforms the image to a 16 gray levels palette,
-// applying a Floyd Steinberg dithering. It is better to
-// convert the image to grayscale before this operation.
-func (im *NativeImage) Gray16() error {
-	b := im.m.Bounds()
-
-	pm := image.NewPaletted(b, Gray16Palette)
-	draw.FloydSteinberg.Draw(pm, b, im.m, b.Min)
-	im.m = pm
 	return nil
 }
 
