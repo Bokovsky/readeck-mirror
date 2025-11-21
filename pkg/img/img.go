@@ -12,29 +12,8 @@ package img
 
 import (
 	"fmt"
-	"image/color"
 	"io"
 )
-
-// Gray16Palette is a 16 level b&w palette.
-var Gray16Palette = []color.Color{
-	color.RGBA{0x00, 0x00, 0x00, 0xff},
-	color.RGBA{0x11, 0x11, 0x11, 0xff},
-	color.RGBA{0x22, 0x22, 0x22, 0xff},
-	color.RGBA{0x33, 0x33, 0x33, 0xff},
-	color.RGBA{0x44, 0x44, 0x44, 0xff},
-	color.RGBA{0x55, 0x55, 0x55, 0xff},
-	color.RGBA{0x66, 0x66, 0x66, 0xff},
-	color.RGBA{0x77, 0x77, 0x77, 0xff},
-	color.RGBA{0x88, 0x88, 0x88, 0xff},
-	color.RGBA{0x99, 0x99, 0x99, 0xff},
-	color.RGBA{0xaa, 0xaa, 0xaa, 0xff},
-	color.RGBA{0xbb, 0xbb, 0xbb, 0xff},
-	color.RGBA{0xcc, 0xcc, 0xcc, 0xff},
-	color.RGBA{0xdd, 0xdd, 0xdd, 0xff},
-	color.RGBA{0xee, 0xee, 0xee, 0xff},
-	color.RGBA{0xff, 0xff, 0xff, 0xff},
-}
 
 // ImageCompression is the compression level used for PNG images.
 type ImageCompression uint8
@@ -59,9 +38,15 @@ type Image interface {
 	Encode(io.Writer) error
 	SetCompression(ImageCompression) error
 	SetQuality(uint8) error
-	Grayscale() error
-	Gray16() error
 	Clean() error
+}
+
+// MultiFrameImage describes the interface of an image with multiple frames,
+// such as animated GIFs.
+type MultiFrameImage interface {
+	Image
+	Frames() uint
+	FirstFrame() Image
 }
 
 // ImageFilter is a filter application function used by the

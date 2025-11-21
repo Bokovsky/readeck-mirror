@@ -13,7 +13,7 @@ require (
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.3.1
 	github.com/cristalhq/acmd v0.12.0
-	github.com/dop251/goja v0.0.0-20251103141225-af2ceb9156d7
+	github.com/dop251/goja v0.0.0-20251120180908-00ab4e88c633
 	github.com/dop251/goja_nodejs v0.0.0-20251015164255-5e94316bedaf
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.11
@@ -57,7 +57,7 @@ require (
 	github.com/JohannesKaufmann/dom v0.2.0 // indirect
 	github.com/PuerkitoBio/goquery v1.11.0 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
-	github.com/antchfx/xpath v1.3.5 // indirect
+	github.com/antchfx/xpath v1.3.6-0.20251110055512-3cbab9750ea3 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
@@ -96,3 +96,5 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 )
+
+replace github.com/antchfx/htmlquery v1.3.5 => github.com/mislav/htmlquery v1.3.5-0.20251120154755-ff4291f46397
