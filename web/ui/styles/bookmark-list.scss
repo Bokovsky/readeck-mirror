@@ -310,6 +310,9 @@
       > strong {
         @apply leading-none overflow-hidden text-ellipsis;
       }
+      > span {
+        @apply text-nowrap;
+      }
     }
 
     &--labels {
@@ -404,6 +407,9 @@
         > strong {
           @apply flex-grow-0;
         }
+        > span {
+          @apply text-nowrap;
+        }
       }
 
       &--spinner {
@@ -473,6 +479,9 @@
 
       > strong {
         @apply overflow-hidden text-ellipsis;
+      }
+      > span {
+        @apply text-nowrap;
       }
     }
 
