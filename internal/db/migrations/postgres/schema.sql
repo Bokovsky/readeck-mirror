@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS token (
     roles       jsonb         NOT NULL DEFAULT '[]',
     client_info jsonb         NULL,
 
-    CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE,
+    CONSTRAINT fk_token_user FOREIGN KEY (user_id) REFERENCES "user"(id) ON DELETE CASCADE
 );
 
 CREATE TABLE IF NOT EXISTS "credential" (
