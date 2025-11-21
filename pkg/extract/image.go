@@ -29,6 +29,7 @@ const (
 )
 
 // NewRemoteImage loads an image and returns a new img.Image instance.
+// If the image is a GIF, it returns its first frame only.
 func NewRemoteImage(ctx context.Context, client *http.Client, src string) (img.Image, error) {
 	if client == nil {
 		client = http.DefaultClient
@@ -62,7 +63,17 @@ func NewRemoteImage(ctx context.Context, client *http.Client, src string) (img.I
 	if err != nil {
 		return nil, err
 	}
-	return img.New(mtype.String(), io.MultiReader(buf, rsp.Body))
+
+	im, err := img.New(mtype.String(), io.MultiReader(buf, rsp.Body))
+	if err != nil {
+		return nil, err
+	}
+
+	// Image is a GIF, use its first frame only.
+	if x, ok := im.(img.MultiFrameImage); ok {
+		im = x.FirstFrame()
+	}
+	return im, nil
 }
 
 // Picture is a remote picture.
