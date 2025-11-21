@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.21.1] - 2025-11-21
+### Fixed
+- Initial PostgreSQL schema
+
+### Improved
+- Save animated GIFs and convert single-frame GIFs to PNG
+- Github extraction, by by [@mislav] and [@linsui]
+
 ## [0.21.0] - 2025-11-20
 ### Added
 - HTTPS listener with certificate/key pair
