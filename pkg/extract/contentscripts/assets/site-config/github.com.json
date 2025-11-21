@@ -1,22 +1,22 @@
 {
   "title_selectors": [
-    "//article[contains(concat(' ',normalize-space(@class),' '),' markdown-body ')]//h1"
+    "//div[@id='wiki-wrapper']//h1",
+    "//*[@itemprop='text'][ancestor::*[@itemscope][1][@itemtype='http://schema.org/SoftwareSourceCode']]//h1"
   ],
   "body_selectors": [
     "//div[@id='wiki-body']",
-    "//div[contains(concat(' ',normalize-space(@class),' '),' Box-body ')]",
+    "//*[@itemprop='text'][ancestor::*[@itemscope][1][@itemtype='http://schema.org/SoftwareSourceCode']]",
     "//article[1]"
   ],
   "date_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' Details ')]//relative-time"
+    "//*[@data-testid='latest-commit-details']//relative-time/@datetime"
   ],
-  "author_selectors": [
-    "//a[contains(concat(' ',normalize-space(@class),' '),' fn ')]"
-  ],
+  "author_selectors": null,
   "strip_selectors": [
     "//select-panel",
     "//dialog",
-    "//dialog-helper"
+    "//dialog-helper",
+    "//*[local-name()='svg'][@aria-hidden]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
