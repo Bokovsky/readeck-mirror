@@ -42,6 +42,7 @@ func checkUser(f forms.Binder) *users.User {
 		f.AddErrors("", errInvalidLogin)
 		return nil
 	}
+
 	if !user.CheckPassword(f.Get("password").String()) {
 		f.AddErrors("", errInvalidLogin)
 		return nil

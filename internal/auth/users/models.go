@@ -47,17 +47,18 @@ var (
 
 // User is a user record in database.
 type User struct {
-	locked   bool
-	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`
-	UID      string        `db:"uid"`
-	Created  time.Time     `db:"created" goqu:"skipupdate"`
-	Updated  time.Time     `db:"updated"`
-	Username string        `db:"username"`
-	Email    string        `db:"email"`
-	Password string        `db:"password"`
-	Group    string        `db:"group"`
-	Settings *UserSettings `db:"settings"`
-	Seed     int           `db:"seed"`
+	locked     bool
+	ID         int           `db:"id" goqu:"skipinsert,skipupdate"`
+	UID        string        `db:"uid"`
+	Created    time.Time     `db:"created" goqu:"skipupdate"`
+	Updated    time.Time     `db:"updated"`
+	Username   string        `db:"username"`
+	Email      string        `db:"email"`
+	Password   string        `db:"password"`
+	Group      string        `db:"group"`
+	Settings   *UserSettings `db:"settings"`
+	Seed       int           `db:"seed"`
+	TOTPSecret []byte        `db:"totp_secret"`
 }
 
 // Manager is a query helper for user entries.
@@ -195,6 +196,16 @@ func (u *User) SetSeed() int {
 	s, _ := rand.Int(rand.Reader, big.NewInt(32767))
 	u.Seed = int(s.Int64())
 	return u.Seed
+}
+
+// HasTOTP returns true if the user has a totp secret.
+func (u *User) HasTOTP() bool {
+	return len(u.TOTPSecret) > 0
+}
+
+// RequiresMFA returns true if an MFA method is required upon sign-in.
+func (u *User) RequiresMFA() bool {
+	return u.HasTOTP()
 }
 
 // IsAnonymous returns true when the instance is not set to any existing user

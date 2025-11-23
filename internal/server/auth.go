@@ -224,6 +224,10 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 		return
 	}
 
+	if sess.Payload.RequiresMFA {
+		return
+	}
+
 	if u, err = users.Users.GetOne(goqu.C("id").Eq(sess.Payload.User)); err != nil {
 		return nil, err
 	}
@@ -325,7 +329,7 @@ func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
 		sess.Payload.User = user.ID
 		sess.Payload.Seed = user.Seed
 		sess.Payload.External = true
-		// TODO: sess.Payload.NeedsMFA = user.IsTOTPEnabled()
+		sess.Payload.RequiresMFA = user.RequiresMFA()
 
 		encoded, err := SessionHandler().Encode(sess.Payload)
 		if err != nil {

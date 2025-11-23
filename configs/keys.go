@@ -16,6 +16,7 @@ var Keys = KeyMaterial{}
 const (
 	keyToken        = "api_token"
 	keySession      = "session"
+	keyTOTP         = "totp_code"
 	keyOauthRequest = "oauth_request"
 )
 
@@ -24,6 +25,7 @@ type KeyMaterial struct {
 	prk             []byte // Main pseudorandom key
 	tokenKey        SigningKey
 	sessionKey      []byte
+	totpKey         EncodingKey
 	oauthRequestKey EncodingKey
 }
 
@@ -47,6 +49,11 @@ func (km KeyMaterial) TokenKey() SigningKey {
 // SessionKey returns a 256-bit key used by the session's secure cookie.
 func (km KeyMaterial) SessionKey() []byte {
 	return km.sessionKey
+}
+
+// TOTPKey returns a 256-bit key used to encrypt the TOTP secret information.
+func (km KeyMaterial) TOTPKey() EncodingKey {
+	return km.totpKey
 }
 
 // OauthRequestKey returns a 256-bit key used to encode the oauth
@@ -77,6 +84,7 @@ func loadKeys() {
 	// Derived keys
 	Keys.tokenKey = Keys.mustExpand(keyToken, 32)
 	Keys.sessionKey = Keys.mustExpand(keySession, 32)
+	Keys.totpKey = Keys.mustExpand(keyTOTP, 32)
 
 	Keys.oauthRequestKey = Keys.mustExpand(keyOauthRequest, 32)
 }

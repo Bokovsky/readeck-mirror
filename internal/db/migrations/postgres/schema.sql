@@ -9,16 +9,17 @@ CREATE TABLE migration (
 );
 
 CREATE TABLE IF NOT EXISTS "user" (
-    id       SERIAL       PRIMARY KEY,
-    uid      varchar(32)  UNIQUE NOT NULL,
-    created  timestamptz  NOT NULL,
-    updated  timestamptz  NOT NULL,
-    username varchar(128) UNIQUE NOT NULL,
-    email    varchar(128) UNIQUE NOT NULL,
-    password varchar(256) NOT NULL,
-    "group"  varchar(64)  NOT NULL DEFAULT 'user',
-    settings jsonb        NOT NULL DEFAULT '{}',
-    seed     integer      NOT NULL DEFAULT 0
+    id          SERIAL       PRIMARY KEY,
+    uid         varchar(32)  UNIQUE NOT NULL,
+    created     timestamptz  NOT NULL,
+    updated     timestamptz  NOT NULL,
+    username    varchar(128) UNIQUE NOT NULL,
+    email       varchar(128) UNIQUE NOT NULL,
+    password    varchar(256) NOT NULL,
+    "group"     varchar(64)  NOT NULL DEFAULT 'user',
+    settings    jsonb        NOT NULL DEFAULT '{}',
+    seed        integer      NOT NULL DEFAULT 0,
+    totp_secret bytea        NULL
 );
 
 CREATE TABLE IF NOT EXISTS token (
