@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.21.2] - 2025-11-23
+### Fixed
+- Regression with Youtube extraction
+- Regression with cover image extraction
+- Layout bug with reading time on bookmark list
+
 ## [0.21.1] - 2025-11-21
 ### Fixed
 - Initial PostgreSQL schema
