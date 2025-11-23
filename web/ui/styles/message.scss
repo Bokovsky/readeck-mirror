@@ -9,9 +9,9 @@
     @apply bg-gradient-to-r from-[0.25rem] via-[0.25rem];
     @apply transition-all duration-300 ease-in-out;
 
-    --msg-color: theme("colors.blue.800");
-    --msg-border: theme("colors.blue.700");
-    --msg-bg: theme("colors.blue.50");
+    --msg-color: theme("colors.gray.800");
+    --msg-border: theme("colors.gray.700");
+    --msg-bg: theme("colors.gray.100");
     --msg-remover: theme("colors.gray.500");
     --msg-remover-hover: theme("colors.red.700");
 
@@ -21,6 +21,12 @@
     --tw-gradient-from: var(--msg-border) var(--tw-gradient-from-position);
 
     border-color: var(--msg-border);
+
+    &.info {
+      --msg-color: theme("colors.blue.800");
+      --msg-border: theme("colors.blue.700");
+      --msg-bg: theme("colors.blue.50");
+    }
 
     &.success {
       --msg-color: theme("colors.green.800");

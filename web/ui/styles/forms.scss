@@ -16,10 +16,11 @@
     }
 
     &:disabled {
-      @apply text-gray-500 cursor-not-allowed;
+      @apply text-gray-dark/70 border-gray-100 bg-gray-light/80;
+      @apply cursor-not-allowed;
     }
 
-    &:hover {
+    &:not(:disabled):hover {
       @apply border-gray-600;
     }
 

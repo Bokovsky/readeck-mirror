@@ -20,10 +20,12 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/base58"
+	"codeberg.org/readeck/readeck/pkg/totp"
 )
 
 func init() {
@@ -206,6 +208,20 @@ func (u *User) HasTOTP() bool {
 // RequiresMFA returns true if an MFA method is required upon sign-in.
 func (u *User) RequiresMFA() bool {
 	return u.HasTOTP()
+}
+
+// SetTOTPCode encodes the user's totp secret. It does **not** save the user.
+func (u *User) SetTOTPCode(code *totp.Code) error {
+	if code == nil {
+		u.TOTPSecret = nil
+	} else {
+		data, err := configs.Keys.TOTPKey().EncodeJSON(code)
+		if err != nil {
+			return err
+		}
+		u.TOTPSecret = data
+	}
+	return nil
 }
 
 // IsAnonymous returns true when the instance is not set to any existing user

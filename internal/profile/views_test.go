@@ -98,6 +98,7 @@ func TestViews(t *testing.T) {
 			WithMethod(http.MethodPost),
 			WithTarget("/profile/password"),
 			WithBody(url.Values{
+				"action":   {"change"},
 				"current":  {"user"},
 				"password": {"user1234"},
 			}),

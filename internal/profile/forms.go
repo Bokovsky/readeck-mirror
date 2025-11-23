@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/totp"
 )
 
 type (
@@ -197,63 +198,118 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 	return
 }
 
-// passwordForm is a form to update a user's password.
-type passwordForm struct {
+// changePasswordForm is a form to update a user's password.
+type changePasswordForm struct {
 	*forms.Form
 }
 
-// newPasswordForm returns a PasswordForm instance.
-func newPasswordForm(tr forms.Translator) *passwordForm {
-	return &passwordForm{forms.Must(
-		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("current", forms.ValueValidatorFunc[string](func(f forms.Field, value string) error {
-			// If a user was passed in context, then "current"
-			// is mandatory and must match the current user
-			// password.
-			form := forms.GetForm(f)
-			u, ok := form.Context().Value(ctxUserFormKey{}).(*users.User)
-			if !ok {
+// newChangePasswordForm returns a [changePasswordForm] instance.
+func newChangePasswordForm(tr forms.Translator, user *users.User) *changePasswordForm {
+	ctx := context.WithValue(context.Background(), ctxUserFormKey{}, user)
+	ctx = forms.WithTranslator(ctx, tr)
+
+	return &changePasswordForm{forms.Must(
+		ctx,
+		forms.NewTextField("current",
+			forms.Required,
+			forms.ValueValidatorFunc[string](func(f forms.Field, value string) error {
+				// If a user was passed in context, then "current"
+				// is mandatory and must match the current user
+				// password.
+				user := forms.GetForm(f).Context().Value(ctxUserFormKey{}).(*users.User)
+
+				if !user.CheckPassword(value) {
+					return errInvalidPassword
+				}
+
 				return nil
-			}
-			if errs := forms.ApplyValidators[string](f, value, forms.Required); len(errs) > 0 {
-				return errors.Join(errs...)
-			}
-
-			if !u.CheckPassword(value) {
-				return errInvalidPassword
-			}
-
-			return nil
-		})),
+			})),
 		forms.NewTextField("password",
 			forms.Required, users.IsValidPassword,
 		),
 	)}
 }
 
-// setUser adds a user to the wrapping form's context.
-func (f *passwordForm) setUser(u *users.User) {
-	ctx := context.WithValue(f.Context(), ctxUserFormKey{}, u)
-	f.SetContext(ctx)
-}
-
 // updatePassword performs the user's password update.
-func (f *passwordForm) updatePassword(u *users.User) (err error) {
+func (f *changePasswordForm) updatePassword() (err error) {
 	defer func() {
 		if err != nil {
 			f.AddErrors("", forms.ErrUnexpected)
 		}
 	}()
 
-	if err = u.SetPassword(f.Get("password").String()); err != nil {
+	user := f.Context().Value(ctxUserFormKey{}).(*users.User)
+	if err = user.SetPassword(f.Get("password").String()); err != nil {
 		return
 	}
-	err = u.Update(goqu.Record{
-		"password": u.Password,
-		"seed":     u.SetSeed(),
+	err = user.Update(goqu.Record{
+		"password": user.Password,
+		"seed":     user.SetSeed(),
 		"updated":  time.Now().UTC(),
 	})
 	return
+}
+
+// totpForm manages user's TOTP.
+type totpForm struct {
+	*forms.Form
+	code totp.Code
+}
+
+// newTOTPForm returns a new [totpForm] instance.
+func newTOTPForm(tr forms.Translator, user *users.User) *totpForm {
+	ctx := context.WithValue(context.Background(), ctxUserFormKey{}, user)
+	ctx = forms.WithTranslator(ctx, tr)
+
+	return &totpForm{
+		Form: forms.Must(
+			ctx,
+			forms.NewTextField("secret"),
+			forms.NewTextField("otp", forms.Required, forms.StrLen(6, 6)),
+		),
+	}
+}
+
+// Validate sets the code from the secret.
+func (f *totpForm) Validate() {
+	if f.Get("secret").IsEmpty() {
+		f.AddErrors("", errors.New("secret missing"))
+		return
+	}
+
+	f.code = totp.NewCode(f.Get("secret").String())
+	if f.IsValid() {
+		ok, err := f.code.Verify(f.Get("otp").String(), time.Now().UTC(), 1)
+		if err != nil {
+			f.AddErrors("", forms.ErrUnexpected)
+			return
+		}
+		if !ok {
+			f.AddErrors("otp", forms.Gettext("Invalid code"))
+		}
+	}
+}
+
+// generate returns creates a new [totp.Code] an sets the secret field.
+func (f *totpForm) generate() {
+	f.code = totp.Generate()
+	f.code.Issuer = "Readeck"
+	f.code.Account = f.Context().Value(ctxUserFormKey{}).(*users.User).Username
+	f.Get("secret").Set(f.code.Secret)
+}
+
+// save performs the user's totp update.
+func (f *totpForm) save() error {
+	user := f.Context().Value(ctxUserFormKey{}).(*users.User)
+	if err := user.SetTOTPCode(&f.code); err != nil {
+		return err
+	}
+
+	return user.Update(goqu.Record{
+		"totp_secret": user.TOTPSecret,
+		"seed":        user.SetSeed(),
+		"updated":     time.Now().UTC(),
+	})
 }
 
 type sessionPrefForm struct {
