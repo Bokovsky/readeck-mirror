@@ -35,7 +35,7 @@ type Image interface {
 	Height() uint
 	SetFormat(string) error
 	Resize(uint, uint) error
-	Encode(io.Writer) error
+	Encode(io.Writer) (string, error)
 	SetCompression(ImageCompression) error
 	SetQuality(uint8) error
 	Clean() error

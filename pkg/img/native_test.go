@@ -57,8 +57,9 @@ func TestNativeImageResize(t *testing.T) {
 	assert.NoError(im.Resize(400, 200))
 
 	buf := new(bytes.Buffer)
-	err = im.Encode(buf)
+	ct, err := im.Encode(buf)
 	assert.NoError(err)
+	assert.Equal("image/png", ct)
 
 	p, _, err := image.Decode(buf)
 	assert.NoError(err)
@@ -71,11 +72,11 @@ func TestNativeImageEncode(t *testing.T) {
 		format   string
 		expected string
 	}{
-		{"png", "png"},
-		{"", "png"},
-		{"jpeg", "jpeg"},
-		{"gif", "gif"},
-		{"bmp", "jpeg"},
+		{"png", "image/png"},
+		{"", "image/png"},
+		{"jpeg", "image/jpeg"},
+		{"gif", "image/gif"},
+		{"bmp", "image/jpeg"},
 	}
 
 	data := newImage(200, 100)
@@ -88,11 +89,13 @@ func TestNativeImageEncode(t *testing.T) {
 			assert.NoError(im.SetFormat(test.format))
 
 			buf := new(bytes.Buffer)
-			assert.NoError(im.Encode(buf))
+			ct, err := im.Encode(buf)
+			assert.NoError(err)
+			assert.Equal(test.expected, ct)
 
 			im, err = img.NewNativeImage(buf)
 			assert.NoError(err)
-			assert.Equal(test.expected, im.Format())
+			assert.Equal(test.expected, im.ContentType())
 		})
 	}
 }
@@ -102,8 +105,8 @@ func TestWebpLossless(t *testing.T) {
 		file     string
 		expected string
 	}{
-		{"fixtures/lossless.webp", "png"},
-		{"fixtures/lossy.webp", "jpeg"},
+		{"fixtures/lossless.webp", "image/png"},
+		{"fixtures/lossy.webp", "image/jpeg"},
 	}
 
 	for i, test := range tests {
@@ -115,11 +118,13 @@ func TestWebpLossless(t *testing.T) {
 			assert.NoError(err)
 
 			buf := new(bytes.Buffer)
-			assert.NoError(im.Encode(buf))
+			ct, err := im.Encode(buf)
+			assert.NoError(err)
+			assert.Equal(test.expected, ct)
 
 			im, err = img.NewNativeImage(buf)
 			assert.NoError(err)
-			assert.Equal(test.expected, im.Format())
+			assert.Equal(test.expected, im.ContentType())
 		})
 	}
 }

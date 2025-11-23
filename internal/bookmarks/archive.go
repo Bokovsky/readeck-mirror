@@ -170,7 +170,8 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 	}
 
 	buf.Reset()
-	if err = im.Encode(buf); err != nil {
+	ct, err := im.Encode(buf)
+	if err != nil {
 		l.Warn("encode image", slog.Any("err", err))
 		return nil, archiver.ErrRemoveSrc
 	}
@@ -178,17 +179,17 @@ func ConvertCollectedImage(ctx context.Context, c archiver.Collector, res *archi
 	l.Debug("convert image",
 		slog.Group("resource",
 			slog.String("type", res.ContentType),
-			slog.Int("w", int(im.Width())),
-			slog.Int("h", int(im.Height())),
+			slog.Int("w", res.Width),
+			slog.Int("h", res.Height),
 		),
 		slog.Group("image",
-			slog.String("format", im.Format()),
+			slog.String("type", ct),
 			slog.Int("w", int(im.Width())),
 			slog.Int("h", int(im.Height())),
 		),
 	)
 
-	res.ContentType = im.ContentType()
+	res.ContentType = ct
 	res.Width = int(im.Width())
 	res.Height = int(im.Height())
 	res.Name = strings.TrimSuffix(res.Name, path.Ext(res.Name))
