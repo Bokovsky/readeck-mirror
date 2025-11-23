@@ -10,6 +10,7 @@ import (
 	"errors"
 	"image"
 	"net/url"
+	"strings"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
@@ -93,11 +94,11 @@ func TestRemoteImage(t *testing.T) {
 				format   string
 				expected string
 			}{
-				{"auto-png", "/img.png", "", "png"},
-				{"jpeg-jpeg", "/img.jpeg", "jpeg", "jpeg"},
-				{"gif-png", "/img.gif", "gif", "png"},
-				{"png-png", "/img.png", "png", "png"},
-				{"png-gif", "/img.png", "gif", "gif"},
+				{"auto-png", "/img.png", "", "image/png"},
+				{"jpeg-jpeg", "/img.jpeg", "jpeg", "image/jpeg"},
+				{"gif-png", "/img.gif", "gif", "image/png"},
+				{"png-png", "/img.png", "png", "image/png"},
+				{"png-gif", "/img.png", "gif", "image/gif"},
 			}
 
 			for _, x := range tests {
@@ -113,10 +114,12 @@ func TestRemoteImage(t *testing.T) {
 					assert.NoError(ri.SetFormat(x.format))
 
 					var buf bytes.Buffer
-					assert.NoError(ri.Encode(&buf))
+					ct, err := ri.Encode(&buf)
+					assert.NoError(err)
+					assert.Equal(x.expected, ct)
 
 					_, format, _ := image.DecodeConfig(bytes.NewReader(buf.Bytes()))
-					assert.Equal(x.expected, format)
+					assert.Equal(strings.TrimPrefix(x.expected, "image/"), format)
 				})
 			}
 		})

@@ -56,82 +56,77 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 
 		// fetch relevant information
 		if headline, ok := md.getProp("Article.name", "*.headline", "{Movie,VideObject}.name").(string); ok {
-			d.Title = headline
+			d.Meta.Add("ld.headline", headline)
 		}
 		if description, ok := md.getProp("{Article,NewsArticle,WebPage}.description", "*.description").(string); ok {
-			d.Description = description
+			d.Meta.Add("ld.description", description)
 		}
 		if image, ok := md.getProp("*.{image,image.url,thumbnailUrl}").(string); ok {
-			d.Meta.Add("x.picture_url", image)
+			d.Meta.Add("ld.image", image)
 		}
 
 		if lang, ok := md.getProp("*.{inLanguage,inLanguage.alternateName}").(string); ok {
-			d.Lang = lang[0:2]
+			d.Meta.Add("ld.lang", lang[0:2])
 		}
 		if published, ok := md.getProp("*.datePublished").(string); ok {
-			if t, err := dateparse.ParseAny(published); err == nil {
-				d.Date = t
-			}
+			d.Meta.Add("ld.published", published)
 		}
 		if publisher, ok := md.getProp("{*.publisher,*.publisher.name,{Blog,WebSite}.name}").(string); ok {
-			d.Site = publisher
+			d.Meta.Add("ld.publisher", publisher)
 		}
 
 		// note: this will stop at the first matches
 		// (if we have 3 entries in *.author.name, it won't check Person.name)
-		for x := range md.iterProps("*.author.name", "Person.name", "*.comment.author.alternateName") {
+		for x := range md.iterProps("*.author.name", "Person.name") {
 			if x, ok := x.(string); ok {
-				d.AddAuthors(x)
+				d.Meta.Add("ld.author", x)
 			}
 		}
 	}
 
-	if d.Title == "" {
-		d.Title = d.Meta.LookupGet(
-			"graph.title",
-			"twitter.title",
-			"schema.headline",
-			"html.title",
-		)
-	}
+	d.Title = d.Meta.LookupGet(
+		"ld.headline",
+		"graph.title",
+		"twitter.title",
+		"html.title",
+	)
 
-	if d.Description == "" {
-		d.Description = d.Meta.LookupGet(
-			"graph.description",
-			"twitter.description",
-			"html.description",
-		)
-	}
+	d.Description = d.Meta.LookupGet(
+		"ld.description",
+		"graph.description",
+		"twitter.description",
+		"html.description",
+	)
 
 	// Keep a short description (60 words)
 	if parts := strings.Fields(d.Description); len(parts) > 60 {
 		d.Description = strings.Join(parts[:60], " ") + "..."
 	}
 
-	if len(d.Authors) == 0 {
-		d.AddAuthors(d.Meta.Lookup(
-			"schema.author",
-			"dc.creator",
-			"html.author",
-			"html.byl",
-			"fediverse.creator",
-		)...)
-	}
+	d.AddAuthors(d.Meta.Lookup(
+		"ld.author",
+		"dc.creator",
+		"html.author",
+		"html.byl",
+		"fediverse.creator",
+	)...)
 
-	if site := d.Meta.LookupGet(
+	for _, site := range d.Meta.Lookup(
+		"ld.publisher",
 		"graph.site_name",
-		"schema.publisher",
-	); site != "" && (d.Site == "" || d.Site == d.URL.Hostname()) {
-		d.Site = site
+	) {
+		if site != "" {
+			d.Site = site
+			break
+		}
 	}
 
-	if d.Lang == "" {
-		if lang := d.Meta.LookupGet(
-			"html.lang",
-			"html.language",
-		); len(lang) >= 2 {
-			d.Lang = lang[0:2]
-		}
+	if lang := d.Meta.LookupGet(
+		"ld.lang",
+		"html.lang",
+		"html.language",
+	); len(lang) >= 2 {
+		d.Lang = lang[0:2]
 	}
 
 	d.TextDirection = d.Meta.LookupGet("html.dir")
@@ -149,9 +144,12 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 
 	d := m.Extractor.Drop()
 
-	if htmlDate := d.Meta.LookupGet("html.date"); d.Date.IsZero() && htmlDate != "" {
-		// Set publication date
-		d.Date, _ = dateparse.ParseLocal(htmlDate)
+	// Set publication date
+	for _, htmlDate := range d.Meta.Lookup("ld.published", "html.date") {
+		if dt, err := dateparse.ParseLocal(htmlDate); err == nil && !dt.IsZero() {
+			d.Date = dt.UTC()
+			break
+		}
 	}
 
 	// We might have a picture here

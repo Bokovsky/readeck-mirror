@@ -142,15 +142,15 @@ func (im *GIFImage) Resize(w, h uint) error {
 }
 
 // Encode encodes the image to an io.Writer.
-func (im *GIFImage) Encode(w io.Writer) error {
+func (im *GIFImage) Encode(w io.Writer) (string, error) {
 	if len(im.Image) == 1 {
 		// A GIF made of one image is converted to PNG
 		encoder := &png.Encoder{CompressionLevel: png.BestSpeed}
 		if im.compression == CompressionBest {
 			encoder.CompressionLevel = png.BestCompression
 		}
-		return encoder.Encode(w, im.Image[0])
+		return "image/png", encoder.Encode(w, im.Image[0])
 	}
 
-	return gif.EncodeAll(w, im.GIF)
+	return "image/gif", gif.EncodeAll(w, im.GIF)
 }

@@ -113,14 +113,14 @@ func (p *Picture) Load(ctx context.Context, client *http.Client, size uint, toFo
 	}
 
 	var buf bytes.Buffer
-	err = ri.Encode(&buf)
+	ct, err := ri.Encode(&buf)
 	if err != nil {
 		return err
 	}
 
 	p.bytes = buf.Bytes()
 	p.Size = [2]int{int(ri.Width()), int(ri.Height())}
-	p.Type = ri.ContentType()
+	p.Type = ct
 	p.format = ri.Format()
 	return nil
 }
@@ -140,14 +140,14 @@ func (p *Picture) Copy(size uint, toFormat string) (*Picture, error) {
 	}
 
 	var buf bytes.Buffer
-	err = ri.Encode(&buf)
+	ct, err := ri.Encode(&buf)
 	if err != nil {
 		return nil, err
 	}
 
 	res.bytes = buf.Bytes()
 	res.Size = [2]int{int(ri.Width()), int(ri.Height())}
-	res.Type = ri.ContentType()
+	res.Type = ct
 	res.format = ri.Format()
 	return res, nil
 }

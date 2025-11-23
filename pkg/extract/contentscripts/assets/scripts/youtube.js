@@ -18,11 +18,12 @@ exports.setConfig = function (config) {
 }
 
 exports.processMeta = function () {
-  if ($.meta["schema.identifier"].length == 0) {
+  const videoID = ($.properties["json-ld"] || []).find(
+    (x) => x["@type"] == "VideoObject" && !!x.identifier,
+  ).identifier
+  if (!videoID) {
     return
   }
-
-  const videoID = $.meta["schema.identifier"][0]
 
   const info = getVideoInfo(videoID)
   let html = ""
