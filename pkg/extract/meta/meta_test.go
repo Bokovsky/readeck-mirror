@@ -110,18 +110,24 @@ func TestMeta(t *testing.T) {
 			pm.Dom, _ = html.Parse(bytes.NewReader(getFileContents("meta/meta3.html")))
 
 			ExtractMeta(pm, nil)
+			SetDropProperties(pm, nil)
 
 			assert.Equal(t, "The AWS Outage Bricked People’s $2,700 Smartbeds", ex.Drop().Title)
 			assert.Equal(t, "When Amazon Web Services went offline, people lost control of their cloud-connected smart beds, getting stuck in reclined positions or roasting with the heat turned all the way up.", ex.Drop().Description)
 			assert.Equal(t, []string{"Matthew Gault", "Samantha Cole"}, ex.Drop().Authors)
 			assert.Equal(t, "404 Media", ex.Drop().Site)
-			assert.Equal(t, time.Date(2025, time.October, 22, 13, 40, 3, 0, time.UTC), ex.Drop().Date)
+			assert.Equal(t, time.Date(2025, time.October, 22, 13, 40, 3, 0, time.Local).UTC(), ex.Drop().Date)
 			assert.Equal(t, "en", ex.Drop().Lang)
 
 			assert.Equal(t, extract.DropMeta{
-				"html.lang":     {"en"},
-				"html.title":    {"This is ignored"},
-				"x.picture_url": {"https://www.404media.co/content/images/size/w1200/2025/10/PodBed-1.jpg"},
+				"html.lang":      []string{"en"},
+				"html.title":     []string{"This is ignored"},
+				"ld.author":      []string{"Matthew Gault", "Samantha Cole"},
+				"ld.description": []string{"When Amazon Web Services went offline, people lost control of their cloud-connected smart beds, getting stuck in reclined positions or roasting with the heat turned all the way up."},
+				"ld.headline":    []string{"The AWS Outage Bricked People’s $2,700 Smartbeds"},
+				"ld.image":       []string{"https://www.404media.co/content/images/size/w1200/2025/10/PodBed-1.jpg"},
+				"ld.published":   []string{"2025-10-22T13:40:03.000Z"},
+				"ld.publisher":   []string{"404 Media"},
 			}, ex.Drop().Meta)
 		})
 
@@ -139,7 +145,10 @@ func TestMeta(t *testing.T) {
 			assert.True(t, ex.Drop().Date.IsZero())
 			assert.Equal(t, "zh", ex.Drop().Lang)
 
-			assert.Equal(t, extract.DropMeta{}, ex.Drop().Meta)
+			assert.Equal(t, extract.DropMeta{
+				"ld.headline": []string{"Issues list such as unescaped </script> or -->"},
+				"ld.lang":     []string{"zh"}, "ld.publisher": []string{"It's FOSS"},
+			}, ex.Drop().Meta)
 		})
 
 		t.Run("text direction", func(t *testing.T) {
@@ -304,7 +313,7 @@ func TestMeta(t *testing.T) {
 			SetDropProperties(pm, nil)
 
 			assert.Equal("article", ex.Drop().DocumentType)
-			assert.Equal(time.Date(2020, 9, 1, 11, 12, 34, 0, time.Local), ex.Drop().Date)
+			assert.Equal(time.Date(2020, 9, 1, 11, 12, 34, 0, time.Local).UTC(), ex.Drop().Date)
 		})
 
 		t.Run("process video", func(t *testing.T) {
