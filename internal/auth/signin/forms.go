@@ -16,32 +16,6 @@ import (
 
 var errInvalidLogin = forms.Gettext("Invalid user and/or password")
 
-type tokenLoginForm struct {
-	*forms.Form
-}
-
-func newTokenLoginForm(tr forms.Translator) *tokenLoginForm {
-	return &tokenLoginForm{forms.Must(
-		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", forms.Trim, forms.Required),
-		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("application", forms.Required),
-		forms.NewTextListField("roles", forms.CleanerFunc(func(v any) any {
-			// Legacy roles conversion
-			roleMap := map[any]string{
-				"scoped_bookmarks_r": "bookmarks:read",
-				"scoped_bookmarks_w": "bookmarks:write",
-				"scoped_admin_r":     "admin:read",
-				"scoped_admin_w":     "admin:write",
-			}
-			if r, ok := roleMap[v]; ok {
-				return r
-			}
-			return v
-		}), forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", nil))),
-	)}
-}
-
 type loginForm struct {
 	*forms.Form
 }
