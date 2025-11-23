@@ -28,6 +28,7 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 		"graph.image",
 		"twitter.image",
 		"oembed.thumbnail_url",
+		"ld.image",
 	)
 
 	if href == "" {

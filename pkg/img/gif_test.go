@@ -40,7 +40,9 @@ func TestAnimatedGIF(t *testing.T) {
 	assert.NoError(im.Resize(100, 100))
 
 	w := new(bytes.Buffer)
-	assert.NoError(im.Encode(w))
+	ct, err := im.Encode(w)
+	assert.NoError(err)
+	assert.Equal("image/gif", ct)
 
 	c, err := gif.DecodeConfig(w)
 	assert.NoError(err)
@@ -52,7 +54,10 @@ func TestAnimatedGIF(t *testing.T) {
 	assert.Equal("gif", ff.Format())
 
 	w.Reset()
-	assert.NoError(ff.Encode(w))
+	ct, err = ff.Encode(w)
+	assert.NoError(err)
+	assert.Equal("image/png", ct)
+
 	c, err = png.DecodeConfig(w)
 	assert.NoError(err)
 	assert.IsType((color.Palette)(nil), c.ColorModel)
@@ -79,7 +84,9 @@ func TestSingleFrameGIF(t *testing.T) {
 
 	w := new(bytes.Buffer)
 	assert.NoError(im.SetCompression(img.CompressionBest))
-	assert.NoError(im.Encode(w))
+	ct, err := im.Encode(w)
+	assert.NoError(err)
+	assert.Equal("image/png", ct)
 
 	c, err := png.DecodeConfig(w)
 	assert.NoError(err)

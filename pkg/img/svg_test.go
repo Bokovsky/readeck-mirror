@@ -241,7 +241,9 @@ func TestSvgImage(t *testing.T) {
 				assert.NoError(im.Resize(uint(test.w), uint(test.h)))
 				b := &bytes.Buffer{}
 
-				assert.NoError(im.Encode(b))
+				ct, err := im.Encode(b)
+				assert.NoError(err)
+				assert.Equal("image/svg+xml", ct)
 				assertXMLEqual(t, test.expected, b.String())
 			})
 		}
@@ -365,7 +367,9 @@ func TestClean(t *testing.T) {
 			assert.NoError(im.Clean())
 
 			b := &bytes.Buffer{}
-			assert.NoError(im.Encode(b))
+			ct, err := im.Encode(b)
+			assert.NoError(err)
+			assert.Equal("image/svg+xml", ct)
 			assertXMLEqual(t, test.expected, b.String())
 		})
 	}

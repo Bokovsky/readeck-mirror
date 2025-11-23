@@ -111,12 +111,12 @@ func (im *SvgImage) Resize(w, h uint) error {
 }
 
 // Encode encodes the image to an io.Writer.
-func (im *SvgImage) Encode(w io.Writer) error {
+func (im *SvgImage) Encode(w io.Writer) (string, error) {
 	_, err := w.Write([]byte(im.node.OutputXMLWithOptions(
 		xmlquery.WithOutputSelf(),
 		xmlquery.WithEmptyTagSupport(),
 	)))
-	return err
+	return "image/svg+xml", err
 }
 
 // Clean sanitizes the SVG image by keeping only a specific set of tags and attributes.

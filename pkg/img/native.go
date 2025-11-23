@@ -147,7 +147,7 @@ func (im *NativeImage) Clean() error {
 }
 
 // Encode encodes the image to an io.Writer.
-func (im *NativeImage) Encode(w io.Writer) error {
+func (im *NativeImage) Encode(w io.Writer) (string, error) {
 	if im.encFormat == "" {
 		im.encFormat = im.format
 	}
@@ -159,8 +159,7 @@ func (im *NativeImage) Encode(w io.Writer) error {
 		if ok {
 			numColors = len(m.Palette)
 		}
-		im.format = "gif"
-		return gif.Encode(w, im.m, &gif.Options{
+		return "image/gif", gif.Encode(w, im.m, &gif.Options{
 			NumColors: numColors,
 		})
 	case im.encFormat == "png" || im.format == "ico" || im.lossless:
@@ -169,11 +168,9 @@ func (im *NativeImage) Encode(w io.Writer) error {
 			c = png.BestCompression
 		}
 		encoder := &png.Encoder{CompressionLevel: c}
-		im.format = "png"
-		return encoder.Encode(w, im.m)
+		return "image/png", encoder.Encode(w, im.m)
 	}
 
 	// Default to jpeg encoding
-	im.format = "jpeg"
-	return jpeg.Encode(w, im.m, &jpeg.Options{Quality: int(im.quality)})
+	return "image/jpeg", jpeg.Encode(w, im.m, &jpeg.Options{Quality: int(im.quality)})
 }
