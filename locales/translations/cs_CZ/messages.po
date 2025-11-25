@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-11-14 14:09+0000\n"
+"PO-Revision-Date: 2025-11-21 11:10+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
 "Language: cs_CZ\n"
@@ -521,7 +521,7 @@ msgstr "Štítky"
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
-msgstr "Zvýraznění"
+msgstr "Zvýrazněné"
 
 #: assets/templates/bookmarks/base.jet.html:74
 #: assets/templates/bookmarks/collection.jet.html:11
@@ -996,7 +996,7 @@ msgstr "Zdroj Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr "Písmo"
+msgstr "Font písma"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
@@ -1012,7 +1012,7 @@ msgstr "Výška řádku"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr "Vyrovnat"
+msgstr "Zarovnat do bloku"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
@@ -1985,7 +1985,7 @@ msgstr "Exportovat"
 #: internal/bookmarks/routes/views_import.go:38
 #: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
 msgid "Import"
-msgstr "Import"
+msgstr "Importovat"
 
 #: assets/templates/profile/export.jet.html:15
 msgid "Export your Readeck Profile"
@@ -2047,8 +2047,8 @@ msgid ""
 "      "
 msgstr ""
 "\n"
-"      Tím se vyprázdní váš aktuální profil a všechna jeho data budou\n"
-"      nahrazena obsahem souboru.\n"
+"      Váš aktuální profil se vyčistí a všechna jeho data budou\n"
+"      nahrazena obsahem ze souboru.\n"
 "      "
 
 #: assets/templates/profile/import.jet.html:49
