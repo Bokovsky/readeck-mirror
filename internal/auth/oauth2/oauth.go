@@ -10,7 +10,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -39,7 +38,11 @@ func newOAuthAPI() *oauthAPI {
 	router.Post("/client", router.clientCreate)
 	router.Post("/device", router.deviceHandler)
 	router.Post("/token", router.tokenHandler)
-	router.With(auth.Required).Post("/revoke", router.revokeToken)
+
+	// Revocation route is authenticated
+	revoke := server.AuthenticatedRouter()
+	revoke.Post("/", router.revokeToken)
+	router.Mount("/revoke", revoke)
 
 	return router
 }
