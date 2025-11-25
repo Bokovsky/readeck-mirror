@@ -3,19 +3,21 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Jorge Santos <kkillermachine@gmail.com>, 2025.
+# henriquetguedes <henriquetguedes@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-10-19 20:44+0000\n"
-"Last-Translator: Jorge Santos <kkillermachine@gmail.com>\n"
-"Language: pt_PT\n"
+"PO-Revision-Date: 2025-11-21 17:31+0000\n"
+"Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/documentation/pt_PT/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
@@ -285,9 +287,9 @@ msgstr ""
 "- **Etiqueta**\\\n"
 "  Procure apenas etiquetas específicas.\n"
 "- **É favorito**, **Está arquivado**, **Tipo**\\\n"
-"  Procure apenas marcadores que cumprem este critérios.\n"
+"  Procure apenas marcadores que cumpram este critérios.\n"
 "- **A partir da data**, **À data**\\\n"
-"  Este últimoo filtro permite-lhe restringir a procura a um intervalo de datas em que o marcador pode ter sido guardado. Por exemplo, pode encontrar todos os marcadores guardados nas últimas 4 semana, excepto na última semana."
+"  Este último filtro permite-lhe restringir a procura a um intervalo de datas em que o marcador pode ter sido guardado. Por exemplo, pode encontrar todos os marcadores guardados nas últimas 4 semanas, excepto na última semana."
 
 #: en-US/bookmark-list.md:129
 msgid "### Search query"
@@ -834,4 +836,3 @@ msgstr "Se precisar de conceder acesso à sua conta Readeck para um serviço ou 
 #: en-US/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "Em vez disso, pode fornecer o seu nome de utilizador e um token à sua escolha como credenciais de autenticação."
-

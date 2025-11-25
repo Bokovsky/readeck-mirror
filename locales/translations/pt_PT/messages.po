@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-02 20:47+0100\n"
-"PO-Revision-Date: 2025-11-10 10:09+0000\n"
+"PO-Revision-Date: 2025-11-21 18:10+0000\n"
 "Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
 "Language: pt_PT\n"
@@ -633,7 +633,7 @@ msgstr "A página expirou"
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
-msgstr "%d min"
+msgstr "%d min"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:121
@@ -833,8 +833,8 @@ msgstr "A carregar"
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] "%d min"
-msgstr[1] "%d min"
+msgstr[0] "%d min"
+msgstr[1] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
@@ -1558,12 +1558,12 @@ msgstr "Filtros de marcadores"
 
 #: assets/templates/bookmarks/index.jet.html:32
 msgid "Save a new link"
-msgstr "Guardar um novo link"
+msgstr "Guardar uma nova ligação"
 
 #: assets/templates/bookmarks/index.jet.html:44
 msgctxt "button"
 msgid "Save link"
-msgstr "Guardar link"
+msgstr "Guardar ligação"
 
 #: assets/templates/bookmarks/index.jet.html:53
 #, python-format
