@@ -7,132 +7,132 @@ package docs_test
 import (
 	"testing"
 
-	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 	"github.com/stretchr/testify/require"
+
+	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
-func TestDocs(t *testing.T) {
+func TestPermissions(t *testing.T) {
 	app := NewTestApp(t)
 	defer func() {
 		app.Close(t)
 	}()
 
-	client := NewClient(t, app)
 	users := []string{"admin", "staff", "user", "disabled", ""}
 	for _, user := range users {
-		RunRequestSequence(t, client, user,
-			RequestTest{
-				Target: "/docs",
-				Assert: func(t *testing.T, r *Response) {
+		app.Client(WithSession(user)).Sequence(
+			RT(
+				WithTarget("/docs"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/docs/en-US/")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/docs/en-US/")
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target: "/docs/bookmark",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/bookmark"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/docs/en-US/bookmark")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/docs/en-US/bookmark")
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target: "/docs/en-US/",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/en-US/"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target: "/docs/en-US/bookmark",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/en-US/bookmark"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target:       "/docs/en-US/not-found",
-				ExpectStatus: 404,
-			},
-			RequestTest{
-				Target: "/docs/en-US/img/bookmark-new.webp",
-				Assert: func(t *testing.T, r *Response) {
-					r.AssertStatus(t, 200)
-					require.Equal(t, "image/webp", r.Header.Get("content-type"))
-				},
-			},
-			RequestTest{
-				Target: "/docs/about",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/en-US/not-found"),
+				AssertStatus(404),
+			),
+			RT(
+				WithTarget("/docs/en-US/img/bookmark-new.webp"),
+				AssertStatus(200),
+				WithAssert(func(t *testing.T, rsp *Response) {
+					require.Equal(t, "image/webp", rsp.Header.Get("content-type"))
+				}),
+			),
+			RT(
+				WithTarget("/docs/about"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
-					case "admin", "statff":
-						r.AssertStatus(t, 200)
+					case "admin", "staff":
+						rsp.AssertStatus(t, 200)
 					case "user", "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target: "/docs/api",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/api"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-			RequestTest{
-				Target: "/docs/api.json",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/docs/api.json"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
-						require.Contains(t, r.Header.Get("content-type"), "application/json")
+						rsp.AssertStatus(t, 200)
+						require.Equal(t, "application/json", rsp.Header.Get("content-type"))
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
+						rsp.AssertStatus(t, 303)
+						rsp.AssertRedirect(t, "/login")
 					}
-				},
-			},
-		)
+				}),
+			),
+		)(t)
 	}
 }

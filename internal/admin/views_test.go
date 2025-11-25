@@ -7,6 +7,7 @@ package admin_test
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"net/url"
 	"testing"
 
@@ -21,168 +22,160 @@ func TestViews(t *testing.T) {
 		app.Close(t)
 	}()
 
-	client := NewClient(t, app)
+	client := app.Client(WithSession("admin"))
 	u1, err := NewTestUser("test1", "test1@localhost", "test1", "user")
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
+	_ = u1
 
 	t.Run("users", func(t *testing.T) {
-		RunRequestSequence(t, client, "admin",
-			RequestTest{
-				Target:         "/admin",
-				ExpectStatus:   303,
-				ExpectRedirect: "/admin/users",
-			},
-			RequestTest{
-				Target:         "/admin/users",
-				ExpectStatus:   200,
-				ExpectContains: "Users</h1>",
-			},
-			RequestTest{
-				Target:         "/admin/users/add",
-				ExpectStatus:   200,
-				ExpectContains: "New User</h1>",
-			},
+		client.RT(
+			WithTarget("/admin"),
+			AssertStatus(303),
+			AssertRedirect("/admin/users"),
+		)(t)
 
-			// Create user
-			RequestTest{
-				Method:         "POST",
-				Target:         "/admin/users/add",
-				Form:           url.Values{},
-				ExpectStatus:   422,
-				ExpectContains: "Please check your form for errors.",
-			},
-			RequestTest{Target: "/admin/users/add"},
-			RequestTest{
-				Method: "POST",
-				Target: "/admin/users/add",
-				Form: url.Values{
-					"username": {"test3@localhost"},
-					"password": {"1234"},
-					"email":    {"test3"},
-					"group":    {"user"},
-				},
-				ExpectStatus: 422,
-				Assert: func(t *testing.T, r *Response) {
-					require.Contains(t, string(r.Body), "must contain English letters")
-					require.Contains(t, string(r.Body), "not a valid email address")
-				},
-			},
-			RequestTest{Target: "/admin/users/add"},
-			RequestTest{
-				Method: "POST",
-				Target: "/admin/users/add",
-				Form: url.Values{
-					"username": {"test3"},
-					"password": {"1234"},
-					"email":    {"test3@localhost"},
-					"group":    {"user"},
-				},
-				ExpectStatus:   303,
-				ExpectRedirect: `^/admin/users/\w+$`,
-			},
+		client.RT(
+			WithTarget("/admin/users"),
+			AssertStatus(200),
+			AssertContains("Users</h1>"),
+		)(t)
 
-			// Update user
-			RequestTest{
-				Target:         "/admin/users/" + u1.User.UID,
-				ExpectStatus:   200,
-				ExpectContains: "test1</h1>",
-			},
-			RequestTest{
-				Method:         "POST",
-				Target:         "/admin/users/" + u1.User.UID,
-				ExpectStatus:   303,
-				ExpectRedirect: "/admin/users/" + u1.User.UID,
-			},
-			RequestTest{
-				Target:         "/admin/users/" + u1.User.UID,
-				ExpectStatus:   200,
-				ExpectContains: "<strong>User updated.</strong>",
-			},
+		client.RT(
+			WithTarget("/admin/users/add"),
+			AssertStatus(200),
+			AssertContains("New User</h1>"),
+		)(t)
 
-			// Udpate current user
-			RequestTest{
-				Target: "/admin/users/" + app.Users["admin"].User.UID,
-			},
-			RequestTest{
-				Method: "POST",
-				Target: "/admin/users/" + app.Users["admin"].User.UID,
-				Form: url.Values{
-					"username": {"test3@localhost"},
-					"password": {"1234"},
-					"email":    {"test3"},
-					"group":    {"user"},
-				},
-				ExpectStatus: 422,
-				Assert: func(t *testing.T, r *Response) {
-					require.Contains(t, string(r.Body), "must contain English letters")
-					require.Contains(t, string(r.Body), "not a valid email address")
-				},
-			},
-			RequestTest{
-				Target: "/admin/users/" + app.Users["admin"].User.UID,
-			},
-			RequestTest{
-				Method:         "POST",
-				Target:         "/admin/users/" + app.Users["admin"].User.UID,
-				ExpectStatus:   303,
-				ExpectRedirect: "/admin/users/" + app.Users["admin"].User.UID,
-			},
-			RequestTest{
-				Target:         "/admin/users/" + u1.User.UID,
-				ExpectStatus:   200,
-				ExpectContains: "<strong>User updated.</strong>",
-			},
+		// Create user
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{}),
+			AssertStatus(422),
+			AssertContains("Please check your form for errors."),
+		)(t)
 
-			// Delete user
-			RequestTest{
-				Target: "/admin/users/" + u1.User.UID,
-			},
-			RequestTest{
-				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%s/delete", u1.User.UID),
-				ExpectStatus:   303,
-				ExpectRedirect: "/admin/users",
-			},
-			RequestTest{
-				Target:         "/admin/users/" + u1.User.UID,
-				ExpectStatus:   200,
-				ExpectContains: "User will be removed in a few seconds",
-				Assert: func(t *testing.T, _ *Response) {
-					assert := require.New(t)
-					evt := map[string]interface{}{}
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test3@localhost"},
+				"password": {"1234"},
+				"email":    {"test3"},
+				"group":    {"user"},
+			}),
+			AssertStatus(422),
+			AssertContains("must contain English letters"),
+			AssertContains("not a valid email address"),
+		)(t)
 
-					// An event was sent
-					assert.Len(Events().Records("task"), 1)
-					assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
-					assert.Equal("user.delete", evt["name"])
-					assert.InEpsilon(float64(u1.User.ID), evt["id"], 0)
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test3"},
+				"password": {"1234"},
+				"email":    {"test3@localhost"},
+				"group":    {"user"},
+			}),
+			AssertStatus(303),
+			AssertRedirect(`^/admin/users/\w+$`),
+		)(t)
 
-					// There's a task in the store
-					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
-					m := Store().Get(task)
-					assert.NotEmpty(m)
-				},
-			},
+		client.RT(
+			WithTarget(client.History[0].Response.Redirect),
+			AssertStatus(200),
+			AssertContains("test3</h1>"),
+		)(t)
 
-			// Cancel deletion
-			RequestTest{
-				Target: "/admin/users/" + u1.User.UID,
-			},
-			RequestTest{
-				Method:         "POST",
-				Target:         fmt.Sprintf("/admin/users/%s/delete", u1.User.UID),
-				Form:           url.Values{"cancel": {"1"}},
-				ExpectStatus:   303,
-				ExpectRedirect: "/admin/users",
-				Assert: func(t *testing.T, _ *Response) {
-					// The task is not in the store anymore
-					task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
-					m := Store().Get(task)
-					require.Empty(t, m)
-				},
-			},
-		)
+		// Update user
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/"+u1.User.UID),
+			WithBody(url.Values{}),
+			AssertStatus(303),
+			AssertRedirect("/admin/users/"+u1.User.UID),
+		)(t)
+
+		client.RT(
+			WithTarget(client.History[0].Response.Redirect),
+			AssertStatus(200),
+			AssertContains("test1</h1>"),
+			AssertContains("<strong>User updated.</strong>"),
+		)(t)
+
+		// Udpate current user
+		client.RT(
+			WithMethod("POST"),
+			WithTarget("/admin/users/"+app.Users["admin"].User.UID),
+			WithBody(url.Values{
+				"username": {"test3@localhost"},
+				"password": {"1234"},
+				"email":    {"test3"},
+				"group":    {"user"},
+			}),
+			AssertStatus(422),
+			AssertContains("must contain English letter"),
+			AssertContains("not a valid email address"),
+		)(t)
+
+		client.RT(
+			WithMethod("POST"),
+			WithTarget("/admin/users/"+app.Users["admin"].User.UID),
+			WithBody(url.Values{}),
+			AssertStatus(303),
+			AssertRedirect("/admin/users/"+app.Users["admin"].User.UID),
+		)(t)
+
+		client.RT(
+			WithTarget(client.History[0].Response.Redirect),
+			AssertStatus(200),
+			AssertContains("admin</h1>"),
+			AssertContains("<strong>User updated.</strong>"),
+		)(t)
+
+		// Delete user
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/"+u1.User.UID+"/delete"),
+			AssertStatus(303),
+			AssertRedirect("/admin/users"),
+		)(t)
+
+		client.RT(
+			WithTarget("/admin/users/"+u1.User.UID),
+			AssertStatus(200),
+			AssertContains("User will be removed in a few seconds"),
+			WithAssert(func(t *testing.T, _ *Response) {
+				assert := require.New(t)
+				evt := map[string]interface{}{}
+
+				// An event was sent
+				assert.Len(Events().Records("task"), 1)
+				assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
+				assert.Equal("user.delete", evt["name"])
+				assert.InEpsilon(float64(u1.User.ID), evt["id"], 0)
+
+				// There's a task in the store
+				task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
+				m := Store().Get(task)
+				assert.NotEmpty(m)
+			}),
+		)(t)
+
+		// Cancel deletion
+		client.RT(
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/"+u1.User.UID+"/delete"),
+			WithBody(url.Values{"cancel": {"1"}}),
+			AssertStatus(303),
+			AssertRedirect("/admin/users"),
+			WithAssert(func(t *testing.T, _ *Response) {
+				// The task is not in the store anymore
+				task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)
+				m := Store().Get(task)
+				require.Empty(t, m)
+			}),
+		)(t)
 	})
 }

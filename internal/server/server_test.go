@@ -162,9 +162,7 @@ func TestCsrfProtect(t *testing.T) {
 	app := NewTestApp(t)
 	defer app.Close(t)
 
-	client := NewClient(t, app)
-	app.Users["user"].Login(client)
-	defer client.Logout()
+	client := app.Client(WithSession("user"))
 
 	tests := []struct {
 		name         string
@@ -297,7 +295,9 @@ func TestCsrfProtect(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			for method, expected := range test.expected {
 				t.Run(method, func(t *testing.T) {
-					req := client.NewRequest(method, "/profile", nil)
+					req, err := client.NewRequest(method, "/profile", nil)
+					require.NoError(t, err)
+
 					if req.Method != http.MethodGet {
 						req.Body = io.NopCloser(strings.NewReader("username=user"))
 						req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
@@ -316,7 +316,7 @@ func TestCsrfProtect(t *testing.T) {
 						req.Header.Set("Origin", test.origin)
 					}
 
-					rsp := client.Request(req)
+					rsp := client.Request(t, req)
 
 					if c := rsp.Header.Get("content-type"); rsp.StatusCode >= 400 && !strings.HasPrefix(c, "text/html;") {
 						t.Errorf(`got content-type "%s", want "text/html"`, rsp.Header.Get("content-type"))
