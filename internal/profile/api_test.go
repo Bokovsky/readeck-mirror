@@ -19,7 +19,7 @@ func TestAPI(t *testing.T) {
 
 	client := app.Client(WithToken("user"))
 
-	client.RT(
+	client.RT(t,
 		WithTarget("/api/profile"),
 		AssertStatus(200),
 		AssertJSON(`{
@@ -38,9 +38,9 @@ func TestAPI(t *testing.T) {
 				"settings": "<<PRESENCE>>"
 			}
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPatch),
 		WithTarget("/api/profile"),
 		WithBody(map[string]any{}),
@@ -48,9 +48,9 @@ func TestAPI(t *testing.T) {
 		AssertJSON(`{
 			"id": "<<PRESENCE>>"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPatch),
 		WithTarget("/api/profile"),
 		WithBody(map[string]any{
@@ -64,9 +64,9 @@ func TestAPI(t *testing.T) {
 			"updated": "<<PRESENCE>>",
 			"username":"newuser"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPatch),
 		WithTarget("/api/profile"),
 		WithBody(map[string]any{
@@ -103,9 +103,9 @@ func TestAPI(t *testing.T) {
 				"settings_email_reply_to": "<<PRESENCE>>"
 			}
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPatch),
 		WithTarget("/api/profile"),
 		WithBody(map[string]any{
@@ -145,18 +145,18 @@ func TestAPI(t *testing.T) {
 				"settings_email_reply_to": "<<PRESENCE>>"
 			}
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPut),
 		WithTarget("/api/profile/password"),
 		WithBody(map[string]any{
 			"password": "newpassword",
 		}),
 		AssertStatus(200),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPut),
 		WithTarget("/api/profile/password"),
 		WithBody(map[string]any{
@@ -181,7 +181,7 @@ func TestAPI(t *testing.T) {
 				}
 			}
 		}`),
-	)(t)
+	)
 }
 
 func TestAPIDeleteToken(t *testing.T) {
@@ -196,24 +196,24 @@ func TestAPIDeleteToken(t *testing.T) {
 	t.Run("delete foreign token", func(t *testing.T) {
 		client := app.Client(WithToken("user"))
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodDelete),
 			WithTarget("/api/profile/tokens/"+u1.Token.UID),
 			AssertStatus(404),
-		)(t)
+		)
 	})
 
 	t.Run("delete own token", func(t *testing.T) {
 		client := app.Client(WithToken("test1"))
 
-		client.RT(WithTarget("/api/profile"), AssertStatus(200))(t)
+		client.RT(t, WithTarget("/api/profile"), AssertStatus(200))
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodDelete),
 			WithTarget("/api/profile/tokens/"+u1.Token.UID),
 			AssertStatus(204),
-		)(t)
+		)
 
-		client.RT(WithTarget("/api/profile"), AssertStatus(401))(t)
+		client.RT(t, WithTarget("/api/profile"), AssertStatus(401))
 	})
 }

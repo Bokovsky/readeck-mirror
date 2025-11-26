@@ -27,9 +27,9 @@ func TestViews(t *testing.T) {
 	t.Run("profile", func(t *testing.T) {
 		client := app.Client(WithSession("user"))
 
-		client.RT(WithTarget("/profile"), AssertStatus(200))(t)
+		client.RT(t, WithTarget("/profile"), AssertStatus(200))
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()),
 			WithBody(url.Values{
@@ -39,9 +39,9 @@ func TestViews(t *testing.T) {
 			AssertStatus(422),
 			AssertContains("must contain English letters"),
 			AssertContains("not a valid email address"),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()),
 			WithBody(url.Values{
@@ -49,18 +49,18 @@ func TestViews(t *testing.T) {
 			}),
 			AssertStatus(303),
 			AssertRedirect("/profile"),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()),
 			WithBody(url.Values{
 				"username": {"    "},
 			}),
 			AssertStatus(422),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()),
 			WithBody(url.Values{
@@ -68,9 +68,9 @@ func TestViews(t *testing.T) {
 				"email":    {"invalid"},
 			}),
 			AssertStatus(422),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/profile/session"),
 			WithBody(url.Values{
@@ -80,7 +80,7 @@ func TestViews(t *testing.T) {
 			AssertJSON(`{
 				"bookmark_list_display":"grid"
 			}`),
-		)(t)
+		)
 	})
 
 	t.Run("password", func(t *testing.T) {
@@ -92,7 +92,7 @@ func TestViews(t *testing.T) {
 			}
 		}()
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/profile/password"),
 			WithBody(url.Values{
@@ -101,31 +101,31 @@ func TestViews(t *testing.T) {
 			}),
 			AssertStatus(303),
 			AssertRedirect("/profile/password"),
-		)(t)
+		)
 
 		// The session has been updated, we can still use the website
-		client.RT(WithTarget("/profile"), AssertStatus(200))(t)
+		client.RT(t, WithTarget("/profile"), AssertStatus(200))
 	})
 
 	t.Run("tokens", func(t *testing.T) {
 		client := app.Client(WithSession("staff"))
 
-		client.RT(WithTarget("/profile/tokens"), AssertStatus(200))(t)
+		client.RT(t, WithTarget("/profile/tokens"), AssertStatus(200))
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/profile/tokens"),
 			AssertStatus(303),
 			AssertRedirect("/profile/tokens/.+"),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithTarget(client.History[0].Response.Redirect),
 			AssertStatus(200),
 			AssertContains("New token created"),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()),
 			WithBody(url.Values{"application": {"test"}}),
@@ -133,18 +133,18 @@ func TestViews(t *testing.T) {
 			WithAssert(func(t *testing.T, rsp *Response) {
 				rsp.AssertRedirect(t, rsp.Request.URL.Path)
 			}),
-		)(t)
+		)
 
 		// Delete token
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()+"/delete"),
 			AssertStatus(303),
 			AssertRedirect("/profile/tokens"),
-		)(t)
+		)
 
-		client.RT(
-			WithTarget(client.History[1].Request.URL.String()),
+		client.RT(t,
+			WithTarget(client.History[1].URL.String()),
 			AssertStatus(200),
 			WithAssert(func(t *testing.T, rsp *Response) {
 				assert := require.New(t)
@@ -171,19 +171,19 @@ func TestViews(t *testing.T) {
 				assert.NoError(json.Unmarshal([]byte(m), &payload))
 				assert.InDelta(float64(20), payload["delay"], 0)
 			}),
-		)(t)
+		)
 
 		// Cancel deletion
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget(client.History.PrevURL()+"/delete"),
 			WithBody(url.Values{"cancel": {"1"}}),
 			AssertStatus(303),
 			AssertRedirect("/profile/tokens"),
-		)(t)
+		)
 
-		client.RT(
-			WithTarget(client.History[1].Request.URL.String()),
+		client.RT(t,
+			WithTarget(client.History[1].URL.String()),
 			AssertStatus(200),
 			WithAssert(func(t *testing.T, rsp *Response) {
 				_, tokenID := path.Split(rsp.URL.Path)
@@ -197,6 +197,6 @@ func TestViews(t *testing.T) {
 				m := Store().Get(task)
 				require.Empty(t, m)
 			}),
-		)(t)
+		)
 	})
 }

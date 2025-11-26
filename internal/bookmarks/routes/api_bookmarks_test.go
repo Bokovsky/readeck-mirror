@@ -19,18 +19,18 @@ func TestBookmarkAPIShare(t *testing.T) {
 	client := app.Client(WithToken("user"))
 	bookmarkID := app.Users["user"].Bookmarks[0].UID
 
-	client.RT(
+	client.RT(t,
 		WithMethod("GET"),
 		WithTarget("/api/bookmarks/"+bookmarkID+"/share/link"),
 		AssertStatus(201),
-	)(t)
+	)
 
 	publicPath := client.History[0].Response.Redirect
 	require.NotEmpty(t, publicPath, "public path is set")
 
-	client.RT(
+	client.RT(t,
 		WithTarget(publicPath),
 		AssertStatus(200),
 		AssertContains(`Shared by user`),
-	)(t)
+	)
 }

@@ -24,7 +24,7 @@ func TestAPI(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Run("users", func(t *testing.T) {
-		client.RT(
+		client.RT(t,
 			WithTarget("/api/admin/users"),
 			AssertStatus(200),
 			AssertJSON(`[
@@ -79,9 +79,9 @@ func TestAPI(t *testing.T) {
 					"is_deleted": false
 				}
 			]`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithTarget("/api/admin/users/"+u1.User.UID),
 			AssertStatus(200),
 			AssertJSON(`{
@@ -95,15 +95,15 @@ func TestAPI(t *testing.T) {
 				"is_deleted": false,
 				"settings": "<<PRESENCE>>"
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithTarget("/api/admin/users/sdfgsgsgergergerge"),
 			AssertStatus(404),
 			AssertJSON(`{"status":404,"message":"Not Found"}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{}),
@@ -144,9 +144,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
@@ -189,9 +189,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
@@ -235,9 +235,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
@@ -279,9 +279,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
@@ -321,9 +321,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
@@ -334,17 +334,17 @@ func TestAPI(t *testing.T) {
 			}),
 			AssertStatus(201),
 			AssertJSON(`{"status":201,"message":"User created"}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPatch),
 			WithTarget("/api/admin/users/"+u1.User.UID),
 			WithBody(map[string]any{}),
 			AssertStatus(200),
 			AssertJSON(`{"id": "<<PRESENCE>>"}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPatch),
 			WithTarget("/api/admin/users/"+u1.User.UID),
 			WithBody(map[string]any{
@@ -388,9 +388,9 @@ func TestAPI(t *testing.T) {
 					}
 				}
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPatch),
 			WithTarget("/api/admin/users/"+u1.User.UID),
 			WithBody(map[string]any{
@@ -408,15 +408,15 @@ func TestAPI(t *testing.T) {
 				"updated": "<<PRESENCE>>",
 				"username": "test3"
 			}`),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodDelete),
 			WithTarget("/api/admin/users/"+u1.User.UID),
 			AssertStatus(204),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodDelete),
 			WithTarget("/api/admin/users/"+app.Users["admin"].User.UID),
 			AssertStatus(409),
@@ -424,6 +424,6 @@ func TestAPI(t *testing.T) {
 				"status": 409,
 				"message": "same user as authenticated"
 			}`),
-		)(t)
+		)
 	})
 }

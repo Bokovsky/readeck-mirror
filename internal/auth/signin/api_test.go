@@ -19,14 +19,14 @@ func TestAPI(t *testing.T) {
 
 	client := app.Client()
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{}),
 		AssertStatus(400),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{
@@ -39,9 +39,9 @@ func TestAPI(t *testing.T) {
 			"status":403,
 			"message":"Invalid user and/or password"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{
@@ -54,9 +54,9 @@ func TestAPI(t *testing.T) {
 			"status":403,
 			"message":"Invalid user and/or password"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{
@@ -69,9 +69,9 @@ func TestAPI(t *testing.T) {
 			"status":403,
 			"message":"Invalid user and/or password"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{
@@ -84,16 +84,16 @@ func TestAPI(t *testing.T) {
 			"id": "<<PRESENCE>>",
 			"token": "<<PRESENCE>>"
 		}`),
-	)(t)
+	)
 
 	token := client.History[0].Response.JSON.(map[string]any)["token"].(string)
-	client.RT(
+	client.RT(t,
 		WithTarget("/api/profile"),
 		WithHeader("Authorization", "Bearer "+token),
 		AssertStatus(200),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]string{
@@ -106,9 +106,9 @@ func TestAPI(t *testing.T) {
 			"id": "<<PRESENCE>>",
 			"token": "<<PRESENCE>>"
 		}`),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]any{
@@ -122,10 +122,10 @@ func TestAPI(t *testing.T) {
 			"id": "<<PRESENCE>>",
 			"token": "<<PRESENCE>>"
 		}`),
-	)(t)
+	)
 
 	token = client.History[0].Response.JSON.(map[string]any)["token"].(string)
-	client.RT(
+	client.RT(t,
 		WithTarget("/api/profile"),
 		WithHeader("Authorization", "Bearer "+token),
 		AssertStatus(200),
@@ -135,9 +135,9 @@ func TestAPI(t *testing.T) {
 				rsp.JSON.(map[string]any)["provider"].(map[string]any)["roles"],
 			)
 		}),
-	)(t)
+	)
 
-	client.RT(
+	client.RT(t,
 		WithMethod(http.MethodPost),
 		WithTarget("/api/auth"),
 		WithBody(map[string]any{
@@ -151,10 +151,10 @@ func TestAPI(t *testing.T) {
 			"id": "<<PRESENCE>>",
 			"token": "<<PRESENCE>>"
 		}`),
-	)(t)
+	)
 
 	token = client.History[0].Response.JSON.(map[string]any)["token"].(string)
-	client.RT(
+	client.RT(t,
 		WithTarget("/api/profile"),
 		WithHeader("Authorization", "Bearer "+token),
 		AssertStatus(200),
@@ -164,5 +164,5 @@ func TestAPI(t *testing.T) {
 				rsp.JSON.(map[string]any)["provider"].(map[string]any)["roles"],
 			)
 		}),
-	)(t)
+	)
 }

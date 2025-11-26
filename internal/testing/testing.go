@@ -345,6 +345,7 @@ func (ta *TestApp) SendEmail(msg *mail.Msg) error {
 
 // HistoryItem is a client's history item.
 type HistoryItem struct {
+	URL      *url.URL
 	Request  *http.Request
 	Response *Response
 }
@@ -354,7 +355,7 @@ type ClientHistory []HistoryItem
 
 // PrevURL returns the URL from the first history item.
 func (h ClientHistory) PrevURL() string {
-	return h[0].Request.URL.String()
+	return h[0].URL.String()
 }
 
 // ClientOption is a function passed to [TestApp.Client].
@@ -464,19 +465,36 @@ func (c *Client) Request(t *testing.T, req *http.Request) *Response {
 		t.Fatal(err)
 	}
 
-	c.History = append(ClientHistory{HistoryItem{
+	item := HistoryItem{
+		URL:      new(url.URL),
 		Request:  req,
 		Response: rsp,
-	}}, c.History...)
+	}
+	*item.URL = *req.URL
+	item.URL.Scheme = ""
+	item.URL.Host = ""
+
+	c.History = append(ClientHistory{item}, c.History...)
 
 	return rsp
 }
 
 // RT prepares a [RequestTest] and returns a function that receives a [testing.RT]
 // variable, runs the request and performs the assertions.
-func (c *Client) RT(options ...TestOption) func(t *testing.T) bool {
-	return func(t *testing.T) bool {
-		return c.Run(t, RT(options...))
+func (c *Client) RT(t *testing.T, options ...TestOption) {
+	c.Run(t, RT(options...))
+}
+
+// Assert runs the [RequestTest] and performs the [RequestTest.Assert] functions.
+func (c *Client) Assert(t *testing.T, rt *RequestTest) {
+	req, err := c.NewRequest(rt.Method, rt.Target, rt.Body)
+	if err != nil {
+		t.Fatal(err)
+	}
+	maps.Copy(req.Header, rt.Header)
+	rsp := c.Request(t, req)
+	for _, f := range rt.Assert {
+		f(t, rsp)
 	}
 }
 
@@ -484,28 +502,16 @@ func (c *Client) RT(options ...TestOption) func(t *testing.T) bool {
 // the assertions.
 func (c *Client) Run(t *testing.T, rt *RequestTest) bool {
 	return t.Run(rt.Name, func(t *testing.T) {
-		req, err := c.NewRequest(rt.Method, rt.Target, rt.Body)
-		maps.Copy(req.Header, rt.Header)
-		if err != nil {
-			t.Fatal(err)
-		}
-		rsp := c.Request(t, req)
-		for _, f := range rt.Assert {
-			f(t, rsp)
-		}
+		t.Attr("route", rt.Method+" "+rt.Target)
+		c.Assert(t, rt)
 	})
 }
 
 // Sequence returns a function that receives a [testing.T] variable and runs
 // the given [RequestTest] list.
-func (c *Client) Sequence(tests ...*RequestTest) func(t *testing.T) bool {
-	return func(t *testing.T) bool {
-		for _, rt := range tests {
-			if !c.Run(t, rt) {
-				return false
-			}
-		}
-		return true
+func (c *Client) Sequence(t *testing.T, tests ...*RequestTest) {
+	for _, rt := range tests {
+		c.Run(t, rt)
 	}
 }
 

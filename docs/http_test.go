@@ -20,7 +20,7 @@ func TestPermissions(t *testing.T) {
 
 	users := []string{"admin", "staff", "user", "disabled", ""}
 	for _, user := range users {
-		app.Client(WithSession(user)).Sequence(
+		app.Client(WithSession(user)).Sequence(t,
 			RT(
 				WithTarget("/docs"),
 				WithAssert(func(t *testing.T, rsp *Response) {
@@ -133,6 +133,6 @@ func TestPermissions(t *testing.T) {
 					}
 				}),
 			),
-		)(t)
+		)
 	}
 }

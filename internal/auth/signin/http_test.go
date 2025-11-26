@@ -39,18 +39,18 @@ func TestSignin(t *testing.T) {
 			t.Run(test.user, func(t *testing.T) {
 				client := app.Client()
 
-				client.RT(
+				client.RT(t,
 					WithTarget("/"),
 					AssertStatus(303),
 					AssertRedirect("/login"),
-				)(t)
+				)
 
-				client.RT(
+				client.RT(t,
 					WithTarget("/login"),
 					AssertStatus(200),
-				)(t)
+				)
 
-				client.RT(
+				client.RT(t,
 					WithMethod(http.MethodPost),
 					WithTarget("/login"),
 					WithBody(url.Values{
@@ -64,36 +64,36 @@ func TestSignin(t *testing.T) {
 						}
 						return ""
 					}()),
-				)(t)
+				)
 
-				client.RT(
+				client.RT(t,
 					WithTarget("/profile"),
 					AssertStatus(test.profileStatus),
-				)(t)
+				)
 			})
 		}
 	})
 
 	t.Run("logout view", func(t *testing.T) {
 		client := app.Client()
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/logout"),
 			WithBody(url.Values{}),
 			AssertStatus(303),
 			AssertRedirect("/login"),
-		)(t)
+		)
 
 		WithSession("user")(client)
-		client.RT(
+		client.RT(t,
 			WithTarget("/profile"),
 			AssertStatus(200),
 			WithAssert(func(t *testing.T, rsp *Response) {
 				require.Len(t, client.Jar.Cookies(rsp.URL), 1)
 			}),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/logout"),
 			WithBody(url.Values{}),
@@ -102,12 +102,12 @@ func TestSignin(t *testing.T) {
 			WithAssert(func(t *testing.T, rsp *Response) {
 				require.Empty(t, client.Jar.Cookies(rsp.URL))
 			}),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithTarget("/"),
 			AssertStatus(303),
 			AssertRedirect("/login"),
-		)(t)
+		)
 	})
 }

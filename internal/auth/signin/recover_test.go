@@ -22,13 +22,13 @@ func TestRecover(t *testing.T) {
 	t.Run("recover views", func(t *testing.T) {
 		client := app.Client()
 
-		client.RT(
+		client.RT(t,
 			WithTarget("/login/recover"),
 			AssertStatus(200),
-		)(t)
+		)
 
 		token := ""
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login/recover"),
 			WithBody(url.Values{
@@ -47,9 +47,9 @@ func TestRecover(t *testing.T) {
 				}
 				token = m[1]
 			}),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login/recover/"+token),
 			WithBody(url.Values{
@@ -57,9 +57,9 @@ func TestRecover(t *testing.T) {
 				"password": {"09876543"},
 			}),
 			AssertStatus(200),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login"),
 			WithBody(url.Values{
@@ -68,13 +68,13 @@ func TestRecover(t *testing.T) {
 			}),
 			AssertStatus(303),
 			AssertRedirect("/"),
-		)(t)
+		)
 	})
 
 	t.Run("recover no user", func(t *testing.T) {
 		client := app.Client()
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login/recover"),
 			WithBody(url.Values{
@@ -88,26 +88,26 @@ func TestRecover(t *testing.T) {
 					"However, this email address is not associated with any account",
 				)
 			}),
-		)(t)
+		)
 	})
 
 	t.Run("recover steps", func(t *testing.T) {
 		client := app.Client()
 
-		client.RT(
+		client.RT(t,
 			WithTarget("/login/recover/abcdefghijkl"),
 			AssertStatus(200),
 			AssertContains("Invalid recovery code"),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login/recover/abcdefghijkl"),
 			WithBody(url.Values{"password": {"09876543"}}),
 			AssertStatus(422),
-		)(t)
+		)
 
-		client.RT(
+		client.RT(t,
 			WithMethod(http.MethodPost),
 			WithTarget("/login/recover/abcdefghijkl"),
 			WithBody(url.Values{
@@ -116,6 +116,6 @@ func TestRecover(t *testing.T) {
 			}),
 			AssertStatus(200),
 			AssertContains("Invalid recovery code"),
-		)(t)
+		)
 	})
 }

@@ -28,7 +28,7 @@ func TestPermissions(t *testing.T) {
 	for _, user := range users {
 		t.Run(user, func(t *testing.T) {
 			// API
-			app.Client(WithToken(user)).Sequence(
+			app.Client(WithToken(user)).Sequence(t,
 				RT(
 					WithTarget("/api/admin/users"),
 					WithAssert(func(t *testing.T, rsp *Response) {
@@ -99,10 +99,10 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-			)(t)
+			)
 
 			// Views
-			app.Client(WithSession(user)).Sequence(
+			app.Client(WithSession(user)).Sequence(t,
 				RT(
 					WithTarget("/admin"),
 					WithAssert(func(t *testing.T, rsp *Response) {
@@ -192,7 +192,7 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-			)(t)
+			)
 		})
 	}
 }

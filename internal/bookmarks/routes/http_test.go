@@ -23,7 +23,7 @@ func TestPermissions(t *testing.T) {
 		t.Run(user, func(t *testing.T) {
 			u := app.Users[user]
 
-			app.Client(WithToken(user)).Sequence(
+			app.Client(WithToken(user)).Sequence(t,
 				// API
 				RT(
 					WithTarget("/api/bookmarks"),
@@ -297,10 +297,10 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-			)(t)
+			)
 
 			// Views
-			app.Client(WithSession(user)).Sequence(
+			app.Client(WithSession(user)).Sequence(t,
 				RT(
 					WithTarget("/bookmarks"),
 					WithAssert(func(t *testing.T, r *Response) {
@@ -595,7 +595,7 @@ func TestPermissions(t *testing.T) {
 					)),
 					AssertStatus(200),
 				),
-			)(t)
+			)
 		})
 	}
 }

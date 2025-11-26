@@ -28,7 +28,7 @@ func TestPermissions(t *testing.T) {
 			}
 
 			// API
-			app.Client(WithToken(user)).Sequence(
+			app.Client(WithToken(user)).Sequence(t,
 				RT(
 					WithTarget("/api/profile"),
 					WithAssert(func(t *testing.T, rsp *Response) {
@@ -99,10 +99,10 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-			)(t)
+			)
 
 			// Views
-			app.Client(WithSession(user)).Sequence(
+			app.Client(WithSession(user)).Sequence(t,
 				RT(
 					WithTarget("/profile"),
 					WithAssert(func(t *testing.T, rsp *Response) {
@@ -300,7 +300,7 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-			)(t)
+			)
 		})
 	}
 }
