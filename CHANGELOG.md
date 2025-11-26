@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.21.3] - 2025-11-26
+### Fixed
+- User management command would create users without UID
+- OAuth token revocation error when called with a session
+
+### Changed
+- Readability v2.1.0
+- Improved internal testing
+
 ## [0.21.2] - 2025-11-23
 ### Fixed
 - Regression with Youtube extraction
