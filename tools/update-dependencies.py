@@ -197,7 +197,7 @@ def main():
             push_changes(repository_url, base, branch_name)
 
         if api_url and api_token and repository:
-            create_pr(api_url, api_token, repository, branch_name)
+            create_pr(api_url, api_token, repository, base, branch_name)
 
 
 if __name__ == "__main__":
