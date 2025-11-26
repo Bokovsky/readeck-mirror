@@ -14,6 +14,7 @@ from urllib import parse, request
 from urllib.error import HTTPError
 
 SITE_CONFIG_REPO = "https://github.com/fivefilters/ftr-site-config"
+LABELS = ["Chore"]
 
 
 def versiontuple(v):
@@ -58,6 +59,18 @@ def push_changes(repository_url: str, base: str, branch_name: str):
     check_call(["git", "push", "--force", repository_url, branch_name])
 
 
+def get_labels(api_url: str, api_token: str, org: str, *names: str):
+    r = request.Request(
+        f"{api_url}/orgs/{org}/labels",
+        headers={
+            "Authorization": f"token {api_token}",
+        },
+    )
+    with request.urlopen(r) as rsp:
+        data = json.load(rsp)
+        return [x for x in data if x["name"] in names]
+
+
 def create_pr(
     api_url: str,
     api_token: str,
@@ -65,7 +78,10 @@ def create_pr(
     base: str,
     branch_name: str,
 ):
+    labels = get_labels(api_url, api_token, repository.split("/")[0], *LABELS)
+
     r = request.Request(
+        method="POST",
         url=f"{api_url}/repos/{repository}/pulls",
         headers={
             "Content-Type": "application/json",
@@ -76,6 +92,7 @@ def create_pr(
                 "base": base,
                 "head": branch_name,
                 "title": f"Dependencies update [{date.today()}]",
+                "labels": [x["id"] for x in labels],
             }
         ).encode("utf-8"),
     )
