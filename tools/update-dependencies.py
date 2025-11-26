@@ -14,6 +14,7 @@ from urllib import parse, request
 from urllib.error import HTTPError
 
 SITE_CONFIG_REPO = "https://github.com/fivefilters/ftr-site-config"
+LABELS = ["Chore"]
 
 
 def versiontuple(v):
@@ -21,10 +22,10 @@ def versiontuple(v):
 
 
 @contextmanager
-def branch(name: str):
+def branch(base: str, name: str):
     check_call(["git", "checkout", "-B", name])
     yield name
-    check_call(["git", "checkout", "main"])
+    check_call(["git", "checkout", base])
 
 
 def commit_changes(files: list[str], message: str):
@@ -50,16 +51,37 @@ def commit_changes(files: list[str], message: str):
     # fmt:on
 
 
-def push_changes(repository_url: str, branch_name: str):
-    rc = call(["git", "diff-index", "--quiet", "main"])
+def push_changes(repository_url: str, base: str, branch_name: str):
+    rc = call(["git", "diff-index", "--quiet", base])
     if rc == 0:
         return
 
     check_call(["git", "push", "--force", repository_url, branch_name])
 
 
-def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
+def get_labels(api_url: str, api_token: str, org: str, *names: str):
     r = request.Request(
+        f"{api_url}/orgs/{org}/labels",
+        headers={
+            "Authorization": f"token {api_token}",
+        },
+    )
+    with request.urlopen(r) as rsp:
+        data = json.load(rsp)
+        return [x for x in data if x["name"] in names]
+
+
+def create_pr(
+    api_url: str,
+    api_token: str,
+    repository: str,
+    base: str,
+    branch_name: str,
+):
+    labels = get_labels(api_url, api_token, repository.split("/")[0], *LABELS)
+
+    r = request.Request(
+        method="POST",
         url=f"{api_url}/repos/{repository}/pulls",
         headers={
             "Content-Type": "application/json",
@@ -67,9 +89,10 @@ def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
         },
         data=json.dumps(
             {
-                "base": "main",
+                "base": base,
                 "head": branch_name,
                 "title": f"Dependencies update [{date.today()}]",
+                "labels": [x["id"] for x in labels],
             }
         ).encode("utf-8"),
     )
@@ -146,7 +169,7 @@ def main():
     api_token = os.environ.get("API_TOKEN")
     repository = os.environ.get("GITHUB_REPOSITORY")
     repository_url = (
-        check_output(["git", "remote", "get-url", "origin"]).decode("utf-8").strip()
+        check_output(["git", "remote", "get-url", "origin"]).decode().strip()
     )
 
     url = parse.urlparse(repository_url)
@@ -160,7 +183,9 @@ def main():
     print(f"API USER:   {api_user}")
     print(f"REPOSITORY: {repository}")
 
-    with branch("chore/updates") as branch_name:
+    base = check_output(["git", "branch", "--show-current"]).decode().strip()
+
+    with branch(base, "chore/updates") as branch_name:
         update_go_version()
         update_go_dependencies()
         commit_changes(
@@ -180,16 +205,16 @@ def main():
             "Updated Site Config files",
         )
 
-        rc = call(["git", "diff-index", "--quiet", "main"])
+        rc = call(["git", "diff-index", "--quiet", base])
         if rc == 0:
             print("no new updates")
             return
 
         if repository_url:
-            push_changes(repository_url, branch_name)
+            push_changes(repository_url, base, branch_name)
 
         if api_url and api_token and repository:
-            create_pr(api_url, api_token, repository, branch_name)
+            create_pr(api_url, api_token, repository, base, branch_name)
 
 
 if __name__ == "__main__":

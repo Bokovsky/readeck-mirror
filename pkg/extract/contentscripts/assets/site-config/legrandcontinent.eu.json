@@ -1,26 +1,21 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "(//article[contains(concat(' ',normalize-space(@class),' '),' post ')])[1]"
+    "//section[@id = 'primary']/article//figure | //section[@id = 'primary']//div[contains(concat(' ',normalize-space(@class),' '),' full-article ')]"
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//meta[@name='author']/@content"
+    "//dt[normalize-space(.) = 'Auteur']/following-sibling::dd[1]/a[@href]"
   ],
   "strip_selectors": [
-    "//header/h1 | //header/div[1]",
-    "//article/div[contains(@class, '-mt-3 text-center')]",
-    "//dt[contains(text(), 'Auteur')]/ancestor::div[1]",
-    "//a[contains(@class, 'share')]/parent::div",
-    "//section[contains(concat(' ',normalize-space(@class),' '),' dive ')]",
     "//iframe/@width",
     "//iframe/@height"
   ],
   "strip_id_or_class": [
-    "comment-block hidden",
     "modal_notes",
     "wider-side",
-    "special-side"
+    "special-side",
+    "print-block"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
