@@ -21,10 +21,10 @@ def versiontuple(v):
 
 
 @contextmanager
-def branch(name: str):
+def branch(base: str, name: str):
     check_call(["git", "checkout", "-B", name])
     yield name
-    check_call(["git", "checkout", "main"])
+    check_call(["git", "checkout", base])
 
 
 def commit_changes(files: list[str], message: str):
@@ -50,15 +50,21 @@ def commit_changes(files: list[str], message: str):
     # fmt:on
 
 
-def push_changes(repository_url: str, branch_name: str):
-    rc = call(["git", "diff-index", "--quiet", "main"])
+def push_changes(repository_url: str, base: str, branch_name: str):
+    rc = call(["git", "diff-index", "--quiet", base])
     if rc == 0:
         return
 
     check_call(["git", "push", "--force", repository_url, branch_name])
 
 
-def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
+def create_pr(
+    api_url: str,
+    api_token: str,
+    repository: str,
+    base: str,
+    branch_name: str,
+):
     r = request.Request(
         url=f"{api_url}/repos/{repository}/pulls",
         headers={
@@ -67,7 +73,7 @@ def create_pr(api_url: str, api_token: str, repository: str, branch_name: str):
         },
         data=json.dumps(
             {
-                "base": "main",
+                "base": base,
                 "head": branch_name,
                 "title": f"Dependencies update [{date.today()}]",
             }
@@ -146,7 +152,7 @@ def main():
     api_token = os.environ.get("API_TOKEN")
     repository = os.environ.get("GITHUB_REPOSITORY")
     repository_url = (
-        check_output(["git", "remote", "get-url", "origin"]).decode("utf-8").strip()
+        check_output(["git", "remote", "get-url", "origin"]).decode().strip()
     )
 
     url = parse.urlparse(repository_url)
@@ -160,7 +166,9 @@ def main():
     print(f"API USER:   {api_user}")
     print(f"REPOSITORY: {repository}")
 
-    with branch("chore/updates") as branch_name:
+    base = check_output(["git", "branch", "--show-current"]).decode().strip()
+
+    with branch(base, "chore/updates") as branch_name:
         update_go_version()
         update_go_dependencies()
         commit_changes(
@@ -180,13 +188,13 @@ def main():
             "Updated Site Config files",
         )
 
-        rc = call(["git", "diff-index", "--quiet", "main"])
+        rc = call(["git", "diff-index", "--quiet", base])
         if rc == 0:
             print("no new updates")
             return
 
         if repository_url:
-            push_changes(repository_url, branch_name)
+            push_changes(repository_url, base, branch_name)
 
         if api_url and api_token and repository:
             create_pr(api_url, api_token, repository, branch_name)
