@@ -1,226 +1,219 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
 package profile_test
 
 import (
+	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestAPI(t *testing.T) {
 	app := NewTestApp(t)
-	defer func() {
-		app.Close(t)
-	}()
+	defer app.Close(t)
 
-	client := NewClient(t, app)
+	client := app.Client(WithToken("user"))
 
-	RunRequestSequence(t, client, "user",
-		RequestTest{
-			JSON:         true,
-			Target:       "/api/profile",
-			ExpectStatus: 200,
-			ExpectJSON: `{
-					"provider":{
-						"name":"bearer token",
-						"application":"tests",
-						"id":"<<PRESENCE>>",
-						"roles":["user"],
-						"permissions":"<<PRESENCE>>"
-					},
-					"user":{
-						"username":"user",
-						"email":"user@localhost",
-						"created":"<<PRESENCE>>",
-						"updated":"<<PRESENCE>>",
-						"settings": "<<PRESENCE>>"
-					}
-				}`,
-		},
-		RequestTest{
-			Method:       "PATCH",
-			Target:       "/api/profile",
-			JSON:         map[string]interface{}{},
-			ExpectStatus: 200,
-			ExpectJSON: `{
-					"id": {{ .Users.user.User.ID }}
-				}`,
-		},
-		RequestTest{
-			Method: "PATCH",
-			Target: "/api/profile",
-			JSON: map[string]interface{}{
-				"username": " newuser ",
-				"email":    " newuser@localhost ",
+	client.RT(t,
+		WithTarget("/api/profile"),
+		AssertStatus(200),
+		AssertJSON(`{
+			"provider":{
+				"name":"bearer token",
+				"application":"tests",
+				"id":"<<PRESENCE>>",
+				"roles":["user"],
+				"permissions":"<<PRESENCE>>"
 			},
-			ExpectStatus: 200,
-			ExpectJSON: `{
-					"id": {{ .Users.user.User.ID }},
-					"email": "newuser@localhost",
-					"updated": "<<PRESENCE>>",
-					"username":"newuser"
-				}`,
-		},
-		RequestTest{
-			Method: "PATCH",
-			Target: "/api/profile",
-			JSON: map[string]interface{}{
-				"username": " ",
-			},
-			ExpectStatus: 422,
-			ExpectJSON: `{
-					"is_valid":false,
-					"errors":null,
-					"fields":{
-						"email":{
-							"is_null": false,
-							"is_bound": false,
-							"value": "<<PRESENCE>>",
-							"errors":null
-						},
-						"username":{
-							"is_null": false,
-							"is_bound": true,
-							"value":"",
-							"errors":[
-								"field is required"
-							]
-						},
-						"settings_lang": "<<PRESENCE>>",
-						"settings_addon_reminder": "<<PRESENCE>>",
-						"settings_reader_width": "<<PRESENCE>>",
-						"settings_reader_font": "<<PRESENCE>>",
-						"settings_reader_font_size": "<<PRESENCE>>",
-						"settings_reader_line_height": "<<PRESENCE>>",
-						"settings_reader_justify": "<<PRESENCE>>",
-						"settings_reader_hyphenation": "<<PRESENCE>>",
-						"settings_email_epub_to": "<<PRESENCE>>",
-						"settings_email_reply_to": "<<PRESENCE>>"
-					}
-				}`,
-		},
-		RequestTest{
-			Method: "PATCH",
-			Target: "/api/profile",
-			JSON: map[string]interface{}{
-				"username": "user@localhost",
-				"email":    "user",
-			},
-			ExpectStatus: 422,
-			ExpectJSON: `{
-					"is_valid":false,
-					"errors":null,
-					"fields":{
-						"email":{
-							"is_null": false,
-							"is_bound": true,
-							"value": "user",
-							"errors":[
-								"not a valid email address"
-							]
-						},
-						"username":{
-							"is_null": false,
-							"is_bound": true,
-							"value":"user@localhost",
-							"errors":[
-        						"must contain English letters, digits, \"_\" and \"-\" only"
-							]
-						},
-						"settings_lang": "<<PRESENCE>>",
-						"settings_addon_reminder": "<<PRESENCE>>",
-						"settings_reader_width": "<<PRESENCE>>",
-						"settings_reader_font": "<<PRESENCE>>",
-						"settings_reader_font_size": "<<PRESENCE>>",
-						"settings_reader_line_height": "<<PRESENCE>>",
-						"settings_reader_justify": "<<PRESENCE>>",
-						"settings_reader_hyphenation": "<<PRESENCE>>",
-						"settings_email_epub_to": "<<PRESENCE>>",
-						"settings_email_reply_to": "<<PRESENCE>>"
-					}
-				}`,
-		},
+			"user":{
+				"username":"user",
+				"email":"user@localhost",
+				"created":"<<PRESENCE>>",
+				"updated":"<<PRESENCE>>",
+				"settings": "<<PRESENCE>>"
+			}
+		}`),
+	)
 
-		RequestTest{
-			Method: "PUT",
-			Target: "/api/profile/password",
-			JSON: map[string]interface{}{
-				"password": "newpassword",
-			},
-			ExpectStatus: 200,
-		},
-		RequestTest{
-			Method: "PUT",
-			Target: "/api/profile/password",
-			JSON: map[string]interface{}{
-				"password": "  ",
-			},
-			ExpectStatus: 422,
-			ExpectJSON: `{
-				"is_valid":false,
-				"errors":null,
-				"fields":{
-					"current":{
-						"is_null": true,
-						"is_bound": false,
-						"value": "",
-						"errors":null
-					},
-					"password":{
-						"is_null": false,
-						"is_bound": true,
-						"value":"  ",
-						"errors":["password must be at least 8 character long"]
-					}
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{}),
+		AssertStatus(200),
+		AssertJSON(`{
+			"id": "<<PRESENCE>>"
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{
+			"username": " newuser ",
+			"email":    " newuser@localhost ",
+		}),
+		AssertStatus(200),
+		AssertJSON(`{
+			"id": "<<PRESENCE>>",
+			"email": "newuser@localhost",
+			"updated": "<<PRESENCE>>",
+			"username":"newuser"
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{
+			"username": " ",
+		}),
+		AssertStatus(422),
+		AssertJSON(`{
+			"is_valid":false,
+			"errors":null,
+			"fields":{
+				"email":{
+					"is_null": false,
+					"is_bound": false,
+					"value": "<<PRESENCE>>",
+					"errors":null
+				},
+				"username":{
+					"is_null": false,
+					"is_bound": true,
+					"value":"",
+					"errors":[
+						"field is required"
+					]
+				},
+				"settings_lang": "<<PRESENCE>>",
+				"settings_addon_reminder": "<<PRESENCE>>",
+				"settings_reader_width": "<<PRESENCE>>",
+				"settings_reader_font": "<<PRESENCE>>",
+				"settings_reader_font_size": "<<PRESENCE>>",
+				"settings_reader_line_height": "<<PRESENCE>>",
+				"settings_reader_justify": "<<PRESENCE>>",
+				"settings_reader_hyphenation": "<<PRESENCE>>",
+				"settings_email_epub_to": "<<PRESENCE>>",
+				"settings_email_reply_to": "<<PRESENCE>>"
+			}
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{
+			"username": "user@localhost",
+			"email":    "user",
+		}),
+		AssertStatus(422),
+		AssertJSON(`{
+			"is_valid":false,
+			"errors":null,
+			"fields":{
+				"email":{
+					"is_null": false,
+					"is_bound": true,
+					"value": "user",
+					"errors":[
+						"not a valid email address"
+					]
+				},
+				"username":{
+					"is_null": false,
+					"is_bound": true,
+					"value":"user@localhost",
+					"errors":[
+						"must contain English letters, digits, \"_\" and \"-\" only"
+					]
+				},
+				"settings_lang": "<<PRESENCE>>",
+				"settings_addon_reminder": "<<PRESENCE>>",
+				"settings_reader_width": "<<PRESENCE>>",
+				"settings_reader_font": "<<PRESENCE>>",
+				"settings_reader_font_size": "<<PRESENCE>>",
+				"settings_reader_line_height": "<<PRESENCE>>",
+				"settings_reader_justify": "<<PRESENCE>>",
+				"settings_reader_hyphenation": "<<PRESENCE>>",
+				"settings_email_epub_to": "<<PRESENCE>>",
+				"settings_email_reply_to": "<<PRESENCE>>"
+			}
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPut),
+		WithTarget("/api/profile/password"),
+		WithBody(map[string]any{
+			"password": "newpassword",
+		}),
+		AssertStatus(200),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPut),
+		WithTarget("/api/profile/password"),
+		WithBody(map[string]any{
+			"password": "  ",
+		}),
+		AssertStatus(422),
+		AssertJSON(`{
+			"is_valid":false,
+			"errors":null,
+			"fields":{
+				"current":{
+					"is_null": true,
+					"is_bound": false,
+					"value": "",
+					"errors":null
+				},
+				"password":{
+					"is_null": false,
+					"is_bound": true,
+					"value":"  ",
+					"errors":["password must be at least 8 character long"]
 				}
-			}`,
-		},
+			}
+		}`),
 	)
 }
 
 func TestAPIDeleteToken(t *testing.T) {
 	app := NewTestApp(t)
-	defer func() {
-		app.Close(t)
-	}()
-
-	client := NewClient(t, app)
+	defer app.Close(t)
 
 	u1, err := NewTestUser("test1", "test1@localhost", "test1", "user")
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	app.Users[u1.User.Username] = u1
 
-	RunRequestSequence(t, client, "user",
-		RequestTest{
-			JSON:         true,
-			Target:       "/api/profile/tokens/" + u1.Token.UID,
-			Method:       "DELETE",
-			ExpectStatus: 404,
-		},
-	)
+	t.Run("delete foreign token", func(t *testing.T) {
+		client := app.Client(WithToken("user"))
 
-	RunRequestSequence(t, client, u1.User.Username,
-		RequestTest{
-			JSON:         true,
-			Target:       "/api/profile",
-			ExpectStatus: 200,
-		},
-		RequestTest{
-			JSON:         true,
-			Target:       "/api/profile/tokens/" + u1.Token.UID,
-			Method:       "DELETE",
-			ExpectStatus: 204,
-		},
-		RequestTest{
-			JSON:         true,
-			Target:       "/api/profile",
-			ExpectStatus: 401,
-		},
-	)
+		client.RT(t,
+			WithMethod(http.MethodDelete),
+			WithTarget("/api/profile/tokens/"+u1.Token.UID),
+			AssertStatus(404),
+		)
+	})
+
+	t.Run("delete own token", func(t *testing.T) {
+		client := app.Client(WithToken("test1"))
+
+		client.RT(t, WithTarget("/api/profile"), AssertStatus(200))
+
+		client.RT(t,
+			WithMethod(http.MethodDelete),
+			WithTarget("/api/profile/tokens/"+u1.Token.UID),
+			AssertStatus(204),
+		)
+
+		client.RT(t, WithTarget("/api/profile"), AssertStatus(401))
+	})
 }

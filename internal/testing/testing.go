@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -7,9 +7,8 @@ package testing
 
 import (
 	"bytes"
-	"context"
+	"encoding/base64"
 	"encoding/json"
-	"fmt"
 	"io"
 	"log/slog"
 	"maps"
@@ -22,12 +21,10 @@ import (
 	"runtime"
 	"strings"
 	"testing"
-	"text/template"
 	"time"
 
 	"golang.org/x/net/html"
 
-	"github.com/itchyny/gojq"
 	"github.com/kinbiko/jsonassert"
 	"github.com/stretchr/testify/require"
 	"github.com/wneessen/go-mail"
@@ -40,6 +37,8 @@ import (
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
+	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 type fixtureData struct {
@@ -215,9 +214,31 @@ func (tu *TestUser) APIToken() string {
 	return tu.token
 }
 
-// Login performs the login for the user.
-func (tu *TestUser) Login(c *Client) {
-	c.Login(tu.User.Username, tu.Password())
+func (tu *TestUser) sessionCookie() *http.Cookie {
+	// Create and encoded a session cookie
+	encoded, err := securecookie.NewHandler(
+		securecookie.Key(configs.Keys.SessionKey()),
+		securecookie.WithMaxAge(configs.Config.Server.Session.MaxAge),
+	).Encode(&sessions.Payload{
+		Seed:        tu.User.Seed,
+		User:        tu.User.ID,
+		LastUpdate:  time.Now(),
+		Flashes:     []sessions.FlashMessage{},
+		Preferences: sessions.Preferences{},
+	})
+	if err != nil {
+		panic(err)
+	}
+
+	return &http.Cookie{
+		Name:     configs.Config.Server.Session.CookieName,
+		Path:     "/",
+		MaxAge:   configs.Config.Server.Session.MaxAge,
+		Secure:   true,
+		SameSite: http.SameSiteLaxMode,
+		Expires:  time.Now().Add(time.Duration(configs.Config.Server.Session.MaxAge) * time.Second),
+		Value:    base64.URLEncoding.EncodeToString(encoded),
+	}
 }
 
 // TestApp holds information of the application for testing.
@@ -249,8 +270,9 @@ func NewTestApp(t *testing.T) *TestApp {
 
 	// Init test app
 	ta := &TestApp{
-		TmpDir: tmpDir,
-		Users:  make(map[string]*TestUser),
+		TmpDir:    tmpDir,
+		Users:     map[string]*TestUser{},
+		Bookmarks: map[string]*bookmarks.Bookmark{},
 	}
 
 	// Email sender before init app
@@ -295,6 +317,24 @@ func (ta *TestApp) Close(t *testing.T) {
 	Store().Clear()
 }
 
+// Client creates a new [Client] instance.
+func (ta *TestApp) Client(options ...ClientOption) *Client {
+	jar, _ := cookiejar.New(nil)
+	c := &Client{
+		app:     ta,
+		URL:     &url.URL{Scheme: "https", Host: "readeck.example.org"},
+		Jar:     jar,
+		Header:  http.Header{},
+		History: []HistoryItem{},
+	}
+
+	for _, f := range options {
+		f(c)
+	}
+
+	return c
+}
+
 // SendEmail implements email.sender interface and stores the last sent message.
 func (ta *TestApp) SendEmail(msg *mail.Msg) error {
 	buf := new(bytes.Buffer)
@@ -303,78 +343,117 @@ func (ta *TestApp) SendEmail(msg *mail.Msg) error {
 	return nil
 }
 
-// Client is a thin HTTP client over the main server router.
-type Client struct {
-	*testing.T
-	app *TestApp
-	URL *url.URL
-	Jar http.CookieJar
+// HistoryItem is a client's history item.
+type HistoryItem struct {
+	URL      *url.URL
+	Request  *http.Request
+	Response *Response
 }
 
-// NewClient creates a new Client instance.
-func NewClient(t *testing.T, app *TestApp) *Client {
-	jar, _ := cookiejar.New(nil)
-	return &Client{
-		T:   t,
-		app: app,
-		URL: &url.URL{Scheme: "https", Host: "readeck.example.org"},
-		Jar: jar,
+// ClientHistory is a list of [HistoryItem].
+type ClientHistory []HistoryItem
+
+// PrevURL returns the URL from the first history item.
+func (h ClientHistory) PrevURL() string {
+	return h[0].URL.String()
+}
+
+// ClientOption is a function passed to [TestApp.Client].
+type ClientOption func(c *Client)
+
+// WithSession adds a session cookies to the client.
+func WithSession(username string) ClientOption {
+	return func(c *Client) {
+		u, ok := c.app.Users[username]
+		if !ok || u.User == nil {
+			return
+		}
+
+		c.Jar.SetCookies(c.URL, []*http.Cookie{u.sessionCookie()})
 	}
 }
 
-// NewRequest returns a new http.Request instance ready for tests.
-func (c *Client) NewRequest(method, target string, body io.Reader) *http.Request {
-	req := httptest.NewRequest(method, target, body)
+// WithToken adds an Authorization header with the user's token to the client.
+func WithToken(username string) ClientOption {
+	return func(c *Client) {
+		c.Header.Set("Accept", "application/json")
+
+		u, ok := c.app.Users[username]
+		if !ok || u.Token == nil {
+			return
+		}
+
+		c.Header.Set("Authorization", "Bearer "+u.APIToken())
+	}
+}
+
+// Client is a thin HTTP client over the main server router.
+type Client struct {
+	app     *TestApp
+	URL     *url.URL
+	Jar     http.CookieJar
+	Header  http.Header
+	History ClientHistory
+}
+
+// NewRequest creates a new [http.Request].
+//
+// body of types [io.Reader], []byte, string or nil are passed as is.
+//
+// When the body is of type [url.Values], the request's
+// Content-Type is set to "application/x-www-form-urlencoded".
+//
+// Otherwise, the body is marshaled and the Content-Type is set to "application/json".
+func (c *Client) NewRequest(method, target string, body any) (*http.Request, error) {
+	header := http.Header{}
+	maps.Copy(header, c.Header)
+
+	var b io.Reader
+
+	switch t := body.(type) {
+	case io.Reader:
+		b = t
+	case []byte:
+		b = bytes.NewReader(t)
+	case string:
+		b = strings.NewReader(t)
+	case url.Values:
+		b = strings.NewReader(t.Encode())
+		header.Set("Content-Type", "application/x-www-form-urlencoded")
+	case nil:
+		b = nil
+	default:
+		b = new(bytes.Buffer)
+		if err := json.NewEncoder(b.(io.Writer)).Encode(t); err != nil {
+			return nil, err
+		}
+		header.Set("Content-Type", "application/json")
+	}
+
+	req := httptest.NewRequest(method, target, b)
 	req.URL.Host = c.URL.Host
 	req.URL.Scheme = c.URL.Scheme
 	req.Host = c.URL.Host
 
-	// Set request cookies
 	for _, cookie := range c.Jar.Cookies(req.URL) {
 		req.AddCookie(cookie)
 	}
 
-	return req
+	maps.Copy(req.Header, header)
+
+	return req, nil
 }
 
-// NewFormRequest returns a new http.Request instance to be used for sending form data.
-func (c *Client) NewFormRequest(method, target string, data url.Values) *http.Request {
-	req := c.NewRequest(method, target, strings.NewReader(data.Encode()))
-	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	return req
-}
-
-// NewJSONRequest returns a new http.Request instance to be used for sending and receiving
-// JSON data.
-func (c *Client) NewJSONRequest(method, target string, data interface{}) *http.Request {
-	var body io.Reader
-	if data != nil {
-		b, err := json.Marshal(data)
-		if err != nil {
-			c.Fatal("unable to marshal data")
-		}
-		body = bytes.NewReader(b)
-	}
-
-	req := c.NewRequest(method, target, body)
-	req.Header.Set("Accept", "application/json")
-	if body != nil {
-		req.Header.Set("Content-Type", "application/json")
-	}
-	return req
-}
-
-// Request performs a request using httptest tools.
+// Request performs a Request using httptest tools.
 // It returns a Response instance that can be evaluated for testing
 // purposes.
-func (c *Client) Request(req *http.Request) *Response {
+func (c *Client) Request(t *testing.T, req *http.Request) *Response {
 	w := httptest.NewRecorder()
 
 	// Perform request
 	c.app.Srv.ServeHTTP(w, req)
 
 	// Update cookies from response
-	//nolint:bodyclose
 	if rc := w.Result().Cookies(); len(rc) > 0 {
 		c.Jar.SetCookies(req.URL, rc)
 	}
@@ -383,100 +462,163 @@ func (c *Client) Request(req *http.Request) *Response {
 	rsp, err := NewResponse(w, req)
 	rsp.Request = req
 	if err != nil {
-		c.Fatal(err)
+		t.Fatal(err)
 	}
+
+	item := HistoryItem{
+		URL:      new(url.URL),
+		Request:  req,
+		Response: rsp,
+	}
+	*item.URL = *req.URL
+	item.URL.Scheme = ""
+	item.URL.Host = ""
+
+	c.History = append(ClientHistory{item}, c.History...)
 
 	return rsp
 }
 
-// Login logs in the given user.
-func (c *Client) Login(username, password string) {
-	r := c.Get("/login")
-	if r.StatusCode != http.StatusOK {
-		c.Fatalf("Invalid status %d", r.StatusCode)
-	}
-
-	data := url.Values{}
-	data.Add("username", username)
-	data.Add("password", password)
-	r = c.PostForm("/login", data)
-	if r.StatusCode != http.StatusSeeOther {
-		c.Fatalf("Invalid status %d", r.StatusCode)
-	}
+// RT prepares a [RequestTest] and returns a function that receives a [testing.RT]
+// variable, runs the request and performs the assertions.
+func (c *Client) RT(t *testing.T, options ...TestOption) {
+	c.Run(t, RT(options...))
 }
 
-// Logout empties the client's cookie jar.
-func (c *Client) Logout() {
-	c.Jar, _ = cookiejar.New(nil)
-}
-
-// Cookies returns the stored cookie for the current client session.
-func (c *Client) Cookies() []*http.Cookie {
-	return c.Jar.Cookies(c.URL)
-}
-
-// Get performs a GET request on the given path.
-func (c *Client) Get(target string) *Response {
-	return c.Request(c.NewRequest("GET", target, nil))
-}
-
-// PostForm performs a POST request on the given path with some data.
-func (c *Client) PostForm(target string, data url.Values) *Response {
-	return c.Request(c.NewFormRequest("POST", target, data))
-}
-
-// RequestJSON performs a JSON HTTP requests (sending and receiving data).
-func (c *Client) RequestJSON(method string, target string, data interface{}) *Response {
-	return c.Request(c.NewJSONRequest(method, target, data))
-}
-
-// renderTemplateString executes a template string using some properties of the client.
-// (Users, URL). Extra data can be sent using the extra map.
-func (c *Client) renderTemplateString(src string, extra map[string]interface{}) (string, error) {
-	tpl, err := template.New("").Parse(src)
+// Assert runs the [RequestTest] and performs the [RequestTest.Assert] functions.
+func (c *Client) Assert(t *testing.T, rt *RequestTest) {
+	req, err := c.NewRequest(rt.Method, rt.Target, rt.Body)
 	if err != nil {
-		return "", err
+		t.Fatal(err)
 	}
-	buf := bytes.Buffer{}
-	data := map[string]any{
-		"Users": c.app.Users,
-		"URL":   "http://" + c.URL.Host,
+	maps.Copy(req.Header, rt.Header)
+	rsp := c.Request(t, req)
+	for _, f := range rt.Assert {
+		f(t, rsp)
 	}
-	maps.Copy(data, extra)
-
-	if err = tpl.Execute(&buf, data); err != nil {
-		return "", err
-	}
-	return buf.String(), nil
 }
 
-// renderTemplate executes [renderTemplateString] on the given variable when its
-// type is string, map[string]any and []any. This lets us use template values
-// in JSON payloads.
-func (c *Client) renderTemplate(src any, extra map[string]any) (any, error) {
-	var err error
-	switch s := src.(type) {
-	case string:
-		return c.renderTemplateString(s, extra)
-	case map[string]any:
-		for k, v := range s {
-			s[k], err = c.renderTemplate(v, extra)
-			if err != nil {
-				return nil, err
-			}
-		}
-		return s, nil
-	case []any:
-		for i, v := range s {
-			s[i], err = c.renderTemplate(v, extra)
-			if err != nil {
-				return nil, err
-			}
-		}
-		return s, nil
+// Run runs the request from [RequestTest] and performs
+// the assertions.
+func (c *Client) Run(t *testing.T, rt *RequestTest) bool {
+	return t.Run(rt.Name, func(t *testing.T) {
+		t.Attr("route", rt.Method+" "+rt.Target)
+		c.Assert(t, rt)
+	})
+}
+
+// Sequence returns a function that receives a [testing.T] variable and runs
+// the given [RequestTest] list.
+func (c *Client) Sequence(t *testing.T, tests ...*RequestTest) {
+	for _, rt := range tests {
+		c.Run(t, rt)
+	}
+}
+
+type (
+	// TestOption is an option for [RequestTest].
+	TestOption func(rt *RequestTest)
+
+	// RspAssertion is a [Response] assertion function.
+	RspAssertion func(t *testing.T, rsp *Response)
+
+	// RequestTest contains data that are used to perform requests.
+	RequestTest struct {
+		Name   string
+		Method string
+		Target string
+		Body   any
+		Header http.Header
+		Assert []RspAssertion
+	}
+)
+
+// RT creates a new [RequestTest].
+func RT(options ...TestOption) *RequestTest {
+	rt := &RequestTest{
+		Method: http.MethodGet,
+		Header: http.Header{},
 	}
 
-	return src, nil
+	for _, f := range options {
+		f(rt)
+	}
+
+	if rt.Name == "" {
+		rt.Name = rt.Method + "[" + rt.Target + "]"
+	}
+
+	return rt
+}
+
+// WithName sets the [RequestTest.Name].
+func WithName(name string) TestOption {
+	return func(rt *RequestTest) {
+		rt.Name = name
+	}
+}
+
+// WithMethod sets the [RequestTest.Method].
+func WithMethod(method string) TestOption {
+	return func(rt *RequestTest) {
+		rt.Method = method
+	}
+}
+
+// WithTarget sets the [RequestTest.Target].
+func WithTarget(target string) TestOption {
+	return func(rt *RequestTest) {
+		rt.Target = target
+	}
+}
+
+// WithBody sets the [RequestTest.Body].
+func WithBody(body any) TestOption {
+	return func(rt *RequestTest) {
+		rt.Body = body
+	}
+}
+
+// WithHeader adds a value to [RequestTest.Header].
+func WithHeader(name, value string) TestOption {
+	return func(rt *RequestTest) {
+		rt.Header.Add(name, value)
+	}
+}
+
+// WithAssert adds an [RspAssertion] to the [RequestTest.Assert].
+func WithAssert(assertion RspAssertion) TestOption {
+	return func(rt *RequestTest) {
+		rt.Assert = append(rt.Assert, assertion)
+	}
+}
+
+// AssertStatus checks the response's expected status.
+func AssertStatus(status int) TestOption {
+	return WithAssert(func(t *testing.T, rsp *Response) {
+		rsp.AssertStatus(t, status)
+	})
+}
+
+// AssertRedirect checks that the expected target is present in a Location header.
+func AssertRedirect(target string) func(rt *RequestTest) {
+	return WithAssert(func(t *testing.T, rsp *Response) {
+		rsp.AssertRedirect(t, target)
+	})
+}
+
+// AssertContains checks that the response's body contains the expected string.
+func AssertContains(expected string) TestOption {
+	return WithAssert(func(t *testing.T, rsp *Response) {
+		rsp.AssertContains(t, expected)
+	})
+}
+
+// AssertJSON checks that the response's JSON matches what we expect.
+func AssertJSON(expected string) TestOption {
+	return WithAssert(func(t *testing.T, rsp *Response) {
+		rsp.AssertJSON(t, expected)
+	})
 }
 
 // Response is a wrapper around http.Response where the body is stored and
@@ -557,6 +699,11 @@ func (r *Response) AssertRedirect(t *testing.T, expected string) {
 	require.Regexp(t, expected, r.Redirect)
 }
 
+// AssertContains checks that the response's body contains the expected string.
+func (r *Response) AssertContains(t *testing.T, expected string) {
+	require.Contains(t, string(r.Body), expected)
+}
+
 // AssertJSON checks that the response's JSON matches what we expect.
 func (r *Response) AssertJSON(t *testing.T, expected string) {
 	jsonassert.New(t).Assertf(string(r.Body), "%s", expected)
@@ -564,161 +711,4 @@ func (r *Response) AssertJSON(t *testing.T, expected string) {
 		t.Errorf("Received JSON: %s\n", string(r.Body))
 		t.FailNow()
 	}
-}
-
-// AssertJQ performs the JQ query and check every expected result argument.
-// The test fails when the returned results count differs from the expected arguments.
-func (r *Response) AssertJQ(t *testing.T, q string, expected ...any) {
-	query, err := gojq.Parse(q)
-	if err != nil {
-		t.Fatal(err)
-	}
-
-	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
-	defer cancel()
-
-	iter := query.RunWithContext(ctx, r.JSON)
-	i := 0
-	for {
-		v, ok := iter.Next()
-		if !ok {
-			break
-		}
-		if err, ok := v.(error); ok {
-			t.Fatal(err)
-		}
-
-		require.LessOrEqual(t, i+1, len(expected), "not enough assertions")
-		require.Equal(t, expected[i], v)
-		i++
-	}
-	require.Len(t, expected, i, "not all assertions tested")
-}
-
-// RequestTest contains data that are used to perform requests and assert some results.
-type RequestTest struct {
-	Name           string
-	Method         string
-	Target         string
-	Form           url.Values
-	JSON           interface{}
-	Headers        map[string]string
-	ExpectStatus   int
-	ExpectRedirect string
-	ExpectJSON     string
-	ExpectJQ       []any
-	ExpectContains string
-	Assert         func(*testing.T, *Response)
-}
-
-// RunRequestSequence performs a serie of requests using RequestTest instances.
-func RunRequestSequence(t *testing.T, c *Client, user string, tests ...RequestTest) { //nolint:gocognit
-	if user != "" {
-		c.app.Users[user].Login(c)
-		defer c.Logout()
-	} else {
-		c.Logout()
-	}
-
-	// Empty the event queue after a sequence
-	defer Events().Clear()
-
-	t.Run(fmt.Sprintf("sequence (%s)", user), func(t *testing.T) {
-		history := []*Response{}
-		templateData := map[string]any{
-			"History": &history,
-			"User":    c.app.Users[user],
-		}
-
-		for _, test := range tests {
-			target, err := c.renderTemplateString(test.Target, templateData)
-			if err != nil {
-				t.Error(err)
-				return
-			}
-			if test.Method == "" {
-				test.Method = "GET"
-			}
-
-			name := test.Name
-			if name == "" {
-				name = fmt.Sprintf("%s %s", test.Method, target)
-			}
-
-			t.Run(name, func(t *testing.T) {
-				var req *http.Request
-
-				switch {
-				case test.JSON != nil:
-					var data any
-					switch test.Method {
-					case "POST", "PATCH", "PUT":
-						data, err = c.renderTemplate(test.JSON, templateData)
-						if err != nil {
-							t.Error(err)
-							return
-						}
-					default:
-						data = nil
-					}
-					req = c.NewJSONRequest(test.Method, target, data)
-					req.Header.Del("Cookie")
-					if user != "" {
-						req.Header.Set("Authorization", "Bearer "+c.app.Users[user].APIToken())
-					} else {
-						req.Header.Del("Authorization")
-					}
-
-				case test.Form != nil || test.Method == "POST":
-					if test.Form == nil {
-						test.Form = url.Values{}
-					}
-					req = c.NewFormRequest(test.Method, target, test.Form)
-
-				default:
-					req = c.NewRequest(test.Method, target, nil)
-				}
-
-				for k, v := range test.Headers {
-					V, err := c.renderTemplateString(v, templateData)
-					if err != nil {
-						t.Error(err)
-						return
-					}
-					req.Header.Add(k, V)
-				}
-
-				// Perform request
-				rsp := c.Request(req)
-
-				// Add request to history before all the asserts
-				history = append([]*Response{rsp}, history...)
-
-				if test.ExpectStatus != 0 {
-					rsp.AssertStatus(t, test.ExpectStatus)
-				}
-
-				if test.ExpectRedirect != "" {
-					rsp.AssertRedirect(t, test.ExpectRedirect)
-				}
-
-				if test.ExpectJSON != "" {
-					s, err := c.renderTemplateString(test.ExpectJSON, templateData)
-					if err != nil {
-						t.Error(err)
-						return
-					}
-					rsp.AssertJSON(t, s)
-				}
-
-				if test.ExpectContains != "" {
-					require.Contains(t, string(rsp.Body), test.ExpectContains)
-				}
-
-				if test.Assert != nil {
-					test.Assert(t, rsp)
-				}
-			})
-		}
-	})
 }

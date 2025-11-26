@@ -22,7 +22,6 @@ require (
 	github.com/gobwas/glob v0.2.3
 	github.com/google/uuid v1.6.0
 	github.com/hlandau/passlib v1.0.11
-	github.com/itchyny/gojq v0.12.17
 	github.com/jackc/pgx/v5 v5.7.6
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/kinbiko/jsonassert v1.2.0
@@ -69,7 +68,6 @@ require (
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
-	github.com/itchyny/timefmt-go v0.1.7 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect

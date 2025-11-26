@@ -5,6 +5,7 @@
 package signin_test
 
 import (
+	"net/http"
 	"net/url"
 	"testing"
 
@@ -16,8 +17,6 @@ import (
 func TestSignin(t *testing.T) {
 	app := NewTestApp(t)
 	defer app.Close(t)
-
-	client := NewClient(t, app)
 
 	t.Run("login view", func(t *testing.T) {
 		type loginTest struct {
@@ -37,72 +36,78 @@ func TestSignin(t *testing.T) {
 		}
 
 		for _, test := range tests {
-			// Since we perform login, we run the tests with no user
-			RunRequestSequence(t, client, "",
-				RequestTest{
-					Target:         "/",
-					ExpectStatus:   303,
-					ExpectRedirect: "/login",
-				},
-				RequestTest{
-					Target:       "/login",
-					ExpectStatus: 200,
-				},
-				RequestTest{
-					Method: "POST",
-					Target: "/login",
-					Form: url.Values{
+			t.Run(test.user, func(t *testing.T) {
+				client := app.Client()
+
+				client.RT(t,
+					WithTarget("/"),
+					AssertStatus(303),
+					AssertRedirect("/login"),
+				)
+
+				client.RT(t,
+					WithTarget("/login"),
+					AssertStatus(200),
+				)
+
+				client.RT(t,
+					WithMethod(http.MethodPost),
+					WithTarget("/login"),
+					WithBody(url.Values{
 						"username": {test.user},
 						"password": {test.password},
-					},
-					ExpectStatus: test.loginStatus,
-					ExpectRedirect: func() string {
+					}),
+					AssertStatus(test.loginStatus),
+					AssertRedirect(func() string {
 						if test.loginStatus == 303 {
 							return "/"
 						}
 						return ""
-					}(),
-				},
-				RequestTest{
-					Target:       "/profile",
-					ExpectStatus: test.profileStatus,
-				},
-			)
+					}()),
+				)
+
+				client.RT(t,
+					WithTarget("/profile"),
+					AssertStatus(test.profileStatus),
+				)
+			})
 		}
 	})
 
 	t.Run("logout view", func(t *testing.T) {
-		RunRequestSequence(t, client, "",
-			RequestTest{
-				Method:       "POST",
-				Target:       "/logout",
-				Form:         url.Values{},
-				ExpectStatus: 303,
-			},
+		client := app.Client()
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/logout"),
+			WithBody(url.Values{}),
+			AssertStatus(303),
+			AssertRedirect("/login"),
 		)
-		RunRequestSequence(t, client, "user",
-			RequestTest{
-				Target:       "/profile",
-				ExpectStatus: 200,
-				Assert: func(t *testing.T, _ *Response) {
-					require.Len(t, client.Cookies(), 1)
-				},
-			},
-			RequestTest{
-				Method:         "POST",
-				Target:         "/logout",
-				Form:           url.Values{},
-				ExpectStatus:   303,
-				ExpectRedirect: "/",
-				Assert: func(t *testing.T, _ *Response) {
-					require.Empty(t, client.Cookies())
-				},
-			},
-			RequestTest{
-				Target:         "/",
-				ExpectStatus:   303,
-				ExpectRedirect: "/login",
-			},
+
+		WithSession("user")(client)
+		client.RT(t,
+			WithTarget("/profile"),
+			AssertStatus(200),
+			WithAssert(func(t *testing.T, rsp *Response) {
+				require.Len(t, client.Jar.Cookies(rsp.URL), 1)
+			}),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/logout"),
+			WithBody(url.Values{}),
+			AssertStatus(303),
+			AssertRedirect("/"),
+			WithAssert(func(t *testing.T, rsp *Response) {
+				require.Empty(t, client.Jar.Cookies(rsp.URL))
+			}),
+		)
+
+		client.RT(t,
+			WithTarget("/"),
+			AssertStatus(303),
+			AssertRedirect("/login"),
 		)
 	})
 }

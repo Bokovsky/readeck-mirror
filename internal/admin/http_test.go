@@ -6,194 +6,193 @@ package admin_test
 
 import (
 	"fmt"
+	"net/http"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
 func TestPermissions(t *testing.T) {
 	app := NewTestApp(t)
-	defer func() {
-		app.Close(t)
-	}()
+	defer app.Close(t)
 
-	client := NewClient(t, app)
 	u1, err := NewTestUser("test1", "test1@localhost", "test1", "user")
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
+
 	u2, err := NewTestUser("test2", "test2@localhost", "test2", "user")
-	if err != nil {
-		t.Fatal(err)
-	}
+	require.NoError(t, err)
 
 	users := []string{"admin", "staff", "user", "disabled", ""}
 	for _, user := range users {
-		RunRequestSequence(t, client, user,
+		t.Run(user, func(t *testing.T) {
 			// API
-			RequestTest{
-				JSON:   true,
-				Target: "/api/admin/users",
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 401)
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Method: "POST",
-				Target: "/api/admin/users",
-				JSON:   map[string]string{},
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 422)
-					case "":
-						r.AssertStatus(t, 401)
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				JSON:   true,
-				Target: "/api/admin/users/" + u1.User.UID,
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 401)
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Method: "PATCH",
-				Target: "/api/admin/users/" + u1.User.UID,
-				JSON:   map[string]string{},
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 401)
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Method: "DELETE",
-				Target: "/api/admin/users/" + u1.User.UID,
-				JSON:   true,
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 204)
-					case "":
-						r.AssertStatus(t, 401)
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
+			app.Client(WithToken(user)).Sequence(t,
+				RT(
+					WithTarget("/api/admin/users"),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 401)
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithMethod(http.MethodPost),
+					WithTarget("/api/admin/users"),
+					WithBody(map[string]any{}),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 422)
+						case "":
+							rsp.AssertStatus(t, 401)
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithTarget("/api/admin/users/"+u1.User.UID),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 401)
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithMethod(http.MethodPatch),
+					WithTarget("/api/admin/users/"+u1.User.UID),
+					WithBody(map[string]any{}),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 401)
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithMethod(http.MethodDelete),
+					WithTarget("/api/admin/users/"+u1.User.UID),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 204)
+						case "":
+							rsp.AssertStatus(t, 401)
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+			)
 
 			// Views
-			RequestTest{
-				Target: "/admin",
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/admin/users")
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Target: "/admin/users",
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Target: "/admin/users/add",
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Method: "POST",
-				Target: "/admin/users/add",
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 422)
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Target: "/admin/users/" + u2.User.UID,
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 200)
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-			RequestTest{
-				Method: "POST",
-				Target: fmt.Sprintf("/admin/users/%s/delete", u2.User.UID),
-				Assert: func(t *testing.T, r *Response) {
-					switch user {
-					case "admin":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/admin/users")
-					case "":
-						r.AssertStatus(t, 303)
-						r.AssertRedirect(t, "/login")
-					default:
-						r.AssertStatus(t, 403)
-					}
-				},
-			},
-		)
+			app.Client(WithSession(user)).Sequence(t,
+				RT(
+					WithTarget("/admin"),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/admin/users")
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithTarget("/admin/users"),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithTarget("/admin/users/add"),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithMethod(http.MethodPost),
+					WithTarget("/admin/users/add"),
+					WithBody(map[string]any{}),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 422)
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithTarget("/admin/users/"+u2.User.UID),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 200)
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+				RT(
+					WithMethod(http.MethodPost),
+					WithTarget(fmt.Sprintf("/admin/users/%s/delete", u2.User.UID)),
+					WithAssert(func(t *testing.T, rsp *Response) {
+						switch user {
+						case "admin":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/admin/users")
+						case "":
+							rsp.AssertStatus(t, 303)
+							rsp.AssertRedirect(t, "/login")
+						default:
+							rsp.AssertStatus(t, 403)
+						}
+					}),
+				),
+			)
+		})
 	}
 }

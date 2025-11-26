@@ -14,33 +14,23 @@ import (
 
 func TestBookmarkAPIShare(t *testing.T) {
 	app := NewTestApp(t)
-	defer func() {
-		app.Close(t)
-	}()
+	defer app.Close(t)
 
-	client := NewClient(t, app)
+	client := app.Client(WithToken("user"))
+	bookmarkID := app.Users["user"].Bookmarks[0].UID
 
-	publicPath := ""
-
-	RunRequestSequence(t, client, "user",
-		RequestTest{
-			Method:       "GET",
-			Target:       "/api/bookmarks/{{(index .User.Bookmarks 0).UID}}/share/link",
-			JSON:         true,
-			ExpectStatus: 201,
-			Assert: func(_ *testing.T, r *Response) {
-				publicPath = r.Redirect
-			},
-		},
+	client.RT(t,
+		WithMethod("GET"),
+		WithTarget("/api/bookmarks/"+bookmarkID+"/share/link"),
+		AssertStatus(201),
 	)
 
+	publicPath := client.History[0].Response.Redirect
 	require.NotEmpty(t, publicPath, "public path is set")
 
-	RunRequestSequence(t, client, "",
-		RequestTest{
-			Target:         publicPath,
-			ExpectStatus:   200,
-			ExpectContains: `Shared by user`,
-		},
+	client.RT(t,
+		WithTarget(publicPath),
+		AssertStatus(200),
+		AssertContains(`Shared by user`),
 	)
 }

@@ -8,56 +8,64 @@ import (
 	"testing"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
+	"github.com/stretchr/testify/require"
 )
 
 func TestPermissions(t *testing.T) {
 	app := NewTestApp(t)
 	defer app.Close(t)
 
-	client := NewClient(t, app)
-
 	users := []string{"admin", "staff", "user", "disabled", ""}
 	for _, user := range users {
-		RunRequestSequence(t, client, user,
-			RequestTest{
-				Target: "/opds",
-				Assert: func(t *testing.T, r *Response) {
+		app.Client(WithToken(user)).Sequence(t,
+			RT(
+				WithTarget("/opds"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
+						require.Equal(t,
+							"application/atom+xml; profile=opds-catalog; kind=navigation",
+							rsp.Header.Get("content-type"))
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 401)
+						rsp.AssertStatus(t, 401)
 					}
-				},
-			},
-			RequestTest{
-				Target: "/opds/bookmarks/all",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/opds/bookmarks/all"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
+						require.Equal(t,
+							"application/atom+xml; profile=opds-catalog; kind=acquisition",
+							rsp.Header.Get("content-type"))
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 401)
+						rsp.AssertStatus(t, 401)
 					}
-				},
-			},
-			RequestTest{
-				Target: "/opds/bookmarks/unread",
-				Assert: func(t *testing.T, r *Response) {
+				}),
+			),
+			RT(
+				WithTarget("/opds/bookmarks/unread"),
+				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
-						r.AssertStatus(t, 200)
+						rsp.AssertStatus(t, 200)
+						require.Equal(t,
+							"application/atom+xml; profile=opds-catalog; kind=acquisition",
+							rsp.Header.Get("content-type"))
 					case "disabled":
-						r.AssertStatus(t, 403)
+						rsp.AssertStatus(t, 403)
 					case "":
-						r.AssertStatus(t, 401)
+						rsp.AssertStatus(t, 401)
 					}
-				},
-			},
+				}),
+			),
 		)
 	}
 }
