@@ -1,17 +1,20 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | Aeon')"
+  ],
   "body_selectors": [
-    "//div[contains(@class, 'article__body__content')]"
+    "(//main/div[@class='relative'])[1] | //div[@id='article-content']"
   ],
-  "date_selectors": [
-    "//time[contains(@class, 'article__date published')]/@datetime"
-  ],
+  "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//button",
+    "(//main/div[@class='relative'])[1]//small",
+    "//main/div[contains(@class, 'hidden')]"
+  ],
   "strip_id_or_class": [
-    "newsletter-signup",
-    "pullquote",
-    "article__shares"
+    "no-pagemarks",
+    "NLFormInsertFromCMS"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -25,6 +28,10 @@
   "tests": [
     {
       "url": "https://aeon.co/essays/how-did-creativity-become-an-engine-of-economic-growth",
+      "contains": []
+    },
+    {
+      "url": "https://aeon.co/essays/why-physics-today-stands-on-the-wings-of-angels-and-demons",
       "contains": []
     }
   ]
