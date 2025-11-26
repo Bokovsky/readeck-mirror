@@ -22,6 +22,7 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
 func init() {
@@ -223,6 +224,8 @@ func runUser(_ context.Context, args []string) (err error) {
 		user = &users.User{
 			Username: flags.User,
 			Created:  time.Now(),
+			Updated:  time.Now(),
+			UID:      base58.NewUUID(),
 		}
 	}
 
