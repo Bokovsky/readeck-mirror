@@ -94,8 +94,8 @@ func containsSingleIcon(a *html.Node) bool {
 		firstRune = r
 	}
 	switch firstRune {
-	// Common section character icons, zero-width space for VitePress, chain link emoji
-	case '#', '¶', '§', '\u200B', 0x1f517:
+	// Common section character icons, zero-width space for VitePress, chain link emoji, paperclip emoji
+	case '#', '¶', '§', '\u200B', 0x1f517, 0x1f4ce:
 		return true
 	default:
 		// Font Awesome icons are assigned codepoints in the Unicode "Private Use" category
