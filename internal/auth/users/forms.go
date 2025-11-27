@@ -188,7 +188,7 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	}
 
 	if len(res) > 0 {
-		res["updated"] = time.Now()
+		res["updated"] = time.Now().UTC()
 		res["seed"] = u.SetSeed()
 		if err = u.Update(res); err != nil {
 			f.AddErrors("", forms.ErrUnexpected)

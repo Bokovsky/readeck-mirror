@@ -125,7 +125,7 @@ func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[stri
 	}
 
 	if len(res) > 0 {
-		res["updated"] = time.Now()
+		res["updated"] = time.Now().UTC()
 		updateMap["updated"] = res["updated"]
 		if err = c.Update(updateMap); err != nil {
 			f.AddErrors("", forms.ErrUnexpected)

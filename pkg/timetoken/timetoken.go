@@ -69,7 +69,7 @@ func New(s string) (res TimeToken, err error) {
 // time given in its argument. If the input is nil, it's
 // relative to time.Now().
 func (t *TimeToken) RelativeTo(ts *time.Time) time.Time {
-	now := time.Now()
+	now := time.Now().UTC()
 	if ts != nil {
 		now = *ts
 	}

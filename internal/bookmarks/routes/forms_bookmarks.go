@@ -281,7 +281,7 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 	}()
 
 	if len(updated) > 0 || deleted != nil {
-		updated["updated"] = time.Now()
+		updated["updated"] = time.Now().UTC()
 		if err = b.Update(updated); err != nil {
 			return
 		}

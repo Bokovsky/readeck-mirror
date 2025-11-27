@@ -222,7 +222,7 @@ func (tu *TestUser) sessionCookie() *http.Cookie {
 	).Encode(&sessions.Payload{
 		Seed:        tu.User.Seed,
 		User:        tu.User.ID,
-		LastUpdate:  time.Now(),
+		LastUpdate:  time.Now().UTC(),
 		Flashes:     []sessions.FlashMessage{},
 		Preferences: sessions.Preferences{},
 	})
@@ -236,7 +236,7 @@ func (tu *TestUser) sessionCookie() *http.Cookie {
 		MaxAge:   configs.Config.Server.Session.MaxAge,
 		Secure:   true,
 		SameSite: http.SameSiteLaxMode,
-		Expires:  time.Now().Add(time.Duration(configs.Config.Server.Session.MaxAge) * time.Second),
+		Expires:  time.Now().UTC().Add(time.Duration(configs.Config.Server.Session.MaxAge) * time.Second),
 		Value:    base64.URLEncoding.EncodeToString(encoded),
 	}
 }

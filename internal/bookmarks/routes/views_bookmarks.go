@@ -385,7 +385,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			return
 		}
 
-		expired := expires.Before(time.Now())
+		expired := expires.Before(time.Now().UTC())
 		status := http.StatusOK
 		ct := server.TC{
 			"Expired": expired,

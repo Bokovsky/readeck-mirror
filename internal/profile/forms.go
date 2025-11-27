@@ -178,7 +178,7 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 	}
 
 	if len(res) > 0 {
-		res["updated"] = time.Now()
+		res["updated"] = time.Now().UTC()
 		if resetSeed {
 			res["seed"] = u.SetSeed()
 		}
@@ -295,7 +295,7 @@ func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[strin
 	}
 
 	if len(res) > 0 {
-		payload.LastUpdate = time.Now()
+		payload.LastUpdate = time.Now().UTC()
 	}
 
 	return

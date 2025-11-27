@@ -43,7 +43,7 @@ func NewEPUBExporter() EPUBExporter {
 func (e EPUBExporter) IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
 	// Define a title, date, siteName and filename
 	title := "Readeck Bookmarks"
-	date := time.Now()
+	date := time.Now().UTC()
 	siteName := "Readeck"
 	if e.Collection != nil {
 		title = e.Collection.Name

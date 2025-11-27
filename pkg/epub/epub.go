@@ -146,7 +146,7 @@ func (c *Writer) WritePackage() error {
 	f, err := c.CreateHeader(&zip.FileHeader{
 		Method:   zip.Deflate,
 		Name:     "OEBPS/content.opf",
-		Modified: time.Now(),
+		Modified: time.Now().UTC(),
 	})
 	if err != nil {
 		return err
@@ -171,7 +171,7 @@ func (c *Writer) WritePackage() error {
 	f, err = c.CreateHeader(&zip.FileHeader{
 		Method:   zip.Deflate,
 		Name:     "OEBPS/toc.ncx",
-		Modified: time.Now(),
+		Modified: time.Now().UTC(),
 	})
 	if err != nil {
 		return err
@@ -218,7 +218,7 @@ func (c *Writer) addDirectory(name string) error {
 	if _, err := c.CreateHeader(&zip.FileHeader{
 		Method:   zip.Deflate,
 		Name:     name,
-		Modified: time.Now(),
+		Modified: time.Now().UTC(),
 	}); err != nil {
 		return err
 	}
@@ -231,7 +231,7 @@ func (c *Writer) addFile(name string, method uint16, r io.Reader) error {
 	f, err := c.CreateHeader(&zip.FileHeader{
 		Method:   method,
 		Name:     name,
-		Modified: time.Now(),
+		Modified: time.Now().UTC(),
 	})
 	if err != nil {
 		return err

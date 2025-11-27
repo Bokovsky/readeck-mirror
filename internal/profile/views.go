@@ -286,7 +286,7 @@ func (v *profileViews) exportData(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Disposition", fmt.Sprintf(
 			`attachment; filename="readeck-%s-%s.zip"`,
 			u.Username,
-			time.Now().Format("20060102-1504"),
+			time.Now().UTC().Format("20060102-1504"),
 		),
 		)
 		if err = portability.Export(ex); err != nil {
