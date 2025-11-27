@@ -45,7 +45,7 @@ func Export(ex Exporter) error {
 
 	data := &portableData{
 		Info: exportInfo{
-			Date:           time.Now(),
+			Date:           time.Now().UTC(),
 			Version:        "1",
 			ReadeckVersion: configs.Version(),
 		},
@@ -118,7 +118,7 @@ func NewFullExporter(w io.Writer, usernames []string) (*FullExporter, error) {
 		userIDs: userIDs,
 		zfs:     zipfs.NewZipRW(w, nil, 0),
 		manifest: exportManifest{
-			Date:  time.Now(),
+			Date:  time.Now().UTC(),
 			Files: make(map[string]string),
 		},
 		logFn: func(_ string, _ ...any) {},
@@ -247,7 +247,7 @@ func NewSingleUserExporter(w io.Writer, user *users.User) (*SingleUserExporter, 
 			userIDs: []int{user.ID},
 			zfs:     zipfs.NewZipRW(w, nil, 0),
 			manifest: exportManifest{
-				Date:  time.Now(),
+				Date:  time.Now().UTC(),
 				Files: make(map[string]string),
 			},
 		},

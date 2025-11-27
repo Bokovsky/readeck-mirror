@@ -154,7 +154,7 @@ func (t *Transport) RoundTrip(r *http.Request) (*http.Response, error) {
 	}
 
 	t.setTLSGrease()
-	now := time.Now()
+	now := time.Now().UTC()
 	rsp, err := t.RoundTripper.RoundTrip(req)
 
 	if p, ok := req.Context().Value(ctxProxyURLKey{}).(*url.URL); ok {

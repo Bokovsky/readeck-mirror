@@ -99,7 +99,7 @@ func (m *Manager) Create(user *User) error {
 	}
 	user.Password = hash
 
-	user.Created = time.Now()
+	user.Created = time.Now().UTC()
 	user.Updated = user.Created
 	user.UID = base58.NewUUID()
 	user.SetSeed()
@@ -133,7 +133,7 @@ func (u *User) Update(v interface{}) error {
 
 // Save updates all the user values.
 func (u *User) Save() error {
-	u.Updated = time.Now()
+	u.Updated = time.Now().UTC()
 	return u.Update(u)
 }
 
@@ -166,7 +166,7 @@ func (u *User) CheckPassword(password string) bool {
 
 	// Update the password when needed
 	if newhash != "" {
-		_ = u.Update(goqu.Record{"password": newhash, "updated": time.Now()})
+		_ = u.Update(goqu.Record{"password": newhash, "updated": time.Now().UTC()})
 	}
 
 	return true
@@ -177,14 +177,14 @@ func (u *User) HashPassword(password string) (string, error) {
 	return passlib.Hash(password)
 }
 
-// SetPassword set a new user password.
+// SetPassword set a new user password. It does *not* save the user with its new hashed password.
 func (u *User) SetPassword(password string) error {
 	var err error
 	if u.Password, err = u.HashPassword(password); err != nil {
 		return err
 	}
 
-	return u.Update(goqu.Record{"password": u.Password, "updated": time.Now()})
+	return nil
 }
 
 // SetSeed sets a new seed to the user. It returns the seed as an integer value

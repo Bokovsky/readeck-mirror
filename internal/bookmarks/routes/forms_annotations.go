@@ -48,7 +48,7 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 		EndSelector:   f.Get("end_selector").String(),
 		EndOffset:     f.Get("end_offset").Value().(int),
 		Color:         f.Get("color").String(),
-		Created:       time.Now(),
+		Created:       time.Now().UTC(),
 	}
 
 	// Try to insert the new annotation

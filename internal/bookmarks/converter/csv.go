@@ -26,7 +26,7 @@ func (e CSVExporter) IterExport(_ context.Context, w io.Writer, _ *http.Request,
 		w.Header().Set("Content-Type", "text/csv; charset=utf-8")
 		w.Header().Set("Content-Disposition", fmt.Sprintf(
 			`attachment; filename="readeck-bookmarks-%s.csv"`,
-			time.Now().Format(time.DateOnly),
+			time.Now().UTC().Format(time.DateOnly),
 		))
 	}
 

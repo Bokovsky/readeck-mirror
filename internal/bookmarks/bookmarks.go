@@ -360,7 +360,7 @@ func (m *BookmarkManager) RenameLabel(u *users.User, oldLabel, newLabel string) 
 
 	_, err = db.Q().Update(TableName).Prepared(true).
 		Set(goqu.Record{
-			"updated": time.Now(),
+			"updated": time.Now().UTC(),
 			"labels":  cases,
 		}).
 		Where(goqu.C("id").In(ids)).
@@ -408,7 +408,7 @@ func (b *Bookmark) Update(v interface{}) error {
 
 	switch v := v.(type) {
 	case map[string]interface{}:
-		v["updated"] = time.Now()
+		v["updated"] = time.Now().UTC()
 	default:
 		//
 	}

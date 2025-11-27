@@ -93,7 +93,7 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 		}
 
 		item := browserBookmarkItem{
-			Created: time.Now(),
+			Created: time.Now().UTC(),
 			Link:    uri.String(),
 			Title:   strings.TrimSpace(dom.TextContent(n)),
 			Labels:  types.Strings{},

@@ -72,7 +72,7 @@ func (m *CollectionManager) Create(collection *Collection) error {
 		return errors.New("no collection user")
 	}
 
-	collection.Created = time.Now()
+	collection.Created = time.Now().UTC()
 	collection.Updated = collection.Created
 	collection.UID = base58.NewUUID()
 
@@ -98,7 +98,7 @@ func (c *Collection) Update(v interface{}) error {
 
 	switch v := v.(type) {
 	case map[string]interface{}:
-		v["updated"] = time.Now()
+		v["updated"] = time.Now().UTC()
 	default:
 		//
 	}
@@ -113,7 +113,7 @@ func (c *Collection) Update(v interface{}) error {
 
 // Save updates all the collection values.
 func (c *Collection) Save() error {
-	c.Updated = time.Now()
+	c.Updated = time.Now().UTC()
 	return c.Update(c)
 }
 
