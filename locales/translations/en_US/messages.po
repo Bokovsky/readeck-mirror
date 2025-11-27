@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -1940,6 +1940,10 @@ msgstr ""
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr ""
 
+#: assets/templates/profile/index.jet.html:79
+msgid "Sending e-books to an Amazon Kindle"
+msgstr ""
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -2323,7 +2327,7 @@ msgstr ""
 msgid "invalid password"
 msgstr ""
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr ""
 

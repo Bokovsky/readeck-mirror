@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: 2025-07-30 22:07+0000\n"
 "Last-Translator: torsdag <torsdag@noreply.codeberg.org>\n"
 "Language: da_DK\n"
@@ -2129,6 +2129,11 @@ msgstr "Send EPUB til"
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Denne adresse bruges til at forhåndsudfylde modtageren, når du sender en ebog via mail."
 
+#: assets/templates/profile/index.jet.html:79
+#, fuzzy
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "Send ebog via email"
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -2541,7 +2546,7 @@ msgstr "Ugyldigt brugernavn og/eller email"
 msgid "invalid password"
 msgstr "Ugyldigt kodeord"
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr ""
 

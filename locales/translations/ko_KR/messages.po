@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: 2025-11-07 08:09+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/application/ko/>\n"
 "Language: ko_KR\n"
+"Language-Team: Korean <https://translate.codeberg.org/projects/readeck/application/ko/>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2085,6 +2084,11 @@ msgstr "EPUB을 다음으로 보내기"
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "이 주소는 이메일을 통해 이북을 발송할 때 수신자를 사전 입력하는 데 사용됩니다."
 
+#: assets/templates/profile/index.jet.html:79
+#, fuzzy
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "이메일로 전자책 보내기"
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -2478,7 +2482,7 @@ msgstr "유효하지 않은 사용자 이름 및/또는 이메일"
 msgid "invalid password"
 msgstr "잘못된 비밀번호"
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr "사용자 ID가 일치하지 않습니다"
 
@@ -2878,3 +2882,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Admin : Write Only"
 #~ msgstr ""
+
