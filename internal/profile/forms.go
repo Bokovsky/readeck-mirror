@@ -244,7 +244,11 @@ func (f *passwordForm) updatePassword(u *users.User) (err error) {
 	if err = u.SetPassword(f.Get("password").String()); err != nil {
 		return
 	}
-	err = u.Update(map[string]interface{}{"seed": u.SetSeed()})
+	err = u.Update(goqu.Record{
+		"password": u.Password,
+		"seed":     u.SetSeed(),
+		"updated":  time.Now().UTC(),
+	})
 	return
 }
 

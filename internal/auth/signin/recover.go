@@ -251,7 +251,11 @@ func (h *authHandler) recover(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		user.SetSeed()
-		if err = user.Save(); err != nil {
+		if err = user.Update(goqu.Record{
+			"password": user.Password,
+			"seed":     user.Seed,
+			"updated":  time.Now().UTC(),
+		}); err != nil {
 			return
 		}
 

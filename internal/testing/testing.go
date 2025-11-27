@@ -204,9 +204,15 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 	return res, nil
 }
 
-// Password returns the user's password.
-func (tu *TestUser) Password() string {
-	return tu.password
+// Reset sets the user password and generate a new seed.
+// It needs to be called on teardown after tests that could
+// change the seed and/or password.
+func (tu *TestUser) Reset() error {
+	if err := tu.User.SetPassword(tu.password); err != nil {
+		return err
+	}
+	tu.User.SetSeed()
+	return tu.User.Save()
 }
 
 // APIToken returns the user's API token.

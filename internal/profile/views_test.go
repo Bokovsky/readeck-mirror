@@ -25,6 +25,10 @@ func TestViews(t *testing.T) {
 	defer app.Close(t)
 
 	t.Run("profile", func(t *testing.T) {
+		defer func() {
+			require.NoError(t, app.Users["user"].Reset())
+		}()
+
 		client := app.Client(WithSession("user"))
 
 		client.RT(t, WithTarget("/profile"), AssertStatus(200))
@@ -84,13 +88,11 @@ func TestViews(t *testing.T) {
 	})
 
 	t.Run("password", func(t *testing.T) {
-		client := app.Client(WithSession("user"))
-
 		defer func() {
-			if err := app.Users["user"].User.SetPassword("user"); err != nil {
-				t.Logf("error updating password: %s", err)
-			}
+			require.NoError(t, app.Users["user"].Reset())
 		}()
+
+		client := app.Client(WithSession("user"))
 
 		client.RT(t,
 			WithMethod(http.MethodPost),

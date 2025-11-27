@@ -177,14 +177,14 @@ func (u *User) HashPassword(password string) (string, error) {
 	return passlib.Hash(password)
 }
 
-// SetPassword set a new user password.
+// SetPassword set a new user password. It does *not* save the user with its new hashed password.
 func (u *User) SetPassword(password string) error {
 	var err error
 	if u.Password, err = u.HashPassword(password); err != nil {
 		return err
 	}
 
-	return u.Update(goqu.Record{"password": u.Password, "updated": time.Now().UTC()})
+	return nil
 }
 
 // SetSeed sets a new seed to the user. It returns the seed as an integer value
