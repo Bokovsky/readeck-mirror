@@ -311,6 +311,7 @@ func extractPageHandler(data interface{}) {
 		conditionnalProcessor(params.FindMain, contentscripts.StripTags),
 		conditionnalProcessor(params.FindMain, contentscripts.GoToNextPage),
 		contentscripts.ProcessDom("documentReady"),
+		contents.ConvertMathBlocks,
 		contents.StripHeadingAnchors,
 		contents.ExtractInlineSVGs,
 		contents.Readability(),
