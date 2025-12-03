@@ -22,7 +22,6 @@ import (
 // apiRouter is the base bookmark API router.
 type apiRouter struct {
 	chi.Router
-	srv *server.Server
 }
 
 type viewsRouter struct {
@@ -44,7 +43,7 @@ func SetupRoutes(s *server.Server) {
 	s.AddRoute("/bm", mediaRoutes(s))
 
 	// API routes
-	api := newAPIRouter(s)
+	api := newAPIRouter()
 	s.AddRoute("/api/bookmarks", api)
 
 	// Website routes
@@ -55,10 +54,10 @@ func SetupRoutes(s *server.Server) {
 }
 
 // newAPIRouter returns an apiRouter with all the routes set up.
-func newAPIRouter(s *server.Server) *apiRouter {
+func newAPIRouter() *apiRouter {
 	r := server.AuthenticatedRouter()
 
-	api := &apiRouter{r, s}
+	api := &apiRouter{r}
 
 	// Bookmark API
 	r.With(server.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {

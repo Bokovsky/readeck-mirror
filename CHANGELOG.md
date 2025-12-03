@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Fixed
+- Return a 422 with errors on /api/bookmarks when the filters contain errors
+
 ## [0.21.3] - 2025-11-26
 ### Fixed
 - User management command would create users without UID

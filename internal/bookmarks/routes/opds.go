@@ -26,9 +26,9 @@ type opdsRouter struct {
 
 // NewOPDSRouteHandler returns a chi Router handler with the OPDS
 // routes for the bookmark domain.
-func NewOPDSRouteHandler(s *server.Server) func(r chi.Router) {
+func NewOPDSRouteHandler() func(r chi.Router) {
 	return func(r chi.Router) {
-		h := &opdsRouter{r, newAPIRouter(s)}
+		h := &opdsRouter{r, newAPIRouter()}
 
 		r.With(server.WithPermission("api:bookmarks", "read")).Group(func(r chi.Router) {
 			r.With(h.withCollectionFilters, h.withBookmarkList).Get("/all", h.bookmarkList)
