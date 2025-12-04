@@ -11,10 +11,11 @@ import (
 	"sort"
 	"testing"
 
+	"golang.org/x/net/html"
+
 	"github.com/jarcoal/httpmock"
 	"github.com/pmezard/go-difflib/difflib"
 	"github.com/stretchr/testify/require"
-	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
 	"codeberg.org/readeck/readeck/pkg/extract/contents"

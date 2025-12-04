@@ -5,16 +5,20 @@
 package contents
 
 import (
+	"errors"
 	"fmt"
 	"log/slog"
 	"strings"
 
-	"codeberg.org/readeck/readeck/pkg/extract"
+	"golang.org/x/net/html"
+
 	"github.com/go-shiori/dom"
 	"github.com/wyatt915/treeblood"
-	"golang.org/x/net/html"
+
+	"codeberg.org/readeck/readeck/pkg/extract"
 )
 
+// ConvertMathBlocks converts MathJax (2.7 and 3+) and katex-html to MathML.
 func ConvertMathBlocks(m *extract.ProcessMessage, next extract.Processor) extract.Processor {
 	if m.Step() != extract.StepDom || m.Dom == nil {
 		return next
@@ -106,11 +110,11 @@ func convertMathjaxBlock(mjx *html.Node) (*html.Node, error) {
 			return nil, fmt.Errorf("error parsing MathML: %w", err)
 		}
 		if len(mmlNodes) == 0 {
-			return nil, fmt.Errorf("no nodes found in MathML")
+			return nil, errors.New("no nodes found in MathML")
 		}
 		for mmlNode := range eachElementByTag(mmlNodes[0], "math") {
 			return mmlNode, nil
 		}
 	}
-	return nil, fmt.Errorf("not found")
+	return nil, errors.New("not found")
 }
