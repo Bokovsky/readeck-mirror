@@ -68,7 +68,7 @@ func WithSession() func(next http.Handler) http.Handler {
 			// New session, we set the [Payload.LastUpdate] to now
 			// in order to invalidate the HTTP cache.
 			if session.IsNew {
-				session.Payload.LastUpdate = time.Now()
+				session.Payload.LastUpdate = time.Now().UTC()
 			}
 
 			// Pop messages and store then. We must do it before

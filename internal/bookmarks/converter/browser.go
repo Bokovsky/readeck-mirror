@@ -27,7 +27,7 @@ func (e BrowserExporter) IterExport(_ context.Context, w io.Writer, r *http.Requ
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")
 		w.Header().Set("Content-Disposition", fmt.Sprintf(
 			`attachment; filename="readeck-bookmarks-%s.html"`,
-			time.Now().Format(time.DateOnly),
+			time.Now().UTC().Format(time.DateOnly),
 		))
 	}
 

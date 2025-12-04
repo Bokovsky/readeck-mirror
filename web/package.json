@@ -23,7 +23,7 @@
     "cssnano": "^7.1.2",
     "culori": "^4.0.2",
     "del": "^8.0.1",
-    "esbuild": "^0.27.0",
+    "esbuild": "^0.27.1",
     "esbuild-plugin-stimulus": "^0.2.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
@@ -47,7 +47,7 @@
     "postcss-import": "^16.1.1",
     "postcss-preset-env": "^10.4.0",
     "postcss-value-parser": "^4.2.0",
-    "prettier": "^3.6.2",
+    "prettier": "^3.7.4",
     "sass": "^1.94.2",
     "tailwindcss": "^3.4.18",
     "through2": "^4.0.2"

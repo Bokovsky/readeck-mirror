@@ -215,7 +215,7 @@ func insertMigration(tx *goqu.TxDatabase, id int, name string) error {
 	_, err := tx.Insert(goqu.T("migration")).Rows(map[string]interface{}{
 		"id":      id,
 		"name":    name,
-		"applied": time.Now(),
+		"applied": time.Now().UTC(),
 	}).Executor().Exec()
 	return err
 }

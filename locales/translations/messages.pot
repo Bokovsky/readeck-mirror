@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -794,26 +794,6 @@ msgstr ""
 msgid "Is Favorite"
 msgstr ""
 
-#: assets/templates/bookmarks/components/filters.jet.html:128
-#: assets/templates/bookmarks/components/filters.jet.html:137
-#: assets/templates/bookmarks/components/filters.jet.html:147
-#: assets/templates/bookmarks/components/filters.jet.html:157
-#: assets/templates/bookmarks/components/filters.jet.html:167
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "yes"
-msgstr ""
-
-#: assets/templates/bookmarks/components/filters.jet.html:129
-#: assets/templates/bookmarks/components/filters.jet.html:138
-#: assets/templates/bookmarks/components/filters.jet.html:148
-#: assets/templates/bookmarks/components/filters.jet.html:158
-#: assets/templates/bookmarks/components/filters.jet.html:168
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
-msgid "no"
-msgstr ""
-
 #: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
 msgstr ""
@@ -888,6 +868,26 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:128
+#: assets/templates/bookmarks/components/filters.jet.html:137
+#: assets/templates/bookmarks/components/filters.jet.html:147
+#: assets/templates/bookmarks/components/filters.jet.html:157
+#: assets/templates/bookmarks/components/filters.jet.html:167
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "yes"
+msgstr ""
+
+#: assets/templates/bookmarks/components/filters.jet.html:129
+#: assets/templates/bookmarks/components/filters.jet.html:138
+#: assets/templates/bookmarks/components/filters.jet.html:148
+#: assets/templates/bookmarks/components/filters.jet.html:158
+#: assets/templates/bookmarks/components/filters.jet.html:168
+#: assets/templates/bookmarks/components/reader_control.jet.html:127
+#: assets/templates/bookmarks/components/reader_control.jet.html:152
+msgid "no"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
@@ -1670,6 +1670,12 @@ msgstr ""
 msgid "Authorized on: %s"
 msgstr ""
 
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr ""
+
 #: assets/templates/profile/app_list.jet.html:60
 msgid "This client will be revoked in a few seconds."
 msgstr ""
@@ -1823,6 +1829,10 @@ msgstr ""
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr ""
 
+#: assets/templates/profile/index.jet.html:79
+msgid "Sending e-books to an Amazon Kindle"
+msgstr ""
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -1958,12 +1968,6 @@ msgstr ""
 #: assets/templates/profile/token_list.jet.html:46
 #, python-format
 msgid "Expires on: %s"
-msgstr ""
-
-#: assets/templates/profile/app_list.jet.html:48
-#: assets/templates/profile/token_list.jet.html:50
-#, python-format
-msgid "Last used on: %s"
 msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:58
@@ -2280,7 +2284,7 @@ msgstr ""
 msgid "invalid password"
 msgstr ""
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr ""
 

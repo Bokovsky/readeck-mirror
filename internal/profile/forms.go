@@ -178,7 +178,7 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 	}
 
 	if len(res) > 0 {
-		res["updated"] = time.Now()
+		res["updated"] = time.Now().UTC()
 		if resetSeed {
 			res["seed"] = u.SetSeed()
 		}
@@ -244,7 +244,11 @@ func (f *passwordForm) updatePassword(u *users.User) (err error) {
 	if err = u.SetPassword(f.Get("password").String()); err != nil {
 		return
 	}
-	err = u.Update(map[string]interface{}{"seed": u.SetSeed()})
+	err = u.Update(goqu.Record{
+		"password": u.Password,
+		"seed":     u.SetSeed(),
+		"updated":  time.Now().UTC(),
+	})
 	return
 }
 
@@ -295,7 +299,7 @@ func (f sessionPrefForm) updateSession(payload *sessions.Payload) (res map[strin
 	}
 
 	if len(res) > 0 {
-		payload.LastUpdate = time.Now()
+		payload.LastUpdate = time.Now().UTC()
 	}
 
 	return

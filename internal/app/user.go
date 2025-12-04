@@ -223,8 +223,8 @@ func runUser(_ context.Context, args []string) (err error) {
 	if user == nil {
 		user = &users.User{
 			Username: flags.User,
-			Created:  time.Now(),
-			Updated:  time.Now(),
+			Created:  time.Now().UTC(),
+			Updated:  time.Now().UTC(),
 			UID:      base58.NewUUID(),
 		}
 	}

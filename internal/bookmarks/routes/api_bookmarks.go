@@ -894,7 +894,7 @@ func (api *apiRouter) withShareLink(next http.Handler) http.Handler {
 			return
 		}
 
-		expires := time.Now().Round(time.Minute).Add(
+		expires := time.Now().UTC().Round(time.Minute).Add(
 			time.Duration(configs.Config.Bookmarks.PublicShareTTL) * time.Hour,
 		)
 

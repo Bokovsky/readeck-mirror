@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: 2025-11-17 20:51+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
 "Language: tr_TR\n"
+"Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2104,6 +2103,11 @@ msgstr "EPUB Gönder"
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "E-posta ile e-kitap gönderirken alıcıyı önceden doldurmak için bu adres kullanılır."
 
+#: assets/templates/profile/index.jet.html:79
+#, fuzzy
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "E-kitabı e-posta ile gönder"
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -2514,7 +2518,7 @@ msgstr "geçersiz kullanıcı adı ve/veya e-posta"
 msgid "invalid password"
 msgstr "geçersiz şifre"
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr "kullanıcı adı eşleşmiyor"
 
@@ -2918,3 +2922,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Menüyü kapat"
+

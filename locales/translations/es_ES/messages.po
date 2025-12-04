@@ -8,16 +8,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-02 20:47+0100\n"
+"POT-Creation-Date: 2025-11-27 10:52+0100\n"
 "PO-Revision-Date: 2025-11-14 15:09+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
-"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
 "Language: es_ES\n"
+"Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2124,6 +2123,11 @@ msgstr "Enviar EPUB a"
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Esta dirección se utiliza para rellenar previamente el destinatario cuando se envía un libro electrónico por correo electrónico."
 
+#: assets/templates/profile/index.jet.html:79
+#, fuzzy
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "Enviar libro electrónico por correo electrónico"
+
 #: assets/templates/profile/index.jet.html:80
 msgid ""
 "\n"
@@ -2521,7 +2525,7 @@ msgstr "nombre de usuario y/o correo electrónico no válidos"
 msgid "invalid password"
 msgstr "Contraseña no válida"
 
-#: internal/profile/forms.go:399
+#: internal/profile/forms.go:403
 msgid "username does not match"
 msgstr "usuario no coincide"
 
@@ -2922,3 +2926,4 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Cerrar menú"
+

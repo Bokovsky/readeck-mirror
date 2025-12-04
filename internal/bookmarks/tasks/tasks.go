@@ -219,7 +219,7 @@ func extractPageHandler(data interface{}) {
 		slog.Bool("find_main", params.FindMain),
 	)
 	logger.Debug("starting extraction")
-	start := time.Now()
+	start := time.Now().UTC()
 
 	defer func() {
 		if b == nil {

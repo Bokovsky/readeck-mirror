@@ -204,9 +204,15 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 	return res, nil
 }
 
-// Password returns the user's password.
-func (tu *TestUser) Password() string {
-	return tu.password
+// Reset sets the user password and generate a new seed.
+// It needs to be called on teardown after tests that could
+// change the seed and/or password.
+func (tu *TestUser) Reset() error {
+	if err := tu.User.SetPassword(tu.password); err != nil {
+		return err
+	}
+	tu.User.SetSeed()
+	return tu.User.Save()
 }
 
 // APIToken returns the user's API token.
@@ -222,7 +228,7 @@ func (tu *TestUser) sessionCookie() *http.Cookie {
 	).Encode(&sessions.Payload{
 		Seed:        tu.User.Seed,
 		User:        tu.User.ID,
-		LastUpdate:  time.Now(),
+		LastUpdate:  time.Now().UTC(),
 		Flashes:     []sessions.FlashMessage{},
 		Preferences: sessions.Preferences{},
 	})
@@ -236,7 +242,7 @@ func (tu *TestUser) sessionCookie() *http.Cookie {
 		MaxAge:   configs.Config.Server.Session.MaxAge,
 		Secure:   true,
 		SameSite: http.SameSiteLaxMode,
-		Expires:  time.Now().Add(time.Duration(configs.Config.Server.Session.MaxAge) * time.Second),
+		Expires:  time.Now().UTC().Add(time.Duration(configs.Config.Server.Session.MaxAge) * time.Second),
 		Value:    base64.URLEncoding.EncodeToString(encoded),
 	}
 }

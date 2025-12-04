@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-11-14 15:09+0000\n"
+"PO-Revision-Date: 2025-11-21 03:10+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
 "Language: es_ES\n"
@@ -413,7 +413,7 @@ msgstr ""
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr ""
+msgstr "## Destacados"
 
 #: en-US/bookmark.md:84
 msgid ""

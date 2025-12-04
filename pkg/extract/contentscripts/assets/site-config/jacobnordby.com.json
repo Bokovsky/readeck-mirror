@@ -1,0 +1,32 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property=\"og:title\"]/@content , ' - Jacob Nordby')"
+  ],
+  "body_selectors": [
+    "//div[@data-elementor-type='wp-post']",
+    "//div[contains(@class, 'elementor-widget-theme-post-content')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.jacobnordby.com/an-open-letter-to-christians-from-a-former-believer/",
+      "contains": []
+    },
+    {
+      "url": "https://www.jacobnordby.com/rats-in-a-cage-experiment-breaks-our-ideas-of-what-causes-addictive-behavior/",
+      "contains": []
+    }
+  ]
+}
