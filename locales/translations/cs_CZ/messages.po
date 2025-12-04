@@ -10,14 +10,15 @@ msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-27 10:52+0100\n"
-"PO-Revision-Date: 2025-11-21 11:10+0000\n"
+"PO-Revision-Date: 2025-11-28 08:10+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
-"Language: cs_CZ\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2125,9 +2126,8 @@ msgid "This address is used to prefill the recipient when you send an e-book by 
 msgstr "Tato adresa se používá k předvyplnění příjemce při odesílání e-knihy e-mailem."
 
 #: assets/templates/profile/index.jet.html:79
-#, fuzzy
 msgid "Sending e-books to an Amazon Kindle"
-msgstr "Odeslat e-knihu e-mailem"
+msgstr "Odesílání e-knihy do Amazon Kindle"
 
 #: assets/templates/profile/index.jet.html:80
 msgid ""
@@ -2925,4 +2925,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Zavřít obrázek"
-
