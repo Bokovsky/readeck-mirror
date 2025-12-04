@@ -282,7 +282,13 @@
       > img,
       .svgicon {
         @apply block w-4 h-auto;
+        @apply rounded-sm;
         @apply filter grayscale opacity-50;
+        @at-root :root.dark & {
+          @apply opacity-75;
+          --tw-drop-shadow: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+          --tw-grayscale: grayscale(90%);
+        }
       }
     }
 
@@ -359,7 +365,7 @@
       .bookmark-card--ico {
         > img,
         .svgicon {
-          @apply filter-none opacity-100;
+          @apply grayscale-0 opacity-100;
         }
       }
     }
@@ -465,6 +471,11 @@
       .svgicon,
       .svgicon svg {
         @apply w-6 h-6;
+        @at-root :root.dark & {
+          @apply rounded-sm;
+          @apply filter;
+          --tw-drop-shadow: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+        }
       }
     }
 
