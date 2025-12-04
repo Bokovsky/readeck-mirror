@@ -4,6 +4,9 @@
 ### Fixed
 - Return a 422 with errors on /api/bookmarks when the filters contain errors
 
+### Improved
+- Website icons visibility in dark mode
+
 ## [0.21.3] - 2025-11-26
 ### Fixed
 - User management command would create users without UID
