@@ -1,19 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id='cmsBody']"
+    "//div[@class='subscription']"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": [
-    "//div[@id=\"notice\"]",
-    "//div[@class=\"ctrl\"]",
-    "//div[@class=\"cmsUsingAffiliate\"]"
+  "author_selectors": [
+    "//meta[@name=\"writer\"]/@content"
   ],
-  "strip_id_or_class": [
-    "cmsCopyright",
-    "masterSocialbuttonBtm"
-  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -27,11 +22,15 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.itmedia.co.jp/enterprise/articles/0912/05/news002.html",
+      "url": "https://edn.itmedia.co.jp/edn/articles/2510/31/news045.html",
       "contains": []
     },
     {
-      "url": "https://www.itmedia.co.jp/pcuser/articles/2401/05/news075.html",
+      "url": "https://eetimes.itmedia.co.jp/ee/articles/2511/21/news105.html",
+      "contains": []
+    },
+    {
+      "url": "https://monoist.itmedia.co.jp/mn/articles/2511/04/news038.html",
       "contains": []
     }
   ]

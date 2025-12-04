@@ -1,0 +1,53 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[@id=\"masterContents\"\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//meta[@name=\"writer\"]/@content"
+  ],
+  "strip_selectors": [
+    "//title",
+    "//div[@id=\"col200l\"]",
+    "//div[@id=\"cmsDate\"]",
+    "//div[@id=\"MembersOnlyCaution\"]",
+    "//div[@id=\"cmsByline\"]",
+    "//div[@id=\"masterSub\"]",
+    "//div[@class=\"ctrl\"]",
+    "//script[@type=\"module\"]",
+    "//div[@id=\"notice\"]"
+  ],
+  "strip_id_or_class": [
+    "cmsCopyright"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//link[@rel=\"next\"]"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2511/18/news004.html",
+      "contains": []
+    },
+    {
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2511/20/news007.html",
+      "contains": []
+    },
+    {
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2508/25/news012.html",
+      "contains": []
+    },
+    {
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2511/17/news004.html",
+      "contains": []
+    }
+  ]
+}

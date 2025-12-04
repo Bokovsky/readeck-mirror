@@ -1,15 +1,24 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//h1[@id='maincontent']"
+  ],
   "body_selectors": [
+    "//section[contains(@class, 'body')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article__content ')]",
     "//section[contains(@class, 'body-text')]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
+  "author_selectors": [
+    "//span[contains(concat(' ',normalize-space(@class),' '),' byline__name ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' vossi-byline__names ')]"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": [
     "highlights",
     "video-inline_carousel",
-    "video-inline_carousel__wrapper"
+    "video-inline_carousel__wrapper",
+    "headline__options",
+    "related-content__link"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -30,6 +39,12 @@
       "url": "http://www.cnn.com/2012/05/13/us/new-york-police-policy/index.html",
       "contains": [
         "this discriminatory and ineffective practice"
+      ]
+    },
+    {
+      "url": "https://www.cnn.com/2025/12/01/europe/eu-belarus-hybrid-attack-lithuania-intl-latam",
+      "contains": [
+        "after alleging that a Russian drone breached Romanian airspace"
       ]
     },
     {
