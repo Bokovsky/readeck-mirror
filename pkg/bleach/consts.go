@@ -202,6 +202,39 @@ var elementMap = map[string]string{
 	"video":      "-", // remove
 	"wbr":        "",
 	"xmp":        "",
+
+	// MathML Core elements
+	// curl -fsSL https://www.w3.org/Math/RelaxNG/mathml4/mathml4-core.rnc | grep -oE 'element [a-z-]+' | cut -d' ' -f2 | grep -v '^none$' | sort
+	"annotation":     "",
+	"annotation-xml": "",
+	"maction":        "",
+	"math":           "",
+	"merror":         "",
+	"mfrac":          "",
+	"mi":             "",
+	"mmultiscripts":  "",
+	"mn":             "",
+	"mo":             "",
+	"mover":          "",
+	"mpadded":        "",
+	"mphantom":       "",
+	"mprescripts":    "",
+	"mroot":          "",
+	"mrow":           "",
+	"ms":             "",
+	"mspace":         "",
+	"msqrt":          "",
+	"mstyle":         "",
+	"msub":           "",
+	"msubsup":        "",
+	"msup":           "",
+	"mtable":         "",
+	"mtd":            "",
+	"mtext":          "",
+	"mtr":            "",
+	"munder":         "",
+	"munderover":     "",
+	"semantics":      "",
 }
 
 var excludedChars = [][2]int{
