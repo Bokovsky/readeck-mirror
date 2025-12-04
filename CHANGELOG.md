@@ -6,6 +6,7 @@
 
 ### Improved
 - Website icons visibility in dark mode
+- Handle "pt" CSS unit in SVG dimensions, by [@mislav]
 
 ## [0.21.3] - 2025-11-26
 ### Fixed
@@ -28,7 +29,7 @@
 
 ### Improved
 - Save animated GIFs and convert single-frame GIFs to PNG
-- Github extraction, by by [@mislav] and [@linsui]
+- Github extraction, by [@mislav] and [@linsui]
 
 ## [0.21.0] - 2025-11-20
 ### Added
