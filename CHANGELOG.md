@@ -1,12 +1,13 @@
 # Changelog
 
 ## [Unreleased]
-### Fixed
-- Return a 422 with errors on /api/bookmarks when the filters contain errors
-
 ### Improved
 - Website icons visibility in dark mode
 - Handle "pt" CSS unit in SVG dimensions, by [@mislav]
+
+### Fixed
+- Return a 422 with errors on /api/bookmarks when the filters contain errors
+
 
 ## [0.21.3] - 2025-11-26
 ### Fixed
