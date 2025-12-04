@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: 2025-11-05 10:09+0000\n"
+"PO-Revision-Date: 2025-12-01 12:10+0000\n"
 "Last-Translator: linsui <linsui@noreply.codeberg.org>\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/documentation/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -19,12 +19,12 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.14\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr "# 书签"
+msgstr "# 书签列表"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
@@ -44,7 +44,7 @@ msgstr "![新书签表单](./img/bookmark-new.webp)"
 
 #: en-US/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr "几秒钟后，您的书签将准备就绪。 然后，您可以打开它阅读或观看其内容，添加标签，突出显示文本或导出电子书。 更多信息，请阅读[书签](./bookmark.md)部分。"
+msgstr "几秒钟后，您的书签将准备就绪。 然后，您可以打开它阅读或观看其内容，添加标签，突出显示文本或导出电子书。 更多信息，请阅读[书签视图](./bookmark.md)部分。"
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -347,7 +347,7 @@ msgstr "在同一菜单中，您将找到 [导入书签](readeck-instance://book
 
 #: en-US/bookmark.md:1
 msgid "# Bookmark View"
-msgstr "# 书签"
+msgstr "# 书签视图"
 
 #: en-US/bookmark.md:3
 msgid "## The view"
@@ -637,10 +637,10 @@ msgid ""
 "- [User Profile](./user-profile.md)"
 msgstr ""
 "- [书签列表](./bookmark-list.md)\n"
-"- [书签](./bookmark.md)\n"
+"- [书签视图](./bookmark.md)\n"
 "- [标签](./labels.md)\n"
 "- [收藏集](./collections.md)\n"
-"- [opds](./opds.md)\n"
+"- [电子书目录](./opds.md)\n"
 "- [个人信息](./user-profile.md)"
 
 #: en-US/labels.md:1
@@ -740,7 +740,7 @@ msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
-"您的OPDS的URL 是:\n"
+"您的 OPDS 目录的 URL 是：\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 
 #: en-US/opds.md:33
@@ -749,7 +749,7 @@ msgstr "## 示例设置: Koreader"
 
 #: en-US/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr "[Koreader](https://koreader.rocks/) 是 E Ink设备的文档查看器。它适用于Kindle、Kobo、PocketBook、Android 和桌面 Linux。它有很好的 OPDS 支持。"
+msgstr "[Koreader](https://koreader.rocks/) 是 E Ink 设备的文档查看器。它适用于 Kindle、Kobo、PocketBook、Android 和桌面 Linux。它对 OPDS 支持很好。"
 
 #: en-US/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
