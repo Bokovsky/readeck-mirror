@@ -40,6 +40,7 @@ routes:
       $merge:
         - "traits.yaml#scope-bookmarks-read"
         - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
         - "traits.yaml#.paginated"
         - "bookmarks/traits.yaml#.sortable"
 
