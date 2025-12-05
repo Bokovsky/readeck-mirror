@@ -6,6 +6,8 @@ package app
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"errors"
 	"flag"
 	"fmt"
@@ -169,11 +171,41 @@ func runServer(_ context.Context, args []string) error {
 			listenURL = &url.URL{Scheme: "tcp", Host: srv.Addr}
 		}
 
-		ready <- true
 		var err error
 		if configs.Config.Server.CertFile != "" && configs.Config.Server.KeyFile != "" {
+			// Set a certificate and keys when given
+			srv.TLSConfig = &tls.Config{} //nolint:gosec
+			srv.TLSConfig.Certificates = make([]tls.Certificate, 1)
+			srv.TLSConfig.Certificates[0], err = tls.LoadX509KeyPair(
+				configs.Config.Server.CertFile,
+				configs.Config.Server.KeyFile,
+			)
+			if err != nil {
+				fatal("cannot configure TLS", err)
+			}
+
+			// If a CA file is present, it's for mTLS.
+			// We don't set ClientAuth to [tls.RequireAndVerifyClientCert] and
+			// it's up to any midleware or authentication provider to require
+			// a client certificate.
+			if configs.Config.Server.CAFile != "" {
+				caPem, err := os.ReadFile(configs.Config.Server.CAFile)
+				if err != nil {
+					fatal("cannot load CA certificate", err)
+				}
+				p := x509.NewCertPool()
+				if !p.AppendCertsFromPEM(caPem) {
+					fatal("cannot load CA certificate", errors.New("could not parse"))
+				}
+				srv.TLSConfig.ClientCAs = p
+				srv.TLSConfig.ClientAuth = tls.VerifyClientCertIfGiven
+			}
+		}
+
+		ready <- true
+		if srv.TLSConfig != nil {
 			serverURL.Scheme = "https"
-			err = srv.ServeTLS(ln, configs.Config.Server.CertFile, configs.Config.Server.KeyFile)
+			err = srv.ServeTLS(ln, "", "")
 		} else {
 			// Wrap http/2 h2c
 			h2 := &http2.Server{}
