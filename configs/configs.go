@@ -70,6 +70,7 @@ type configServer struct {
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
 	CertFile       string        `json:"cert_file" env:"CERT_FILE"`
 	KeyFile        string        `json:"key_file" env:"KEY_FILE"`
+	CAFile         string        `json:"ca_file" env:"CA_FILE"`
 	Session        configSession `json:"session"`
 }
 
