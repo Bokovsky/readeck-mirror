@@ -1,4 +1,4 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
@@ -7,16 +7,23 @@ package auth
 
 import (
 	"context"
+	"errors"
 	"log/slog"
 	"net/http"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 type (
+	ctxAuthInfoKey struct{}
 	ctxProviderKey struct{}
-	ctxAuthKey     struct{}
+)
+
+var (
+	withAuthInfo, checkAuthInfo = ctxr.WithChecker[*Info](ctxAuthInfoKey{})
+	withProvider, checkProvider = ctxr.WithChecker[Provider](ctxProviderKey{})
 )
 
 // Info is the payload with the currently authenticated user
@@ -34,13 +41,10 @@ type ProviderInfo struct {
 	ID          string
 }
 
-// Provider is the interface that must implement any authentication
-// provider.
+// Provider describes an authencitation provider.
+// This is the minimal interface a provider must implements.
 type Provider interface {
-	// Must return true to enable the provider for the current request.
-	IsActive(*http.Request) bool
-
-	// Must return a request with the Info provided when successful.
+	Handler(next http.Handler) http.Handler
 	Authenticate(http.ResponseWriter, *http.Request) (*http.Request, error)
 }
 
@@ -62,77 +66,75 @@ type FeaturePermissionProvider interface {
 // could be activated.
 type NullProvider struct{}
 
-// Info return information about the provider.
-func (p *NullProvider) Info(_ *http.Request) *ProviderInfo {
-	return &ProviderInfo{
-		Name: "null",
-	}
+// Handler implements [Provider].
+func (p *NullProvider) Handler(next http.Handler) http.Handler {
+	return next
 }
 
-// IsActive is always false.
-func (p *NullProvider) IsActive(_ *http.Request) bool {
-	return false
-}
-
-// Authenticate doesn't do anything.
+// Authenticate is a noop.
 func (p *NullProvider) Authenticate(_ http.ResponseWriter, r *http.Request) (*http.Request, error) {
 	return r, nil
 }
 
-// Init returns an http.Handler that will try to find a suitable
-// authentication provider on each request. The first to return
-// true with its IsActive() method becomes the request authentication
-// provider.
-//
-// If no provider could be found, the NullProvider will then be used.
-//
-// The provider is then stored in the request's context and can be
-// retrieved using GetRequestProvider().
+// Init returns an [http.Handler] that iterates over the given providers.
+// Once a provider adds itself to the request's context with [withProvider],
+// the other providers are skipped and it becomes the default provider.
+// This lets us do a few interesting things like:
+// - stop when a provider meets some conditions (ie. an HTTP header)
+// - prepare information for the next provider to pick up (for a forwarded auth)
+// - return an HTTP response and terminate everything in case of error.
 func Init(providers ...Provider) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
+		// Wrap the final handler so the request will alway have a [Provider] and [Info].
+		next = defaultProviderHandler(next)
+
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			var provider Provider
-			for _, p := range providers {
-				if p.IsActive(r) {
-					provider = p
-					break
+			var h http.Handler
+
+			if len(providers) == 0 {
+				h = next
+			} else {
+				// Build the final handler with each provider wrapped in a handler
+				// that allows to skip them when necessary.
+				h = skipNextProviderHandler(providers[len(providers)-1].Handler(next), next)
+				for i := len(providers) - 2; i >= 0; i-- {
+					h = skipNextProviderHandler(providers[i].Handler(h), next)
 				}
 			}
 
-			// Set a default provider
-			if provider == nil {
-				provider = &NullProvider{}
-			}
-			r = setRequestProvider(r, provider)
-
-			// Always set a anonymous user and empty provider.
-			// It's overridden later by the authentication when
-			// entering the [Required] handler.
-			r = SetRequestAuthInfo(r, &Info{
-				User:     &users.User{},
-				Provider: &ProviderInfo{},
-			})
-
-			next.ServeHTTP(w, r)
+			h.ServeHTTP(w, r)
 		})
 	}
 }
 
-// Required returns an http.Handler that will enforce authentication
+// Required returns an [http.Handler] that will enforce authentication
 // on the request. It uses the request authentication provider to perform
 // the authentication.
 //
 // A provider performing a successful authentication must store
-// its authentication information using SetRequestAuthInfo.
+// its authentication information using [withAuthInfo].
 //
 // When the request has this attribute it will carry on.
 // Otherwise it stops the response with a 403 error.
 //
-// The logged in user can be retrieved with GetRequestUser().
+// The logged in user can be retrieved with [GetRequestUser].
 func Required(next http.Handler) http.Handler {
-	fn := func(w http.ResponseWriter, r *http.Request) {
-		provider := GetRequestProvider(r)
-		r, err := provider.Authenticate(w, r)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		provider, ok := checkProvider(r.Context())
+		if !ok {
+			slog.Error("authentication",
+				slog.String("@id", request.GetReqID(r.Context())),
+				slog.Any("err", errors.New("no authentication provider")),
+			)
+			w.WriteHeader(http.StatusForbidden)
+			return
+		}
+
+		req, err := provider.Authenticate(w, r)
+		if req != nil {
+			r = req
+		}
+
 		if err != nil {
 			slog.Error("authentication error",
 				slog.String("@id", request.GetReqID(r.Context())),
@@ -142,7 +144,7 @@ func Required(next http.Handler) http.Handler {
 			return
 		}
 
-		if GetRequestUser(r).IsAnonymous() {
+		if _, ok := checkAuthInfo(r.Context()); !ok || GetRequestUser(r).IsAnonymous() {
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}
@@ -157,9 +159,7 @@ func Required(next http.Handler) http.Handler {
 		}
 
 		next.ServeHTTP(w, r)
-	}
-
-	return http.HandlerFunc(fn)
+	})
 }
 
 // HasPermission returns true if the user that's connected can perform
@@ -197,27 +197,56 @@ func GetPermissions(r *http.Request) []string {
 	return info.User.Permissions()
 }
 
-// setRequestProvider stores the current provider for the request.
-func setRequestProvider(r *http.Request, provider Provider) *http.Request {
-	ctx := context.WithValue(r.Context(), ctxProviderKey{}, provider)
-	return r.WithContext(ctx)
+// defaultProviderHandler is a final handler that sets [NullProvider]
+// as the request's authentication provider when no other provider
+// was set.
+func defaultProviderHandler(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := r.Context()
+
+		// Set a default provider
+		if _, ok := checkProvider(ctx); !ok {
+			ctx = withProvider(ctx, &NullProvider{})
+		}
+
+		// Always set a anonymous user and empty provider.
+		// It's overridden later by the authentication when
+		// entering the [Required] handler.
+		ctx = withAuthInfo(ctx, &Info{
+			Provider: &ProviderInfo{},
+			User:     &users.User{},
+		})
+
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+// skipNextProviderHandler is a [http.Handler] that jumps to the last handler
+// when a [Provider] is already present in the request's context.
+func skipNextProviderHandler(next http.Handler, last http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if _, ok := checkProvider(r.Context()); ok {
+			// we have a provider already, jump to the last handler.
+			last.ServeHTTP(w, r)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 // GetRequestProvider returns the current request's authentication
 // provider.
 func GetRequestProvider(r *http.Request) Provider {
-	return r.Context().Value(ctxProviderKey{}).(Provider)
-}
-
-// SetRequestAuthInfo stores the request's user.
-func SetRequestAuthInfo(r *http.Request, info *Info) *http.Request {
-	ctx := context.WithValue(r.Context(), ctxAuthKey{}, info)
-	return r.WithContext(ctx)
+	if p, ok := checkProvider(r.Context()); ok {
+		return p
+	}
+	return nil
 }
 
 // GetRequestAuthInfo returns the current request's auth info.
 func GetRequestAuthInfo(r *http.Request) *Info {
-	return r.Context().Value(ctxAuthKey{}).(*Info)
+	info, _ := checkAuthInfo(r.Context())
+	return info
 }
 
 // GetRequestUser returns the current request's user.

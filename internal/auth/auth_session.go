@@ -24,10 +24,13 @@ type SessionAuthProvider struct {
 	UnauthorizedHandler func(http.ResponseWriter, *http.Request)
 }
 
-// IsActive always returns true. As it's the last provider, when authentication fail it
-// will with a redirect to the login page.
-func (p *SessionAuthProvider) IsActive(_ *http.Request) bool {
-	return true
+// Handler always set this provider to the request and it must come as the last one.
+// If authentication fails, it will redirect to the login page.
+func (p *SessionAuthProvider) Handler(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := withProvider(r.Context(), p)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
 }
 
 // Authenticate checks if the request's session cookie is valid and
@@ -43,12 +46,13 @@ func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Reques
 	// At this point, the user is granted access.
 	// We renew its session for another max age duration.
 	sess.Save(w, r)
-	return SetRequestAuthInfo(r, &Info{
+	ctx := withAuthInfo(r.Context(), &Info{
 		Provider: &ProviderInfo{
 			Name: "http session",
 		},
 		User: u,
-	}), nil
+	})
+	return r.WithContext(ctx), nil
 }
 
 func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.User, err error) {
