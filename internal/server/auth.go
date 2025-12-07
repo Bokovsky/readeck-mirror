@@ -1,11 +1,12 @@
-// SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package auth
+package server
 
 import (
 	"errors"
+	"log/slog"
 	"net/http"
 	"strings"
 	"time"
@@ -14,26 +15,46 @@ import (
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/acls"
+	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
+	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 type ctxTokenKey struct{}
 
 var withToken, getToken = ctxr.WithGetter[string](ctxTokenKey{})
 
+// Interface guards.
+var (
+	_ auth.Provider                  = (*TokenAuthProvider)(nil)
+	_ auth.LoggerProvider            = (*TokenAuthProvider)(nil)
+	_ auth.FeatureCsrfProvider       = (*TokenAuthProvider)(nil)
+	_ auth.FeaturePermissionProvider = (*TokenAuthProvider)(nil)
+
+	_ auth.Provider       = (*SessionAuthProvider)(nil)
+	_ auth.LoggerProvider = (*SessionAuthProvider)(nil)
+)
+
 // TokenAuthProvider handles authentication using a bearer token
 // passed in the request "Authorization" header with the scheme
 // "Bearer".
 type TokenAuthProvider struct{}
 
-// Handler sets [TokenAuthProvider] when the client submit an Authorization header
+// Log implements [auth.LoggerProvider].
+func (p *TokenAuthProvider) Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", request.GetReqID(r.Context())))
+}
+
+// Handler sets [tokenAuthProvider] when the client submit an Authorization header
 // that contains a token.
 func (p *TokenAuthProvider) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		if token, ok := p.getToken(r); ok {
-			ctx = withProvider(ctx, p)
+			ctx = auth.WithProvider(ctx, p)
 			ctx = withToken(ctx, token)
 		}
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -72,8 +93,8 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 		return r, errors.New("expired token")
 	}
 
-	ctx := withAuthInfo(r.Context(), &Info{
-		Provider: &ProviderInfo{
+	ctx := auth.WithAuthInfo(r.Context(), &auth.Info{
+		Provider: &auth.ProviderInfo{
 			Name:        "bearer token",
 			Application: res.Token.Application,
 			Roles:       res.Token.Roles,
@@ -87,11 +108,11 @@ func (p *TokenAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request)
 // HasPermission checks the permission on the current authentication provider role
 // list. If the role list is empty, the user permissions apply.
 func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool {
-	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+	if len(auth.GetRequestAuthInfo(r).Provider.Roles) == 0 {
 		return true
 	}
 
-	for _, scope := range GetRequestAuthInfo(r).Provider.Roles {
+	for _, scope := range auth.GetRequestAuthInfo(r).Provider.Roles {
 		if acls.Enforce(scope, obj, act) {
 			return true
 		}
@@ -103,11 +124,11 @@ func (p *TokenAuthProvider) HasPermission(r *http.Request, obj, act string) bool
 // GetPermissions returns all the permissions attached to the current authentication provider
 // role list. If no role is defined, it will fallback to the user permission list.
 func (p *TokenAuthProvider) GetPermissions(r *http.Request) []string {
-	if len(GetRequestAuthInfo(r).Provider.Roles) == 0 {
+	if len(auth.GetRequestAuthInfo(r).Provider.Roles) == 0 {
 		return nil
 	}
 
-	return acls.GetPermissions(GetRequestAuthInfo(r).Provider.Roles...)
+	return acls.GetPermissions(auth.GetRequestAuthInfo(r).Provider.Roles...)
 }
 
 // CsrfExempt is always true for this provider.
@@ -139,4 +160,69 @@ func (p *TokenAuthProvider) denyAccess(w http.ResponseWriter) {
 	w.Header().Add("WWW-Authenticate", `Bearer realm="Bearer token"`)
 	w.WriteHeader(http.StatusUnauthorized)
 	w.Write([]byte(http.StatusText(http.StatusUnauthorized)))
+}
+
+// SessionAuthProvider is the last authentication provider.
+// It's alway enabled in case of every previous provider failing.
+type SessionAuthProvider struct{}
+
+// Log implements [auth.LoggerProvider].
+func (p *SessionAuthProvider) Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", request.GetReqID(r.Context())))
+}
+
+// Handler always set this provider to the request and it must come as the last one.
+// If authentication fails, it will redirect to the login page.
+func (p *SessionAuthProvider) Handler(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx := auth.WithProvider(r.Context(), p)
+		next.ServeHTTP(w, r.WithContext(ctx))
+	})
+}
+
+// Authenticate checks if the request's session cookie is valid and
+// the user exists.
+func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Request) (*http.Request, error) {
+	sess := GetSession(r)
+	u, err := p.checkSession(sess)
+	if u == nil || err != nil {
+		p.clearSession(sess, w, r)
+		return r, err
+	}
+
+	// At this point, the user is granted access.
+	// We renew its session for another max age duration.
+	sess.Save(w, r)
+	ctx := auth.WithAuthInfo(r.Context(), &auth.Info{
+		Provider: &auth.ProviderInfo{
+			Name: "http session",
+		},
+		User: u,
+	})
+	return r.WithContext(ctx), nil
+}
+
+func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.User, err error) {
+	if sess.IsNew {
+		return
+	}
+
+	if sess.Payload.User == 0 {
+		return
+	}
+
+	if u, err = users.Users.GetOne(goqu.C("id").Eq(sess.Payload.User)); err != nil {
+		return nil, err
+	}
+
+	if u.Seed != sess.Payload.Seed {
+		return nil, nil
+	}
+
+	return
+}
+
+func (p *SessionAuthProvider) clearSession(sess *sessions.Session, w http.ResponseWriter, r *http.Request) {
+	sess.Clear(w, r)
+	unauthorizedHandler(w, r)
 }

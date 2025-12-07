@@ -40,6 +40,11 @@ func New() *Server {
 		chi.NewRouter(),
 	}
 
+	authProviders := []auth.Provider{
+		&TokenAuthProvider{},
+		&SessionAuthProvider{},
+	}
+
 	s.Use(
 		middleware.Recoverer,
 		InitRequest(),
@@ -49,13 +54,7 @@ func New() *Server {
 		CompressResponse,
 		WithCacheControl,
 		CannonicalPaths,
-		auth.Init(
-			&auth.TokenAuthProvider{},
-			&auth.SessionAuthProvider{
-				GetSession:          GetSession,
-				UnauthorizedHandler: unauthorizedHandler,
-			},
-		),
+		auth.Init(authProviders...),
 		LoadLocale,
 		ErrorPages,
 		crossOriginGuard,

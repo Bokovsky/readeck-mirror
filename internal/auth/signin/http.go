@@ -11,7 +11,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 
-	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/pkg/forms"
 )
@@ -52,12 +51,7 @@ func newAuthHandler(s *server.Server) *authHandler {
 	})
 
 	// Authenticated routes
-	ar := chi.NewRouter()
-	ar.Use(
-		server.WithSession(),
-		server.WithRedirectLogin,
-		auth.Required,
-	)
+	ar := server.AuthenticatedRouter(server.WithRedirectLogin)
 	s.AddRoute("/logout", ar)
 	ar.Post("/", h.logout)
 

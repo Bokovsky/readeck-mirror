@@ -44,6 +44,12 @@ func InitSession() (err error) {
 	return
 }
 
+// SessionHandler returns the [securecookie.Handler] configured for
+// user sessions.
+func SessionHandler() *securecookie.Handler {
+	return sessionHandler
+}
+
 // WithSession initialize a session handler that will be available
 // on the included routes.
 func WithSession() func(next http.Handler) http.Handler {
@@ -60,7 +66,7 @@ func WithSession() func(next http.Handler) http.Handler {
 			ctx = withSession(ctx, session)
 
 			// If auth provider is not [auth.SessionAuthProvider], we're done
-			if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); !ok {
+			if _, ok := auth.GetRequestProvider(r).(*SessionAuthProvider); !ok {
 				next.ServeHTTP(w, r.WithContext(ctx))
 				return
 			}

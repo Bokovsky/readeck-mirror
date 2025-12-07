@@ -13,7 +13,6 @@ import (
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
-	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 type (
@@ -22,8 +21,17 @@ type (
 )
 
 var (
-	withAuthInfo, checkAuthInfo = ctxr.WithChecker[*Info](ctxAuthInfoKey{})
-	withProvider, checkProvider = ctxr.WithChecker[Provider](ctxProviderKey{})
+	// WithAuthInfo returns a context with [Info].
+	WithAuthInfo = ctxr.Setter[*Info](ctxAuthInfoKey{})
+
+	// CheckAuthInfo returns [Info] from the context.
+	CheckAuthInfo = ctxr.Checker[*Info](ctxAuthInfoKey{})
+
+	// WithProvider returns a context with [Provider].
+	WithProvider = ctxr.Setter[Provider](ctxProviderKey{})
+
+	// CheckProvider returns [Provider] from the context.
+	CheckProvider = ctxr.Checker[Provider](ctxProviderKey{})
 )
 
 // Info is the payload with the currently authenticated user
@@ -60,6 +68,11 @@ type FeatureCsrfProvider interface {
 type FeaturePermissionProvider interface {
 	HasPermission(*http.Request, string, string) bool
 	GetPermissions(*http.Request) []string
+}
+
+// LoggerProvider described a [Provider] that can return an [slog.Logger].
+type LoggerProvider interface {
+	Log(r *http.Request) *slog.Logger
 }
 
 // NullProvider is the provider returned when no other provider
@@ -120,10 +133,9 @@ func Init(providers ...Provider) func(next http.Handler) http.Handler {
 // The logged in user can be retrieved with [GetRequestUser].
 func Required(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		provider, ok := checkProvider(r.Context())
+		provider, ok := CheckProvider(r.Context())
 		if !ok {
 			slog.Error("authentication",
-				slog.String("@id", request.GetReqID(r.Context())),
 				slog.Any("err", errors.New("no authentication provider")),
 			)
 			w.WriteHeader(http.StatusForbidden)
@@ -136,22 +148,24 @@ func Required(next http.Handler) http.Handler {
 		}
 
 		if err != nil {
-			slog.Error("authentication error",
-				slog.String("@id", request.GetReqID(r.Context())),
-				slog.Any("err", err),
-			)
+			if p, ok := provider.(LoggerProvider); ok {
+				p.Log(r).Error("authentication", slog.Any("err", err))
+			}
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}
 
-		if _, ok := checkAuthInfo(r.Context()); !ok || GetRequestUser(r).IsAnonymous() {
+		if _, ok := CheckAuthInfo(r.Context()); !ok || GetRequestUser(r).IsAnonymous() {
+			if p, ok := provider.(LoggerProvider); ok {
+				p.Log(r).Error("authentication", slog.Any("err", errors.New("not authenticated")))
+			}
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}
 
-		if slog.Default().Enabled(context.Background(), slog.LevelDebug) {
+		if p, ok := provider.(LoggerProvider); ok && slog.Default().Enabled(context.Background(), slog.LevelDebug) {
 			authInfo := GetRequestAuthInfo(r)
-			slog.Debug("authenticated user",
+			p.Log(r).Debug("authenticated user",
 				slog.String("provider", authInfo.Provider.Name),
 				slog.String("id", authInfo.Provider.ID),
 				slog.String("user", authInfo.User.Username),
@@ -205,14 +219,14 @@ func defaultProviderHandler(next http.Handler) http.Handler {
 		ctx := r.Context()
 
 		// Set a default provider
-		if _, ok := checkProvider(ctx); !ok {
-			ctx = withProvider(ctx, &NullProvider{})
+		if _, ok := CheckProvider(ctx); !ok {
+			ctx = WithProvider(ctx, &NullProvider{})
 		}
 
 		// Always set a anonymous user and empty provider.
 		// It's overridden later by the authentication when
 		// entering the [Required] handler.
-		ctx = withAuthInfo(ctx, &Info{
+		ctx = WithAuthInfo(ctx, &Info{
 			Provider: &ProviderInfo{},
 			User:     &users.User{},
 		})
@@ -225,7 +239,7 @@ func defaultProviderHandler(next http.Handler) http.Handler {
 // when a [Provider] is already present in the request's context.
 func skipNextProviderHandler(next http.Handler, last http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if _, ok := checkProvider(r.Context()); ok {
+		if _, ok := CheckProvider(r.Context()); ok {
 			// we have a provider already, jump to the last handler.
 			last.ServeHTTP(w, r)
 			return
@@ -237,7 +251,7 @@ func skipNextProviderHandler(next http.Handler, last http.Handler) http.Handler 
 // GetRequestProvider returns the current request's authentication
 // provider.
 func GetRequestProvider(r *http.Request) Provider {
-	if p, ok := checkProvider(r.Context()); ok {
+	if p, ok := CheckProvider(r.Context()); ok {
 		return p
 	}
 	return nil
@@ -245,7 +259,7 @@ func GetRequestProvider(r *http.Request) Provider {
 
 // GetRequestAuthInfo returns the current request's auth info.
 func GetRequestAuthInfo(r *http.Request) *Info {
-	info, _ := checkAuthInfo(r.Context())
+	info, _ := CheckAuthInfo(r.Context())
 	return info
 }
 
