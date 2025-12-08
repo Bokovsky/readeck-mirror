@@ -222,7 +222,7 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username", IsValidUsername),
 		forms.NewTextField("email", forms.IsEmail),
-		forms.NewTextField("group", forms.ChoicesPairs(availableGroups)),
+		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
 	)}
 }
 
@@ -233,11 +233,13 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 // When the user doesn't exist, the returned [User] has an ID 0 and can be immediately
 // created with [Users.Create]. It already contains a generated password.
 func (f *ProvisioningForm) LoadUser(username, email, group string) (*User, goqu.Record, error) {
-	forms.BindValues(f, url.Values{
-		"username": {username},
-		"email":    {email},
-		"group":    {group},
-	})
+	values := url.Values{"username": {username}, "email": {email}}
+	if group != "" {
+		values.Set("group", group)
+	}
+
+	forms.BindValues(f, values)
+
 	if !f.IsValid() {
 		if len(f.Errors()) > 0 {
 			return nil, nil, f.Errors()
@@ -267,6 +269,9 @@ func (f *ProvisioningForm) LoadUser(username, email, group string) (*User, goqu.
 	user := new(User)
 	rec := goqu.Record{}
 	if len(res) == 0 {
+		if group == "" {
+			group = "user"
+		}
 		user.Username = username
 		user.Email = email
 		user.Group = group
@@ -279,7 +284,7 @@ func (f *ProvisioningForm) LoadUser(username, email, group string) (*User, goqu.
 		if user.Email != email {
 			rec["email"] = email
 		}
-		if user.Group != group {
+		if group != "" && user.Group != group {
 			rec["group"] = group
 		}
 	}

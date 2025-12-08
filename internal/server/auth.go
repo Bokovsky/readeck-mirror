@@ -254,7 +254,7 @@ func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
 		email := r.Header.Get(configs.Config.Auth.Forwarded.HeaderEmail)
 		group := r.Header.Get(configs.Config.Auth.Forwarded.HeaderGroup)
 
-		if username == "" || email == "" || group == "" {
+		if username == "" || email == "" {
 			// No header, stop and jump to next handler.
 			next.ServeHTTP(w, r)
 			return

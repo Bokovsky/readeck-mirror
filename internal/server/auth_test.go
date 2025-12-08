@@ -288,6 +288,17 @@ func TestForwardedAuth(t *testing.T) {
 			},
 		},
 		{
+			name: "no group",
+			req: func(r *http.Request) {
+				r.Header.Set("Remote-User", "user")
+				r.Header.Set("Remote-Email", "user@localhost")
+				r.RemoteAddr = "127.0.0.1:1234"
+			},
+			assert: func(assert *require.Assertions, rsp *Response) {
+				assert.Equal(200, rsp.StatusCode)
+			},
+		},
+		{
 			name: "update user",
 			req: func(r *http.Request) {
 				r.Header.Set("Remote-User", "user")
@@ -322,8 +333,8 @@ func TestForwardedAuth(t *testing.T) {
 			req: func(r *http.Request) {
 				configs.Config.Auth.Forwarded.ProvisioningEnabled = true
 
-				r.Header.Set("Remote-User", "new-user")
-				r.Header.Set("Remote-Email", "new-user@example.org")
+				r.Header.Set("Remote-User", "user2")
+				r.Header.Set("Remote-Email", "user2@example.org")
 				r.Header.Set("Remote-Groups", "user")
 				r.RemoteAddr = "127.0.0.1:1234"
 			},
@@ -331,10 +342,30 @@ func TestForwardedAuth(t *testing.T) {
 				assert.Equal(200, rsp.StatusCode)
 
 				user, err := users.Users.GetOne(
-					goqu.C("username").Eq("new-user"),
+					goqu.C("username").Eq("user2"),
 				)
 				assert.NoError(err)
-				assert.Equal("new-user@example.org", user.Email)
+				assert.Equal("user2@example.org", user.Email)
+				assert.Equal("user", user.Group)
+			},
+		},
+		{
+			name: "provisioning no group",
+			req: func(r *http.Request) {
+				configs.Config.Auth.Forwarded.ProvisioningEnabled = true
+
+				r.Header.Set("Remote-User", "user3")
+				r.Header.Set("Remote-Email", "user3@example.org")
+				r.RemoteAddr = "127.0.0.1:1234"
+			},
+			assert: func(assert *require.Assertions, rsp *Response) {
+				assert.Equal(200, rsp.StatusCode)
+
+				user, err := users.Users.GetOne(
+					goqu.C("username").Eq("user3"),
+				)
+				assert.NoError(err)
+				assert.Equal("user3@example.org", user.Email)
 				assert.Equal("user", user.Group)
 			},
 		},
