@@ -105,6 +105,11 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodPost {
 		user := auth.GetRequestUser(r)
+		if user.Locked() {
+			server.Status(w, r, http.StatusForbidden)
+			return
+		}
+
 		f.setUser(user)
 		forms.Bind(f, r)
 		if f.IsValid() {

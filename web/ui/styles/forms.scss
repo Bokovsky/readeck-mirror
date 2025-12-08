@@ -15,6 +15,10 @@
       background-color: inherit;
     }
 
+    &:disabled {
+      @apply text-gray-500 cursor-not-allowed;
+    }
+
     &:hover {
       @apply border-gray-600;
     }

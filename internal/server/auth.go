@@ -195,6 +195,9 @@ func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Reques
 		return r, err
 	}
 
+	// lock user when external
+	u.Lock(sess.Payload.External)
+
 	// At this point, the user is granted access.
 	// We renew its session for another max age duration.
 	sess.Save(w, r)
@@ -316,6 +319,8 @@ func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
 		// Encode and add the session cookie to the request
 		sess.Payload.User = user.ID
 		sess.Payload.Seed = user.Seed
+		sess.Payload.External = true
+		// TODO: sess.Payload.NeedsMFA = user.IsTOTPEnabled()
 
 		encoded, err := SessionHandler().Encode(sess.Payload)
 		if err != nil {

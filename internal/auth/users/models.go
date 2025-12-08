@@ -47,6 +47,7 @@ var (
 
 // User is a user record in database.
 type User struct {
+	locked   bool
 	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`
 	UID      string        `db:"uid"`
 	Created  time.Time     `db:"created" goqu:"skipupdate"`
@@ -211,6 +212,16 @@ func (u *User) Permissions() []string {
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
 	return acls.Enforce(u.Group, obj, act)
+}
+
+// Lock locks the user's username, email and password change.
+func (u *User) Lock(v bool) {
+	u.locked = v
+}
+
+// Locked returns the user's locked status.
+func (u *User) Locked() bool {
+	return u.locked
 }
 
 // MakePassword generates a password of the given length.
