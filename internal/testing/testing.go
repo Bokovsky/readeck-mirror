@@ -256,10 +256,7 @@ type TestApp struct {
 // some users, and an http muxer ready to accept requests.
 func NewTestApp(t *testing.T) *TestApp {
 	var err error
-	tmpDir, err := os.MkdirTemp(os.TempDir(), "readeck_*")
-	if err != nil {
-		t.Fatal(err)
-	}
+	tmpDir := t.TempDir()
 
 	configs.Config.Main.SecretKey = "1234567890"
 	configs.Config.Main.DataDirectory = tmpDir

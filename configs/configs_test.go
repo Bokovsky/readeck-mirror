@@ -7,6 +7,7 @@ package configs
 import (
 	"log/slog"
 	"os"
+	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -197,6 +198,71 @@ func TestEnvVars(t *testing.T) {
 			v, exists := os.LookupEnv(k)
 			assert.Empty(v)
 			assert.False(exists)
+		}
+	})
+
+	t.Run("auth.forwarded", func(t *testing.T) {
+		tests := []struct {
+			env    map[string]string
+			expect func(assert *require.Assertions, cf config, err error)
+		}{
+			{
+				env: map[string]string{
+					"READECK_AUTH_FORWARDED_ENABLED": "true",
+				},
+				expect: func(assert *require.Assertions, cf config, err error) {
+					assert.NoError(err)
+					assert.True(cf.Auth.Forwarded.Enabled)
+					assert.False(cf.Auth.Forwarded.ProvisioningEnabled)
+				},
+			},
+			{
+				env: map[string]string{
+					"READECK_AUTH_FORWARDED_ENABLED":      "true",
+					"READECK_AUTH_FORWARDED_PROVISIONING": "true",
+				},
+				expect: func(assert *require.Assertions, cf config, err error) {
+					assert.NoError(err)
+					assert.True(cf.Auth.Forwarded.Enabled)
+					assert.True(cf.Auth.Forwarded.ProvisioningEnabled)
+				},
+			},
+			{
+				env: map[string]string{
+					"READECK_AUTH_FORWARDED_HEADER_USER":  "remote-user",
+					"READECK_AUTH_FORWARDED_HEADER_EMAIL": "remote-email",
+					"READECK_AUTH_FORWARDED_HEADER_GROUP": "remote-groups",
+				},
+				expect: func(assert *require.Assertions, cf config, err error) {
+					assert.NoError(err)
+					assert.NoError(cf.validate())
+					assert.Equal("remote-user", cf.Auth.Forwarded.HeaderUser)
+					assert.Equal("remote-email", cf.Auth.Forwarded.HeaderEmail)
+					assert.Equal("remote-groups", cf.Auth.Forwarded.HeaderGroup)
+				},
+			},
+			{
+				env: map[string]string{
+					"READECK_AUTH_FORWARDED_HEADER_USER":  "remote-user",
+					"READECK_AUTH_FORWARDED_HEADER_EMAIL": "remote-user",
+					"READECK_AUTH_FORWARDED_HEADER_GROUP": "remote-groups",
+				},
+				expect: func(assert *require.Assertions, cf config, err error) {
+					assert.NoError(err)
+					assert.Error(cf.validate(), "all header names must be different")
+				},
+			},
+		}
+
+		for i, test := range tests {
+			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
+				for k, v := range test.env {
+					t.Setenv(k, v)
+				}
+				cf := config{}
+				err := cf.LoadEnv()
+				test.expect(require.New(t), cf, err)
+			})
 		}
 	})
 }

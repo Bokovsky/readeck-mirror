@@ -7,6 +7,7 @@ package configs
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net"
@@ -44,6 +45,7 @@ type config struct {
 	Main         configMain      `json:"main"`
 	Server       configServer    `json:"server"`
 	Database     configDB        `json:"database"`
+	Auth         configAuth      `json:"auth"`
 	Email        configEmail     `json:"email"`
 	Extractor    configExtractor `json:"extractor"`
 	Bookmarks    configBookmarks `json:"bookmarks"`
@@ -70,8 +72,20 @@ type configServer struct {
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
 	CertFile       string        `json:"cert_file" env:"CERT_FILE"`
 	KeyFile        string        `json:"key_file" env:"KEY_FILE"`
-	CAFile         string        `json:"ca_file" env:"CA_FILE"`
+	ClientCAFile   string        `json:"client_ca_file" env:"CLIENT_CA_FILE"`
 	Session        configSession `json:"session"`
+}
+
+type configAuth struct {
+	Forwarded configForwardedAuth
+}
+
+type configForwardedAuth struct {
+	Enabled             bool   `json:"enabled" env:"AUTH_FORWARDED_ENABLED"`
+	ProvisioningEnabled bool   `json:"provisioning" env:"AUTH_FORWARDED_PROVISIONING"`
+	HeaderUser          string `json:"header_user" env:"AUTH_FORWARDED_HEADER_USER"`
+	HeaderEmail         string `json:"header_email" env:"AUTH_FORWARDED_HEADER_EMAIL"`
+	HeaderGroup         string `json:"header_group" env:"AUTH_FORWARDED_HEADER_GROUP"`
 }
 
 type configDB struct {
@@ -150,6 +164,18 @@ func (c *config) LoadEnv() error {
 		Prefix:                "READECK_",
 		UseFieldNameByDefault: false,
 	})
+}
+
+func (c *config) validate() error {
+	if len(map[string]struct{}{
+		c.Auth.Forwarded.HeaderUser:  {},
+		c.Auth.Forwarded.HeaderEmail: {},
+		c.Auth.Forwarded.HeaderGroup: {},
+	}) != 3 {
+		return errors.New("auth.forwarded: all header names must be different")
+	}
+
+	return nil
 }
 
 func (a *configEmailAddr) parse(s string) (err error) {
@@ -325,6 +351,15 @@ var Config = config{
 	Email: configEmail{
 		Port: 25,
 	},
+	Auth: configAuth{
+		Forwarded: configForwardedAuth{
+			Enabled:             false,
+			HeaderUser:          "Remote-User",
+			HeaderEmail:         "Remote-Email",
+			HeaderGroup:         "Remote-Groups",
+			ProvisioningEnabled: true,
+		},
+	},
 	Bookmarks: configBookmarks{
 		PublicShareTTL: 24,
 	},
@@ -363,7 +398,7 @@ func LoadConfiguration(configPath string) error {
 	}
 
 	InitConfiguration()
-	return nil
+	return Config.validate()
 }
 
 // InitConfiguration applies some default computed values on the configuration.

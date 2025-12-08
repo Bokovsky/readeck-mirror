@@ -5,9 +5,13 @@
 package server
 
 import (
+	"encoding/base64"
 	"errors"
+	"fmt"
 	"log/slog"
+	"net"
 	"net/http"
+	"slices"
 	"strings"
 	"time"
 
@@ -20,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
+	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
@@ -225,4 +230,152 @@ func (p *SessionAuthProvider) checkSession(sess *sessions.Session) (u *users.Use
 func (p *SessionAuthProvider) clearSession(sess *sessions.Session, w http.ResponseWriter, r *http.Request) {
 	sess.Clear(w, r)
 	unauthorizedHandler(w, r)
+}
+
+// ForwardedAuthProvider handles forwarded authentication provided by a reverse
+// proxy through headers.
+type ForwardedAuthProvider struct{}
+
+// Log implements [auth.LoggerProvider].
+func (p *ForwardedAuthProvider) Log(r *http.Request) *slog.Logger {
+	return slog.With(slog.String("@id", request.GetReqID(r.Context())))
+}
+
+// Handler accepts requests with forwarded authentication headers.
+// When successful, it adds a new session cookie to the request, which
+// can then be handled by [SessionAuthProvider].
+func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
+	if !p.enabled() {
+		return next
+	}
+
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		username := r.Header.Get(configs.Config.Auth.Forwarded.HeaderUser)
+		email := r.Header.Get(configs.Config.Auth.Forwarded.HeaderEmail)
+		group := r.Header.Get(configs.Config.Auth.Forwarded.HeaderGroup)
+
+		if username == "" || email == "" || group == "" {
+			// No header, stop and jump to next handler.
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		// Check request
+		if err := p.checkRequest(r); err != nil {
+			Status(w, r, http.StatusForbidden)
+			p.Log(r).Error("forwarded auth", slog.Any("err", err))
+			return
+		}
+
+		// Load user
+		f := users.NewProvisioningForm(Locale(r))
+		user, update, err := f.LoadUser(username, email, group)
+		if err != nil {
+			var fe forms.Errors
+			if errors.As(err, &fe) {
+				Status(w, r, http.StatusForbidden)
+				p.Log(r).Error("forwarded auth", slog.Any("err", fe))
+			} else {
+				Err(w, r, err)
+			}
+
+			return
+		}
+
+		if user.IsAnonymous() {
+			// If user does not exist we might provision it or reject the request,
+			// according to the setting [ForwardedAuthProvider.AllowProvisioning].
+			if !p.provisioningEnabled() {
+				Status(w, r, http.StatusForbidden)
+				p.Log(r).Error("forwarded auth",
+					slog.Any("err", "user provisioning not allowed"),
+				)
+				return
+			}
+			if err = users.Users.Create(user); err != nil {
+				Err(w, r, err)
+				return
+			}
+		} else if len(update) > 0 {
+			// When user is known, we might need to update them.
+			update["updated"] = time.Now().UTC()
+			if err = user.Update(update); err != nil {
+				Err(w, r, err)
+				return
+			}
+		}
+
+		// Load any existing session
+		sess, _ := sessions.New(SessionHandler(), r)
+		if !sess.IsNew && sess.Payload.User == user.ID {
+			// The session exists and is for the same user, we can stop here.
+			next.ServeHTTP(w, r)
+			return
+		}
+
+		// Encode and add the session cookie to the request
+		sess.Payload.User = user.ID
+		sess.Payload.Seed = user.Seed
+
+		encoded, err := SessionHandler().Encode(sess.Payload)
+		if err != nil {
+			Err(w, r, err)
+			return
+		}
+
+		// Keep existing cookies except the session
+		cookies, _ := http.ParseCookie(r.Header.Get("cookie"))
+		r.Header.Del("cookie")
+		for _, c := range cookies {
+			if c.Name != configs.Config.Server.Session.CookieName {
+				r.AddCookie(c)
+			}
+		}
+
+		// Add the new session cookie
+		r.AddCookie(&http.Cookie{
+			Name:  configs.Config.Server.Session.CookieName,
+			Value: base64.URLEncoding.EncodeToString(encoded),
+		})
+
+		next.ServeHTTP(w, r)
+	})
+}
+
+// Authenticate is a noop.
+func (p *ForwardedAuthProvider) Authenticate(_ http.ResponseWriter, r *http.Request) (*http.Request, error) {
+	return r, nil
+}
+
+func (p *ForwardedAuthProvider) checkRequest(r *http.Request) error {
+	// Check remote IP address
+	remoteIP := request.GetRemoteIP(r.Context())
+	if n := p.trustedOrigin(); remoteIP != nil && len(n) > 0 && !slices.ContainsFunc(n, func(cidr *net.IPNet) bool {
+		return cidr.Contains(remoteIP)
+	}) {
+		return fmt.Errorf("unauthorized client (%s)", remoteIP)
+	}
+
+	// Check client certificate
+	if p.mtlsRequired() && (r.TLS == nil || len(r.TLS.PeerCertificates) == 0) {
+		return errors.New("no client certificate provided")
+	}
+
+	return nil
+}
+
+func (p *ForwardedAuthProvider) enabled() bool {
+	return configs.Config.Auth.Forwarded.Enabled
+}
+
+func (p *ForwardedAuthProvider) mtlsRequired() bool {
+	return configs.Config.Server.ClientCAFile != ""
+}
+
+func (p *ForwardedAuthProvider) provisioningEnabled() bool {
+	return configs.Config.Auth.Forwarded.ProvisioningEnabled
+}
+
+func (p *ForwardedAuthProvider) trustedOrigin() []*net.IPNet {
+	return configs.TrustedProxies()
 }
