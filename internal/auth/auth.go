@@ -156,9 +156,6 @@ func Required(next http.Handler) http.Handler {
 		}
 
 		if _, ok := CheckAuthInfo(r.Context()); !ok || GetRequestUser(r).IsAnonymous() {
-			if p, ok := provider.(LoggerProvider); ok {
-				p.Log(r).Error("authentication", slog.Any("err", errors.New("not authenticated")))
-			}
 			w.WriteHeader(http.StatusForbidden)
 			return
 		}

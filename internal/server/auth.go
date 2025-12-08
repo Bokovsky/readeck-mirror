@@ -195,6 +195,11 @@ func (p *SessionAuthProvider) Authenticate(w http.ResponseWriter, r *http.Reques
 		return r, err
 	}
 
+	if sess.Payload.External && !configs.Config.Auth.Forwarded.Enabled {
+		p.clearSession(sess, w, r)
+		return r, nil
+	}
+
 	// lock user when external
 	u.Lock(sess.Payload.External)
 

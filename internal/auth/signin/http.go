@@ -64,6 +64,12 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodGet {
 		// Set the redirect value from the query string
 		f.Get("redirect").Set(r.URL.Query().Get("r"))
+
+		// Do we have a session already?
+		if server.GetSession(r).Payload.User != 0 {
+			server.Redirect(w, r, h.cleanRedir(f.Get("redirect").String()))
+			return
+		}
 	}
 
 	if r.Method == http.MethodPost {
@@ -81,12 +87,7 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 				// Get redirection from a form "redirect" parameter
 				// Since it goes to Redirect(), it will be sanitized there
 				// and can only stay within the app.
-				redir := f.Get("redirect").String()
-				if redir == "" || strings.HasPrefix(redir, "/login") {
-					redir = "/"
-				}
-
-				server.Redirect(w, r, redir)
+				server.Redirect(w, r, h.cleanRedir(f.Get("redirect").String()))
 				return
 			}
 			// we must set the content type to avoid the
@@ -108,4 +109,11 @@ func (h *authHandler) logout(w http.ResponseWriter, r *http.Request) {
 	sess.Clear(w, r)
 
 	server.Redirect(w, r, "/login")
+}
+
+func (h *authHandler) cleanRedir(redir string) string {
+	if redir == "" || strings.HasPrefix(redir, "/login") {
+		redir = "/"
+	}
+	return redir
 }
