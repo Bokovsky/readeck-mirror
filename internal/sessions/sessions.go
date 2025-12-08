@@ -19,6 +19,7 @@ import (
 
 // Payload contains session values.
 type Payload struct {
+	External    bool           `json:"x"`
 	Seed        int            `json:"s"`
 	User        int            `json:"u"`
 	LastUpdate  time.Time      `json:"lu"`

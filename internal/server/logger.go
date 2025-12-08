@@ -24,13 +24,18 @@ func Logger() func(next http.Handler) http.Handler {
 type httpLogger struct{}
 
 func (sl *httpLogger) NewLogEntry(r *http.Request) middleware.LogEntry {
+	realIP := "@"
+	if ip := request.GetRealIP(r.Context()); ip != nil {
+		realIP = ip.String()
+	}
+
 	attrs := httpAttrs{
 		slog.String("@id", GetReqID(r)),
 		slog.Group("request",
 			slog.String("method", r.Method),
 			slog.String("path", r.RequestURI),
 			slog.String("proto", r.Proto),
-			slog.String("remote_addr", request.GetRealIP(r.Context()).String()),
+			slog.String("remote_addr", realIP),
 		),
 	}
 	slog.LogAttrs(context.TODO(), slog.LevelDebug,

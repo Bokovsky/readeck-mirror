@@ -7,6 +7,8 @@ package users
 import (
 	"context"
 	"errors"
+	"fmt"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
@@ -201,4 +203,91 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	res["id"] = u.ID
 	delete(res, "seed")
 	return
+}
+
+// ProvisioningForm is the form used for retrieving an existing or new user
+// based on its username and email address.
+type ProvisioningForm struct {
+	*forms.Form
+}
+
+// NewProvisioningForm returns a new [NewProvisioningForm].
+func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
+	availableGroups := [][2]string{
+		{"none", tr.Pgettext("role", "no group")},
+	}
+	availableGroups = append(availableGroups, GroupList(tr, "__group__", nil)...)
+
+	return &ProvisioningForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("username", IsValidUsername),
+		forms.NewTextField("email", forms.IsEmail),
+		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
+	)}
+}
+
+// LoadUser loads a user based on its username or email.
+// When it exists, there must be only one result for the tupple username + email.
+// If the user needs an update, a non empty [goqu.Record] is returned so any process
+// calling this method can perform the update.
+// When the user doesn't exist, the returned [User] has an ID 0 and can be immediately
+// created with [Users.Create]. It already contains a generated password.
+func (f *ProvisioningForm) LoadUser(username, email, group string) (*User, goqu.Record, error) {
+	values := url.Values{"username": {username}, "email": {email}}
+	if group != "" {
+		values.Set("group", group)
+	}
+
+	forms.BindValues(f, values)
+
+	if !f.IsValid() {
+		if len(f.Errors()) > 0 {
+			return nil, nil, f.Errors()
+		}
+		for _, field := range f.Fields() {
+			if len(field.Errors()) > 0 {
+				return nil, nil, forms.Errors{fmt.Errorf("%s: %s", field.Name(), field.Errors())}
+			}
+		}
+	}
+
+	res := []*User{}
+	err := Users.Query().Where(
+		goqu.Or(
+			goqu.C("username").Eq(username),
+			goqu.C("email").Eq(email),
+		),
+	).ScanStructs(&res)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if len(res) > 1 {
+		return nil, nil, fmt.Errorf("more than one user is associated with %s and %s", username, email)
+	}
+
+	user := new(User)
+	rec := goqu.Record{}
+	if len(res) == 0 {
+		if group == "" {
+			group = "user"
+		}
+		user.Username = username
+		user.Email = email
+		user.Group = group
+		user.Password = MakePassword(64)
+	} else {
+		user = res[0]
+		if user.Username != username {
+			rec["username"] = username
+		}
+		if user.Email != email {
+			rec["email"] = email
+		}
+		if group != "" && user.Group != group {
+			rec["group"] = group
+		}
+	}
+
+	return user, rec, nil
 }

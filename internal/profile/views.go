@@ -105,6 +105,11 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == http.MethodPost {
 		user := auth.GetRequestUser(r)
+		if user.Locked() {
+			server.Status(w, r, http.StatusForbidden)
+			return
+		}
+
 		f.setUser(user)
 		forms.Bind(f, r)
 		if f.IsValid() {
@@ -137,7 +142,7 @@ func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 // This returns an API response but since it only works with a SessionAuthProvider
 // it makes more sense to have it in the views.
 func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
-	p, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider)
+	_, ok := auth.GetRequestProvider(r).(*server.SessionAuthProvider)
 	if !ok {
 		server.TextMsg(w, r, http.StatusBadRequest, "invalid authentication provider")
 		return
@@ -151,7 +156,7 @@ func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sess := p.GetSession(r)
+	sess := server.GetSession(r)
 	updated, err := f.updateSession(sess.Payload)
 	if err != nil {
 		server.Err(w, r, err)

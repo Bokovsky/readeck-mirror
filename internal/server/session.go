@@ -25,8 +25,8 @@ type (
 )
 
 var (
-	withSession, getSession             = ctxr.WithChecker[*sessions.Session](ctxSessionKey{})
-	withFlashMessages, getFlashMessages = ctxr.WithChecker[[]sessions.FlashMessage](ctxFlashKey{})
+	withSession, checkSession             = ctxr.WithChecker[*sessions.Session](ctxSessionKey{})
+	withFlashMessages, checkFlashMessages = ctxr.WithChecker[[]sessions.FlashMessage](ctxFlashKey{})
 )
 
 var sessionHandler *securecookie.Handler
@@ -44,13 +44,19 @@ func InitSession() (err error) {
 	return
 }
 
+// SessionHandler returns the [securecookie.Handler] configured for
+// user sessions.
+func SessionHandler() *securecookie.Handler {
+	return sessionHandler
+}
+
 // WithSession initialize a session handler that will be available
 // on the included routes.
 func WithSession() func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			// Store session
-			session, err := sessions.New(sessionHandler, r)
+			session, err := sessions.New(SessionHandler(), r)
 			if err != nil && !errors.Is(err, http.ErrNoCookie) {
 				slog.Warn("session cookie", slog.Any("err", err))
 			}
@@ -60,7 +66,7 @@ func WithSession() func(next http.Handler) http.Handler {
 			ctx = withSession(ctx, session)
 
 			// If auth provider is not [auth.SessionAuthProvider], we're done
-			if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); !ok {
+			if _, ok := auth.GetRequestProvider(r).(*SessionAuthProvider); !ok {
 				next.ServeHTTP(w, r.WithContext(ctx))
 				return
 			}
@@ -88,7 +94,7 @@ func WithSession() func(next http.Handler) http.Handler {
 // It will panic (on purpose) if the route is not using the
 // WithSession() middleware.
 func GetSession(r *http.Request) *sessions.Session {
-	if sess, ok := getSession(r.Context()); ok {
+	if sess, ok := checkSession(r.Context()); ok {
 		return sess
 	}
 	return nil
@@ -104,7 +110,7 @@ func AddFlash(w http.ResponseWriter, r *http.Request, typ, msg string) error {
 // Flashes returns the flash messages retrieved from the session
 // in the session middleware.
 func Flashes(r *http.Request) []sessions.FlashMessage {
-	if msgs, ok := getFlashMessages(r.Context()); ok && msgs != nil {
+	if msgs, ok := checkFlashMessages(r.Context()); ok && msgs != nil {
 		return msgs
 	}
 	return make([]sessions.FlashMessage, 0)

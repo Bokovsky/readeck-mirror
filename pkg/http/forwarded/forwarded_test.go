@@ -91,7 +91,7 @@ func TestParseXForwardedFor(t *testing.T) {
 			}
 
 			var res []net.IP
-			for _, ip := range forwarded.ParseXForwardedFor(header) {
+			for ip := range forwarded.ParseXForwardedFor(header) {
 				res = append(res, ip)
 			}
 

@@ -38,7 +38,6 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/sessions"
-	"codeberg.org/readeck/readeck/pkg/http/securecookie"
 )
 
 type fixtureData struct {
@@ -222,10 +221,7 @@ func (tu *TestUser) APIToken() string {
 
 func (tu *TestUser) sessionCookie() *http.Cookie {
 	// Create and encoded a session cookie
-	encoded, err := securecookie.NewHandler(
-		securecookie.Key(configs.Keys.SessionKey()),
-		securecookie.WithMaxAge(configs.Config.Server.Session.MaxAge),
-	).Encode(&sessions.Payload{
+	encoded, err := server.SessionHandler().Encode(&sessions.Payload{
 		Seed:        tu.User.Seed,
 		User:        tu.User.ID,
 		LastUpdate:  time.Now().UTC(),
@@ -260,10 +256,7 @@ type TestApp struct {
 // some users, and an http muxer ready to accept requests.
 func NewTestApp(t *testing.T) *TestApp {
 	var err error
-	tmpDir, err := os.MkdirTemp(os.TempDir(), "readeck_*")
-	if err != nil {
-		t.Fatal(err)
-	}
+	tmpDir := t.TempDir()
 
 	configs.Config.Main.SecretKey = "1234567890"
 	configs.Config.Main.DataDirectory = tmpDir

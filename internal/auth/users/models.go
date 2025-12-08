@@ -6,12 +6,13 @@
 package users
 
 import (
+	"crypto/rand"
 	"database/sql/driver"
 	"encoding/json"
 	"errors"
 	"hash"
 	"io"
-	"math/rand/v2"
+	"math/big"
 	"strconv"
 	"strings"
 	"time"
@@ -46,6 +47,7 @@ var (
 
 // User is a user record in database.
 type User struct {
+	locked   bool
 	ID       int           `db:"id" goqu:"skipinsert,skipupdate"`
 	UID      string        `db:"uid"`
 	Created  time.Time     `db:"created" goqu:"skipupdate"`
@@ -190,7 +192,8 @@ func (u *User) SetPassword(password string) error {
 // SetSeed sets a new seed to the user. It returns the seed as an integer value
 // and does *not* save the data but the seed is accessible on the user instance.
 func (u *User) SetSeed() int {
-	u.Seed = rand.IntN(32767) //nolint:gosec
+	s, _ := rand.Int(rand.Reader, big.NewInt(32767))
+	u.Seed = int(s.Int64())
 	return u.Seed
 }
 
@@ -209,6 +212,27 @@ func (u *User) Permissions() []string {
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
 	return acls.Enforce(u.Group, obj, act)
+}
+
+// Lock locks the user's username, email and password change.
+func (u *User) Lock(v bool) {
+	u.locked = v
+}
+
+// Locked returns the user's locked status.
+func (u *User) Locked() bool {
+	return u.locked
+}
+
+// MakePassword generates a password of the given length.
+func MakePassword(n int) string {
+	alphabet := "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz!@$%&<>?"
+	bytes := make([]byte, n)
+	rand.Read(bytes)
+	for i, b := range bytes {
+		bytes[i] = alphabet[b%byte(len(alphabet))]
+	}
+	return string(bytes)
 }
 
 // UserSettings contains some user settings.

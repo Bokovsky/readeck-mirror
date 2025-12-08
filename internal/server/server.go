@@ -40,6 +40,7 @@ func New() *Server {
 		chi.NewRouter(),
 	}
 
+	// Prepare authentication providers
 	s.Use(
 		middleware.Recoverer,
 		InitRequest(),
@@ -50,11 +51,9 @@ func New() *Server {
 		WithCacheControl,
 		CannonicalPaths,
 		auth.Init(
-			&auth.TokenAuthProvider{},
-			&auth.SessionAuthProvider{
-				GetSession:          GetSession,
-				UnauthorizedHandler: unauthorizedHandler,
-			},
+			&TokenAuthProvider{},
+			&ForwardedAuthProvider{},
+			&SessionAuthProvider{},
 		),
 		LoadLocale,
 		ErrorPages,

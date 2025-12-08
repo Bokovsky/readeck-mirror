@@ -9,6 +9,7 @@ import (
 	"iter"
 	"net"
 	"net/http"
+	"slices"
 	"strings"
 )
 
@@ -26,18 +27,14 @@ func IsForwarded(header http.Header) bool {
 // ParseXForwardedFor returns an iterator of all valid IP addresses
 // found in X-Forwarded-For header. It yields IP addresses in reverse
 // order so we can easily find the first mach from the rightmost value.
-func ParseXForwardedFor(header http.Header) iter.Seq2[int, net.IP] {
-	values := header[xForwardedFor]
-	return func(yield func(int, net.IP) bool) {
-		idx := 0
-		for i := len(values) - 1; i >= 0; i-- {
-			value := strings.Split(values[i], ",")
-			for j := len(value) - 1; j >= 0; j-- {
-				if ip := net.ParseIP(strings.TrimSpace(value[j])); ip != nil {
-					if !yield(idx, ip) {
+func ParseXForwardedFor(header http.Header) iter.Seq[net.IP] {
+	return func(yield func(net.IP) bool) {
+		for _, v := range slices.Backward(header[xForwardedFor]) {
+			for _, x := range slices.Backward(strings.Split(v, ",")) {
+				if ip := net.ParseIP(strings.TrimSpace(x)); ip != nil {
+					if !yield(ip) {
 						return
 					}
-					idx++
 				}
 			}
 		}

@@ -166,11 +166,15 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 			u.Settings.AddonReminder = field.Value().(bool)
 			res["settings"] = u.Settings
 		case n == "email" && field.String() != u.Email:
-			res["email"] = field.String()
-			resetSeed = true
+			if !u.Locked() {
+				res["email"] = field.String()
+				resetSeed = true
+			}
 		case n == "username" && field.String() != u.Username:
-			res["username"] = field.String()
-			resetSeed = true
+			if !u.Locked() {
+				res["username"] = field.String()
+				resetSeed = true
+			}
 		default:
 			res[field.Name()] = field.Value()
 		}

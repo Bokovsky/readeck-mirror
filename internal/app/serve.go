@@ -174,7 +174,9 @@ func runServer(_ context.Context, args []string) error {
 		var err error
 		if configs.Config.Server.CertFile != "" && configs.Config.Server.KeyFile != "" {
 			// Set a certificate and keys when given
-			srv.TLSConfig = &tls.Config{} //nolint:gosec
+			srv.TLSConfig = &tls.Config{
+				MinVersion: tls.VersionTLS12,
+			}
 			srv.TLSConfig.Certificates = make([]tls.Certificate, 1)
 			srv.TLSConfig.Certificates[0], err = tls.LoadX509KeyPair(
 				configs.Config.Server.CertFile,
@@ -188,8 +190,8 @@ func runServer(_ context.Context, args []string) error {
 			// We don't set ClientAuth to [tls.RequireAndVerifyClientCert] and
 			// it's up to any midleware or authentication provider to require
 			// a client certificate.
-			if configs.Config.Server.CAFile != "" {
-				caPem, err := os.ReadFile(configs.Config.Server.CAFile)
+			if configs.Config.Server.ClientCAFile != "" {
+				caPem, err := os.ReadFile(configs.Config.Server.ClientCAFile)
 				if err != nil {
 					fatal("cannot load CA certificate", err)
 				}

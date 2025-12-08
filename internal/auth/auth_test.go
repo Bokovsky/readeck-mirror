@@ -11,11 +11,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
-	"codeberg.org/readeck/readeck/pkg/http/request"
 )
 
 type emptyProvider struct{}
@@ -33,7 +31,7 @@ type defaultProvider struct{}
 func (p *defaultProvider) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
-		ctx = withProvider(ctx, p)
+		ctx = WithProvider(ctx, p)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -47,7 +45,7 @@ type otherProvider struct{}
 func (p *otherProvider) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
-		ctx = withProvider(ctx, p)
+		ctx = WithProvider(ctx, p)
 		next.ServeHTTP(w, r.WithContext(ctx))
 	})
 }
@@ -162,7 +160,7 @@ func (p *authHeaderProvider) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		if r.Header.Get("user") != "" {
-			ctx = withProvider(ctx, p)
+			ctx = WithProvider(ctx, p)
 		}
 
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -173,7 +171,7 @@ func (p *authHeaderProvider) Authenticate(_ http.ResponseWriter, r *http.Request
 	user := r.Header.Get("user")
 	switch user {
 	case "anonymous":
-		ctx := withAuthInfo(r.Context(), &Info{
+		ctx := WithAuthInfo(r.Context(), &Info{
 			Provider: &ProviderInfo{
 				Name: "header",
 			},
@@ -183,7 +181,7 @@ func (p *authHeaderProvider) Authenticate(_ http.ResponseWriter, r *http.Request
 	case "error":
 		return nil, errors.New("invalid user")
 	default:
-		ctx := withAuthInfo(r.Context(), &Info{
+		ctx := WithAuthInfo(r.Context(), &Info{
 			Provider: &ProviderInfo{
 				Name: "header",
 			},
@@ -199,7 +197,7 @@ func (p *authHeaderProvider2) Handler(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ctx := r.Context()
 		if r.Header.Get("x-user") != "" {
-			ctx = withProvider(ctx, p)
+			ctx = WithProvider(ctx, p)
 		}
 
 		next.ServeHTTP(w, r.WithContext(ctx))
@@ -207,7 +205,7 @@ func (p *authHeaderProvider2) Handler(next http.Handler) http.Handler {
 }
 
 func (p *authHeaderProvider2) Authenticate(_ http.ResponseWriter, r *http.Request) (*http.Request, error) {
-	ctx := withAuthInfo(r.Context(), &Info{
+	ctx := WithAuthInfo(r.Context(), &Info{
 		Provider: &ProviderInfo{
 			Name: "x-header",
 		},
@@ -298,22 +296,10 @@ func TestAuthenticate(t *testing.T) {
 				req.Header.Set(k, v)
 			}
 
-			mux := chi.NewRouter()
-			mux.Use(
-				request.InitRequest(),
-				Init(test.providers...),
-				Required,
-				func(_ http.Handler) http.Handler {
-					return http.HandlerFunc(func(_ http.ResponseWriter, r *http.Request) {
-						req = req.WithContext(r.Context())
-					})
-				},
-			)
-			mux.Get("/", func(w http.ResponseWriter, _ *http.Request) {
-				w.Write([]byte("ok"))
-			})
-
-			mux.ServeHTTP(w, req)
+			h := Init(test.providers...)
+			h(Required(http.HandlerFunc(func(_ http.ResponseWriter, r *http.Request) {
+				req = req.WithContext(r.Context())
+			}))).ServeHTTP(w, req)
 
 			test.assert(t, w, req)
 		})

@@ -11,6 +11,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ block mainContent() }}
 <h1 class="title text-h2">{{ yield title() }}</h1>
 
+{{- if !user.Locked() -}}
 <form action="{{ urlFor(`/logout`)}}" method="post" class="my-8">
   <p class="btn-block items-center">
     <span class="grow">{{ gettext("You are connected as <strong>%s</strong>", html(user.Username))|raw }}</span>
@@ -18,6 +19,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <span>{{ gettext("Sign out") }}</span></button>
   </p>
 </form>
+{{- end -}}
 
 
 <form action="{{ urlFor() }}" method="post">
@@ -28,13 +30,19 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{ yield textField(field=.Form.Get("username"),
                        required=true,
                        label=gettext("Username"),
-                       class="field-h") }}
+                       class="field-h",
+                       inputAttrs=attrList(
+                        "disabled", user.Locked(),
+                       )) }}
 
     {{ yield textField(field=.Form.Get("email"),
                        type="email",
                        required=true,
                        label=gettext("Email Address"),
-                       class="field-h") }}
+                       class="field-h",
+                       inputAttrs=attrList(
+                        "disabled", user.Locked(),
+                       )) }}
 
     {{ yield selectField(field=.Form.Get("settings_lang"),
                          required=true,

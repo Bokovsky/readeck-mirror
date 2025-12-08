@@ -120,7 +120,7 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 		}
 	})
 
-	if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); ok {
+	if _, ok := auth.GetRequestProvider(r).(*server.SessionAuthProvider); ok {
 		// Add an XSL stylesheet.
 		ctx = converter.WithAtomStylesheet(ctx, urls.PathOnly(urls.AbsoluteURL(r, "/assets/feed.xsl")))
 
