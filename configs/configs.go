@@ -397,14 +397,14 @@ func InitConfiguration() {
 	loadKeys()
 
 	// Load the IP ranges
-	trustedProxies = make([]*net.IPNet, len(Config.Server.TrustedProxies))
-	for i, x := range Config.Server.TrustedProxies {
-		trustedProxies[i] = x.IPNet
+	trustedProxies = make([]*net.IPNet, 0, len(Config.Server.TrustedProxies))
+	for _, x := range Config.Server.TrustedProxies {
+		trustedProxies = append(trustedProxies, x.IPNet)
 	}
 
-	extractorDeniedIPs = make([]*net.IPNet, len(Config.Extractor.DeniedIPs))
-	for i, x := range Config.Extractor.DeniedIPs {
-		extractorDeniedIPs[i] = x.IPNet
+	extractorDeniedIPs = make([]*net.IPNet, 0, len(Config.Extractor.DeniedIPs))
+	for _, x := range Config.Extractor.DeniedIPs {
+		extractorDeniedIPs = append(extractorDeniedIPs, x.IPNet)
 	}
 }
 
