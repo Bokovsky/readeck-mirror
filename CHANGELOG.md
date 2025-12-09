@@ -1,6 +1,9 @@
 # Changelog
 
 ## [Unreleased]
+### Added
+- Mathjax and Katex support, by [@mislav]
+
 ### Improved
 - Website icons visibility in dark mode
 - Handle "pt" CSS unit in SVG dimensions, by [@mislav]

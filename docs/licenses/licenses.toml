@@ -104,6 +104,15 @@ Copyright (c) 2019 Radhi Fadlillah
 """
 
 [[licenses]]
+name = "treeblood"
+license = "MIT"
+author = "Wyatt Sheffield"
+url = "https://github.com/wyatt915/treeblood"
+copyright = """
+Copyright (c) 2024 Wyatt Sheffield
+"""
+
+[[licenses]]
 name = "uuid"
 license = "BSD-3-Clause"
 author = "Google Inc."
@@ -335,6 +344,17 @@ copyright = """
 Copyright 2020 The JetBrains Mono Project Authors
 (https://github.com/JetBrains/JetBrainsMono)
 """
+
+[[licenses]]
+name = "dejavu-math font"
+license = "OFL-1.1"
+author = "Bitstream, Inc."
+url = "https://github.com/dejavu-fonts/dejavu-fonts"
+copyright = """
+Fonts are (c) Bitstream
+TeX Gyre DJV Math by B. Jackowski, P. Strzelczyk and P. Pianowski (on behalf of TeX users groups).
+"""
+
 
 [[licenses]]
 name = "atkinson-hyperlegible font"

@@ -124,6 +124,7 @@ func (api *cookbookAPI) getExtractor(uri string, r *http.Request) *extract.Extra
 		contentscripts.StripTags,
 		contentscripts.GoToNextPage,
 		contentscripts.ProcessDom("documentReady"),
+		contents.ConvertMathBlocks,
 		contents.StripHeadingAnchors,
 		contents.ExtractInlineSVGs,
 		contents.Readability(),
