@@ -39,14 +39,15 @@ require (
 	github.com/stretchr/testify v1.11.1
 	github.com/tdewolff/parse/v2 v2.8.5
 	github.com/wneessen/go-mail v0.7.2
+	github.com/wyatt915/treeblood v0.1.16
 	github.com/yuin/goldmark v1.7.13
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/crypto v0.45.0
-	golang.org/x/image v0.33.0
-	golang.org/x/net v0.47.0
-	golang.org/x/sync v0.18.0
-	golang.org/x/term v0.37.0
-	golang.org/x/text v0.31.0
+	golang.org/x/crypto v0.46.0
+	golang.org/x/image v0.34.0
+	golang.org/x/net v0.48.0
+	golang.org/x/sync v0.19.0
+	golang.org/x/term v0.38.0
+	golang.org/x/text v0.32.0
 	gopkg.in/yaml.v3 v3.0.1
 	modernc.org/sqlite v1.40.1
 )
@@ -66,7 +67,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8 // indirect
+	github.com/google/pprof v0.0.0-20251208000136-3d256cb9ff16 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -82,10 +83,9 @@ require (
 	github.com/prometheus/procfs v0.19.2 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
-	github.com/wyatt915/treeblood v0.1.16 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	golang.org/x/exp v0.0.0-20251125195548-87e1e737ad39 // indirect
-	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
