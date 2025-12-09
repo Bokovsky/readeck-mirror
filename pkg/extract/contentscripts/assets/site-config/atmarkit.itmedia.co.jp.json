@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@id=\"masterContents\"\"]"
+    "//div[@id=\"masterContents\"]"
   ],
   "date_selectors": null,
   "author_selectors": [

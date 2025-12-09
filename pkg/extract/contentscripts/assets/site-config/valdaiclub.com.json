@@ -3,7 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//div[contains(@class, 'dk-entry__body)]"
+    "//div[contains(@class, 'dk-entry__body')]"
   ],
   "date_selectors": null,
   "author_selectors": [

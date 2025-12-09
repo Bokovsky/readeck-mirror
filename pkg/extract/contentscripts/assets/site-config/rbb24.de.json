@@ -5,7 +5,7 @@
   "body_selectors": null,
   "date_selectors": null,
   "author_selectors": [
-    "substring(//div[@class='shorttext']//p//i), 5)"
+    "substring(//div[@class='shorttext']//p//i, 5)"
   ],
   "strip_selectors": [
     "//div[contains(@class, 'newSharing')]",

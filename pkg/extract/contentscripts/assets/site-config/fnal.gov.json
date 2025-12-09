@@ -1,12 +1,12 @@
 {
   "title_selectors": [
-    "normalize(//h1)"
+    "normalize-space(//h1)"
   ],
   "body_selectors": [
     "/table/tbody/tr[5]//table/tbody//table/tbody/tr/td"
   ],
   "date_selectors": [
-    "normalize(//td[contains(@style, \"color: #ffffff\")])"
+    "normalize-space(//td[contains(@style, \"color: #ffffff\")])"
   ],
   "author_selectors": [
     "//td/p[position()=last()]/em"

@@ -1,9 +1,11 @@
 {
   "title_selectors": [
-    "//div[@id='contentBody']//h1"
+    "//div[@id='contentBody']//h1",
+    "//h1[@class=\"content__title\"]"
   ],
   "body_selectors": [
-    "//div[@id='storyMediaBox'] | //div[contains(@class, 'storyText')]"
+    "//div[@id='storyMediaBox'] | //div[contains(@class, 'storyText')]",
+    "//section[@class=\"content__body\"]"
   ],
   "date_selectors": [
     "//meta[@name=\"published\"]/@content",
@@ -16,7 +18,10 @@
     "//div[@class=\"scrollingArrows\"]",
     "//div[@class=\"timeLine\"]",
     "//dl[@class=\"storyBlogByline\"]",
-    "//span[@class='image-credit']"
+    "//span[@class='image-credit']",
+    "//div[@class=\"content__google\"]",
+    "//footer[@class='content__footer']",
+    "//aside[@class=\"recirculation\"]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -32,6 +37,12 @@
     {
       "url": "http://www.cbsnews.com/8301-201_162-57366361/rescued-americans-dad-proud-of-the-u.s/",
       "contains": []
+    },
+    {
+      "url": "https://www.cbsnews.com/news/drunken-raccoon-virginia-liquor-store-bathroom-floor/",
+      "contains": [
+        "He fell through one of the ceiling tiles and went on a full-blown rampage, drinking everything."
+      ]
     }
   ]
 }

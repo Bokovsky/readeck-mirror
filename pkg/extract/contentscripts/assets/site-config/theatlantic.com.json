@@ -53,6 +53,12 @@
   "http_headers": null,
   "tests": [
     {
+      "url": "http://www.theatlantic.com/magazine/archive/2014/12/the-real-roots-of-midlife-crisis/382235/",
+      "contains": [
+        "The curve tends to evince itself"
+      ]
+    },
+    {
       "url": "https://www.theatlantic.com/technology/archive/2011/04/want-to-see-how-crazy-a-bot-run-market-can-be/237773/",
       "contains": []
     },

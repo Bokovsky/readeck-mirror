@@ -3,7 +3,7 @@
     "substring-before(//meta[@property='og:title']/@content , ' - A Wealth of Common Sense')"
   ],
   "body_selectors": [
-    "//div[@@class='inner-main']/article[1]"
+    "//div[@class='inner-main']/article[1]"
   ],
   "date_selectors": [
     "//time/@datetime"
