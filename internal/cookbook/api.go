@@ -60,7 +60,7 @@ type extractForm struct {
 func newExtractForm() *extractForm {
 	return &extractForm{forms.Must(
 		context.Background(),
-		forms.NewTextField("url", forms.Required, forms.IsURL("http", "https")),
+		forms.NewTextField("url", forms.Required, forms.MaxLen(1024), forms.IsURL("http", "https")),
 		forms.NewFileField("data"),
 	)}
 }

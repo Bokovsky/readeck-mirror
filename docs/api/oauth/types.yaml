@@ -30,10 +30,12 @@ schemas:
     properties:
       client_name:
         type: string
+        maxLength: 128
         description: The client's name
       client_uri:
         type: string
         format: uri
+        maxLength: 256
         description: |
           An URL where client information can be found. HTTPS only.
 
@@ -49,15 +51,18 @@ schemas:
           Only data URI of a base64 PNG encoded image is allowed.
       software_id:
         type: string
+        maxLength: 128
         description: A unique identifier for the application, for example a UUID
       software_version:
         type: string
+        maxLength: 64
         description: Version of the client
       redirect_uris:
         type: array
         items:
           type: string
           format: uri
+          maxLength: 256
         description: |
           A list of possible redirection URIs. URIs must be one of:
 
@@ -90,15 +95,6 @@ schemas:
           enum: [code]
           default: code
         description: Client supported response type
-
-  oauthClientUpdate:
-    required: [client_id, client_name, client_uri, software_id, software_version, redirect_uris]
-    properties:
-      client_id:
-        type: string
-        description: Client's ID
-      $merge:
-        - "#.schemas.oauthClientCreate.properties"
 
   oauthClientResponse:
     properties:
@@ -150,9 +146,11 @@ schemas:
             description: Authorization Code grant type
           code:
             type: string
+            maxLength: 2048
             description: The code as received in the authorization redirection
           code_verifier:
             type: string
+            maxLength: 256
             description: The PKCE Verifier
       - properties:
           grant_type:
@@ -161,8 +159,10 @@ schemas:
           device_code:
             type: string
             description: The device code
+            maxLength: 64
           client_id:
             type: string
+            maxLength: 52
             description: The client ID
 
   oauthTokenResponse:

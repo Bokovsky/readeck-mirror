@@ -46,9 +46,9 @@ func newProfileForm(tr forms.Translator) *profileForm {
 	return &profileForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username",
-			forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), users.IsValidUsername),
 		forms.NewTextField("email",
-			forms.Trim, forms.RequiredOrNil, forms.IsEmail),
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), forms.IsEmail),
 		forms.NewTextField("settings_lang",
 			forms.Trim,
 			forms.ChoicesPairs(locales.Available()),
@@ -62,7 +62,7 @@ func newProfileForm(tr forms.Translator) *profileForm {
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
 		),
 		forms.NewTextField("settings_reader_font",
-			forms.Trim, forms.RequiredOrNil,
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(64),
 		),
 		forms.NewIntegerField("settings_reader_font_size",
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
@@ -375,7 +375,7 @@ func newDeleteTokenForm(tr forms.Translator) *deleteTokenForm {
 	return &deleteTokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to"),
+		forms.NewTextField("_to", forms.MaxLen(128)),
 	)}
 }
 
@@ -397,7 +397,7 @@ type tokenForm struct {
 func newTokenForm(tr forms.Translator, user *users.User) *tokenForm {
 	return &tokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("application", forms.Trim, forms.Required),
+		forms.NewTextField("application", forms.Trim, forms.Required, forms.MaxLen(128)),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
 		forms.NewTextListField("roles", forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", user))),

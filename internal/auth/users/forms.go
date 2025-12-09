@@ -64,6 +64,7 @@ func NewUserForm(tr forms.Translator) *UserForm {
 			hasUser().
 				True(forms.RequiredOrNil).
 				False(forms.Required),
+			forms.MaxLen(128),
 			IsValidUsername,
 		),
 		forms.NewTextField("password",
@@ -81,6 +82,7 @@ func NewUserForm(tr forms.Translator) *UserForm {
 			hasUser().
 				True(forms.RequiredOrNil).
 				False(forms.Required),
+			forms.MaxLen(128),
 			forms.IsEmail,
 		),
 		forms.NewTextField("group",
@@ -220,8 +222,8 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 
 	return &ProvisioningForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", IsValidUsername),
-		forms.NewTextField("email", forms.IsEmail),
+		forms.NewTextField("username", forms.MaxLen(128), IsValidUsername),
+		forms.NewTextField("email", forms.MaxLen(128), forms.IsEmail),
 		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
 	)}
 }

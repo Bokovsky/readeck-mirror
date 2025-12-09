@@ -154,7 +154,7 @@ func (h *authHandler) mfa(w http.ResponseWriter, r *http.Request) {
 	f := forms.Must(
 		forms.WithTranslator(r.Context(), server.Locale(r)),
 		forms.NewTextField("code", forms.Required, forms.Len(6)),
-		forms.NewTextField("redirect"),
+		forms.NewTextField("redirect", forms.Trim, forms.MaxLen(512)),
 	)
 
 	if r.Method == http.MethodGet {

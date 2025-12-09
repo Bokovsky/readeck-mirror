@@ -146,9 +146,10 @@ func (adapter *omnivoreAPIAdapter) Form() forms.Binder {
 		forms.NewTextField("url",
 			forms.Trim,
 			forms.Required,
+			forms.MaxLen(128),
 			forms.IsURL(allowedSchemes...),
 		),
-		forms.NewTextField("token", forms.Trim, forms.Required),
+		forms.NewTextField("token", forms.Trim, forms.Required, forms.MaxLen(64)),
 	)
 	f.Get("url").Set("https://omnivore.app/")
 

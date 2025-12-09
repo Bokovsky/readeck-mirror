@@ -65,6 +65,7 @@ func newClientForm(tr forms.Translator) *clientForm {
 					}
 					return nil
 				}),
+				forms.MaxLen(256),
 				isValidRedirectURI,
 			),
 			forms.NewTextListField("grant_types",
@@ -127,15 +128,15 @@ type authorizationForm struct {
 func newAuthorizationForm(tr forms.Translator, user *users.User) *authorizationForm {
 	return &authorizationForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("client_id", forms.Trim, forms.Required),
-		forms.NewTextField("redirect_uri", forms.Trim, forms.Required, isValidRedirectURI),
+		forms.NewTextField("client_id", forms.Trim, forms.Required, forms.MaxLen(52)),
+		forms.NewTextField("redirect_uri", forms.Trim, forms.Required, forms.MaxLen(256), isValidRedirectURI),
 		newScopeField("scope",
 			forms.Trim,
 			forms.Required,
 			forms.ChoicesPairs(users.GroupList(tr, "__oauth_scope__", user)),
 		),
-		forms.NewTextField("state", forms.Trim),
-		forms.NewTextField("code_challenge", forms.Required),
+		forms.NewTextField("state", forms.Trim, forms.MaxLen(64)),
+		forms.NewTextField("code_challenge", forms.Required, forms.MaxLen(256)),
 		forms.NewTextField("code_challenge_method",
 			forms.Trim,
 			forms.Required,
@@ -185,7 +186,7 @@ type deviceForm struct {
 func newDeviceForm(tr forms.Translator) *deviceForm {
 	return &deviceForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("client_id", forms.Trim, forms.Required),
+		forms.NewTextField("client_id", forms.Trim, forms.Required, forms.MaxLen(52)),
 		newScopeField("scope",
 			forms.Trim,
 			forms.Required,
@@ -230,19 +231,23 @@ func newTokenForm(tr forms.Translator) *tokenForm {
 		forms.NewTextField("code",
 			forms.Trim,
 			requiredByGrantType(grantTypeAuthCode),
+			forms.MaxLen(2<<10),
 		),
 		forms.NewTextField("code_verifier",
 			forms.Trim,
 			requiredByGrantType(grantTypeAuthCode),
+			forms.MaxLen(256),
 		),
 
 		forms.NewTextField("device_code",
 			forms.Trim,
 			requiredByGrantType(grantTypeDeviceCode),
+			forms.MaxLen(64),
 		),
 		forms.NewTextField("client_id",
 			forms.Trim,
 			requiredByGrantType(grantTypeDeviceCode),
+			forms.MaxLen(52),
 		),
 	)}
 }
@@ -289,7 +294,7 @@ type revokeTokenForm struct {
 func newRevokeTokenForm(tr forms.Translator) *revokeTokenForm {
 	return &revokeTokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("token", forms.Trim, forms.Required),
+		forms.NewTextField("token", forms.Trim, forms.Required, forms.MaxLen(64)),
 	)}
 }
 

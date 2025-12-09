@@ -141,12 +141,13 @@ func (adapter *wallabagAdapter) Form() forms.Binder {
 		forms.NewTextField("url",
 			forms.Trim,
 			forms.Required,
+			forms.MaxLen(128),
 			forms.IsURL(allowedSchemes...),
 		),
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, forms.MaxLen(256)),
 		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("client_id", forms.Trim, forms.Required),
-		forms.NewTextField("client_secret", forms.Trim, forms.Required),
+		forms.NewTextField("client_id", forms.Trim, forms.Required, forms.MaxLen(256)),
+		forms.NewTextField("client_secret", forms.Trim, forms.Required, forms.MaxLen(256)),
 	)
 }
 
