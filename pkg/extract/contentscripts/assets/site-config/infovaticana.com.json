@@ -1,15 +1,15 @@
 {
   "title_selectors": [
-    "//h1[@class='entry-title']"
+    "//h1[@class='single-title']"
   ],
   "body_selectors": [
-    "//div[@class='article-content']"
+    "//div[@class='entry-content']"
   ],
   "date_selectors": [
-    "//span[@class='entry-date']"
+    "//time/@datetime"
   ],
   "author_selectors": [
-    "//meta[@name='twitter:data1']@content"
+    "normalize-space(substring-before(substring-after(//p[@class='entry-meta'], 'por '), '|'))"
   ],
   "strip_selectors": null,
   "strip_id_or_class": null,

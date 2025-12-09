@@ -4,7 +4,7 @@
   ],
   "body_selectors": null,
   "date_selectors": [
-    "//meta[@itemprop=\"datePublished]/@content"
+    "//meta[@itemprop=\"datePublished\"]/@content"
   ],
   "author_selectors": [
     "(//h1[@itemprop=\"author\"])[1]"

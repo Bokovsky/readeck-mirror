@@ -1,16 +1,18 @@
 {
   "title_selectors": [
-    "//h2[contains(@class, 'primary')]"
+    "//title"
   ],
   "body_selectors": [
     "//*[@itemprop=\"articleBody\"]",
-    "//div[@id='story']"
+    "//div[@id='story']",
+    "//section[@class='body']"
   ],
   "date_selectors": [
-    "substring-after(//*[@class='date'], 'Published')"
+    "//header//time/@datetime"
   ],
   "author_selectors": [
-    "//*[@class='by']/a"
+    "//*[@class='by']/a",
+    "//meta[@name=\"author\"]/@content"
   ],
   "strip_selectors": null,
   "strip_id_or_class": [

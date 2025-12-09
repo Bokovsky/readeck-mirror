@@ -1,12 +1,12 @@
 {
   "title_selectors": [
-    "substring-before(substring-after(//script, 'datePublished\":\"') , '\",\"')[0]"
+    "//h1[contains(@data-testid, 'title')]"
   ],
   "body_selectors": [
     "//div[@id=\"content\"]"
   ],
   "date_selectors": [
-    "substring-before(substring-after(//script[@id='__NEXT_DATA__'] , 'updatedAt\":\"') , '\",\"')[0]"
+    "substring-before(substring-after(//script[@type='application/ld+json'][contains(., 'datePublished')], '\"datePublished\":\"'), '\"')"
   ],
   "author_selectors": null,
   "strip_selectors": null,

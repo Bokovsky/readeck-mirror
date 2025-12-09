@@ -6,9 +6,11 @@
     "//article[contains(concat(' ',normalize-space(@class),' '),' ap-Story ')]"
   ],
   "date_selectors": [
-    "//meta[contains(concat(' ',normalize-space(@class),' '),' cXenseParse:recs:publishtime ')]@content"
+    "//meta[@name='cXenseParse:recs:publishtime']/@content"
   ],
-  "author_selectors": null,
+  "author_selectors": [
+    "//a[@class='ap-StoryAuthor-bodyTextName']/text()"
+  ],
   "strip_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' ap-StoryHeader-topbar ')]",
     "//footer"

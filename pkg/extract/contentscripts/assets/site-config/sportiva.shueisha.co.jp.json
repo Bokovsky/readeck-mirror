@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, \"NewsText\")]"
+    "//main/article/div[contains(@class, 'c-document')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -13,16 +13,18 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[contains(@class, 'navi-pager-c__button')]"
+  ],
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.bernama.com/bernama/v7/rss/english.php",
+      "url": "https://sportiva.shueisha.co.jp/clm/motorsports/motorsports/2025/10/03/f1gp_6/",
       "contains": []
     },
     {
-      "url": "http://www.bernama.com/bernama/v7/newsindex.php?id=943513",
+      "url": "https://sportiva.shueisha.co.jp/clm/motorsports/motorsports/2025/12/03/f1gp_7/",
       "contains": []
     }
   ]

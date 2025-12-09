@@ -9,7 +9,7 @@
   ],
   "strip_selectors": [
     "//svg",
-    "//a[contains((concat(' ',normalize-space(@class),' '),' btn ')]",
+    "//a[contains(concat(' ',normalize-space(@class),' '),' btn ')]",
     "//a[contains(@class, 'person-listing')]/following-sibling::text() | //a[contains(@class, 'person-listing')]/following-sibling::*",
     "//button[contains(concat(' ',normalize-space(@class),' '),' btn ')]"
   ],

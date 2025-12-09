@@ -1,6 +1,6 @@
 {
   "title_selectors": [
-    "//h2[@class='jcw-pagetitle'"
+    "//h2[@class='jcw-pagetitle']"
   ],
   "body_selectors": [
     "//div[@class='contenttext']"
