@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.21.4] - 2025-12-09
 ### Added
 - Mathjax and Katex support, by [@mislav]
 
@@ -10,7 +10,6 @@
 
 ### Fixed
 - Return a 422 with errors on /api/bookmarks when the filters contain errors
-
 
 ## [0.21.3] - 2025-11-26
 ### Fixed
