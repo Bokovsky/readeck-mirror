@@ -23,6 +23,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                       inputAttrs=attrList(
                         "data-login-form-target", "username",
                         "autocapitalize", "off",
+                        "autocomplete", "username",
                       ),
   ) }}
   {{ yield passwordField(field=.Form.Get("password"),

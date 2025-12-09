@@ -22,6 +22,7 @@ type Payload struct {
 	External    bool           `json:"x"`
 	Seed        int            `json:"s"`
 	User        int            `json:"u"`
+	RequiresMFA bool           `json:"mfa"`
 	LastUpdate  time.Time      `json:"lu"`
 	Flashes     []FlashMessage `json:"f"`
 	Preferences Preferences    `json:"p"`

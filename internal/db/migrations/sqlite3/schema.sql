@@ -9,16 +9,17 @@ CREATE TABLE migration (
 );
 
 CREATE TABLE IF NOT EXISTS user (
-    id       integer  PRIMARY KEY AUTOINCREMENT,
-    uid      text     UNIQUE NOT NULL,
-    created  datetime NOT NULL,
-    updated  datetime NOT NULL,
-    username text     UNIQUE NOT NULL,
-    email    text     UNIQUE NOT NULL,
-    password text     NOT NULL,
-    `group`  text     NOT NULL DEFAULT "user",
-    settings json     NOT NULL DEFAULT "{}",
-    seed     integer  NOT NULL DEFAULT 0
+    id          integer  PRIMARY KEY AUTOINCREMENT,
+    uid         text     UNIQUE NOT NULL,
+    created     datetime NOT NULL,
+    updated     datetime NOT NULL,
+    username    text     UNIQUE NOT NULL,
+    email       text     UNIQUE NOT NULL,
+    password    text     NOT NULL,
+    `group`     text     NOT NULL DEFAULT "user",
+    settings    json     NOT NULL DEFAULT "{}",
+    seed        integer  NOT NULL DEFAULT 0,
+    totp_secret blob     NULL
 );
 
 CREATE TABLE IF NOT EXISTS token (

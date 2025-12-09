@@ -84,21 +84,6 @@ func TestPermissions(t *testing.T) {
 						}
 					}),
 				),
-				RT(
-					WithMethod(http.MethodPut),
-					WithTarget("/api/profile/password"),
-					WithBody(map[string]any{}),
-					WithAssert(func(t *testing.T, rsp *Response) {
-						switch user {
-						case "admin", "staff", "user":
-							rsp.AssertStatus(t, 422)
-						case "disabled":
-							rsp.AssertStatus(t, 403)
-						default:
-							rsp.AssertStatus(t, 401)
-						}
-					}),
-				),
 			)
 
 			// Views
@@ -125,36 +110,6 @@ func TestPermissions(t *testing.T) {
 						switch user {
 						case "admin", "staff", "user":
 							rsp.AssertStatus(t, 303)
-						case "disabled":
-							rsp.AssertStatus(t, 403)
-						default:
-							rsp.AssertStatus(t, 303)
-							rsp.AssertRedirect(t, "/login")
-						}
-					}),
-				),
-				RT(
-					WithTarget("/profile/password"),
-					WithAssert(func(t *testing.T, rsp *Response) {
-						switch user {
-						case "admin", "staff", "user":
-							rsp.AssertStatus(t, 200)
-						case "disabled":
-							rsp.AssertStatus(t, 403)
-						default:
-							rsp.AssertStatus(t, 303)
-							rsp.AssertRedirect(t, "/login")
-						}
-					}),
-				),
-				RT(
-					WithMethod(http.MethodPost),
-					WithTarget("/profile/password"),
-					WithBody(url.Values{}),
-					WithAssert(func(t *testing.T, rsp *Response) {
-						switch user {
-						case "admin", "staff", "user":
-							rsp.AssertStatus(t, 422)
 						case "disabled":
 							rsp.AssertStatus(t, 403)
 						default:

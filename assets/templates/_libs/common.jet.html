@@ -10,8 +10,8 @@ viewbox="{{ viewBox }}" class="inline-block {{ svgClass }}"><use
 href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
-{{- block message(type="info", removable=false, delay=0, class="", attrs=attrList()) -}}
-{{- icon := "o-info" -}}
+{{- block message(type="info", icon="o-info", removable=false, delay=0, class="", attrs=attrList()) -}}
+{{- if !icon -}}{{- icon := "o-info" -}}{{- end -}}
 {{- if type == "success" -}}
   {{- icon = "o-check-on" -}}
 {{- else if type == "error" -}}
@@ -22,9 +22,11 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 {{- attrs.Set("data-remover-delay-value", delay) -}}
 <div class="message {{ type }} {{ class }}" {{ attrs }}>
+  {{- if icon != "" -}}
   <div>
     {{- yield icon(name=icon) -}}
   </div>
+  {{- end -}}
   <div class="flex-grow">
     {{- yield content -}}
   </div>
