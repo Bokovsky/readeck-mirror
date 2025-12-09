@@ -3,7 +3,7 @@
     "//div[(contains(concat(' ',normalize-space(@class),' '),' recipe-title__mobile '))]"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' recipe-panel '))]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' recipe-panel ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,

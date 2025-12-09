@@ -703,7 +703,14 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 		filterForm := newContextFilterForm(r.Context(), server.Locale(r))
 		forms.BindURL(filterForm, r)
 
-		if filterForm.IsValid() {
+		if !filterForm.IsValid() {
+			// When the form is invalid and we're not in a view, render the form's error list.
+			// Not having a base template context is a good indicator for that.
+			if _, ok := checkBaseContext(r.Context()); !ok {
+				server.Render(w, r, http.StatusUnprocessableEntity, filterForm)
+				return
+			}
+		} else {
 			filters := bookmarks.NewFiltersFromForm(filterForm)
 			filters.UpdateForm(filterForm)
 			ds = filters.ToSelectDataSet(ds)

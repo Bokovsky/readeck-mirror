@@ -9,7 +9,7 @@
     "//button",
     "//div[contains(@class, '_1kPGP')]",
     "//div[contains(@data-testid, 'ArticleTags')]",
-    "//div[contains(@data-testid; 'PreFooter')]"
+    "//div[contains(@data-testid, 'PreFooter')]"
   ],
   "strip_id_or_class": null,
   "strip_image_src": null,

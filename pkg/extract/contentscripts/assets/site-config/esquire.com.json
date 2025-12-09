@@ -6,10 +6,10 @@
     "//main[@id='main-content']/div | //main[@id='main-content']/header"
   ],
   "date_selectors": [
-    "date: substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"created_at\":\"'), '\",')"
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"created_at\":\"'), '\",')"
   ],
   "author_selectors": [
-    "date: substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"author\":{\"name\":\"'), '\",')"
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"author\":{\"name\":\"'), '\",')"
   ],
   "strip_selectors": [
     "//nav",

@@ -1,11 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//article",
     "//div[contains(concat(' ',normalize-space(@class),' '),' prose ')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//header"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,

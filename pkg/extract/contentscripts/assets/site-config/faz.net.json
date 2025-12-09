@@ -10,7 +10,7 @@
   ],
   "date_selectors": [
     "//span[@class='Datum']",
-    "//span[@class='Datum'],/span"
+    "//span[@class='Datum']/span"
   ],
   "author_selectors": [
     "substring-after(//span[@class='Autor'], 'von ')",

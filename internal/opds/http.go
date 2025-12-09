@@ -33,7 +33,7 @@ func SetupRoutes(s *server.Server) {
 	h.Use(middleware.GetHead)
 	h.With(server.WithPermission("api:opds", "read")).Group(func(r chi.Router) {
 		r.Get("/", h.mainCatalog)
-		r.Route("/bookmarks", bookmark_routes.NewOPDSRouteHandler(s))
+		r.Route("/bookmarks", bookmark_routes.NewOPDSRouteHandler())
 	})
 
 	s.AddRoute("/opds", h)

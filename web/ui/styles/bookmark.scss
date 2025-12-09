@@ -142,6 +142,14 @@
       @apply static max-w-none w-full h-auto overflow-visible;
       @apply mb-8 border-b border-l-0;
     }
+
+    .bookmark-icon {
+      @apply inline w-5 h-auto;
+      @apply rounded-sm;
+      @at-root :root.dark & {
+        filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.8));
+      }
+    }
   }
 
   body.no-js .bookmark-sidebar {

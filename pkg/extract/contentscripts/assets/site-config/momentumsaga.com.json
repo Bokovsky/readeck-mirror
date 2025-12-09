@@ -6,7 +6,7 @@
     "//div[contains(concat(' ',normalize-space(@class),' '),' post-entry ')]"
   ],
   "date_selectors": [
-    "//span[contains(concat(' ',normalize-space(@class),' '),' date ')"
+    "//span[contains(concat(' ',normalize-space(@class),' '),' date ')]"
   ],
   "author_selectors": null,
   "strip_selectors": null,

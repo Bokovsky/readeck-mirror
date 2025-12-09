@@ -12,6 +12,7 @@
     "//meta[@name=\"vr:author\"]/@content"
   ],
   "strip_selectors": [
+    "//app-storyline-teaser",
     "//app-toolbar",
     "//button",
     "//app-storyline-related-topics",

@@ -112,24 +112,19 @@ func isHiddenElement(el *html.Node) bool {
 	return false
 }
 
-// Iterates through every <a href> element in the given DOM and yields the href value and the <a>
-// element node. The yielded node is safe to detach from the DOM mid-iteration.
-func eachHyperlink(node *html.Node) iter.Seq2[string, *html.Node] {
-	return func(yield func(string, *html.Node) bool) {
+// Yields every element node in the given DOM. The yielded node is safe to detach from the DOM
+// mid-iteration.
+func eachElement(node *html.Node) iter.Seq[*html.Node] {
+	return func(yield func(*html.Node) bool) {
 		var traverse func(*html.Node) bool
 		traverse = func(n *html.Node) bool {
 			for child := n.FirstChild; child != nil; {
 				nextSibling := child.NextSibling
 				if child.Type == html.ElementNode {
-					if child.Data == "a" {
-						for _, attr := range child.Attr {
-							if attr.Key == "href" {
-								if !yield(attr.Val, child) {
-									return false
-								}
-							}
-						}
-					} else if !traverse(child) {
+					if !yield(child) {
+						return false
+					}
+					if child.Parent != nil && !traverse(child) {
 						return false
 					}
 				}
@@ -138,6 +133,34 @@ func eachHyperlink(node *html.Node) iter.Seq2[string, *html.Node] {
 			return true
 		}
 		_ = traverse(node)
+	}
+}
+
+// Yields every element node matching the tag name in the given DOM. The yielded node is safe to
+// detach from the DOM mid-iteration.
+func eachElementByTag(node *html.Node, tagName string) iter.Seq[*html.Node] {
+	return func(yield func(*html.Node) bool) {
+		for n := range eachElement(node) {
+			if n.Data == tagName && !yield(n) {
+				return
+			}
+		}
+	}
+}
+
+// Iterates through every <a href> element in the given DOM and yields the href value and the <a>
+// element node. The yielded node is safe to detach from the DOM mid-iteration.
+func eachHyperlink(node *html.Node) iter.Seq2[string, *html.Node] {
+	return func(yield func(string, *html.Node) bool) {
+		for a := range eachElementByTag(node, "a") {
+			for _, attr := range a.Attr {
+				if attr.Key == "href" {
+					if !yield(attr.Val, a) {
+						return
+					}
+				}
+			}
+		}
 	}
 }
 

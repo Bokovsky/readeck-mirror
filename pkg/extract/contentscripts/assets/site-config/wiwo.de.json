@@ -1,15 +1,15 @@
 {
   "title_selectors": [
-    "//h2[@class:'c-headline--article']"
+    "//h2[@class='c-headline--article']"
   ],
   "body_selectors": [
-    "//div[@class:'o-article__content']"
+    "//div[@class='o-article__content']"
   ],
   "date_selectors": [
     "//time"
   ],
   "author_selectors": [
-    "//div[@class:'c-metadata']//a[@class='c-link--borderless']"
+    "//div[@class='c-metadata']//a[@class='c-link--borderless']"
   ],
   "strip_selectors": null,
   "strip_id_or_class": [

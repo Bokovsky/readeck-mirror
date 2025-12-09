@@ -1,11 +1,14 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, \"NewsText\")]"
+    "//div[contains(@class, \"article\")]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
+  "strip_selectors": [
+    "//div[@class=\"content-paging-next-block\"]",
+    "//div[contains(@class, \"cite-box\")]"
+  ],
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -13,16 +16,18 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@class=\"content-paging-next-block-button\"]"
+  ],
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
-      "url": "http://www.bernama.com/bernama/v7/rss/english.php",
+      "url": "https://web.motormagazine.co.jp/_ct/17804185",
       "contains": []
     },
     {
-      "url": "http://www.bernama.com/bernama/v7/newsindex.php?id=943513",
+      "url": "https://web.motormagazine.co.jp/_ct/17772375",
       "contains": []
     }
   ]

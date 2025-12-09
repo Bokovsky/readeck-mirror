@@ -1,6 +1,10 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
+  "title_selectors": [
+    "//h1[@class=\"post-title\"]"
+  ],
+  "body_selectors": [
+    "//div[@class=\"post-entry\"]"
+  ],
   "date_selectors": [
     "//p[@class=\"post-metas\"]//time/@datetime"
   ],

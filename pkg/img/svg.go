@@ -229,9 +229,14 @@ func cssDimensionToPixels(v string) int {
 	case strings.HasSuffix(v, "ex"):
 		v = strings.TrimSuffix(v, "ex")
 		multiplier = cssExDefaultSize
+	case strings.HasSuffix(v, "pt"):
+		v = strings.TrimSuffix(v, "pt")
+		vv, _ := strconv.ParseFloat(v, 32)
+		// at 96 DPI, 1pt = 4/3 px
+		return int(math.Round(vv * 4 / 3))
 	case strings.HasSuffix(v, "px"):
-		v = strings.TrimSuffix(v, "px")
-
+		px, _ := strconv.Atoi(strings.TrimSuffix(v, "px"))
+		return px
 	}
 
 	vv, _ := strconv.ParseFloat(v, 32)

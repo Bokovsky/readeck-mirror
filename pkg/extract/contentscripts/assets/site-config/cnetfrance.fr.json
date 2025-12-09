@@ -3,7 +3,7 @@
     "//h1"
   ],
   "body_selectors": [
-    "//header/p/text() | //div[concat(' ',normalize-space(@class), ' '), ' article-main-body ')]"
+    "//header/p/text() | //div[contains(@class, 'article-content')]"
   ],
   "date_selectors": null,
   "author_selectors": null,

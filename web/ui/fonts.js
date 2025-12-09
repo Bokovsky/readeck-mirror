@@ -36,6 +36,13 @@ const fontCatalog = {
     fontFiles: "files",
     css: ["wght.css", "wght-italic.css"],
   },
+  "dejavu-math": {
+    name: "DejaVu Math",
+    family: "serif",
+    path: path.dirname(require.resolve("@fontsource/dejavu-math/package.json")),
+    fontFiles: "files",
+    css: ["index.css"],
+  },
 
   // Extra fonts
   "atkinson-hyperlegible": {

@@ -1,6 +1,6 @@
 {
   "title_selectors": [
-    "//h1[contains(@class, 'interview-title']",
+    "//h1[contains(@class, 'interview-title')]",
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [

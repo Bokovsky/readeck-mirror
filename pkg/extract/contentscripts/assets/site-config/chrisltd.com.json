@@ -3,7 +3,7 @@
     "//header/h1/b[contains(@class, 'title')]"
   ],
   "body_selectors": [
-    "//div[@id='main]/article"
+    "//div[@id='main']/article"
   ],
   "date_selectors": [
     "//header/h1/span[contains(@class, 'date')]"

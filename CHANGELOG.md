@@ -1,5 +1,17 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- Mathjax and Katex support, by [@mislav]
+
+### Improved
+- Website icons visibility in dark mode
+- Handle "pt" CSS unit in SVG dimensions, by [@mislav]
+
+### Fixed
+- Return a 422 with errors on /api/bookmarks when the filters contain errors
+
+
 ## [0.21.3] - 2025-11-26
 ### Fixed
 - User management command would create users without UID
@@ -21,7 +33,7 @@
 
 ### Improved
 - Save animated GIFs and convert single-frame GIFs to PNG
-- Github extraction, by by [@mislav] and [@linsui]
+- Github extraction, by [@mislav] and [@linsui]
 
 ## [0.21.0] - 2025-11-20
 ### Added
