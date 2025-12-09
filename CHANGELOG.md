@@ -3,6 +3,9 @@
 ## [Unreleased]
 ### Added
 - Mathjax and Katex support, by [@mislav]
+- TOTP support
+- Forwarded authentication
+- mTLS for HTTPS listener
 
 ### Improved
 - Website icons visibility in dark mode
