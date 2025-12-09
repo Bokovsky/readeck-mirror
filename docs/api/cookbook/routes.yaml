@@ -131,6 +131,7 @@ routes:
         schema:
           type: string
           format: uri
+          maxLength: 1024
         description: URL to extract
       - name: Accept
         in: header

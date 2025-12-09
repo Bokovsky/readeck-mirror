@@ -164,7 +164,7 @@ func NewImportForm(ctx context.Context, adapter ImportLoader) *forms.JoinedForms
 		adapter.Form(),
 		forms.Must(
 			ctx,
-			forms.NewTextField("label", forms.Trim),
+			forms.NewTextField("label", forms.Trim, forms.MaxLen(128)),
 			forms.NewBooleanField("ignore_duplicates", forms.Default(true)),
 			forms.NewBooleanField("archive"),
 			forms.NewBooleanField("mark_read"),

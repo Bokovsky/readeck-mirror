@@ -25,18 +25,18 @@ type annotationForm struct {
 func newAnnotationUpdateForm(tr forms.Translator) *forms.Form {
 	return forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("color", forms.Trim, forms.Required),
+		forms.NewTextField("color", forms.Trim, forms.Required, forms.MaxLen(32)),
 	)
 }
 
 func newAnnotationForm(tr forms.Translator) *annotationForm {
 	return &annotationForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("start_selector", forms.Required, forms.Trim),
+		forms.NewTextField("start_selector", forms.Required, forms.Trim, forms.MaxLen(256)),
 		forms.NewIntegerField("start_offset", forms.Required, forms.Gte(0)),
-		forms.NewTextField("end_selector", forms.Required, forms.Trim),
+		forms.NewTextField("end_selector", forms.Required, forms.Trim, forms.MaxLen(256)),
 		forms.NewIntegerField("end_offset", forms.Required, forms.Gte(0)),
-		forms.NewTextField("color", forms.Required, forms.Trim),
+		forms.NewTextField("color", forms.Required, forms.Trim, forms.MaxLen(32)),
 	)}
 }
 

@@ -144,7 +144,7 @@ func (h *deviceViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Reque
 				return strings.ToUpper(strings.ReplaceAll(v, "-", ""))
 			}
 			return v
-		})),
+		}), forms.MaxLen(16)),
 		forms.NewBooleanField("granted"),
 	)
 

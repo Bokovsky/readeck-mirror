@@ -23,7 +23,7 @@ func newCollectionDeleteForm(tr forms.Translator) *collectionDeleteForm {
 	return &collectionDeleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to"),
+		forms.NewTextField("_to", forms.MaxLen(128)),
 	)}
 }
 
@@ -53,7 +53,7 @@ func newCollectionForm(tr forms.Translator, r *http.Request) *collectionForm {
 					return forms.Required(f)
 				}
 				return nil
-			})),
+			}), forms.MaxLen(128)),
 			forms.NewBooleanField("is_pinned"),
 		),
 	)}

@@ -23,9 +23,9 @@ type loginForm struct {
 func newLoginForm(tr forms.Translator) *loginForm {
 	return &loginForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, forms.MaxLen(128)),
 		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("redirect", forms.Trim),
+		forms.NewTextField("redirect", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 

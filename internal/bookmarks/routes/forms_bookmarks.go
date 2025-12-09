@@ -72,9 +72,10 @@ func newCreateForm(tr forms.Translator, userID int, requestID string) *createFor
 			forms.NewTextField("url",
 				forms.Trim,
 				forms.Required,
+				forms.MaxLen(1024),
 				forms.IsURL(validSchemes...),
 			),
-			forms.NewTextField("title", forms.Trim),
+			forms.NewTextField("title", forms.Trim, forms.MaxLen(1024)),
 			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 			forms.NewDatetimeField("created", forms.Trim),
 			forms.NewBooleanField("feature_find_main"),
@@ -201,16 +202,16 @@ type updateForm struct {
 func newUpdateForm(tr forms.Translator) *updateForm {
 	return &updateForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("title", forms.Trim),
+		forms.NewTextField("title", forms.Trim, forms.MaxLen(1024)),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
 		forms.NewIntegerField("read_progress", forms.Gte(0), forms.Lte(100)),
-		forms.NewTextField("read_anchor", forms.Trim),
+		forms.NewTextField("read_anchor", forms.Trim, forms.MaxLen(256)),
 		forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("add_labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("remove_labels", forms.Trim, forms.DiscardEmpty),
-		forms.NewTextField("_to", forms.Trim),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(128)),
 	)}
 }
 
@@ -306,7 +307,7 @@ func newDeleteForm(tr forms.Translator) *deleteForm {
 	return &deleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to", forms.Trim),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(128)),
 	)}
 }
 
@@ -345,7 +346,7 @@ func newSyncForm(tr forms.Translator) *syncForm {
 			forms.NewBooleanField("with_html"),
 			forms.NewBooleanField("with_markdown"),
 			forms.NewBooleanField("with_resources"),
-			forms.NewTextField("resource_prefix", forms.Default(".")),
+			forms.NewTextField("resource_prefix", forms.Default("."), forms.MaxLen(128)),
 		),
 	}
 }
@@ -775,6 +776,7 @@ func newShareForm(tr forms.Translator) *shareForm {
 			forms.NewTextField("email",
 				forms.Trim,
 				forms.Required,
+				forms.MaxLen(128),
 				forms.IsEmail,
 			),
 			forms.NewTextField("format",
