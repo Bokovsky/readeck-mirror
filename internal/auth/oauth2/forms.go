@@ -45,11 +45,11 @@ func newClientForm(tr forms.Translator) *clientForm {
 	return &clientForm{
 		forms.Must(
 			forms.WithTranslator(context.Background(), tr),
-			forms.NewTextField("client_name", forms.Trim, forms.Required, forms.StrLen(0, 128)),
-			forms.NewTextField("client_uri", forms.Trim, forms.Required, forms.StrLen(0, 256), isValidClientURI),
-			forms.NewTextField("logo_uri", forms.Trim, forms.StrLen(0, 8<<10), isValidLogoURI),
-			forms.NewTextField("software_id", forms.Trim, forms.Required, forms.StrLen(0, 128)),
-			forms.NewTextField("software_version", forms.Trim, forms.Required, forms.StrLen(0, 64)),
+			forms.NewTextField("client_name", forms.Trim, forms.Required, forms.MaxLen(128)),
+			forms.NewTextField("client_uri", forms.Trim, forms.Required, forms.MaxLen(256), isValidClientURI),
+			forms.NewTextField("logo_uri", forms.Trim, forms.MaxLen(8<<10), isValidLogoURI),
+			forms.NewTextField("software_id", forms.Trim, forms.Required, forms.MaxLen(128)),
+			forms.NewTextField("software_version", forms.Trim, forms.Required, forms.MaxLen(64)),
 			forms.NewTextListField("redirect_uris",
 				forms.Trim,
 				forms.FieldValidatorFunc(func(f forms.Field) error {

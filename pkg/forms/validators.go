@@ -339,12 +339,28 @@ func Lte(value int) ValueValidator[int] {
 	}, Gettext("must be lower or equal than %d", value))
 }
 
-// StrLen is a string validator that checks if
-// its length is between a min/max boundary.
-func StrLen(minLen, maxLen int) ValueValidator[string] {
+// MinLen is a string validator thats checks
+// if it contains at least n characters.
+func MinLen(n int) ValueValidator[string] {
 	return TypedValidator(func(s string) bool {
-		return len([]rune(s)) >= minLen && len([]rune(s)) <= maxLen
-	}, Gettext("text must contain between %d and %d characters", minLen, maxLen))
+		return len([]rune(s)) >= n
+	}, Gettext("text must contain at least %d characters", n))
+}
+
+// MaxLen is a string validator thats checks
+// if it contains at most n characters.
+func MaxLen(n int) ValueValidator[string] {
+	return TypedValidator(func(s string) bool {
+		return len([]rune(s)) <= n
+	}, Gettext("text must contain at most %d characters", n))
+}
+
+// Len is a string validator thats checks
+// if it contains exactly n characters.
+func Len(n int) ValueValidator[string] {
+	return TypedValidator(func(s string) bool {
+		return len([]rune(s)) == n
+	}, Gettext("text must contain %d characters", n))
 }
 
 // ValueChoice is a key/value pair.

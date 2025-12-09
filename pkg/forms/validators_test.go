@@ -352,28 +352,62 @@ func TestValidators(t *testing.T) {
 		},
 	}))
 
-	t.Run("strLen", runValidatorTests([]fieldValidatorTest{
+	t.Run("maxLen", runValidatorTests([]fieldValidatorTest{
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"abc"`,
 			expect: "abc",
 		},
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"問掃玉光尤向入神間示"`,
 			expect: "問掃玉光尤向入神間示",
 		},
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
-			data:   `"a"`,
-			expect: "a",
-			errors: []error{errors.New("text must contain between 2 and 10 characters")},
-		},
-		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"abcdefghijk"`,
 			expect: "abcdefghijk",
-			errors: []error{errors.New("text must contain between 2 and 10 characters")},
+			errors: []error{errors.New("text must contain at most 10 characters")},
+		},
+	}))
+
+	t.Run("minLen", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"abc"`,
+			expect: "abc",
+			errors: []error{errors.New("text must contain at least 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"問掃玉光尤向入神間"`,
+			expect: "問掃玉光尤向入神間",
+			errors: []error{errors.New("text must contain at least 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"abcdefghijk"`,
+			expect: "abcdefghijk",
+		},
+	}))
+
+	t.Run("len", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"abc"`,
+			expect: "abc",
+			errors: []error{errors.New("text must contain 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"問掃玉光尤向入神間示"`,
+			expect: "問掃玉光尤向入神間示",
+		},
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"abcdefghijk"`,
+			expect: "abcdefghijk",
+			errors: []error{errors.New("text must contain 10 characters")},
 		},
 	}))
 

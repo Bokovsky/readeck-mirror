@@ -265,7 +265,7 @@ func newTOTPForm(tr forms.Translator, user *users.User) *totpForm {
 		Form: forms.Must(
 			ctx,
 			forms.NewTextField("secret"),
-			forms.NewTextField("otp", forms.Required, forms.StrLen(6, 6)),
+			forms.NewTextField("otp", forms.Required, forms.Len(6)),
 		),
 	}
 }

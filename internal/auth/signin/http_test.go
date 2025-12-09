@@ -199,7 +199,7 @@ func TestSignin(t *testing.T) {
 				func() (string, error) { return "1111", nil },
 				[]TestOption{
 					AssertStatus(422),
-					AssertContains("text must contain between 6 and 6 characters"),
+					AssertContains("text must contain 6 characters"),
 				},
 			},
 		}
