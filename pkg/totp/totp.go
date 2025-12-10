@@ -154,9 +154,7 @@ func (c Code) OTP(t time.Time) (string, error) {
 		(int(sum[offset+3]) & 0xff))
 
 	mod := int32(value % int64(math.Pow10(int(c.Digits))))
-
-	format := fmt.Sprintf("%%0%dd", c.Digits)
-	return fmt.Sprintf(format, mod), nil
+	return fmt.Sprintf("%0*d", c.Digits, mod), nil
 }
 
 // Verify returns true when a given user code is valid in the given time.
