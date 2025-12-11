@@ -63,7 +63,7 @@ schemas:
         description: Language Code
       text_direction:
         type: string
-        enum: [rtl, ltr]
+        enum: [ltr, rtl]
         description: |
           Direction of the article's text. It can be empty when it's unknown.
       document_type:
@@ -306,6 +306,29 @@ schemas:
         type: string
         maxLength: 1024
         description: New bookmark's title
+      description:
+        type: string
+        description: Bookmark's description
+      site_name:
+        type: string
+        description: Bookmark's site name
+      authors:
+        type: array
+        items:
+          type: string
+        description: Bookmark's author list
+      published:
+        type: [string, "null"]
+        format: date-time
+        description: Bookmark's publication date
+      lang:
+        type: string
+        description: Language Code
+      text_direction:
+        type: string
+        enum: [ltr, rtl]
+        description: |
+          Direction of the article's text.
       is_marked:
         type: boolean
         description: Favortie state
