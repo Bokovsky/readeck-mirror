@@ -201,7 +201,7 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 
 		// Fetch next article list
 		if err = adapter.fetchArticles(); err != nil {
-			return nil, err
+			return nil, errors.Join(io.EOF, err)
 		}
 	}
 
