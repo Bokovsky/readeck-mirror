@@ -186,15 +186,18 @@ func (imp importer) Import(f func([]int)) {
 			}
 		}
 
-		if err == io.EOF {
-			break
-		}
 		if errors.Is(err, ErrIgnore) {
 			logger.Debug("import item", slog.Any("err", err))
 			continue
 		}
+
 		if err != nil {
-			logger.Error("import item", slog.Any("err", err))
+			if err != io.EOF {
+				logger.Error("import item", slog.Any("err", err))
+			}
+			if errors.Is(err, io.EOF) {
+				break
+			}
 			continue
 		}
 

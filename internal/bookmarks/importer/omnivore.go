@@ -206,7 +206,7 @@ func (adapter *omnivoreAPIAdapter) Next() (BookmarkImporter, error) {
 
 		// Fetch next article list
 		if err = adapter.fetchArticles(25, adapter.articles.Data.Search.PageInfo.EndCursor); err != nil {
-			return nil, err
+			return nil, errors.Join(io.EOF, err)
 		}
 	}
 
