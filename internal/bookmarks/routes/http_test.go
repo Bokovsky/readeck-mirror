@@ -346,6 +346,21 @@ func TestPermissions(t *testing.T) {
 					}),
 				),
 				RT(
+					WithTarget("/bookmarks/"+u.Bookmarks[0].UID+"/card"),
+					WithHeader("x-turbo", "1"),
+					WithAssert(func(t *testing.T, r *Response) {
+						switch user {
+						case "admin", "staff", "user":
+							r.AssertStatus(t, 200)
+						case "disabled":
+							r.AssertStatus(t, 403)
+						default:
+							r.AssertStatus(t, 303)
+							r.AssertRedirect(t, "/login")
+						}
+					}),
+				),
+				RT(
 					WithTarget("/bookmarks/"+u.Bookmarks[0].UID+"/diagnosis"),
 					WithHeader("x-turbo", "1"),
 					WithAssert(func(t *testing.T, r *Response) {
@@ -375,13 +390,12 @@ func TestPermissions(t *testing.T) {
 					}),
 				),
 				RT(
-					WithMethod(http.MethodPost),
-					WithTarget("/bookmarks/"+u.Bookmarks[0].UID),
+					WithTarget("/bookmarks/"+u.Bookmarks[0].UID+"/update"),
 					WithBody(url.Values{}),
 					WithAssert(func(t *testing.T, r *Response) {
 						switch user {
 						case "admin", "staff", "user":
-							r.AssertStatus(t, 303)
+							r.AssertStatus(t, 200)
 						case "disabled":
 							r.AssertStatus(t, 403)
 						default:
@@ -391,11 +405,8 @@ func TestPermissions(t *testing.T) {
 					}),
 				),
 				RT(
-					WithTarget("/bookmarks/"+u.Bookmarks[0].UID),
-				),
-				RT(
 					WithMethod(http.MethodPost),
-					WithTarget("/bookmarks/"+u.Bookmarks[0].UID+"/delete"),
+					WithTarget("/bookmarks/"+u.Bookmarks[0].UID+"/update"),
 					WithBody(url.Values{}),
 					WithAssert(func(t *testing.T, r *Response) {
 						switch user {

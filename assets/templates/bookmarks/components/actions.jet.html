@@ -14,20 +14,19 @@ SPDX-License-Identifier: AGPL-3.0-only
     <span class="text-red-700" data-deleted="true">
       {{ gettext("This bookmark will be removed in a few seconds.") }}
     </span>
-    <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
+    <form action="{{ urlFor(`/bookmarks`, .ID, `update`) }}" method="post">
       <input type="hidden" name="cancel" value="1" />
       <input type="hidden" name="_to" value="{{ currentPath }}" />
       <button class="btn btn-primary ml-2" type="submit" name="is_deleted" value="0"
-       data-controller="turbo-form"
-       data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-       data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }}&nbsp;{{ gettext("Undo") }}</button>
+       data-controller="turbo-form">
+        {{- yield icon(name="o-undo") }}&nbsp;{{ gettext("Undo") -}}
+      </button>
     </form>
   {{- else -}}
-    <form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
-    data-controller="turbo-form"
-    data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-    data-turbo-form-method-value="patch"
-    class="relative">
+    <form action="{{ urlFor(`/bookmarks`, .ID, `update`) }}" method="post"
+     data-controller="turbo-form"
+     class="relative">
+      <input type="hidden" name="_to" value="{{ currentPath }}" />
       <div class="btn-group btn-primary rounded-full">
         <button class="btn-outlined btn-primary pl-3" name="read_progress"
         value="{{ .ReadProgress == 100 ? 0 : 100 }}"
@@ -70,15 +69,14 @@ SPDX-License-Identifier: AGPL-3.0-only
       </div>
     </form>
 
-    <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post"
+    <form action="{{ urlFor(`/bookmarks`, .ID, `update`) }}" method="post"
      class="ml-auto">
       <input type="hidden" name="_to" value="{{ currentPath }}" />
       <button class="btn-outlined btn-danger leading-none rounded-full w-9 h-9 px-2" name="is_deleted" value="1"
         title="{{ gettext(`Delete this bookmark`) }}"
         data-controller="turbo-form"
-        data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-        data-turbo-form-method-value="patch">
-        {{ yield icon(name="o-trash") }}
+      >
+        {{- yield icon(name="o-trash") -}}
       </button>
     </form>
   {{- end -}}

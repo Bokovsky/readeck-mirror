@@ -31,11 +31,11 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- if .Item.HasArticle -}}
 <turbo-frame id="bookmark-content-{{ .Item.ID }}"
- src="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/article"
+ src="{{ urlFor(`/api/bookmarks`, .Item.ID, `article`) }}"
  disabled
  data-controller="annotations"
  data-action="request:annotation-removed@document->annotations#reload"
- data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/annotations"
+ data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`) }}"
  data-annotations-hidden-class="hidden"
 >
 

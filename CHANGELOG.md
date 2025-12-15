@@ -5,6 +5,7 @@
 - TOTP support
 - Forwarded authentication
 - mTLS for HTTPS listener
+- Bookmark properties editor
 
 ## [0.21.4] - 2025-12-09
 ### Added

@@ -206,7 +206,9 @@ func newUpdateForm(tr forms.Translator) *updateForm {
 		forms.NewTextField("title", forms.Trim, forms.RequiredOrNil, forms.MaxLen(1024)),
 		forms.NewTextField("description", forms.Trim),
 		forms.NewTextField("site_name", forms.Trim, forms.RequiredOrNil),
-		forms.NewTextListField("authors", forms.Trim),
+		forms.NewTextListField("authors", forms.Trim,
+			forms.DiscardEmpty, forms.SplitLines,
+		),
 		forms.NewDatetimeField("published", forms.Trim),
 		forms.NewTextField("lang", forms.Trim, forms.CleanerFunc(func(v any) any {
 			if v, ok := v.(string); ok {
