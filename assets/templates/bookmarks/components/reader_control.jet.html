@@ -8,8 +8,9 @@ SPDX-License-Identifier: AGPL-3.0-only
   data-request-url-value="{{ urlFor(`/api/profile`) }}"
   data-request-method-value="patch"
 >
-  <summary class="list-none hf:text-gray-700">
+  <summary class="list-none hf:text-gray-700" role="button">
     {{- yield icon(name="o-font-family", class="inline-block", svgClass="h-6 w-6") -}}
+    <span class="sr-only">{{ gettext("Display options") }}</span>
   </summary>
   <div class="
     absolute top-6 right-0 w-72 max-h-[calc(100vh-12rem)] overflow-y-auto
@@ -25,7 +26,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- yield icon(name="o-chevron-r") -}}
       </summary>
 
-      <div class="flex flex-col gap-1 mt-1 -mx-2">
+      <div class="flex flex-col gap-1 mt-1 -mx-2" role="menu">
       {{- range i, x := preferences.FontList() -}}
         <button class="
           capitalize py-1 px-2 text-left text-lg rounded-sm border border-transparent
@@ -35,6 +36,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          data-styler-option-target="choices"
          data-action="styler-option#setChoice"
          {{ x[0] == preferences.ReaderFont().Value ? "data-current" : "" }}
+         {{ x[0] == preferences.ReaderFont().Value ? `aria-current="true"` : "" }}
         >{{ replace(x[0], "-", " ", -1) }} </button>
       {{- end -}}
       </div>
@@ -53,15 +55,19 @@ SPDX-License-Identifier: AGPL-3.0-only
     >
       {{- yield icon(name="o-width") -}} <span class="flex-grow">{{ gettext("Width") }}</span>
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Decrease width`) }}"
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
        name="settings_reader_width"
        value="{{ preferences.ReaderWidth().Value }}"
+       aria-label="{{ gettext(`Current Width`) }}"
+       aria-live="polite"
        data-styler-option-target="value"
        data-action="styler-option:setValue->request#fetch">
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Increase width`) }}"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
@@ -74,15 +80,19 @@ SPDX-License-Identifier: AGPL-3.0-only
     >
       {{- yield icon(name="o-font-size") -}} <span class="flex-grow">{{ gettext("Size") }}</span>
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Decrease font size`) }}"
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
        name="settings_reader_font_size"
        value="{{ preferences.ReaderFontSize().Value }}"
+       aria-label="{{ gettext(`Current font size`) }}"
+       aria-live="polite"
        data-styler-option-target="value"
        data-action="styler-option:setValue->request#fetch">
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Increase font size`) }}"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
@@ -95,15 +105,19 @@ SPDX-License-Identifier: AGPL-3.0-only
     >
       {{- yield icon(name="o-line-height") -}} <span class="flex-grow">{{ gettext("Line height") }}</span>
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Decrease line height`) }}"
        data-action="styler-option#decreaseValue">
         {{- yield icon(name="o-minus") -}}
       </button>
       <input class="p-1 text-center text-sm bg-gray-200 rounded-full" type="text" size="1" disabled
        name="settings_reader_line_height"
        value="{{ preferences.ReaderLineHeight().Value }}"
+       aria-label="{{ gettext(`Current line height`) }}"
+       aria-live="polite"
        data-styler-option-target="value"
        data-action="styler-option:setValue->request#fetch">
       <button class="btn-outlined py-1.5 w-9 rounded"
+       aria-label="{{ gettext(`Increase line height`) }}"
        data-action="styler-option#increaseValue">
         {{- yield icon(name="o-plus") -}}
       </button>
@@ -121,6 +135,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ x := _l[i] }}
           <button class="btn-outlined data-[current]:bg-gray-200 data-[current]:text-app-fg"
            value="{{ i }}" data-choice-value="{{ x }}"
+           aria-label="{{ i ? gettext(`Justify text`) : gettext(`Don't justify text`) }}"
            data-styler-option-target="choices"
            data-action="styler-option#setChoice"
            {{ x == preferences.ReaderJustify().Value ? "data-current" : "" }}
@@ -146,6 +161,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           {{ x := _l[i] }}
           <button class="btn-outlined data-[current]:bg-gray-200 data-[current]:text-app-fg"
            value="{{ i }}" data-choice-value="{{ x }}"
+           aria-label="{{ i ? gettext(`With hyphenation`) : gettext(`Without hyphenation`) }}"
            data-styler-option-target="choices"
            data-action="styler-option#setChoice"
            {{ x == preferences.ReaderHyphenation().Value ? "data-current" : "" }}
