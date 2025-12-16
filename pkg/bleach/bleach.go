@@ -97,18 +97,13 @@ func (p *Policy) cleanAttributes(top *html.Node) {
 // empty means: no child nodes, no attributes and no text content.
 func (p Policy) RemoveEmptyNodes(top *html.Node) {
 	dom.RemoveNodes(dom.QuerySelectorAll(top, "*"), func(node *html.Node) bool {
-		// Keep self closing tags
-		if _, ok := selfClosingTags[dom.TagName(node)]; ok {
+		// Keep tags that are explicitly allowed to be empty, e.g. <hr>
+		if _, ok := keepEmptyTags[dom.TagName(node)]; ok {
 			return false
 		}
 
 		// Keep <a name> tags
 		if dom.TagName(node) == "a" && dom.GetAttribute(node, "name") != "" {
-			return false
-		}
-
-		// Keep td and th
-		if dom.TagName(node) == "td" || dom.TagName(node) == "th" {
 			return false
 		}
 

@@ -6,24 +6,30 @@ package bleach
 
 import "strings"
 
-var selfClosingTags = map[string]struct{}{
-	"area":     {},
-	"base":     {},
-	"br":       {},
-	"col":      {},
-	"command":  {},
-	"embed":    {},
-	"hr":       {},
-	"img":      {},
-	"input":    {},
-	"keygen":   {},
-	"link":     {},
-	"menuitem": {},
-	"meta":     {},
-	"param":    {},
-	"source":   {},
-	"track":    {},
-	"wbr":      {},
+var keepEmptyTags = map[string]struct{}{
+	"area":        {},
+	"base":        {},
+	"br":          {},
+	"col":         {},
+	"command":     {},
+	"embed":       {},
+	"hr":          {},
+	"img":         {},
+	"input":       {},
+	"keygen":      {},
+	"link":        {},
+	"menuitem":    {},
+	"meta":        {},
+	"mprescripts": {},
+	"mrow":        {},
+	"mspace":      {},
+	"mtd":         {},
+	"param":       {},
+	"source":      {},
+	"th":          {},
+	"td":          {},
+	"track":       {},
+	"wbr":         {},
 }
 
 var blockTags = map[string]struct{}{

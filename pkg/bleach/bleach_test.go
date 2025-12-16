@@ -103,6 +103,11 @@ func TestClean(t *testing.T) {
 			<tr><td>A</td><td>B</td></tr></tbody></table></body>`,
 		},
 		{
+			bleach.DefaultPolicy.RemoveEmptyNodes,
+			`<math><mtable><mrow><mtd></mtd><mtd>2</mtd></mrow><mrow></mrow></mtable><mspace></mspace></math>`,
+			`<body><math><mtable><mrow><mtd></mtd><mtd>2</mtd></mrow><mrow></mrow></mtable><mspace></mspace></math></body>`,
+		},
+		{
 			bleach.DefaultPolicy.SetLinkRel,
 			`<p><a href="foo">link</a></p>`,
 			`<body><p><a href="foo" rel="nofollow noopener noreferrer">link</a></p></body>`,
