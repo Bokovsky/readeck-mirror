@@ -7,19 +7,21 @@
 # gifilo <gifilo@noreply.codeberg.org>, 2025.
 # olivier <olivier@noreply.codeberg.org>, 2025.
 # Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025.
+# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-27 10:52+0100\n"
-"PO-Revision-Date: 2025-11-20 07:20+0000\n"
+"PO-Revision-Date: 2025-12-16 09:10+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: it_IT\n"
 "Language-Team: Italian <https://translate.codeberg.org/projects/readeck/application/it/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -304,15 +306,18 @@ msgid ""
 "      Only approve this request if you recognize and trust this source.\n"
 "    "
 msgstr ""
+"\n"
+"      <strong>%s</strong> richiede l'autorizzazione per accedere al tuo account.\n"
+"      Approva questa richiesta solo se riconosci e ti fidi di questa fonte.\n"
+"    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
 msgid "Review permissions"
 msgstr "Rivedi i permessi"
 
 #: assets/templates/auth/oauth/form.jet.html:33
-#, fuzzy
 msgid "Application information"
-msgstr "Applicazione"
+msgstr "Informazioni sull'applicazione"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
@@ -2944,4 +2949,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Chiudi menu"
-
