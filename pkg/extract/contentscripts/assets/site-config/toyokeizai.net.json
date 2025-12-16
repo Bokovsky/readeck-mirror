@@ -1,0 +1,34 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body-inner ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' author-date ')]//div[contains(concat(' ',normalize-space(@class),' '),' author ')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "article-end-authors",
+    "article-box-gwrap",
+    "author-follow-link",
+    "m-tooltip-wrap"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//div[contains(@class, \"article-next-page\")]/a"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://toyokeizai.net/articles/-/912773",
+      "contains": []
+    }
+  ]
+}

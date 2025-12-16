@@ -1,0 +1,56 @@
+{
+  "title_selectors": [
+    "//div[@id='articleHead']//h1"
+  ],
+  "body_selectors": [
+    "//div[@id='contents_detail']"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[contains(text(), 'OpnDate')][1], \"'OpnDate':'\"),\"',\")"
+  ],
+  "author_selectors": [
+    "//p[contains(concat(' ',normalize-space(@class),' '),' author ')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "relatedarticle",
+    "serial",
+    "artsCont",
+    "returnCat"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//link[@rel=\"next\"]",
+    "//div[@class=\"pages\"]/a[contains(text(),\"次へ\")]"
+  ],
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"photo single\"\u003e",
+      "\u003cdiv dummyclass=\"photo single\"\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://ascii.jp/elem/000/004/350/4350373/",
+      "contains": []
+    },
+    {
+      "url": "https://ascii.jp/limit/group/ida/elem/000/004/353/4353258/",
+      "contains": []
+    },
+    {
+      "url": "https://ascii.jp/elem/000/004/353/4353850/?crank\u0026rank=1",
+      "contains": []
+    },
+    {
+      "url": "https://ascii.jp/elem/000/004/340/4340906/",
+      "contains": []
+    }
+  ]
+}

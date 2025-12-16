@@ -9,7 +9,7 @@
   ],
   "date_selectors": null,
   "author_selectors": [
-    "//meta[@name='author']/@content"
+    "normalize-space(//p[contains(@class, 'next-list-author')]//a[@class='next-post-author'])"
   ],
   "strip_selectors": [
     "//div[contains(@class, 'thumbnail-mobile')]",
