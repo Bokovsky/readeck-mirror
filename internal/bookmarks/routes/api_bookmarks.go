@@ -50,13 +50,6 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	item.Errors = b.Errors
 
-	if server.IsTurboRequest(r) {
-		server.RenderTurboStream(w, r,
-			"/bookmarks/components/card", "replace",
-			"bookmark-card-"+b.UID, item, nil)
-		return
-	}
-
 	server.Render(w, r, http.StatusOK, item)
 }
 
@@ -231,47 +224,13 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 	updated["href"] = urls.AbsoluteURL(r).String()
 
-	// On a turbo request, we'll return the updated components.
 	if server.IsTurboRequest(r) {
-		item := dataset.NewBookmark(r.Context(), b)
-
-		_, withTitle := updated["title"]
-		_, withLabels := updated["labels"]
-		_, withMarked := updated["is_marked"]
-		_, withArchived := updated["is_archived"]
-		_, withDeleted := updated["is_deleted"]
-		_, withProgress := updated["read_progress"]
-
-		if withTitle {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/title_form", "replace",
-				"bookmark-title-"+b.UID, item, nil)
-		}
-		if withLabels {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/labels", "replace",
-				"bookmark-label-list-"+b.UID, item, nil)
-		}
-		if withMarked || withArchived || withDeleted || withProgress {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/actions", "replace",
-				"bookmark-actions-"+b.UID, item, nil)
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/card", "replace",
-				"bookmark-card-"+b.UID, item, nil)
-		}
-		if withMarked || withArchived {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/bottom_actions", "replace",
-				"bookmark-bottom-actions-"+b.UID, item, nil)
-		}
+		// We don't want to render any content on a turbo request.
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
-	w.Header().Add(
-		"Location",
-		updated["href"].(string),
-	)
+	w.Header().Add("Location", updated["href"].(string))
 	server.Render(w, r, http.StatusOK, updated)
 }
 

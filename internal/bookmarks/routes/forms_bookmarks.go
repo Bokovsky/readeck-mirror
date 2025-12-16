@@ -20,6 +20,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	goquexp "github.com/doug-martin/goqu/v9/exp"
 	"github.com/wneessen/go-mail"
+	"golang.org/x/text/language"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -202,7 +203,30 @@ type updateForm struct {
 func newUpdateForm(tr forms.Translator) *updateForm {
 	return &updateForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("title", forms.Trim, forms.MaxLen(1024)),
+		forms.NewTextField("title", forms.Trim, forms.RequiredOrNil, forms.MaxLen(1024)),
+		forms.NewTextField("description", forms.Trim),
+		forms.NewTextField("site_name", forms.Trim, forms.RequiredOrNil),
+		forms.NewTextListField("authors", forms.Trim,
+			forms.DiscardEmpty, forms.SplitLines,
+		),
+		forms.NewDatetimeField("published", forms.Trim),
+		forms.NewTextField("lang", forms.Trim, forms.CleanerFunc(func(v any) any {
+			if v, ok := v.(string); ok {
+				return strings.ToLower(v)
+			}
+			return v
+		}), forms.TypedValidator(func(v string) bool {
+			if v == "" {
+				return true
+			}
+			_, err := language.Parse(v)
+			return err == nil
+		}, forms.Gettext("invalid language code"))),
+		forms.NewTextField("text_direction", forms.Choices(
+			forms.Choice("", ""),
+			forms.Choice(tr.Gettext("Left to right"), "ltr"),
+			forms.Choice(tr.Gettext("Right to left"), "rtl"),
+		)),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
@@ -215,21 +239,48 @@ func newUpdateForm(tr forms.Translator) *updateForm {
 	)}
 }
 
+// nolint:gocyclo
 func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface{}, err error) {
 	updated = map[string]interface{}{}
 	var deleted *bool
 	labelsChanged := false
 
 	for _, field := range f.Fields() {
+		if field.Name() == "published" && field.IsBound() && field.IsEmpty() {
+			b.Published = nil
+			updated["published"] = nil
+			continue
+		}
+
 		if !field.IsBound() || field.IsNil() {
 			continue
 		}
 		switch n := field.Name(); n {
 		case "title":
-			if field.String() != "" {
-				b.Title = utils.NormalizeSpaces(field.String())
-				updated[n] = field.String()
+			b.Title = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "description":
+			b.Description = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "site_name":
+			b.SiteName = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "published":
+			d := field.(*forms.DatetimeField).V()
+			if !d.IsZero() {
+				d = d.UTC()
+				b.Published = &d
+				updated[n] = d
 			}
+		case "lang":
+			b.Lang = field.String()
+			updated[n] = b.Lang
+		case "text_direction":
+			b.TextDirection = field.String()
+			updated[n] = b.TextDirection
+		case "authors":
+			b.Authors = field.(*forms.TextListField).V()
+			updated[n] = b.Authors
 		case "is_marked":
 			b.IsMarked = field.(forms.TypedField[bool]).V()
 			updated[n] = field.Value()
@@ -282,11 +333,20 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 	}()
 
 	if len(updated) > 0 || deleted != nil {
+		if _, ok := updated["text_direction"]; ok {
+			updated["dir"] = updated["text_direction"]
+			delete(updated, "text_direction")
+		}
+
 		updated["updated"] = time.Now().UTC()
 		if err = b.Update(updated); err != nil {
 			return
 		}
 
+		if _, ok := updated["dir"]; ok {
+			updated["text_direction"] = updated["dir"]
+			delete(updated, "dir")
+		}
 	}
 
 	if deleted != nil {

@@ -189,6 +189,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				api.withBookmark,
 			).Route("/{uid:[a-zA-Z0-9]{18,22}}", func(r chi.Router) {
 				r.Get("/", h.bookmarkInfo)
+				r.Get("/card", h.bookmarkCard)
 				r.Get("/diagnosis", h.diagnosis)
 				r.With(server.WithPermission("bookmarks", "export")).Route(
 					"/share", func(r chi.Router) {
@@ -226,8 +227,8 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 		r.With(h.withBaseContext, api.withDefaultLimit(listDefaultLimit)).Group(func(r chi.Router) {
 			r.With(api.withBookmarkList).Post("/", h.bookmarkList)
 			r.With(api.withBookmark).Group(func(r chi.Router) {
-				r.Post("/{uid:[a-zA-Z0-9]{18,22}}", h.bookmarkUpdate)
-				r.Post("/{uid:[a-zA-Z0-9]{18,22}}/delete", h.bookmarkDelete)
+				r.Get("/{uid:[a-zA-Z0-9]{18,22}}/update", h.bookmarkUpdate)
+				r.Post("/{uid:[a-zA-Z0-9]{18,22}}/update", h.bookmarkUpdate)
 			})
 
 			r.With(api.withLabel, api.withBookmarkList).Group(func(r chi.Router) {

@@ -10,7 +10,7 @@ import (
 	"log/slog"
 	"net/http"
 	"net/url"
-	"os"
+	"slices"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
@@ -25,6 +25,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
 	"codeberg.org/readeck/readeck/pkg/http/csp"
+	"codeberg.org/readeck/readeck/pkg/utils"
 )
 
 const listDefaultLimit = 36
@@ -128,6 +129,13 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	item.Errors = b.Errors
 
+	if server.IsTurboRequest(r) {
+		server.RenderTurboStream(w, r,
+			"/bookmarks/components/card", "replace",
+			"bookmark-card-"+b.UID, item, nil)
+		return
+	}
+
 	tc := getBaseContext(r.Context())
 	tc["Item"] = item
 
@@ -135,30 +143,6 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	tc["HTML"], err = item.GetArticle()
 	if err != nil {
 		server.Log(r).Error("", slog.Any("err", err))
-	}
-
-	// Load bookmark debug information if the user needs them.
-	if auth.GetRequestUser(r).Settings.DebugInfo {
-		c, err := b.OpenContainer()
-		if err != nil && !os.IsNotExist(err) {
-			server.Err(w, r, err)
-			return
-		}
-
-		if c != nil {
-			defer c.Close()
-
-			for k, x := range map[string]string{
-				"_props": "props.json",
-				"_log":   "log",
-			} {
-				if r, err := c.GetFile(x); err != nil {
-					tc[k] = err.Error()
-				} else {
-					tc[k] = string(r)
-				}
-			}
-		}
 	}
 
 	// Set CSP for video playback
@@ -171,11 +155,27 @@ func (h *viewsRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	server.RenderTemplate(w, r, 200, "/bookmarks/bookmark", tc)
 }
 
+func (h *viewsRouter) bookmarkCard(w http.ResponseWriter, r *http.Request) {
+	if !server.IsTurboRequest(r) {
+		server.TextMsg(w, r, http.StatusBadRequest, "not a turbo request")
+		return
+	}
+	w.WriteHeader(http.StatusOK)
+
+	b := getBookmark(r.Context())
+	item := dataset.NewBookmark(r.Context(), b)
+
+	server.RenderTurboStream(w, r,
+		"/bookmarks/components/card", "replace",
+		"bookmark-card-"+b.UID, item, nil)
+}
+
 func (h *viewsRouter) diagnosis(w http.ResponseWriter, r *http.Request) {
 	if !server.IsTurboRequest(r) {
 		server.TextMsg(w, r, http.StatusBadRequest, "not a turbo request")
 		return
 	}
+	w.WriteHeader(http.StatusOK)
 
 	b := getBookmark(r.Context())
 	tc := getBaseContext(r.Context())
@@ -196,50 +196,142 @@ func (h *viewsRouter) diagnosis(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
+	tr := server.Locale(r)
+	b := getBookmark(r.Context())
+
+	tc := getBaseContext(r.Context())
+	tc.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Bookmarks"), urls.AbsoluteURL(r, "/bookmarks").String()},
+		{utils.ShortText(b.Title, 50), urls.AbsoluteURL(r, "/bookmarks", b.UID).String()},
+		{tr.Gettext("Update")},
+	})
+
+	tc["Title"] = b.Title
+	tc["ID"] = b.UID
+
 	f := newUpdateForm(server.Locale(r))
-	forms.Bind(f, r)
+	tc["Form"] = f
 
-	if !f.IsValid() {
-		server.Render(w, r, http.StatusBadRequest, f)
+	status := http.StatusOK
+
+	switch r.Method {
+	case http.MethodGet:
+		// Fields the user can update on the UI
+		f.Get("title").Set(b.Title)
+		f.Get("description").Set(b.Description)
+		f.Get("site_name").Set(b.SiteName)
+		f.Get("authors").Set([]string(b.Authors))
+		f.Get("published").Set(b.Published)
+		f.Get("lang").Set(b.Lang)
+		f.Get("text_direction").Set(b.TextDirection)
+
+	case http.MethodPost:
+		forms.Bind(f, r)
+		status = http.StatusUnprocessableEntity
+
+		if !f.IsValid() {
+			break
+		}
+
+		before := new(bookmarks.Bookmark)
+		*before = *b
+
+		updated, err := f.update(b)
+		if err != nil {
+			server.Log(r).Error("bookmark update", slog.Any("err", err))
+			break
+		}
+
+		// On a turbo request, we'll return the updated components.
+		if server.IsTurboRequest(r) {
+			item := dataset.NewBookmark(r.Context(), b)
+
+			_, withTitle := updated["title"]
+			_, withDescription := updated["description"]
+			_, withMarked := updated["is_marked"]
+			_, withArchived := updated["is_archived"]
+			_, withDeleted := updated["is_deleted"]
+			_, withProgress := updated["read_progress"]
+
+			if withTitle || withDescription {
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/title_block", "replace",
+					"bookmark-title-"+b.UID, server.TC{"Item": item}, nil)
+			}
+
+			var beforeP, afterP time.Time
+			if before.Published != nil {
+				beforeP = *before.Published
+			}
+			if b.Published != nil {
+				afterP = *b.Published
+			}
+
+			if before.SiteName != b.SiteName || beforeP != afterP || !slices.Equal(before.Authors, b.Authors) {
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/sidebar", "replace",
+					"bookmark-sidebar-"+b.UID, server.TC{"Item": item}, nil)
+			}
+
+			if before.Lang != b.Lang || before.TextDirection != b.TextDirection {
+				buf, err := item.GetArticle()
+				if err != nil {
+					server.Log(r).Error("", slog.Any("err", err))
+				}
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/content_block", "replace",
+					"bookmark-content-"+b.UID, map[string]interface{}{
+						"Item": item,
+						"HTML": buf,
+						"Out":  w,
+					},
+					nil,
+				)
+			}
+
+			if !slices.Equal(before.Labels, b.Labels) {
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/labels", "replace",
+					"bookmark-label-list-"+b.UID, item, nil)
+			}
+
+			if withMarked || withArchived || withDeleted || withProgress {
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/actions", "replace",
+					"bookmark-actions-"+b.UID, item, nil)
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/card", "replace",
+					"bookmark-card-"+b.UID, item, nil)
+			}
+			if withMarked || withArchived {
+				server.RenderTurboStream(w, r,
+					"/bookmarks/components/bottom_actions", "replace",
+					"bookmark-bottom-actions-"+b.UID, item, nil)
+			}
+
+			return
+		}
+
+		server.AddFlash(w, r, "success", tr.Gettext("Bookmark updated"))
+
+		redir := "/bookmarks/" + b.UID + "/update"
+		if f.Get("_to").String() != "" {
+			redir = f.Get("_to").String()
+		}
+		server.Redirect(w, r, redir)
+
+	}
+
+	if server.IsTurboRequest(r) {
+		w.WriteHeader(status)
+		server.RenderTurboStream(w, r,
+			"/bookmarks/components/bookmark_update", "replace",
+			"bookmark-update-"+b.UID, tc, nil,
+		)
 		return
 	}
 
-	b := getBookmark(r.Context())
-
-	if _, err := f.update(b); err != nil {
-		server.Err(w, r, err)
-		return
-	}
-
-	redir := "/bookmarks/" + b.UID
-	if f.Get("_to").String() != "" {
-		redir = f.Get("_to").String()
-	}
-
-	server.Redirect(w, r, redir)
-}
-
-func (h *viewsRouter) bookmarkDelete(w http.ResponseWriter, r *http.Request) {
-	b := getBookmark(r.Context())
-	f := newDeleteForm(server.Locale(r))
-	forms.Bind(f, r)
-
-	if err := b.Update(map[string]interface{}{}); err != nil {
-		server.Err(w, r, err)
-		return
-	}
-
-	if err := f.trigger(b); err != nil {
-		server.Err(w, r, err)
-		return
-	}
-
-	redir := "/bookmarks"
-	if f.Get("_to").String() != "" {
-		redir = f.Get("_to").String()
-	}
-
-	server.Redirect(w, r, redir)
+	server.RenderTemplate(w, r, status, "bookmarks/bookmark_update", tc)
 }
 
 func (h *viewsRouter) bookmarkShareLink(w http.ResponseWriter, r *http.Request) {

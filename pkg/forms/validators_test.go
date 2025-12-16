@@ -453,6 +453,34 @@ func TestValidators(t *testing.T) {
 		}
 	})
 
+	t.Run("split lines", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `[]`,
+			expect: []string{},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\nb"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\r\nb"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\n\n\nb\n\n"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\nb\n", "\nc  \nd"]`,
+			expect: []string{"a", "b", "c", "d"},
+		},
+	}))
+
 	t.Run("choices", runValidatorTests([]fieldValidatorTest{
 		{
 			f: forms.NewTextField("", forms.Choices(

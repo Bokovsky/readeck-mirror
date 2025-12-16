@@ -7,6 +7,7 @@ package server
 import (
 	"fmt"
 	"html"
+	"log/slog"
 	"net/http"
 	"os"
 	"reflect"
@@ -87,6 +88,12 @@ func RenderTurboStream(
 		panic(err)
 	}
 	fmt.Fprint(w, "</template></turbo-stream>\n\n")
+
+	Log(r).Debug("turbo stream",
+		slog.String("name", name),
+		slog.String("action", action),
+		slog.String("target", target),
+	)
 }
 
 // initTemplates add global functions to the views.

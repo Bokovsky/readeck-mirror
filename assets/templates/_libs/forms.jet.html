@@ -92,6 +92,28 @@ SPDX-License-Identifier: AGPL-3.0-only
                      inputClass=inputClass) }}
 {{- end -}}
 
+{{- block textAreaField(
+  field, value=nil, type="text", name, label, class="", required=false, help,
+  controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-textarea w-full",
+  rows=3
+) -}}
+  {{ inputAttrs.Set("rows", rows) }}
+  {{- if value == nil -}}
+    {{ value = field.String() }}
+  {{- end -}}
+  {{- if required -}}
+    {{ inputAttrs.Set("required", true) }}
+  {{- end -}}
+  {{- yield ariaAttrs(attrs=inputAttrs, field=field, name=name, help=help) -}}
+
+  {{- yield formField(field=field, name=name, label=label, help=help, class=class,
+                      required=required, controlAttrs=controlAttrs) content -}}
+    <textarea id="{{ name }}" name="{{ name }}" class="{{ inputClass }}" {{ inputAttrs }}>
+    {{- value -}}
+    </textarea>
+    {{- yield content -}}
+  {{- end -}}
+{{- end -}}
 
 {{- block checkboxField(
   field, checked=nil, name, label, class="", help

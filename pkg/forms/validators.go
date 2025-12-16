@@ -363,6 +363,27 @@ func Len(n int) ValueValidator[string] {
 	}, Gettext("text must contain %d characters", n))
 }
 
+// SplitLines works on [ListField] (of string) and populates
+// its values after spliting each line.
+// It will trim spaces on each value.
+var SplitLines = FieldValidatorFunc(func(f Field) error {
+	field, ok := f.(*ListField[string])
+	if !ok {
+		return nil
+	}
+
+	res := []string{}
+	for _, x := range field.V() {
+		for l := range strings.Lines(x) {
+			if strings.TrimSpace(l) != "" {
+				res = append(res, strings.TrimSpace(l))
+			}
+		}
+	}
+	field.value.V = res
+	return nil
+})
+
 // ValueChoice is a key/value pair.
 type ValueChoice[T comparable] struct {
 	Name  string

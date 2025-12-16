@@ -81,7 +81,8 @@ body.js {
     scrollbar-width: auto;
   }
 
-  *::-webkit-scrollbar {
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar:xr-overlay {
     width: 4px;
   }
 

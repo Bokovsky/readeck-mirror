@@ -156,7 +156,7 @@
 
   // Horizontal field
   .field-h {
-    @apply flex gap-2 items-baseline max-w-std;
+    @apply flex gap-2 items-start max-w-std;
 
     @screen max-sm {
       @apply block;
@@ -164,12 +164,17 @@
 
     & > label:first-child,
     & > .field-spacer:first-child {
+      padding-top: theme("spacing.2");
       flex-basis: theme("spacing.40");
       flex-shrink: 0;
 
       @screen lg {
         flex-basis: theme("spacing.60");
       }
+    }
+
+    & > div > ul {
+      padding-top: theme("spacing.2");
     }
   }
 
