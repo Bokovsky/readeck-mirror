@@ -3,29 +3,33 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Kropotkin <kropotkin@noreply.codeberg.org>, 2025.
+# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-27 10:52+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-12-16 09:11+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: Interslavic <https://translate.codeberg.org/projects/readeck/application/isv/>\n"
 "Language: isv\n"
-"Language-Team: none\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Menju"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Drugoredny Menju"
 
 #: assets/templates/_layouts/sidemenu.jet.html:31
 #: assets/templates/bookmarks/bookmark.jet.html:27
@@ -35,25 +39,25 @@ msgstr ""
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "Zatvoriti menju"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Menju bystrogo dostupu"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "Glavna Stranica"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
-msgstr ""
+msgstr "Potrěbno"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Grěški"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
@@ -65,7 +69,7 @@ msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
-msgstr ""
+msgstr "Denj(i)"
 
 #: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
@@ -82,7 +86,7 @@ msgstr ""
 #: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "ili"
 
 #: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
@@ -90,7 +94,7 @@ msgstr ""
 
 #: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
-msgstr ""
+msgstr "izbaviti se"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
@@ -108,12 +112,12 @@ msgstr ""
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "Poprědna"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "Nastupna"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
@@ -144,7 +148,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:19
 #: assets/templates/profile/token_list.jet.html:63
 msgid "Cancel"
-msgstr ""
+msgstr "Anulovati"
 
 #: assets/templates/admin/user.jet.html:29
 #: assets/templates/admin/user_create.jet.html:19
@@ -159,12 +163,12 @@ msgstr ""
 #: assets/templates/auth/onboarding.jet.html:36
 #: assets/templates/auth/recover.jet.html:28
 msgid "Email address"
-msgstr ""
+msgstr "E-mail"
 
 #: assets/templates/admin/user.jet.html:39
 #: assets/templates/admin/user_create.jet.html:30
 msgid "Group"
-msgstr ""
+msgstr "Grupa"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
@@ -186,7 +190,7 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
-msgstr ""
+msgstr "Zapisati"
 
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
@@ -301,7 +305,7 @@ msgstr ""
 
 #: assets/templates/auth/oauth/form.jet.html:26
 msgid "Review permissions"
-msgstr ""
+msgstr "Dozvoljenja"
 
 #: assets/templates/auth/oauth/form.jet.html:33
 msgid "Application information"
@@ -333,7 +337,7 @@ msgstr ""
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Dobrodošli v Readeck!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
@@ -452,7 +456,7 @@ msgstr ""
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
-msgstr ""
+msgstr "Zakladki"
 
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
@@ -654,7 +658,7 @@ msgstr ""
 #: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
 #: docs/http.go:308
 msgid "Documentation"
-msgstr ""
+msgstr "Dokumentacija"
 
 #: assets/templates/bookmarks/collection.jet.html:84
 msgid "Delete collection"
@@ -2391,192 +2395,192 @@ msgstr ""
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Nedělja"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Ponedělok"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Vtorok"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Srěda"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Četvrtok"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "Petok"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Subota"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "Ned"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "Pon"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "Vto"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "Srě"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "Čet"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "Pet"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "Sub"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "Januar"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "Fevruar"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "Marec"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "Aprilj"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "Junij"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "Julij"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "Avgust"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "Septembr"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "Oktobr"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "Novembr"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "Dekembr"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr ""
+msgstr "Jan"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr ""
+msgstr "Fev"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr ""
+msgstr "Mar"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr ""
+msgstr "Apr"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr ""
+msgstr "Maj"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr ""
+msgstr "Jun"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr ""
+msgstr "Jul"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr ""
+msgstr "Avg"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr ""
+msgstr "Sep"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr ""
+msgstr "Okt"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr ""
+msgstr "Nov"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr ""
+msgstr "Dek"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
@@ -2592,16 +2596,15 @@ msgstr ""
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr ""
+msgstr "%a %b %e %H:%M:%S %y"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%d/%m/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
-msgstr ""
-
+msgstr "%G:%M:%S"
