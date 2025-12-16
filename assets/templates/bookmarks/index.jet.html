@@ -50,7 +50,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       {{- end -}}
       {{- if .MaybeSearch -}}
         {{- yield message() content -}}
-        {{ gettext(`"%s" is not a valid address. Did you mean to search your bookmarks for %s?`,
+        {{ gettext(`"%[1]s" is not a valid address. Did you mean to search your bookmarks for %[2]s?`,
           html(.Form.Get(`url`).String()),
           `<a data-turbo-frame="_top" href="` + urlFor(`/bookmarks`) + `?bf=1&search=` + url(.Form.Get(`url`).String()) + `"` +
           `class="link font-bold">` + html(.Form.Get(`url`).String()) + `</a>`,

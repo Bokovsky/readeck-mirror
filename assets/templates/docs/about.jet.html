@@ -36,18 +36,18 @@ Build Info:
       {{- yield icon(name="o-copy") }}
       {{ gettext("copy to clipboard") }}
     </button></p>
-    <textarea hidden data-clipboard-target="content">{{ yield sysInfo() }}</textarea>
+    <textarea hidden data-clipboard-target="content">```&#10;{{- yield sysInfo() }}```</textarea>
   </div>
 
-  <h3 class="title text-h3">Storage</h3>
+  <h3 class="title text-h3">{{ gettext("Storage") }}</h3>
   <table class="my-4">
     <tbody>
       <tr>
-        <th class="text-left">Database Size:</th>
+        <th class="text-left">{{ gettext("Database Size:") }}</th>
         <td class="pl-4 text-right">{{ humanReadable(.DBSize) }}</td>
       </tr>
       <tr>
-        <th class="text-left">Bookmarks Disk Usage:</th>
+        <th class="text-left">{{ gettext("Bookmarks Disk Usage:") }}</th>
         <td class="pl-4 text-right">{{ humanReadable(.DiskUsage) }}</td>
       </tr>
     </tbody>
