@@ -4,24 +4,26 @@
 # SPDX-License-Identifier: AGPL-3.0-only
 #
 # "ℂ𝕠𝕠𝕠𝕝 (𝕘𝕚𝕥𝕙𝕦𝕓.𝕔𝕠𝕞/ℂ𝕠𝕠𝕠𝕝)" <coool@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-10-19 11:48+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
-"Language: lv\n"
+"PO-Revision-Date: 2025-12-16 09:10+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: Latvian <https://translate.codeberg.org/projects/readeck/documentation/lv/>\n"
+"Language: lv_LV\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n % 10 == 0 || n % 100 >= 11 && n % 100 <= 19) ? 0 : ((n % 10 == 1 && n % 100 != 11) ? 1 : 2);\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en-US/bookmark-list.md:1
 msgid "# Bookmarks"
-msgstr ""
+msgstr "# Grāmatzīmes"
 
 #: en-US/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
@@ -45,47 +47,47 @@ msgstr ""
 
 #: en-US/bookmark-list.md:13
 msgid "## Bookmark type"
-msgstr ""
+msgstr "## Grāmatzīmes tips"
 
 #: en-US/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
-msgstr ""
+msgstr "Readeck atpazīst 3 dažādus tīmekļa satura tipus:"
 
 #: en-US/bookmark-list.md:17 en-US/bookmark.md:17
 msgid "### Article"
-msgstr ""
+msgstr "### Raksts"
 
 #: en-US/bookmark-list.md:19 en-US/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
-msgstr ""
+msgstr "Raksts — tīmekļa lapa, kurā aizvākts viss liekais, atstājot tikai teksta saturu un ilustrācijas."
 
 #: en-US/bookmark-list.md:21 en-US/bookmark.md:21
 msgid "### Picture"
-msgstr ""
+msgstr "### Attēls"
 
 #: en-US/bookmark-list.md:23 en-US/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
-msgstr ""
+msgstr "Attēls — tīmekļa lapa, kura satur attēla konteineri (piem., saite uz Unsplash). Tā tiks saglabāta kā attēls."
 
 #: en-US/bookmark-list.md:25 en-US/bookmark.md:25
 msgid "### Video"
-msgstr ""
+msgstr "### Video"
 
 #: en-US/bookmark-list.md:27 en-US/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
-msgstr ""
+msgstr "Video — tīmekļa lapa, kura satur video konteineri (piem., saite uz YouTube vai Vimeo). Tā tiks atvērta video atskaņotājā. Lūdzu, ņemiet vērā, ka video tiek iegūts no to attiecīgajiem attālajiem serveriem."
 
 #: en-US/bookmark-list.md:30
 msgid "## Bookmark List"
-msgstr ""
+msgstr "## Grāmatzīmju saraksts"
 
 #: en-US/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
-msgstr ""
+msgstr "[Grāmatzīmju saraksts](readeck-instance://bookmarks) ir vieta, kur atradīsiet visas jūsu saglabātās grāmatzīmes."
 
 #: en-US/bookmark-list.md:34
 msgid "### Navigation"
-msgstr ""
+msgstr "### Navigācija"
 
 #: en-US/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
@@ -122,6 +124,12 @@ msgid ""
 "- **Pictures** \\\n"
 "  Your picture bookmarks"
 msgstr ""
+"- **Raksti** \\\n"
+"  Jūsu rakstu grāmatzīmes\n"
+"- **Video** \\\n"
+"  Jūsu video grāmatzīmes\n"
+"- **Attēli** \\\n"
+"  Jūsu attēlu grāmatzīmes"
 
 #: en-US/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
@@ -136,6 +144,12 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
+"- **[Birkas](./labels.md)** \\\n"
+"  Visas jūsu grāmatzīmju birkas\n"
+"- **Izceltie elementi** \\\n"
+"  Visi izceltie elementi, kas izveidoti jūsu grāmatzīmēs\n"
+"- **[Kolekcijas](./collections.md)** \\\n"
+"  Viss jūsu grāmatzīmju kolekciju saraksts"
 
 #: en-US/bookmark-list.md:70
 msgid "### Bookmark Cards"
@@ -180,7 +194,7 @@ msgstr ""
 
 #: en-US/bookmark-list.md:94
 msgid "### Compact List"
-msgstr ""
+msgstr "### Kompaktais saraksts"
 
 #: en-US/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
@@ -362,7 +376,7 @@ msgstr ""
 
 #: en-US/bookmark.md:56
 msgid "### Archive"
-msgstr ""
+msgstr "### Arhivēt"
 
 #: en-US/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
@@ -382,7 +396,7 @@ msgstr ""
 
 #: en-US/bookmark.md:67
 msgid "### Delete"
-msgstr ""
+msgstr "### Dzēst"
 
 #: en-US/bookmark.md:69
 msgid ""
@@ -392,7 +406,7 @@ msgstr ""
 
 #: en-US/bookmark.md:73
 msgid "## Labels"
-msgstr ""
+msgstr "## Birkas"
 
 #: en-US/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
@@ -410,7 +424,7 @@ msgstr ""
 
 #: en-US/bookmark.md:82
 msgid "## Highlights"
-msgstr ""
+msgstr "## Izceltie elementi"
 
 #: en-US/bookmark.md:84
 msgid ""
@@ -426,15 +440,15 @@ msgstr ""
 
 #: en-US/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr ""
+msgstr "Jūsu izceltie elementi parādīsies sānjoslā."
 
 #: en-US/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr ""
+msgstr "Jūs variet noņemt izcelto elementu, atlasot to sānjoslā vai pašā rakstā."
 
 #: en-US/collections.md:1
 msgid "# Collections"
-msgstr ""
+msgstr "# Kolekcijas"
 
 #: en-US/collections.md:3
 msgid ""
@@ -525,7 +539,7 @@ msgstr ""
 
 #: en-US/index.md:18
 msgid "## Contents"
-msgstr ""
+msgstr "## Saturs"
 
 #: en-US/index.md:20
 msgid ""
@@ -539,7 +553,7 @@ msgstr ""
 
 #: en-US/labels.md:1
 msgid "# Labels"
-msgstr ""
+msgstr "# Birkas"
 
 #: en-US/labels.md:3
 msgid ""

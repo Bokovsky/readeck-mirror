@@ -3,129 +3,131 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-11-27 10:52+0100\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language: tt\n"
-"Language-Team: none\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"PO-Revision-Date: 2025-12-16 09:12+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: Tatar <https://translate.codeberg.org/projects/readeck/application/tt/>\n"
+"Language: tt_RU\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.14.3\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
 #: assets/templates/bookmarks/bookmark.jet.html:26
 #: assets/templates/error.jet.html:12
 msgid "Menu"
-msgstr ""
+msgstr "Меню"
 
 #: assets/templates/_layouts/sidemenu.jet.html:30
 msgid "Secondary Menu"
-msgstr ""
+msgstr "Икенче меню"
 
 #: assets/templates/_layouts/sidemenu.jet.html:31
 #: assets/templates/bookmarks/bookmark.jet.html:27
 #: assets/templates/error.jet.html:13
 msgid "Main content"
-msgstr ""
+msgstr "Төп эчтәлек"
 
 #: assets/templates/_layouts/sidemenu.jet.html:46
 msgid "Close menu"
-msgstr ""
+msgstr "Менюне ябу"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Quick access menu"
-msgstr ""
+msgstr "Тиз керү менюсы"
 
 #: assets/templates/_libs/common.jet.html:1
 msgid "Home Page"
-msgstr ""
+msgstr "Төп бит"
 
 #: assets/templates/_libs/forms.jet.html:1
 #: assets/templates/_libs/forms.jet.html:42
 #: assets/templates/bookmarks/import/form-csv.jet.html:55
 msgid "Required"
-msgstr ""
+msgstr "Таләп ителә"
 
 #: assets/templates/_libs/forms.jet.html:10
 msgid "Errors"
-msgstr ""
+msgstr "Хата"
 
 #: assets/templates/_libs/forms.jet.html:16
 msgid "Please check your form for errors."
-msgstr ""
+msgstr "Зинһар, форманы хаталар өчен тикшерегез."
 
 #: assets/templates/_libs/forms.jet.html:227
 msgid "The previous"
-msgstr ""
+msgstr "Алдыңгы"
 
 #: assets/templates/_libs/forms.jet.html:236
 msgid "Day(s)"
-msgstr ""
+msgstr "Көн(нәр)"
 
 #: assets/templates/_libs/forms.jet.html:237
 msgid "Week(s)"
-msgstr ""
+msgstr "Атна(лар)"
 
 #: assets/templates/_libs/forms.jet.html:238
 msgid "Month(s)"
-msgstr ""
+msgstr "Ай(лар)"
 
 #: assets/templates/_libs/forms.jet.html:239
 msgid "Year(s)"
-msgstr ""
+msgstr "Ел(лар)"
 
 #: assets/templates/_libs/forms.jet.html:242
 msgctxt "word"
 msgid "or"
-msgstr ""
+msgstr "яки"
 
 #: assets/templates/_libs/forms.jet.html:272
 msgid "Select or drop file"
-msgstr ""
+msgstr "Файлны сайлагыз яки төшерегез"
 
 #: assets/templates/_libs/forms.jet.html:276
 msgid "remove"
-msgstr ""
+msgstr "бетерү"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to previous page"
-msgstr ""
+msgstr "Алдыңгы биткә күчү"
 
 #: assets/templates/_libs/pagination.jet.html:1
 #, python-format
 msgid "Go to page %d"
-msgstr ""
+msgstr "%d номерлы биткә күчү"
 
 #: assets/templates/_libs/pagination.jet.html:1
 msgid "Go to next page"
-msgstr ""
+msgstr "Киләсе биткә күчү"
 
 #: assets/templates/_libs/pagination.jet.html:10
 msgctxt "page"
 msgid "Previous"
-msgstr ""
+msgstr "Алдыңгы"
 
 #: assets/templates/_libs/pagination.jet.html:15
 msgctxt "page"
 msgid "Next"
-msgstr ""
+msgstr "Киләсе"
 
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
 #: internal/admin/views.go:89 internal/admin/views.go:129
 msgid "Users"
-msgstr ""
+msgstr "Кулланучылар"
 
 #: assets/templates/admin/user.jet.html:18
 msgid "User will be removed in a few seconds"
-msgstr ""
+msgstr "Кулланучы берничә секундтан соң бетереләчәк"
 
 #: assets/templates/admin/user.jet.html:19
 #: assets/templates/admin/user_list.jet.html:43
@@ -145,7 +147,7 @@ msgstr ""
 #: assets/templates/profile/token.jet.html:19
 #: assets/templates/profile/token_list.jet.html:63
 msgid "Cancel"
-msgstr ""
+msgstr "Баш тарту"
 
 #: assets/templates/admin/user.jet.html:29
 #: assets/templates/admin/user_create.jet.html:19
@@ -153,19 +155,19 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
 #: assets/templates/profile/index.jet.html:30
 msgid "Username"
-msgstr ""
+msgstr "Кулланучы исеме"
 
 #: assets/templates/admin/user.jet.html:35
 #: assets/templates/admin/user_create.jet.html:25
 #: assets/templates/auth/onboarding.jet.html:36
 #: assets/templates/auth/recover.jet.html:28
 msgid "Email address"
-msgstr ""
+msgstr "E-mail"
 
 #: assets/templates/admin/user.jet.html:39
 #: assets/templates/admin/user_create.jet.html:30
 msgid "Group"
-msgstr ""
+msgstr "Төркем"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
@@ -174,11 +176,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
 #: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
-msgstr ""
+msgstr "Серсүз"
 
 #: assets/templates/admin/user.jet.html:47
 msgid "will not change if empty"
-msgstr ""
+msgstr "буш булса үзгәрмәячәк"
 
 #: assets/templates/admin/user.jet.html:50
 #: assets/templates/bookmarks/collection.jet.html:82
@@ -187,109 +189,109 @@ msgstr ""
 #: assets/templates/profile/password.jet.html:35
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
-msgstr ""
+msgstr "Сакларга"
 
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
-msgstr ""
+msgstr "Бу кулланучыны бетерү"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
-msgstr ""
+msgstr "Яңа кулланучы"
 
 #: assets/templates/admin/user_create.jet.html:41
 msgid "Create user"
-msgstr ""
+msgstr "Кулланучы төзү"
 
 #: assets/templates/admin/user_list.jet.html:14
 msgid "Add a new user"
-msgstr ""
+msgstr "Яңа кулланучы өстәү"
 
 #: assets/templates/admin/user_list.jet.html:30
 #: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
-msgstr ""
+msgstr "Төзелгән: %s"
 
 #: assets/templates/admin/user_list.jet.html:31
 #, python-format
 msgid "Last update: %s"
-msgstr ""
+msgstr "Соңгы яңарту: %s"
 
 #: assets/templates/admin/user_list.jet.html:38
 msgid "This user will be removed in a few seconds."
-msgstr ""
+msgstr "Бу кулланучы берничә секундтан соң бетереләчәк."
 
 #: assets/templates/auth/login.jet.html:9
 #: assets/templates/auth/login.jet.html:36
 msgid "Sign in"
-msgstr ""
+msgstr "Керү"
 
 #: assets/templates/auth/login.jet.html:12
 msgid "Sign in to Readeck"
-msgstr ""
+msgstr "Readeckка керү"
 
 #: assets/templates/auth/login.jet.html:21
 msgid "Username or email address"
-msgstr ""
+msgstr "Кулланучы исеме яки e-mail"
 
 #: assets/templates/auth/login.jet.html:40
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Паролеңны оныттыңмы?"
 
 #: assets/templates/auth/oauth/auth-code.jet.html:8
 #: assets/templates/auth/oauth/device-code.jet.html:9
 #: assets/templates/auth/oauth/form.jet.html:14
 msgid "Authorization required"
-msgstr ""
+msgstr "Рөхсәт таләп ителә"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
 msgid "Go back to Readeck"
-msgstr ""
+msgstr "Readeckка кайту"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
 #: assets/templates/auth/oauth/device-code.jet.html:54
 msgid "Connect a device"
-msgstr ""
+msgstr "Кулайлама тоташтыру"
 
 #: assets/templates/auth/oauth/device-code.jet.html:32
 msgid "Enter the code displayed on your device"
-msgstr ""
+msgstr "Кулайламада күрсәтелгән кодны кертегез"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
 msgid "Next"
-msgstr ""
+msgstr "Киләсе"
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid "Authorization request was denied."
-msgstr ""
+msgstr "Рөхсәт соравы тикшерелмәде."
 
 #: assets/templates/auth/oauth/device-code.jet.html:49
 msgid " You can now close this page."
-msgstr ""
+msgstr " Сез инде бу битне ябып була."
 
 #: assets/templates/auth/oauth/device-code.jet.html:57
 msgid "Authorization granted. Connecting device..."
-msgstr ""
+msgstr "Рөхсәт бирелде. Кулайлама тоташтырыла…"
 
 #: assets/templates/auth/oauth/device-code.jet.html:61
 #, python-format
 msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
-msgstr ""
+msgstr "Берничә секундтан соң яңартылмаса, <a href=\"%s\">бу битне яңартыгыз</a>."
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "Device is connected!"
-msgstr ""
+msgstr "Кушылды!"
 
 #: assets/templates/auth/oauth/device-code.jet.html:66
 msgid "You can now close this page."
-msgstr ""
+msgstr "Индеге битне ябуга мөмкин."
 
 #: assets/templates/auth/oauth/form.jet.html:12
 #, python-format
 msgid "Signed in as: <strong>%s</strong>"
-msgstr ""
+msgstr "Керде: <strong>%s</strong>"
 
 #: assets/templates/auth/oauth/form.jet.html:20
 #, python-format
@@ -299,56 +301,60 @@ msgid ""
 "      Only approve this request if you recognize and trust this source.\n"
 "    "
 msgstr ""
+"\n"
+"      <strong>%s</strong> сизнең хисабыгызга керергә рөхсәт сорый.\n"
+"      Бу соравны танып, һәм бу чыганакка ишәнеп гына рөхсәт бирегез.\n"
+"    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
 msgid "Review permissions"
-msgstr ""
+msgstr "Рөхсәтләрне карау"
 
 #: assets/templates/auth/oauth/form.jet.html:33
 msgid "Application information"
-msgstr ""
+msgstr "Тәҗрибәләр информациясе"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
 #: assets/templates/bookmarks/collection_create.jet.html:22
 #: assets/templates/profile/token.jet.html:42
 msgid "Name"
-msgstr ""
+msgstr "Исем"
 
 #: assets/templates/auth/oauth/form.jet.html:36
 msgid "Website"
-msgstr ""
+msgstr "Веб-сайт"
 
 #: assets/templates/auth/oauth/form.jet.html:37
 msgid "Version"
-msgstr ""
+msgstr "Версия"
 
 #: assets/templates/auth/oauth/form.jet.html:42
 msgid "Authorize"
-msgstr ""
+msgstr "Рөхсәт итәргә"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
-msgstr ""
+msgstr "Тыйып куярга"
 
 #: assets/templates/auth/onboarding.jet.html:9
 #: assets/templates/bookmarks/index.jet.html:75
 msgid "Welcome to Readeck!"
-msgstr ""
+msgstr "Readeckка рәхим итегез!"
 
 #: assets/templates/auth/onboarding.jet.html:15
 msgid "We're delighted to have you on board; one more step and you're good to go."
-msgstr ""
+msgstr "Сезне үзебезгә кушылуыгызга шатланабыз; тагын бер адым һәм сез яхшы буласыз."
 
 #: assets/templates/auth/onboarding.jet.html:31
 #: assets/templates/auth/recover.jet.html:54
 #: assets/templates/profile/password.jet.html:31
 msgid "must be at least 8 characters long"
-msgstr ""
+msgstr "кем дә 8 символдан кем дә күбрәк булырга тиеш"
 
 #: assets/templates/auth/onboarding.jet.html:38
 msgid "Please note:"
-msgstr ""
+msgstr "Искәрмә:"
 
 #: assets/templates/auth/onboarding.jet.html:39
 msgid ""
@@ -358,18 +364,23 @@ msgid ""
 "  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
 "  "
 msgstr ""
+"\n"
+"  Сезнең e-mail җиңел һәм бу инсталляциядән чыгарылмаячак.\n"
+"  Ул җыю, күчерү яки сатылмаячак.\n"
+"  Ул <strong>гына</strong> кулланылыр, әгәр кирәк булса, парольне калгызарга һәм эчке хәбәрләр өчен.\n"
+"  "
 
 #: assets/templates/auth/onboarding.jet.html:46
 msgid "Finish installation"
-msgstr ""
+msgstr "Установка тәмамлау"
 
 #: assets/templates/auth/recover.jet.html:9
 msgid "Password recovery"
-msgstr ""
+msgstr "Парольне тергеү"
 
 #: assets/templates/auth/recover.jet.html:20
 msgid "No worries, it happens to anyone."
-msgstr ""
+msgstr "Кайгырмайгыз, бу һәркемгә дә була."
 
 #: assets/templates/auth/recover.jet.html:21
 msgid ""
@@ -382,16 +393,16 @@ msgstr ""
 
 #: assets/templates/auth/recover.jet.html:31
 msgid "Send me a recovery link"
-msgstr ""
+msgstr "Минә үзгәртү сызыгын җибәрегез"
 
 #: assets/templates/auth/recover.jet.html:32
 #: assets/templates/auth/recover.jet.html:56
 msgid "Cancel and go back to sign in"
-msgstr ""
+msgstr "Кире кайту һәм керүгә кайту"
 
 #: assets/templates/auth/recover.jet.html:36
 msgid "Almost there!"
-msgstr ""
+msgstr "Якында!"
 
 #: assets/templates/auth/recover.jet.html:37
 #, python-format
@@ -406,27 +417,27 @@ msgstr ""
 #: assets/templates/auth/recover.jet.html:52
 #: assets/templates/profile/password.jet.html:28
 msgid "New password"
-msgstr ""
+msgstr "Яңа пароль"
 
 #: assets/templates/auth/recover.jet.html:55
 msgid "Update your password"
-msgstr ""
+msgstr "Парольне яңарту"
 
 #: assets/templates/auth/recover.jet.html:60
 msgid "Your password has been changed."
-msgstr ""
+msgstr "Парольгыз үзгәртелде."
 
 #: assets/templates/auth/recover.jet.html:61
 msgid "Go to the sign in page"
-msgstr ""
+msgstr "Керү битенә күчү"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
-msgstr ""
+msgstr "Вакытлык билгеләр"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:17
 msgid "You don't have any highlights yet."
-msgstr ""
+msgstr "Сезнең әле берничә билгеләр юк."
 
 #: assets/templates/bookmarks/annotation_list.jet.html:18
 msgid ""
@@ -439,12 +450,12 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
+msgstr "<a class=\"%s\" href=\"%s\">документация</a>да төп нокталар турында күбрәк укыгыз."
 
 #: assets/templates/bookmarks/base.jet.html:1
 #: assets/templates/bookmarks/components/filters.jet.html:9
 msgid "Search"
-msgstr ""
+msgstr "Эзләү"
 
 #: assets/templates/bookmarks/base.jet.html:15
 #: assets/templates/bookmarks/bookmark.jet.html:15
@@ -453,59 +464,59 @@ msgstr ""
 #: internal/bookmarks/routes/views_import.go:37
 #: internal/bookmarks/routes/views_import.go:68
 msgid "Bookmarks"
-msgstr ""
+msgstr "Билгеләр"
 
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
-msgstr ""
+msgstr "Барысы"
 
 #: assets/templates/bookmarks/base.jet.html:34
 msgid "Unread"
-msgstr ""
+msgstr "Укылмаганнар"
 
 #: assets/templates/bookmarks/base.jet.html:37
 msgid "Archive"
-msgstr ""
+msgstr "Архив"
 
 #: assets/templates/bookmarks/base.jet.html:40
 msgid "Favorites"
-msgstr ""
+msgstr "Изләнгәннәр"
 
 #: assets/templates/bookmarks/base.jet.html:48
 #: internal/bookmarks/routes/views_bookmarks.go:110
 msgid "Articles"
-msgstr ""
+msgstr "Мәкаләләр"
 
 #: assets/templates/bookmarks/base.jet.html:54
 #: internal/bookmarks/routes/views_bookmarks.go:114
 msgid "Videos"
-msgstr ""
+msgstr "Видеолар"
 
 #: assets/templates/bookmarks/base.jet.html:60
 #: internal/bookmarks/routes/views_bookmarks.go:112
 msgid "Pictures"
-msgstr ""
+msgstr "Рәсемнәр"
 
 #: assets/templates/bookmarks/base.jet.html:70
 #: assets/templates/bookmarks/components/sidebar.jet.html:117
 #: assets/templates/bookmarks/label.jet.html:25
 msgid "Labels"
-msgstr ""
+msgstr "Ярлыклар"
 
 #: assets/templates/bookmarks/base.jet.html:72
 #: assets/templates/bookmarks/components/sidebar.jet.html:122
 msgid "Highlights"
-msgstr ""
+msgstr "Төпнокталар"
 
 #: assets/templates/bookmarks/base.jet.html:74
 #: assets/templates/bookmarks/collection.jet.html:11
 #: assets/templates/bookmarks/collection.jet.html:38
 msgid "Collections"
-msgstr ""
+msgstr "Коллекцияләр"
 
 #: assets/templates/bookmarks/base.jet.html:90
 msgid "Did you know?"
-msgstr ""
+msgstr "Билгеле ме?"
 
 #: assets/templates/bookmarks/base.jet.html:91
 #: assets/templates/bookmarks/index.jet.html:91
@@ -519,33 +530,33 @@ msgstr ""
 #: assets/templates/bookmarks/components/sidebar.jet.html:24
 #: assets/templates/bookmarks/index.jet.html:98
 msgid "Learn more"
-msgstr ""
+msgstr "Күбрәк белергә"
 
 #: assets/templates/bookmarks/base.jet.html:107
 msgid "Don't remind me"
-msgstr ""
+msgstr "Минән искә төшермә"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 msgid "Close dialog"
-msgstr ""
+msgstr "Диалогны ябу"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
-msgstr ""
+msgstr "Панельне ябу"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:126
 msgid "Bookmark information"
-msgstr ""
+msgstr "Вакытлык белешмә"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
-msgstr ""
+msgstr "Вакытлык йөкләнә"
 
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
-msgstr ""
+msgstr "Вакытлык йөкләнә"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -553,7 +564,7 @@ msgstr ""
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr ""
+msgstr "сайт исеме юк"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
 #: assets/templates/bookmarks/bookmark_public.jet.html:102
@@ -562,7 +573,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:37
 #, python-format
 msgid "Published on %s"
-msgstr ""
+msgstr "%s дата буенча басылган"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
 #: assets/templates/bookmarks/bookmark_public.jet.html:107
@@ -571,7 +582,7 @@ msgstr ""
 #: assets/templates/epub/bookmark.jet.html:40
 #, python-format
 msgid "By %s"
-msgstr ""
+msgstr "%s тарафыннан"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:17
 #: assets/templates/bookmarks/components/sidebar.jet.html:95
@@ -580,98 +591,98 @@ msgstr ""
 #, python-format
 msgid "About %d minute read"
 msgid_plural "About %d minutes read"
-msgstr[0] ""
+msgstr[0] "Якынча %d минут укыу"
 
 #: assets/templates/bookmarks/bookmark_missing.jet.html:9
 #: assets/templates/bookmarks/bookmark_missing.jet.html:14
 msgid "Bookmark not found"
-msgstr ""
+msgstr "Вакытлык табылмады"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
-msgstr ""
+msgstr "Уртак ссылка"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:78
 msgid "Page not found"
-msgstr ""
+msgstr "Бит табылмады"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:80
 msgid "Page has expired"
-msgstr ""
+msgstr "Битнең вакыты күп булды"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:115
 #, python-format
 msgid "%d min"
-msgstr ""
+msgstr "%d мин"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:121
 #, python-format
 msgid "Shared by %s with %s"
-msgstr ""
+msgstr "%s тарафыннан %s белән уртаклаштырылды"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:174
 #, python-format
 msgid "Saved with %s"
-msgstr ""
+msgstr "%s белән сакланды"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:8
 msgid "Share by email"
-msgstr ""
+msgstr "Э-почта аркылы уртаклаштыру"
 
 #: assets/templates/bookmarks/bookmark_share_email.jet.html:18
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:19
 #, python-format
 msgid "Share: %s"
-msgstr ""
+msgstr "Уртаклаштыру: %s"
 
 #: assets/templates/bookmarks/bookmark_share_link.jet.html:8
 msgid "Share link"
-msgstr ""
+msgstr "Ссылка уртаклаштыру"
 
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
 msgid "Collection %s"
-msgstr ""
+msgstr "Коллекция %s"
 
 #: assets/templates/bookmarks/collection.jet.html:26
 msgid "Collection will be removed in a few seconds."
-msgstr ""
+msgstr "Коллекция берничә секундтан соң бетереләчәк."
 
 #: assets/templates/bookmarks/collection.jet.html:47
 #: assets/templates/bookmarks/collection.jet.html:60
 msgid "Edit"
-msgstr ""
+msgstr "Төзәтү"
 
 #: assets/templates/bookmarks/collection.jet.html:62
 #: assets/templates/bookmarks/index.jet.html:133
 #: assets/templates/bookmarks/index.jet.html:167
 #: assets/templates/bookmarks/index.jet.html:170
 msgid "Filters"
-msgstr ""
+msgstr "Фильтрлар"
 
 #: assets/templates/bookmarks/collection.jet.html:65
 #: assets/templates/bookmarks/index.jet.html:173
 #: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
 #: docs/http.go:308
 msgid "Documentation"
-msgstr ""
+msgstr "Документация"
 
 #: assets/templates/bookmarks/collection.jet.html:84
 msgid "Delete collection"
-msgstr ""
+msgstr "Коллекцияне бетерү"
 
 #: assets/templates/bookmarks/collection_create.jet.html:9
 msgid "New Collection"
-msgstr ""
+msgstr "Яңа коллекция"
 
 #: assets/templates/bookmarks/collection_list.jet.html:9
 #: internal/opds/http.go:75
 msgid "Bookmark Collections"
-msgstr ""
+msgstr "Кыстыргычлар җыелмасы"
 
 #: assets/templates/bookmarks/collection_list.jet.html:15
 msgid "Create a new collection"
-msgstr ""
+msgstr "Яңа коллекция төзәргә"
 
 #: assets/templates/bookmarks/collection_list.jet.html:24
 msgid ""
@@ -686,147 +697,147 @@ msgstr ""
 
 #: assets/templates/bookmarks/collection_list.jet.html:33
 msgid "The unread articles (no photos or videos)"
-msgstr ""
+msgstr "Укылмаган мәкаләләр (рәсем яки видеолар юк)"
 
 #: assets/templates/bookmarks/collection_list.jet.html:34
 msgid "The archived articles from \"wikipedia.org\""
-msgstr ""
+msgstr "«wikipedia.org» дан архивләнгән мәкаләләр"
 
 #: assets/templates/bookmarks/collection_list.jet.html:35
 msgid "The pictures with the label \"cat\""
-msgstr ""
+msgstr "«Мәче» ярлыгы белән рәсемнәр"
 
 #: assets/templates/bookmarks/collection_list.jet.html:36
 msgid "The articles that contain \"shelter\" in their title"
-msgstr ""
+msgstr "«Ышык» сүзе белән башлыкта булган мәкаләләр"
 
 #: assets/templates/bookmarks/collection_list.jet.html:39
 #, python-format
 msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr ""
+msgstr "Коллекцияләр турында күбрәк укыгыз <a class=\"%s\" href=\"%s\">документациядә</a>."
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 msgid "Export and Share"
-msgstr ""
+msgstr "Экспорт һәм Уртаклашу"
 
 #: assets/templates/bookmarks/components/actions.jet.html:1
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Delete this bookmark"
-msgstr ""
+msgstr "Бу вакытлы булышманы бетерү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as unread"
-msgstr ""
+msgstr "Укылмаган дип билгеләү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:7
 msgid "Mark as read"
-msgstr ""
+msgstr "Укылган дип билгеләү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Remove from archive"
-msgstr ""
+msgstr "Архивтан чыгару"
 
 #: assets/templates/bookmarks/components/actions.jet.html:8
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:7
 #: assets/templates/bookmarks/components/card.jet.html:9
 msgid "Move to archive"
-msgstr ""
+msgstr "Архивка күчерү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Remove from favorites"
-msgstr ""
+msgstr "Төп тәртипкән чыгару"
 
 #: assets/templates/bookmarks/components/actions.jet.html:9
 #: assets/templates/bookmarks/components/bottom_actions.jet.html:8
 #: assets/templates/bookmarks/components/card.jet.html:10
 msgid "Add to favorites"
-msgstr ""
+msgstr "Төп тәртипкә өстәү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:15
 #: assets/templates/bookmarks/components/card.jet.html:92
 msgid "This bookmark will be removed in a few seconds."
-msgstr ""
+msgstr "Бу вакытлы булышма берничә секундтан соң бетереләчәк."
 
 #: assets/templates/bookmarks/components/actions.jet.html:23
 msgid "Undo"
-msgstr ""
+msgstr "Кайтару"
 
 #: assets/templates/bookmarks/components/actions.jet.html:56
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
-msgstr ""
+msgstr "EPUB өчен үткәрү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:59
 msgid "Share by Link"
-msgstr ""
+msgstr "Сылтама буенча уртаклашу"
 
 #: assets/templates/bookmarks/components/actions.jet.html:62
 msgid "Send article by Email"
-msgstr ""
+msgstr "Мәкаләне электрон почта белән җибәрү"
 
 #: assets/templates/bookmarks/components/actions.jet.html:64
 msgid "Send e-book by Email"
-msgstr ""
+msgstr "Электрон китапны e-mail белән җибәрү"
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
-msgstr ""
+msgstr "Readeck белән сакланган"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
-msgstr ""
+msgstr "Оригиналь биткә күчү"
 
 #: assets/templates/bookmarks/components/card.jet.html:33
 msgctxt "bookmark"
 msgid "Loading"
-msgstr ""
+msgstr "Йөкләнү"
 
 #: assets/templates/bookmarks/components/card.jet.html:75
 #, python-format
 msgctxt "abbr"
 msgid "%d min"
 msgid_plural "%d min"
-msgstr[0] ""
+msgstr[0] "%d мин"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Remove Highlight(s)"
-msgstr ""
+msgstr "Төс бирүләрне бетерү"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Close"
-msgstr ""
+msgstr "Ябу"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Show image"
-msgstr ""
+msgstr "Рәсемне күрсәтү"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Play video"
-msgstr ""
+msgstr "Видеоны уйнату"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Yellow"
-msgstr ""
+msgstr "Сары"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Red"
-msgstr ""
+msgstr "Кызыл"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Blue"
-msgstr ""
+msgstr "Күк"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Green"
-msgstr ""
+msgstr "Яшел"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:54
 msgid "Highlight"
-msgstr ""
+msgstr "Төс бирү"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
@@ -835,15 +846,15 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:14
 msgid "Title"
-msgstr ""
+msgstr "Башлык"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
-msgstr ""
+msgstr "Автор"
 
 #: assets/templates/bookmarks/components/filters.jet.html:58
 msgid "Site"
-msgstr ""
+msgstr "Сайт"
 
 #: assets/templates/bookmarks/components/filters.jet.html:80
 #: assets/templates/bookmarks/import/options.jet.html:10
@@ -853,24 +864,24 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:103
 msgid "From date"
-msgstr ""
+msgstr "Башлану вакыты"
 
 #: assets/templates/bookmarks/components/filters.jet.html:109
 msgid "To date"
-msgstr ""
+msgstr "Тамамлау вакыты"
 
 #: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "Type"
-msgstr ""
+msgstr "Төр"
 
 #: assets/templates/bookmarks/components/filters.jet.html:119
 msgctxt "filter"
 msgid "Progress"
-msgstr ""
+msgstr "Прогресс"
 
 #: assets/templates/bookmarks/components/filters.jet.html:124
 msgid "Is Favorite"
-msgstr ""
+msgstr "Төп тәртипкә кергәнме"
 
 #: assets/templates/bookmarks/components/filters.jet.html:128
 #: assets/templates/bookmarks/components/filters.jet.html:137
@@ -880,7 +891,7 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "yes"
-msgstr ""
+msgstr "әйе"
 
 #: assets/templates/bookmarks/components/filters.jet.html:129
 #: assets/templates/bookmarks/components/filters.jet.html:138
@@ -890,134 +901,134 @@ msgstr ""
 #: assets/templates/bookmarks/components/reader_control.jet.html:127
 #: assets/templates/bookmarks/components/reader_control.jet.html:152
 msgid "no"
-msgstr ""
+msgstr "юк"
 
 #: assets/templates/bookmarks/components/filters.jet.html:133
 msgid "Is Archived"
-msgstr ""
+msgstr "Архивләнгәнме"
 
 #: assets/templates/bookmarks/components/filters.jet.html:143
 msgid "Is Loaded"
-msgstr ""
+msgstr "Йөкләнгәнме"
 
 #: assets/templates/bookmarks/components/filters.jet.html:153
 msgid "With Labels"
-msgstr ""
+msgstr "Ярлыклар белән"
 
 #: assets/templates/bookmarks/components/filters.jet.html:163
 msgid "With Errors"
-msgstr ""
+msgstr "Хаталар белән"
 
 #: assets/templates/bookmarks/components/labels.jet.html:1
 msgid "Remove label"
-msgstr ""
+msgstr "Ярлыкны бетерү"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:1
 msgid "Add a label"
-msgstr ""
+msgstr "Ярлык өстәү"
 
 #: assets/templates/bookmarks/components/labels_form.jet.html:35
 msgid "Add label"
-msgstr ""
+msgstr "Ярлык өстәү"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Grid view"
-msgstr ""
+msgstr "Торак күренеш"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Compact view"
-msgstr ""
+msgstr "Тыгыз күренеш"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Mosaic view"
-msgstr ""
+msgstr "Мозаика күренеш"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort bookmarks"
-msgstr ""
+msgstr "Билгеләр сортларга"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Sort options"
-msgstr ""
+msgstr "Соралу өчен вариантлар"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:1
 msgid "Import and export"
-msgstr ""
+msgstr "Импорт һәм экспорт"
 
 #: assets/templates/bookmarks/components/list_actions.jet.html:80
 msgid "Atom Feed"
-msgstr ""
+msgstr "Atom Feed"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:24
 msgid "Font"
-msgstr ""
+msgstr "Шрифт"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:54
 msgid "Width"
-msgstr ""
+msgstr "Киңлек"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:75
 msgid "Size"
-msgstr ""
+msgstr "Зурлык"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:96
 msgid "Line height"
-msgstr ""
+msgstr "Сызыклар арасы"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:116
 msgid "Justify"
-msgstr ""
+msgstr "Тигезләү"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:141
 msgid "Hyphenation"
-msgstr ""
+msgstr "Сүзләрне бүлү"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:16
 msgid "Sends this bookmark's content in the message."
-msgstr ""
+msgstr "Бу вакытлы булышманың эчтәлеген хәбәрдә җибәрә."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:18
 msgid "Sends this bookmark as an attached EPUB file."
-msgstr ""
+msgstr "Бу вакытлы булышманы EPUB файлы буларак җибәрә."
 
 #: assets/templates/bookmarks/components/share_email.jet.html:29
 msgid "Format"
-msgstr ""
+msgstr "Формат"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:39
 msgid "Send To"
-msgstr ""
+msgstr "Кимәлгә җибәрү"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:44
 msgid "Send message"
-msgstr ""
+msgstr "Хәбәр җибәрү"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:48
 #, python-format
 msgid "The bookmark was sent to %s"
-msgstr ""
+msgstr "Вакытлы булышма %s кына җибәрелде"
 
 #: assets/templates/bookmarks/components/share_email.jet.html:55
 #: assets/templates/bookmarks/components/share_link.jet.html:28
 msgid "Go back to the bookmark"
-msgstr ""
+msgstr "Вакытлы булышмага кайту"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:9
 msgid "You can share the following link with your friends."
-msgstr ""
+msgstr "Сез дусларыгызга түбәндәге сылтаманы уртаклашырга мөмкин."
 
 #: assets/templates/bookmarks/components/share_link.jet.html:10
 #, python-format
 msgid "It expires on %s"
-msgstr ""
+msgstr "Ул %s дата белән тәмамлана"
 
 #: assets/templates/bookmarks/components/share_link.jet.html:24
 msgid "Copy the link"
-msgstr ""
+msgstr "Сылтаманы копияләү"
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:13
 msgid "Errors occurred during extraction."
-msgstr ""
+msgstr "Эчтәлек чыгару вакытында хаталар күзәтелде."
 
 #: assets/templates/bookmarks/components/sidebar.jet.html:19
 msgid ""
@@ -1053,11 +1064,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:22
 msgid "Instructions for Firefox"
-msgstr ""
+msgstr "Firefox өчен кулланмалар"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:23
 msgid "Instructions for Chrome"
-msgstr ""
+msgstr "Chrome өчен кулланмалар"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:33
 #: assets/templates/bookmarks/import/form-csv.jet.html:26
@@ -1068,15 +1079,15 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:27
 #: assets/templates/profile/import.jet.html:24
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:41
 msgid "Convert section titles to labels"
-msgstr ""
+msgstr "Бүлек исемнәрен ярлыкларга үзгәртү"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:43
 msgid "Adds a label on links, based on their section title"
-msgstr ""
+msgstr "Сылтамаларга аларның бүлек исеме буенча ярлык өсти"
 
 #: assets/templates/bookmarks/import/form-browser.jet.html:47
 #: assets/templates/bookmarks/import/form-csv.jet.html:33
@@ -1088,11 +1099,11 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-text.jet.html:34
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:68
 msgid "Import Bookmarks"
-msgstr ""
+msgstr "Әсбапны импортлау"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:9
 msgid "Import Links from a CSV File"
-msgstr ""
+msgstr "CSV файлыннан сылтамаларны импортлау"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:15
 msgid ""
@@ -1112,48 +1123,48 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:44
 msgid "Here are the columns you can set:"
-msgstr ""
+msgstr "Сез куя ала торган баганалар:"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:48
 msgid "Field"
-msgstr ""
+msgstr "Җир"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:49
 msgid "Alias"
-msgstr ""
+msgstr "Алиас"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 msgid "Description"
-msgstr ""
+msgstr "Тасвирлама"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
 msgid "Link address"
-msgstr ""
+msgstr "Сылтама адресы"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:62
 msgid "Bookmark title"
-msgstr ""
+msgstr "Китап билгесе исеме"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:67
 #, python-format
 msgid "Bookmark's archived state; only valid value is \"%s\""
-msgstr ""
+msgstr "Китап билгесенең архивланган хәле; бердәнбер дөрес кыйммәт - \"%s\""
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:72
 msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
-msgstr ""
+msgstr "Ясалу датасы, UNIX вакыт тамгасы яки RFC-3339 форматлы дата булырга мөмкин"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:77
 msgid "A JSON encoded list of labels"
-msgstr ""
+msgstr "Ярлыкларның JSON кодланган исемлеге"
 
 #: assets/templates/bookmarks/import/form-csv.jet.html:82
 msgid "Example"
-msgstr ""
+msgstr "Мисал"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
 msgid "Import Links from a GoodLinks export file"
-msgstr ""
+msgstr "GoodLinks экспорт файлыннан сылтамаларны импортлау"
 
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
 msgid ""
@@ -1164,7 +1175,7 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
 msgid "Import Bookmarks from a Linkwarden export file"
-msgstr ""
+msgstr "Linkwarden экспорт файлыннан китап билгеләрен импортлау"
 
 #: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
 msgid ""
@@ -1176,7 +1187,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:63
 msgid "Import your Omnivore Articles"
-msgstr ""
+msgstr "Omnivore мәкаләләреңне импортлау"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:15
 msgid ""
@@ -1188,20 +1199,20 @@ msgstr ""
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:27
 msgid "Omnivore URL"
-msgstr ""
+msgstr "Omnivore URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:29
 msgid "URL of your Omnivore homepage"
-msgstr ""
+msgstr "Omnivore баш битеннең URL"
 
 #: assets/templates/bookmarks/import/form-omnivore.jet.html:35
 msgid "API Key"
-msgstr ""
+msgstr "API ключ"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
 #: assets/templates/bookmarks/import/index.jet.html:70
 msgid "Import your Pocket Articles"
-msgstr ""
+msgstr "Pocket мәкаләләреңне импортлау"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
 #, python-format
@@ -1347,7 +1358,7 @@ msgstr ""
 #: assets/templates/profile/export.jet.html:35
 #: internal/bookmarks/importer/browser.go:51
 msgid "Browser Bookmarks"
-msgstr ""
+msgstr "Браузер билгеләре"
 
 #: assets/templates/bookmarks/import/index.jet.html:35
 msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
@@ -1357,7 +1368,7 @@ msgstr ""
 #: assets/templates/profile/export.jet.html:43
 #: internal/bookmarks/importer/csv.go:55
 msgid "CSV File"
-msgstr ""
+msgstr "CSV файлы"
 
 #: assets/templates/bookmarks/import/index.jet.html:42
 msgid "Import Links from a CSV File and Instapaper"
@@ -1378,7 +1389,7 @@ msgstr ""
 #: assets/templates/bookmarks/import/index.jet.html:83
 #: internal/bookmarks/importer/text.go:24
 msgid "Text File"
-msgstr ""
+msgstr "Текст файлы"
 
 #: assets/templates/bookmarks/import/options.jet.html:7
 msgid "Options"
@@ -1528,7 +1539,7 @@ msgstr ""
 #: assets/templates/docs/about.jet.html:20
 #: assets/templates/docs/base.jet.html:27 docs/http.go:270
 msgid "About Readeck"
-msgstr ""
+msgstr "Readeck турында"
 
 #: assets/templates/docs/about.jet.html:26
 msgid "Version:"
@@ -1743,7 +1754,7 @@ msgstr ""
 #: assets/templates/profile/app_list.jet.html:10
 #: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
 msgid "Applications"
-msgstr ""
+msgstr "Кушымталар"
 
 #: assets/templates/profile/app_list.jet.html:16
 msgid ""
@@ -1794,17 +1805,17 @@ msgstr ""
 #: internal/profile/views.go:190 internal/profile/views.go:250
 #: internal/profile/views.go:301 internal/profile/views.go:332
 msgid "Profile"
-msgstr ""
+msgstr "Профиль"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
 #: internal/profile/views.go:251
 msgid "API Tokens"
-msgstr ""
+msgstr "API Токеннар"
 
 #: assets/templates/profile/base.jet.html:34
 #: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
 msgid "Export"
-msgstr ""
+msgstr "Экспорт"
 
 #: assets/templates/profile/base.jet.html:37
 #: assets/templates/profile/import.jet.html:9
@@ -1813,7 +1824,7 @@ msgstr ""
 #: internal/bookmarks/routes/views_import.go:38
 #: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
 msgid "Import"
-msgstr ""
+msgstr "Импорт"
 
 #: assets/templates/profile/export.jet.html:15
 msgid "Export your Readeck Profile"
@@ -2083,523 +2094,522 @@ msgstr ""
 
 #: internal/admin/views.go:77
 msgid "User created."
-msgstr ""
+msgstr "Кулланучы булдырылган."
 
 #: internal/admin/views.go:116
 msgid "User updated."
-msgstr ""
+msgstr "Кулланучы яңартылган."
 
 #: internal/auth/signin/forms.go:17
 msgid "Invalid user and/or password"
-msgstr ""
+msgstr "Яраксыз кулланучы һәм/яки серсүз"
 
 #: internal/auth/users/forms.go:54
 msgctxt "role"
 msgid "no group"
-msgstr ""
+msgstr "төркем юк"
 
 #: internal/auth/users/forms.go:72
 msgid "password is empty"
-msgstr ""
+msgstr "серсүз буш"
 
 #: internal/auth/users/groups.go:19
 msgctxt "role"
 msgid "user"
-msgstr ""
+msgstr "кулланучы"
 
 #: internal/auth/users/groups.go:20
 msgctxt "role"
 msgid "staff"
-msgstr ""
+msgstr "персонал"
 
 #: internal/auth/users/groups.go:21
 msgctxt "role"
 msgid "admin"
-msgstr ""
+msgstr "админ"
 
 #: internal/auth/users/groups.go:23
 msgctxt "role"
 msgid "Profile : Read Only"
-msgstr ""
+msgstr "Профиль: Уку өчен генә"
 
 #: internal/auth/users/groups.go:24
 msgctxt "role"
 msgid "Bookmarks : Read Only"
-msgstr ""
+msgstr "Билгеләр: Уку өчен генә"
 
 #: internal/auth/users/groups.go:25
 msgctxt "role"
 msgid "Bookmarks : Write Only"
-msgstr ""
+msgstr "Билгеләр: Язу өчен генә"
 
 #: internal/auth/users/groups.go:26
 msgctxt "role"
 msgid "Admin : Read Only"
-msgstr ""
+msgstr "Админ: Уку өчен генә"
 
 #: internal/auth/users/groups.go:27
 msgctxt "role"
 msgid "Admin : Write Only"
-msgstr ""
+msgstr "Админ: Язу өчен генә"
 
 #: internal/bookmarks/importer/browser.go:75
 msgid "Unable to read HTML content"
-msgstr ""
+msgstr "HTML эчтәлеген укып булмый"
 
 #: internal/bookmarks/importer/goodlinks.go:40
 msgid "GoodLinks Export File"
-msgstr ""
+msgstr "GoodLinks экспорт файлы"
 
 #: internal/bookmarks/importer/importer.go:47
 msgid "Empty or invalid import file"
-msgstr ""
+msgstr "Буш яки яраксыз импорт файлы"
 
 #: internal/bookmarks/importer/omnivore.go:247
 msgid "Invalid API Key"
-msgstr ""
+msgstr "Яраксыз API ачкычы"
 
 #: internal/bookmarks/importer/readwise.go:61
 msgid "Readwise Reader CSV"
-msgstr ""
+msgstr "Readwise Reader CSV"
 
 #: internal/bookmarks/importer/wallabag.go:257
 msgid "Invalid URL"
-msgstr ""
+msgstr "Яраксыз URL"
 
 #: internal/bookmarks/importer/wallabag.go:262
 msgid "Invalid credentials"
-msgstr ""
+msgstr "Яраксыз хисап мәгълүматлары"
 
 #: internal/bookmarks/importer/wallabag.go:273
 msgid "No access token found"
-msgstr ""
+msgstr "Керү токены табылмады"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:143
 msgid "Unable to process input data"
-msgstr ""
+msgstr "Кертелгән мәгълүматны эшкәртеп булмый"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:506
 msgid "Article"
-msgstr ""
+msgstr "Мәкалә"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:507
 msgid "Picture"
-msgstr ""
+msgstr "Рәсем"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:508
 msgid "Video"
-msgstr ""
+msgstr "Видео"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:515
 msgctxt "status"
 msgid "Unviewed"
-msgstr ""
+msgstr "Каралмаган"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:516
 msgctxt "status"
 msgid "In-Progress"
-msgstr ""
+msgstr "Башкарыла"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:517
 msgctxt "status"
 msgid "Completed"
-msgstr ""
+msgstr "Тәмамланган"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:744
 msgctxt "sort"
 msgid "Added, most recent first"
-msgstr ""
+msgstr "Өстәлгән, иң яңасы беренче"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:745
 msgctxt "sort"
 msgid "Added, oldest first"
-msgstr ""
+msgstr "Өстәлгән, иң искесе беренче"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:746
 msgctxt "sort"
 msgid "Published, most recent first"
-msgstr ""
+msgstr "Бастырылган, иң яңасы беренче"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:747
 msgctxt "sort"
 msgid "Published, oldest first"
-msgstr ""
+msgstr "Бастырылган, иң искесе беренче"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:748
 msgctxt "sort"
 msgid "Title, A to Z"
-msgstr ""
+msgstr "Исем, А—Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:749
 msgctxt "sort"
 msgid "Title, Z to A"
-msgstr ""
+msgstr "Исем, Я—А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:750
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr ""
+msgstr "Сайт исеме, А—Я"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:751
 msgctxt "sort"
 msgid "Site Name, Z to A"
-msgstr ""
+msgstr "Сайт исеме, Я—А"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:752
 msgctxt "sort"
 msgid "Duration, shortest first"
-msgstr ""
+msgstr "Озынлык, иң кыскасы беренче"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:753
 msgctxt "sort"
 msgid "Duration, longest first"
-msgstr ""
+msgstr "Озынлык, иң озыны беренче"
 
 #: internal/bookmarks/routes/opds.go:57
 msgid "Readeck Bookmarks"
-msgstr ""
+msgstr "Readeck Билгеләре"
 
 #: internal/bookmarks/routes/opds.go:102
 msgid "Readeck Bookmark Collections"
-msgstr ""
+msgstr "Readeck Билгеләр Коллекцияләре"
 
 #: internal/bookmarks/routes/opds.go:139
 #, python-format
 msgid "Readeck Collection: %s"
-msgstr ""
+msgstr "Readeck Коллекциясе: %s"
 
 #: internal/bookmarks/routes/opds.go:145
 #, python-format
 msgid "Collection ebook - %s"
-msgstr ""
+msgstr "Коллекция электрон китабы - %s"
 
 #: internal/bookmarks/routes/opds.go:152
 #, python-format
 msgid "Browse collection: %s"
-msgstr ""
+msgstr "Коллекцияне карау: %s"
 
 #: internal/bookmarks/routes/views_bookmarks.go:95
 msgid "All your Bookmarks"
-msgstr ""
+msgstr "Барлык билгеләрегез"
 
 #: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "Bookmark Search"
-msgstr ""
+msgstr "Билгеләрне эзләү"
 
 #: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
 msgid "Unread Bookmarks"
-msgstr ""
+msgstr "Укылмаган билгеләр"
 
 #: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
 msgid "Archived Bookmarks"
-msgstr ""
+msgstr "Архивланган билгеләр"
 
 #: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
-msgstr ""
+msgstr "Сайланган билгеләр"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
-msgstr ""
+msgstr "Коллекция яңартылды."
 
 #: internal/bookmarks/routes/views_import.go:30
 msgid "Progress"
-msgstr ""
+msgstr "Үсеш"
 
 #: internal/opds/http.go:71
 msgid "All Bookmarks"
-msgstr ""
+msgstr "Барлык билгеләр"
 
 #: internal/portability/import.go:351
 msgid "The import file must contain one user only"
-msgstr ""
+msgstr "Импорт файлында бер генә кулланучы булырга тиеш"
 
 #: internal/profile/forms.go:39
 msgid "invalid username and/or email"
-msgstr ""
+msgstr "яраксыз кулланучы исеме һәм/яки email"
 
 #: internal/profile/forms.go:40
 msgid "invalid password"
-msgstr ""
+msgstr "яраксыз серсүз"
 
 #: internal/profile/forms.go:403
 msgid "username does not match"
-msgstr ""
+msgstr "кулланучы исеме туры килми"
 
 #: internal/profile/views.go:82
 msgid "Profile updated."
-msgstr ""
+msgstr "Профиль яңартылды."
 
 #: internal/profile/views.go:118
 msgid "Your password was changed."
-msgstr ""
+msgstr "Сезнең серсүз үзгәртелде."
 
 #: internal/profile/views.go:206
 msgid "An error occurred while creating your token."
-msgstr ""
+msgstr "Сезнең токеныгызны булдырганда хата килеп чыкты."
 
 #: internal/profile/views.go:211
 msgid "New token created."
-msgstr ""
+msgstr "Яңа токен булдырылды."
 
 #: internal/profile/views.go:230
 msgid "Token was updated."
-msgstr ""
+msgstr "Токен яңартылды."
 
 #: internal/profile/views.go:319
 msgid "Profile imported."
-msgstr ""
+msgstr "Профиль импортланды."
 
 #: pkg/forms/forms.go:28
 msgid "an unexpected error has occurred"
-msgstr ""
+msgstr "көтелмәгән хата килеп чыкты"
 
 #: pkg/forms/validators.go:18
 msgid "field is required"
-msgstr ""
+msgstr "кыр мәҗбүри"
 
 #: pkg/forms/validators.go:20
 msgid "not a valid email address"
-msgstr ""
+msgstr "яраклы электрон почта адресы түгел"
 
 #: pkg/forms/validators.go:22
 msgid "invalid URL"
-msgstr ""
+msgstr "яраксыз URL"
 
 #: pkg/forms/validators.go:331
 #, python-format
 msgid "must be greater or equal than %d"
-msgstr ""
+msgstr "%d зуррак яки тигез булырга тиеш"
 
 #: pkg/forms/validators.go:339
 #, python-format
 msgid "must be lower or equal than %d"
-msgstr ""
+msgstr "%d кечерәк яки тигез булырга тиеш"
 
 #: pkg/forms/validators.go:347
 #, python-format
 msgid "text must contain between %d and %d characters"
-msgstr ""
+msgstr "текст %d һәм %d символ арасында булырга тиеш"
 
 #: pkg/forms/validators.go:406
 #, python-format
 msgid "%v is not one of %s"
-msgstr ""
+msgstr "'%v %s арасында түгел'"
 
 #: pkg/strftime/strftime.go:23
 msgctxt "datetime_dl"
 msgid "Sunday"
-msgstr ""
+msgstr "Якшәмбе"
 
 #: pkg/strftime/strftime.go:24
 msgctxt "datetime_dl"
 msgid "Monday"
-msgstr ""
+msgstr "Дүшәмбе"
 
 #: pkg/strftime/strftime.go:25
 msgctxt "datetime_dl"
 msgid "Tuesday"
-msgstr ""
+msgstr "Сишәмбе"
 
 #: pkg/strftime/strftime.go:26
 msgctxt "datetime_dl"
 msgid "Wednesday"
-msgstr ""
+msgstr "Чәршәмбе"
 
 #: pkg/strftime/strftime.go:27
 msgctxt "datetime_dl"
 msgid "Thursday"
-msgstr ""
+msgstr "Пәнҗешәмбе"
 
 #: pkg/strftime/strftime.go:28
 msgctxt "datetime_dl"
 msgid "Friday"
-msgstr ""
+msgstr "Җомга"
 
 #: pkg/strftime/strftime.go:29
 msgctxt "datetime_dl"
 msgid "Saturday"
-msgstr ""
+msgstr "Шимбә"
 
 #: pkg/strftime/strftime.go:33
 msgctxt "datetime_ds"
 msgid "Sun"
-msgstr ""
+msgstr "Якш"
 
 #: pkg/strftime/strftime.go:34
 msgctxt "datetime_ds"
 msgid "Mon"
-msgstr ""
+msgstr "Дүш"
 
 #: pkg/strftime/strftime.go:35
 msgctxt "datetime_ds"
 msgid "Tue"
-msgstr ""
+msgstr "Сиш"
 
 #: pkg/strftime/strftime.go:36
 msgctxt "datetime_ds"
 msgid "Wed"
-msgstr ""
+msgstr "Чәр"
 
 #: pkg/strftime/strftime.go:37
 msgctxt "datetime_ds"
 msgid "Thu"
-msgstr ""
+msgstr "Пән"
 
 #: pkg/strftime/strftime.go:38
 msgctxt "datetime_ds"
 msgid "Fri"
-msgstr ""
+msgstr "Җом"
 
 #: pkg/strftime/strftime.go:39
 msgctxt "datetime_ds"
 msgid "Sat"
-msgstr ""
+msgstr "Шим"
 
 #: pkg/strftime/strftime.go:43
 msgctxt "datetime_ml"
 msgid "January"
-msgstr ""
+msgstr "Гыйнвар"
 
 #: pkg/strftime/strftime.go:44
 msgctxt "datetime_ml"
 msgid "February"
-msgstr ""
+msgstr "Февраль"
 
 #: pkg/strftime/strftime.go:45
 msgctxt "datetime_ml"
 msgid "March"
-msgstr ""
+msgstr "Март"
 
 #: pkg/strftime/strftime.go:46
 msgctxt "datetime_ml"
 msgid "April"
-msgstr ""
+msgstr "Апрель"
 
 #: pkg/strftime/strftime.go:47
 msgctxt "datetime_ml"
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: pkg/strftime/strftime.go:48
 msgctxt "datetime_ml"
 msgid "June"
-msgstr ""
+msgstr "Июнь"
 
 #: pkg/strftime/strftime.go:49
 msgctxt "datetime_ml"
 msgid "July"
-msgstr ""
+msgstr "Июль"
 
 #: pkg/strftime/strftime.go:50
 msgctxt "datetime_ml"
 msgid "August"
-msgstr ""
+msgstr "Август"
 
 #: pkg/strftime/strftime.go:51
 msgctxt "datetime_ml"
 msgid "September"
-msgstr ""
+msgstr "Сентябрь"
 
 #: pkg/strftime/strftime.go:52
 msgctxt "datetime_ml"
 msgid "October"
-msgstr ""
+msgstr "Октябрь"
 
 #: pkg/strftime/strftime.go:53
 msgctxt "datetime_ml"
 msgid "November"
-msgstr ""
+msgstr "Ноябрь"
 
 #: pkg/strftime/strftime.go:54
 msgctxt "datetime_ml"
 msgid "December"
-msgstr ""
+msgstr "Декабрь"
 
 #: pkg/strftime/strftime.go:58
 msgctxt "datetime_ms"
 msgid "Jan"
-msgstr ""
+msgstr "Гый"
 
 #: pkg/strftime/strftime.go:59
 msgctxt "datetime_ms"
 msgid "Feb"
-msgstr ""
+msgstr "Фев"
 
 #: pkg/strftime/strftime.go:60
 msgctxt "datetime_ms"
 msgid "Mar"
-msgstr ""
+msgstr "Мар"
 
 #: pkg/strftime/strftime.go:61
 msgctxt "datetime_ms"
 msgid "Apr"
-msgstr ""
+msgstr "Апр"
 
 #: pkg/strftime/strftime.go:62
 msgctxt "datetime_ms"
 msgid "May"
-msgstr ""
+msgstr "Май"
 
 #: pkg/strftime/strftime.go:63
 msgctxt "datetime_ms"
 msgid "Jun"
-msgstr ""
+msgstr "Июн"
 
 #: pkg/strftime/strftime.go:64
 msgctxt "datetime_ms"
 msgid "Jul"
-msgstr ""
+msgstr "Июл"
 
 #: pkg/strftime/strftime.go:65
 msgctxt "datetime_ms"
 msgid "Aug"
-msgstr ""
+msgstr "Авг"
 
 #: pkg/strftime/strftime.go:66
 msgctxt "datetime_ms"
 msgid "Sep"
-msgstr ""
+msgstr "Сен"
 
 #: pkg/strftime/strftime.go:67
 msgctxt "datetime_ms"
 msgid "Oct"
-msgstr ""
+msgstr "Окт"
 
 #: pkg/strftime/strftime.go:68
 msgctxt "datetime_ms"
 msgid "Nov"
-msgstr ""
+msgstr "Ноя"
 
 #: pkg/strftime/strftime.go:69
 msgctxt "datetime_ms"
 msgid "Dec"
-msgstr ""
+msgstr "Дек"
 
 #: pkg/strftime/strftime.go:73
 msgctxt "datetime"
 msgid "a.m."
-msgstr ""
+msgstr "иртән"
 
 #: pkg/strftime/strftime.go:74
 msgctxt "datetime"
 msgid "p.m."
-msgstr ""
+msgstr "кичен"
 
 #: pkg/strftime/strftime.go:75
 #, python-format
 msgctxt "datetime"
 msgid "%a %b %e %H:%M:%S %y"
-msgstr ""
+msgstr "%a %b %e %H:%M:%S %y"
 
 #: pkg/strftime/strftime.go:76
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr ""
+msgstr "%d/%m/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
 msgid "%H:%M:%S"
-msgstr ""
-
+msgstr "%H:%M:%S"
