@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 from operator import itemgetter
 from pathlib import Path
 
-from babel.messages.catalog import Catalog
+from babel.messages.catalog import Catalog, Locale
 from babel.messages.extract import extract_from_file
 from babel.messages.pofile import read_po, write_po
 
@@ -130,14 +130,15 @@ def update(_):
 
     dirs = [x for x in translations.iterdir() if x.is_dir()]
     for p in dirs:
+        locale = Locale.parse(p.name, sep="-")
         po_file = p / "messages.po"
         if po_file.exists():
             with po_file.open("rb") as fp:
-                catalog = read_po(fp, locale=p.name, domain=po_file.name)
+                catalog = read_po(fp, locale=locale, domain=po_file.name)
         else:
             catalog = Catalog(
                 **CATALOG_OPTIONS,
-                locale=p.name,
+                locale=locale,
                 domain=po_file.name,
             )
 
