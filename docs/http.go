@@ -99,7 +99,7 @@ func SetupRoutes(s *server.Server) {
 		server.WithPermission("system", "read"),
 	).Get("/about", handler.serveAbout)
 
-	// Main redirection (TODO: do something with user language when we have translations)
+	// Documentation
 	docHandler.With(server.WithPermission("docs", "read")).Get("/", handler.localeRedirect)
 	docHandler.With(server.WithPermission("docs", "read")).Get("/{path}", handler.localeRedirect)
 
@@ -147,7 +147,7 @@ func (h *helpHandlers) getSection(r *http.Request) (*Section, string) {
 
 	tag := server.Locale(r).Tag.String()
 	if _, ok := manifest.Sections[tag]; !ok {
-		tag = "en-US"
+		tag = "en"
 	}
 	return manifest.Sections[tag], tag
 }
@@ -201,7 +201,7 @@ func (h *helpHandlers) serveStatic(w http.ResponseWriter, r *http.Request) {
 func (h *helpHandlers) localeRedirect(w http.ResponseWriter, r *http.Request) {
 	tag := server.Locale(r).Tag.String()
 	if _, ok := manifest.Sections[tag]; !ok {
-		tag = "en-US"
+		tag = "en"
 	}
 
 	server.Redirect(w, r, routePrefix+"/"+tag+"/"+chi.URLParam(r, "path"))

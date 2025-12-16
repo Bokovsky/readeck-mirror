@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/base58"
 	"codeberg.org/readeck/readeck/pkg/totp"
 )
@@ -239,6 +240,13 @@ func (u *User) Permissions() []string {
 // on "obj" object.
 func (u *User) HasPermission(obj, act string) bool {
 	return acls.Enforce(u.Group, obj, act)
+}
+
+// Lang returns the user's language code. Unlike [UserSettings.Lang], the code
+// is guaranteed to exist in the available locales. It default to "en" when no
+// suitable language was found.
+func (u *User) Lang() string {
+	return locales.LoadTranslation(u.Settings.Lang).Tag.String()
 }
 
 // Lock locks the user's username, email and password change.

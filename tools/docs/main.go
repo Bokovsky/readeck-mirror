@@ -97,13 +97,13 @@ func (t *imgTransform) Transform(doc *ast.Document, _ text.Reader, _ parser.Cont
 		if entering {
 			if n, ok := node.(*ast.Image); ok {
 				// Check for image source. If the file does not exist,
-				// change the source to the en-US one.
+				// change the source to the en one.
 				d := string(n.Destination)
 				p := filepath.Join(filepath.Dir(t.src), d)
 				if _, err := os.Stat(p); err != nil && os.IsNotExist(err) {
 					d, _ = filepath.Rel(filepath.Dir(t.src), p)
 					if strings.HasPrefix(d, "img/") {
-						n.Destination = []byte("../en-US/" + d)
+						n.Destination = []byte("../en/" + d)
 					}
 
 				}
@@ -321,6 +321,15 @@ func main() {
 
 	fileList := []*File{}
 
+	// Build an available language list based on directories
+	// with an index.md in them.
+	available := map[string]struct{}{}
+	if items, err := filepath.Glob(filepath.Join(srcDir, "*", "index.md")); err == nil {
+		for _, x := range items {
+			available[filepath.Base(filepath.Dir(x))] = struct{}{}
+		}
+	}
+
 	err = filepath.Walk(srcDir, func(src string, info fs.FileInfo, _ error) error {
 		if info.IsDir() {
 			if strings.HasPrefix(info.Name(), ".") {
@@ -332,6 +341,9 @@ func main() {
 		rel, err := filepath.Rel(srcDir, src)
 		if err != nil {
 			return err
+		}
+		if _, ok := available[strings.Split(rel, string(filepath.Separator))[0]]; !ok {
+			return nil
 		}
 
 		dst := filepath.Join(destDir, rel)

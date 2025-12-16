@@ -24,10 +24,10 @@ var withLocale, getLocale = ctxr.WithChecker[*locales.Locale](ctxLocaleKey{})
 func LoadLocale(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		user := auth.GetRequestUser(r)
-		lang := "en-US"
+		lang := "en"
 		var tr *locales.Locale
 		if !user.IsAnonymous() {
-			lang = user.Settings.Lang
+			lang = user.Lang()
 		} else {
 			// No user connected, used the browser preference
 			lang = r.Header.Get("accept-language")
@@ -49,5 +49,5 @@ func LocaleContext(ctx context.Context) *locales.Locale {
 	if t, ok := getLocale(ctx); ok {
 		return t
 	}
-	return locales.LoadTranslation("en-US")
+	return locales.LoadTranslation("en")
 }

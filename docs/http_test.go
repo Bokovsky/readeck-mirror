@@ -27,7 +27,7 @@ func TestPermissions(t *testing.T) {
 					switch user {
 					case "admin", "staff", "user":
 						rsp.AssertStatus(t, 303)
-						rsp.AssertRedirect(t, "/docs/en-US/")
+						rsp.AssertRedirect(t, "/docs/en/")
 					case "disabled":
 						rsp.AssertStatus(t, 403)
 					case "":
@@ -42,7 +42,7 @@ func TestPermissions(t *testing.T) {
 					switch user {
 					case "admin", "staff", "user":
 						rsp.AssertStatus(t, 303)
-						rsp.AssertRedirect(t, "/docs/en-US/bookmark")
+						rsp.AssertRedirect(t, "/docs/en/bookmark")
 					case "disabled":
 						rsp.AssertStatus(t, 403)
 					case "":
@@ -52,7 +52,7 @@ func TestPermissions(t *testing.T) {
 				}),
 			),
 			RT(
-				WithTarget("/docs/en-US/"),
+				WithTarget("/docs/en/"),
 				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -66,7 +66,7 @@ func TestPermissions(t *testing.T) {
 				}),
 			),
 			RT(
-				WithTarget("/docs/en-US/bookmark"),
+				WithTarget("/docs/en/bookmark"),
 				WithAssert(func(t *testing.T, rsp *Response) {
 					switch user {
 					case "admin", "staff", "user":
@@ -80,11 +80,11 @@ func TestPermissions(t *testing.T) {
 				}),
 			),
 			RT(
-				WithTarget("/docs/en-US/not-found"),
+				WithTarget("/docs/en/not-found"),
 				AssertStatus(404),
 			),
 			RT(
-				WithTarget("/docs/en-US/img/bookmark-new.webp"),
+				WithTarget("/docs/en/img/bookmark-new.webp"),
 				AssertStatus(200),
 				WithAssert(func(t *testing.T, rsp *Response) {
 					require.Equal(t, "image/webp", rsp.Header.Get("content-type"))

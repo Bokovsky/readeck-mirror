@@ -393,15 +393,15 @@ def compile(_):
     for po_file in sorted(po_files):
         code = po_file.parent.name
 
-        # Ignore en_US, it's always empty
-        if code == "en_US":
+        # Ignore en, it's always empty
+        if code == "en":
             continue
 
         with po_file.open("rb") as fp:
             catalog = read_po(fp)
 
-        # no need to compile en_US
-        if code == "en_US":
+        # no need to compile en
+        if code == "en":
             continue
 
         # Count translated strings
@@ -439,7 +439,7 @@ def check(_):
     has_errors = False
     for filename in po_files:
         code = filename.parent.name
-        if code == "en_US":
+        if code == "en":
             continue
 
         with filename.open("rb") as fp:

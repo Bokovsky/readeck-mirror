@@ -14,7 +14,7 @@
 !/docs/assets/.keep
 /docs/src/.obsidian
 /docs/src/*/*.md
-!/docs/src/en-US/*
+!/docs/src/en/*
 
 /locales/translations/*/messages.mo
 
