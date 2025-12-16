@@ -2066,7 +2066,7 @@ msgstr "Mój profil"
 #: assets/templates/profile/index.jet.html:16
 #, python-format
 msgid "You are connected as <strong>%s</strong>"
-msgstr "Twoje wyszukiwanie znalazło wynik <strong>%d</strong>"
+msgstr ""
 
 #: assets/templates/profile/index.jet.html:18
 msgid "Sign out"
