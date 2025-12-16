@@ -1,19 +1,25 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//article[1]/h2[1]"
+  ],
   "body_selectors": [
-    "//article[1]"
+    "//main/section[1]/article[1]"
   ],
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
     "//h1[1]",
+    "//article[1]/h2[1]",
+    "//button",
+    "//aside",
     "//img[contains(@src, '/14/')]"
   ],
   "strip_id_or_class": [
     "tzi-bottom-container",
     "author-container",
     "meta-data-container",
-    "is-hidden"
+    "is-hidden",
+    "tzi-bottom-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -24,16 +30,16 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
-      "\u003cnoscript",
-      "\u003cdiv"
-    ],
-    [
-      "\u003c/noscript\u003e",
-      "\u003c/div\u003e"
+      "noscript\u003e",
+      "div\u003e"
     ],
     [
       ".jpeg \"",
       ".jpeg\""
+    ],
+    [
+      "\u0026#xE80F",
+      "✱"
     ]
   ],
   "http_headers": null,
@@ -48,10 +54,6 @@
     },
     {
       "url": "https://taz.de/!5708122",
-      "contains": []
-    },
-    {
-      "url": "https://taz.de/Ankommen-in-Deutschland-als-Gefluechtete/!6103413/",
       "contains": []
     }
   ]
