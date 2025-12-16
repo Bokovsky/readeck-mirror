@@ -96,7 +96,7 @@ def po2text(catalog: Catalog, destdir: Path):
 def extract(_):
     template = Catalog(**CATALOG_OPTIONS)
 
-    for f in (ROOT / "en-US").rglob("*.md"):
+    for f in (ROOT / "en").rglob("*.md"):
         for lineno, message, comments, context in extract_from_file(
             extract_blocks,
             f,
@@ -166,7 +166,7 @@ def generate(_):
     for po_file in sorted(po_files):
         code = po_file.parent.name
 
-        if code == "en_US":
+        if code == "en":
             continue
 
         # Write markdown files
@@ -194,7 +194,7 @@ def generate(_):
             print("[-] {:8} {}".format(code, count_info))
             continue
 
-        destdir = HERE / "src" / str(catalog.locale_identifier).replace("_", "-")
+        destdir = HERE / "src" / po_file.parent.name
         os.makedirs(destdir, exist_ok=True)
 
         nb_files = 0
@@ -211,7 +211,7 @@ def check(_):
     has_errors = False
     for filename in po_files:
         code = filename.parent.name
-        if code == "en_US":
+        if code == "en":
             continue
 
         with filename.open("rb") as fp:

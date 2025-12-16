@@ -26,9 +26,8 @@ import (
 var localesFS embed.FS
 
 var (
-	catalog   = make(map[language.Tag]*Locale)
-	allTags   = []language.Tag{}
-	available [][2]string
+	catalog = make(map[language.Tag]*Locale)
+	allTags = []language.Tag{}
 )
 
 // Locale combines a gotext.Translator instance for a given language
@@ -60,15 +59,15 @@ func (t *Locale) Npgettext(ctx, str, plural string, n int, vars ...interface{}) 
 
 // LoadTranslation loads the best match translation for a given locale code.
 func LoadTranslation(lang string) *Locale {
-	_, i := language.MatchStrings(language.NewMatcher(allTags), lang, "en-US")
+	_, i := language.MatchStrings(language.NewMatcher(allTags), lang, "en")
 
 	return catalog[allTags[i]]
 }
 
 // Load loads all the available translations.
 func Load() {
-	// Add en-US (empty), first
-	if err := addLocale(language.AmericanEnglish, new(bytes.Buffer)); err != nil {
+	// Add en (empty), first
+	if err := addLocale(language.English, new(bytes.Buffer)); err != nil {
 		panic(err)
 	}
 
@@ -89,12 +88,6 @@ func Load() {
 		}
 	}
 
-	available = make([][2]string, len(allTags))
-	for i, t := range allTags {
-		n, _ := t.MarshalText()
-		available[i] = [2]string{string(n), display.Self.Name(t)}
-	}
-
 	slog.Debug("locales loaded",
 		slog.Int("count", len(allTags)),
 		slog.Any("locales", allTags),
@@ -103,8 +96,20 @@ func Load() {
 
 // Available returns the available locales as a list of pair
 // containing the langage code and its localized name.
-func Available() [][2]string {
-	return available
+func Available(tag language.Tag) [][2]string {
+	res := make([][2]string, 0, len(allTags))
+	d := display.Languages(tag)
+
+	for _, t := range allTags {
+		s := display.Self.Name(t)
+		if d != nil && t != tag {
+			s += " (" + d.Name(t) + ")"
+		}
+
+		res = append(res, [2]string{t.String(), s})
+	}
+
+	return res
 }
 
 func localFilesFS() fs.FS {

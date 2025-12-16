@@ -173,7 +173,7 @@ func NewTestUser(name, email, password, group string) (*TestUser, error) {
 		Password: password,
 		Group:    group,
 		Settings: &users.UserSettings{
-			Lang: "en-US",
+			Lang: "en",
 		},
 	}
 	if err := users.Users.Create(u); err != nil {

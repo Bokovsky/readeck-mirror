@@ -52,4 +52,4 @@ build: generate
 
 clean:
 	rm -rf assets/*
-	find src -name '*.md' -not -regex "src/en-US/.*" -delete
+	find src -name '*.md' -not -regex "src/en/.*" -delete

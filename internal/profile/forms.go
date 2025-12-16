@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"golang.org/x/text/language"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -43,6 +44,13 @@ var (
 
 // newProfileForm returns a ProfileForm instance.
 func newProfileForm(tr forms.Translator) *profileForm {
+	var tag language.Tag
+	if tr, ok := tr.(*locales.Locale); ok {
+		tag = tr.Tag
+	} else {
+		tag = language.Make("en")
+	}
+
 	return &profileForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username",
@@ -51,7 +59,7 @@ func newProfileForm(tr forms.Translator) *profileForm {
 			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), forms.IsEmail),
 		forms.NewTextField("settings_lang",
 			forms.Trim,
-			forms.ChoicesPairs(locales.Available()),
+			forms.ChoicesPairs(locales.Available(tag)),
 		),
 		forms.NewBooleanField("settings_addon_reminder"),
 		forms.NewTextField("settings_email_reply_to",
@@ -82,7 +90,7 @@ func (f *profileForm) setUser(u *users.User) {
 
 	f.Get("username").Set(u.Username)
 	f.Get("email").Set(u.Email)
-	f.Get("settings_lang").Set(u.Settings.Lang)
+	f.Get("settings_lang").Set(u.Lang())
 	f.Get("settings_email_reply_to").Set(u.Settings.EmailSettings.ReplyTo)
 	f.Get("settings_email_epub_to").Set(u.Settings.EmailSettings.EpubTo)
 }
