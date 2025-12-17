@@ -52,6 +52,13 @@ func TestClean(t *testing.T) {
 			func(n *html.Node) {
 				bleach.DefaultPolicy.Clean(n)
 			},
+			`<p><font>test</font></div>`,
+			`<body><p><span>test</span></p></body>`,
+		},
+		{
+			func(n *html.Node) {
+				bleach.DefaultPolicy.Clean(n)
+			},
 			`<div><iframe src="http://example.net/" /><link><script></div>`,
 			`<body><div></div></body>`,
 		},
