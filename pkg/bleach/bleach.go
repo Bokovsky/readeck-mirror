@@ -10,22 +10,24 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
+	"golang.org/x/net/html/atom"
+
+	"github.com/go-shiori/dom"
 )
 
 // Policy holds the cleaning rules and provides methods to
 // perform the DOM cleaning.
 type Policy struct {
 	blockAttrs []*regexp.Regexp
-	elementMap map[string]string
+	elementMap map[string]tagRule
 }
 
 // New creates a new cleaning policy.
-func New(blockAttrs []*regexp.Regexp, elementMap map[string]string) Policy {
+func New(blockAttrs []*regexp.Regexp, elements map[string]tagRule) Policy {
 	return Policy{
 		blockAttrs: blockAttrs,
-		elementMap: elementMap,
+		elementMap: elements,
 	}
 }
 
@@ -55,24 +57,35 @@ func (p Policy) Clean(top *html.Node) {
 	p.cleanAttributes(top)
 }
 
-// cleanTags discards unwanted tags from all nodes.
+// cleanTags cleans up all the [html.Node] children.
+// It applies, in one pass, a removal or renaming of elements.
 func (p *Policy) cleanTags(top *html.Node) {
-	// Remove unwanted tags
 	dom.RemoveNodes(dom.QuerySelectorAll(top, "*"), func(node *html.Node) bool {
-		if e, ok := p.elementMap[dom.TagName(node)]; ok && e == "-" {
+		if node.Type != html.ElementNode {
+			return false
+		}
+		name := node.Data
+
+		rule, exists := p.elementMap[name]
+		if rule&tagRemove > 0 {
+			// Remove tag, done
 			return true
 		}
-		return false
-	})
 
-	// Rename tags
-	dom.ForEachNode(dom.QuerySelectorAll(top, "*"), func(node *html.Node, _ int) {
-		if e, ok := p.elementMap[dom.TagName(node)]; ok && e != "" && e != "-" {
-			node.Data = e
-		} else if !ok {
-			// unknown tags become div
-			node.Data = "div"
+		// Rename tag when it's unknown or has the [tagRename] flag.
+		if !exists || rule&tagRename > 0 {
+			if _, ok := blockTags[name]; ok || !exists {
+				// a block or unknown tag becomes a div
+				node.Data = "div"
+				node.DataAtom = atom.Div
+			} else {
+				// otherwise, a span
+				node.Data = "span"
+				node.DataAtom = atom.Span
+			}
 		}
+
+		return false
 	})
 }
 
@@ -97,18 +110,18 @@ func (p *Policy) cleanAttributes(top *html.Node) {
 // empty means: no child nodes, no attributes and no text content.
 func (p Policy) RemoveEmptyNodes(top *html.Node) {
 	dom.RemoveNodes(dom.QuerySelectorAll(top, "*"), func(node *html.Node) bool {
-		// Keep self closing tags
-		if _, ok := selfClosingTags[dom.TagName(node)]; ok {
+		if node.Type != html.ElementNode {
+			return false
+		}
+		name := node.Data
+
+		// Keep tags that are explicitly allowed to be empty, e.g. <hr>
+		if p.elementMap[name]&tagKeepEmpty > 0 {
 			return false
 		}
 
 		// Keep <a name> tags
-		if dom.TagName(node) == "a" && dom.GetAttribute(node, "name") != "" {
-			return false
-		}
-
-		// Keep td and th
-		if dom.TagName(node) == "td" || dom.TagName(node) == "th" {
+		if name == "a" && dom.GetAttribute(node, "name") != "" {
 			return false
 		}
 
