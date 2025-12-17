@@ -1,0 +1,27 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | ゲキサカ')"
+  ],
+  "body_selectors": [
+    "//div[@class=\"geki_contentitem\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://web.gekisaka.jp/news/japan/detail/?441149-441149-fl=",
+      "contains": []
+    }
+  ]
+}

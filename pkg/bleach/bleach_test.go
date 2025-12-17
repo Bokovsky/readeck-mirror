@@ -52,6 +52,13 @@ func TestClean(t *testing.T) {
 			func(n *html.Node) {
 				bleach.DefaultPolicy.Clean(n)
 			},
+			`<p><font>test</font></div>`,
+			`<body><p><span>test</span></p></body>`,
+		},
+		{
+			func(n *html.Node) {
+				bleach.DefaultPolicy.Clean(n)
+			},
 			`<div><iframe src="http://example.net/" /><link><script></div>`,
 			`<body><div></div></body>`,
 		},
@@ -101,6 +108,11 @@ func TestClean(t *testing.T) {
 			<tr><td>A</td><td>B</td></tr></table>`,
 			`<body><table><tbody><tr><td></td><td>test</td></tr>
 			<tr><td>A</td><td>B</td></tr></tbody></table></body>`,
+		},
+		{
+			bleach.DefaultPolicy.RemoveEmptyNodes,
+			`<math><mtable><mrow><mtd></mtd><mtd>2</mtd></mrow><mrow></mrow></mtable><mspace></mspace></math>`,
+			`<body><math><mtable><mrow><mtd></mtd><mtd>2</mtd></mrow><mrow></mrow></mtable><mspace></mspace></math></body>`,
 		},
 		{
 			bleach.DefaultPolicy.SetLinkRel,

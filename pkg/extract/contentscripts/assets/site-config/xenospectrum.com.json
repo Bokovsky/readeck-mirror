@@ -1,0 +1,32 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | XenoSpectrum')"
+  ],
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//hr[contains(@class, \"wp-block-separator\")]",
+    "//div[contains(@class, \"addtoany_content\")]",
+    "//div[contains(@class, \"xenos-adlabel\")]",
+    "//strong[contains(., 'Sources')]"
+  ],
+  "strip_id_or_class": [
+    "wp-block-list"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://xenospectrum.com/zhonghao-xinying-tpu-vs-nvidia-a100-google-engineer-china-chip/",
+      "contains": []
+    }
+  ]
+}
