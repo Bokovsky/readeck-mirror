@@ -131,7 +131,7 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 		}
 
 		// Keep nodes with any text
-		if _, ok := blockTags[dom.TagName(node)]; ok {
+		if _, ok := blockTags[name]; ok {
 			// We can remove block tags with only spaces
 			if strings.TrimFunc(dom.TextContent(node), isHTMLSpace) != "" {
 				return false
@@ -142,7 +142,7 @@ func (p Policy) RemoveEmptyNodes(top *html.Node) {
 		}
 
 		// Remove node unless it's the document body
-		return dom.TagName(node) != "body"
+		return name != "body"
 	})
 }
 
