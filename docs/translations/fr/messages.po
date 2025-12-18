@@ -7,95 +7,94 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-10-19 11:48+0200\n"
+"POT-Creation-Date: 2025-12-18 21:31+0100\n"
 "PO-Revision-Date: 2025-10-29 19:09+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/documentation/fr/>\n"
 "Language: fr_FR\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/documentation/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.13.3\n"
 "Generated-By: Babel 2.17.0\n"
 
-#: en-US/bookmark-list.md:1
+#: en/bookmark-list.md:1
 msgid "# Bookmarks"
 msgstr "# Bookmarks"
 
-#: en-US/bookmark-list.md:3
+#: en/bookmark-list.md:3
 msgid "Bookmarks are where you save the web content you like."
 msgstr "Les bookmarks vous permettent d'enregistrer les contenus que vous aimez."
 
-#: en-US/bookmark-list.md:5
+#: en/bookmark-list.md:5
 msgid "## Create a new Bookmark"
 msgstr "## Créer un bookmark"
 
-#: en-US/bookmark-list.md:7
+#: en/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
 msgstr "Vous avez trouvé une page que vous aimez ? Parfait, copiez son adresse (lien) dans le champ texte nommé **Enregistrer un lien** sur la [liste des bookmarks](readeck-instance://bookmarks)."
 
-#: en-US/bookmark-list.md:9
+#: en/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
 msgstr "![Formulaire de création de bookmark](./img/bookmark-new.webp)"
 
-#: en-US/bookmark-list.md:11
+#: en/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
 msgstr "Après quelques secondes, votre bookmark est prêt. Vous pouvez l'ouvrir pour en consulter le contenu, ajouter des labels, annoter le texte ou exporter un e-book. Pour plus d'information, veuillez lire la section [Détails d'un bookmark](./bookmark.md)."
 
-#: en-US/bookmark-list.md:13
+#: en/bookmark-list.md:13
 msgid "## Bookmark type"
 msgstr "## Types de bookmark"
 
-#: en-US/bookmark-list.md:15
+#: en/bookmark-list.md:15
 msgid "Readeck recognizes 3 different types of web content:"
 msgstr "Readeck reconnaît 3 différents types de contenu web :"
 
-#: en-US/bookmark-list.md:17 en-US/bookmark.md:17
+#: en/bookmark-list.md:17 en/bookmark.md:17
 msgid "### Article"
 msgstr "### Article"
 
-#: en-US/bookmark-list.md:19 en-US/bookmark.md:19
+#: en/bookmark-list.md:19 en/bookmark.md:19
 msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
 msgstr "Un article est une page depuis laquelle on peut extraire un contenu textuel. L'article est affiché comme la version lisible de son contenu."
 
-#: en-US/bookmark-list.md:21 en-US/bookmark.md:21
+#: en/bookmark-list.md:21 en/bookmark.md:21
 msgid "### Picture"
 msgstr "### Photo"
 
-#: en-US/bookmark-list.md:23 en-US/bookmark.md:23
+#: en/bookmark-list.md:23 en/bookmark.md:23
 msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
 msgstr "Une photo est une page qui a été reconnue comme un conteneur pour une image (ex. un lien vers Unsplash). Le bookmark affiche l'image enregistrée."
 
-#: en-US/bookmark-list.md:25 en-US/bookmark.md:25
+#: en/bookmark-list.md:25 en/bookmark.md:25
 msgid "### Video"
 msgstr "### Vidéo"
 
-#: en-US/bookmark-list.md:27 en-US/bookmark.md:27
+#: en/bookmark-list.md:27 en/bookmark.md:27
 msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
 msgstr "Une vidéo est une page qui a été reconnue comme un conteneur pour une vidéo (ex. un lien vers Youtube ou Vimeo). Le bookmark affiche un lecteur de vidéo. Veuillez noter que les vidéos sont jouées depuis le serveur d'origine."
 
-#: en-US/bookmark-list.md:30
+#: en/bookmark-list.md:30
 msgid "## Bookmark List"
 msgstr "## Liste des bookmarks"
 
-#: en-US/bookmark-list.md:32
+#: en/bookmark-list.md:32
 msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
 msgstr "La [liste des bookmarks](readeck-instance://bookmarks) contient tous vos bookmarks."
 
-#: en-US/bookmark-list.md:34
+#: en/bookmark-list.md:34
 msgid "### Navigation"
 msgstr "### Navigation"
 
-#: en-US/bookmark-list.md:36
+#: en/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
 msgstr "Dans la barre latérale, se trouvent un champ de recherche et des liens qui vous mènent vers des listes de bookmarks déjà filtrées."
 
-#: en-US/bookmark-list.md:38
+#: en/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
 msgstr "![Menu de la liste des bookmarks](./img/bookmark-sidebar.webp)"
 
-#: en-US/bookmark-list.md:40
+#: en/bookmark-list.md:40
 msgid ""
 "- **Search** \\\n"
 "  Enter any search term (title, content, website...)\n"
@@ -119,11 +118,11 @@ msgstr ""
 "- **Favoris** \\\n"
 "  Les bookmarks marqués comme favoris."
 
-#: en-US/bookmark-list.md:52
+#: en/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
 msgstr "Dès que vous commencez à créer des bookmarks, vous verrez les liens suivants :"
 
-#: en-US/bookmark-list.md:54
+#: en/bookmark-list.md:54
 msgid ""
 "- **Articles** \\\n"
 "  Your article bookmarks\n"
@@ -139,11 +138,11 @@ msgstr ""
 "- **Photos** \\\n"
 "  Les photos et images"
 
-#: en-US/bookmark-list.md:61
+#: en/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
 msgstr "Enfin, se trouvent 3 autres sections qui mènent vers des pages liées aux bookmarks :"
 
-#: en-US/bookmark-list.md:63
+#: en/bookmark-list.md:63
 msgid ""
 "- **[Labels](./labels.md)** \\\n"
 "  All your bookmark labels\n"
@@ -159,15 +158,15 @@ msgstr ""
 "- **[Collections](./collections.md)** \\\n"
 "  Liste des collections"
 
-#: en-US/bookmark-list.md:70
+#: en/bookmark-list.md:70
 msgid "### Bookmark Cards"
 msgstr "### Cartes"
 
-#: en-US/bookmark-list.md:72
+#: en/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
 msgstr "Chaque élément de la liste des bookmarks est une carte."
 
-#: en-US/bookmark-list.md:74
+#: en/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
@@ -175,11 +174,11 @@ msgstr ""
 "![Liste des bookmarks](./img/bookmark-list.webp)\n"
 "Liste des bookmarks en grille"
 
-#: en-US/bookmark-list.md:77
+#: en/bookmark-list.md:77
 msgid "A card shows:"
 msgstr "Une carte contient :"
 
-#: en-US/bookmark-list.md:79
+#: en/bookmark-list.md:79
 msgid ""
 "- the **title** on which you can click to watch or read the bookmark,\n"
 "- the **site name**,\n"
@@ -193,11 +192,11 @@ msgstr ""
 "- la **liste des labels**,\n"
 "- **boutons d'action**"
 
-#: en-US/bookmark-list.md:85
+#: en/bookmark-list.md:85
 msgid "The action buttons perform the following:"
 msgstr "Les buttons permettent d'effectuer les actions suivantes :"
 
-#: en-US/bookmark-list.md:87
+#: en/bookmark-list.md:87
 msgid ""
 "- **Favorite** \\\n"
 "  This toggles the favorite status of the bookmark.\n"
@@ -213,15 +212,15 @@ msgstr ""
 "- **Supprimer** \\\n"
 "  Marque le bookmark pour suppression (cette action peut être annulée pendant quelques secondes)."
 
-#: en-US/bookmark-list.md:94
+#: en/bookmark-list.md:94
 msgid "### Compact List"
 msgstr "### Liste compacte"
 
-#: en-US/bookmark-list.md:96
+#: en/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
 msgstr "Si vous trouvez la liste de bookmarks sous forme de grille trop encombrée, vous pouvez changer pour une liste plus compacte contenant moins d'images. Cliquez sur le bouton près du titre pour passer à la vue compacte."
 
-#: en-US/bookmark-list.md:98
+#: en/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
@@ -229,16 +228,16 @@ msgstr ""
 "![Liste compacte des bookmarks](./img/bookmark-list-compact.webp)\n"
 "Liste compacte de bookmarks"
 
-#: en-US/bookmark-list.md:101
+#: en/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
 msgstr "## Filtrer les bookmarks {#filters}"
 
-#: en-US/bookmark-list.md:103
+#: en/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
 msgstr "Sur la liste des bookmarks, vous pouvez filtrer les éléments sur la base de plusieurs critères de recherche. Cliquez sur le bouton \"Filtrer la liste\" près du titre de la page pour ouvrir le formulaire de recherche."
 
-#: en-US/bookmark-list.md:105
+#: en/bookmark-list.md:105
 msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
@@ -246,19 +245,19 @@ msgstr ""
 "![Filtres de la liste de bookmarks](./img/bookmark-filters.webp)\n"
 "Le formulaire de recherche"
 
-#: en-US/bookmark-list.md:108
+#: en/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
 msgstr "Entrez un ou plusieurs critères et cliquez sur **Rechercher**."
 
-#: en-US/bookmark-list.md:110
+#: en/bookmark-list.md:110
 msgid "### Available filters"
 msgstr "### Filtres disponibles"
 
-#: en-US/bookmark-list.md:112
+#: en/bookmark-list.md:112
 msgid "You can combine the following filters:"
 msgstr "Vous pouvez combiner les filtres suivants :"
 
-#: en-US/bookmark-list.md:114
+#: en/bookmark-list.md:114
 msgid ""
 "- **Search**\\\n"
 "  Search in the bookmark's text, its title, its authors, its site name and domain and the labels.\n"
@@ -290,15 +289,15 @@ msgstr ""
 "- **Depuis**, **Jusqu'à**\\\n"
 "  Ces derniers filtres vous permettent de limiter les résultats par date de création des bookmarks. Par exemple, vous pouvez obtenir la liste des bookmarks créés pendant les 4 dernières semaines mais pas après la dernière semaine."
 
-#: en-US/bookmark-list.md:129
+#: en/bookmark-list.md:129
 msgid "### Search query"
 msgstr "### Critères de recherche"
 
-#: en-US/bookmark-list.md:131
+#: en/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
 msgstr "Les champs **Recherche**, **Titre**, **Auteur**, **Site** et **Label** comprennent les critères de recherche de la même façon :"
 
-#: en-US/bookmark-list.md:133
+#: en/bookmark-list.md:133
 msgid ""
 "- `startled cat` will find the content with the words **startled** and **cat**\n"
 "- `\"startled cat\"` will find the content with the exact words **startled cat** together.\n"
@@ -310,15 +309,15 @@ msgstr ""
 "- `cat*` trouvera le contenu avec les mots commençant par **cat** (cat, catnip et caterpillar, par exemple).\n"
 "- `-startled cat` trouvera le contenu avec le mot **cat** mais PAS le mot **startled**."
 
-#: en-US/bookmark-list.md:139
+#: en/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
 msgstr "Après avoir effectué une recherche, vous pouvez l'enregistrer en tant que [collection](./collections.md) pour la rendre permanente."
 
-#: en-US/bookmark-list.md:141
+#: en/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
 msgstr "## Exporter et importer des bookmarks"
 
-#: en-US/bookmark-list.md:143
+#: en/bookmark-list.md:143
 msgid ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Bookmark list menu"
@@ -326,31 +325,31 @@ msgstr ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Menu de la liste des bookmarks"
 
-#: en-US/bookmark-list.md:146
+#: en/bookmark-list.md:146
 msgid "### Export bookmarks"
 msgstr "### Exporter des bookmarks"
 
-#: en-US/bookmark-list.md:148
+#: en/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
 msgstr "Le bouton de menu près des filtres vous permet de télécharger un fichier EPUB de la liste de bookmarks affichés. Il créer un e-book contenant tous les articles organisés en chapitres."
 
-#: en-US/bookmark-list.md:150
+#: en/bookmark-list.md:150
 msgid "### Import bookmarks"
 msgstr "### Importer des bookmarks"
 
-#: en-US/bookmark-list.md:152
+#: en/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
 msgstr "Dans le même menu, vous trouverez un lien [Importer des bookmarks](readeck-instance://bookmarks/import). Il vous mènera à un assistant vous permettant d'importer des liens existants depuis différentes sources."
 
-#: en-US/bookmark.md:1
+#: en/bookmark.md:1
 msgid "# Bookmark View"
 msgstr "# Détails d'un bookmark"
 
-#: en-US/bookmark.md:3
+#: en/bookmark.md:3
 msgid "## The view"
 msgstr "## Vue principale"
 
-#: en-US/bookmark.md:5
+#: en/bookmark.md:5
 msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
@@ -358,11 +357,11 @@ msgstr ""
 "![Vue principale](./img/bookmark-view.webp)\n"
 "La vue principale d'un article."
 
-#: en-US/bookmark.md:8
+#: en/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
 msgstr "La vue principale d'un bookmark se divise en 3 sections :"
 
-#: en-US/bookmark.md:10
+#: en/bookmark.md:10
 msgid ""
 "- On top, the navigation and presentation settings,\n"
 "- The content,\n"
@@ -372,23 +371,23 @@ msgstr ""
 "- Le contenu,\n"
 "- Une barre latérale avec des informations, les labels, annotations et actions."
 
-#: en-US/bookmark.md:15
+#: en/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
 msgstr "Un bookmark affiche son contenu selon son type. Il existe 3 types :"
 
-#: en-US/bookmark.md:30
+#: en/bookmark.md:30
 msgid "## Navigation and presentation settings"
 msgstr "## Navigation et paramètres de présentation"
 
-#: en-US/bookmark.md:32
+#: en/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
 msgstr "Au dessus de la vue principale, un lien vous permet de retourner à la page précédente."
 
-#: en-US/bookmark.md:34
+#: en/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
 msgstr "Si le bookmark contient un article, un bouton sur le côté gauche vous permet de modifier les paramètres de présentation."
 
-#: en-US/bookmark.md:36
+#: en/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
@@ -396,7 +395,7 @@ msgstr ""
 "![Paramètres de présentation d'un article](./img/bookmark-typography.webp)\n"
 "Paramètres de présentation."
 
-#: en-US/bookmark.md:39
+#: en/bookmark.md:39
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
@@ -404,55 +403,55 @@ msgstr ""
 "Vous pouvez y changer la police de caractères, sa taille ou l'interligne.\\\n"
 "Ces paramètres sont sauvegardés automatiquement et seront appliqués à n'importe quel article consulté plus tard."
 
-#: en-US/bookmark.md:43
+#: en/bookmark.md:43
 msgid "## Change the title"
 msgstr "## Modifier le titre"
 
-#: en-US/bookmark.md:45
+#: en/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
 msgstr "Le titre d'un bookmark est automatiquement récupéré lors de sa création. Si, pour diverses raisons, vous souhaitez le corriger, vous pouvez le modifier en cliquant dessus puis en validant vos changements avec le bouton à côté du titre."
 
-#: en-US/bookmark.md:48
+#: en/bookmark.md:48
 msgid "## Actions"
 msgstr "## Actions"
 
-#: en-US/bookmark.md:50
+#: en/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
 msgstr "La barre latérale d'un bookmark propose diverses actions."
 
-#: en-US/bookmark.md:52
+#: en/bookmark.md:52
 msgid "### Favorite"
 msgstr "### Favori"
 
-#: en-US/bookmark.md:54
+#: en/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
 msgstr "Ceci change l'état favori du bookmark."
 
-#: en-US/bookmark.md:56
+#: en/bookmark.md:56
 msgid "### Archive"
 msgstr "### Archive"
 
-#: en-US/bookmark.md:58
+#: en/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
 msgstr "Ceci déplace le bookmark dans les archive (ou l'en retire s'il y est déjà)."
 
-#: en-US/bookmark.md:60
+#: en/bookmark.md:60
 msgid "### Share"
 msgstr "### Partage"
 
-#: en-US/bookmark.md:62
+#: en/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
 msgstr "Le bouton de partage ouvre un menu depuis lequel vous pouvez créer un lien que vous pouvez partager avec un ami."
 
-#: en-US/bookmark.md:64
+#: en/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
 msgstr "Dans le même menu, vous pouvez exporter votre bookmark (seulement EPUB pour le moment) pour le lire sur un autre périphérique."
 
-#: en-US/bookmark.md:67
+#: en/bookmark.md:67
 msgid "### Delete"
 msgstr "### Supprimer"
 
-#: en-US/bookmark.md:69
+#: en/bookmark.md:69
 msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
@@ -460,15 +459,15 @@ msgstr ""
 "Ceci marque le bookmark pour suppression.\\\n"
 "Aucune inquiétude si vous cliquez par erreur ! Cette action peut être annulée avant que la suppression soit effective."
 
-#: en-US/bookmark.md:73
+#: en/bookmark.md:73
 msgid "## Labels"
 msgstr "## Labels"
 
-#: en-US/bookmark.md:75
+#: en/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr "Vous pouvez ajouter autant de labels que vous voulez à un bookmark. Pour cela, indiquez le texte du label dans le champ correspondant et cliquez sur **Ajouter un label**. Il n'y a aucune limite quant aux caractères permis dans un label. Vous pouvez même utiliser des emojis si vous le souhaitez."
 
-#: en-US/bookmark.md:77
+#: en/bookmark.md:77
 msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
@@ -476,15 +475,15 @@ msgstr ""
 "![Formulaire de labels](./img/bookmark-labels.webp)\n"
 "Ajouter un label."
 
-#: en-US/bookmark.md:80
+#: en/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
 msgstr "Veuillez consulter la section [Labels](./labels.md) pour plus d'informations."
 
-#: en-US/bookmark.md:82
+#: en/bookmark.md:82
 msgid "## Highlights"
 msgstr "## Annotations {#highlights}"
 
-#: en-US/bookmark.md:84
+#: en/bookmark.md:84
 msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
@@ -492,7 +491,7 @@ msgstr ""
 "Vous avez trouvé une partie intéressante dans un article et souhaitez la marquer comme telle ; vous pouvez l'annoter.\\\n"
 "Quand vous sélectionnez du texte dans un article, un menu apparaît et vous permet de créer une annotation."
 
-#: en-US/bookmark.md:87
+#: en/bookmark.md:87
 msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
@@ -500,19 +499,19 @@ msgstr ""
 "![Création d'une annotation](./img/bookmark-highlight.webp)\n"
 "Créer une annotation."
 
-#: en-US/bookmark.md:90
+#: en/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
 msgstr "Vos annotations apparaissent dans la barre latérale."
 
-#: en-US/bookmark.md:92
+#: en/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
 msgstr "Quand vous voulez supprimer une annotation, vous pouvez le faire depuis la barre latérale ou en la sélectionnant dans l'article."
 
-#: en-US/collections.md:1
+#: en/collections.md:1
 msgid "# Collections"
 msgstr "# Collections"
 
-#: en-US/collections.md:3
+#: en/collections.md:3
 msgid ""
 "Collections let you easily organize and export your bookmarks\n"
 "by saving search requests of your choice.\n"
@@ -524,7 +523,7 @@ msgstr ""
 "Quand vous créez un bookmark qui correspond aux critères d'une collection, il apparaîtra immédiatement.\n"
 "Voici quelques exemples :"
 
-#: en-US/collections.md:9
+#: en/collections.md:9
 msgid ""
 "- The unread articles (no picture or videos),\n"
 "- The archived articles from \"wikipedia.org\",\n"
@@ -536,15 +535,15 @@ msgstr ""
 "- Les photos avec le label \"chat\",\n"
 "- Les articles qui contiennent \"climat\" dans leur titre."
 
-#: en-US/collections.md:14
+#: en/collections.md:14
 msgid "## Create a new collection"
 msgstr "## Créer une collection"
 
-#: en-US/collections.md:16
+#: en/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
 msgstr "Pour créer une collection, rendez-vous sur la [liste des collections](readeck-instance://bookmarks/collections) et cliquez sur **Créer une collection**."
 
-#: en-US/collections.md:18
+#: en/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
@@ -552,39 +551,39 @@ msgstr ""
 "![Formulaire de nouvelle collection](./img/collection-new.webp)\n"
 "Le formulaire de nouvelle collection"
 
-#: en-US/collections.md:21
+#: en/collections.md:21
 msgid "Enter any criteria and click on **Save**."
 msgstr "Indiquez les critères de recherche et cliquez sur **Enregistrer**."
 
-#: en-US/collections.md:23
+#: en/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
 msgstr "Consultez l'aide des [filtres de bookmarks](./bookmark-list.md#filters) pour plus d'information concernant les filtres."
 
-#: en-US/collections.md:25
+#: en/collections.md:25
 msgid "## Export a collection"
 msgstr "## Exporter une collection"
 
-#: en-US/collections.md:27
+#: en/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
 msgstr "Sur la page d'une collection vous pouvez exporter la collection complète dans un fichier."
 
-#: en-US/collections.md:29
+#: en/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
 msgstr "Pour le moment, seul le format EPUB est disponible et exporte la collection sous la forme d'un e-book unique."
 
-#: en-US/collections.md:32
+#: en/collections.md:32
 msgid "## Delete a collection"
 msgstr "## Supprimer une collection"
 
-#: en-US/collections.md:34
+#: en/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
 msgstr "Sur la page d'une collection, ouvrez la boite **Modifier** et cliquez sur **Supprimer**."
 
-#: en-US/collections.md:36
+#: en/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
 msgstr "Cette opération peut être annulée pendant quelques secondes, au cas où vous auriez fait une erreur."
 
-#: en-US/index.md:1
+#: en/index.md:1
 msgid ""
 "---\n"
 "Title: Table of Contents\n"
@@ -611,19 +610,19 @@ msgstr ""
 "    - user-profile\n"
 "---"
 
-#: en-US/index.md:14
+#: en/index.md:14
 msgid "# Readeck Help"
 msgstr "# Aide Readeck"
 
-#: en-US/index.md:16
+#: en/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
 msgstr "Bienvenue dans Readeck ! Vous trouverez ici les réponses à la plupart de vos questions concernant Readeck ainsi que quelques astuces pour en tirer encore plus parti."
 
-#: en-US/index.md:18
+#: en/index.md:18
 msgid "## Contents"
 msgstr "## Table des matières"
 
-#: en-US/index.md:20
+#: en/index.md:20
 msgid ""
 "- [Bookmarks](./bookmark-list.md)\n"
 "- [Bookmark View](./bookmark.md)\n"
@@ -639,11 +638,11 @@ msgstr ""
 "- [Catalogue e-book](./opds.md)\n"
 "- [Profil utilisateur](./user-profile.md)"
 
-#: en-US/labels.md:1
+#: en/labels.md:1
 msgid "# Labels"
 msgstr "# Labels"
 
-#: en-US/labels.md:3
+#: en/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
@@ -651,35 +650,35 @@ msgstr ""
 "Vous pouvez ajouter [autant de labels que vous voulez sur un bookmark](./bookmark.md#labels).\\\n"
 "Il n'y a aucune limite quant aux caractères permis dans un label. Vous pouvez même utiliser des émojis si vous le souhaitez."
 
-#: en-US/labels.md:6
+#: en/labels.md:6
 msgid "## Label List"
 msgstr "## Liste des labels"
 
-#: en-US/labels.md:8
+#: en/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
 msgstr "La [liste des labels](readeck-instance://bookmarks/labels) affiche tous les labels de vos bookmarks, avec un nombre indiquant combien de bookmarks portent un label donné."
 
-#: en-US/labels.md:10
+#: en/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
 msgstr "En cliquant sur un label, vous pouvez lister tous les bookmarks portant celui-ci."
 
-#: en-US/labels.md:12
+#: en/labels.md:12
 msgid "## Rename a label"
 msgstr "## Renommer un label"
 
-#: en-US/labels.md:14
+#: en/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
 msgstr "Sur la page d'un label, vous pouvez cliquer sur le titre (le label) pour en changer le nom."
 
-#: en-US/opds.md:1
+#: en/opds.md:1
 msgid "# E-book Catalog"
 msgstr "# Catalogue e-book"
 
-#: en-US/opds.md:3
+#: en/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
 msgstr "Readeck fournit un catalogue d'e-book de tous vos bookmarks, organisés selon la structure suivante :"
 
-#: en-US/opds.md:5
+#: en/opds.md:5
 msgid ""
 "- Unread Bookmarks\n"
 "- Archived Bookmarks\n"
@@ -699,19 +698,19 @@ msgstr ""
 "    - e-book de la collection\n"
 "    - naviguer dans la collection"
 
-#: en-US/opds.md:14
+#: en/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
 msgstr "Chaque section, à l'exception des Collections, fournit les bookmarks en tant qu'e-book."
 
-#: en-US/opds.md:16
+#: en/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
 msgstr "Dans la section d'une collection, vous pouvez télécharger l'intégralité de celle-ci sous forme d'un seul e-book."
 
-#: en-US/opds.md:19
+#: en/opds.md:19
 msgid "## Catalog access"
 msgstr "## Accès au catalogue"
 
-#: en-US/opds.md:21
+#: en/opds.md:21
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
@@ -719,11 +718,11 @@ msgstr ""
 "Le catalogue est disponible par toute application ou liseuse qui supporte le format OPDS.\n"
 "Pour accéder au catalogue, vous devez au préalable créer un [jeton API](readeck-instance://profile/tokens)."
 
-#: en-US/opds.md:24
+#: en/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
 msgstr "**Note** : Il est plus simple de télécharger le jeton dans un fichier texte et le transférer dans votre liseuse. Vous pourrez alors ouvrir le fichier et copier le jeton."
 
-#: en-US/opds.md:26
+#: en/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
@@ -731,7 +730,7 @@ msgstr ""
 "Vous pouvez restreindre les permissions de ce jeton à \"Bookmarks : lecture seule\".\n"
 "Notez le mot de passe généré et passez au paramétrage de l'application."
 
-#: en-US/opds.md:29
+#: en/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
@@ -739,35 +738,35 @@ msgstr ""
 "L'URL du catalogue OPDS est : \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 
-#: en-US/opds.md:33
+#: en/opds.md:33
 msgid "## Example setup: Koreader"
 msgstr "## Exemple de paramétrage : Koreader"
 
-#: en-US/opds.md:35
+#: en/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
 msgstr "[Koreader](https://koreader.rocks/) est un lecteur de documents pour liseuses électroniques. Il est disponible pour Kindle, Kobo, PocketBook, Android et Linux. Il dispose d'un excellent support OPDS."
 
-#: en-US/opds.md:37
+#: en/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
 msgstr "Une fois que vous avez votre jeton API, vous pouvez accéder à la section OPDS dans le menu de recherche de Koreader :"
 
-#: en-US/opds.md:39
+#: en/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
 msgstr "![Menu de recherche de Koreader](../img/koreader-1.webp)"
 
-#: en-US/opds.md:41
+#: en/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
 msgstr "Cette section affiche une liste de sources OPDS préconfigurées et vous pouvez ajouter la votre en cliquant sur le bouton \"+\" dans le coin supérieur gauche :"
 
-#: en-US/opds.md:43
+#: en/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
 msgstr "![Liste des catalogues dans Koreeader](../img/koreader-2.webp)"
 
-#: en-US/opds.md:45
+#: en/opds.md:45
 msgid "In this dialog replace the fields below with:"
 msgstr "Dans ce formulaire, remplacez les champs suivants par :"
 
-#: en-US/opds.md:47
+#: en/opds.md:47
 msgid ""
 "- https://readeck.example.com : `readeck-instance://opds`\n"
 "- alice: your username\n"
@@ -777,59 +776,59 @@ msgstr ""
 "- alice : votre nom d'utilisateur\n"
 "- votre jeton API dans le dernier champ"
 
-#: en-US/opds.md:51
+#: en/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
 msgstr "![Ajouter un catalogue dans Koreader](../img/koreader-3.webp)"
 
-#: en-US/opds.md:53
+#: en/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
 msgstr "Vous pouvez maintenant accéder à vos bookmarks depuis Koreader !"
 
-#: en-US/opds.md:55
+#: en/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
 msgstr "![Le catalogue Readeck dans Koreader](../img/koreader-4.webp)"
 
-#: en-US/user-profile.md:1
+#: en/user-profile.md:1
 msgid "# User Profile"
 msgstr "# Profil utilisateur"
 
-#: en-US/user-profile.md:3
+#: en/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
 msgstr "La [section profil](readeck-instance://profile) de Readeck vous permet de changer vos informations personnelles, votre mot de passe ainsi que d'autres paramètres."
 
-#: en-US/user-profile.md:5
+#: en/user-profile.md:5
 msgid "## Edit your profile"
 msgstr "## Modifier votre profil"
 
-#: en-US/user-profile.md:7
+#: en/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
 msgstr "Sur la page principale du profil, vous pouvez changer votre nom d'utilisateur, votre adresse e-mail et choisir la langue de l'interface."
 
-#: en-US/user-profile.md:9
+#: en/user-profile.md:9
 msgid "## Change your password"
 msgstr "## Changer de mot de passe"
 
-#: en-US/user-profile.md:11
+#: en/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
 msgstr "Sur la page [mot de passe](readeck-instance://profile/password) page, vous pouvez changer le mot de passe que vous utilisez pour vous connecter à Readeck."
 
-#: en-US/user-profile.md:13
+#: en/user-profile.md:13
 msgid "## API Tokens"
 msgstr "## Jetons API"
 
-#: en-US/user-profile.md:15
+#: en/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
 msgstr "Un jeton API vous permet d'utiliser [l'API Readeck](readeck-instance://docs/api) pour développer les applications de votre choix. Vous pouvez créer et gérer les jetons API sur la page [Jetons API](readeck-instance://profile/tokens) de votre profil."
 
-#: en-US/user-profile.md:17
+#: en/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
 msgstr "Vous pouvez limiter les permissions d'accès d'un token donné ainsi que sa durée de validité."
 
-#: en-US/user-profile.md:19
+#: en/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
 msgstr "Si vous avez besoin de donner accès à votre compte Readeck à un service ou une application, vous ne pouvez pas donner votre nom d'utilisateur et mot de passe ; ça ne fonctionnera pas."
 
-#: en-US/user-profile.md:21
+#: en/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr "À la place, vous pouvez donner votre nom d'utilisateur et un jeton de votre choix comme données d'authentification."
 
@@ -850,3 +849,4 @@ msgstr "À la place, vous pouvez donner votre nom d'utilisateur et un jeton de v
 
 #~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
 #~ msgstr "**Note** : même si vous pouvez accéder à l'API avec un mot de passe d'application, il est préférable d'utiliser les jetons API quand c'est possible."
+
