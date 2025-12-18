@@ -180,8 +180,8 @@ type Bookmark struct {
 	WordCount       int                           `json:"word_count,omitempty"`
 	ReadingTime     int                           `json:"reading_time,omitempty"`
 
-	AnnotationTag      string                                                 `json:"-"`
-	AnnotationCallback func(id string, n *html.Node, index int, color string) `json:"-"`
+	AnnotationTag      string                       `json:"-"`
+	AnnotationCallback bookmarks.AnnotationCallback `json:"-"`
 
 	mediaURL       *url.URL
 	videoPlayerURL *url.URL
@@ -230,15 +230,27 @@ func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
 		Links:         b.Links,
 
 		AnnotationTag: "rd-annotation",
-		AnnotationCallback: func(id string, n *html.Node, index int, color string) {
+		AnnotationCallback: func(a *bookmarks.BookmarkAnnotation, n *html.Node, index, ln int) {
 			if index == 0 {
-				dom.SetAttribute(n, "id", "annotation-"+id)
+				dom.SetAttribute(n, "id", "annotation-"+a.ID)
 			}
+			color := a.Color
 			if color == "" {
 				color = "yellow"
 			}
-			dom.SetAttribute(n, "data-annotation-id-value", id)
+			dom.SetAttribute(n, "data-annotation-id-value", a.ID)
 			dom.SetAttribute(n, "data-annotation-color", color)
+
+			// If there is a note, we add an extra, empty, rd-annotation tag that contains the note.
+			if a.Note != "" && index+1 == ln {
+				noteNode := dom.CreateElement("rd-annotation")
+				dom.SetAttribute(noteNode, "data-annotation-id-value", a.ID)
+				dom.SetAttribute(noteNode, "data-annotation-note", "")
+				dom.SetAttribute(noteNode, "title", a.Note)
+				dom.SetAttribute(noteNode, "data-annotation-color", color)
+
+				n.Parent.InsertBefore(noteNode, n.NextSibling)
+			}
 		},
 	}
 

@@ -429,6 +429,7 @@ func (api *apiRouter) annotationUpdate(w http.ResponseWriter, r *http.Request) {
 
 	annotation := b.Annotations.Get(id)
 	annotation.Color = f.Get("color").String()
+	annotation.Note = f.Get("note").String()
 	update := map[string]any{
 		"annotations": b.Annotations,
 	}

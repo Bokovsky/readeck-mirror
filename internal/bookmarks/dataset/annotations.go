@@ -74,6 +74,7 @@ type Annotation struct {
 	Text             string    `json:"text"`
 	Created          time.Time `json:"created"`
 	Color            string    `json:"color"`
+	Note             string    `json:"note"`
 	BookmarkID       string    `json:"bookmark_id"`
 	BookmarkHref     string    `json:"bookmark_href"`
 	BookmarkURL      string    `json:"bookmark_url"`
@@ -89,6 +90,7 @@ func NewAnnotation(ctx context.Context, a *bookmarks.AnnotationQueryResult) *Ann
 		Text:             a.Text,
 		Created:          time.Time(a.Created),
 		Color:            a.Color,
+		Note:             a.Note,
 		BookmarkID:       a.Bookmark.UID,
 		BookmarkHref:     urls.AbsoluteURLContext(ctx, "/api/bookmarks", a.Bookmark.UID).String(),
 		BookmarkURL:      a.Bookmark.URL,
