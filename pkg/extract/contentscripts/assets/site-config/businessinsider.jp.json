@@ -1,0 +1,49 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | Business Insider Japan')"
+  ],
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article_pArticle_Body ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "bws-avoid",
+    "displayhandler_sm__stLxT",
+    "displayhandler_lg__cvCnu"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[contains(text(),\"次ページ\")]"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.businessinsider.jp/article/2511-mobile-4-carriers-strategy-analysis/",
+      "contains": []
+    },
+    {
+      "url": "https://www.businessinsider.jp/article/2511-canon-semiconductor-business/",
+      "contains": []
+    },
+    {
+      "url": "https://www.businessinsider.jp/article/2511-google-company-turnaround-moment-reasons-ai-race-gemini/",
+      "contains": []
+    },
+    {
+      "url": "https://www.businessinsider.jp/article/2511-google-deepmind-cracks-century-old-physics-mystery-ai-fluid-dynamics/",
+      "contains": []
+    },
+    {
+      "url": "https://www.businessinsider.jp/article/2511-ai-bubble-dot-com-crash-data-centers-infrastructure-jeremy-siegel/",
+      "contains": []
+    }
+  ]
+}
