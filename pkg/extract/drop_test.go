@@ -98,6 +98,26 @@ func TestDrop(t *testing.T) {
 				"example.net",
 			},
 			{
+				"http://example.net:8888/test/test",
+				"http://example.net:8888/test/test",
+				"example.net",
+			},
+			{
+				"http://example.net:80/test/test",
+				"http://example.net/test/test",
+				"example.net",
+			},
+			{
+				"http://example.net:80/test/test",
+				"http://example.net/test/test",
+				"example.net",
+			},
+			{
+				"https://example.net:443/test/test",
+				"https://example.net/test/test",
+				"example.net",
+			},
+			{
 				"http://belgië.icom.museum/€test",
 				"http://belgië.icom.museum/€test",
 				"icom.museum",
@@ -116,6 +136,31 @@ func TestDrop(t *testing.T) {
 				"http://example.co.jp",
 				"http://example.co.jp",
 				"example.co.jp",
+			},
+			{
+				"http://127.0.0.1:5000",
+				"http://127.0.0.1:5000",
+				"127.0.0.1",
+			},
+			{
+				"http://[fd66:2244:0::0:1]:5000",
+				"http://[fd66:2244::1]:5000",
+				"fd66:2244::1",
+			},
+			{
+				"http://[::1]/",
+				"http://[::1]/",
+				"::1",
+			},
+			{
+				"http://[::1]:80/",
+				"http://[::1]/",
+				"::1",
+			},
+			{
+				"https://[fd66:8282::a]:443/",
+				"https://[fd66:8282::a]/",
+				"fd66:8282::a",
 			},
 		}
 

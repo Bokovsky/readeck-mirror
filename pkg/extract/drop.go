@@ -13,6 +13,7 @@ import (
 	"log/slog"
 	"mime"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"path"
 	"regexp"
@@ -81,19 +82,53 @@ func NewDrop(src *url.URL) *Drop {
 
 // SetURL sets the Drop's URL and Domain properties in their unicode versions.
 func (d *Drop) SetURL(src *url.URL) {
-	// First, copy url and ensure it's a unicode version
-	var uri *url.URL
-	domain := ""
-	if src != nil {
-		uri = new(url.URL)
-		*uri = *src
+	if src == nil {
+		d.URL = nil
+		d.Domain = ""
+		d.Site = ""
+		return
+	}
+
+	uri := new(url.URL)
+	*uri = *src
+
+	// Remove port when it's not needed
+	// Note: only numeric ports are valid in [url.URL].
+	port := uri.Port()
+	if uri.Scheme == "http" && port == "80" || uri.Scheme == "https" && port == "443" {
+		port = ""
+		// we want to keep the brackets on ipv6 here
+		uri.Host = uri.Host[:strings.LastIndexByte(uri.Host, ':')]
+	}
+
+	hostname := uri.Hostname()
+
+	if ip, err := netip.ParseAddr(hostname); err == nil {
+		// Hostname is an IP address. Shorten the address and use it as the domain.
+		s := ip.String()
+		if ip.Is6() {
+			uri.Host = "[" + s + "]"
+		} else {
+			uri.Host = s
+		}
+		if port != "" {
+			uri.Host += ":" + port
+		}
+
+		d.Domain = s
+	} else {
+		// Always encode the URL to unicode
 		if host, err := idna.ToUnicode(uri.Host); err == nil {
 			uri.Host = host
 		}
-		domain, _ = publicsuffix.EffectiveTLDPlusOne(uri.Hostname())
+		d.Domain, _ = publicsuffix.EffectiveTLDPlusOne(uri.Hostname())
 	}
+
+	if d.Domain == "" {
+		d.Domain = hostname
+	}
+
 	d.URL = uri
-	d.Domain = domain
 }
 
 // Load loads the remote URL and retrieve data.
