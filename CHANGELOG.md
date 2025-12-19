@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.21.5] - 2025-12-17
+### Fixed
+- Prevent infinite loop during Wallabag and Omnivore import
+
+### Improved
+- MathML support, by [@mislav]
+- Better extracted domain parser
+
 ## [0.21.4] - 2025-12-09
 ### Added
 - Mathjax and Katex support, by [@mislav]
@@ -7,6 +15,7 @@
 ### Improved
 - Website icons visibility in dark mode
 - Handle "pt" CSS unit in SVG dimensions, by [@mislav]
+- Keep MathML tags in extracted content, by [@mislav]
 
 ### Fixed
 - Return a 422 with errors on /api/bookmarks when the filters contain errors
