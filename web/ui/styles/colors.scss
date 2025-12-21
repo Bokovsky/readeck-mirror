@@ -42,15 +42,27 @@
 
     --color-hl-yellow: var(--color-yellow-200);
     --color-hl-yellow-dark: var(--color-yellow-500);
+    --color-hl-yellow-box: var(--color-yellow-500);
+
+    --color-hl-none: transparent;
+    --color-hl-none-dark: var(--color-gray-400);
+    --color-hl-none-box: var(--color-gray-50);
+
+    --color-hl-yellow: var(--color-yellow-200);
+    --color-hl-yellow-dark: var(--color-yellow-500);
+    --color-hl-yellow-box: var(--color-yellow-500);
 
     --color-hl-red: var(--color-red-200);
     --color-hl-red-dark: var(--color-red-500);
+    --color-hl-red-box: var(--color-red-500);
 
     --color-hl-blue: var(--color-blue-100);
     --color-hl-blue-dark: var(--color-blue-500);
+    --color-hl-blue-box: var(--color-blue-500);
 
     --color-hl-green: var(--color-green-200);
     --color-hl-green-dark: var(--color-green-500);
+    --color-hl-green-box: var(--color-green-500);
   }
 
   :root.dark {
@@ -82,16 +94,22 @@
     --color-btn-danger: var(--color-red-400);
     --color-btn-danger-hover: var(--color-red-300);
 
+    --color-hl-none-box: var(--color-gray-200);
+
     --color-hl-yellow: var(--color-yellow-200);
     --color-hl-yellow-dark: var(--color-yellow-300);
+    --color-hl-yellow-box: var(--color-yellow-400);
 
     --color-hl-red: var(--color-red-200);
     --color-hl-red-dark: var(--color-red-300);
+    --color-hl-red-box: var(--color-red-400);
 
     --color-hl-blue: var(--color-blue-200);
     --color-hl-blue-dark: var(--color-blue-300);
+    --color-hl-blue-box: var(--color-blue-400);
 
     --color-hl-green: var(--color-green-200);
     --color-hl-green-dark: var(--color-green-500);
+    --color-hl-green-box: var(--color-green-400);
   }
 }

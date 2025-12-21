@@ -49,11 +49,6 @@
       @apply px-0;
     }
 
-    rd-annotation {
-      border-bottom-width: 1px;
-      border-bottom-style: solid;
-    }
-
     .bookmark-article {
       @media print {
         columns: 2;
