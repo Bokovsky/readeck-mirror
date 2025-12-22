@@ -72,13 +72,14 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 				"HTML": buf,
 				"Out":  w,
 			},
-			nil,
+			map[string]string{"method": "morph"},
 		)
 		server.RenderTurboStream(w, r,
-			"/bookmarks/components/sidebar", "replace",
-			"bookmark-sidebar-"+b.UID, map[string]interface{}{
+			"/bookmarks/components/annotation_list", "replace",
+			"bookmark-annotation-list-"+b.UID, map[string]interface{}{
 				"Item": bi,
-			}, nil,
+			},
+			map[string]string{"method": "morph"},
 		)
 		return
 	}
@@ -429,7 +430,9 @@ func (api *apiRouter) annotationUpdate(w http.ResponseWriter, r *http.Request) {
 
 	annotation := b.Annotations.Get(id)
 	annotation.Color = f.Get("color").String()
-	annotation.Note = f.Get("note").String()
+	if !f.Get("note").IsNil() {
+		annotation.Note = f.Get("note").String()
+	}
 	update := map[string]any{
 		"annotations": b.Annotations,
 	}

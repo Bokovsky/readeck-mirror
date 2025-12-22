@@ -10,6 +10,7 @@ export default class extends Controller {
     "root",
     "controls",
     "color",
+    "note",
     "arrow",
     "whenNew",
     "whenOne",
@@ -18,38 +19,65 @@ export default class extends Controller {
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
+    color: String,
   }
 
   connect() {
     this.annotation = null
-    document.addEventListener("selectionchange", async (evt) => {
-      await this.onSelectText(evt)
-    })
+    this.payload = null
+    this.currentIDs = []
 
-    const color = this.#getRegisteredColor()
+    let ticking = false
+    let t = null
+
     this.colorTargets.forEach((e, i) => {
-      if (!color && i == 0) {
-        e.checked = true
-      } else if (e.value == color) {
-        e.checked = true
-      }
-
       e.addEventListener("click", (evt) => {
-        this.#registerColor(evt.target.value)
+        this.colorValue = evt.target.value
       })
     })
+
+    document.addEventListener("selectionchange", async (evt) => {
+      if (!ticking) {
+        window.requestAnimationFrame(async () => {
+          if (t !== null) {
+            window.clearTimeout(t)
+          }
+          t = window.setTimeout(async () => {
+            ticking = false
+            await this.onSelectText(evt)
+          }, 100)
+        })
+
+        ticking = true
+      }
+    })
+  }
+
+  colorValueChanged(value, previous) {
+    // Initial value
+    if (value === "" && previous === undefined) {
+      this.colorTargets[0].checked = true
+      this.colorValue = this.colorTargets[0].value
+      return
+    }
+
+    // When the frame is restored
+    if (value === "" && !!previous) {
+      this.colorTargets.forEach((e) => {
+        if (e.value == previous) {
+          e.checked = true
+          return
+        }
+      })
+      this.colorValue = previous
+      return
+    }
   }
 
   /**
    * onSelectText is the listener for "selectionchange".
-   *
-   * @param {Event} evt selection event
    */
-  async onSelectText(evt) {
-    // We must wait for next tick so it won't trigger when the event triggers
-    // from a click on an existing selection.
-    await this.nextTick()
-
+  async onSelectText() {
     const selection = document.getSelection()
     this.annotation = new Annotation(this.rootTarget, selection)
 
@@ -59,10 +87,22 @@ export default class extends Controller {
     ) {
       await this.showControls()
     }
+
+    if (this.annotation.isValid()) {
+      this.payload = {
+        start_selector: this.annotation.startSelector,
+        start_offset: this.annotation.startOffset,
+        end_selector: this.annotation.endSelector,
+        end_offset: this.annotation.endOffset,
+      }
+    }
   }
 
   async showControls() {
-    await this.nextTick()
+    this.currentIDs = []
+    this.iterCoveredAnnotations(async (id) => {
+      this.currentIDs.push(id)
+    })
 
     // Show controls
     this.controlsTarget.classList.remove(this.hiddenClass)
@@ -102,9 +142,12 @@ export default class extends Controller {
     document.addEventListener("keyup", onEsc)
 
     const covered = this.annotation.coveredAnnotations()
+    const selected = [
+      ...new Set(covered.map((e) => e.dataset.annotationIdValue)),
+    ]
 
     // Show/hide sub controls
-    switch (covered.length) {
+    switch (selected.length) {
       case 0:
         this.#hide(this.whenOneTargets)
         this.#hide(this.whenManyTargets)
@@ -121,14 +164,29 @@ export default class extends Controller {
         this.#show(this.whenManyTargets)
     }
 
-    // Set color when annotation exists
-    if (covered.length > 0) {
-      this.colorTargets.forEach((e) => {
-        if (e.value == covered[0].dataset.annotationColor) {
-          e.checked = true
-          return
-        }
-      })
+    // Set color and text when annotation exists
+    switch (selected.length) {
+      case 0:
+        this.noteTarget.value = ""
+        break
+      case 1:
+        // One selected annotation, check if it has a note
+        const e = Array.from(
+          this.rootTarget.querySelectorAll(
+            "rd-annotation[data-annotation-note][title]",
+          ),
+        ).find((e) => e.dataset.annotationIdValue == selected[0])
+
+        // set the note and fall through the next case (sets color)
+        this.noteTarget.value = e !== undefined ? e.getAttribute("title") : ""
+      default:
+        this.colorTargets.forEach((e) => {
+          if (e.value == covered[0].dataset.annotationColor) {
+            e.checked = true
+            this.colorValue = e.value
+            return
+          }
+        })
     }
 
     // Get root, range and controlls coordinates
@@ -141,7 +199,7 @@ export default class extends Controller {
 
     // Default position
     let position = "ontouchstart" in document.documentElement ? "bottom" : "top"
-    if (rangeRect.top + 10 < h) {
+    if (rangeRect.top + 20 < h) {
       position = "bottom"
     }
     this.controlsTarget.dataset.position = position
@@ -204,42 +262,11 @@ export default class extends Controller {
     })
   }
 
-  /**
-   * This saves the chosen color name in the parent's node dataset.
-   * We need to do this because the whole turbo-frame will be updated
-   * and so will any value set to it.
-   *
-   * @param {String} color Color name
-   */
-  #registerColor(color) {
-    this.element.parentElement.dataset.annotationsColor = color
-  }
-
-  /**
-   * Returns the registered color from the parent node.
-   *
-   * @returns {String} Color name
-   */
-  #getRegisteredColor() {
-    return this.element.parentElement.dataset.annotationsColor
-  }
-
-  /**
-   * Returns the selected color.
-   *
-   * @returns {String} Color name
-   */
-  #getColor() {
-    const el = this.colorTargets.find((e) => !!e.checked)
-    if (!!el) {
-      return el.value
+  #getNote() {
+    if (!this.hasNoteTarget) {
+      return
     }
-
-    return "yellow"
-  }
-
-  async nextTick() {
-    return await new Promise((resolve) => setTimeout(resolve, 0))
+    return this.noteTarget.value
   }
 
   findRelativeRoot() {
@@ -271,17 +298,19 @@ export default class extends Controller {
    * create creates a new annotation on the document
    */
   async create() {
-    this.annotation.color = this.#getColor()
+    if (!this.payload) {
+      return
+    }
+
+    const body = {
+      ...this.payload,
+      color: this.colorValue,
+      note: this.#getNote(),
+    }
 
     await request(this.apiUrlValue, {
       method: "POST",
-      body: {
-        start_selector: this.annotation.startSelector,
-        start_offset: this.annotation.startOffset,
-        end_selector: this.annotation.endSelector,
-        end_offset: this.annotation.endOffset,
-        color: this.annotation.color,
-      },
+      body: body,
     })
     await this.reload()
   }
@@ -290,17 +319,26 @@ export default class extends Controller {
    * update updates the selected annotations
    */
   async update() {
-    const color = this.#getColor()
+    if (this.currentIDs.length == 0) {
+      return
+    }
+
+    // Common body
+    const body = {color: this.colorValue}
+
+    // Can only change the note when there's one updated item
+    if (this.currentIDs.length == 1) {
+      body.note = this.#getNote()
+    }
+
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
 
-    await this.iterCoveredAnnotations(async (id) => {
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {
         method: "PATCH",
-        body: {
-          color: color,
-        },
+        body: body,
       })
-    })
+    }
     await this.reload()
   }
 
@@ -309,9 +347,10 @@ export default class extends Controller {
    */
   async delete() {
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
-    await this.iterCoveredAnnotations(async (id) => {
+
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {method: "DELETE"})
-    })
+    }
     await this.reload()
   }
 
