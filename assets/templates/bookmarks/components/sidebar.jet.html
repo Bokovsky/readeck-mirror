@@ -129,8 +129,16 @@ SPDX-License-Identifier: AGPL-3.0-only
             <li class="
               mb-3 flex p-2 rd-annotation bg-opacity-20 hfw:bg-opacity-80
               rounded border group/btn" data-annotation-color="{{ x.Color ? x.Color : `yellow` }}">
-              <a class="grow" href="#annotation-{{ x.ID }}"
-               data-action="scrollto#scroll:prevent panel#close:prevent">{{ shortText(x.Text, 100) }}</a>
+              <a class="grow flex flex-col" href="#annotation-{{ x.ID }}"
+               data-action="scrollto#scroll:prevent panel#close:prevent">
+                {{- if x.Note != "" -}}
+                  <span class="flex items-baseline gap-1 border-b pb-2 mb-2 font-semibold">
+                    {{- yield icon(name="o-note") -}}
+                    <span class="grow">{{ x.Note }}</span>
+                  </span>
+                {{- end -}}
+                <span class="text-sm italic">{{- shortText(x.Text, 100) -}}</span>
+              </a>
               <span class="no-js:hidden flex-shrink-0">
                 <button class="block -mt-4 -mr-4
                 text-gray-600 opacity-0
