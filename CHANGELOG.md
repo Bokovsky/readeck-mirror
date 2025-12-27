@@ -7,6 +7,9 @@
 - mTLS for HTTPS listener
 - Bookmark properties editor
 
+### Improved
+- Enabled theme toggle for public bookmarks, by [@shom](https://shom.dev)
+
 ### Fixed
 - Back/forward navigation with gestures
 

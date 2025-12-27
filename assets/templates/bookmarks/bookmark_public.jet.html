@@ -46,9 +46,14 @@ SPDX-License-Identifier: AGPL-3.0-only
   <meta name="robots" content="noindex nofollow noarchive">
 
   <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}" nonce="{{ cspNonce }}">
-  {{ if isset(.Item) && .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
-    <script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
-  {{- end }}
+	<script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
+  <script nonce="{{ cspNonce }}">
+  if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark')
+  } else {
+    document.documentElement.classList.remove('dark')
+  }
+  </script>
 
   <link rel="icon" href="{{ assetURL(`img/fi/favicon.ico`) }}" sizes="48x48">
   <link rel="icon" href="{{ assetURL(`img/fi/favicon.svg`) }}" sizes="any" type="image/svg+xml">
@@ -83,8 +88,25 @@ if ('noModule' in HTMLScriptElement.prototype) {
     </div>
   {{- else -}}
     <div class="max-w-3xl mx-auto my-8">
-      <h1 class="my-4 font-lora text-3xl max-sm:text-2xl"
-      dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
+			<div class="flex gap-2 items-top my-4">
+				<div class="grow">
+					<h1 class="font-lora text-3xl max-sm:text-2xl"
+							dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
+				</div>
+				<div class="no-js:hidden print:hidden pt-2 max-sm:pt-1.5">
+					<button type="button" data-controller="theme" data-action="theme#toggleTheme"
+									title="{{ gettext(`Change theme`) }}"
+									class="text-gray-600 hf:text-gray-900">
+						<span data-theme-target="icon">
+							{{ yield icon(name="o-theme-system", class="inline-block", svgClass="w-6 h-6") }}
+						</span>
+						<span class="sr-only">{{ gettext("Change theme") }}</span>
+						<template data-theme-target="iconLight">{{ yield icon(name="o-theme-light", class="inline-block", svgClass="w-6 h-6") }}</template>
+						<template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark", class="inline-block", svgClass="w-6 h-6") }}</template>
+						<template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system", class="inline-block", svgClass="w-6 h-6") }}</template>
+					</button>
+				</div>
+			</div>
 
       <ul class="mb-4">
         <li class="flex items-center gap-1 mb-2">
