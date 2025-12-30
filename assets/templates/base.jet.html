@@ -6,7 +6,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- import "./_libs/blocks" -}}
 {{- import "./_libs/common" -}}
 <!DOCTYPE html>
-<html lang="{{ translator.Tag }}" class="overscroll-none scroll-pt-20 max-sm:scroll-pt-40">
+<html lang="{{ translator.Tag }}" class="overscroll-y-none scroll-pt-20 max-sm:scroll-pt-40">
 <head>
   <meta charset="UTF-8">
   <title>{{ yield title() }} - Readeck</title>
@@ -39,7 +39,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   no-js bg-app-bg text-app-fg font-sans leading-tight tracking-normal
   relative
   print:text-black print:bg-white
-  overscroll-none
+  overscroll-y-none
  "
  data-turbo="false"
  data-turbo-prefetch="false"
