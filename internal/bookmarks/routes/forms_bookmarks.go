@@ -235,7 +235,7 @@ func newUpdateForm(tr forms.Translator) *updateForm {
 		forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("add_labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("remove_labels", forms.Trim, forms.DiscardEmpty),
-		forms.NewTextField("_to", forms.Trim, forms.MaxLen(128)),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 
@@ -367,7 +367,7 @@ func newDeleteForm(tr forms.Translator) *deleteForm {
 	return &deleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to", forms.Trim, forms.MaxLen(128)),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 

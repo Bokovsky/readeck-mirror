@@ -23,7 +23,7 @@ func newCollectionDeleteForm(tr forms.Translator) *collectionDeleteForm {
 	return &collectionDeleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to", forms.MaxLen(128)),
+		forms.NewTextField("_to", forms.MaxLen(512)),
 	)}
 }
 
