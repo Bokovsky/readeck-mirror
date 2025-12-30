@@ -7,6 +7,9 @@
 - mTLS for HTTPS listener
 - Bookmark properties editor
 
+### Fixed
+- Back/forward navigation with gestures
+
 ## [0.21.4] - 2025-12-09
 ### Added
 - Mathjax and Katex support, by [@mislav]
