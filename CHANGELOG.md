@@ -12,6 +12,7 @@
 
 ### Fixed
 - Back/forward navigation with gestures
+- EPUB mimetype
 
 ## [0.21.4] - 2025-12-09
 ### Added

@@ -52,7 +52,7 @@ func New(w io.Writer) *Writer {
 // Bootstrap adds the necessary files to the EPUB container.
 func (c *Writer) Bootstrap() (err error) {
 	if err = c.addFile(
-		"mimetype", zip.Store, strings.NewReader("application/epub+zip"),
+		"mimetype", time.Time{}, zip.Store, strings.NewReader("application/epub+zip"),
 	); err != nil {
 		return
 	}
@@ -62,7 +62,7 @@ func (c *Writer) Bootstrap() (err error) {
 	}
 
 	if err = c.addFile(
-		"META-INF/container.xml", zip.Deflate, strings.NewReader(containerXML),
+		"META-INF/container.xml", time.Now(), zip.Deflate, strings.NewReader(containerXML),
 	); err != nil {
 		return
 	}
@@ -106,7 +106,7 @@ func (c *Writer) AddChapter(id, title, name string, r io.Reader) error {
 		Title: title,
 		Src:   name,
 	})
-	return c.addFile(path.Join("OEBPS", name), zip.Deflate, r)
+	return c.addFile(path.Join("OEBPS", name), time.Now(), zip.Deflate, r)
 }
 
 // AddImage adds an image to the book with automatic media type detection.
@@ -124,6 +124,7 @@ func (c *Writer) AddImage(id, name string, r io.Reader) error {
 	})
 	return c.addFile(
 		path.Join("OEBPS", name),
+		time.Now(),
 		zip.Store,
 		io.MultiReader(buf, r),
 	)
@@ -136,7 +137,7 @@ func (c *Writer) AddFile(id, name, mediaType string, r io.Reader) error {
 		Href:      name,
 		MediaType: mediaType,
 	})
-	return c.addFile(path.Join("OEBPS", name), zip.Deflate, r)
+	return c.addFile(path.Join("OEBPS", name), time.Now(), zip.Deflate, r)
 }
 
 // WritePackage finishes the book creation by adding a content.opf and a toc.ncx files
@@ -227,12 +228,16 @@ func (c *Writer) addDirectory(name string) error {
 }
 
 // addFile adds a new file to the container.
-func (c *Writer) addFile(name string, method uint16, r io.Reader) error {
-	f, err := c.CreateHeader(&zip.FileHeader{
-		Method:   method,
-		Name:     name,
-		Modified: time.Now().UTC(),
-	})
+func (c *Writer) addFile(name string, modified time.Time, method uint16, r io.Reader) error {
+	fh := &zip.FileHeader{
+		Method: method,
+		Name:   name,
+	}
+	if !modified.IsZero() {
+		fh.Modified = modified.UTC()
+	}
+
+	f, err := c.CreateHeader(fh)
 	if err != nil {
 		return err
 	}
