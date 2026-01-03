@@ -220,10 +220,10 @@ SPDX-License-Identifier: AGPL-3.0-only
        {{ inputAttrs }} />
       <button type="button" data-pass-reveal-target="btn" data-action="pass-reveal#toggle"></button>
       <template data-pass-reveal-target="show">
-        {{- yield icon(name="o-show", class="svgicon", svgClass="") -}}
+        {{- yield icon(name="o-show", class="svgicon") -}}
       </template>
       <template data-pass-reveal-target="hide">
-        {{- yield icon(name="o-hide", class="svgicon", svgClass="") -}}
+        {{- yield icon(name="o-hide", class="svgicon") -}}
       </template>
     </div>
   {{- end -}}
@@ -242,7 +242,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                      controlAttrs=controlAttrs, inputAttrs=inputAttrs,
                      inputClass=inputClass) content -}}
     <button type="button" class="-ml-6 mr-2" data-timetoken-target="btn">
-      {{- yield icon(name="o-calendar", class="svgicon", svgClass="") -}}
+      {{- yield icon(name="o-calendar") -}}
     </button>
     <template data-timetoken-target="template">
       <div class="absolute top-full right-1 z-20 -mt-1 p-4 bg-gray-50 border rounded shadow-xl">

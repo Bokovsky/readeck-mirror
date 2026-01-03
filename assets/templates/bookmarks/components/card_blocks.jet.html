@@ -17,7 +17,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{ r := 65 }}
 {{ c := 2*3.1416*r }}
 {{ o := c * (100-value)/100}}
-<svg class="{{ value == 100 ? `progress--completed` : ``}}" width="200" height="200" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<svg class="{{ value == 100 ? `progress--completed` : ``}}" width="16" height="16" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
   <circle r="100" cx="100" cy="100" stroke-width="0"></circle>
   {{- if value < 100 -}}
     <g transform="rotate(-90, 100, 100)">

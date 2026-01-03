@@ -94,7 +94,7 @@ var config = {
       "max-md": {raw: "only screen and (max-width: 814px)"},
       "max-sm": {raw: "only screen and (max-width: 640px)"},
       "max-xs": {raw: "only screen and (max-width: 340px)"},
-      "touch": {raw: "(any-pointer: coarse), (any-pointer: none), (any-hover: none)"},
+      "touch": {raw: "(hover: none) and (pointer: coarse)"},
     },
     extend: {
       boxShadow: {

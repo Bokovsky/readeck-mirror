@@ -99,7 +99,7 @@ SPDX-License-Identifier: AGPL-3.0-only
      link hf:shadow-sm hf:bg-gray-100/50 group"
      href="{{ urlFor(`/bookmarks/import`, .name)}}"
     >
-      {{ yield icon(src=.iconSrc, name=.iconName, class="text-gray-600 group-hf:text-gray-800", svgClass="inline-block h-10 w-10") }}
+      {{ yield icon(src=.iconSrc, name=.iconName, class="text-gray-600 group-hf:text-gray-800", svgClass="h-10 w-10") }}
       <span class="grow flex flex-col gap-1 items-center text-center">
         <strong>{{ .title }}</strong>
         <span class="text-app-fg">{{ .desc }}</span>
