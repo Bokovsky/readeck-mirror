@@ -46,7 +46,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <meta name="robots" content="noindex nofollow noarchive">
 
   <link rel="stylesheet" href="{{ assetURL(`bundle.css`) }}" nonce="{{ cspNonce }}">
-	<script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
+  <script type="module" src="{{ assetURL(`public.js`) }}" nonce="{{ cspNonce }}"></script>
   <script nonce="{{ cspNonce }}">
   if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
     document.documentElement.classList.add('dark')
@@ -88,36 +88,34 @@ if ('noModule' in HTMLScriptElement.prototype) {
     </div>
   {{- else -}}
     <div class="max-w-3xl mx-auto my-8">
-			<div class="flex gap-2 items-top my-4">
-				<div class="grow">
-					<h1 class="font-lora text-3xl max-sm:text-2xl"
-							dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
-				</div>
-				<div class="no-js:hidden print:hidden pt-2 max-sm:pt-1.5">
-					<button type="button" data-controller="theme" data-action="theme#toggleTheme"
-									title="{{ gettext(`Change theme`) }}"
-									class="text-gray-600 hf:text-gray-900">
-						<span data-theme-target="icon">
-							{{ yield icon(name="o-theme-system", class="inline-block", svgClass="w-6 h-6") }}
-						</span>
-						<span class="sr-only">{{ gettext("Change theme") }}</span>
-						<template data-theme-target="iconLight">{{ yield icon(name="o-theme-light", class="inline-block", svgClass="w-6 h-6") }}</template>
-						<template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark", class="inline-block", svgClass="w-6 h-6") }}</template>
-						<template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system", class="inline-block", svgClass="w-6 h-6") }}</template>
-					</button>
-				</div>
-			</div>
+      <div class="flex gap-2 items-baseline my-4 text-3xl max-sm:text-2xl">
+        <h1 class="grow font-lora"
+         dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Title }}</h1>
+        <div class="no-js:hidden print:hidden">
+          <button type="button" data-controller="theme" data-action="theme#toggleTheme"
+           title="{{ gettext(`Change theme`) }}"
+           class="text-gray-600 hf:text-gray-900">
+            <span data-theme-target="icon">
+              {{ yield icon(name="o-theme-system", svgClass="w-6 h-6") }}
+            </span>
+            <span class="sr-only">{{ gettext("Change theme") }}</span>
+            <template data-theme-target="iconLight">{{ yield icon(name="o-theme-light", svgClass="w-6 h-6") }}</template>
+            <template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark", svgClass="w-6 h-6") }}</template>
+            <template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system", svgClass="w-6 h-6") }}</template>
+          </button>
+        </div>
+      </div>
 
       <ul class="mb-4">
         <li class="flex items-center gap-1 mb-2">
         {{- if isset(.Item.Resources.icon) -}}
           <img class="inline w-5 h-auto"
-          alt="" src="{{ .Item.Resources.icon.Src }}"
-          width="{{ .Item.Resources.icon.Width }}"
-          height="{{ .Item.Resources.icon.Height }}">
+           alt="" src="{{ .Item.Resources.icon.Src }}"
+           width="{{ .Item.Resources.icon.Width }}"
+           height="{{ .Item.Resources.icon.Height }}">
         {{- end -}}
         <strong class="overflow-hidden text-ellipsis" title="{{ default(.Item.SiteName, `no site name`) }}"
-        dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, "no site name") }}</strong>
+         dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ default(.Item.SiteName, "no site name") }}</strong>
         </li>
         {{- if !empty(.Item.Published) -}}
           {{- yield line_icon(icon="o-calendar") content -}}
@@ -152,21 +150,21 @@ if ('noModule' in HTMLScriptElement.prototype) {
 
       {{- if !empty(.Item.Description) -}}
         <p class="my-4 text-lg leading-tight text-justify font-lora italic"
-            dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
+         dir="{{ default(.Item.TextDirection, "ltr") }}">{{ .Item.Description }}</p>
       {{- end -}}
     </div>
 
     {{- if .Item.Type == "photo" && isset(.Item.Resources.image) -}}
       <figure class="mb-8 max-w-5xl mx-auto">
         <img alt="" src="{{ .Item.Resources.image.Src }}"
-        class="mx-auto rounded"
-        width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+         class="mx-auto rounded"
+         width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
       </figure>
     {{- else if .Item.Type == "video" && isset(.Item.Resources.image) && .Item.Embed -}}
       <div class="max-w-4xl mx-auto">
         <div class="video-player mb-8" data-controller="video">
           <img alt="" src="{{ .Item.Resources.image.Src }}"
-          width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
+           width="{{ .Item.Resources.image.Width }}" height="{{ .Item.Resources.image.Height }}">
           <template data-video-target="embed">
             {{- raw(.Item.Embed) -}}
           </template>
@@ -181,7 +179,7 @@ if ('noModule' in HTMLScriptElement.prototype) {
 
     {{- if .Item.HasArticle -}}
       <main class="max-w-3xl mx-auto mt-16 prose font-lora text-lg leading-normal overflow-x-auto"
-      dir="{{ default(.Item.TextDirection, "ltr") }}">
+       dir="{{ default(.Item.TextDirection, "ltr") }}">
         {{- unsafeWrite(.HTML) -}}
       </main>
     {{- end -}}
