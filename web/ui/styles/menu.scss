@@ -16,7 +16,7 @@
         a,
         button {
           @apply block w-full text-left px-4 py-2;
-          @apply hf:bg-gray-200;
+          @apply hf:bg-gray-200 active:bg-gray-200;
         }
 
         &[aria-current] {

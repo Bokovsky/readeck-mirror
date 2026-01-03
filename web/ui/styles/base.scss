@@ -121,7 +121,7 @@ body.js {
 // Generic utilities
 @layer components {
   .link {
-    @apply text-primary hf:text-primary-dark;
+    @apply text-primary hf:text-primary-dark active:text-primary-dark;
 
     @media print {
       @apply text-black underline font-semibold;

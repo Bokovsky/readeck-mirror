@@ -199,6 +199,7 @@ function css_bundle() {
     require("tailwindcss"),
     require("./ui/plugins/responsive-units.js"),
     require("./ui/plugins/trim-fonts.js"),
+    require("./ui/plugins/hover-media-query.js"),
     require("postcss-copy")({
       basePath: fontCatalog.basePath(),
       dest: DEST,
