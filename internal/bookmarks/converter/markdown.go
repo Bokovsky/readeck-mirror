@@ -23,6 +23,7 @@ import (
 	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/commonmark"
 	"github.com/JohannesKaufmann/html-to-markdown/v2/plugin/table"
 	"github.com/gabriel-vasile/mimetype"
+	"github.com/go-shiori/dom"
 	"golang.org/x/net/html"
 	"golang.org/x/net/idna"
 	"gopkg.in/yaml.v3"
@@ -75,7 +76,7 @@ func NewMarkdownExporter() MarkdownExporter {
 // If the request contains "Accept: multipart/alternative", it returns a multipart response
 // that contains images for the exported bookmarks.
 func (e MarkdownExporter) IterExport(ctx context.Context, w io.Writer, r *http.Request, bookmarkSeq *dataset.BookmarkIterator) error {
-	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
+	ctx = dataset.WithAnnotationTag(ctx, dataset.AnnotationTag, dataset.AnnotationCallback(true))
 
 	accepted := accept.NegotiateContentType(r.Header, []string{"text/markdown", "application/zip", "multipart/alternative"}, "text/markdown")
 	switch accepted {
@@ -381,6 +382,7 @@ func (s *html2mdAnnotationPlugin) Name() string {
 
 func (s *html2mdAnnotationPlugin) Init(conv *converter.Converter) error {
 	conv.Register.RendererFor(dataset.AnnotationTag, converter.TagTypeInline, s.render, converter.PriorityStandard)
+	conv.Register.PostRenderer(s.renderFootNotes, converter.PriorityStandard)
 	return nil
 }
 
@@ -389,6 +391,15 @@ func (s *html2mdAnnotationPlugin) render(ctx converter.Context, w converter.Writ
 	ctx.RenderChildNodes(ctx, buf, n)
 	content := buf.String()
 
+	if dom.HasAttribute(n, "title") {
+		notes := converter.GetState[[]string](ctx, "footnotes")
+		notes = append(notes, dom.GetAttribute(n, "title"))
+		converter.SetState(ctx, "footnotes", notes)
+
+		fmt.Fprintf(w, "[^%d]", len(notes)) // nolint:errcheck
+		return converter.RenderSuccess
+	}
+
 	if strings.TrimSpace(content) == "" {
 		w.WriteString(content) // nolint:errcheck
 		return converter.RenderSuccess
@@ -396,4 +407,19 @@ func (s *html2mdAnnotationPlugin) render(ctx converter.Context, w converter.Writ
 	w.WriteString("==" + content + "==") // nolint:errcheck
 
 	return converter.RenderSuccess
+}
+
+func (s *html2mdAnnotationPlugin) renderFootNotes(ctx converter.Context, content []byte) []byte {
+	notes := converter.GetState[[]string](ctx, "footnotes")
+	if len(notes) == 0 {
+		return content
+	}
+
+	b := bytes.NewBuffer(content)
+	b.WriteString("\n")
+	for i, txt := range notes {
+		fmt.Fprintf(b, "\n[^%d]: %s\n", i+1, txt)
+	}
+
+	return b.Bytes()
 }
