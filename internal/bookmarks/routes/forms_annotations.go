@@ -68,9 +68,9 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 
 	// Add annotation and store its text content
 	contents := &strings.Builder{}
-	err = annotation.AddToNode(root, bi.AnnotationTag, func(n *html.Node, index, ln int) {
+	err = annotation.AddToNode(root, dataset.AnnotationTag, func(n *html.Node, index, ln int) {
 		contents.WriteString(n.FirstChild.Data)
-		bi.AnnotationCallback(annotation, n, index, ln)
+		dataset.AnnotationCallback(false)(annotation, n, index, ln)
 	})
 	if err != nil {
 		return nil, err
@@ -85,7 +85,7 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 	}
 
 	b.Annotations.Add(annotation)
-	b.Annotations.Sort(root, bi.AnnotationTag)
+	b.Annotations.Sort(root, dataset.AnnotationTag)
 
 	err = b.Update(map[string]interface{}{
 		"annotations": b.Annotations,

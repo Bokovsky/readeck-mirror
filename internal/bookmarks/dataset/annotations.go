@@ -12,12 +12,44 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"github.com/go-shiori/dom"
+	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/db/scanner"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 )
+
+// AnnotationTag is the default HTML tag for highlights.
+const AnnotationTag = "rd-annotation"
+
+// AnnotationCallback returns a [bookmarks.AnnotationCallback] that adds the
+// necessary attributes and the note when "withNote" is true.
+func AnnotationCallback(withNote bool) bookmarks.AnnotationCallback {
+	return func(a *bookmarks.BookmarkAnnotation, n *html.Node, index, ln int) {
+		if index == 0 {
+			dom.SetAttribute(n, "id", "annotation-"+a.ID)
+		}
+		color := a.Color
+		if color == "" {
+			color = "yellow"
+		}
+		dom.SetAttribute(n, "data-annotation-id-value", a.ID)
+		dom.SetAttribute(n, "data-annotation-color", color)
+
+		// If there is a note, we add an extra, empty, rd-annotation tag that contains the note.
+		if withNote && a.Note != "" && index+1 == ln {
+			noteNode := dom.CreateElement(AnnotationTag)
+			dom.SetAttribute(noteNode, "data-annotation-id-value", a.ID)
+			dom.SetAttribute(noteNode, "data-annotation-note", "")
+			dom.SetAttribute(noteNode, "title", a.Note)
+			dom.SetAttribute(noteNode, "data-annotation-color", color)
+
+			n.Parent.InsertBefore(noteNode, n.NextSibling)
+		}
+	}
+}
 
 // AnnotationList is a collection of [Annotation] items.
 type AnnotationList struct {

@@ -380,7 +380,7 @@ func (s *html2mdAnnotationPlugin) Name() string {
 }
 
 func (s *html2mdAnnotationPlugin) Init(conv *converter.Converter) error {
-	conv.Register.RendererFor("rd-annotation", converter.TagTypeInline, s.render, converter.PriorityStandard)
+	conv.Register.RendererFor(dataset.AnnotationTag, converter.TagTypeInline, s.render, converter.PriorityStandard)
 	return nil
 }
 
