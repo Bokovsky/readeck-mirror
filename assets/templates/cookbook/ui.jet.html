@@ -169,6 +169,20 @@ Removable message
   class="field-h"
 ) }}
 
+{{ yield checkboxField(
+  field=.Form.Get("text"),
+  name="checkbox",
+  label="Checkbox",
+  class="field-h",
+) }}
+
+{{ yield timeTokenField(
+  field=.Form.Get("text"),
+  name="timetoken",
+  label="Time Token",
+  class="field-h",
+) }}
+
 {{ yield multiSelectField(
   field=.Form.Get("choices"),
   name="checkboxes",
@@ -182,15 +196,6 @@ Removable message
   label="Radio",
   class="field-h",
 ) }}
-
-{{ yield formField(
-  field=.Form.Get("text"),
-  name="file",
-  label="File Field",
-  class="field-h",
-) content }}
-  <input type="file" name="file" id="file">
-{{ end }}
 
 {{ yield fileDropField(
   field=.Form.Get("text"),
