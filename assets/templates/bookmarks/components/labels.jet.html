@@ -12,7 +12,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   <button class="ml-1 text-gray-600 hf:text-red-700 print:hidden"
    type="submit" name="remove_labels" value="{{ . }}"
    title="{{ gettext(`Remove label`) }}"
-  >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
+  >{{ yield icon(name="o-cross", svgClass="w-5") }}</button>
   </li>
 {{- end -}}
 </ul>

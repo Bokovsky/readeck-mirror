@@ -94,7 +94,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <dialog class="dialog-image font-sans" data-modal-images-target="dialog">
       <form method="dialog">
         <button class="dialog--close" title="{{ gettext(`Close`) }}">
-        {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+        {{ yield icon(name="o-close", svgClass="w-8") }}
         </button>
       </form>
       <div>
@@ -113,7 +113,7 @@ SPDX-License-Identifier: AGPL-3.0-only
          "
          data-action="click->scroll-progress#skip"
         >
-          {{- yield icon(name="o-expand", class="flex w-6 h-6", svgClass="w-6 h-6") -}}
+          {{- yield icon(name="o-expand", svgClass="h-6") -}}
         </button>
       </span>
     </template>
@@ -122,7 +122,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <dialog class="dialog-video font-sans" data-modal-videos-target="dialog">
       <form method="dialog">
         <button class="dialog--close" title="{{ gettext(`Close`) }}">
-        {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+        {{ yield icon(name="o-close", svgClass="w-8") }}
         </button>
       </form>
       <div>

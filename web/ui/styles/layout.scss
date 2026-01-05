@@ -93,7 +93,7 @@
       @apply rounded;
       @apply p-3;
       @apply text-gray-800 bg-gray-dark bg-opacity-5;
-      @apply hf:bg-opacity-15;
+      @apply hf:bg-opacity-15 active:bg-opacity-15;
       @apply data-current:bg-yellow-600 data-current:text-yellow-900;
 
       :is(.dark &) {
@@ -143,7 +143,7 @@
     }
 
     menu a {
-      @apply hf:text-primary data-current:font-bold data-current:text-primary-dark;
+      @apply hf:text-primary active:text-primary data-current:font-bold data-current:text-primary-dark;
       @apply flex items-center gap-1;
       @apply py-1 pl-1 mb-1.5 border-l-2 border-transparent hf:border-primary data-current:border-primary-dark;
 

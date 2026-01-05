@@ -96,12 +96,12 @@ if ('noModule' in HTMLScriptElement.prototype) {
            title="{{ gettext(`Change theme`) }}"
            class="text-gray-600 hf:text-gray-900">
             <span data-theme-target="icon">
-              {{ yield icon(name="o-theme-system", svgClass="w-6 h-6") }}
+              {{ yield icon(name="o-theme-system", svgClass="w-6") }}
             </span>
             <span class="sr-only">{{ gettext("Change theme") }}</span>
-            <template data-theme-target="iconLight">{{ yield icon(name="o-theme-light", svgClass="w-6 h-6") }}</template>
-            <template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark", svgClass="w-6 h-6") }}</template>
-            <template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system", svgClass="w-6 h-6") }}</template>
+            <template data-theme-target="iconLight">{{ yield icon(name="o-theme-light", svgClass="w-6") }}</template>
+            <template data-theme-target="iconDark">{{ yield icon(name="o-theme-dark", svgClass="w-6") }}</template>
+            <template data-theme-target="iconSystem">{{ yield icon(name="o-theme-system", svgClass="w-6") }}</template>
           </button>
         </div>
       </div>

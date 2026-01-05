@@ -152,6 +152,90 @@
     label[for] {
       @apply cursor-pointer;
     }
+
+    ul.field--errors {
+      @apply mt-1 pt-0 list-disc text-red-800;
+      padding-left: 1em;
+    }
+
+    .field--help {
+      @apply block mt-1 basis-full text-green-700;
+    }
+
+    .field--control {
+      @apply flex-grow min-w-0;
+      @apply flex flex-wrap items-center;
+
+      &.field--choices {
+        @apply block;
+      }
+    }
+
+    &.field--checkbox {
+      & > div > label {
+        @apply font-bold ml-1;
+      }
+    }
+
+    &.field--multiselect ul.field--choices {
+      @apply space-y-2;
+
+      li {
+        @apply space-x-1;
+      }
+    }
+
+    &.field--composed > div > .form-input {
+      @apply inline-flex gap-2;
+
+      & > input {
+        @apply w-0 flex-grow
+               hfw:ring-0 focus-visible:ring-0 focus-visible:bg-transparent
+               focus-visible:shadow-none focus-visible:outline-none
+               focus-visible:ring-offset-0;
+      }
+    }
+
+    &.field--password input {
+      @apply h-5;
+    }
+
+    &.field--timetoken > div > .form-input {
+      position: relative;
+      @apply inline-flex gap-2;
+    }
+
+    &.field--timetoken .timetoken {
+      @apply absolute top-full right-1 z-20 -mt-1 p-4 bg-gray-50 border rounded shadow-xl;
+
+      label {
+        @apply block mb-2;
+      }
+
+      & > div {
+        @apply flex;
+      }
+      .form-input[type="number"] {
+        @apply text-sm border-r-0 rounded-r-none;
+        max-width: 5em;
+      }
+
+      .form-select {
+        @apply text-sm rounded-l-none;
+      }
+
+      .form-input[type="date"] {
+        @apply text-sm w-full;
+      }
+    }
+
+    &.field--filedrop {
+      p {
+        @apply no-js:hidden
+               border-2 border-primary border-dashed rounded px-4 py-6
+               flex items-center justify-between gap-3;
+      }
+    }
   }
 
   // Horizontal field
@@ -163,7 +247,7 @@
     }
 
     & > label:first-child,
-    & > .field-spacer:first-child {
+    & > .field--spacer:first-child {
       padding-top: theme("spacing.2");
       flex-basis: theme("spacing.40");
       flex-shrink: 0;
@@ -171,6 +255,10 @@
       @screen lg {
         flex-basis: theme("spacing.60");
       }
+    }
+
+    & > div {
+      @apply flex-grow;
     }
 
     & > div > ul {
@@ -182,7 +270,7 @@
     @apply flex gap-2 items-baseline max-w-std;
 
     & > label:first-child,
-    & > .field-spacer:first-child {
+    & > .field--spacer:first-child {
       flex-shrink: 1;
     }
 
@@ -190,15 +278,14 @@
       flex-grow: 0;
       @apply min-w-32 ml-auto;
 
-      & > input,
-      & > select {
+      .form-input {
         flex-grow: 0;
       }
     }
   }
 
   // Field with an error
-  .field-err {
+  .field--err {
     @apply box-content p-2 -mx-2 rounded bg-red-100;
 
     .form-input,

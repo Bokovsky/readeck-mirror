@@ -140,7 +140,7 @@ SPDX-License-Identifier: AGPL-3.0-only
                 data-request-url-param="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`, x.ID) }}"
                 data-request-method-param="delete"
                 data-request-event-name-param="annotation-removed"
-                >{{ yield icon(name="o-cross", class="", svgClass="h-5 w-5") }}</button>
+                >{{ yield icon(name="o-cross", class="svgicon rounded-full bg-app-bg", svgClass="w-5 align-bottom") }}</button>
               </span>
               </li>
           {{- end -}}

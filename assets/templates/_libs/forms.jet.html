@@ -31,7 +31,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- block formField(field, name, label, help, class="", required=false, controlAttrs=attrList()) -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
-  {{- if field.Errors() -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- if field.Errors() -}}{{ class = class + " field--err" }}{{- end -}}
 
   <div class="field{{ if class }} {{ class }}{{ end }}">
     {{ if label -}}
@@ -43,16 +43,16 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
       </label>
     {{- end }}
-    <div class="flex-grow min-w-0" {{ controlAttrs }}>
+    <div {{ controlAttrs }}>
       {{ yield content }}
       {{ if field.Errors() }}
-        <ul id="errors-{{ name }}" class="mt-1 list-disc list-inside text-red-800">
+        <ul id="errors-{{ name }}" class="field--errors">
         {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
       {{ end }}
-      {{ if help }}<span id="description-{{ name }}" class="block mt-1 text-green-700">{{ help }}{{ end }}
+      {{ if help }}<span id="description-{{ name }}" class="field--help">{{ help }}{{ end }}
     </div>
   </div>
 {{- end -}}
@@ -62,6 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   field, value=nil, type="text", name, label, class="", required=false, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-input w-full"
 ) -}}
+  {{- class = "field--text " + class -}}
   {{- if type == "password" -}}
     {{ value = "" }}
   {{- else if value == nil -}}
@@ -92,11 +93,13 @@ SPDX-License-Identifier: AGPL-3.0-only
                      inputClass=inputClass) }}
 {{- end -}}
 
+
 {{- block textAreaField(
   field, value=nil, type="text", name, label, class="", required=false, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-textarea w-full",
   rows=3
 ) -}}
+  {{- class = "field--textarea " + class -}}
   {{ inputAttrs.Set("rows", rows) }}
   {{- if value == nil -}}
     {{ value = field.String() }}
@@ -118,34 +121,36 @@ SPDX-License-Identifier: AGPL-3.0-only
 {{- block checkboxField(
   field, checked=nil, name, label, class="", help
 ) -}}
+  {{- class = "field--checkbox " + class -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if checked == nil }}{{ checked = field.Value() }}{{ end -}}
   {{- if field.Errors() -}}{{ class = class + " with-errors" }}{{ end }}
   <div class="field{{ if class }} {{ class }}{{ end }}">
-    <span class="field-spacer">&nbsp;</span>
-    <div class="control">
+    <span class="field--spacer"></span>
+    <div>
       <input type="checkbox" id="{{ name }}" name="{{ name }}"
        class="form-checkbox" value="t"
        {{- if checked }} checked="checked"{{ end -}} />
       <input type="hidden" name="{{ name }}" value="f" />{* end with false so the field is bound *}
-      <label class="font-bold" for="{{ name }}">{{ label }}</label>
+      <label for="{{ name }}">{{ label }}</label>
       {{ if field.Errors() }}
-        <ul class="mt-1 list-disc list-inside text-red-800">
+        <ul class="field--errors">
         {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
       {{ end }}
-      {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
+      {{ if help }}<span class="field--help">{{ help }}{{ end }}
     </div>
   </div>
 {{- end -}}
 
 
 {{- block selectField(
-  field, value=nil, name, options, label, class, required, help,
+  field, value=nil, name, options, label, class="", required, help,
   controlAttrs=attrList(), inputAttrs=attrList(), inputClass="form-select w-full"
 ) -}}
+  {{- class = "field--select " + class -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
   {{- if value == nil -}}{{ value = field.Value() }}{{- end -}}
   {{- if !options -}}{{ options = field.Choices() }}{{- end -}}
@@ -165,23 +170,25 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- end -}}
 {{- end -}}
 
+
 {{- block multiSelectField(
-  field, name, label, class, help
+  field, name, label, class="", help
 ) -}}
+  {{- class = "field--multiselect " + class -}}
   {{- if !name -}}{{ name = field.Name() }}{{- end -}}
-  {{- if field.Errors() -}}{{ class = class + " field-err" }}{{- end -}}
+  {{- if field.Errors() -}}{{ class = class + " field--err" }}{{- end -}}
   {{- type := isList(field.V()) ? "checkbox" : "radio" -}}
   {{- inputClass := type == "radio" ? "form-radio" : "form-checkbox" -}}
   <div class="field{{ if class }} {{ class }}{{ end }}">
     <label>{{ label }}</label>
-    <div class="flex-grow">
+    <div>
       <input type="hidden" name="{{ name }}" value="&#xff00">{* null value to bind the field *}
-      <ul class="space-y-2">
+      <ul class="field--choices">
         {{- range field.Choices() -}}
-         <li class="space-x-1">
+         <li>
           <input type="{{ type }}" name="{{ name }}" id="{{ name }}_{{ .Value }}" value="{{ .Value }}"
            class="{{ inputClass }}"
-           aria-label="{{ label}}: {{ .Name }}"
+           aria-label="{{ label }}: {{ .Name }}"
            {{- if isList(field.V()) && .In(field.V()) || field.V() == .Value }} checked
            {{- end }}>
           <label for="{{ name }}_{{ .Value }}">{{ .Name }}</label>
@@ -189,21 +196,23 @@ SPDX-License-Identifier: AGPL-3.0-only
         {{- end -}}
       </ul>
       {{ if field.Errors() }}
-        <ul class="mt-1 list-disc list-inside text-red-800">
+        <ul class="field--errors">
         {{- range field.Errors() }}
           <li>{{ . }}</li>
         {{ end -}}
         </ul>
       {{ end }}
-      {{ if help }}<span class="block mt-1 text-green-700">{{ help }}{{ end }}
+      {{ if help }}<span class="field--help">{{ help }}{{ end }}
     </div>
   </div>
 {{- end -}}
+
 
 {{- block passwordField(
   field, value=nil, name, label, class="", required=false, help,
   inputClass="form-input w-full", inputAttrs=attrList(),
 ) -}}
+  {{- class = "field--text field--composed field--password " + class -}}
   {{- controlAttrs := attrList("data-controller", "pass-reveal") -}}
   {{- inputAttrs.Set("data-pass-reveal-target", "field") -}}
   {{- if required -}}
@@ -213,59 +222,64 @@ SPDX-License-Identifier: AGPL-3.0-only
 
   {{- yield formField(field=field, name=name, label=label, help=help, class=class,
                       required=required, controlAttrs=controlAttrs) content -}}
-    <div class="{{ inputClass }} inline-flex gap-2">
-      <input type="password" id="{{ name }}" name="{{ name }}" value=""
-       class="flex-grow hfw:ring-0 focus-visible:ring-0 focus-visible:bg-transparent
-       focus-visible:shadow-none focus-visible:outline-none focus-visible:ring-offset-0"
-       {{ inputAttrs }} />
+    <div class="{{ inputClass }}">
+      <input type="password" id="{{ name }}" name="{{ name }}" value="" {{ inputAttrs }} />
       <button type="button" data-pass-reveal-target="btn" data-action="pass-reveal#toggle"></button>
       <template data-pass-reveal-target="show">
-        {{- yield icon(name="o-show", class="svgicon", svgClass="") -}}
+        {{- yield icon(name="o-show", class="svgicon") -}}
       </template>
       <template data-pass-reveal-target="hide">
-        {{- yield icon(name="o-hide", class="svgicon", svgClass="") -}}
+        {{- yield icon(name="o-hide", class="svgicon") -}}
       </template>
     </div>
   {{- end -}}
 {{- end -}}
 
+
 {{- block timeTokenField(
-  field, value=nil, name, label, class, help, inputClass="form-input w-full",
+  field, value=nil, name, label, class, required=false, help,
+  controlAttrs=attrList(), inputClass="form-input w-full",
 ) -}}
   {{ value = field.String() }}
-  {{ class = class + " relative"}}
-  {{ inputAttrs := attrList("size", "5", "data-timetoken-target", "field") }}
-  {{ inputClass = inputClass + " pr-8" }}
-  {{ controlAttrs := attrList("data-controller", "timetoken", "data-timetoken-hidden-class", "hidden") }}
-  {{ yield textField(field=field, value=value, type="text", name=name,
-                     label=label, class=class, help=help,
-                     controlAttrs=controlAttrs, inputAttrs=inputAttrs,
-                     inputClass=inputClass) content -}}
-    <button type="button" class="-ml-6 mr-2" data-timetoken-target="btn">
-      {{- yield icon(name="o-calendar", class="svgicon", svgClass="") -}}
-    </button>
-    <template data-timetoken-target="template">
-      <div class="absolute top-full right-1 z-20 -mt-1 p-4 bg-gray-50 border rounded shadow-xl">
-        <label class="block mb-2">{{ gettext("The previous") }}:</label>
-        <div class="flex">
-          <input type="number" size="3" min="0"
-          class="form-input text-sm border-r-0 rounded-r-none"
-          data-timetoken-target="value"
-          data-action="timetoken#update">
-          <select class="form-select text-sm rounded-l-none"
-           data-action="timetoken#update"
-           data-timetoken-target="unit">
-            <option value="d">{{ gettext("Day(s)") }}</option>
-            <option value="w">{{ gettext("Week(s)") }}</option>
-            <option value="m">{{ gettext("Month(s)") }}</option>
-            <option value="y">{{ gettext("Year(s)") }}</option>
-          </select>
+  {{ class = "field--text field--composed field--timetoken " + class }}
+  {{ inputAttrs := attrList("data-timetoken-target", "field") }}
+  {{- if required -}}
+    {{ inputAttrs.Set("required", true) }}
+  {{- end -}}
+  {{- yield ariaAttrs(attrs=inputAttrs, field=field, name=name, help=help) -}}
+
+  {{- yield formField(field=field, name=name, label=label, help=help, class=class,
+                      required=required, controlAttrs=controlAttrs) content -}}
+    <div class="{{ inputClass }}"
+     data-controller="timetoken"
+     data-timetoken-hidden-class="hidden">
+      <input type="text" id="{{ name }}" name="{{ name }}" value="{{ value }}" {{ inputAttrs }}>
+      <button type="button" data-timetoken-target="btn">
+        {{- yield icon(name="o-calendar") -}}
+      </button>
+      <template data-timetoken-target="template">
+        <div class="timetoken">
+          <label>{{ gettext("The previous") }}:</label>
+          <div>
+            <input type="number" size="3" min="0"
+            class="form-input"
+            data-timetoken-target="value"
+            data-action="timetoken#update">
+            <select class="form-select"
+            data-action="timetoken#update"
+            data-timetoken-target="unit">
+              <option value="d">{{ gettext("Day(s)") }}</option>
+              <option value="w">{{ gettext("Week(s)") }}</option>
+              <option value="m">{{ gettext("Month(s)") }}</option>
+              <option value="y">{{ gettext("Year(s)") }}</option>
+            </select>
+          </div>
+          <p class="my-2">- {{ pgettext("word", "or") }} -</p>
+          <input type="date" class="form-input" data-action="timetoken#update" data-timetoken-target="absolute">
         </div>
-        <p class="my-2">- {{ pgettext("word", "or") }} -</p>
-        <input type="date" class="form-input text-sm w-full" data-action="timetoken#update" data-timetoken-target="absolute">
-      </div>
-    </template>
-  {{ end }}
+      </template>
+    </div>
+  {{- end -}}
 {{- end -}}
 
 {{- block fileDropField(
@@ -278,7 +292,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     label=label,
     help=help,
     required=required,
-    class=class,
+    class="field--filedrop " + class,
     inputClass="js:hidden",
     controlAttrs=attrList(
       "data-controller", "dropzone",
@@ -287,8 +301,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     ),
   ) content }}
     {{- if !name -}}{{ name = field.Name() }}{{- end -}}
-    <p class="no-js:hidden border-2 border-primary border-dashed rounded px-4 py-6 flex items-center justify-between gap-3"
-      data-dropzone-target="zone">
+    <p data-dropzone-target="zone">
       <button type="button" class="mx-auto link"
        data-dropzone-target="placeholder"
        data-action="click->dropzone#select">{{ gettext("Select or drop file") }}</button>
