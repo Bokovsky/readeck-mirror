@@ -655,7 +655,8 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 				"b.id", "b.uid", "b.created", "b.updated", "b.published", "b.state",
 				"b.url", "b.title", "b.domain", "b.site", "b.site_name", "b.authors",
 				"b.lang", "b.dir", "b.type", "b.is_marked", "b.is_archived", "b.read_progress",
-				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
+				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files",
+				"b.annotations").
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
