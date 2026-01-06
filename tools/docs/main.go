@@ -342,7 +342,9 @@ func main() {
 		if err != nil {
 			return err
 		}
-		if _, ok := available[strings.Split(rel, string(filepath.Separator))[0]]; !ok {
+
+		root := strings.Split(rel, string(filepath.Separator))[0]
+		if _, ok := available[root]; !ok && root != "img" {
 			return nil
 		}
 

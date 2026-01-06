@@ -188,7 +188,7 @@ docs-watch:
 		--build.bin "" \
 		--build.exclude_dir "" \
 		--build.include_file "CHANGELOG.md" \
-		--build.include_dir "docs/src/en-US,docs/translations,docs/api" \
+		--build.include_dir "docs/src/en,docs/translations,docs/api" \
 		--build.include_ext "md,png,po,svg,json,yaml" \
 		--build.delay 100
 
