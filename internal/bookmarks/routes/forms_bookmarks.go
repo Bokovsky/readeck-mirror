@@ -66,10 +66,10 @@ type createForm struct {
 	resources []tasks.MultipartResource
 }
 
-func newCreateForm(tr forms.Translator, userID int, requestID string) *createForm {
+func newCreateForm(r *http.Request) *createForm {
 	return &createForm{
 		Form: forms.Must(
-			forms.WithTranslator(context.Background(), tr),
+			forms.WithTranslator(context.Background(), server.Locale(r)),
 			forms.NewTextField("url",
 				forms.Trim,
 				forms.Required,
@@ -82,8 +82,8 @@ func newCreateForm(tr forms.Translator, userID int, requestID string) *createFor
 			forms.NewBooleanField("feature_find_main"),
 			forms.NewFileListField("resource"),
 		),
-		userID:    userID,
-		requestID: requestID,
+		userID:    auth.GetRequestUser(r).ID,
+		requestID: server.GetReqID(r),
 	}
 }
 

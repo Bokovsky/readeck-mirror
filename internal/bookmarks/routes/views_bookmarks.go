@@ -48,12 +48,16 @@ func (h *viewsRouter) withBaseContext(next http.Handler) http.Handler {
 }
 
 func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
-	f := newCreateForm(server.Locale(r), auth.GetRequestUser(r).ID, server.GetReqID(r))
+	f := newCreateForm(r)
 	tc := getBaseContext(r.Context())
 	tc["MaybeSearch"] = false
 
-	// POST => create a new bookmark
-	if r.Method == http.MethodPost {
+	switch r.Method {
+	case http.MethodGet:
+		// prepopulate the URL, no validation takes place at this point
+		f.Get("url").Set(r.URL.Query().Get("url"))
+	case http.MethodPost:
+		// POST => create a new bookmark
 		forms.Bind(f, r)
 		if f.IsValid() {
 			f.Get("created").Set(nil)
@@ -71,7 +75,6 @@ func (h *viewsRouter) bookmarkList(w http.ResponseWriter, r *http.Request) {
 				}
 				server.Redirect(w, r, redir...)
 				return
-
 			}
 		}
 
