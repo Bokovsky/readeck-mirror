@@ -273,6 +273,52 @@ func TestBookmarkCreate(t *testing.T) {
 				}),
 			},
 		},
+		{
+			"html content provided form data",
+			[]TestOption{
+				WithBody(url.Values{
+					"url":  {"https://example.org/"},
+					"html": {"<p>test"},
+				}),
+				AssertStatus(202),
+				WithAssert(assertTask),
+				WithAssert(assertResource),
+			},
+		},
+		{
+			"html content provided json",
+			[]TestOption{
+				WithBody(map[string]string{
+					"url":  "https://example.org/",
+					"html": "<p>test",
+				}),
+				AssertStatus(202),
+				WithAssert(assertTask),
+				WithAssert(assertResource),
+			},
+		},
+		{
+			"html content provided multipart",
+			[]TestOption{
+				//nolint:errcheck
+				func(rt *RequestTest) {
+					buf := new(bytes.Buffer)
+					mp := multipart.NewWriter(buf)
+					mp.WriteField("url", "https://example.org/")
+
+					p, _ := mp.CreateFormFile("html", "index.html")
+					io.Copy(p, strings.NewReader("<p>test"))
+
+					mp.Close()
+
+					rt.Header.Add("Content-Type", mp.FormDataContentType())
+					rt.Body = buf
+				},
+				AssertStatus(202),
+				WithAssert(assertTask),
+				WithAssert(assertResource),
+			},
+		},
 	}
 
 	for _, test := range tests {

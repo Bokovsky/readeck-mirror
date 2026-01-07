@@ -91,6 +91,7 @@ func newCreateForm(r *http.Request) *createForm {
 			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 			forms.NewDatetimeField("created", forms.Trim),
 			forms.NewBooleanField("feature_find_main"),
+			forms.NewFileField("html"),
 			forms.NewFileListField("resource"),
 		),
 		userID:    auth.GetRequestUser(r).ID,
@@ -171,6 +172,29 @@ func LoadMultipartResource(opener forms.FileOpener, res *tasks.MultipartResource
 
 func (f *createForm) Validate() {
 	if !f.IsValid() {
+		return
+	}
+
+	// Load the html when provided.
+	if !f.Get("html").IsEmpty() {
+		opener := f.Get("html").(forms.TypedField[forms.FileOpener]).V()
+
+		// The html field is exactly a resource for the main page,
+		// set its properties now so we only need to read its content.
+		resource := tasks.MultipartResource{
+			URL: f.Get("url").String(),
+			Header: http.Header{
+				"Content-Type": {"text/html"},
+			},
+		}
+		if err := LoadMultipartResource(opener, &resource); err != nil {
+			f.AddErrors("", forms.Gettext("Unable to process input data"))
+			return
+		}
+
+		f.resources = append(f.resources, resource)
+
+		// This is final and "resource" values are ignored.
 		return
 	}
 
