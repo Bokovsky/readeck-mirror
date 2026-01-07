@@ -38,6 +38,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/email"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/sessions"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 type fixtureData struct {
@@ -710,4 +711,23 @@ func (r *Response) AssertJSON(t *testing.T, expected string) {
 		t.Errorf("Received JSON: %s\n", string(r.Body))
 		t.FailNow()
 	}
+}
+
+// GetTaskPayload returns a decoded task payload.
+func GetTaskPayload[T any](t *testing.T, name string, task superbus.Task) T {
+	data := Store().Get(name)
+	if data == "" {
+		t.Fatal("empty task data")
+	}
+
+	p := superbus.Payload{}
+	if err := json.Unmarshal([]byte(data), &p); err != nil {
+		t.Fatal(err)
+	}
+
+	res, ok := task.Unmarshal(p.Data).(T)
+	if !ok {
+		t.Fatal("invalid payload type")
+	}
+	return res
 }
