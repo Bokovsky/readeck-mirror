@@ -11,6 +11,7 @@ import (
 	"io"
 	"mime/multipart"
 	"net/http"
+	"net/textproto"
 	"net/url"
 	"strings"
 	"testing"
@@ -85,6 +86,15 @@ func TestBookmarkCreate(t *testing.T) {
 		rsp.Request = rsp.Request.WithContext(ctx)
 	}
 
+	assertResource := func(t *testing.T, rsp *Response) {
+		assert := require.New(t)
+		params := getTaskParams(rsp.Request.Context())
+		assert.Len(params.Resources, 1)
+		assert.Equal("https://example.org/", params.Resources[0].URL)
+		assert.Equal("text/html", params.Resources[0].Header.Get("Content-Type"))
+		assert.Equal("<p>test", string(params.Resources[0].Data))
+	}
+
 	tests := []struct {
 		name    string
 		options []TestOption
@@ -130,7 +140,7 @@ func TestBookmarkCreate(t *testing.T) {
 			},
 		},
 		{
-			"multipart resources",
+			"legacy multipart resources",
 			[]TestOption{
 				//nolint:errcheck
 				func(rt *RequestTest) {
@@ -157,17 +167,11 @@ func TestBookmarkCreate(t *testing.T) {
 				},
 				AssertStatus(202),
 				WithAssert(assertTask),
-				WithAssert(func(t *testing.T, rsp *Response) {
-					assert := require.New(t)
-					params := getTaskParams(rsp.Request.Context())
-					assert.Len(params.Resources, 1)
-					assert.Equal("https://example.org/", params.Resources[0].URL)
-					assert.Equal("text/html", params.Resources[0].Header.Get("content-type"))
-				}),
+				WithAssert(assertResource),
 			},
 		},
 		{
-			"multipart resources no payload",
+			"legacy multipart resources no payload",
 			[]TestOption{
 				//nolint:errcheck
 				func(rt *RequestTest) {
@@ -191,7 +195,7 @@ func TestBookmarkCreate(t *testing.T) {
 			},
 		},
 		{
-			"multipart resources no payload URL",
+			"legacy multipart resources no payload URL",
 			[]TestOption{
 				//nolint:errcheck
 				func(rt *RequestTest) {
@@ -201,6 +205,60 @@ func TestBookmarkCreate(t *testing.T) {
 
 					p, _ := mp.CreateFormFile("resource", "index.html")
 					fmt.Fprintln(p, "{}")
+					io.Copy(p, strings.NewReader("<p>test"))
+
+					mp.Close()
+
+					rt.Header.Add("Content-Type", mp.FormDataContentType())
+					rt.Body = buf
+				},
+				AssertStatus(202),
+				WithAssert(assertTask),
+				WithAssert(func(t *testing.T, rsp *Response) {
+					require.Empty(t, getTaskParams(rsp.Request.Context()).Resources)
+				}),
+			},
+		},
+		{
+			"new format multipart resources",
+			[]TestOption{
+				//nolint:errcheck
+				func(rt *RequestTest) {
+					buf := new(bytes.Buffer)
+					mp := multipart.NewWriter(buf)
+					mp.WriteField("url", "https://example.org/")
+
+					h := textproto.MIMEHeader{}
+					h.Set("Content-Disposition", multipart.FileContentDisposition("resource", "_"))
+					h.Set("Location", "https://example.org/")
+					h.Set("Content-Type", "text/html")
+					p, _ := mp.CreatePart(h)
+
+					io.Copy(p, strings.NewReader("<p>test"))
+
+					mp.Close()
+
+					rt.Header.Add("Content-Type", mp.FormDataContentType())
+					rt.Body = buf
+				},
+				AssertStatus(202),
+				WithAssert(assertTask),
+				WithAssert(assertResource),
+			},
+		},
+		{
+			"new format multipart no location",
+			[]TestOption{
+				//nolint:errcheck
+				func(rt *RequestTest) {
+					buf := new(bytes.Buffer)
+					mp := multipart.NewWriter(buf)
+					mp.WriteField("url", "https://example.org/")
+
+					h := textproto.MIMEHeader{}
+					h.Set("Content-Disposition", multipart.FileContentDisposition("resource", "_"))
+					p, _ := mp.CreatePart(h)
+
 					io.Copy(p, strings.NewReader("<p>test"))
 
 					mp.Close()
