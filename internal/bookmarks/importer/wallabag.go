@@ -122,11 +122,16 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 		wa.Headers["Content-Type"], _, _ = strings.Cut(v, ";")
 	}
 
+	h := make(http.Header)
+	for k, v := range wa.Headers {
+		h.Set(k, v)
+	}
+
 	return []tasks.MultipartResource{
 		{
-			URL:     wa.ArticleURL,
-			Headers: wa.Headers,
-			Data:    buf.Bytes(),
+			URL:    wa.ArticleURL,
+			Header: h,
+			Data:   buf.Bytes(),
 		},
 	}
 }

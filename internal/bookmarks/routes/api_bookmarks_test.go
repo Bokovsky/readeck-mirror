@@ -162,7 +162,7 @@ func TestBookmarkCreate(t *testing.T) {
 					params := getTaskParams(rsp.Request.Context())
 					assert.Len(params.Resources, 1)
 					assert.Equal("https://example.org/", params.Resources[0].URL)
-					assert.Equal("text/html", params.Resources[0].Headers["content-type"])
+					assert.Equal("text/html", params.Resources[0].Header.Get("content-type"))
 				}),
 			},
 		},

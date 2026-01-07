@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"io"
 	"log/slog"
+	"maps"
 	"net/http"
 	"sync"
 )
@@ -59,9 +60,10 @@ func (t *CacheTransport) addEntry(url string, header http.Header, body []byte) {
 	defer t.Unlock()
 
 	t.entries[url] = &cacheResource{
-		header: header,
 		body:   body,
+		header: make(http.Header),
 	}
+	maps.Copy(t.entries[url].header, header)
 }
 
 // hasEntry returns true when the given url exists in the cache.

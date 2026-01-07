@@ -59,6 +59,11 @@ const (
 
 type orderExpressionList []goquexp.OrderedExpression
 
+type multipartResourceInfo struct {
+	URL     string            `json:"url"`
+	Headers map[string]string `json:"headers"`
+}
+
 type createForm struct {
 	*forms.Form
 	userID    int
@@ -106,13 +111,19 @@ func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.Mu
 	if line, err = bio.ReadBytes('\n'); err != nil {
 		return
 	}
-	if err = json.Unmarshal(line, &res); err != nil {
+	info := new(multipartResourceInfo)
+	if err = json.Unmarshal(line, info); err != nil {
 		return
 	}
 
-	if res.URL == "" {
+	if info.URL == "" {
 		err = errors.New("No resource URL")
 		return
+	}
+	res.URL = info.URL
+	res.Header = make(http.Header)
+	for k, v := range info.Headers {
+		res.Header.Set(k, v)
 	}
 
 	// Read the rest (the content)
