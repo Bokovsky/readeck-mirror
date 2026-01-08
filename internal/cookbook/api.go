@@ -7,20 +7,18 @@ package cookbook
 import (
 	"context"
 	"fmt"
-	"io"
 	"io/fs"
 	"log/slog"
 	"net/http"
-	"net/textproto"
 	"path"
 	"runtime"
-	"strings"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	bookmark_routes "codeberg.org/readeck/readeck/internal/bookmarks/routes"
 	bookmark_tasks "codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/internal/httpclient"
 	"codeberg.org/readeck/readeck/internal/server"
@@ -61,29 +59,9 @@ func newExtractForm() *extractForm {
 	return &extractForm{forms.Must(
 		context.Background(),
 		forms.NewTextField("url", forms.Required, forms.MaxLen(1024), forms.IsURL("http", "https")),
-		forms.NewFileField("data"),
+		forms.NewFileField("html"),
 	)}
 }
-
-func (f *extractForm) bind(r *http.Request) {
-	forms.BindURL(f, r)
-	if !f.IsValid() || r.Method == http.MethodGet {
-		return
-	}
-
-	if strings.HasPrefix(r.Header.Get("Content-Type"), "text/") {
-		f.Get("data").Set(&bodyOpener{r})
-	}
-}
-
-type bodyOpener struct {
-	r *http.Request
-}
-
-func (o *bodyOpener) Open() (io.ReadCloser, error) { return o.r.Body, nil }
-func (o *bodyOpener) Filename() string             { return "" }
-func (o *bodyOpener) Size() int64                  { return o.r.ContentLength }
-func (o *bodyOpener) Header() textproto.MIMEHeader { return textproto.MIMEHeader(o.r.Header) }
 
 func (api *cookbookAPI) getExtractor(uri string, r *http.Request) *extract.Extractor {
 	proxyList := make([]extract.ProxyMatcher, len(configs.Config.Extractor.ProxyMatch))
@@ -192,7 +170,7 @@ func (api *cookbookAPI) getExtractResult(ex *extract.Extractor) *extractResult {
 
 func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 	f := newExtractForm()
-	f.bind(r)
+	forms.Bind(f, r)
 
 	if !f.IsValid() {
 		server.Render(w, r, http.StatusUnprocessableEntity, f)
@@ -201,29 +179,25 @@ func (api *cookbookAPI) extract(w http.ResponseWriter, r *http.Request) {
 
 	ex := api.getExtractor(f.Get("url").String(), r)
 
-	if !f.Get("data").IsNil() {
-		fd, err := f.Get("data").(*forms.FileField).V().Open()
-		if err != nil {
-			panic(err)
+	if !f.Get("html").IsEmpty() {
+		opener := f.Get("html").(forms.TypedField[forms.FileOpener]).V()
+
+		resource := bookmark_tasks.MultipartResource{
+			URL:    f.Get("url").String(),
+			Header: http.Header{"Content-Type": {"text/html"}},
 		}
-		defer fd.Close() //nolint:errcheck
-		if content, err := io.ReadAll(fd); err == nil {
-			httpclient.AddToCache(
-				ex.Client(),
-				f.Get("url").String(),
-				http.Header{
-					"Content-Type": []string{"text/html"},
-				},
-				content,
-			)
-		} else {
-			slog.Error("caching body", slog.Any("err", err))
+		if err := bookmark_routes.LoadMultipartResource(opener, &resource); err != nil {
+			f.AddErrors("html", err)
+			server.Render(w, r, http.StatusUnprocessableEntity, f)
+			return
 		}
+
+		httpclient.AddToCache(ex.Client(), resource.URL, resource.Header, resource.Data)
 	}
 
 	res := api.getExtractResult(ex)
 
-	// Very rough but good enough for our tests
+	// Return HTML if Accept is text/html
 	accepted := accept.NegotiateContentType(r.Header, []string{"application/json", "text/html"}, "application/json")
 	if accepted == "text/html" {
 		w.Header().Set("Content-Type", "text/html; charset=utf-8")

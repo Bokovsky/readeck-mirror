@@ -296,6 +296,11 @@ func WithTaskDelay(d int) TaskOption {
 	}
 }
 
+// Unmarshal returns a decoded task's payload.
+func (t Task) Unmarshal(data []byte) any {
+	return t.unmarshallData(data)
+}
+
 // Run launches the task.
 func (t Task) Run(id interface{}, data interface{}) error {
 	t.Log().Info("starting task", slog.Any("id", id))

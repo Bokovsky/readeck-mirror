@@ -129,8 +129,8 @@ func (n *omnivoreAPINode) Resources() []tasks.MultipartResource {
 		{
 			URL:  n.ItemURL,
 			Data: buf.Bytes(),
-			Headers: map[string]string{
-				"Content-Type": "text/html; charset=utf-8",
+			Header: http.Header{
+				"Content-Type": {"text/html; charset=utf-8"},
 			},
 		},
 	}

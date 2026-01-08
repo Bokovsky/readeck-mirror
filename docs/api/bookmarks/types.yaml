@@ -299,6 +299,13 @@ schemas:
           Creation date
 
           This is optional and defaults to the current time.
+      html:
+        type: string
+        format: binary
+        description: |
+          The page's HTML source code. When provided, its value is used and Readeck doesn't
+          fetch the remote page.\
+          **Can't be used alongside the `resource` parameter**
 
   bookmarkUpdate:
     properties:

@@ -28,6 +28,7 @@ components:
       - "oauth/types.yaml#.schemas"
       - "bookmarks/types.yaml#.schemas"
       - "profile/types.yaml#.schemas"
+      - "cookbook/routes.yaml#.schemas"
 
 security:
   - bearer: []

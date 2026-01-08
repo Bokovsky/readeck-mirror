@@ -994,10 +994,8 @@ func TestWallabag(t *testing.T) {
 			string(resources[0].Data),
 		)
 
-		for key, value := range resources[0].Headers {
-			if strings.EqualFold(key, "content-type") {
-				require.NotContains(value, "charset=")
-			}
+		if ct := resources[0].Header.Get("content-type"); ct != "" {
+			require.NotContains(ct, "charset=")
 		}
 	}
 }

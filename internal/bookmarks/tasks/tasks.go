@@ -59,9 +59,9 @@ var (
 type (
 	// MultipartResource contains information loaded from a form/multipart request body.
 	MultipartResource struct {
-		URL     string            `json:"url"`
-		Headers map[string]string `json:"headers"`
-		Data    []byte            `json:"data"`
+		URL    string      `json:"url"`
+		Header http.Header `json:"headers"`
+		Data   []byte      `json:"data"`
 	}
 
 	// ExtractParams contains the extraction parameters.
@@ -280,11 +280,7 @@ func extractPageHandler(data interface{}) {
 
 	for _, x := range params.Resources {
 		// Inject resource in client's cache
-		headers := http.Header{}
-		for k, v := range x.Headers {
-			headers.Set(k, v)
-		}
-		httpclient.AddToCache(ex.Client(), x.URL, headers, x.Data)
+		httpclient.AddToCache(ex.Client(), x.URL, x.Header, x.Data)
 	}
 
 	ex.AddProcessors(

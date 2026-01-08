@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
 	"slices"
@@ -41,6 +42,11 @@ import (
 
 var validSchemes = []string{"http", "https"}
 
+var (
+	errNoResourceURL     = errors.New("no resource URL")
+	errNoResourceContent = errors.New("No resource content")
+)
+
 const (
 	filtersTitleUnset = iota
 	filtersTitleUnread
@@ -59,6 +65,11 @@ const (
 
 type orderExpressionList []goquexp.OrderedExpression
 
+type multipartResourceInfo struct {
+	URL     string            `json:"url"`
+	Headers map[string]string `json:"headers"`
+}
+
 type createForm struct {
 	*forms.Form
 	userID    int
@@ -66,10 +77,10 @@ type createForm struct {
 	resources []tasks.MultipartResource
 }
 
-func newCreateForm(tr forms.Translator, userID int, requestID string) *createForm {
+func newCreateForm(r *http.Request) *createForm {
 	return &createForm{
 		Form: forms.Must(
-			forms.WithTranslator(context.Background(), tr),
+			forms.WithTranslator(context.Background(), server.Locale(r)),
 			forms.NewTextField("url",
 				forms.Trim,
 				forms.Required,
@@ -80,52 +91,83 @@ func newCreateForm(tr forms.Translator, userID int, requestID string) *createFor
 			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 			forms.NewDatetimeField("created", forms.Trim),
 			forms.NewBooleanField("feature_find_main"),
+			forms.NewFileField("html"),
 			forms.NewFileListField("resource"),
 		),
-		userID:    userID,
-		requestID: requestID,
+		userID:    auth.GetRequestUser(r).ID,
+		requestID: server.GetReqID(r),
 	}
 }
 
-// newMultipartResource returns a new instance of multipartResource from
-// a [forms.FileOpener]. The input MUST contain a JSON payload on the first line
-// (with the url and headers) and the data on the remaining lines.
-func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.MultipartResource, err error) {
+// LoadMultipartResource loads a [forms.FileOpener] into the provided [tasks.MultipartResource].
+// Unless the resource already has a URL property, the file part MUST provide a Location header
+// with the URL of the resource to load.
+// Alternatively it can be the previously supported format that contains a JSON payload
+// on the first line (with the url and headers) and the data on the remaining lines.
+func LoadMultipartResource(opener forms.FileOpener, res *tasks.MultipartResource) error {
 	var r io.ReadCloser
-	r, err = opener.Open()
+	r, err := opener.Open()
 	if err != nil {
-		return
+		return err
 	}
 	defer r.Close() // nolint:errcheck
+
+	readContent := func(r io.Reader) error {
+		res.Data, err = io.ReadAll(r)
+		if err != nil {
+			return err
+		}
+		if len(res.Data) == 0 {
+			return errNoResourceContent
+		}
+		return nil
+	}
+
+	// Never carry empty headers
+	if res.Header == nil {
+		res.Header = make(http.Header)
+	}
+
+	// URL defined? load the body and return
+	if res.URL != "" {
+		return readContent(r)
+	}
 
 	const bufSize = 256 << 10 // In KiB
 	bio := bufio.NewReaderSize(r, bufSize)
 
-	// Read the first line containing the JSON metadata
-	var line []byte
-	if line, err = bio.ReadBytes('\n'); err != nil {
-		return
-	}
-	if err = json.Unmarshal(line, &res); err != nil {
-		return
+	location := opener.Header().Get("Location")
+	if location == "" {
+		// no location given, it must be a legacy format with a JSON starting line
+		if c, _ := bio.Peek(1); len(c) > 0 && c[0] == '{' {
+			var line []byte
+			if line, err = bio.ReadBytes('\n'); err != nil {
+				return err
+			}
+			info := new(multipartResourceInfo)
+			if err = json.Unmarshal(line, info); err != nil {
+				return err
+			}
+			if info.URL == "" {
+				return errNoResourceURL
+			}
+			res.URL = info.URL
+			for k, v := range info.Headers {
+				res.Header.Set(k, v)
+			}
+			return readContent(bio)
+		}
+
+		return errNoResourceURL
 	}
 
-	if res.URL == "" {
-		err = errors.New("No resource URL")
-		return
-	}
+	// New format, using part headers directly
+	res.URL = location
+	maps.Copy(res.Header, opener.Header())
+	res.Header.Del("Content-Disposition")
+	res.Header.Del("Location")
 
-	// Read the rest (the content)
-	res.Data, err = io.ReadAll(bio)
-	if err != nil {
-		return
-	}
-	if len(res.Data) == 0 {
-		err = errors.New("No resource content")
-		return
-	}
-
-	return
+	return readContent(bio)
 }
 
 func (f *createForm) Validate() {
@@ -133,13 +175,36 @@ func (f *createForm) Validate() {
 		return
 	}
 
+	// Load the html when provided.
+	if !f.Get("html").IsEmpty() {
+		opener := f.Get("html").(forms.TypedField[forms.FileOpener]).V()
+
+		// The html field is exactly a resource for the main page,
+		// set its properties now so we only need to read its content.
+		resource := tasks.MultipartResource{
+			URL: f.Get("url").String(),
+			Header: http.Header{
+				"Content-Type": {"text/html"},
+			},
+		}
+		if err := LoadMultipartResource(opener, &resource); err != nil {
+			f.AddErrors("", forms.Gettext("Unable to process input data"))
+			return
+		}
+
+		f.resources = append(f.resources, resource)
+
+		// This is final and "resource" values are ignored.
+		return
+	}
+
 	// Load all the resources passed in the "resource" field.
 	for _, opener := range f.Get("resource").(forms.TypedField[[]forms.FileOpener]).V() {
-		resource, err := f.newMultipartResource(opener)
+		resource := tasks.MultipartResource{}
+		err := LoadMultipartResource(opener, &resource)
 		if err != nil {
 			if f.Get("url").String() != resource.URL {
-				// As long as the content is not from the requested URL
-				// we can ignore an empty value.
+				// As long as the error is not from the requested URL we can ignore it.
 				continue
 			}
 			f.AddErrors("", forms.Gettext("Unable to process input data"))
