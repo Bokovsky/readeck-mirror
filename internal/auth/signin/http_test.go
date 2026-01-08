@@ -10,10 +10,12 @@ import (
 	"testing"
 	"time"
 
+	"github.com/doug-martin/goqu/v9"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/totp"
 
+	"codeberg.org/readeck/readeck/internal/auth/users"
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
@@ -75,6 +77,25 @@ func TestSignin(t *testing.T) {
 				)
 			})
 		}
+	})
+
+	t.Run("last_login update", func(t *testing.T) {
+		client := app.Client()
+		now := time.Now().UTC()
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/login"),
+			WithBody(url.Values{
+				"username": {"user"},
+				"password": {"user"},
+			}),
+			AssertStatus(303),
+			WithAssert(func(t *testing.T, _ *Response) {
+				user, _ := users.Users.GetOne(goqu.C("username").Eq("user"))
+				require.True(t, user.LastLogin.After(now))
+			}),
+		)
 	})
 
 	t.Run("logout view", func(t *testing.T) {

@@ -55,6 +55,7 @@ type User struct {
 	UID        string        `db:"uid"`
 	Created    time.Time     `db:"created" goqu:"skipupdate"`
 	Updated    time.Time     `db:"updated"`
+	LastLogin  time.Time     `db:"last_login"`
 	Username   string        `db:"username"`
 	Email      string        `db:"email"`
 	Password   string        `db:"password"`

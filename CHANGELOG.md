@@ -7,6 +7,7 @@
 - mTLS for HTTPS listener
 - Bookmark properties editor
 - Highlights with annotations
+- User's last login date and time
 
 ### Improved
 - Enabled theme toggle for public bookmarks, by [@shom](https://shom.dev)
