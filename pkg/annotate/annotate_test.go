@@ -637,7 +637,7 @@ func TestAddAnnotation(t *testing.T) {
 
 			var err error
 			for j, a := range test.annotations {
-				err = AddAnnotation(root, "my-annotation", a.startSelector, a.startOffset, a.endSelector, a.endOffset, func(n *html.Node, _ int) {
+				err = AddAnnotation(root, "my-annotation", a.startSelector, a.startOffset, a.endSelector, a.endOffset, func(n *html.Node, _, _ int) {
 					dom.SetAttribute(n, "data-annotation-id", strconv.Itoa(j))
 				})
 				if err != nil {

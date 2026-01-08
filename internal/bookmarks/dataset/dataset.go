@@ -34,19 +34,17 @@ var (
 )
 
 // WithAnnotationTag adds to context the annotation tag and callback function.
-func WithAnnotationTag(ctx context.Context, tag string, callback annotationCallback) context.Context {
+func WithAnnotationTag(ctx context.Context, tag string, callback bookmarks.AnnotationCallback) context.Context {
 	ctx = context.WithValue(ctx, ctxAnnotationTagKey{}, tag)
 	ctx = context.WithValue(ctx, ctxAnnotationCallbackKey{}, callback)
 	return ctx
 }
 
-func getAnnotationTag(ctx context.Context) (tag string, callback annotationCallback) {
+func getAnnotationTag(ctx context.Context) (tag string, callback bookmarks.AnnotationCallback) {
 	tag, _ = ctx.Value(ctxAnnotationTagKey{}).(string)
-	callback, _ = ctx.Value(ctxAnnotationCallbackKey{}).(annotationCallback)
+	callback, _ = ctx.Value(ctxAnnotationCallbackKey{}).(bookmarks.AnnotationCallback)
 	return
 }
-
-type annotationCallback func(id string, n *html.Node, index int, color string)
 
 // HTMLConverter provides HTML conversion and content retrieval tooling.
 type HTMLConverter struct{}

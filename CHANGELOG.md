@@ -6,6 +6,7 @@
 - Forwarded authentication
 - mTLS for HTTPS listener
 - Bookmark properties editor
+- Highlights with annotations
 
 ### Improved
 - Enabled theme toggle for public bookmarks, by [@shom](https://shom.dev)

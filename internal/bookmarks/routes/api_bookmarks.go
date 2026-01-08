@@ -72,13 +72,14 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 				"HTML": buf,
 				"Out":  w,
 			},
-			nil,
+			map[string]string{"method": "morph"},
 		)
 		server.RenderTurboStream(w, r,
-			"/bookmarks/components/sidebar", "replace",
-			"bookmark-sidebar-"+b.UID, map[string]interface{}{
+			"/bookmarks/components/annotation_list", "replace",
+			"bookmark-annotation-list-"+b.UID, map[string]interface{}{
 				"Item": bi,
-			}, nil,
+			},
+			map[string]string{"method": "morph"},
 		)
 		return
 	}
@@ -429,6 +430,9 @@ func (api *apiRouter) annotationUpdate(w http.ResponseWriter, r *http.Request) {
 
 	annotation := b.Annotations.Get(id)
 	annotation.Color = f.Get("color").String()
+	if !f.Get("note").IsNil() {
+		annotation.Note = f.Get("note").String()
+	}
 	update := map[string]any{
 		"annotations": b.Annotations,
 	}
@@ -651,7 +655,8 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 				"b.id", "b.uid", "b.created", "b.updated", "b.published", "b.state",
 				"b.url", "b.title", "b.domain", "b.site", "b.site_name", "b.authors",
 				"b.lang", "b.dir", "b.type", "b.is_marked", "b.is_archived", "b.read_progress",
-				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
+				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files",
+				"b.annotations").
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)

@@ -13,6 +13,7 @@
 @include meta.load-css("styles/colors");
 @include meta.load-css("styles/base");
 
+@include meta.load-css("styles/annotations");
 @include meta.load-css("styles/button");
 @include meta.load-css("styles/bookmark-list");
 @include meta.load-css("styles/breadcrumbs");

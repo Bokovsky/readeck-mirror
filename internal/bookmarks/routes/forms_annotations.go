@@ -26,6 +26,7 @@ func newAnnotationUpdateForm(tr forms.Translator) *forms.Form {
 	return forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("color", forms.Trim, forms.Required, forms.MaxLen(32)),
+		forms.NewTextField("note", forms.Trim, forms.MaxLen(1024)),
 	)
 }
 
@@ -37,6 +38,7 @@ func newAnnotationForm(tr forms.Translator) *annotationForm {
 		forms.NewTextField("end_selector", forms.Required, forms.Trim, forms.MaxLen(256)),
 		forms.NewIntegerField("end_offset", forms.Required, forms.Gte(0)),
 		forms.NewTextField("color", forms.Required, forms.Trim, forms.MaxLen(32)),
+		forms.NewTextField("note", forms.Trim, forms.MaxLen(1024)),
 	)}
 }
 
@@ -49,6 +51,7 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 		EndOffset:     f.Get("end_offset").Value().(int),
 		Color:         f.Get("color").String(),
 		Created:       time.Now().UTC(),
+		Note:          f.Get("note").String(),
 	}
 
 	// Try to insert the new annotation
@@ -65,9 +68,9 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 
 	// Add annotation and store its text content
 	contents := &strings.Builder{}
-	err = annotation.AddToNode(root, bi.AnnotationTag, func(n *html.Node, index int) {
+	err = annotation.AddToNode(root, dataset.AnnotationTag, func(n *html.Node, index, ln int) {
 		contents.WriteString(n.FirstChild.Data)
-		bi.AnnotationCallback(annotation.ID, n, index, annotation.Color)
+		dataset.AnnotationCallback(false)(annotation, n, index, ln)
 	})
 	if err != nil {
 		return nil, err
@@ -82,7 +85,7 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 	}
 
 	b.Annotations.Add(annotation)
-	b.Annotations.Sort(root, bi.AnnotationTag)
+	b.Annotations.Sort(root, dataset.AnnotationTag)
 
 	err = b.Update(map[string]interface{}{
 		"annotations": b.Annotations,

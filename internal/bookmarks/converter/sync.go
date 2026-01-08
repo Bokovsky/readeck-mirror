@@ -100,7 +100,7 @@ func (e SyncExporter) IterExport(ctx context.Context, w io.Writer, _ *http.Reque
 		w.Header().Set("Content-Type", `multipart/mixed; boundary="`+mp.Boundary()+`"`)
 	}
 
-	ctx = dataset.WithAnnotationTag(ctx, "rd-annotation", nil)
+	ctx = dataset.WithAnnotationTag(ctx, dataset.AnnotationTag, nil)
 
 	for b, err := range bookmarkSeq.Items {
 		if err != nil {
@@ -230,13 +230,14 @@ func (e SyncExporter) writeMarkdown(ctx context.Context, mp *multipart.Writer, b
 	intro.WriteString("---\n\n")
 
 	if img, ok := b.Files["image"]; ok {
-		fmt.Fprintf(intro, "![](%s)\n\n", e.urlReplacer(b)(b.Bookmark)(path.Base(img.Name)))
+		fmt.Fprintf(intro, "![](%s)\n\n", e.urlReplacer(b)(b.Bookmark)(img.Name))
 	}
 
 	if b.DocumentType == "video" {
 		fmt.Fprintf(intro, "[Video on %s](%s)\n\n", b.SiteName, b.URL)
 	}
 
+	ctx = dataset.WithAnnotationTag(ctx, dataset.AnnotationTag, dataset.AnnotationCallback(true))
 	reader, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
 		return err

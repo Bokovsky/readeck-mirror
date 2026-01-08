@@ -8,128 +8,201 @@ import {request} from "../lib/request"
 export default class extends Controller {
   static targets = [
     "root",
-    "controlls",
-    "controllCreate",
-    "controllUpdate",
-    "controllArrow",
+    "controls",
+    "color",
+    "note",
+    "arrow",
+    "whenNew",
+    "whenOne",
+    "whenMany",
   ]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
-    canCreate: {type: Boolean, default: false},
-    canUpdate: {type: Boolean, default: false},
+    color: String,
   }
 
   connect() {
-    // Listen for new selections
     this.annotation = null
+    this.payload = null
+    this.currentIDs = []
+
+    let ticking = false
+    let t = null
+
+    this.colorTargets.forEach((e, i) => {
+      e.addEventListener("click", (evt) => {
+        this.colorValue = evt.target.value
+      })
+    })
+
     document.addEventListener("selectionchange", async (evt) => {
-      await this.onSelectText(evt)
+      if (!ticking) {
+        window.requestAnimationFrame(async () => {
+          if (t !== null) {
+            window.clearTimeout(t)
+          }
+          t = window.setTimeout(async () => {
+            ticking = false
+            await this.onSelectText(evt)
+          }, 100)
+        })
+
+        ticking = true
+      }
     })
   }
 
-  canCreateValueChanged(value) {
-    if (value) {
-      this.controllCreateTarget.classList.remove(this.hiddenClass)
-      this.setControllArrowColor(
-        getComputedStyle(this.controllCreateTarget).getPropertyValue(
-          "background-color",
-        ),
-      )
-    } else {
-      this.controllCreateTarget.classList.add(this.hiddenClass)
-    }
-  }
-
-  canUpdateValueChanged(value) {
-    if (value) {
-      this.controllUpdateTarget.classList.remove(this.hiddenClass)
-      this.setControllArrowColor(
-        getComputedStyle(this.controllUpdateTarget).getPropertyValue(
-          "background-color",
-        ),
-      )
-    } else {
-      this.controllUpdateTarget.classList.add(this.hiddenClass)
-    }
-  }
-
-  async onSelectText() {
-    // We must wait for next tick so it won't trigger when the event triggers
-    // from a click on an existing selection.
-    await this.nextTick()
-    this.setupControll()
-
-    this.annotation = new Annotation(this.rootTarget, document.getSelection())
-    if (this.annotation.isValid()) {
-      await this.showControlls(true, false)
-    } else if (this.annotation.coveredAnnotations().length > 0) {
-      await this.showControlls(false, true)
-    } else {
-      await this.hideControlls()
-    }
-  }
-
-  /**
-   * setupControll adds the arrow to the controllsTarget elemet,
-   *
-   * @param {string} position
-   * @returns {Element}
-   */
-  setupControll() {
-    if (!this.hasControllsTarget || this.hasControllArrowTarget) {
+  colorValueChanged(value, previous) {
+    // Initial value
+    if (value === "" && previous === undefined) {
+      this.colorTargets[0].checked = true
+      this.colorValue = this.colorTargets[0].value
       return
     }
 
-    const position =
-      "ontouchstart" in document.documentElement ? "bottom" : "top"
-
-    const arrow = document.createElement("div")
-    arrow.dataset.annotationsTarget = "controllArrow"
-    const bt = "8px solid transparent"
-    const bg = "8px solid var(--arrow-color)"
-
-    arrow.dataset.position = position
-    arrow.style.setProperty("--arrow-color", "rgba(0,0,0,0)")
-    arrow.style.height = 0
-    arrow.style.width = 0
-    arrow.style.borderLeft = bt
-    arrow.style.borderRight = bt
-    if (position == "top") {
-      arrow.style.borderTop = bg
-      this.controllsTarget.appendChild(arrow)
-    } else {
-      arrow.style.borderBottom = bg
-      this.controllsTarget.insertBefore(arrow, this.controllsTarget.firstChild)
+    // When the frame is restored
+    if (value === "" && !!previous) {
+      this.colorTargets.forEach((e) => {
+        if (e.value == previous) {
+          e.checked = true
+          return
+        }
+      })
+      this.colorValue = previous
+      return
     }
   }
 
-  setControllArrowColor(color) {
-    this.controllArrowTarget.style.setProperty("--arrow-color", color)
+  /**
+   * onSelectText is the listener for "selectionchange".
+   */
+  async onSelectText() {
+    const selection = document.getSelection()
+    this.annotation = new Annotation(this.rootTarget, selection)
+
+    if (
+      this.annotation.isValid() ||
+      this.annotation.coveredAnnotations().length > 0
+    ) {
+      await this.showControls()
+    }
+
+    if (this.annotation.isValid()) {
+      this.payload = {
+        start_selector: this.annotation.startSelector,
+        start_offset: this.annotation.startOffset,
+        end_selector: this.annotation.endSelector,
+        end_offset: this.annotation.endOffset,
+      }
+    }
   }
 
-  /**
-   *
-   * @param {Boolean} canCreate
-   * @param {Boolean} canUpdate
-   */
-  async showControlls(canCreate, canUpdate) {
-    this.canCreateValue = canCreate
-    this.canUpdateValue = canUpdate
-    await this.nextTick()
+  async showControls() {
+    this.currentIDs = []
+    this.iterCoveredAnnotations(async (id) => {
+      this.currentIDs.push(id)
+    })
 
-    const position = this.controllArrowTarget.dataset.position
+    // Show controls
+    this.controlsTarget.classList.remove(this.hiddenClass)
 
-    // Show controlls
-    this.controllsTarget.classList.remove(this.hiddenClass)
+    /**
+     * This hides the controls when there's no selection or a click
+     * took place outside the controls.
+     *
+     * @param {Event} evt
+     */
+    const onClick = (evt) => {
+      const selection = document.getSelection()
+      if (!selection.isCollapsed) {
+        return
+      }
+      if (this.controlsTarget.contains(evt.target)) {
+        return
+      }
+      this.controlsTarget.classList.add(this.hiddenClass)
+      document.removeEventListener("click", onClick)
+    }
+
+    /**
+     * Hide the controls on Escape.
+     *
+     * @param {KeyboardEvent} evt
+     */
+    const onEsc = (evt) => {
+      if (evt.key == "Escape") {
+        this.controlsTarget.classList.add(this.hiddenClass)
+        document.getSelection().removeAllRanges()
+        document.removeEventListener("keyup", onEsc)
+      }
+    }
+
+    document.addEventListener("click", onClick)
+    document.addEventListener("keyup", onEsc)
+
+    const covered = this.annotation.coveredAnnotations()
+    const selected = [
+      ...new Set(covered.map((e) => e.dataset.annotationIdValue)),
+    ]
+
+    // Show/hide sub controls
+    switch (selected.length) {
+      case 0:
+        this.#hide(this.whenOneTargets)
+        this.#hide(this.whenManyTargets)
+        this.#show(this.whenNewTargets)
+        break
+      case 1:
+        this.#hide(this.whenNewTargets)
+        this.#hide(this.whenManyTargets)
+        this.#show(this.whenOneTargets)
+        break
+      default:
+        this.#hide(this.whenNewTargets)
+        this.#hide(this.whenOneTargets)
+        this.#show(this.whenManyTargets)
+    }
+
+    // Set color and text when annotation exists
+    switch (selected.length) {
+      case 0:
+        this.noteTarget.value = ""
+        break
+      case 1:
+        // One selected annotation, check if it has a note
+        const e = Array.from(
+          this.rootTarget.querySelectorAll(
+            "rd-annotation[data-annotation-note][title]",
+          ),
+        ).find((e) => e.dataset.annotationIdValue == selected[0])
+
+        // set the note and fall through the next case (sets color)
+        this.noteTarget.value = e !== undefined ? e.getAttribute("title") : ""
+      default:
+        this.colorTargets.forEach((e) => {
+          if (e.value == covered[0].dataset.annotationColor) {
+            e.checked = true
+            this.colorValue = e.value
+            return
+          }
+        })
+    }
 
     // Get root, range and controlls coordinates
     const rangeRect = this.annotation.range.getBoundingClientRect()
     const rootRect = this.findRelativeRoot().getBoundingClientRect()
 
     // Controlls dimension
-    const h = this.controllsTarget.clientHeight
-    const w = this.controllsTarget.clientWidth
+    const h = this.controlsTarget.clientHeight
+    const w = this.controlsTarget.clientWidth
+
+    // Default position
+    let position = "ontouchstart" in document.documentElement ? "bottom" : "top"
+    if (rangeRect.top + 20 < h) {
+      position = "bottom"
+    }
+    this.controlsTarget.dataset.position = position
 
     // Range position relative to its root element
     const rangeTop =
@@ -152,14 +225,14 @@ export default class extends Controller {
       ),
     )
 
-    this.controllsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
-    this.controllsTarget.style.left = `${x}px`
+    this.controlsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
+    this.controlsTarget.style.left = `${x}px`
 
     // Set arrow position
-    if (!this.hasControllArrowTarget) {
+    if (!this.hasArrowTarget) {
       return
     }
-    const arrowWidth = this.controllArrowTarget.offsetWidth
+    const arrowWidth = this.arrowTarget.offsetWidth
     // prettier-ignore
     const arrowX = Math.max(
       arrowWidth / 2,
@@ -168,17 +241,32 @@ export default class extends Controller {
         w - arrowWidth - arrowWidth / 2,
       ),
     )
-    this.controllArrowTarget.style.marginLeft = `${arrowX}px`
+    this.arrowTarget.style.marginLeft = `${arrowX}px`
   }
 
-  async hideControlls() {
-    this.canCreateValue = false
-    this.canUpdateValue = false
-    this.controllsTarget.classList.add(this.hiddenClass)
+  /**
+   * @param {NodeListOf<Element>} nodes
+   */
+  #hide(nodes) {
+    nodes.forEach((e) => {
+      e.classList.add(this.hiddenClass)
+    })
   }
 
-  async nextTick() {
-    return await new Promise((resolve) => setTimeout(resolve, 0))
+  /**
+   * @param {NodeListOf<Element>} nodes
+   */
+  #show(nodes) {
+    nodes.forEach((e) => {
+      e.classList.remove(this.hiddenClass)
+    })
+  }
+
+  #getNote() {
+    if (!this.hasNoteTarget) {
+      return
+    }
+    return this.noteTarget.value
   }
 
   findRelativeRoot() {
@@ -207,72 +295,70 @@ export default class extends Controller {
   }
 
   /**
-   * save creates a new annotation on the document
-   *
-   * @param {Event} evt received event
+   * create creates a new annotation on the document
    */
-  async save(evt) {
-    const color = evt.currentTarget.value
-    this.annotation.color = color
-
-    if (!this.annotation || !this.annotation.isValid()) {
+  async create() {
+    if (!this.payload) {
       return
+    }
+
+    const body = {
+      ...this.payload,
+      color: this.colorValue,
+      note: this.#getNote(),
     }
 
     await request(this.apiUrlValue, {
       method: "POST",
-      body: {
-        start_selector: this.annotation.startSelector,
-        start_offset: this.annotation.startOffset,
-        end_selector: this.annotation.endSelector,
-        end_offset: this.annotation.endOffset,
-        color: this.annotation.color,
-      },
+      body: body,
     })
     await this.reload()
   }
 
   /**
    * update updates the selected annotations
-   *
-   * @param {Event} evt received event
    */
-  async update(evt) {
-    const color = evt.currentTarget.value
+  async update() {
+    if (this.currentIDs.length == 0) {
+      return
+    }
+
+    // Common body
+    const body = {color: this.colorValue}
+
+    // Can only change the note when there's one updated item
+    if (this.currentIDs.length == 1) {
+      body.note = this.#getNote()
+    }
+
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
 
-    await this.iterCoveredAnnotations(async (id) => {
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {
         method: "PATCH",
-        body: {
-          color: color,
-        },
+        body: body,
       })
-    })
+    }
     await this.reload()
   }
 
   /**
-   * delete removes the selected annotations
+   * removes the selected annotations
    */
   async delete() {
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
-    await this.iterCoveredAnnotations(async (id) => {
+
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {method: "DELETE"})
-    })
+    }
     await this.reload()
   }
-
-  /**
-   * @callback iterCoveredCallback
-   * @param {string} id annotation id
-   */
 
   /**
    * iterCoveredAnnotations execute a function on each annotatin in the
    * current selection.
    *
-   * @param {iterCoveredCallback} fn
+   * @param {function(string): Promise<void>} fn
    */
   async iterCoveredAnnotations(fn) {
     const ids = new Set()
@@ -288,12 +374,6 @@ export default class extends Controller {
     }
   }
 }
-
-/**
- * @callback walkTextNodesCallback
- * @param {Node} node
- * @param {int} index
- */
 
 class Annotation {
   /**
@@ -322,16 +402,16 @@ class Annotation {
     /** @type {string} */
     this.startSelector = null
 
-    /** @type {int} */
+    /** @type {Number} */
     this.startOffset = null
 
     /** @type {string} */
     this.endSelector = null
 
-    /** @type {int} */
+    /** @type {Number} */
     this.endOffset = null
 
-    /** @type {string} */
+    /** @type {String} */
     this.color = null
 
     this.init()
@@ -452,8 +532,8 @@ class Annotation {
  *
  * @param {Node} root
  * @param {Node} node
- * @param {int} offset
- * @returns {{selector: string, offset: int}}
+ * @param {Number} offset
+ * @returns {{selector: string, offset: Number}}
  */
 function getSelector(root, node, offset) {
   let p = node.parentElement
@@ -499,8 +579,8 @@ function getSelector(root, node, offset) {
  * found in a given node and its descendants.
  *
  * @param {Node} node
- * @param {walkTextNodesCallback} callback
- * @param {int} [index]
+ * @param {function(Node, Number)} callback
+ * @param {Number} [index]
  */
 function walkTextNodes(node, callback, index) {
   index = index === undefined ? 0 : index

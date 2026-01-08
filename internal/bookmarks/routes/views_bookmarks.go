@@ -503,7 +503,13 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			if !found || err != nil {
 				status = http.StatusNotFound
 			} else {
-				item := dataset.NewBookmark(r.Context(), bu.Bookmark)
+				// Don't show the notes on a shared, public, page.
+				ctx := dataset.WithAnnotationTag(r.Context(),
+					dataset.AnnotationTag,
+					dataset.AnnotationCallback(false),
+				)
+
+				item := dataset.NewBookmark(ctx, bu.Bookmark)
 				if err := item.SetEmbed(); err != nil {
 					server.Err(w, r, err)
 					return
