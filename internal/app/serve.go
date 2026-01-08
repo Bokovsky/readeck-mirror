@@ -11,6 +11,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log/slog"
 	"net"
 	"net/http"
@@ -67,7 +68,7 @@ func init() {
 	})
 }
 
-func runServer(_ context.Context, args []string) error {
+func runServer(_ context.Context, args []string) error { // nolint:gocognit,gocyclo
 	var flags serveFlags
 	if err := flags.Flags().Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
@@ -146,8 +147,13 @@ func runServer(_ context.Context, args []string) error {
 	go func() {
 		var ln net.Listener
 		host := configs.Config.Server.Host
-		if listenPath, ok := strings.CutPrefix(host, "unix:"); ok {
-			unixAddr, err := net.ResolveUnixAddr("unix", listenPath)
+		if strings.HasPrefix(host, "unix:") {
+			socketURL, err := url.Parse(host)
+			if err != nil {
+				fatal("invalid UNIX socket URL", err)
+			}
+
+			unixAddr, err := net.ResolveUnixAddr("unix", socketURL.Path)
 			if err != nil {
 				fatal("failed to parse listen address "+host, err)
 			}
@@ -156,6 +162,15 @@ func runServer(_ context.Context, args []string) error {
 			if err != nil {
 				fatal("failed to listen on "+host, err)
 			}
+
+			mode := fs.FileMode(0666) // nolint:gofumpt
+			if m, err := strconv.ParseUint(socketURL.Query().Get("mode"), 0, 32); err == nil {
+				mode = fs.FileMode(m)
+			}
+			if err = os.Chmod(socketURL.Path, mode); err != nil {
+				fatal("failed to set mode on "+socketURL.Path, err)
+			}
+
 			listenURL = &url.URL{Scheme: "unix", Opaque: unixAddr.Name}
 		} else {
 			srv.Addr = net.JoinHostPort(

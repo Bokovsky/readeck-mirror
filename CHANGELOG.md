@@ -9,6 +9,7 @@
 
 ### Improved
 - Enabled theme toggle for public bookmarks, by [@shom](https://shom.dev)
+- Configurable UNIX socket file mode
 
 ### Fixed
 - Back/forward navigation with gestures
