@@ -17,7 +17,9 @@
     "//aside",
     "//a[contains(@href, '/tags/')]/ancestor::h2[1]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "bg-red-blast h-dvh"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

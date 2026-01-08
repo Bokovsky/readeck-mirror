@@ -1,0 +1,42 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , '| 集英社オンライン')"
+  ],
+  "body_selectors": [
+    "//div[@class=\"article-body\"]"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"publisher\"')"
+  ],
+  "author_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-header-authors ')]"
+  ],
+  "strip_selectors": [
+    "//title"
+  ],
+  "strip_id_or_class": [
+    "gallery-ttl",
+    "article-gallery-btn"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@class=\"article-induction__link\"]"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://shueisha.online/articles/-/255447",
+      "contains": []
+    },
+    {
+      "url": "https://shueisha.online/articles/-/256026",
+      "contains": []
+    }
+  ]
+}

@@ -1,15 +1,13 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, \"article\")]"
+    "//div[@class=\"single\"]"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//div[contains(@class, \"cite-box\")]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": [
-    "content-paging-next-block"
+    "direct-access-info"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -18,26 +16,22 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": [
-    "//a[@class=\"content-paging-next-block-button\"]"
+    "//p[@class=\"next-title\"]/a"
   ],
   "replace_strings": [
     [
-      "\u003ch2",
-      "\u003ch3"
-    ],
-    [
-      "\u003c/h2\u003e",
-      "\u003c/h3\u003e"
+      "ADVERTISEMENT",
+      ""
     ]
   ],
   "http_headers": null,
   "tests": [
     {
-      "url": "https://web.motormagazine.co.jp/_ct/17804185",
+      "url": "https://number.bunshun.jp/articles/-/864328",
       "contains": []
     },
     {
-      "url": "https://web.motormagazine.co.jp/_ct/17772375",
+      "url": "https://number.bunshun.jp/articles/-/868425",
       "contains": []
     }
   ]
