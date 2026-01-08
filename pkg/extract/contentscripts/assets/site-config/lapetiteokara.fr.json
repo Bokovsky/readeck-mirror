@@ -1,0 +1,32 @@
+{
+  "title_selectors": [
+    "//h1[@class=\"entry-title\"]"
+  ],
+  "body_selectors": [
+    "//main[@id='main']/article/section[@class='post-media'] | //main[@id='main']/article/div[@class='post-wrap']"
+  ],
+  "date_selectors": [
+    "//meta[@property='article:modified_time']/@content",
+    "//meta[@property='article:published_time']/@content"
+  ],
+  "author_selectors": [
+    "//header//a[contains(@href, '/author/')]"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.lapetiteokara.fr/le-vrai-faux-gras-vegan-bluffant",
+      "contains": []
+    }
+  ]
+}

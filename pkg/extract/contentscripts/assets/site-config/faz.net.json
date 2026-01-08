@@ -34,7 +34,8 @@
     "//div[contains(@style, 'background-image')]",
     "//img[@width='1']",
     "//div[@data-module=\"teaser\"]",
-    "//footer[@class='tsr-Base_ContentMeta']"
+    "//footer[@class='tsr-Base_ContentMeta']",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' intro ')]"
   ],
   "strip_id_or_class": [
     "ArticlePagerTop",
@@ -152,6 +153,10 @@
     },
     {
       "url": "https://www.faz.net/aktuell/wirtschaft/wohnen/christian-voelkers-der-immobilienmakler-der-superreichen-17778869.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.faz.net/aktuell/stil/mode-design/100-geburtstag-von-hildegard-knef-wie-der-fotograf-walter-sanders-sie-portraetierte-200391804.html",
       "contains": []
     }
   ]

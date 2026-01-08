@@ -1,9 +1,13 @@
 {
-  "title_selectors": null,
+  "title_selectors": [
+    "//meta[@property='og:title']/@content"
+  ],
   "body_selectors": [
     "//article[contains(@id, 'post-')]//section[contains(@class, 'entry-content')] | //div[contains(@class, 'featured-image')] | //iframe/ancestor::div[1]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//time/@datetime"
+  ],
   "author_selectors": [
     "//meta[@name=\"author\"]/@content"
   ],
