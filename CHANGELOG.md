@@ -15,6 +15,7 @@
 - WebP probing and processing, by [@mislav](https://codeberg.org/mislav)
 - Log warning instead of error when JSON-LD can't be parsed
 - Let the PWA use the device orientation, by [@mlfh](https://codeberg.org/mlfh)
+- Fixed positioning of highlight menu on mobile
 
 ### Fixed
 - Back/forward navigation with gestures

@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <div class="bookmark-article print:max-w-none relative {{ preferences.ReaderWidth().Class }}"
  data-controller="styler">
-  <div class="annotator absolute z-50 hidden" data-annotations-target="controls">
+  <div class="annotator absolute touch:fixed touch:bottom-0 touch:left-0 touch:right-0 z-50 hidden" data-annotations-target="controls">
     {{- colors := slice(
       slice("yellow", gettext("Yellow")),
       slice("red", gettext("Red")),

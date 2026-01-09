@@ -65,6 +65,10 @@
       @apply font-sans text-base text-app-fg bg-gray-100 rounded-lg;
       @apply flex flex-col gap-2;
       @apply p-2;
+
+      @screen touch {
+        @apply rounded-none;
+      }
     }
 
     &--colors {
@@ -76,6 +80,10 @@
       width: 0;
       border-right: 8px solid transparent;
       border-left: 8px solid transparent;
+
+      @screen touch {
+        display: none;
+      }
     }
 
     &[data-position="bottom"] &--arrow {

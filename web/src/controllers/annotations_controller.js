@@ -189,6 +189,11 @@ export default class extends Controller {
         })
     }
 
+    // When position:absolute, position the box relative to the selection.
+    if (getComputedStyle(this.controlsTarget).position != "absolute") {
+      return
+    }
+
     // Get root, range and controlls coordinates
     const rangeRect = this.annotation.range.getBoundingClientRect()
     const rootRect = this.findRelativeRoot().getBoundingClientRect()
@@ -198,7 +203,7 @@ export default class extends Controller {
     const w = this.controlsTarget.clientWidth
 
     // Default position
-    let position = "ontouchstart" in document.documentElement ? "bottom" : "top"
+    let position = "top"
     if (rangeRect.top + 20 < h) {
       position = "bottom"
     }
