@@ -53,10 +53,25 @@
 
   .annotator {
     --arrow-color: theme("colors.gray.100");
+
+    position: absolute;
+    z-index: 50;
     display: inline-flex;
     flex-direction: column;
+    margin: 0;
     max-width: 100%;
+    background-color: transparent;
     user-select: none;
+    width: 30rem;
+
+    @screen touch {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
     filter: drop-shadow(0px 0px 1px theme("colors.gray.700"))
       drop-shadow(0 12px 8px rgb(var(--color-shadow) / 0.1))
       drop-shadow(0 4px 5px rgb(var(--color-shadow) / 0.8));
@@ -67,7 +82,7 @@
       @apply p-2;
 
       @screen touch {
-        @apply rounded-none;
+        @apply rounded-none p-4;
       }
     }
 
@@ -144,6 +159,7 @@
 
     textarea {
       max-width: 100%;
+      overscroll-behavior-y: contain;
     }
   }
 }

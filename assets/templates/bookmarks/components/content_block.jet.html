@@ -41,7 +41,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 <div class="bookmark-article print:max-w-none relative {{ preferences.ReaderWidth().Class }}"
  data-controller="styler">
-  <div class="annotator absolute touch:fixed touch:bottom-0 touch:left-0 touch:right-0 z-50 hidden" data-annotations-target="controls">
+  <div class="annotator hidden" data-annotations-target="controls">
     {{- colors := slice(
       slice("yellow", gettext("Yellow")),
       slice("red", gettext("Red")),
@@ -52,7 +52,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <div class="annotator--arrow" data-annotations-target="arrow"></div>
     <div class="annotator--content">
       <div class="annotator--colors">
-        {{ gettext("Color") }}:
+        {{ gettext("Highlight") }}:
         {{- range colors -}}
           <input type="radio" name="color" value="{{ .[0] }}" aria-label="{{ .[1] }}"
            data-annotations-target="color">
@@ -62,7 +62,7 @@ SPDX-License-Identifier: AGPL-3.0-only
       <div class="flex flex-col">
         <label for="annotation-note" data-annotations-target="whenNew whenOne">{{ gettext("Note") }}:</label>
         <textarea class="form-textarea select-none" id="annotation-note" name="note"
-         rows="4" cols="45" maxlength="1024"
+         rows="3" cols="45" maxlength="1024"
          data-annotations-target="note whenNew whenOne"></textarea>
       </div>
 

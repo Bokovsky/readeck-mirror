@@ -36,6 +36,16 @@ export default class extends Controller {
       })
     })
 
+    const x = new ResizeObserver((entries) => {
+      for (let e of entries) {
+        if (getComputedStyle(e.target).display == "none") {
+          return
+        }
+        this.#positionControls()
+      }
+    })
+    x.observe(this.controlsTarget)
+
     document.addEventListener("selectionchange", async (evt) => {
       if (!ticking) {
         window.requestAnimationFrame(async () => {
@@ -189,64 +199,75 @@ export default class extends Controller {
         })
     }
 
-    // When position:absolute, position the box relative to the selection.
-    if (getComputedStyle(this.controlsTarget).position != "absolute") {
-      return
-    }
+    this.#positionControls()
+  }
 
+  #positionControls() {
     // Get root, range and controlls coordinates
     const rangeRect = this.annotation.range.getBoundingClientRect()
     const rootRect = this.findRelativeRoot().getBoundingClientRect()
 
-    // Controlls dimension
-    const h = this.controlsTarget.clientHeight
-    const w = this.controlsTarget.clientWidth
+    switch (getComputedStyle(this.controlsTarget).position) {
+      case "absolute":
+        // Controlls dimension
+        const h = this.controlsTarget.clientHeight
+        const w = this.controlsTarget.clientWidth
 
-    // Default position
-    let position = "top"
-    if (rangeRect.top + 20 < h) {
-      position = "bottom"
+        // Default position
+        let position = "top"
+        if (rangeRect.top - 20 < h) {
+          position = "bottom"
+        }
+        this.controlsTarget.dataset.position = position
+
+        // Range position relative to its root element
+        const rangeTop =
+          position == "top"
+            ? Math.round(rangeRect.top - rootRect.top)
+            : Math.round(rangeRect.top + rangeRect.height - rootRect.top)
+        const rangeLeft = Math.round(rangeRect.left - rootRect.left)
+        const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
+
+        // Set controlls position
+        const y = position == "top" ? Math.round(rangeTop - h) : rangeTop
+        // prettier-ignore
+        const x = Math.floor(
+          Math.max(
+            0,
+            Math.min(
+              rangeCenter - w / 2,
+              rootRect.width - w - 1,
+            ),
+          ),
+        )
+
+        this.controlsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
+        this.controlsTarget.style.left = `${x}px`
+
+        // Set arrow position
+        if (!this.hasArrowTarget) {
+          return
+        }
+        const arrowWidth = this.arrowTarget.offsetWidth
+        // prettier-ignore
+        const arrowX = Math.max(
+          arrowWidth / 2,
+          Math.min(
+            rangeCenter - x - arrowWidth / 2,
+            w - arrowWidth - arrowWidth / 2,
+          ),
+        )
+        this.arrowTarget.style.marginLeft = `${arrowX}px`
+        break
+      case "fixed":
+        // On a fixed position, try not to cover the selection
+        this.controlsTarget.style.bottom = "0"
+        this.controlsTarget.style.top = "unset"
+        if (rangeRect.top > this.controlsTarget.getBoundingClientRect().top) {
+          this.controlsTarget.style.bottom = "unset"
+          this.controlsTarget.style.top = "0"
+        }
     }
-    this.controlsTarget.dataset.position = position
-
-    // Range position relative to its root element
-    const rangeTop =
-      position == "top"
-        ? Math.round(rangeRect.top - rootRect.top)
-        : Math.round(rangeRect.top + rangeRect.height - rootRect.top)
-    const rangeLeft = Math.round(rangeRect.left - rootRect.left)
-    const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
-
-    // Set controlls position
-    const y = position == "top" ? Math.round(rangeTop - h) : rangeTop
-    // prettier-ignore
-    const x = Math.floor(
-      Math.max(
-        0,
-        Math.min(
-          rangeCenter - w / 2,
-          rootRect.width - w - 1,
-        ),
-      ),
-    )
-
-    this.controlsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
-    this.controlsTarget.style.left = `${x}px`
-
-    // Set arrow position
-    if (!this.hasArrowTarget) {
-      return
-    }
-    const arrowWidth = this.arrowTarget.offsetWidth
-    // prettier-ignore
-    const arrowX = Math.max(
-      arrowWidth / 2,
-      Math.min(
-        rangeCenter - x - arrowWidth / 2,
-        w - arrowWidth - arrowWidth / 2,
-      ),
-    )
-    this.arrowTarget.style.marginLeft = `${arrowX}px`
   }
 
   /**
