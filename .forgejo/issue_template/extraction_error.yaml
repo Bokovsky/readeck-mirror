@@ -9,6 +9,9 @@ body:
       value: |
         Thanks for taking the time to report a broken extraction!
 
+        TIP: Sometimes, [Readeck's browser extension](https://readeck.org/en/extension)
+        can mitigate extraction issues.
+
   - type: input
     id: url
     attributes:
@@ -19,14 +22,18 @@ body:
       required: true
       regex: "^http(s)?:\\/\\/.+"
 
-  - type: checkboxes
+  - type: dropdown
     id: extension
     attributes:
-      label: Browser add-on
+      label: Extraction method
       description: |
-        Did you try to save the page using the [browser add-on](https://codeberg.org/readeck/browser-extension)?
+        When does the issue occur? (multiple choices possible)
       options:
-        - label: I tried with the browser add-on
+        - When submitting the link directly into Readeck
+        - When using the browser extension
+      multiple: true
+    validations:
+      required: true
 
   - type: textarea
     id: what-happened
@@ -49,3 +56,4 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+    visible: [form]
