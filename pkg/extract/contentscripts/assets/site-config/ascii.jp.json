@@ -5,9 +5,7 @@
   "body_selectors": [
     "//div[@id='contents_detail']"
   ],
-  "date_selectors": [
-    "substring-before(substring-after(//script[contains(text(), 'OpnDate')][1], \"'OpnDate':'\"),\"',\")"
-  ],
+  "date_selectors": null,
   "author_selectors": [
     "//p[contains(concat(' ',normalize-space(@class),' '),' author ')]"
   ],
@@ -32,6 +30,14 @@
     [
       "\u003cdiv class=\"photo single\"\u003e",
       "\u003cdiv dummyclass=\"photo single\"\u003e"
+    ],
+    [
+      "\u003ch2",
+      "\u003ch3"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
     ]
   ],
   "http_headers": null,

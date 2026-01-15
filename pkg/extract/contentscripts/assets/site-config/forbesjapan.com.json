@@ -32,6 +32,10 @@
     [
       "\u003ch2",
       "\u003ch3"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
     ]
   ],
   "http_headers": null,

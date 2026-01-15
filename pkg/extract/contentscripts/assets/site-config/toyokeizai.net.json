@@ -23,11 +23,24 @@
   "next_page_link_selectors": [
     "//div[contains(@class, \"article-next-page\")]/a"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003ch2",
+      "\u003ch3"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://toyokeizai.net/articles/-/912773",
+      "contains": []
+    },
+    {
+      "url": "https://toyokeizai.net/articles/-/924178",
       "contains": []
     }
   ]

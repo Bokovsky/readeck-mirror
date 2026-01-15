@@ -5,14 +5,13 @@
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": [
-    "//div[@id=\"notice\"]",
-    "//div[@class=\"ctrl\"]",
-    "//div[@class=\"cmsUsingAffiliate\"]"
-  ],
+  "strip_selectors": null,
   "strip_id_or_class": [
     "cmsCopyright",
-    "masterSocialbuttonBtm"
+    "masterSocialbuttonBtm",
+    "notice",
+    "ctrl",
+    "cmsUsingAffiliate"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -23,7 +22,16 @@
   "next_page_link_selectors": [
     "//link[@rel=\"next\"]"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003ch2",
+      "\u003ch3"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
