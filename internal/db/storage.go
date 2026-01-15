@@ -16,6 +16,8 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"golang.org/x/text/collate"
+	"golang.org/x/text/language"
 
 	"codeberg.org/readeck/readeck/internal/db/migrations"
 )
@@ -42,6 +44,12 @@ type Connector interface {
 	HasTable(string) (bool, error)
 }
 
+// UnicodeCollate is the base Unicode collate.
+var UnicodeCollate = collate.New(language.Und, collate.Loose, collate.Numeric)
+
+// UnaccentCompare performs a string comparison after removing accents.
+var UnaccentCompare = UnicodeCollate.CompareString
+
 var (
 	drivers = map[string]Connector{}
 	driver  Connector
@@ -61,6 +69,15 @@ func Driver() Connector {
 		panic("database driver not initialized")
 	}
 	return driver
+}
+
+// SetDriver sets the global DB driver. Only for tests!
+// This is used when you need the dialect to be available.
+func SetDriver(name string) {
+	if name == "" {
+		driver = nil
+	}
+	driver = drivers[name]
 }
 
 // Open opens a database connection and sets internal variables that can

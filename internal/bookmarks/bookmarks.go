@@ -189,7 +189,7 @@ func (m *BookmarkManager) GetLastUpdate(expressions ...goqu.Expression) (time.Ti
 	var b Bookmark
 	found, err := m.Query().
 		Where(expressions...).
-		Order(goqu.C("updated").Desc()).
+		Order(exp.DateTime(goqu.C("updated")).Desc()).
 		Limit(1).
 		ScanStruct(&b)
 
@@ -517,7 +517,7 @@ func (b *Bookmark) replaceLabel(oldLabel, newLabel string) {
 		}
 	}
 
-	slices.SortFunc(b.Labels, exp.UnaccentCompare)
+	slices.SortFunc(b.Labels, db.UnaccentCompare)
 	b.Labels = slices.Compact(b.Labels)
 }
 

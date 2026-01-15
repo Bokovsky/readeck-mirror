@@ -11,11 +11,13 @@ import (
 	"strings"
 	"testing"
 
-	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
 	"github.com/doug-martin/goqu/v9"
 	"github.com/stretchr/testify/require"
+
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 func filterForm() forms.Binder {
@@ -106,6 +108,9 @@ func runFiltersToSQL(tests []struct {
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				for j, dialect := range dialects {
+					db.SetDriver(dialect)
+					defer db.SetDriver("")
+
 					t.Run(dialect, func(t *testing.T) {
 						assert := require.New(t)
 
@@ -500,7 +505,7 @@ func TestFilters(t *testing.T) {
 				RangeEnd: "2025-01-23",
 			},
 			[2]string{
-				"SELECT `b`.* FROM `bookmark` WHERE (`created` BETWEEN '0001-01-01T00:00:00Z' AND '2025-01-23T00:00:00Z')",
+				"SELECT `b`.* FROM `bookmark` WHERE (datetime(`created`) BETWEEN datetime('0001-01-01T00:00:00Z') AND datetime('2025-01-23T00:00:00Z'))",
 				`SELECT "b".* FROM "bookmark" WHERE ("created" BETWEEN '0001-01-01T00:00:00Z' AND '2025-01-23T00:00:00Z')`,
 			},
 		},
@@ -510,7 +515,7 @@ func TestFilters(t *testing.T) {
 				RangeEnd:   "2025-01-24",
 			},
 			[2]string{
-				"SELECT `b`.* FROM `bookmark` WHERE (`created` BETWEEN '2025-01-23T00:00:00Z' AND '2025-01-24T00:00:00Z')",
+				"SELECT `b`.* FROM `bookmark` WHERE (datetime(`created`) BETWEEN datetime('2025-01-23T00:00:00Z') AND datetime('2025-01-24T00:00:00Z'))",
 				`SELECT "b".* FROM "bookmark" WHERE ("created" BETWEEN '2025-01-23T00:00:00Z' AND '2025-01-24T00:00:00Z')`,
 			},
 		},

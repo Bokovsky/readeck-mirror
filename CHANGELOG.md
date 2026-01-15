@@ -1,5 +1,9 @@
 # Changelog
 
+## [Unreleased]
+### Fixed
+- Sorting by date with SQLite
+
 ## [0.21.5] - 2025-12-17
 ### Fixed
 - Prevent infinite loop during Wallabag and Omnivore import
