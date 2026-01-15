@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.21.6]
 ### Fixed
 - Sorting by date with SQLite
 
