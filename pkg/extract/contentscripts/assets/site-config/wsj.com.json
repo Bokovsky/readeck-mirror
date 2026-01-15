@@ -33,7 +33,6 @@
     "//div[@aria-label='Sponsored Offers']",
     "//div[@aria-label='What to Read Next']",
     "//div[@aria-label='Utility Bar']",
-    "//div[@data-type='inset']",
     "//iframe",
     "//div[contains(@class, '_hoverText_')]",
     "//textarea[contains(text(), 'video-api.wsj.com/')]",

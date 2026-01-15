@@ -1,0 +1,33 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article[@class=\"NA_article\"]"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"dateModified')"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//p[@class=\"NA_article_gallery_title\"]"
+  ],
+  "strip_id_or_class": [
+    "NA_article_embed_article_title",
+    "NA_accordion",
+    "NA_article_item"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://natalie.mu/eiga/news/652778",
+      "contains": []
+    }
+  ]
+}

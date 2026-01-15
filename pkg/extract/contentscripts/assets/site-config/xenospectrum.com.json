@@ -12,7 +12,8 @@
     "//strong[contains(., 'Sources')]"
   ],
   "strip_id_or_class": [
-    "wp-block-list"
+    "wp-block-list",
+    "pochipp-box"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,11 +22,24 @@
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003ch2 class=\"wp-block-heading\"\u003e",
+      "\u003ch3\u003e"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
+    ]
+  ],
   "http_headers": null,
   "tests": [
     {
       "url": "https://xenospectrum.com/zhonghao-xinying-tpu-vs-nvidia-a100-google-engineer-china-chip/",
+      "contains": []
+    },
+    {
+      "url": "https://xenospectrum.com/china-ai-software-padj-x-b21-raider-flaws/",
       "contains": []
     }
   ]

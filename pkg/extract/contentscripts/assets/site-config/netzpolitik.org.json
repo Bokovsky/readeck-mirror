@@ -3,21 +3,24 @@
     "//h1[@class='entry-title']"
   ],
   "body_selectors": [
-    "//article"
+    "//main[@id='main']/article"
   ],
   "date_selectors": [
     "//span[@class='entry-date']"
   ],
   "author_selectors": [
+    "//meta[@property='article:author']/@content",
     "//a[@rel='author']"
   ],
   "strip_selectors": [
     "//footer",
+    "//header/h1",
     "//article[contains(@class, 'teaser')]",
     "//article[contains(@class, 'comment')]"
   ],
   "strip_id_or_class": [
-    "netzpolitik-cta"
+    "netzpolitik-cta",
+    "entry-meta"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -27,7 +30,9 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "referer": "https://netzpolitik.org"
+  },
   "tests": [
     {
       "url": "https://netzpolitik.org/2011/buch-generation-facebook/",
@@ -38,7 +43,7 @@
       "contains": []
     },
     {
-      "url": "https://netzpolitik.org/2021/schadsoftware-pegasus-die-branche-der-staatshacker-aechten/",
+      "url": "https://netzpolitik.org/2025/netzpolitik-org-wirkt-was-unser-journalismus-im-jahr-2025-veraendert-hat/",
       "contains": []
     }
   ]

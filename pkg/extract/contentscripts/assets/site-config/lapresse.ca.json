@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='article-page']//p[@class='amorce'] | //div[@class='article-page']//div[contains(@class, 'entry')]"
+    "//div[@class='articleBody'] | //div[@class='article-page']//p[@class='amorce'] | //div[@class='article-page']//div[contains(@class, 'entry')]"
   ],
   "date_selectors": null,
   "author_selectors": [

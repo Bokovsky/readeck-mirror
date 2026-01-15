@@ -1,0 +1,50 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | JBpress (ジェイビープレス)')"
+  ],
+  "body_selectors": [
+    "//article[@class=\"article\"]"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"dateModified')"
+  ],
+  "author_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"@type\":\"Person\",\"name\":\"'), '\",\"jobTitle\":')"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "m-pager",
+    "m-article-index",
+    "article-header",
+    "article-series",
+    "article-footer",
+    "article-continue-reading",
+    "article-header-sns",
+    "insertgallery"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@class=\"article-next\"]"
+  ],
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://jbpress.ismedia.jp/articles/-/92430",
+      "contains": []
+    },
+    {
+      "url": "https://jbpress.ismedia.jp/articles/-/92465",
+      "contains": []
+    },
+    {
+      "url": "https://jbpress.ismedia.jp/articles/-/92466",
+      "contains": []
+    }
+  ]
+}

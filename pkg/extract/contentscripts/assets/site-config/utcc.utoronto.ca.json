@@ -17,11 +17,19 @@
   "replace_strings": null,
   "http_headers": {
     "referer": "https://utcc.utoronto.ca/~cks/space/blog/",
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0"
+    "user-agent": "Wallabag/2"
   },
   "tests": [
     {
       "url": "https://utcc.utoronto.ca/~cks/space/blog/web/BasicAuthAndURLHierarchy",
+      "contains": []
+    },
+    {
+      "url": "https://utcc.utoronto.ca/~cks/space/blog/web/HTTPSecCHUAHeaderNotes",
+      "contains": []
+    },
+    {
+      "url": "https://utcc.utoronto.ca/~cks/space/blog/web/FakeBrowsersAndHTTPHeaders",
       "contains": []
     }
   ]

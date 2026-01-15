@@ -1,0 +1,52 @@
+{
+  "title_selectors": [
+    "//h1[@class=\"c-title--single\"]"
+  ],
+  "body_selectors": [
+    "//article[@class=\"l-contents__article\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//ul[@class=\"c-list-sns--vertical\"]",
+    "//ul[contains(concat(' ',normalize-space(@class),' '),' c-list-sns--horizon ')]"
+  ],
+  "strip_id_or_class": [
+    "c-text-date",
+    "c-text-next",
+    "c-text-page",
+    "p-pagination"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": [
+    "//a[contains(concat(' ',normalize-space(@class),' '),' c-text-full__link ')]/@href"
+  ],
+  "next_page_link_selectors": [
+    "//a[@class=\"c-text-next__link\"]"
+  ],
+  "replace_strings": [
+    [
+      "\u003ch2",
+      "\u003cp"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/p\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.dailyshincho.jp/article/2025/12140500/",
+      "contains": []
+    },
+    {
+      "url": "https://www.dailyshincho.jp/article/2025/12171550/",
+      "contains": []
+    }
+  ]
+}

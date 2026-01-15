@@ -1,0 +1,30 @@
+{
+  "title_selectors": null,
+  "body_selectors": null,
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"dateModified\"')"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//p[@class=\"button-line\"]"
+  ],
+  "strip_id_or_class": [
+    "con1",
+    "post-views"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://taxlabor.com/kyufutsuki-zeigaku-kojo-2026/",
+      "contains": []
+    }
+  ]
+}
