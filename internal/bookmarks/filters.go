@@ -244,9 +244,10 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 		}
 
 		end, _ := timetoken.New(f.RangeEnd)
-		ds = ds.Where(goqu.C("created").Between(
-			goqu.Range(start.RelativeTo(nil),
-				end.RelativeTo(nil),
+		ds = ds.Where(exp.DateTime(goqu.C("created")).Between(
+			goqu.Range(
+				exp.DateTime(start.RelativeTo(nil)),
+				exp.DateTime(end.RelativeTo(nil)),
 			),
 		))
 	}
@@ -280,7 +281,7 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 
 	// state
 	if f.IsLoaded != nil {
-		ds = ds.Where(exp.BooleanExpresion(
+		ds = ds.Where(exp.Boolean(
 			goqu.C("state").Table("b").Neq(StateLoading),
 			*f.IsLoaded,
 		))
@@ -290,7 +291,7 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 	if f.HasErrors != nil {
 		// This one's a bit special. Having errors could be the errors field
 		// not being empty or the state being [bookmarks.StateError]
-		ds = ds.Where(exp.BooleanExpresion(
+		ds = ds.Where(exp.Boolean(
 			goqu.Or(
 				goqu.C("state").Table("b").Eq(StateError),
 				exp.JSONArrayLength(ds.Dialect(), goqu.C("errors").Table("b")).Gt(0),
@@ -301,7 +302,7 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 
 	// has labels
 	if f.HasLabels != nil {
-		ds = ds.Where(exp.BooleanExpresion(
+		ds = ds.Where(exp.Boolean(
 			exp.JSONArrayLength(ds.Dialect(), goqu.C("labels").Table("b")).Gt(0),
 			*f.HasLabels,
 		))

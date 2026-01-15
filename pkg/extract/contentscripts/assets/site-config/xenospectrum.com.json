@@ -12,7 +12,8 @@
     "//strong[contains(., 'Sources')]"
   ],
   "strip_id_or_class": [
-    "wp-block-list"
+    "wp-block-list",
+    "pochipp-box"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -35,6 +36,10 @@
   "tests": [
     {
       "url": "https://xenospectrum.com/zhonghao-xinying-tpu-vs-nvidia-a100-google-engineer-china-chip/",
+      "contains": []
+    },
+    {
+      "url": "https://xenospectrum.com/china-ai-software-padj-x-b21-raider-flaws/",
       "contains": []
     }
   ]

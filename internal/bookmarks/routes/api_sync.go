@@ -44,8 +44,8 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 		since := f.Get("since").(*forms.DatetimeField).V().UTC()
 
 		ds = ds.Where(
-			exp.DateExpression(ds.Dialect(), goqu.C("updated").Table("b")).
-				Gte(exp.DateExpression(ds.Dialect(), since)),
+			exp.DateTime(goqu.C("updated").Table("b")).
+				Gte(exp.DateTime(since)),
 		)
 		ds = ds.Union(
 			db.Q().
@@ -57,13 +57,13 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 				).
 				Where(
 					goqu.C("user_id").Table("r").Eq(auth.GetRequestUser(r).ID),
-					exp.DateExpression(ds.Dialect(), goqu.C("deleted").Table("r")).
-						Gte(exp.DateExpression(ds.Dialect(), since)),
+					exp.DateTime(goqu.C("deleted").Table("r")).
+						Gte(exp.DateTime(since)),
 				),
 		)
 	}
 
-	ds = ds.Order(goqu.C("time").Desc())
+	ds = ds.Order(exp.DateTime(goqu.C("time")).Desc())
 
 	bl, err := dataset.NewBookmarkSyncList(r.Context(), ds)
 	if err != nil {
@@ -80,8 +80,8 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 
 func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
 	of := newOrderForm("sort", map[string]goquExp.Orderable{
-		"updated": goqu.C("updated"),
-		"created": goqu.C("created"),
+		"updated": exp.DateTime(goqu.C("updated")),
+		"created": exp.DateTime(goqu.C("created")),
 	})
 	f := forms.Join(context.Background(),
 		newSyncForm(server.Locale(r)),
@@ -98,7 +98,7 @@ func (api *apiRouter) bookmarkSync(w http.ResponseWriter, r *http.Request) {
 		Where(
 			goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 		).
-		Order(goqu.C("updated").Asc())
+		Order(exp.DateTime(goqu.C("updated")).Asc())
 
 	if order := of.toOrderedExpressions(); order != nil {
 		ds = ds.Order(order...)

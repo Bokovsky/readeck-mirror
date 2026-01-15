@@ -10,23 +10,27 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 	"github.com/doug-martin/goqu/v9/exp"
+
+	"codeberg.org/readeck/readeck/internal/db"
 )
 
-// BooleanExpresion returns the provided [exp.Expression] or its negation when
+// Boolean returns the provided [exp.Expression] or its negation when
 // "value" is false.
-func BooleanExpresion(expr exp.Expression, value bool) exp.Expression {
+func Boolean(expr exp.Expression, value bool) exp.Expression {
 	if value {
 		return expr
 	}
 	return goqu.Func("NOT", expr)
 }
 
-// DateExpression returns a [exp.Comparable] for a datetime. It wraps the expression
+// DateTime returns a datetime expression. It wraps the expression
 // in a "datetime" function with SQLite.
-func DateExpression(dialect goqu.SQLDialect, value any) interface {
+func DateTime(value any) interface {
 	exp.Comparable
+	exp.Orderable
+	exp.Rangeable
 } {
-	if dialect.Dialect() == "sqlite3" {
+	if db.Driver().Dialect() == "sqlite3" {
 		return goqu.Func("datetime", value)
 	}
 

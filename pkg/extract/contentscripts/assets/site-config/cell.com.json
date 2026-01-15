@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='article__body']"
+    "//section[@id='bodymatter']"
   ],
   "date_selectors": null,
   "author_selectors": null,

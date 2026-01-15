@@ -15,8 +15,6 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	_ "github.com/doug-martin/goqu/v9/dialect/sqlite3" // dialect
 	"github.com/mattn/go-sqlite3"                      // driver
-
-	"codeberg.org/readeck/readeck/internal/db/exp"
 )
 
 func init() {
@@ -24,7 +22,7 @@ func init() {
 
 	sql.Register("sqlite3_extended", &sqlite3.SQLiteDriver{
 		ConnectHook: func(conn *sqlite3.SQLiteConn) error {
-			return conn.RegisterCollation("UNICODE", exp.UnaccentCompare)
+			return conn.RegisterCollation("UNICODE", UnaccentCompare)
 		},
 	})
 }

@@ -17,7 +17,7 @@ require (
 	github.com/dop251/goja_nodejs v0.0.0-20251015164255-5e94316bedaf
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.12
-	github.com/go-chi/chi/v5 v5.2.3
+	github.com/go-chi/chi/v5 v5.2.4
 	github.com/go-shiori/dom v0.0.0-20230515143342-73569d674e1c
 	github.com/gobwas/glob v0.2.3
 	github.com/google/uuid v1.6.0
@@ -42,14 +42,14 @@ require (
 	github.com/wyatt915/treeblood v0.1.16
 	github.com/yuin/goldmark v1.7.16
 	github.com/yuin/goldmark-meta v1.1.0
-	golang.org/x/crypto v0.46.0
-	golang.org/x/image v0.34.0
-	golang.org/x/net v0.48.0
+	golang.org/x/crypto v0.47.0
+	golang.org/x/image v0.35.0
+	golang.org/x/net v0.49.0
 	golang.org/x/sync v0.19.0
-	golang.org/x/term v0.38.0
-	golang.org/x/text v0.32.0
+	golang.org/x/term v0.39.0
+	golang.org/x/text v0.33.0
 	gopkg.in/yaml.v3 v3.0.1
-	modernc.org/sqlite v1.42.2
+	modernc.org/sqlite v1.44.0
 )
 
 require (
@@ -67,7 +67,7 @@ require (
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/gogs/chardet v0.0.0-20211120154057-b7413eaefb8f // indirect
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
-	github.com/google/pprof v0.0.0-20260106004452-d7df1bf2cac7 // indirect
+	github.com/google/pprof v0.0.0-20260111202518-71be6bfdd440 // indirect
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
@@ -84,7 +84,7 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/exp v0.0.0-20251219203646-944ab1f22d93 // indirect
+	golang.org/x/exp v0.0.0-20260112195511-716be5621a96 // indirect
 	golang.org/x/sys v0.40.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
