@@ -261,6 +261,12 @@
       @apply flex-grow;
     }
 
+    & > div.control {
+      @screen sm {
+        padding-top: theme("spacing.2");
+      }
+    }
+
     & > div > ul {
       padding-top: theme("spacing.2");
     }
