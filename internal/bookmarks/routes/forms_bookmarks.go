@@ -261,7 +261,7 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 	}
 
 	if labelsChanged {
-		slices.SortFunc(b.Labels, exp.UnaccentCompare)
+		slices.SortFunc(b.Labels, db.UnaccentCompare)
 		b.Labels = slices.Compact(b.Labels)
 		updated["labels"] = b.Labels
 	}

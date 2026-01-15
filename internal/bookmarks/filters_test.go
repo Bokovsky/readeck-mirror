@@ -11,11 +11,13 @@ import (
 	"strings"
 	"testing"
 
-	"codeberg.org/readeck/readeck/internal/bookmarks"
-	"codeberg.org/readeck/readeck/internal/db/types"
-	"codeberg.org/readeck/readeck/pkg/forms"
 	"github.com/doug-martin/goqu/v9"
 	"github.com/stretchr/testify/require"
+
+	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/types"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 func filterForm() forms.Binder {
@@ -106,6 +108,9 @@ func runFiltersToSQL(tests []struct {
 		for i, test := range tests {
 			t.Run(strconv.Itoa(i+1), func(t *testing.T) {
 				for j, dialect := range dialects {
+					db.SetDriver(dialect)
+					defer db.SetDriver("")
+
 					t.Run(dialect, func(t *testing.T) {
 						assert := require.New(t)
 

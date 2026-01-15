@@ -517,7 +517,7 @@ func (b *Bookmark) replaceLabel(oldLabel, newLabel string) {
 		}
 	}
 
-	slices.SortFunc(b.Labels, exp.UnaccentCompare)
+	slices.SortFunc(b.Labels, db.UnaccentCompare)
 	b.Labels = slices.Compact(b.Labels)
 }
 

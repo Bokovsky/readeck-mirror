@@ -44,8 +44,8 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 		since := f.Get("since").(*forms.DatetimeField).V().UTC()
 
 		ds = ds.Where(
-			exp.DateExpression(ds.Dialect(), goqu.C("updated").Table("b")).
-				Gte(exp.DateExpression(ds.Dialect(), since)),
+			exp.DateTime(goqu.C("updated").Table("b")).
+				Gte(exp.DateTime(since)),
 		)
 		ds = ds.Union(
 			db.Q().
@@ -57,8 +57,8 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 				).
 				Where(
 					goqu.C("user_id").Table("r").Eq(auth.GetRequestUser(r).ID),
-					exp.DateExpression(ds.Dialect(), goqu.C("deleted").Table("r")).
-						Gte(exp.DateExpression(ds.Dialect(), since)),
+					exp.DateTime(goqu.C("deleted").Table("r")).
+						Gte(exp.DateTime(since)),
 				),
 		)
 	}
