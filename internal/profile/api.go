@@ -15,6 +15,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/db/scanner"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
@@ -174,8 +175,8 @@ func (api *profileAPI) withTokenList(t tokenType) func(next http.Handler) http.H
 					goqu.C("user_id").Eq(auth.GetRequestUser(r).ID),
 				).
 				Order(
-					goqu.C("last_used").Table("t").Desc().NullsLast(),
-					goqu.C("created").Table("t").Desc(),
+					exp.DateTime(goqu.C("last_used").Table("t")).Desc().NullsLast(),
+					exp.DateTime(goqu.C("created").Table("t")).Desc(),
 				).
 				Limit(uint(pf.Limit())).
 				Offset(uint(pf.Offset()))

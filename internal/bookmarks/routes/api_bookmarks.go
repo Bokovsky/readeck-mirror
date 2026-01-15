@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/converter"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/annotate"
@@ -697,7 +698,7 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)
 
-		ds = ds.Order(goqu.I("created").Desc())
+		ds = ds.Order(exp.DateTime(goqu.I("created")).Desc())
 
 		// Filters (search and other filterForm)
 		filterForm := newContextFilterForm(r.Context(), server.Locale(r))
@@ -843,7 +844,7 @@ func (api *apiRouter) withAnnotationList(next http.Handler) http.Handler {
 		ds = ds.
 			Limit(uint(pf.Limit())).
 			Offset(uint(pf.Offset())).
-			Order(goqu.I("annotation_created").Desc())
+			Order(exp.DateTime(goqu.I("annotation_created")).Desc())
 
 		res, err := dataset.NewAnnotationList(r.Context(), ds)
 		if err != nil {

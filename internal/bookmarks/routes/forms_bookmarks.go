@@ -709,10 +709,10 @@ func newBookmarkOrderForm() *bookmarkOrderForm {
 
 	return &bookmarkOrderForm{
 		orderForm: newOrderForm("sort", map[string]goquexp.Orderable{
-			"created":   t.Col("created"),
+			"created":   exp.DateTime(t.Col("created")),
 			"domain":    t.Col("domain"),
 			"duration":  goqu.Case().When(goqu.L("? > 0", t.Col("duration")), t.Col("duration")).Else(goqu.L("? * 0.3", t.Col("word_count"))),
-			"published": goqu.Case().When(t.Col("published").IsNot(nil), t.Col("published")).Else(t.Col("created")),
+			"published": exp.DateTime(goqu.Case().When(t.Col("published").IsNot(nil), t.Col("published")).Else(t.Col("created"))),
 			"site":      t.Col("site_name"),
 			"title":     t.Col("title"),
 		}),

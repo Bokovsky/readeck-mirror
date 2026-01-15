@@ -244,9 +244,10 @@ func (f Filters) ToSelectDataSet(ds *goqu.SelectDataset) *goqu.SelectDataset {
 		}
 
 		end, _ := timetoken.New(f.RangeEnd)
-		ds = ds.Where(goqu.C("created").Between(
-			goqu.Range(start.RelativeTo(nil),
-				end.RelativeTo(nil),
+		ds = ds.Where(exp.DateTime(goqu.C("created")).Between(
+			goqu.Range(
+				exp.DateTime(start.RelativeTo(nil)),
+				exp.DateTime(end.RelativeTo(nil)),
 			),
 		))
 	}

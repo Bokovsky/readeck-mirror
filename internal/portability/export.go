@@ -19,6 +19,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
 )
 
@@ -155,7 +156,7 @@ func (ex *FullExporter) getTokens() ([]*tokens.Token, error) {
 	return marshalItems[*tokens.Token](
 		tokens.Tokens.Query().
 			Where(goqu.C("user_id").In(ex.userIDs)).
-			Order(goqu.C("created").Asc()),
+			Order(exp.DateTime(goqu.C("created")).Asc()),
 	)
 }
 
@@ -163,7 +164,7 @@ func (ex *FullExporter) getCollections() ([]*bookmarks.Collection, error) {
 	return marshalItems[*bookmarks.Collection](
 		bookmarks.Collections.Query().
 			Where(goqu.C("user_id").In(ex.userIDs)).
-			Order(goqu.C("created").Asc()),
+			Order(exp.DateTime(goqu.C("created")).Asc()),
 	)
 }
 
@@ -172,7 +173,7 @@ func (ex *FullExporter) getBookmarks() ([]bookmarkItem, error) {
 		bookmarks.Bookmarks.Query().
 			Select("uid", "user_id").
 			Where(goqu.C("user_id").In(ex.userIDs)).
-			Order(goqu.C("created").Asc()),
+			Order(exp.DateTime(goqu.C("created")).Asc()),
 	)
 }
 
