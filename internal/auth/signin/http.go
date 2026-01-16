@@ -114,6 +114,10 @@ func (h *authHandler) login(w http.ResponseWriter, r *http.Request) {
 					return
 				}
 
+				_ = user.Update(goqu.Record{
+					"last_login": time.Now().UTC(),
+				})
+
 				h.redirTo(w, r, f.Get("redirect").String())
 				return
 			}

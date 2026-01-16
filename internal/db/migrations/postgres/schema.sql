@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS "user" (
     uid         varchar(32)  UNIQUE NOT NULL,
     created     timestamptz  NOT NULL,
     updated     timestamptz  NOT NULL,
+    last_login  timestamptz  NOT NULL,
     username    varchar(128) UNIQUE NOT NULL,
     email       varchar(128) UNIQUE NOT NULL,
     password    varchar(256) NOT NULL,

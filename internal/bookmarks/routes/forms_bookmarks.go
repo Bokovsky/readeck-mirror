@@ -501,7 +501,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 	switch f.Get("type").String() {
 	case "author":
 		return exp.JSONStringsDataset(db.Q().
-			From(goqu.T(bookmarks.TableName).As("b")).
+			From(goqu.T(db.TableBookmark).As("b")).
 			Select(goqu.C("authors").Table("b")),
 			"name",
 		).
@@ -513,7 +513,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 			Prepared(true)
 	case "label":
 		return exp.JSONStringsDataset(db.Q().
-			From(goqu.T(bookmarks.TableName).As("b")).
+			From(goqu.T(db.TableBookmark).As("b")).
 			Select(goqu.C("labels").Table("b")),
 			"name",
 		).
@@ -524,7 +524,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 			).
 			Prepared(true)
 	case "site":
-		d1 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		d1 := db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("domain"),
 			).
@@ -533,7 +533,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 				goqu.C("user_id").Table("b").Eq(user.ID),
 				goqu.I("domain").ILike(q),
 			)
-		d2 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		d2 := db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("site_name"),
 			).
@@ -545,7 +545,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 
 		return d1.Union(d2).Prepared(true)
 	case "title":
-		return db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		return db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("title"),
 			).

@@ -16,7 +16,9 @@ import (
 
 // Boolean returns the provided [exp.Expression] or its negation when
 // "value" is false.
-func Boolean(expr exp.Expression, value bool) exp.Expression {
+func Boolean(expr exp.Expression, value bool) interface {
+	exp.Expression
+} {
 	if value {
 		return expr
 	}
@@ -35,6 +37,17 @@ func DateTime(value any) interface {
 	}
 
 	return goqu.V(value)
+}
+
+// Greatest returns a greatest or max function expression.
+// On SQLite, max() can take an arbitrary number of arguments and then
+// acts as greatest() on PostgreSQL.
+func Greatest(args ...any) exp.SQLFunctionExpression {
+	fn := "greatest"
+	if db.Driver().Dialect() == "sqlite3" {
+		fn = "max"
+	}
+	return goqu.Func(fn, args...)
 }
 
 // JSONArrayLength returns a json(b)_array_length statement of the given identifier.

@@ -21,7 +21,7 @@ SPDX-License-Identifier: AGPL-3.0-only
 </form>
 {{- end -}}
 
-<form action="{{ urlFor() }}" method="post">
+<form action="{{ urlFor() }}" method="post" class="mb-8">
   {{ yield formErrors(form=.Form) }}
 
   {{ yield textField(field=.Form.Get("username"),
@@ -54,4 +54,30 @@ SPDX-License-Identifier: AGPL-3.0-only
     {{- end -}}
   </p>
 </form>
+
+{{- if !.User.LastLogin.IsZero() -}}
+<div class="field field-h sm:mb-0.5">
+  <label>{{ gettext("Last login") }}</label>
+  <div class="control">
+    {{ date(.User.LastLogin, "%e %B %Y %H:%M") }}
+  </div>
+</div>
+{{- end -}}
+
+{{- if !.User.LastActivity.IsZero() -}}
+<div class="field field-h sm:mb-0.5">
+  <label>{{ gettext("Last Activity") }}</label>
+  <div class="control">{{ date(.User.LastActivity, "%e %B %Y %H:%M") }}</div>
+</div>
+{{- end -}}
+
+<div class="field field-h sm:mb-0.5">
+  <label>{{ gettext("Bookmarks") }}</label>
+  <div class="control">{{ .User.BookmarkCount }}</div>
+</div>
+
+<div class="field field-h sm:mb-0.5">
+  <label>{{ gettext("Disk usage") }}</label>
+  <div class="control">{{ humanReadable(.User.BookmarkDiskUsage) }}</div>
+</div>
 {{ end }}

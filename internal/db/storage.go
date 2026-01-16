@@ -22,6 +22,15 @@ import (
 	"codeberg.org/readeck/readeck/internal/db/migrations"
 )
 
+// Defines all the available tables.
+const (
+	TableUser               = "user"
+	TableToken              = "token"
+	TableBookmark           = "bookmark"
+	TableBookmarkRemoved    = "bookmark_removed"
+	TableBookmarkCollection = "bookmark_collection"
+)
+
 // Connector is an interface for a database connector.
 type Connector interface {
 	// Name returns the connector's name.

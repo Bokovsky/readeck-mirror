@@ -21,11 +21,6 @@ import (
 	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
-const (
-	// TableName is the user table name in database.
-	TableName = "token"
-)
-
 var (
 	// Tokens is the token manager.
 	Tokens = Manager{}
@@ -53,7 +48,7 @@ type Manager struct{}
 
 // Query returns a prepared goqu SelectDataset that can be extended later.
 func (m *Manager) Query() *goqu.SelectDataset {
-	return db.Q().From(goqu.T(TableName).As("t")).Prepared(true)
+	return db.Q().From(goqu.T(db.TableToken).As("t")).Prepared(true)
 }
 
 // GetOne executes the a select query and returns the first result or an error
@@ -77,7 +72,7 @@ func (m *Manager) GetUser(uid string) (*TokenAndUser, error) {
 	var res TokenAndUser
 	ds := m.Query().
 		Join(
-			goqu.T(users.TableName).As("u"),
+			goqu.T(db.TableUser).As("u"),
 			goqu.On(goqu.I("t.user_id").Eq(goqu.I("u.id"))),
 		).
 		Where(
@@ -110,7 +105,7 @@ func (m *Manager) Create(token *Token) error {
 		token.UID = base58.NewUUID()
 	}
 
-	ds := db.Q().Insert(TableName).
+	ds := db.Q().Insert(db.TableToken).
 		Rows(token).
 		Prepared(true)
 
@@ -129,7 +124,7 @@ func (t *Token) Update(v interface{}) error {
 		return errors.New("no ID")
 	}
 
-	_, err := db.Q().Update(TableName).Prepared(true).
+	_, err := db.Q().Update(db.TableToken).Prepared(true).
 		Set(v).
 		Where(goqu.C("id").Eq(t.ID)).
 		Executor().Exec()
@@ -144,7 +139,7 @@ func (t *Token) Save() error {
 
 // Delete removes a token from the database.
 func (t *Token) Delete() error {
-	_, err := db.Q().Delete(TableName).Prepared(true).
+	_, err := db.Q().Delete(db.TableToken).Prepared(true).
 		Where(goqu.C("id").Eq(t.ID)).
 		Executor().Exec()
 

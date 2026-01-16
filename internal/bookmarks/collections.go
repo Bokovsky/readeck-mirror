@@ -17,11 +17,6 @@ import (
 	"codeberg.org/readeck/readeck/pkg/base58"
 )
 
-const (
-	// CollectionTable is the collection table name in database.
-	CollectionTable = "bookmark_collection"
-)
-
 var (
 	// Collections is the collection query manager.
 	Collections = CollectionManager{}
@@ -47,7 +42,7 @@ type CollectionManager struct{}
 
 // Query returns a prepared goqu SelectDataset that can be extended later.
 func (m *CollectionManager) Query() *goqu.SelectDataset {
-	return db.Q().From(goqu.T(CollectionTable).As("c")).Prepared(true)
+	return db.Q().From(goqu.T(db.TableBookmarkCollection).As("c")).Prepared(true)
 }
 
 // GetOne executes the a select query and returns the first result or an error
@@ -76,7 +71,7 @@ func (m *CollectionManager) Create(collection *Collection) error {
 	collection.Updated = collection.Created
 	collection.UID = base58.NewUUID()
 
-	ds := db.Q().Insert(CollectionTable).
+	ds := db.Q().Insert(db.TableBookmarkCollection).
 		Rows(collection).
 		Prepared(true)
 
@@ -103,7 +98,7 @@ func (c *Collection) Update(v interface{}) error {
 		//
 	}
 
-	_, err := db.Q().Update(CollectionTable).Prepared(true).
+	_, err := db.Q().Update(db.TableBookmarkCollection).Prepared(true).
 		Set(v).
 		Where(goqu.C("id").Eq(c.ID)).
 		Executor().Exec()
@@ -119,7 +114,7 @@ func (c *Collection) Save() error {
 
 // Delete removes a collection from the database.
 func (c *Collection) Delete() error {
-	_, err := db.Q().Delete(CollectionTable).Prepared(true).
+	_, err := db.Q().Delete(db.TableBookmarkCollection).Prepared(true).
 		Where(goqu.C("id").Eq(c.ID)).
 		Executor().Exec()
 

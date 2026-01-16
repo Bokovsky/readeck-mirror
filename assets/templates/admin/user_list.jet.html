@@ -23,12 +23,17 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{ yield list(class="my-6") content}}
   {{ range .Users }}
     {{ yield list_item(class="flex gap-2 items-center hfw:bg-gray-100 max-md:block") content }}
-      <a class="block flex-grow p-4" href="{{ urlFor(`.`, .ID) }}">
-        <strong class="link font-semibold">{{ .Username }}</strong>
-          ({{ .Group }})
-        <small class="block">
-          {{ gettext("Created on: %s", date(.Created, "%e %B %Y")) }},
-          {{ gettext("Last update: %s", date(.Updated, "%e %B %Y")) }}
+      <a class="block sm:flex flex-grow p-4" href="{{ urlFor(`.`, .ID) }}">
+        <span class="grow">
+          <strong class="link font-semibold">{{ .Username }}</strong>
+            ({{ .Group }})
+        </span>
+        <small class="block sm:text-right">
+          {{ gettext("Created on: %s", date(.Created, "%e %B %Y %H:%M")) }}<br>
+          {{ gettext("Last update: %s", date(.Updated, "%e %B %Y %H:%M")) }}
+          {{- if !.LastLogin.IsZero() -}}<br>
+          {{ gettext("Last login: %s", date(.LastLogin, "%e %B %Y %H:%M")) }}
+          {{- end }}
         </small>
       </a>
       {{- if .IsDeleted -}}

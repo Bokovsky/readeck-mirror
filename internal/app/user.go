@@ -249,7 +249,7 @@ func runUser(_ context.Context, args []string) (err error) {
 
 	msg := "created"
 	if user.ID == 0 {
-		_, err = db.Q().Insert(users.TableName).Rows(user).Prepared(true).Executor().Exec()
+		_, err = db.Q().Insert(db.TableUser).Rows(user).Prepared(true).Executor().Exec()
 	} else {
 		err = user.Save()
 		msg = "updated"
