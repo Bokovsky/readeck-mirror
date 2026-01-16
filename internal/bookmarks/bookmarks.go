@@ -229,7 +229,7 @@ func (m *BookmarkManager) GetAnnotations() *goqu.SelectDataset {
 			goqu.L(`a->>'text'`).As("annotation_text"),
 			goqu.L(`(a->>'created')::timestamptz`).As("annotation_created"),
 			goqu.L(`COALESCE((a->>'color'), 'yellow')`).As("annotation_color"),
-			goqu.L(`COALESCE((a->>'note'), 'yellow')`).As("annotation_note"),
+			goqu.L(`COALESCE((a->>'note'), '')`).As("annotation_note"),
 		).
 			From(
 				goqu.T(db.TableBookmark).As("b"),
