@@ -17,12 +17,14 @@ import (
 	"strings"
 	"time"
 
+	"github.com/araddon/dateparse"
 	"github.com/doug-martin/goqu/v9"
 	"github.com/hlandau/passlib"
 
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/acls"
 	"codeberg.org/readeck/readeck/internal/db"
+	"codeberg.org/readeck/readeck/internal/db/exp"
 	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/base58"
@@ -253,6 +255,54 @@ func (u *User) Lock(v bool) {
 // Locked returns the user's locked status.
 func (u *User) Locked() bool {
 	return u.locked
+}
+
+// LastActivity returns a [time.Time] of the last known user activity.
+// It retrieves the most recent time from the last login, token use, bookmark update
+// and bookmark deletion.
+func (u *User) LastActivity() (time.Time, error) {
+	ds := db.Q().Select(
+		exp.Greatest(
+			goqu.C("last_login").Table("u"),
+			goqu.Case().When(goqu.C("x").Table("b").IsNotNull(), goqu.C("x").Table("b")).Else(goqu.V("0001-01-01")),
+			goqu.Case().When(goqu.C("x").Table("br").IsNotNull(), goqu.C("x").Table("br")).Else(goqu.V("0001-01-01")),
+			goqu.Case().When(goqu.C("x").Table("t").IsNotNull(), goqu.C("x").Table("t")).Else(goqu.V("0001-01-01")),
+		),
+	).From(
+		goqu.T(db.TableUser).As("u"),
+		goqu.Select(goqu.MAX(exp.DateTime(goqu.C("updated"))).As("x")).
+			From(db.TableBookmark).
+			Where(goqu.C("user_id").Eq(u.ID)).
+			As("b"),
+		goqu.Select(goqu.MAX(exp.DateTime(goqu.C("deleted"))).As("x")).
+			From(db.TableBookmarkRemoved).
+			Where(goqu.C("user_id").Eq(u.ID)).
+			As("br"),
+		goqu.Select(
+			goqu.MAX(exp.DateTime(
+				goqu.Case().When(goqu.C("last_used").IsNull(), goqu.V("0001-01-01")).Else(goqu.C("last_used")),
+			)).As("x"),
+		).
+			From(db.TableToken).
+			Where(goqu.C("user_id").Eq(u.ID)).
+			As("t"),
+	).Where(
+		goqu.C("id").Table("u").Eq(u.ID),
+	)
+
+	var res time.Time
+	var err error
+
+	if db.Driver().Dialect() == "sqlite3" {
+		s := ""
+		if _, err = ds.ScanVal(&s); err == nil {
+			res, err = dateparse.ParseStrict(s)
+		}
+	} else {
+		_, err = ds.ScanVal(&res)
+	}
+
+	return res, err
 }
 
 // MakePassword generates a password of the given length.

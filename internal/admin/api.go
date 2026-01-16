@@ -121,7 +121,11 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 
 func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r.Context())
-	item := newUserItem(r.Context(), u)
+	item, err := newExtendedUserItem(r.Context(), u)
+	if err != nil {
+		server.Err(w, r, err)
+		return
+	}
 	item.Settings = u.Settings
 
 	server.Render(w, r, http.StatusOK, item)
@@ -238,6 +242,33 @@ func newUserItem(ctx context.Context, u *users.User) *userItem {
 		LastLogin: u.LastLogin,
 		IsDeleted: deleteUserTask.IsRunning(u.ID),
 	}
+}
+
+type extendedUserItem struct {
+	*userItem
+
+	LastActivity      time.Time `json:"last_activity"`
+	BookmarkCount     int       `json:"bookmark_count"`
+	BookmarkDiskUsage uint64    `json:"bookmark_disk_usage"`
+}
+
+func newExtendedUserItem(ctx context.Context, u *users.User) (*extendedUserItem, error) {
+	item := &extendedUserItem{
+		userItem: newUserItem(ctx, u),
+	}
+	var err error
+
+	item.LastActivity, err = u.LastActivity()
+	if err != nil {
+		return nil, err
+	}
+
+	item.BookmarkCount, item.BookmarkDiskUsage, err = bookmarks.Bookmarks.UserDiskUsage(u)
+	if err != nil {
+		return nil, err
+	}
+
+	return item, nil
 }
 
 func deleteUser(u *users.User) error {

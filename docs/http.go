@@ -235,7 +235,7 @@ func (h *helpHandlers) serveAbout(w http.ResponseWriter, r *http.Request) {
 		server.Err(w, r, err)
 		return
 	}
-	diskUsageVal, err := bookmarks.Bookmarks.DiskUsage()
+	diskUsageVal, err := bookmarks.Bookmarks.DiskUsage(nil)
 	if err != nil {
 		server.Err(w, r, err)
 		return

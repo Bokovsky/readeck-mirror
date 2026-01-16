@@ -368,7 +368,7 @@ func (m *BookmarkManager) RenameLabel(u *users.User, oldLabel, newLabel string) 
 }
 
 // DiskUsage returns the total size of bookmarks on disk, as int64.
-func (m *BookmarkManager) DiskUsage() (uint64, error) {
+func (m *BookmarkManager) DiskUsage(fn func(uid string) bool) (uint64, error) {
 	dir := StoragePath()
 	var totalSize uint64
 
@@ -383,7 +383,12 @@ func (m *BookmarkManager) DiskUsage() (uint64, error) {
 		if err != nil {
 			return err
 		}
-		if !info.IsDir() {
+		ok := true
+		if fn != nil {
+			ok = fn(strings.Split(info.Name(), ".")[0])
+		}
+
+		if !info.IsDir() && ok {
 			totalSize += uint64(info.Size())
 		}
 		return nil
@@ -393,6 +398,41 @@ func (m *BookmarkManager) DiskUsage() (uint64, error) {
 	}
 
 	return totalSize, nil
+}
+
+// UserDiskUsage returns the total size of bookmarks on disk for a given user.
+// The first (count) result is the number of bookmarks.
+func (m *BookmarkManager) UserDiskUsage(user *users.User) (count int, size uint64, err error) {
+	uids := map[string]struct{}{}
+	rows, err := Bookmarks.Query().
+		Select(goqu.C("uid").Table("b")).
+		Where(goqu.C("user_id").Table("b").Eq(user.ID)).
+		Executor().Query()
+	if err != nil {
+		return count, size, err
+	}
+
+	s := ""
+	for rows.Next() {
+		if err = rows.Scan(&s); err != nil {
+			return count, size, err
+		}
+		uids[s] = struct{}{}
+	}
+	if err = rows.Close(); err != nil {
+		return count, size, err
+	}
+
+	size, err = m.DiskUsage(func(uid string) bool {
+		_, ok := uids[uid]
+		return ok
+	})
+	if err != nil {
+		return count, size, err
+	}
+
+	count = len(uids)
+	return count, size, nil
 }
 
 // Update updates some bookmark values.

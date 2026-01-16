@@ -14,12 +14,106 @@ import (
 	goquexp "github.com/doug-martin/goqu/v9/exp"
 	"github.com/stretchr/testify/require"
 
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/db/exp"
 )
 
 type queryExpect struct {
 	sql  string
 	args []interface{}
+}
+
+func TestFunctions(t *testing.T) {
+	tests := []struct {
+		ds       func(ds *goqu.SelectDataset) *goqu.SelectDataset
+		expected map[string]queryExpect
+	}{
+		{
+			func(ds *goqu.SelectDataset) *goqu.SelectDataset {
+				return ds.Select(exp.Boolean(goqu.C("x"), true))
+			},
+			map[string]queryExpect{
+				"sqlite3": {
+					"SELECT `x` FROM `T`",
+					[]any{},
+				},
+				"postgres": {
+					`SELECT "x" FROM "T"`,
+					[]any{},
+				},
+			},
+		},
+		{
+			func(ds *goqu.SelectDataset) *goqu.SelectDataset {
+				return ds.Select(exp.Boolean(goqu.C("x"), false))
+			},
+			map[string]queryExpect{
+				"sqlite3": {
+					"SELECT NOT(`x`) FROM `T`",
+					[]any{},
+				},
+				"postgres": {
+					`SELECT NOT("x") FROM "T"`,
+					[]any{},
+				},
+			},
+		},
+		{
+			func(ds *goqu.SelectDataset) *goqu.SelectDataset {
+				return ds.Select(exp.DateTime(goqu.C("x")))
+			},
+			map[string]queryExpect{
+				"sqlite3": {
+					"SELECT datetime(`x`) FROM `T`",
+					[]any{},
+				},
+				"postgres": {
+					`SELECT "x" FROM "T"`,
+					[]any{},
+				},
+			},
+		},
+		{
+			func(ds *goqu.SelectDataset) *goqu.SelectDataset {
+				return ds.Select(exp.Greatest(goqu.V(1), goqu.V(2)))
+			},
+			map[string]queryExpect{
+				"sqlite3": {
+					"SELECT max(?, ?) FROM `T`",
+					[]any{int64(1), int64(2)},
+				},
+				"postgres": {
+					`SELECT greatest($1, $2) FROM "T"`,
+					[]any{int64(1), int64(2)},
+				},
+			},
+		},
+	}
+
+	for i, test := range tests {
+		for _, dialect := range []string{"sqlite3", "postgres"} {
+			if _, ok := test.expected[dialect]; !ok {
+				continue
+			}
+			t.Run(fmt.Sprintf("%d-%s", i+1, dialect), func(t *testing.T) {
+				db.SetDriver(dialect)
+				defer db.SetDriver("")
+
+				ds := goqu.Dialect(dialect).Select().From("T")
+				ds = test.ds(ds)
+
+				sql, args, err := ds.Prepared(true).ToSQL()
+				require.NoError(t, err)
+				// t.Logf("%#v -- %#v", sql, args)
+
+				require.Equal(t,
+					test.expected[dialect].sql,
+					sql,
+				)
+				require.Equal(t, test.expected[dialect].args, args)
+			})
+		}
+	}
 }
 
 func TestStringsFilter(t *testing.T) {

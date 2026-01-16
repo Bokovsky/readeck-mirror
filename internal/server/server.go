@@ -199,7 +199,7 @@ func sysRoutes() http.Handler {
 			return
 		}
 
-		usage.Bookmarks, err = bookmarks.Bookmarks.DiskUsage()
+		usage.Bookmarks, err = bookmarks.Bookmarks.DiskUsage(nil)
 		if err != nil {
 			Err(w, r, err)
 			return
