@@ -134,11 +134,11 @@ func (imp *FullImporter) clearDB(tx *goqu.TxDatabase) error {
 		return nil
 	}
 
-	if _, err := tx.Delete(bookmarks.TableName).Executor().Exec(); err != nil {
+	if _, err := tx.Delete(db.TableBookmark).Executor().Exec(); err != nil {
 		return err
 	}
 
-	if _, err := tx.Delete(users.TableName).Executor().Exec(); err != nil {
+	if _, err := tx.Delete(db.TableUser).Executor().Exec(); err != nil {
 		return err
 	}
 	return nil
@@ -157,7 +157,7 @@ func (imp *FullImporter) loadUsers(tx *goqu.TxDatabase, data *portableData) (err
 		}
 
 		var count int64
-		count, err = tx.Select().From(users.TableName).Where(
+		count, err = tx.Select().From(db.TableUser).Where(
 			goqu.Or(
 				goqu.C("username").Eq(item.Username),
 				goqu.C("email").Eq(item.Email),
@@ -172,7 +172,7 @@ func (imp *FullImporter) loadUsers(tx *goqu.TxDatabase, data *portableData) (err
 		}
 
 		originalID := item.ID
-		if item.ID, err = insertInto(tx, users.TableName, item, func(x *users.User) {
+		if item.ID, err = insertInto(tx, db.TableUser, item, func(x *users.User) {
 			x.ID = 0
 			x.SetSeed()
 			if !imp.clearData || x.UID == "" {
@@ -200,7 +200,7 @@ func (imp *FullImporter) loadTokens(tx *goqu.TxDatabase, data *portableData) (er
 			continue
 		}
 
-		if item.ID, err = insertInto(tx, tokens.TableName, item, func(x *tokens.Token) {
+		if item.ID, err = insertInto(tx, db.TableToken, item, func(x *tokens.Token) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
 			if !imp.clearData || x.UID == "" {
@@ -228,7 +228,7 @@ func (imp *FullImporter) loadCollections(tx *goqu.TxDatabase, data *portableData
 			continue
 		}
 
-		if item.ID, err = insertInto(tx, bookmarks.CollectionTable, item, func(x *bookmarks.Collection) {
+		if item.ID, err = insertInto(tx, db.TableBookmarkCollection, item, func(x *bookmarks.Collection) {
 			x.ID = 0
 			x.UserID = ptrTo(imp.users[*x.UserID])
 			if !imp.clearData || x.UID == "" {
@@ -277,7 +277,7 @@ func (imp *FullImporter) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (
 		return
 	}
 
-	if b.ID, err = insertInto(tx, bookmarks.TableName, &b, func(x *bookmarks.Bookmark) {
+	if b.ID, err = insertInto(tx, db.TableBookmark, &b, func(x *bookmarks.Bookmark) {
 		x.ID = 0
 		x.UserID = ptrTo(imp.users[*x.UserID])
 		if !imp.clearData || x.UID == "" {
@@ -361,7 +361,7 @@ func (imp *SingleUserImporter) clearDB(_ *goqu.TxDatabase) error {
 }
 
 func (imp *SingleUserImporter) loadUsers(tx *goqu.TxDatabase, data *portableData) error {
-	_, err := tx.Update(users.TableName).Prepared(true).
+	_, err := tx.Update(db.TableUser).Prepared(true).
 		Set(map[string]any{
 			"updated":  time.Now().UTC(),
 			"settings": data.Users[0].Settings,
@@ -373,7 +373,7 @@ func (imp *SingleUserImporter) loadUsers(tx *goqu.TxDatabase, data *portableData
 }
 
 func (imp *SingleUserImporter) loadTokens(tx *goqu.TxDatabase, data *portableData) error {
-	if _, err := tx.Delete(tokens.TableName).Prepared(true).
+	if _, err := tx.Delete(db.TableToken).Prepared(true).
 		Where(goqu.C("user_id").Eq(imp.user.ID)).
 		Executor().Exec(); err != nil {
 		return err
@@ -382,7 +382,7 @@ func (imp *SingleUserImporter) loadTokens(tx *goqu.TxDatabase, data *portableDat
 }
 
 func (imp *SingleUserImporter) loadCollections(tx *goqu.TxDatabase, data *portableData) error {
-	if _, err := tx.Delete(bookmarks.CollectionTable).Prepared(true).
+	if _, err := tx.Delete(db.TableBookmarkCollection).Prepared(true).
 		Where(goqu.C("user_id").Eq(imp.user.ID)).
 		Executor().Exec(); err != nil {
 		return err
@@ -391,7 +391,7 @@ func (imp *SingleUserImporter) loadCollections(tx *goqu.TxDatabase, data *portab
 }
 
 func (imp *SingleUserImporter) loadBookmarks(tx *goqu.TxDatabase, data *portableData) (err error) {
-	ds := tx.From(bookmarks.TableName).Prepared(true).
+	ds := tx.From(db.TableBookmark).Prepared(true).
 		Select(goqu.C("id"), goqu.C("file_path")).
 		Where(goqu.C("user_id").Eq(imp.user.ID))
 
@@ -400,7 +400,7 @@ func (imp *SingleUserImporter) loadBookmarks(tx *goqu.TxDatabase, data *portable
 		return err
 	}
 
-	if _, err := tx.Delete(bookmarks.TableName).Prepared(true).
+	if _, err := tx.Delete(db.TableBookmark).Prepared(true).
 		Where(goqu.C("user_id").Eq(imp.user.ID)).
 		Executor().Exec(); err != nil {
 		return err

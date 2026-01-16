@@ -46,13 +46,6 @@ const (
 	StateLoading
 )
 
-const (
-	// TableName is the bookmark table name in database.
-	TableName = "bookmark"
-	// TableNameRemoved is the removed bookmarks table name in database.
-	TableNameRemoved = "bookmark_removed"
-)
-
 // StateNames returns a string with the state name.
 var StateNames = map[BookmarkState]string{
 	StateLoaded:  "loaded",
@@ -128,7 +121,7 @@ func (m *BookmarkManager) Create(bookmark *Bookmark) error {
 		bookmark.InitialURL = bookmark.URL
 	}
 
-	ds := db.Q().Insert(TableName).
+	ds := db.Q().Insert(db.TableBookmark).
 		Rows(bookmark).
 		Prepared(true)
 
@@ -143,7 +136,7 @@ func (m *BookmarkManager) Create(bookmark *Bookmark) error {
 
 // Query returns a prepared goqu SelectDataset that can be extended later.
 func (m *BookmarkManager) Query() *goqu.SelectDataset {
-	return db.Q().From(goqu.T(TableName).As("b")).Prepared(true)
+	return db.Q().From(goqu.T(db.TableBookmark).As("b")).Prepared(true)
 }
 
 // GetOne executes the a select query and returns the first result or an error
@@ -208,7 +201,7 @@ func (m *BookmarkManager) GetLastUpdate(expressions ...goqu.Expression) (time.Ti
 func (m *BookmarkManager) GetLabels() *goqu.SelectDataset {
 	return exp.JSONStringsDataset(
 		db.Q().
-			From(goqu.T(TableName).As("b")).
+			From(goqu.T(db.TableBookmark).As("b")).
 			Select(goqu.C("labels").Table("b")),
 		"name",
 	).
@@ -239,7 +232,7 @@ func (m *BookmarkManager) GetAnnotations() *goqu.SelectDataset {
 			goqu.L(`COALESCE((a->>'note'), 'yellow')`).As("annotation_note"),
 		).
 			From(
-				goqu.T(TableName).As("b"),
+				goqu.T(db.TableBookmark).As("b"),
 				goqu.L(`jsonb_array_elements(
 					case jsonb_typeof(b.annotations)
 					when 'array' then b.annotations
@@ -255,7 +248,7 @@ func (m *BookmarkManager) GetAnnotations() *goqu.SelectDataset {
 			goqu.Func("COALESCE", goqu.Func("json_extract", goqu.I("a.value"), "$.note"), "").As("annotation_note"),
 		).
 			From(
-				goqu.T(TableName).As("b"),
+				goqu.T(db.TableBookmark).As("b"),
 				goqu.L(`json_each(
 					case json_type(b.annotations)
 					when 'array' then b.annotations
@@ -360,7 +353,7 @@ func (m *BookmarkManager) RenameLabel(u *users.User, oldLabel, newLabel string) 
 		cases = cases.When(goqu.C("id").Eq(x.ID), goqu.L(casePlaceholder, x.Labels))
 	}
 
-	_, err = db.Q().Update(TableName).Prepared(true).
+	_, err = db.Q().Update(db.TableBookmark).Prepared(true).
 		Set(goqu.Record{
 			"updated": time.Now().UTC(),
 			"labels":  cases,
@@ -415,7 +408,7 @@ func (b *Bookmark) Update(v interface{}) error {
 		//
 	}
 
-	_, err := db.Q().Update(TableName).Prepared(true).
+	_, err := db.Q().Update(db.TableBookmark).Prepared(true).
 		Set(v).
 		Where(goqu.C("id").Eq(b.ID)).
 		Executor().Exec()
@@ -431,7 +424,7 @@ func (b *Bookmark) Save() error {
 
 // Delete removes a bookmark from the database.
 func (b *Bookmark) Delete() error {
-	_, err := db.Q().Delete(TableName).Prepared(true).
+	_, err := db.Q().Delete(db.TableBookmark).Prepared(true).
 		Where(goqu.C("id").Eq(b.ID)).
 		Executor().Exec()
 	if err != nil {

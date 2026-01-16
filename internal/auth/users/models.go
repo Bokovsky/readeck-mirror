@@ -35,11 +35,6 @@ func init() {
 	}
 }
 
-const (
-	// TableName is the user table name in database.
-	TableName = "user"
-)
-
 var (
 	// Users is the user manager.
 	Users = Manager{}
@@ -70,7 +65,7 @@ type Manager struct{}
 
 // Query returns a prepared goqu SelectDataset that can be extended later.
 func (m *Manager) Query() *goqu.SelectDataset {
-	return db.Q().From(goqu.T(TableName).As("u")).Prepared(true)
+	return db.Q().From(goqu.T(db.TableUser).As("u")).Prepared(true)
 }
 
 // GetOne executes the a select query and returns the first result or an error
@@ -91,7 +86,7 @@ func (m *Manager) GetOne(expressions ...goqu.Expression) (*User, error) {
 
 // Count returns the number of user in the database.
 func (m *Manager) Count() (int64, error) {
-	return db.Q().From(TableName).Count()
+	return db.Q().From(db.TableUser).Count()
 }
 
 // Create insert a new user in the database. The password
@@ -111,7 +106,7 @@ func (m *Manager) Create(user *User) error {
 	user.UID = base58.NewUUID()
 	user.SetSeed()
 
-	ds := db.Q().Insert(TableName).
+	ds := db.Q().Insert(db.TableUser).
 		Rows(user).
 		Prepared(true)
 
@@ -130,7 +125,7 @@ func (u *User) Update(v interface{}) error {
 		return errors.New("no ID")
 	}
 
-	_, err := db.Q().Update(TableName).Prepared(true).
+	_, err := db.Q().Update(db.TableUser).Prepared(true).
 		Set(v).
 		Where(goqu.C("id").Eq(u.ID)).
 		Executor().Exec()
@@ -146,7 +141,7 @@ func (u *User) Save() error {
 
 // Delete removes a user from the database.
 func (u *User) Delete() error {
-	_, err := db.Q().Delete(TableName).Prepared(true).
+	_, err := db.Q().Delete(db.TableUser).Prepared(true).
 		Where(goqu.C("id").Eq(u.ID)).
 		Executor().Exec()
 

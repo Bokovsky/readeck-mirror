@@ -21,6 +21,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
+	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -493,7 +494,7 @@ func (h *publicViewsRouter) withBookmark(next http.Handler) http.Handler {
 			}
 			ds := bookmarks.Bookmarks.
 				Query().
-				Join(goqu.T(users.TableName).As("u"), goqu.On(goqu.I("u.id").Eq(goqu.I("b.user_id")))).
+				Join(goqu.T(db.TableUser).As("u"), goqu.On(goqu.I("u.id").Eq(goqu.I("b.user_id")))).
 				Where(
 					goqu.I("b.id").Eq(id),
 					goqu.I("b.state").Eq(bookmarks.StateLoaded),

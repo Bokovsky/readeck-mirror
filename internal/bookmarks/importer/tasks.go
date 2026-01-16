@@ -185,7 +185,7 @@ func NewImportProgress(trackID string) (p ImportProgress, err error) {
 	}
 
 	p.Done, err = db.Q().Select(goqu.C("id")).
-		From(bookmarks.TableName).
+		From(db.TableBookmark).
 		Where(
 			goqu.C("id").In(ids),
 			goqu.C("state").Neq(bookmarks.StateLoading),
