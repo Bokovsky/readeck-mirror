@@ -19,6 +19,14 @@ import (
 	"strings"
 	"sync"
 
+	_ "image/gif"  // GIF decoder
+	_ "image/jpeg" // JPEG decoder
+	_ "image/png"  // PNG decoder
+
+	_ "golang.org/x/image/bmp"  // BMP decoder
+	_ "golang.org/x/image/tiff" // TIFF decoder
+	_ "golang.org/x/image/webp" // WEBP decoder
+
 	"golang.org/x/net/html"
 	"golang.org/x/sync/semaphore"
 	"golang.org/x/sync/singleflight"
