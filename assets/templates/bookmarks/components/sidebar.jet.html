@@ -37,19 +37,19 @@ SPDX-License-Identifier: AGPL-3.0-only
   <p class="hidden print:block mb-4 font-semibold text-primary-dark">{{ .Item.URL }}</p>
 
   <div class="print:flex print:gap-8">
-    {{- if .Item.Type == "article" && isset(.Item.Resources.thumbnail) -}}
+    {{- if .Item.Type == "article" && isset(.Item.Resources.image) -}}
     <div class="mb-4">
       <span class="
         block relative overflow-hidden pt-16/9
         print:overflow-visible
         print:pt-0 print:static
       ">
-        <img src="{{ .Item.Resources.thumbnail.Src }}" alt="" class="
+        <img src="{{ .Item.Resources.image.Src }}" alt="" class="
           absolute top-0 h-full w-full object-cover object-center rounded
           print:w-52 print:h-auto print:static
           "
-          width="{{ .Item.Resources.thumbnail.Width }}"
-          height="{{ .Item.Resources.thumbnail.Height }}" />
+          width="{{ .Item.Resources.image.Width }}"
+          height="{{ .Item.Resources.image.Height }}" />
       </span>
     </div>
     {{- end -}}

@@ -35,7 +35,7 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 		return next
 	}
 
-	size := uint(extract.ImageSizeThumbnail)
+	size := uint(extract.ImageSizeRegular)
 	if d.DocumentType == "photo" {
 		size = extract.ImageSizeWide
 	}
@@ -61,7 +61,7 @@ func ExtractPicture(m *extract.ProcessMessage, next extract.Processor) extract.P
 	d.Pictures["image"] = picture
 	m.Log().Debug("picture loaded", slog.Any("size", picture.Size[:]))
 
-	thumbnail, err := picture.Copy(380, "")
+	thumbnail, err := picture.Copy(extract.ImageSizeThumbnail, "")
 	if err != nil {
 		m.Log().Warn("", slog.Any("err", err))
 		return next
