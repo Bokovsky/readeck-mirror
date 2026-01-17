@@ -20,6 +20,7 @@ import (
 	_ "golang.org/x/image/tiff"                   // TIFF decoder
 
 	"github.com/anthonynsimon/bild/transform"
+	"golang.org/x/image/riff"
 )
 
 func init() {
@@ -64,9 +65,7 @@ func NewNativeImage(r io.Reader) (*NativeImage, error) {
 	// Check for lossless webp
 	lossless := false
 	if format == "webp" {
-		// DecodeConfig already read 4096 bytes, so we can read
-		// the 16th directly from it.
-		lossless = buf.Bytes()[15] == 'L'
+		lossless = isWebpLossless(bytes.NewReader(buf.Bytes()))
 	}
 
 	m, _, err := image.Decode(io.MultiReader(buf, r))
@@ -173,4 +172,30 @@ func (im *NativeImage) Encode(w io.Writer) (string, error) {
 
 	// Default to jpeg encoding
 	return "image/jpeg", jpeg.Encode(w, im.m, &jpeg.Options{Quality: int(im.quality)})
+}
+
+var (
+	webpLossy    = riff.FourCC{'V', 'P', '8', ' '}
+	webpLossless = riff.FourCC{'V', 'P', '8', 'L'}
+)
+
+// isWebpLossless scans WebP image chunks until the first image frame is found and returns whether
+// it uses lossy or lossless compression.
+func isWebpLossless(r io.Reader) bool {
+	_, riffReader, err := riff.NewReader(r)
+	if err != nil {
+		return false
+	}
+	for {
+		chunkID, _, _, err := riffReader.Next()
+		if err != nil {
+			return false
+		}
+		switch chunkID {
+		case webpLossy:
+			return false
+		case webpLossless:
+			return true
+		}
+	}
 }
