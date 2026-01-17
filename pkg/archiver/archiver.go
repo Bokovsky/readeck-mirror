@@ -23,9 +23,9 @@ import (
 	_ "image/jpeg" // JPEG decoder
 	_ "image/png"  // PNG decoder
 
-	_ "golang.org/x/image/bmp"  // BMP decoder
-	_ "golang.org/x/image/tiff" // TIFF decoder
-	_ "golang.org/x/image/webp" // WEBP decoder
+	_ "codeberg.org/readeck/readeck/pkg/img/webp" // WEBP decoder
+	_ "golang.org/x/image/bmp"                    // BMP decoder
+	_ "golang.org/x/image/tiff"                   // TIFF decoder
 
 	"golang.org/x/net/html"
 	"golang.org/x/sync/semaphore"
