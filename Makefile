@@ -101,7 +101,7 @@ test: docs-build
 	$(GO) test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
-		-cover -count=1 ./...
+		-cover ./...
 
 # Clean the build
 .PHONY: clean
