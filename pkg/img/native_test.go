@@ -106,6 +106,7 @@ func TestWebpLossless(t *testing.T) {
 		expected string
 	}{
 		{"fixtures/lossless.webp", "image/png"},
+		{"fixtures/lossless-frame.webp", "image/png"},
 		{"fixtures/lossy.webp", "image/jpeg"},
 	}
 
