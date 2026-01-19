@@ -47,7 +47,7 @@ func ExtractMeta(m *extract.ProcessMessage, next extract.Processor) extract.Proc
 	if x, err := microdata.ParseNode(m.Dom, m.Extractor.URL.String()); err == nil {
 		md = &mdProp{x}
 	} else {
-		m.Log().Error("parse microdata", slog.Any("err", err))
+		m.Log().Warn("parse microdata", slog.Any("err", err))
 	}
 
 	if md != nil {
