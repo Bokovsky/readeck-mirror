@@ -102,7 +102,10 @@ exports.processMeta = function () {
 
 function loadNotes(url, notes) {
   const rsp = requests.get(url, { Accept: "application/json" })
-  rsp.raiseForStatus()
+  if (((rsp.status / 100) | 0) != 2) {
+    console.warn("Could not load notes.", { status: rsp.status })
+    return
+  }
   const data = rsp.json()
 
   const note = {
