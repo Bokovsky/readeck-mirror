@@ -469,7 +469,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" AND title:\"title\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title)')) DESC`,
 			},
 		},
 		{
@@ -478,7 +478,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" NOT title:\"title\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '!(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '!(title)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '!(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '!(title)')) DESC`,
 			},
 		},
 		{
@@ -488,7 +488,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" AND title:\"title\" AND title:\"x\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title) & (x)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title) & (x)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title) & (x)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title) & (x)')) DESC`,
 			},
 		},
 		{

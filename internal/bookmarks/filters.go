@@ -336,7 +336,7 @@ var searchConfig = map[string]*searchstring.BuilderConfig{
 		goqu.I("b.id"),
 		goqu.I("bookmark_search.bookmark_id"),
 		[][2]string{
-			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label"`},
+			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note`},
 			{"title", "bookmark_search.title"},
 			{"author", "bookmark_search.author"},
 			{"site", "bookmark_search.site"},
