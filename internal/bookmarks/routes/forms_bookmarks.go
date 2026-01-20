@@ -637,6 +637,7 @@ func newFilterForm(tr forms.Translator) *filterForm {
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
+			forms.NewTextField("note", forms.Trim),
 			forms.NewTextListField("read_status", forms.Choices(
 				forms.Choice(tr.Pgettext("status", "Unviewed"), filtersReadStatusUnread),
 				forms.Choice(tr.Pgettext("status", "In-Progress"), filtersReadStatusReading),
@@ -673,7 +674,7 @@ func (f *filterForm) Validate() {
 	for _, field := range f.Fields() {
 		var fname string
 		switch n := field.Name(); n {
-		case "title", "author", "site":
+		case "title", "author", "site", "note":
 			fname = n
 		case "labels":
 			fname = "label"
@@ -691,7 +692,7 @@ func (f *filterForm) Validate() {
 	f.sq = f.sq.Dedup()
 
 	// Remove field definition for unallowed fields
-	f.sq = f.sq.Unfield("title", "author", "site", "label")
+	f.sq = f.sq.Unfield("title", "author", "site", "label", "note")
 
 	// Update the specific search fields
 	for _, field := range f.Fields() {
@@ -699,7 +700,7 @@ func (f *filterForm) Validate() {
 		switch n := field.Name(); n {
 		case "search":
 			fname = ""
-		case "title", "author", "site":
+		case "title", "author", "site", "note":
 			fname = n
 		case "labels":
 			fname = "label"

@@ -92,6 +92,12 @@ func TestCollectionAPI(t *testing.T) {
 					"value": "",
 					"errors": null
 				},
+				"note": {
+					"is_null": true,
+					"is_bound": false,
+					"value": "",
+					"errors": null
+				},
 				"name": {
 					"is_null": true,
 					"is_bound": false,

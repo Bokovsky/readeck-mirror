@@ -98,6 +98,11 @@ SPDX-License-Identifier: AGPL-3.0-only
     </ul>
   {{ end }}
 
+  {{ yield textField(
+    field=.Get("note"),
+    label=gettext("Note"),
+  ) }}
+
   {{ yield timeTokenField(
     field=.Get("range_start"),
     label=gettext("From date"),
