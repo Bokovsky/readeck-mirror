@@ -37,6 +37,7 @@ type Filters struct {
 	Site       string        `json:"site"`
 	Type       types.Strings `json:"type"`
 	Labels     string        `json:"labels"`
+	Note       string        `json:"note"`
 	ReadStatus types.Strings `json:"read_status"`
 	IsMarked   *bool         `json:"is_marked"`
 	IsArchived *bool         `json:"is_archived"`
@@ -177,12 +178,13 @@ func (f *Filters) updateValues() {
 	setTerms("author", f.Author)
 	setTerms("site", f.Site)
 	setTerms("label", f.Labels)
+	setTerms("note", f.Note)
 
 	// Remove duplicates from the query
 	f.sq = f.sq.Dedup()
 
 	// Remove field definition for unallowed fields
-	f.sq = f.sq.Unfield("title", "author", "site", "label")
+	f.sq = f.sq.Unfield("title", "author", "site", "label", "note")
 
 	// Then, restore the specific properties
 	updateValues := func(name string, p *string) {
@@ -197,6 +199,7 @@ func (f *Filters) updateValues() {
 	updateValues("author", &f.Author)
 	updateValues("site", &f.Site)
 	updateValues("label", &f.Labels)
+	updateValues("note", &f.Note)
 }
 
 // ToSelectDataSet adds the query parameters to the given [*goqu.SelectDataset]
@@ -330,17 +333,19 @@ var searchConfig = map[string]*searchstring.BuilderConfig{
 			{"author", "author"},
 			{"site", "site"},
 			{"label", "label"},
+			{"note", "note"},
 		},
 	),
 	"postgres": searchstring.NewBuilderConfig(
 		goqu.I("b.id"),
 		goqu.I("bookmark_search.bookmark_id"),
 		[][2]string{
-			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label"`},
+			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note`},
 			{"title", "bookmark_search.title"},
 			{"author", "bookmark_search.author"},
 			{"site", "bookmark_search.site"},
 			{"label", "bookmark_search.label"},
+			{"note", "bookmark_search.note"},
 		},
 	),
 }
