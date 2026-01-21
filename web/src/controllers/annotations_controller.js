@@ -27,9 +27,6 @@ export default class extends Controller {
     this.payload = null
     this.currentIDs = []
 
-    let ticking = false
-    let t = null
-
     this.colorTargets.forEach((e, i) => {
       e.addEventListener("click", (evt) => {
         this.colorValue = evt.target.value
@@ -46,20 +43,23 @@ export default class extends Controller {
     })
     x.observe(this.controlsTarget)
 
-    document.addEventListener("selectionchange", async (evt) => {
-      if (!ticking) {
-        window.requestAnimationFrame(async () => {
-          if (t !== null) {
-            window.clearTimeout(t)
-          }
-          t = window.setTimeout(async () => {
-            ticking = false
-            await this.onSelectText(evt)
-          }, 100)
-        })
+    selectionendObserver(document, () => {
+      this.onSelectText()
+    })
 
-        ticking = true
+    // Hide the controls when a click took place outside the controls.
+    document.addEventListener("click", (evt) => {
+      if (
+        this.controlsTarget.classList.contains(this.hiddenClass) ||
+        this.controlsTarget.contains(evt.target)
+      ) {
+        return
       }
+      setTimeout(() => {
+        if (document.getSelection().isCollapsed) {
+          this.controlsTarget.classList.add(this.hiddenClass)
+        }
+      }, 0)
     })
   }
 
@@ -87,7 +87,7 @@ export default class extends Controller {
   /**
    * onSelectText is the listener for "selectionchange".
    */
-  async onSelectText() {
+  onSelectText() {
     const selection = document.getSelection()
     this.annotation = new Annotation(this.rootTarget, selection)
 
@@ -95,7 +95,7 @@ export default class extends Controller {
       this.annotation.isValid() ||
       this.annotation.coveredAnnotations().length > 0
     ) {
-      await this.showControls()
+      this.showControls()
     }
 
     if (this.annotation.isValid()) {
@@ -108,32 +108,14 @@ export default class extends Controller {
     }
   }
 
-  async showControls() {
+  showControls() {
     this.currentIDs = []
-    this.iterCoveredAnnotations(async (id) => {
+    this.iterCoveredAnnotations((id) => {
       this.currentIDs.push(id)
     })
 
     // Show controls
     this.controlsTarget.classList.remove(this.hiddenClass)
-
-    /**
-     * This hides the controls when there's no selection or a click
-     * took place outside the controls.
-     *
-     * @param {Event} evt
-     */
-    const onClick = (evt) => {
-      const selection = document.getSelection()
-      if (!selection.isCollapsed) {
-        return
-      }
-      if (this.controlsTarget.contains(evt.target)) {
-        return
-      }
-      this.controlsTarget.classList.add(this.hiddenClass)
-      document.removeEventListener("click", onClick)
-    }
 
     /**
      * Hide the controls on Escape.
@@ -148,7 +130,6 @@ export default class extends Controller {
       }
     }
 
-    document.addEventListener("click", onClick)
     document.addEventListener("keyup", onEsc)
 
     const covered = this.annotation.coveredAnnotations()
@@ -381,12 +362,12 @@ export default class extends Controller {
   }
 
   /**
-   * iterCoveredAnnotations execute a function on each annotatin in the
+   * iterCoveredAnnotations executes a function on each annotation in the
    * current selection.
    *
-   * @param {function(string): Promise<void>} fn
+   * @param {function(string): void} fn
    */
-  async iterCoveredAnnotations(fn) {
+  iterCoveredAnnotations(fn) {
     const ids = new Set()
     this.annotation.coveredAnnotations().forEach((n) => {
       ids.add(n.dataset.annotationIdValue)
@@ -396,7 +377,7 @@ export default class extends Controller {
     }
 
     for (const id of ids) {
-      await fn(id)
+      fn(id)
     }
   }
 }
@@ -617,4 +598,49 @@ function walkTextNodes(node, callback, index) {
     }
     walkTextNodes(child, callback, index)
   }
+}
+
+/**
+ * selectionendObserver reacts to the "selectionchange" event by triggering the
+ * callback function only after the pointer device is not pressed anymore, at
+ * which point the user has likely completed their text selection.
+ *
+ * @param {Node} node
+ * @param {function(): void} callback
+ */
+function selectionendObserver(node, callback) {
+  /**
+   * @type {function(any): void | null}
+   */
+  let selectionResolve
+  let pointerIsPressed = false
+
+  node.addEventListener("pointerdown", () => {
+    pointerIsPressed = true
+  })
+
+  node.addEventListener("pointerup", () => {
+    pointerIsPressed = false
+    if (selectionResolve) {
+      selectionResolve()
+      selectionResolve = null
+    }
+  })
+
+  node.addEventListener("selectionchange", () => {
+    if (!pointerIsPressed) {
+      Promise.resolve().then(() => {
+        callback()
+      })
+      return
+    }
+    if (selectionResolve != null) {
+      return
+    }
+    new Promise((resolve) => {
+      selectionResolve = resolve
+    }).then(() => {
+      callback()
+    })
+  })
 }
