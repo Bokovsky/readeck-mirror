@@ -542,6 +542,9 @@ func (arc *Archiver) convertRelativeURLs(_ context.Context, doc *html.Node, base
 			return
 		}
 		if fragment := uri.Fragment; fragment != "" {
+			if uri.RawFragment != "" {
+				fragment = uri.RawFragment
+			}
 			uri.Fragment = ""
 			tmp := new(url.URL)
 			*tmp = *baseURL
