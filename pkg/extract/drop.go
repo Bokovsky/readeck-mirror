@@ -367,6 +367,9 @@ func (d *Drop) fixRelativeURIs(m *ProcessMessage) {
 			return
 		}
 		if fragment := uri.Fragment; fragment != "" {
+			if uri.RawFragment != "" {
+				fragment = uri.RawFragment
+			}
 			uri.Fragment = ""
 			tmp := new(url.URL)
 			*tmp = *baseURL
