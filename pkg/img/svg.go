@@ -163,9 +163,13 @@ func getSVGDimensions(top *xmlquery.Node) (rect image.Rectangle) {
 	// We have a width and height, it gets priority
 	w := cssDimensionToPixels(node.SelectAttr("width"))
 	h := cssDimensionToPixels(node.SelectAttr("height"))
-	if w > 0 && h > 0 {
+	if w > 0 {
 		rect.Max.X = w
+	}
+	if h > 0 {
 		rect.Max.Y = h
+	}
+	if w > 0 && h > 0 {
 		return
 	}
 
@@ -210,8 +214,7 @@ const (
 
 func cssDimensionToPixels(v string) int {
 	if strings.HasSuffix(v, "%") {
-		px, _ := strconv.Atoi(strings.TrimSuffix(v, "%"))
-		return px
+		return -1
 	}
 
 	// https://developer.mozilla.org/en-US/docs/Web/CSS/length
