@@ -68,7 +68,7 @@ func TestDrop(t *testing.T) {
 			{"no url", nil, "No document URL"},
 			{"http", mustParse("http://x/error"), `Get "http://x/error": HTTP`},
 			{"404", mustParse("http://x/404"), "Invalid status code (404)"},
-			{"ioerror", mustParse("http://x/ioerror"), "read error"},
+			{"ioerror", mustParse("http://x/ioerror"), "HTMLReader error: read error"},
 			{"no type", mustParse("http://x/ch1-notype"), "unsupported content-type: \"\""},
 			{"unsupported", mustParse("http://x/ct-unsupported"), "unsupported content-type: \"application/x-something-weird\""},
 		}

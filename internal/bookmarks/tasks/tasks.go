@@ -12,8 +12,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"mime"
 	"net/http"
-	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -24,7 +24,6 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/net/html"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/doug-martin/goqu/v9"
@@ -40,6 +39,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
+	"codeberg.org/readeck/readeck/pkg/extract/meta/tinymeta"
 	"codeberg.org/readeck/readeck/pkg/superbus"
 	"codeberg.org/readeck/readeck/pkg/utils"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
@@ -430,47 +430,60 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 			return next
 		}
 
-		g, _ := errgroup.WithContext(context.TODO())
+		var g errgroup.Group
 		g.SetLimit(10)
 		for i := range links {
 			g.Go(func() error {
-				m.Log().Debug("extract link", slog.String("url", links[i].URL))
-				URL, err := url.Parse(links[i].URL)
+				linkURL := links[i].URL
+				logger := m.Log().With(slog.String("url", linkURL))
+
+				header := http.Header{}
+				header.Set("Accept", "text/html,application/xhtml+xml")
+
+				ctx := extract.WithRequestType(context.Background(), extract.PageRequest)
+				ctx = extract.WithRequestHeader(ctx, header)
+
+				logger.Debug("extract link")
+				rsp, err := extract.Fetch(ctx, m.Extractor.Client(), linkURL)
 				if err != nil {
-					return err
+					logger.Warn("extract link fetch error", slog.Any("err", err))
+					return nil
 				}
-				d := extract.NewDrop(URL)
-				err = d.Load(m.Extractor.Client())
-				if err != nil {
-					m.Log().Warn("extract link error",
-						slog.String("url", d.URL.String()),
-						slog.Any("err", err),
-					)
+				if rsp.Body != nil {
+					defer rsp.Body.Close() //nolint:errcheck
 				}
 
-				links[i].ContentType = d.ContentType
-				links[i].IsPage = d.IsHTML()
+				if rsp.StatusCode/100 != 2 {
+					logger.Warn("extract link fetch error", slog.Int("status", rsp.StatusCode))
+					return nil
+				}
 
+				links[i].ContentType, _, _ = mime.ParseMediaType(rsp.Header.Get("content-type"))
+				links[i].IsPage = links[i].ContentType == "text/html" || links[i].ContentType == "application/xhtml+xml"
 				if !links[i].IsPage {
 					return nil
 				}
 
-				node, err := html.Parse(bytes.NewReader(d.Body))
+				r, _, err := extract.HTMLReader(rsp.Body, rsp.Header.Get("content-type"))
 				if err != nil {
-					m.Log().Warn("extract link error",
-						slog.String("url", d.URL.String()),
-						slog.Any("err", err),
-					)
+					logger.Warn("extract link read error", slog.Any("err", err))
 					return nil
 				}
-				meta := meta.ParseMeta(node)
-				title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
-				m.Log().Debug("link",
-					slog.String("url", d.URL.String()),
-					slog.String("title", title),
-				)
 
-				links[i].Title = title
+				var pageTitle string
+			scanLoop:
+				for key, value := range tinymeta.Scan(r) {
+					switch key {
+					case "title", "twitter:title":
+						pageTitle = value
+					case "og:title":
+						pageTitle = value
+						break scanLoop
+					}
+				}
+
+				logger.Debug("link", slog.String("title", pageTitle))
+				links[i].Title = pageTitle
 				return nil
 			})
 		}

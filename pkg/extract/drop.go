@@ -25,6 +25,7 @@ import (
 	"github.com/go-shiori/dom"
 
 	"golang.org/x/net/html"
+	"golang.org/x/net/html/atom"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/net/idna"
 	"golang.org/x/net/publicsuffix"
@@ -240,31 +241,14 @@ func (d *Drop) AddAuthors(values ...string) {
 // loadBody loads the document body and try to convert
 // it to UTF-8 when encoding is different.
 func (d *Drop) loadBody(rsp *http.Response) error {
-	var err error
+	r, encName, err := HTMLReader(rsp.Body, rsp.Header.Get("content-type"))
+	if err != nil {
+		return fmt.Errorf("HTMLReader error: %w", err)
+	}
+
 	var body []byte
-
-	if body, err = io.ReadAll(rsp.Body); err != nil {
+	if body, err = io.ReadAll(r); err != nil {
 		return err
-	}
-
-	// Determine encoding (fast way)
-	enc, encName, certain := charset.DetermineEncoding(body, rsp.Header.Get("content-type"))
-
-	// When encoding is not 100% certain, we resort to find the charset
-	// parsing part of the received HTML. More than recommended
-	// by the HTMLWG, since 1024 bytes is often not enough.
-	if !certain {
-		lr := io.LimitReader(bytes.NewReader(body), 1024*3)
-		ctHeader := scanForCharset(lr)
-
-		if ctHeader != "" {
-			enc, encName, _ = charset.DetermineEncoding(body, ctHeader)
-		}
-	}
-
-	if enc != encoding.Nop {
-		r := transform.NewReader(bytes.NewReader(body), enc.NewDecoder())
-		body, _ = io.ReadAll(r)
 	}
 
 	// Eventually set the original charset and UTF8 body
@@ -400,36 +384,76 @@ func toAbsoluteURI(uri string, base *url.URL) string {
 	return base.ResolveReference(tmp).String()
 }
 
+// scanForCharset scans HTML tags from r until it finds the name of the character set declared in
+// either the "charset" attribute or by a "http-equiv" tag.
 func scanForCharset(r io.Reader) string {
 	z := html.NewTokenizer(r)
-
-	getAttrs := func(t html.Token) map[string]string {
-		res := map[string]string{}
-		for _, x := range t.Attr {
-			res[x.Key] = x.Val
-		}
-		return res
-	}
-
 	for {
 		switch z.Next() {
 		case html.ErrorToken:
 			return ""
 		case html.StartTagToken, html.SelfClosingTagToken:
 			t := z.Token()
-			if t.DataAtom.String() == "meta" {
-				attrs := getAttrs(t)
-				if v, ok := attrs["charset"]; ok {
-					return "text/html; charset=" + v
+			if t.DataAtom != atom.Meta {
+				continue
+			}
+			isContentType := false
+			var metaContent string
+			for _, attr := range t.Attr {
+				switch attr.Key {
+				case "charset":
+					return attr.Val
+				case "content":
+					metaContent = attr.Val
+				case "http-equiv":
+					isContentType = strings.EqualFold(attr.Val, "content-type")
 				}
-				if v, ok := attrs["name"]; ok && v == "http-equiv" {
-					if v, ok := attrs["content"]; ok {
-						return v
-					}
+			}
+			if !isContentType || metaContent == "" {
+				continue
+			}
+			if _, params, err := mime.ParseMediaType(metaContent); err == nil {
+				if cs, ok := params["charset"]; ok {
+					return cs
 				}
 			}
 		}
 	}
+}
+
+// HTMLReader wraps r in a reader that automatically transcodes a HTML document from non-UTF-8
+// encoding to UTF-8. The original encoding is either determined from contentType value, or by
+// scanning the initial 1–3kB from the document to look for things like BOM or for the meta charset
+// declaration.
+func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
+	var buf bytes.Buffer
+	if _, err := io.CopyN(&buf, r, 1024); err != nil && err != io.EOF {
+		return nil, "", err
+	}
+
+	// Determine encoding (fast way)
+	enc, encName, certain := charset.DetermineEncoding(buf.Bytes(), contentType)
+
+	// When encoding is not 100% certain, we resort to find the charset
+	// parsing part of the received HTML. More than recommended
+	// by the HTMLWG, since 1024 bytes is often not enough.
+	if !certain {
+		if _, err := io.CopyN(&buf, r, 2048); err != nil && err != io.EOF {
+			return nil, "", err
+		}
+		if cs := scanForCharset(bytes.NewReader(buf.Bytes())); cs != "" {
+			if e, name := charset.Lookup(cs); e != nil {
+				enc = e
+				encName = name
+			}
+		}
+	}
+
+	newReader := io.MultiReader(&buf, r)
+	if enc != encoding.Nop {
+		newReader = transform.NewReader(newReader, enc.NewDecoder())
+	}
+	return newReader, encName, nil
 }
 
 // DropProperties contains the raw properties of an extracted page.
