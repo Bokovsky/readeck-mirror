@@ -207,11 +207,7 @@ func SetDropProperties(m *extract.ProcessMessage, next extract.Processor) extrac
 func extMeta(k, v, sep string) func(*html.Node) (string, string) {
 	return func(n *html.Node) (string, string) {
 		_, k, _ := strings.Cut(strings.TrimSpace(dom.GetAttribute(n, k)), sep)
-		v := strings.TrimSpace(dom.GetAttribute(n, v))
-
-		// Some attributes may contain HTML, we don't want that
-		a, _ := html.Parse(strings.NewReader(v))
-		return k, dom.TextContent(a)
+		return k, strings.TrimSpace(dom.GetAttribute(n, v))
 	}
 }
 

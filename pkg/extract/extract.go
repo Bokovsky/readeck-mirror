@@ -438,12 +438,6 @@ func (e *Extractor) Run() {
 		}
 
 		// Final metadata cleanup
-		for i := range d.Authors {
-			d.Authors[i] = stripHTML(d.Authors[i])
-		}
-		d.Title = stripHTML(d.Title)
-		d.Description = stripHTML(d.Description)
-		d.Site = stripHTML(d.Site)
 		if !d.Date.IsZero() {
 			d.Date = d.Date.UTC()
 		}
@@ -518,11 +512,4 @@ func (e *Extractor) setFinalHTML() {
 		buf.WriteString("\n")
 	}
 	e.HTML = buf.Bytes()
-}
-
-func stripHTML(s string) string {
-	if n, err := html.Parse(strings.NewReader(s)); err == nil {
-		return dom.TextContent(n)
-	}
-	return s
 }
