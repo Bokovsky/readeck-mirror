@@ -2,20 +2,53 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [main, master]
+    branches: [release]
     tags: ['*']
   workflow_dispatch:
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release branch
+        uses: actions/checkout@v4
+        with:
+          ref: release
+          path: source
+
+      - name: Checkout docker branch
+        uses: actions/checkout@v4
+        with:
+          ref: docker
+          path: docker
+
+      - name: Merge Dockerfile into release
+        run: |
+          cp docker/Dockerfile source/Dockerfile
+          cd source
+          git add Dockerfile
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "Add Dockerfile from docker branch" || echo "No changes"
+
+      - name: Upload merged source
+        uses: actions/upload-artifact@v4
+        with:
+          name: source-with-dockerfile
+          path: source
+
   build:
+    needs: prepare
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Download merged source
+        uses: actions/download-artifact@v4
+        with:
+          name: source-with-dockerfile
+          path: .
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
