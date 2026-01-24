@@ -1,0 +1,37 @@
+name: Sync from Codeberg
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Mirror clone from Codeberg
+        run: |
+          git clone --mirror https://codeberg.org/readeck/readeck.git readeck.git
+          cd readeck.git
+          
+          git remote add github https://${{ secrets.READECK_MIRROR }}@github.com/${{ github.repository }}.git
+          
+          git push github --mirror --force
+
+      - name: Push to main branch
+        run: |
+          git clone https://codeberg.org/readeck/readeck.git readeck-source
+          cd readeck-source
+          
+          git remote add github https://${{ secrets.PAT_TOKEN }}@github.com/${{ github.repository }}.git
+          git push github main --force || true
+          git push github --tags --force || true
