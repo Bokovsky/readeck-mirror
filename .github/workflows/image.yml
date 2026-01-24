@@ -1,0 +1,39 @@
+name: Sync Official Image to GHCR
+
+on:
+  schedule:
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.READECK_MIRROR }}
+
+      - name: Login to Codeberg Registry
+        uses: docker/login-action@v3
+        with:
+          registry: codeberg.org
+          username: ${{ secrets.CODEBERG_USER }}
+          password: ${{ secrets.CODEBERG_TOKEN }}
+
+      - name: Pull and retag official image
+        run: |
+          docker pull codeberg.org/readeck/readeck:latest
+          
+          docker tag codeberg.org/readeck/readeck:latest ghcr.io/${{ github.repository }}:latest
+          docker tag codeberg.org/readeck/readeck:latest ghcr.io/${{ github.repository }}:$(date +%Y%m%d)
+          
+          docker push ghcr.io/${{ github.repository }}:latest
+          docker push ghcr.io/${{ github.repository }}:$(date +%Y%m%d)
+          
+          echo "✅"
