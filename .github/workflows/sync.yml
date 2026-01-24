@@ -4,9 +4,6 @@ on:
   schedule:
     - cron: '0 2 * * *'
   workflow_dispatch:
-  push:
-    branches:
-      - main
 
 jobs:
   sync:
@@ -22,16 +19,16 @@ jobs:
         run: |
           git clone --mirror https://codeberg.org/readeck/readeck.git readeck.git
           cd readeck.git
-          
-          git remote add github https://${{ secrets.READECK_MIRROR }}@github.com/${{ github.repository }}.git
-          
-          git push github --mirror --force
 
-      - name: Push to main branch
+      - name: Push branches and tags to GitHub
+        env:
+          TOKEN: ${{ secrets.READECK_MIRROR }}
         run: |
-          git clone https://codeberg.org/readeck/readeck.git readeck-source
-          cd readeck-source
+          cd readeck.git
+          git remote add github https://${TOKEN}@github.com/${{ github.repository }}.git
           
-          git remote add github https://${{ secrets.READECK_MIRROR }}@github.com/${{ github.repository }}.git
-          git push github main --force || true
-          git push github --tags --force || true
+          git push github --force 'refs/heads/*'
+          
+          git push github --force 'refs/tags/*'
+          
+          echo "✅"
