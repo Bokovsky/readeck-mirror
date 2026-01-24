@@ -1,4 +1,4 @@
-name: Sync from Codeberg
+name: Sync Release from Codeberg
 
 on:
   schedule:
@@ -8,27 +8,21 @@ on:
 jobs:
   sync:
     runs-on: ubuntu-latest
-    
     steps:
       - name: Setup Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Mirror clone from Codeberg
-        run: |
-          git clone --mirror https://codeberg.org/readeck/readeck.git readeck.git
-          cd readeck.git
-
-      - name: Push branches and tags to GitHub
+      - name: Sync release branch
         env:
           TOKEN: ${{ secrets.READECK_MIRROR }}
         run: |
-          cd readeck.git
+          git clone --single-branch --branch release https://codeberg.org/readeck/readeck.git readeck
+          cd readeck
+          
           git remote add github https://${TOKEN}@github.com/${{ github.repository }}.git
-          
-          git push github --force 'refs/heads/*'
-          
-          git push github --force 'refs/tags/*'
+          git push github HEAD:release --force
+          git push github --tags --force
           
           echo "✅"
