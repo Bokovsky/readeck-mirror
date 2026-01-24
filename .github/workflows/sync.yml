@@ -14,7 +14,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Sync release branch
+      - name: Sync release and update docker branch
         env:
           TOKEN: ${{ secrets.READECK_MIRROR }}
         run: |
@@ -24,5 +24,17 @@ jobs:
           git remote add github https://${TOKEN}@github.com/${{ github.repository }}.git
           git push github HEAD:release --force
           git push github --tags --force
+          
+          cd ..
+          git clone --single-branch --branch docker https://${TOKEN}@github.com/${{ github.repository }}.git docker-files 2>/dev/null || mkdir docker-files
+          
+          if [ -f docker-files/Dockerfile ]; then
+            cp docker-files/Dockerfile readeck/Dockerfile
+          fi
+          
+          cd readeck
+          git add Dockerfile
+          git commit -m "Sync release branch with Dockerfile" || echo "No changes"
+          git push github HEAD:docker --force
           
           echo "✅"
