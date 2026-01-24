@@ -21,10 +21,10 @@ jobs:
 
       - name: Pull, retag and push
         run: |
-          docker pull codeberg.org/readeck/readeck:latest
+          REPO_LOWER=$(echo "${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
           
-          docker tag codeberg.org/readeck/readeck:latest ghcr.io/${{ github.repository }}:latest
-
-          docker push ghcr.io/${{ github.repository }}:latest
+          docker pull codeberg.org/readeck/readeck:latest
+          docker tag codeberg.org/readeck/readeck:latest ghcr.io/${REPO_LOWER}:latest
+          docker push ghcr.io/${REPO_LOWER}:latest
           
           echo "✅"
