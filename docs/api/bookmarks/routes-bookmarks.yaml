@@ -497,7 +497,7 @@ routes:
               schema:
                 $ref: "#/components/schemas/annotationInfo"
 
-  /bookmarks/{id}annotations/{annotation_id}:
+  /bookmarks/{id}/annotations/{annotation_id}:
     $merge:
       - "#.withBookmark"
       - "#.withAnnotation"
@@ -511,7 +511,7 @@ routes:
 
       summary: Highlight Update
       description: |
-        This route updates then given highlight in the given bookmark.
+        This route updates the given highlight in the given bookmark.
 
       requestBody:
         content:
