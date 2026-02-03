@@ -926,7 +926,10 @@ func TestWallabag(t *testing.T) {
 		items := []map[string]any{}
 		for _, x := range []string{"a", "b", "c"} {
 			headers := map[string]string{}
-			if x == "c" {
+			switch x {
+			case "b":
+				headers["content-type"] = "application/xhtml+xml; charset=utf-8"
+			case "c":
 				headers["content-type"] = "text/html; charset=koi8-r"
 			}
 			items = append(items, map[string]any{
@@ -994,8 +997,10 @@ func TestWallabag(t *testing.T) {
 			string(resources[0].Data),
 		)
 
-		if ct := resources[0].Header.Get("content-type"); ct != "" {
-			require.NotContains(ct, "charset=")
+		if x == "b" {
+			require.Equal("application/xhtml+xml; charset=utf-8", resources[0].Header.Get("content-type"))
+		} else {
+			require.Equal("text/html; charset=utf-8", resources[0].Header.Get("content-type"))
 		}
 	}
 }
