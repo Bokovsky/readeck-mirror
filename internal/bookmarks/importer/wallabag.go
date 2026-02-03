@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/textproto"
 	"net/url"
 	"path"
 	"slices"
@@ -111,20 +110,20 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 	buf := new(bytes.Buffer)
 	html.Render(buf, root)
 
-	if wa.Headers == nil {
-		wa.Headers = map[string]string{"Content-Type": "text/html"}
-	} else if v, ok := wa.Headers["Content-Type"]; ok {
+	h := make(http.Header)
+	for k, v := range wa.Headers {
+		h.Set(k, v)
+	}
+	if ct := h.Get("Content-Type"); ct != "" {
 		// Wallabag stores archived page content as UTF-8 regardless of the original encoding,
 		// but for some reason will also store the original content-type of the page inclusive
 		// of the `charset=...` declaration and include that in API responses. Readeck would
 		// then think that the page is still in that encoding and transcode the already valid
 		// content into garbage. This strips `charset=...` directives received from Wallabag.
-		wa.Headers["Content-Type"], _, _ = strings.Cut(v, ";")
-	}
-
-	h := make(http.Header)
-	for k, v := range wa.Headers {
-		h.Set(k, v)
+		ct, _, _ = strings.Cut(ct, ";")
+		h.Set("Content-Type", ct+"; charset=utf-8")
+	} else {
+		h.Set("Content-Type", "text/html; charset=utf-8")
 	}
 
 	return []tasks.MultipartResource{
@@ -221,13 +220,6 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 	if err != nil {
 		return nil, fmt.Errorf("%w: %w", ErrIgnore, err)
 	}
-
-	// Set canonical header keys
-	headers := make(map[string]string)
-	for k, v := range item.Headers {
-		headers[textproto.CanonicalMIMEHeaderKey(k)] = v
-	}
-	item.Headers = headers
 
 	if !slices.Contains(allowedSchemes, uri.Scheme) {
 		return nil, fmt.Errorf("%w: invalid scheme %s (%s)", ErrIgnore, uri.Scheme, uri)
