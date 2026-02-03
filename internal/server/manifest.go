@@ -23,7 +23,6 @@ type webManifest struct {
 	Categories                []string            `json:"categories"`
 	Dir                       string              `json:"dir"`
 	Lang                      string              `json:"lang"`
-	Orientation               string              `json:"orientation"`
 	PreferRelatedApplications bool                `json:"prefer_related_applications"`
 	RelatedApplications       []map[string]string `json:"related_applications"`
 	LaunchHandler             map[string]string   `json:"launch_handler"`
@@ -58,7 +57,6 @@ func manifestRoutes() http.Handler {
 			Categories:                []string{"education", "news", "productivity"},
 			Dir:                       "auto",
 			Lang:                      "en",
-			Orientation:               "any",
 			PreferRelatedApplications: false,
 			RelatedApplications:       []map[string]string{},
 			LaunchHandler:             map[string]string{"client_mode": "navigate-existing"},
