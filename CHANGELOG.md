@@ -10,12 +10,22 @@
 - User's last login date and time
 
 ### Improved
-- Enabled theme toggle for public bookmarks, by [@shom](https://shom.dev)
+- Enabled theme toggle for public bookmarks, by [@shom](https://codeberg.org/shom)
 - Configurable UNIX socket file mode
+- WebP probing and processing, by [@mislav](https://codeberg.org/mislav)
+- Log warning instead of error when JSON-LD can't be parsed
+- Let the PWA use the device orientation, by [@mlfh](https://codeberg.org/mlfh)
 
 ### Fixed
 - Back/forward navigation with gestures
 - EPUB mimetype
+- Prevent error log in Fediverse content-script
+- Preserve anchor links with special characters, by [@mislav](https://codeberg.org/mislav)
+- Display of SVGs with percentage dimensions, by [@mislav](https://codeberg.org/mislav)
+- Sorting on api/bookmarks/sync
+- Typo in API documentation, by [@clmt](https://codeberg.org/clmt)
+- Always import Wallabag content as UTF-8, by [@mislav](https://codeberg.org/mislav)
+
 
 ## [0.21.6]
 ### Fixed
@@ -26,17 +36,17 @@
 - Prevent infinite loop during Wallabag and Omnivore import
 
 ### Improved
-- MathML support, by [@mislav]
+- MathML support, by [@mislav](https://codeberg.org/mislav)
 - Better extracted domain parser
 
 ## [0.21.4] - 2025-12-09
 ### Added
-- Mathjax and Katex support, by [@mislav]
+- Mathjax and Katex support, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - Website icons visibility in dark mode
-- Handle "pt" CSS unit in SVG dimensions, by [@mislav]
-- Keep MathML tags in extracted content, by [@mislav]
+- Handle "pt" CSS unit in SVG dimensions, by [@mislav](https://codeberg.org/mislav)
+- Keep MathML tags in extracted content, by [@mislav](https://codeberg.org/mislav)
 
 ### Fixed
 - Return a 422 with errors on /api/bookmarks when the filters contain errors
@@ -62,7 +72,7 @@
 
 ### Improved
 - Save animated GIFs and convert single-frame GIFs to PNG
-- Github extraction, by [@mislav] and [@linsui]
+- Github extraction, by [@mislav](https://codeberg.org/mislav) and [@linsui](https://codeberg.org/linsui)
 
 ## [0.21.0] - 2025-11-20
 ### Added

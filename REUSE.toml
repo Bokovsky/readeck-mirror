@@ -101,5 +101,5 @@ path = [
     "pkg/extract/contentscripts/assets/site-config/**.json",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "fiveFilter, Wallabag"
+SPDX-FileCopyrightText = "fiveFilter"
 SPDX-License-Identifier = "CC0-1.0"
