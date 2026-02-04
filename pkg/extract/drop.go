@@ -185,7 +185,7 @@ func (d *Drop) Load(client *http.Client) error {
 	case strings.HasPrefix(d.ContentType, "image/"):
 		return d.loadImage(rsp)
 	default:
-		return fmt.Errorf("unsupported content-type: %q", d.ContentType)
+		return fmt.Errorf("unsupported content-type: %q", rsp.Header.Get("content-type"))
 	}
 }
 
