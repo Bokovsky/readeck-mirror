@@ -68,7 +68,7 @@ func Fetch(ctx context.Context, client *http.Client, url string) (*http.Response
 		return nil, err
 	}
 
-	if header, ok := ctx.Value(ctxRequestHeaderKey{}).(http.Header); ok {
+	if header, ok := CheckRequestHeader(ctx); ok {
 		req.Header = header
 	}
 
