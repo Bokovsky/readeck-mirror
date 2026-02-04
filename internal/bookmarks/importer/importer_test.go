@@ -928,7 +928,7 @@ func TestWallabag(t *testing.T) {
 			headers := map[string]string{}
 			switch x {
 			case "b":
-				headers["content-type"] = "application/xhtml+xml; charset=utf-8"
+				headers["content-type"] = "application/xhtml xml; charset=utf-8"
 			case "c":
 				headers["content-type"] = "text/html; charset=koi8-r"
 			}
