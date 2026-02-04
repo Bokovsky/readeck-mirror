@@ -16,6 +16,9 @@
 - Log warning instead of error when JSON-LD can't be parsed
 - Let the PWA use the device orientation, by [@mlfh](https://codeberg.org/mlfh)
 - Fixed positioning of highlight menu on mobile
+- Thumbnail and bookmark image size, by [@mislav](https://codeberg.org/mislav)
+- Handling zero-width spaces when stripping heading anchors, by [@mislav](https://codeberg.org/mislav)
+- Speed up fetching bookmark outgoing links, by [@mislav](https://codeberg.org/mislav)
 
 ### Fixed
 - Back/forward navigation with gestures
