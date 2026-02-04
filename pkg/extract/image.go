@@ -19,8 +19,11 @@ import (
 )
 
 const (
-	// ImageSizeThumbnail is the width of a regular thumbnail image.
-	ImageSizeThumbnail = 800
+	// ImageSizeThumbnail is the width of a thumbnail image.
+	ImageSizeThumbnail = 380
+
+	// ImageSizeRegular is the width of a regular image.
+	ImageSizeRegular = 800
 
 	// ImageSizeWide is the width of a bigger image.
 	// Its dimension matches 48rem (on a 16px basis)
