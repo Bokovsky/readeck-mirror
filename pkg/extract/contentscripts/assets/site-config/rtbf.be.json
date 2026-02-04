@@ -3,12 +3,14 @@
     "//h1[contains(@data-testid, 'title')]"
   ],
   "body_selectors": [
-    "//div[@id=\"content\"]"
+    "//header//p[contains(concat(' ',normalize-space(@class),' '),' font-semibold ')] | //header//img[contains(@class, 'absolute')] | //div[@id=\"content\"] | //div[@id=\"foocontent\"]"
   ],
   "date_selectors": [
     "substring-before(substring-after(//script[@type='application/ld+json'][contains(., 'datePublished')], '\"datePublished\":\"'), '\"')"
   ],
-  "author_selectors": null,
+  "author_selectors": [
+    "//a[contains(@href, '/auteur/')]"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -22,6 +24,10 @@
     [
       "\u003cdiv class=\"container",
       "\u003cdiv class=\"foocontainer"
+    ],
+    [
+      "id=\"content\"",
+      "id=\"foocontent\""
     ]
   ],
   "http_headers": {
@@ -30,6 +36,10 @@
   "tests": [
     {
       "url": "https://www.rtbf.be/article/limportance-du-marquage-au-sol-dans-la-securite-des-cyclistes-11319232",
+      "contains": []
+    },
+    {
+      "url": "https://www.rtbf.be/article/plongez-dans-le-quotidien-des-celtes-en-wallonie-11668723",
       "contains": []
     }
   ]

@@ -1,0 +1,61 @@
+{
+  "title_selectors": [
+    "//h1[@class=\"article-headline\"]"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' article-wrapper ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-header ')]"
+  ],
+  "strip_id_or_class": [
+    "breadcrumb",
+    "youtube-induction-text",
+    "article-header__meta",
+    "article-authors"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//img[@alt=\"次ページ\"]/../@href"
+  ],
+  "replace_strings": [
+    [
+      "container.appendChild(wrapper);",
+      ""
+    ],
+    [
+      "`;",
+      ""
+    ],
+    [
+      "});",
+      ""
+    ],
+    [
+      "\u003c![CDATA[",
+      "_"
+    ],
+    [
+      "]]\u003e",
+      "_"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.zakzak.co.jp/article/20221117-P7W3C7KITVOMLA5MKJVY3RH73I/",
+      "contains": []
+    },
+    {
+      "url": "https://www.zakzak.co.jp/article/20251218-OOOZDYAJIBEWPF4LAAJKILXCEA/",
+      "contains": []
+    }
+  ]
+}
