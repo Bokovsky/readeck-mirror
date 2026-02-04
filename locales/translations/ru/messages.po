@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-12-04 09:41+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: ru_RU\n"
@@ -688,7 +688,7 @@ msgstr "%d мин"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "Поделился %s c %s"
 
@@ -911,7 +911,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "Опубликовано %s"
 
@@ -1125,7 +1125,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "Создан(а): %s"
 
@@ -1134,7 +1134,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "Создан(а): %s"
 
@@ -1461,7 +1461,7 @@ msgid "Import your Pocket Articles"
 msgstr "Импортировать из Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1744,7 +1744,7 @@ msgid "Save link"
 msgstr "Добавить ссылку"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy, python-format
+#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "«%s» это не адрес. Вы хотели найти %s в закладках?"
 
@@ -2005,7 +2005,7 @@ msgstr ""
 "Вот ваша эл. книга для: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2030,7 +2030,7 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2371,6 +2371,12 @@ msgstr ""
 msgid "Remove"
 msgstr "убрать"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "Изменение"
+
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2505,10 +2511,6 @@ msgstr "Истекает: %s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Этот токен удалится через пару секунд."
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3240,4 +3242,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Remove Highlight(s)"
 #~ msgstr "Удалить выдержку(и)"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""
 

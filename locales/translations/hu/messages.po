@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-05-27 06:01+0000\n"
 "Last-Translator: arpad <user240803@noreply.codeberg.org>\n"
 "Language: hu_HU\n"
@@ -688,7 +688,7 @@ msgstr "%d perc"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "%s megosztotta vele %s"
 
@@ -911,7 +911,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "Közétéve %s"
 
@@ -1128,7 +1128,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "Létrehozva ekkor: %s"
 
@@ -1137,7 +1137,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "Létrehozva ekkor: %s"
 
@@ -1460,7 +1460,7 @@ msgid "Import your Pocket Articles"
 msgstr "Pocket Cikkek importálása"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1742,7 +1742,7 @@ msgid "Save link"
 msgstr "Link mentése"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy, python-format
+#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "\"%s\" nem érvényes cím. Úgy értette, hogy a könyvjelzőiben a %s-t keresi?"
 
@@ -2002,7 +2002,7 @@ msgstr ""
 "Itt az e-könyved ehhez: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2027,7 +2027,7 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2359,6 +2359,12 @@ msgstr ""
 msgid "Remove"
 msgstr "eltávolítás"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "Módosítás"
+
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2497,10 +2503,6 @@ msgstr "Lejár ekkor: : %s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Ez a token néhány másodpercen belül eltávolításra kerül."
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3246,5 +3248,8 @@ msgstr "%a %b %e %H:%M:%S %y"
 #~ msgstr "Kiemelés(ek) törlése"
 
 #~ msgid "text must contain between %d and %d characters"
+#~ msgstr ""
+
+#~ msgid "Verification Code Setup"
 #~ msgstr ""
 

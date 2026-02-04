@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-11-07 08:09+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: ko_KR\n"
@@ -680,7 +680,7 @@ msgid "%d min"
 msgstr "%d 분"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "%s가 %s와 공유함"
 
@@ -897,7 +897,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "게시일 : %s"
 
@@ -1104,7 +1104,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "생성 일자 : %s"
 
@@ -1113,7 +1113,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "생성 일자 : %s"
 
@@ -1429,7 +1429,7 @@ msgid "Import your Pocket Articles"
 msgstr "Pocket 기사 가져오기"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1704,7 +1704,7 @@ msgid "Save link"
 msgstr "링크 저장"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy, python-format
+#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "“%s”는 유효한 주소가 아닙니다. %s를 북마크에서 검색하시려는 건가요?"
 
@@ -1958,7 +1958,7 @@ msgstr ""
 "다음은 **%s**을(를) 위한 전자책입니다.\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -1983,7 +1983,7 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2321,6 +2321,12 @@ msgstr ""
 msgid "Remove"
 msgstr "제거"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "수정"
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr "Token 값 복사"
@@ -2452,10 +2458,6 @@ msgstr "만료일: %s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "이 토큰은 몇 초 후에 제거됩니다."
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3183,4 +3185,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Remove Highlight(s)"
 #~ msgstr "강조표시 제거"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""
 

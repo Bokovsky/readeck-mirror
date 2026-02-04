@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-12-04 09:41+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: zh_CN\n"
@@ -683,7 +683,7 @@ msgid "%d min"
 msgstr "%d 分钟"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "由 %s 与 %s 分享"
 
@@ -901,7 +901,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "发布于 %s"
 
@@ -1109,7 +1109,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "创建时间：%s"
 
@@ -1118,7 +1118,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "创建时间：%s"
 
@@ -1439,7 +1439,7 @@ msgid "Import your Pocket Articles"
 msgstr "导入 Pocket 文章"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1715,7 +1715,7 @@ msgid "Save link"
 msgstr "保存链接"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy, python-format
+#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "“%s”不是有效地址。您的意思是在书签中搜索 %s？"
 
@@ -1974,7 +1974,7 @@ msgstr ""
 "这是您的电子书：**%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -1999,7 +1999,7 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2338,6 +2338,12 @@ msgstr ""
 msgid "Remove"
 msgstr "移除"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "改进"
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr "复制令牌"
@@ -2469,10 +2475,6 @@ msgstr "过期时间：%s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "将在几秒钟内移除此令牌。"
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3200,4 +3202,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Remove Highlight(s)"
 #~ msgstr "移除高亮"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""
 

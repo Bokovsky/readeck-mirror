@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-12-02 20:10+0000\n"
 "Last-Translator: altruizine <altruizine@noreply.codeberg.org>\n"
 "Language: de_DE\n"
@@ -685,7 +685,7 @@ msgid "%d min"
 msgstr "%d min"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "Geteilt von %s mit %s"
 
@@ -903,7 +903,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "Veröffentlicht am %s"
 
@@ -1113,7 +1113,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "Erstellt am: %s"
 
@@ -1122,7 +1122,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "Erstellt am: %s"
 
@@ -1442,7 +1442,7 @@ msgid "Import your Pocket Articles"
 msgstr "Importiere deine Pocket-Artikel"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1718,7 +1718,7 @@ msgid "Save link"
 msgstr "Link speichern"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy, python-format
+#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "\"%s\" ist keine gültige Adresse. Wolltest du in deinen Lesezeichen nach %s\" suchen?"
 
@@ -1978,7 +1978,7 @@ msgstr ""
 "Hier ist dein E-Book für: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2003,7 +2003,7 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy, python-format
+#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2342,6 +2342,12 @@ msgstr ""
 msgid "Remove"
 msgstr "Entfernen"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "Veränderung"
+
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2474,10 +2480,6 @@ msgstr "Läuft ab am: %s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Dieses Token wird in ein paar Sekunden entfernt."
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3207,4 +3209,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Remove Highlight(s)"
 #~ msgstr "Markierung(en) entfernen"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en_US\n"
@@ -2138,6 +2138,11 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+msgid "Setup Verification Code"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr ""
@@ -2261,10 +2266,6 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
 msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
@@ -3090,5 +3091,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "text must contain between %d and %d characters"
+#~ msgstr ""
+
+#~ msgid "Verification Code Setup"
 #~ msgstr ""
 

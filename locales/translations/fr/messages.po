@@ -7,16 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2026-02-04 09:03+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
 "Language: fr\n"
+"Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -680,7 +679,6 @@ msgid "%d min"
 msgstr "%d min"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, python-format
 msgid "Shared by %[1]s with %[2]s"
 msgstr "Partagé par %[1]s avec %[2]s"
 
@@ -894,7 +892,6 @@ msgid "One value per line"
 msgstr "Une valeur par ligne"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, python-format
 msgid "Published"
 msgstr "Date de publication"
 
@@ -1100,7 +1097,6 @@ msgid "Increase width"
 msgstr "Augmenter la largeur"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, python-format
 msgid "Decrease font size"
 msgstr "Réduire la taille des caractères"
 
@@ -1109,7 +1105,6 @@ msgid "Current font size"
 msgstr "Taille des caractères actuelle"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, python-format
 msgid "Increase font size"
 msgstr "Augmenter la taille des caractères"
 
@@ -1418,7 +1413,6 @@ msgid "Import your Pocket Articles"
 msgstr "Importez vos articles Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1694,7 +1688,6 @@ msgid "Save link"
 msgstr "Sauvegarder"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, python-format
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "\"%[1]s\" n'est pas une adresse valide. Vouliez-vous chercher %[2]s à la place ?"
 
@@ -1943,7 +1936,6 @@ msgstr ""
 "Voici votre e-book pour : **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, python-format
 msgid ""
 "\n"
 "Hi,\n"
@@ -1968,7 +1960,6 @@ msgstr ""
 "%[2]s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, python-format
 msgid ""
 "\n"
 "Hi,\n"
@@ -2304,6 +2295,12 @@ msgstr "Supprimer votre code de vérification réduit la sécurité de votre com
 msgid "Remove"
 msgstr "Supprimer"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+#, fuzzy
+msgid "Setup Verification Code"
+msgstr "Code de vérification"
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr "copier le jeton"
@@ -2435,10 +2432,6 @@ msgstr "Expire le : %s"
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
 msgstr "Ce jeton sera supprimé dans quelques secondes."
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
-msgstr "Initialisation du code de vérification"
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
@@ -3156,3 +3149,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Remove Highlight(s)"
 #~ msgstr "Supprimer la ou les annotations"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr "Initialisation du code de vérification"
+

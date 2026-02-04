@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: 2025-12-16 09:12+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: tt_RU\n"
@@ -664,7 +664,7 @@ msgid "%d min"
 msgstr "%d мин"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy, python-format
+#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
 msgstr "%s тарафыннан %s белән уртаклаштырылды"
 
@@ -874,7 +874,7 @@ msgid "One value per line"
 msgstr ""
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy, python-format
+#, fuzzy
 msgid "Published"
 msgstr "%s дата буенча басылган"
 
@@ -1080,7 +1080,7 @@ msgid "Increase width"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Decrease font size"
 msgstr "Төзелгән: %s"
 
@@ -1089,7 +1089,7 @@ msgid "Current font size"
 msgstr ""
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy, python-format
+#, fuzzy
 msgid "Increase font size"
 msgstr "Төзелгән: %s"
 
@@ -2166,6 +2166,11 @@ msgstr ""
 msgid "Remove"
 msgstr "бетерү"
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+msgid "Setup Verification Code"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr ""
@@ -2289,10 +2294,6 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
 msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
@@ -2954,5 +2955,8 @@ msgstr "%H:%M:%S"
 #~ "you used when creating your account.\n"
 #~ "\n"
 #~ "If you are not a Readeck user, please ignore this message.\n"
+#~ msgstr ""
+
+#~ msgid "Verification Code Setup"
 #~ msgstr ""
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2026-02-04 09:09+0100\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Readeck <translate@readeck.com>\n"
 "Language-Team: Readeck <translate@readeck.com>\n"
@@ -762,11 +762,6 @@ msgstr ""
 msgid "Saved with Readeck"
 msgstr ""
 
-#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
-#: assets/templates/bookmarks/components/filters.jet.html:14
-msgid "Title"
-msgstr ""
-
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:21
 #: assets/templates/bookmarks/import/form-csv.jet.html:50
 msgid "Description"
@@ -843,6 +838,11 @@ msgstr ""
 
 #: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
 msgstr ""
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
@@ -2027,6 +2027,11 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+msgid "Setup Verification Code"
+msgstr ""
+
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
 msgstr ""
@@ -2150,10 +2155,6 @@ msgstr ""
 
 #: assets/templates/profile/token_list.jet.html:58
 msgid "This token will be removed in a few seconds."
-msgstr ""
-
-#: assets/templates/profile/totp.jet.html:9
-msgid "Verification Code Setup"
 msgstr ""
 
 #: assets/templates/profile/totp.jet.html:17
