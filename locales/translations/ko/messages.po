@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-27 10:52+0100\n"
+"POT-Creation-Date: 2026-02-04 09:09+0100\n"
 "PO-Revision-Date: 2025-11-07 08:09+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: ko_KR\n"
@@ -61,36 +61,36 @@ msgstr "오류"
 msgid "Please check your form for errors."
 msgstr "양식에 오류가 있는지 확인하십시오."
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:262
 msgid "The previous"
 msgstr "이전"
 
-#: assets/templates/_libs/forms.jet.html:236
+#: assets/templates/_libs/forms.jet.html:271
 msgid "Day(s)"
 msgstr "일"
 
-#: assets/templates/_libs/forms.jet.html:237
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Week(s)"
 msgstr "주"
 
-#: assets/templates/_libs/forms.jet.html:238
+#: assets/templates/_libs/forms.jet.html:273
 msgid "Month(s)"
 msgstr "월"
 
-#: assets/templates/_libs/forms.jet.html:239
+#: assets/templates/_libs/forms.jet.html:274
 msgid "Year(s)"
 msgstr "연도"
 
-#: assets/templates/_libs/forms.jet.html:242
+#: assets/templates/_libs/forms.jet.html:277
 msgctxt "word"
 msgid "or"
 msgstr "또는"
 
-#: assets/templates/_libs/forms.jet.html:272
+#: assets/templates/_libs/forms.jet.html:307
 msgid "Select or drop file"
 msgstr "파일을 선택하거나 드래그앤드롭으로 옮겨주세요"
 
-#: assets/templates/_libs/forms.jet.html:276
+#: assets/templates/_libs/forms.jet.html:311
 msgid "remove"
 msgstr "제거"
 
@@ -120,7 +120,7 @@ msgstr "다음"
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
-#: internal/admin/views.go:89 internal/admin/views.go:129
+#: internal/admin/views.go:89 internal/admin/views.go:134
 msgid "Users"
 msgstr "사용자 계정"
 
@@ -129,9 +129,9 @@ msgid "User will be removed in a few seconds"
 msgstr "사용자 계정을 제거중 입니다"
 
 #: assets/templates/admin/user.jet.html:19
-#: assets/templates/admin/user_list.jet.html:43
+#: assets/templates/admin/user_list.jet.html:48
 #: assets/templates/bookmarks/collection.jet.html:27
-#: assets/templates/bookmarks/components/card.jet.html:100
+#: assets/templates/bookmarks/components/card.jet.html:99
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -152,7 +152,7 @@ msgstr "취소"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:30
+#: assets/templates/profile/index.jet.html:32
 msgid "Username"
 msgstr "사용자계정"
 
@@ -170,10 +170,9 @@ msgstr "그룹"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
-#: assets/templates/auth/login.jet.html:29
+#: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "비밀번호"
 
@@ -182,10 +181,14 @@ msgid "will not change if empty"
 msgstr "변경하지 않으시려면 공란으로 두세요"
 
 #: assets/templates/admin/user.jet.html:50
+#: assets/templates/bookmarks/bookmark_update.jet.html:17
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:92
-#: assets/templates/profile/password.jet.html:35
+#: assets/templates/bookmarks/components/content_block.jet.html:71
+#: assets/templates/bookmarks/components/content_block.jet.html:73
+#: assets/templates/bookmarks/components/title_block.jet.html:29
+#: assets/templates/profile/index.jet.html:100
+#: assets/templates/profile/password.jet.html:38
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
 msgstr "저장"
@@ -193,6 +196,29 @@ msgstr "저장"
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
 msgstr "이 계정을 삭제"
+
+#: assets/templates/admin/user.jet.html:60
+msgid "Last login"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:69
+msgid "Last Activity"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:75
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_bookmarks.go:208
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "북마크"
+
+#: assets/templates/admin/user.jet.html:80
+msgid "Disk usage"
+msgstr ""
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -206,23 +232,28 @@ msgstr "계정 생성"
 msgid "Add a new user"
 msgstr "계정 추가"
 
-#: assets/templates/admin/user_list.jet.html:30
+#: assets/templates/admin/user_list.jet.html:32
 #: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "생성 일자 : %s"
 
-#: assets/templates/admin/user_list.jet.html:31
+#: assets/templates/admin/user_list.jet.html:33
 #, python-format
 msgid "Last update: %s"
 msgstr "최종 변경 : %s"
 
-#: assets/templates/admin/user_list.jet.html:38
+#: assets/templates/admin/user_list.jet.html:35
+#, fuzzy, python-format
+msgid "Last login: %s"
+msgstr "마지막 사용일: %s"
+
+#: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
 msgstr "선택한 계정을 삭제중 입니다."
 
 #: assets/templates/auth/login.jet.html:9
-#: assets/templates/auth/login.jet.html:36
+#: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
 msgstr "로그인"
 
@@ -234,7 +265,7 @@ msgstr "Readeck에 로그인"
 msgid "Username or email address"
 msgstr "계정 또는 이메일주소"
 
-#: assets/templates/auth/login.jet.html:40
+#: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
 msgstr "비밀번호를 잊으셨나요?"
 
@@ -347,7 +378,7 @@ msgstr "여러분을 환영합니다; 한 단계만 더 진행하시면 바로 �
 
 #: assets/templates/auth/onboarding.jet.html:31
 #: assets/templates/auth/recover.jet.html:54
-#: assets/templates/profile/password.jet.html:31
+#: assets/templates/profile/password.jet.html:34
 msgid "must be at least 8 characters long"
 msgstr "최소 8자 이상이어야 합니다"
 
@@ -423,7 +454,7 @@ msgstr ""
 "      "
 
 #: assets/templates/auth/recover.jet.html:52
-#: assets/templates/profile/password.jet.html:28
+#: assets/templates/profile/password.jet.html:31
 msgid "New password"
 msgstr "새로운 비밀번호"
 
@@ -438,6 +469,21 @@ msgstr "비밀번호가 변경되었습니다."
 #: assets/templates/auth/recover.jet.html:61
 msgid "Go to the sign in page"
 msgstr "로그인 페이지로 이동"
+
+#: assets/templates/auth/totp.jet.html:9
+#, fuzzy
+msgid "Two-factor authentication"
+msgstr "인증"
+
+#: assets/templates/auth/totp.jet.html:20
+#, fuzzy
+msgid "Passcode"
+msgstr "비밀번호"
+
+#: assets/templates/auth/totp.jet.html:31
+#, fuzzy
+msgid "Verify"
+msgstr "Version:"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -469,15 +515,6 @@ msgstr "<a class=\"%s\" href=\"%s\">문서</a>에서 강조 기능에 대한 주
 msgid "Search"
 msgstr "찾기"
 
-#: assets/templates/bookmarks/base.jet.html:15
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
-msgid "Bookmarks"
-msgstr "북마크"
-
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
 msgstr "모든 북마크"
@@ -495,17 +532,17 @@ msgid "Favorites"
 msgstr "즐겨찾기"
 
 #: assets/templates/bookmarks/base.jet.html:48
-#: internal/bookmarks/routes/views_bookmarks.go:110
+#: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
 msgstr "기사"
 
 #: assets/templates/bookmarks/base.jet.html:54
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
 msgstr "영상"
 
 #: assets/templates/bookmarks/base.jet.html:60
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
 msgstr "사진"
 
@@ -516,7 +553,7 @@ msgid "Labels"
 msgstr "라벨"
 
 #: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/components/sidebar.jet.html:122
+#: assets/templates/bookmarks/components/annotation_list.jet.html:9
 msgid "Highlights"
 msgstr "강조"
 
@@ -551,18 +588,19 @@ msgid "Don't remind me"
 msgstr "더 이상 알리지 않기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-msgid "Close dialog"
-msgstr "창 닫기"
-
-#: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
 msgstr "패널 닫기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:126
+#: assets/templates/bookmarks/bookmark.jet.html:135
 msgid "Bookmark information"
 msgstr "북마크 정보"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/components/title_block.jet.html:1
+msgid "Close dialog"
+msgstr "창 닫기"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
@@ -571,6 +609,12 @@ msgstr "북마크 불러오기"
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
 msgstr "북마크를 불러오는 중"
+
+#: assets/templates/bookmarks/bookmark.jet.html:116
+#: assets/templates/bookmarks/collection.jet.html:47
+#: assets/templates/bookmarks/collection.jet.html:60
+msgid "Edit"
+msgstr "수정"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -581,7 +625,7 @@ msgid "no site name"
 msgstr "사이트 이름 없음"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:102
+#: assets/templates/bookmarks/bookmark_public.jet.html:122
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -590,7 +634,7 @@ msgid "Published on %s"
 msgstr "게시일 : %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:107
+#: assets/templates/bookmarks/bookmark_public.jet.html:127
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -612,29 +656,35 @@ msgstr[0] "약 %d 분 소요"
 msgid "Bookmark not found"
 msgstr "북마크가 존재하지 않습니다"
 
+#: assets/templates/bookmarks/bookmark_public.jet.html:1
+#: assets/templates/bookmarks/bookmark_public.jet.html:101
+#: assets/templates/menu.jet.html:1
+msgid "Change theme"
+msgstr "테마 변경"
+
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
 msgstr "링크 공유"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
 msgid "Page not found"
 msgstr "페이지가 존재하지 않습니다"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:80
+#: assets/templates/bookmarks/bookmark_public.jet.html:85
 msgid "Page has expired"
 msgstr "페이지가 만료되었습니다"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:115
+#: assets/templates/bookmarks/bookmark_public.jet.html:135
 #, python-format
 msgid "%d min"
 msgstr "%d 분"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:121
-#, python-format
-msgid "Shared by %s with %s"
+#: assets/templates/bookmarks/bookmark_public.jet.html:141
+#, fuzzy, python-format
+msgid "Shared by %[1]s with %[2]s"
 msgstr "%s가 %s와 공유함"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:174
+#: assets/templates/bookmarks/bookmark_public.jet.html:194
 #, python-format
 msgid "Saved with %s"
 msgstr "Saved with %s"
@@ -653,6 +703,16 @@ msgstr "Share: %s"
 msgid "Share link"
 msgstr "링크 공유"
 
+#: assets/templates/bookmarks/bookmark_update.jet.html:9
+#, fuzzy
+msgid "Edit bookmark"
+msgstr "읽지 않은 북마크"
+
+#: assets/templates/bookmarks/bookmark_update.jet.html:14
+#, fuzzy, python-format
+msgid "Edit: %s"
+msgstr "Saved with %s"
+
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
 msgid "Collection %s"
@@ -661,11 +721,6 @@ msgstr "Collection %s"
 #: assets/templates/bookmarks/collection.jet.html:26
 msgid "Collection will be removed in a few seconds."
 msgstr "컬렉션은 몇 초 후에 삭제됩니다."
-
-#: assets/templates/bookmarks/collection.jet.html:47
-#: assets/templates/bookmarks/collection.jet.html:60
-msgid "Edit"
-msgstr "수정"
 
 #: assets/templates/bookmarks/collection.jet.html:62
 #: assets/templates/bookmarks/index.jet.html:133
@@ -783,30 +838,78 @@ msgstr "즐겨찾기에 추가"
 msgid "This bookmark will be removed in a few seconds."
 msgstr "이 북마크는 잠시 후 제거됩니다."
 
-#: assets/templates/bookmarks/components/actions.jet.html:23
+#: assets/templates/bookmarks/components/actions.jet.html:22
 msgid "Undo"
 msgstr "실행 취소"
 
-#: assets/templates/bookmarks/components/actions.jet.html:56
+#: assets/templates/bookmarks/components/actions.jet.html:55
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
 msgstr "EPUB 다운로드"
 
-#: assets/templates/bookmarks/components/actions.jet.html:59
+#: assets/templates/bookmarks/components/actions.jet.html:58
 msgid "Share by Link"
 msgstr "링크로 공유하기"
 
-#: assets/templates/bookmarks/components/actions.jet.html:62
+#: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Send article by Email"
 msgstr "문서를 이메일로 전송"
 
-#: assets/templates/bookmarks/components/actions.jet.html:64
+#: assets/templates/bookmarks/components/actions.jet.html:63
 msgid "Send e-book by Email"
 msgstr "이메일로 전자책 보내기"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:1
+#, fuzzy
+msgid "Delete highlight"
+msgstr "강조"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:12
+msgid "Start selecting text in the article to create a new highlight."
+msgstr "기사의 텍스트를 선택하여 새로운 강조 표시를 생성하세요."
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
 msgstr "Readeck에 저장됨"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
+msgstr "제목"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:21
+#: assets/templates/bookmarks/import/form-csv.jet.html:50
+msgid "Description"
+msgstr "설명"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:28
+#, fuzzy
+msgid "Site Name"
+msgstr "사이트 이름 없음"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:34
+#, fuzzy
+msgid "Authors"
+msgstr "저자"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:35
+msgid "One value per line"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:41
+#, fuzzy, python-format
+msgid "Published"
+msgstr "게시일 : %s"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:46
+#: assets/templates/profile/index.jet.html:49
+msgid "Language"
+msgstr "언어"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:51
+#, fuzzy
+msgid "Text Direction"
+msgstr "인증"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -825,10 +928,6 @@ msgid_plural "%d min"
 msgstr[0] "%d 분"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Remove Highlight(s)"
-msgstr "강조표시 제거"
-
-#: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Close"
 msgstr "닫기"
 
@@ -840,34 +939,45 @@ msgstr "이미지 보기"
 msgid "Play video"
 msgstr "비디오 재생"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:47
+#: assets/templates/bookmarks/components/content_block.jet.html:46
 msgid "Yellow"
 msgstr "노란색"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:48
+#: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Red"
 msgstr "빨간색"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:49
+#: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Blue"
 msgstr "파란색"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:50
+#: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Green"
 msgstr "녹색"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:54
+#: assets/templates/bookmarks/components/content_block.jet.html:50
+msgid "Transparent"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
 msgstr "강조"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:103
+#, fuzzy
+msgid "Note"
+msgstr "아니오"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:78
+#: assets/templates/bookmarks/label.jet.html:43
+msgid "Delete"
+msgstr "삭제"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "클립보드로 복사"
-
-#: assets/templates/bookmarks/components/filters.jet.html:14
-msgid "Title"
-msgstr "제목"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
@@ -883,60 +993,60 @@ msgstr "사이트"
 msgid "Label"
 msgstr "라벨"
 
-#: assets/templates/bookmarks/components/filters.jet.html:103
+#: assets/templates/bookmarks/components/filters.jet.html:108
 msgid "From date"
 msgstr "발행일자"
 
-#: assets/templates/bookmarks/components/filters.jet.html:109
+#: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "To date"
 msgstr "종료일자"
 
-#: assets/templates/bookmarks/components/filters.jet.html:114
+#: assets/templates/bookmarks/components/filters.jet.html:119
 msgid "Type"
 msgstr "유형"
 
-#: assets/templates/bookmarks/components/filters.jet.html:119
+#: assets/templates/bookmarks/components/filters.jet.html:124
 msgctxt "filter"
 msgid "Progress"
 msgstr "진행 상황"
 
-#: assets/templates/bookmarks/components/filters.jet.html:124
+#: assets/templates/bookmarks/components/filters.jet.html:129
 msgid "Is Favorite"
 msgstr "즐겨찾기"
 
-#: assets/templates/bookmarks/components/filters.jet.html:128
-#: assets/templates/bookmarks/components/filters.jet.html:137
-#: assets/templates/bookmarks/components/filters.jet.html:147
-#: assets/templates/bookmarks/components/filters.jet.html:157
-#: assets/templates/bookmarks/components/filters.jet.html:167
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:142
+#: assets/templates/bookmarks/components/filters.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:162
+#: assets/templates/bookmarks/components/filters.jet.html:172
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "yes"
 msgstr "예"
 
-#: assets/templates/bookmarks/components/filters.jet.html:129
-#: assets/templates/bookmarks/components/filters.jet.html:138
-#: assets/templates/bookmarks/components/filters.jet.html:148
-#: assets/templates/bookmarks/components/filters.jet.html:158
-#: assets/templates/bookmarks/components/filters.jet.html:168
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:134
+#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:173
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "no"
 msgstr "아니오"
 
-#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:138
 msgid "Is Archived"
 msgstr "보관됨"
 
-#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:148
 msgid "Is Loaded"
 msgstr "로드됨"
 
-#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:158
 msgid "With Labels"
 msgstr "라벨 있음"
 
-#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:168
 msgid "With Errors"
 msgstr "오류 있음"
 
@@ -948,7 +1058,7 @@ msgstr "라벨 제거"
 msgid "Add a label"
 msgstr "라벨 추가"
 
-#: assets/templates/bookmarks/components/labels_form.jet.html:35
+#: assets/templates/bookmarks/components/labels_form.jet.html:33
 msgid "Add label"
 msgstr "라벨 추가"
 
@@ -980,27 +1090,93 @@ msgstr "가져오기/내보내기"
 msgid "Atom Feed"
 msgstr "Atom Feed"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:24
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current Width"
+msgstr "현재 비밀번호"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Decrease font size"
+msgstr "생성 일자 : %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current font size"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Increase font size"
+msgstr "생성 일자 : %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Decrease line height"
+msgstr "행간"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current line height"
+msgstr "행간"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Increase line height"
+msgstr "행간"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Justify text"
+msgstr "배분정렬"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Don't justify text"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "With hyphenation"
+msgstr "줄바꿈(하이픈연결)"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Without hyphenation"
+msgstr "줄바꿈(하이픈연결)"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:13
+#, fuzzy
+msgid "Display options"
+msgstr "정렬 옵션"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
 msgstr "글꼴"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:54
+#: assets/templates/bookmarks/components/reader_control.jet.html:56
 msgid "Width"
 msgstr "너비"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:75
+#: assets/templates/bookmarks/components/reader_control.jet.html:81
 msgid "Size"
 msgstr "글꼴 크기"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:96
+#: assets/templates/bookmarks/components/reader_control.jet.html:106
 msgid "Line height"
 msgstr "행간"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:116
+#: assets/templates/bookmarks/components/reader_control.jet.html:130
 msgid "Justify"
 msgstr "배분정렬"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:141
+#: assets/templates/bookmarks/components/reader_control.jet.html:156
 msgid "Hyphenation"
 msgstr "줄바꿈(하이픈연결)"
 
@@ -1065,11 +1241,7 @@ msgstr ""
 msgid "View log"
 msgstr "로그 보기"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:125
-msgid "Start selecting text in the article to create a new highlight."
-msgstr "기사의 텍스트를 선택하여 새로운 강조 표시를 생성하세요."
-
-#: assets/templates/bookmarks/components/sidebar.jet.html:156
+#: assets/templates/bookmarks/components/sidebar.jet.html:127
 msgid "Links"
 msgstr "Links"
 
@@ -1169,10 +1341,6 @@ msgstr "필드"
 msgid "Alias"
 msgstr "별칭"
 
-#: assets/templates/bookmarks/import/form-csv.jet.html:50
-msgid "Description"
-msgstr "설명"
-
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
 msgid "Link address"
 msgstr "주소 링크"
@@ -1261,11 +1429,11 @@ msgid "Import your Pocket Articles"
 msgstr "Pocket 기사 가져오기"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
 "  "
 msgstr ""
 "\n"
@@ -1536,8 +1704,8 @@ msgid "Save link"
 msgstr "링크 저장"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, python-format
-msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+#, fuzzy, python-format
+msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "“%s”는 유효한 주소가 아닙니다. %s를 북마크에서 검색하시려는 건가요?"
 
 #: assets/templates/bookmarks/index.jet.html:77
@@ -1600,10 +1768,6 @@ msgstr "검색 초기화"
 msgid "Create a collection"
 msgstr "컬렉션 생성"
 
-#: assets/templates/bookmarks/label.jet.html:43
-msgid "Delete"
-msgstr "삭제"
-
 #: assets/templates/bookmarks/label.jet.html:56
 msgid "Label will be removed in a few seconds."
 msgstr "라벨이 잠시 뒤에 제거됩니다."
@@ -1643,28 +1807,46 @@ msgstr "System Information"
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "현재 시스템 정보입니다. 버그를 리포트 할 때 이 정보를 포함해 주세요."
 
+#: assets/templates/docs/about.jet.html:42
+msgid "Storage"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:46
+msgid "Database Size:"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:50
+#, fuzzy
+msgid "Bookmarks Disk Usage:"
+msgstr "북마크를 불러오는 중"
+
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "프로젝트"
 
 #: assets/templates/docs/about.jet.html:59
-msgid "Main website"
+#, fuzzy
+msgid "Main website:"
 msgstr "Main website"
 
 #: assets/templates/docs/about.jet.html:60
-msgid "Sources and issues"
+#, fuzzy
+msgid "Sources and issues:"
 msgstr "Sources and issues"
 
 #: assets/templates/docs/about.jet.html:61
-msgid "How to contribute"
+#, fuzzy
+msgid "How to contribute:"
 msgstr "기여 방법"
 
 #: assets/templates/docs/about.jet.html:62
-msgid "Community Forum"
+#, fuzzy
+msgid "Community Forum:"
 msgstr "커뮤니티 포럼"
 
 #: assets/templates/docs/about.jet.html:63
-msgid "Matrix Chat"
+#, fuzzy
+msgid "Matrix Chat:"
 msgstr "Matrix Chat"
 
 #: assets/templates/docs/about.jet.html:66
@@ -1776,18 +1958,18 @@ msgstr ""
 "다음은 **%s**을(를) 위한 전자책입니다.\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "If you are expecting this email, please follow this link to set\n"
 "a new password for your readeck account.\n"
 "\n"
-"%s\n"
+"%[2]s\n"
 msgstr ""
 "\n"
 "안녕하세요,\n"
@@ -1801,18 +1983,18 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "However, this email address is not associated with any account and\n"
 "therefore, the attempted password change has failed.\n"
 "\n"
-"If you are a Readeck user on %s and you are\n"
+"If you are a Readeck user on %[1]s and you are\n"
 "expecting this email, please try again using the email address\n"
 "you used when creating your account.\n"
 "\n"
@@ -1833,6 +2015,11 @@ msgstr ""
 "\n"
 "Readeck 사용자가 아니시라면 본 메세지를 무시해 주세요.\n"
 
+#: assets/templates/epub/bookmark.jet.html:62
+#, fuzzy
+msgid "Notes"
+msgstr "Roles"
+
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "오류"
@@ -1849,10 +2036,6 @@ msgstr "페이지를 찾을 수 없습니다."
 msgid "An error occurred."
 msgstr "오류가 발생했습니다."
 
-#: assets/templates/menu.jet.html:1
-msgid "Change theme"
-msgstr "테마 변경"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "메뉴 열기"
@@ -1866,7 +2049,7 @@ msgid "Settings"
 msgstr "설정"
 
 #: assets/templates/profile/app_list.jet.html:10
-#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:244
 msgid "Applications"
 msgstr "애플리케이션"
 
@@ -1922,20 +2105,27 @@ msgstr ""
 "    <a href=\"%s\">API Documentation</a>.\n"
 "  "
 
-#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
-#: internal/profile/views.go:130 internal/profile/views.go:174
-#: internal/profile/views.go:190 internal/profile/views.go:250
-#: internal/profile/views.go:301 internal/profile/views.go:332
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
+#: internal/profile/views.go:113 internal/profile/views.go:167
+#: internal/profile/views.go:243 internal/profile/views.go:259
+#: internal/profile/views.go:319 internal/profile/views.go:370
+#: internal/profile/views.go:401
 msgid "Profile"
 msgstr "프로필"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
-#: internal/profile/views.go:251
+#: assets/templates/profile/base.jet.html:19
+#: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
+#: internal/profile/views.go:168
+msgid "Security"
+msgstr ""
+
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
+#: internal/profile/views.go:320
 msgid "API Tokens"
 msgstr "API Tokens"
 
 #: assets/templates/profile/base.jet.html:34
-#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:371
 msgid "Export"
 msgstr "내보내기"
 
@@ -1944,7 +2134,7 @@ msgstr "내보내기"
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:402
 msgid "Import"
 msgstr "가져오기"
 
@@ -2033,32 +2223,28 @@ msgstr ""
 msgid "My profile"
 msgstr "내 프로필"
 
-#: assets/templates/profile/index.jet.html:16
+#: assets/templates/profile/index.jet.html:17
 #, python-format
 msgid "You are connected as <strong>%s</strong>"
 msgstr "다음 애플리케이션에 연결되어 있습니다. : <strong>%s</strong>"
 
-#: assets/templates/profile/index.jet.html:18
+#: assets/templates/profile/index.jet.html:19
 msgid "Sign out"
 msgstr "로그아웃"
 
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:29
 msgid "Base settings"
 msgstr "기본 설정"
 
-#: assets/templates/profile/index.jet.html:36
+#: assets/templates/profile/index.jet.html:41
 msgid "Email Address"
 msgstr "Email 주소"
 
-#: assets/templates/profile/index.jet.html:41
-msgid "Language"
-msgstr "언어"
-
-#: assets/templates/profile/index.jet.html:58
+#: assets/templates/profile/index.jet.html:66
 msgid "Email settings"
 msgstr "Email 설정"
 
-#: assets/templates/profile/index.jet.html:59
+#: assets/templates/profile/index.jet.html:67
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -2068,28 +2254,28 @@ msgstr ""
 "    이러한 선택적 매개변수들은 Readeck이 이메일을 보낼 때 사용됩니다.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:65
+#: assets/templates/profile/index.jet.html:73
 msgid "Reply To"
 msgstr "답장"
 
-#: assets/templates/profile/index.jet.html:66
+#: assets/templates/profile/index.jet.html:74
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "수신자가 답장할 수 있도록 발신 이메일 주소에 이 이메일 주소를 추가하세요."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:79
 msgid "Send EPUB to"
 msgstr "EPUB을 다음으로 보내기"
 
-#: assets/templates/profile/index.jet.html:72
+#: assets/templates/profile/index.jet.html:80
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "이 주소는 이메일을 통해 이북을 발송할 때 수신자를 사전 입력하는 데 사용됩니다."
 
-#: assets/templates/profile/index.jet.html:79
+#: assets/templates/profile/index.jet.html:87
 #, fuzzy
 msgid "Sending e-books to an Amazon Kindle"
 msgstr "이메일로 전자책 보내기"
 
-#: assets/templates/profile/index.jet.html:80
+#: assets/templates/profile/index.jet.html:88
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -2101,13 +2287,39 @@ msgstr ""
 "          킨들 계정 내에서 다음 이메일 주소를 반드시 승인해야 합니다:\n"
 "          "
 
-#: assets/templates/profile/password.jet.html:9
+#: assets/templates/profile/password.jet.html:19
 msgid "Change my password"
 msgstr "내 비밀번호 변경하기"
 
-#: assets/templates/profile/password.jet.html:20
+#: assets/templates/profile/password.jet.html:23
 msgid "Current password"
 msgstr "현재 비밀번호"
+
+#: assets/templates/profile/password.jet.html:46
+msgid "Verification Code (TOTP)"
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:47
+msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:52
+msgid "The verification code is enabled on this account."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:57
+#, fuzzy
+msgid "Remove Verification Code"
+msgstr "수정"
+
+#: assets/templates/profile/password.jet.html:59
+msgid "Removing your verification code will make your account less secure."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:64
+#, fuzzy
+msgid "Remove"
+msgstr "제거"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2241,11 +2453,45 @@ msgstr "만료일: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "이 토큰은 몇 초 후에 제거됩니다."
 
+#: assets/templates/profile/totp.jet.html:9
+msgid "Verification Code Setup"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:17
+msgid "Scan this QR code with your app"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:18
+msgid "Scan the QR code below with a two-factor authentication app on your phone."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:25
+msgid "If you can't use the QR code, enter the code below instead."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:29
+#, fuzzy
+msgid "Enter the code from your application."
+msgstr "디바이스에 표시된 코드를 입력 해 주세요"
+
+#: assets/templates/profile/totp.jet.html:30
+msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:35
+#, fuzzy
+msgid "Code from your device"
+msgstr "사용자 ID를 확인하세요"
+
+#: assets/templates/profile/totp.jet.html:41
+msgid "Finish"
+msgstr ""
+
 #: internal/admin/views.go:77
 msgid "User created."
 msgstr "사용자가 생성함."
 
-#: internal/admin/views.go:116
+#: internal/admin/views.go:115
 msgid "User updated."
 msgstr "사용자 업데이트됨."
 
@@ -2253,12 +2499,17 @@ msgstr "사용자 업데이트됨."
 msgid "Invalid user and/or password"
 msgstr "유효하지 않은 사용자 ID 또는 비밀번호"
 
-#: internal/auth/users/forms.go:54
+#: internal/auth/signin/http.go:197 internal/profile/forms.go:296
+#, fuzzy
+msgid "Invalid code"
+msgstr "잘못된 비밀번호"
+
+#: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 msgctxt "role"
 msgid "no group"
 msgstr "그룹"
 
-#: internal/auth/users/forms.go:72
+#: internal/auth/users/forms.go:75
 msgid "password is empty"
 msgstr "비밀번호를 입력 하세요"
 
@@ -2314,7 +2565,7 @@ msgstr "GoodLinks 내보내기 파일"
 msgid "Empty or invalid import file"
 msgstr "빈 파일 또는 잘못된 가져오기 파일"
 
-#: internal/bookmarks/importer/omnivore.go:247
+#: internal/bookmarks/importer/omnivore.go:248
 msgid "Invalid API Key"
 msgstr "유효하지 않은 API 키"
 
@@ -2322,95 +2573,109 @@ msgstr "유효하지 않은 API 키"
 msgid "Readwise Reader CSV"
 msgstr "Readwise Reader CSV"
 
-#: internal/bookmarks/importer/wallabag.go:257
+#: internal/bookmarks/importer/wallabag.go:255
 msgid "Invalid URL"
 msgstr "유효하지 않은 URL"
 
-#: internal/bookmarks/importer/wallabag.go:262
+#: internal/bookmarks/importer/wallabag.go:260
 msgid "Invalid credentials"
 msgstr "유효하지 않은 자격 증명"
 
-#: internal/bookmarks/importer/wallabag.go:273
+#: internal/bookmarks/importer/wallabag.go:271
 msgid "No access token found"
 msgstr "Access token을 찾을 수 없습니다"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:143
+#: internal/bookmarks/routes/forms_bookmarks.go:191
+#: internal/bookmarks/routes/forms_bookmarks.go:210
 msgid "Unable to process input data"
 msgstr "입력 데이터를 처리할 수 없습니다"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:506
+#: internal/bookmarks/routes/forms_bookmarks.go:289
+#, fuzzy
+msgid "invalid language code"
+msgstr "유효하지 않은 API 키"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:292
+msgid "Left to right"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:293
+msgid "Right to left"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
 msgstr "문서"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:507
+#: internal/bookmarks/routes/forms_bookmarks.go:633
 msgid "Picture"
 msgstr "사진"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:508
+#: internal/bookmarks/routes/forms_bookmarks.go:634
 msgid "Video"
 msgstr "동영상"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:515
+#: internal/bookmarks/routes/forms_bookmarks.go:642
 msgctxt "status"
 msgid "Unviewed"
 msgstr "미확인"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:516
+#: internal/bookmarks/routes/forms_bookmarks.go:643
 msgctxt "status"
 msgid "In-Progress"
 msgstr "진행 중"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:517
+#: internal/bookmarks/routes/forms_bookmarks.go:644
 msgctxt "status"
 msgid "Completed"
 msgstr "완료"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:744
+#: internal/bookmarks/routes/forms_bookmarks.go:871
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "추가된 항목 (최근 순서)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:745
+#: internal/bookmarks/routes/forms_bookmarks.go:872
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "추가된 항목 (오래된 순서)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:746
+#: internal/bookmarks/routes/forms_bookmarks.go:873
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "게시됨(최신순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:747
+#: internal/bookmarks/routes/forms_bookmarks.go:874
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "게시됨(오래된 순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:748
+#: internal/bookmarks/routes/forms_bookmarks.go:875
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "제목(알파벳 순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:749
+#: internal/bookmarks/routes/forms_bookmarks.go:876
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "제목(알파벳 역순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:750
+#: internal/bookmarks/routes/forms_bookmarks.go:877
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "사이트 이름(알파벳 순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:751
+#: internal/bookmarks/routes/forms_bookmarks.go:878
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "사이트 이름(알파벳 역순)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:752
+#: internal/bookmarks/routes/forms_bookmarks.go:879
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "기간(최근순서)"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:753
+#: internal/bookmarks/routes/forms_bookmarks.go:880
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "기간(오래된 순서)"
@@ -2438,25 +2703,35 @@ msgstr "Collection ebook - %s"
 msgid "Browse collection: %s"
 msgstr "Browse collection: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:95
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "All your Bookmarks"
 msgstr "모든 북마크"
 
-#: internal/bookmarks/routes/views_bookmarks.go:100
+#: internal/bookmarks/routes/views_bookmarks.go:105
 msgid "Bookmark Search"
 msgstr "북마크 검색"
 
-#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:59
 msgid "Unread Bookmarks"
 msgstr "읽지 않은 북마크"
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:63
 msgid "Archived Bookmarks"
 msgstr "보관된 북마크"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
 msgstr "즐겨찾기"
+
+#: internal/bookmarks/routes/views_bookmarks.go:210
+#, fuzzy
+msgid "Update"
+msgstr "사용자 업데이트됨."
+
+#: internal/bookmarks/routes/views_bookmarks.go:319
+#, fuzzy
+msgid "Bookmark updated"
+msgstr "북마크 제목"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2474,39 +2749,52 @@ msgstr "모든 북마크"
 msgid "The import file must contain one user only"
 msgstr "가져오기용 파일은 단일 사용자 정보만 포함해야 합니다"
 
-#: internal/profile/forms.go:39
+#: internal/profile/forms.go:41
 msgid "invalid username and/or email"
 msgstr "유효하지 않은 사용자 이름 및/또는 이메일"
 
-#: internal/profile/forms.go:40
+#: internal/profile/forms.go:42
 msgid "invalid password"
 msgstr "잘못된 비밀번호"
 
-#: internal/profile/forms.go:403
+#: internal/profile/forms.go:471
 msgid "username does not match"
 msgstr "사용자 ID가 일치하지 않습니다"
 
-#: internal/profile/views.go:82
+#: internal/profile/views.go:84
 msgid "Profile updated."
 msgstr "프로필 업데이트됨."
 
-#: internal/profile/views.go:118
+#: internal/profile/views.go:138
 msgid "Your password was changed."
 msgstr "비밀번호가 변경되었습니다."
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:149
+msgid "Your verification code was removed."
+msgstr ""
+
+#: internal/profile/views.go:169
+#, fuzzy
+msgid "Verification Code"
+msgstr "수정"
+
+#: internal/profile/views.go:197
+msgid "Verification Code is now enabled."
+msgstr ""
+
+#: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
 msgstr "토큰 생성 중 오류가 발생했습니다."
 
-#: internal/profile/views.go:211
+#: internal/profile/views.go:280
 msgid "New token created."
 msgstr "새로운 토큰 생성되었습니다."
 
-#: internal/profile/views.go:230
+#: internal/profile/views.go:299
 msgid "Token was updated."
 msgstr "Token이 업데이트되었습니다."
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:388
 msgid "Profile imported."
 msgstr "프로필 가져옴."
 
@@ -2537,11 +2825,21 @@ msgid "must be lower or equal than %d"
 msgstr "%d 이하여야 합니다"
 
 #: pkg/forms/validators.go:347
-#, python-format
-msgid "text must contain between %d and %d characters"
+#, fuzzy, python-format
+msgid "text must contain at least %d characters"
 msgstr "텍스트는 %d 와 %d 자 이내여야 합니다"
 
-#: pkg/forms/validators.go:406
+#: pkg/forms/validators.go:355
+#, fuzzy, python-format
+msgid "text must contain at most %d characters"
+msgstr "텍스트는 %d 와 %d 자 이내여야 합니다"
+
+#: pkg/forms/validators.go:363
+#, fuzzy, python-format
+msgid "text must contain %d characters"
+msgstr "텍스트는 %d 와 %d 자 이내여야 합니다"
+
+#: pkg/forms/validators.go:443
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v은(는) %s 중 하나가 아닙니다"
@@ -2882,4 +3180,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Admin : Write Only"
 #~ msgstr ""
+
+#~ msgid "Remove Highlight(s)"
+#~ msgstr "강조표시 제거"
 

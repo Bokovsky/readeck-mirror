@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-27 10:52+0100\n"
+"POT-Creation-Date: 2026-02-04 09:09+0100\n"
 "PO-Revision-Date: 2025-11-17 20:51+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
 "Language: tr_TR\n"
@@ -61,36 +61,36 @@ msgstr "Hatalar"
 msgid "Please check your form for errors."
 msgstr "Formunuzda hata olup olmadığını kontrol edin."
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:262
 msgid "The previous"
 msgstr "Önceki"
 
-#: assets/templates/_libs/forms.jet.html:236
+#: assets/templates/_libs/forms.jet.html:271
 msgid "Day(s)"
 msgstr "Gün(ler)"
 
-#: assets/templates/_libs/forms.jet.html:237
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Week(s)"
 msgstr "Hafta(lar)"
 
-#: assets/templates/_libs/forms.jet.html:238
+#: assets/templates/_libs/forms.jet.html:273
 msgid "Month(s)"
 msgstr "Ay(lar)"
 
-#: assets/templates/_libs/forms.jet.html:239
+#: assets/templates/_libs/forms.jet.html:274
 msgid "Year(s)"
 msgstr "Yıllar"
 
-#: assets/templates/_libs/forms.jet.html:242
+#: assets/templates/_libs/forms.jet.html:277
 msgctxt "word"
 msgid "or"
 msgstr "ya da"
 
-#: assets/templates/_libs/forms.jet.html:272
+#: assets/templates/_libs/forms.jet.html:307
 msgid "Select or drop file"
 msgstr "Dosya seç ya da bırak"
 
-#: assets/templates/_libs/forms.jet.html:276
+#: assets/templates/_libs/forms.jet.html:311
 msgid "remove"
 msgstr "kaldır"
 
@@ -120,7 +120,7 @@ msgstr "Sonraki"
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
-#: internal/admin/views.go:89 internal/admin/views.go:129
+#: internal/admin/views.go:89 internal/admin/views.go:134
 msgid "Users"
 msgstr "Kullanıcılar"
 
@@ -129,9 +129,9 @@ msgid "User will be removed in a few seconds"
 msgstr "Kullanıcı birkaç saniye içinde silinecek"
 
 #: assets/templates/admin/user.jet.html:19
-#: assets/templates/admin/user_list.jet.html:43
+#: assets/templates/admin/user_list.jet.html:48
 #: assets/templates/bookmarks/collection.jet.html:27
-#: assets/templates/bookmarks/components/card.jet.html:100
+#: assets/templates/bookmarks/components/card.jet.html:99
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -152,7 +152,7 @@ msgstr "İptal"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:30
+#: assets/templates/profile/index.jet.html:32
 msgid "Username"
 msgstr "Kullanıcı adı"
 
@@ -170,10 +170,9 @@ msgstr "Grup"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
-#: assets/templates/auth/login.jet.html:29
+#: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "Parola"
 
@@ -182,10 +181,14 @@ msgid "will not change if empty"
 msgstr "boş ise değişmeyecek"
 
 #: assets/templates/admin/user.jet.html:50
+#: assets/templates/bookmarks/bookmark_update.jet.html:17
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:92
-#: assets/templates/profile/password.jet.html:35
+#: assets/templates/bookmarks/components/content_block.jet.html:71
+#: assets/templates/bookmarks/components/content_block.jet.html:73
+#: assets/templates/bookmarks/components/title_block.jet.html:29
+#: assets/templates/profile/index.jet.html:100
+#: assets/templates/profile/password.jet.html:38
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
 msgstr "Kaydet"
@@ -193,6 +196,29 @@ msgstr "Kaydet"
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
 msgstr "Bu kullanıcıyı sil"
+
+#: assets/templates/admin/user.jet.html:60
+msgid "Last login"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:69
+msgid "Last Activity"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:75
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_bookmarks.go:208
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "Yer İmleri"
+
+#: assets/templates/admin/user.jet.html:80
+msgid "Disk usage"
+msgstr ""
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -206,23 +232,29 @@ msgstr "Kullanıcı oluştur"
 msgid "Add a new user"
 msgstr "Yeni bir kullanıcı ekle"
 
-#: assets/templates/admin/user_list.jet.html:30
+#: assets/templates/admin/user_list.jet.html:32
 #: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "Oluşturulma tarihi: %s"
 
-#: assets/templates/admin/user_list.jet.html:31
+#: assets/templates/admin/user_list.jet.html:33
 #, python-format
 msgid "Last update: %s"
 msgstr "Son güncellenme:%s"
 
-#: assets/templates/admin/user_list.jet.html:38
+# | msgid "Created on: %s"
+#: assets/templates/admin/user_list.jet.html:35
+#, fuzzy, python-format
+msgid "Last login: %s"
+msgstr "Son kullanım: %s"
+
+#: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
 msgstr "Bu kullanıcı birkaç saniye içinde silinecek."
 
 #: assets/templates/auth/login.jet.html:9
-#: assets/templates/auth/login.jet.html:36
+#: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
 msgstr "Giriş yap"
 
@@ -234,7 +266,7 @@ msgstr "Readeck'e giriş yap"
 msgid "Username or email address"
 msgstr "Kullanıcı adı veya e-posta adresi"
 
-#: assets/templates/auth/login.jet.html:40
+#: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
 msgstr "Parolanızı mı unuttunuz?"
 
@@ -354,7 +386,7 @@ msgstr "Sizi aramızda görmek harika; son bir adım kaldı, ardından her şey 
 
 #: assets/templates/auth/onboarding.jet.html:31
 #: assets/templates/auth/recover.jet.html:54
-#: assets/templates/profile/password.jet.html:31
+#: assets/templates/profile/password.jet.html:34
 msgid "must be at least 8 characters long"
 msgstr "8 veya daha fazla karakter içermeli"
 
@@ -431,7 +463,7 @@ msgstr ""
 "      "
 
 #: assets/templates/auth/recover.jet.html:52
-#: assets/templates/profile/password.jet.html:28
+#: assets/templates/profile/password.jet.html:31
 msgid "New password"
 msgstr "Yeni parola"
 
@@ -446,6 +478,22 @@ msgstr "Parolanız güncellendi."
 #: assets/templates/auth/recover.jet.html:61
 msgid "Go to the sign in page"
 msgstr "Oturum açma sayfasına git"
+
+# | msgid "Documentation"
+#: assets/templates/auth/totp.jet.html:9
+#, fuzzy
+msgid "Two-factor authentication"
+msgstr "Kimlik doğrulama"
+
+#: assets/templates/auth/totp.jet.html:20
+#, fuzzy
+msgid "Passcode"
+msgstr "Parola"
+
+#: assets/templates/auth/totp.jet.html:31
+#, fuzzy
+msgid "Verify"
+msgstr "Sürüm:"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -477,15 +525,6 @@ msgstr "Vurgulamalar ile ilgili daha fazla bilgi için <a class=\"%s\" href=\"%s
 msgid "Search"
 msgstr "Arama"
 
-#: assets/templates/bookmarks/base.jet.html:15
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
-msgid "Bookmarks"
-msgstr "Yer İmleri"
-
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
 msgstr "Tümü"
@@ -503,17 +542,17 @@ msgid "Favorites"
 msgstr "Beğenilenler"
 
 #: assets/templates/bookmarks/base.jet.html:48
-#: internal/bookmarks/routes/views_bookmarks.go:110
+#: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
 msgstr "Yazılar"
 
 #: assets/templates/bookmarks/base.jet.html:54
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
 msgstr "Videolar"
 
 #: assets/templates/bookmarks/base.jet.html:60
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
 msgstr "Görseller"
 
@@ -524,7 +563,7 @@ msgid "Labels"
 msgstr "Etiketler"
 
 #: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/components/sidebar.jet.html:122
+#: assets/templates/bookmarks/components/annotation_list.jet.html:9
 msgid "Highlights"
 msgstr "Vurgulamalar"
 
@@ -560,18 +599,19 @@ msgid "Don't remind me"
 msgstr "Tekrar hatırlatma"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-msgid "Close dialog"
-msgstr "İletişim kutusunu kapat"
-
-#: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
 msgstr "Paneli kapat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:126
+#: assets/templates/bookmarks/bookmark.jet.html:135
 msgid "Bookmark information"
 msgstr "Yer imi bilgileri"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/components/title_block.jet.html:1
+msgid "Close dialog"
+msgstr "İletişim kutusunu kapat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
@@ -580,6 +620,12 @@ msgstr "Yer imi yükleniyor"
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
 msgstr "Yer imi yükleniyor"
+
+#: assets/templates/bookmarks/bookmark.jet.html:116
+#: assets/templates/bookmarks/collection.jet.html:47
+#: assets/templates/bookmarks/collection.jet.html:60
+msgid "Edit"
+msgstr "Düzenle"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -590,7 +636,7 @@ msgid "no site name"
 msgstr "websitesi adı yok"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:102
+#: assets/templates/bookmarks/bookmark_public.jet.html:122
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -599,7 +645,7 @@ msgid "Published on %s"
 msgstr "%s tarihinde yayınlandı"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:107
+#: assets/templates/bookmarks/bookmark_public.jet.html:127
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -622,31 +668,37 @@ msgstr[1] "Okuma süresi yaklaşık %d dakikadır"
 msgid "Bookmark not found"
 msgstr "Yer imi bulunamadı"
 
+#: assets/templates/bookmarks/bookmark_public.jet.html:1
+#: assets/templates/bookmarks/bookmark_public.jet.html:101
+#: assets/templates/menu.jet.html:1
+msgid "Change theme"
+msgstr "Tema değiştir"
+
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
 msgstr "Paylaşılan bağlantı"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
 msgid "Page not found"
 msgstr "Sayfa bulunamadı"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:80
+#: assets/templates/bookmarks/bookmark_public.jet.html:85
 msgid "Page has expired"
 msgstr "Sayfanın geçerlilik süresi doldu"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:115
+#: assets/templates/bookmarks/bookmark_public.jet.html:135
 #, python-format
 msgid "%d min"
 msgstr "%d . dk."
 
 # | msgid "Shared by %s"
-#: assets/templates/bookmarks/bookmark_public.jet.html:121
-#, python-format
-msgid "Shared by %s with %s"
+#: assets/templates/bookmarks/bookmark_public.jet.html:141
+#, fuzzy, python-format
+msgid "Shared by %[1]s with %[2]s"
 msgstr "%s tarafından %s kullanılarak paylaşıldı"
 
 # | msgid "Saved with"
-#: assets/templates/bookmarks/bookmark_public.jet.html:174
+#: assets/templates/bookmarks/bookmark_public.jet.html:194
 #, python-format
 msgid "Saved with %s"
 msgstr "%s kullanılarak kaydedildi"
@@ -665,6 +717,17 @@ msgstr "Paylaş: %s"
 msgid "Share link"
 msgstr "Bağlantıyı paylaş"
 
+#: assets/templates/bookmarks/bookmark_update.jet.html:9
+#, fuzzy
+msgid "Edit bookmark"
+msgstr "Okunmamış Yer İmleri"
+
+# | msgid "Saved with"
+#: assets/templates/bookmarks/bookmark_update.jet.html:14
+#, fuzzy, python-format
+msgid "Edit: %s"
+msgstr "%s kullanılarak kaydedildi"
+
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
 msgid "Collection %s"
@@ -673,11 +736,6 @@ msgstr "Koleksiyon: %s"
 #: assets/templates/bookmarks/collection.jet.html:26
 msgid "Collection will be removed in a few seconds."
 msgstr "Koleksiyon bir kaç saniye içinde silinecek."
-
-#: assets/templates/bookmarks/collection.jet.html:47
-#: assets/templates/bookmarks/collection.jet.html:60
-msgid "Edit"
-msgstr "Düzenle"
 
 #: assets/templates/bookmarks/collection.jet.html:62
 #: assets/templates/bookmarks/index.jet.html:133
@@ -795,30 +853,79 @@ msgstr "Beğenilenlere ekle"
 msgid "This bookmark will be removed in a few seconds."
 msgstr "Bu yer imi bir kaç saniye içinde kaldırılacak."
 
-#: assets/templates/bookmarks/components/actions.jet.html:23
+#: assets/templates/bookmarks/components/actions.jet.html:22
 msgid "Undo"
 msgstr "Geri al"
 
-#: assets/templates/bookmarks/components/actions.jet.html:56
+#: assets/templates/bookmarks/components/actions.jet.html:55
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
 msgstr "EPUB olarak indir"
 
-#: assets/templates/bookmarks/components/actions.jet.html:59
+#: assets/templates/bookmarks/components/actions.jet.html:58
 msgid "Share by Link"
 msgstr "Bağlantı aracılığıyla paylaş"
 
-#: assets/templates/bookmarks/components/actions.jet.html:62
+#: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Send article by Email"
 msgstr "Yazıyı e-posta ile gönder"
 
-#: assets/templates/bookmarks/components/actions.jet.html:64
+#: assets/templates/bookmarks/components/actions.jet.html:63
 msgid "Send e-book by Email"
 msgstr "E-kitabı e-posta ile gönder"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:1
+#, fuzzy
+msgid "Delete highlight"
+msgstr "Vurgula"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:12
+msgid "Start selecting text in the article to create a new highlight."
+msgstr "Yeni bir vurgulama oluşturmak için yazıda istediğiniz metni seçin."
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
 msgstr "Readeck ile kaydedildi"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
+msgstr "Başlık"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:21
+#: assets/templates/bookmarks/import/form-csv.jet.html:50
+msgid "Description"
+msgstr "Açıklama"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:28
+#, fuzzy
+msgid "Site Name"
+msgstr "websitesi adı yok"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:34
+#, fuzzy
+msgid "Authors"
+msgstr "Yazar"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:35
+msgid "One value per line"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:41
+#, fuzzy, python-format
+msgid "Published"
+msgstr "%s tarihinde yayınlandı"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:46
+#: assets/templates/profile/index.jet.html:49
+msgid "Language"
+msgstr "Dil"
+
+# | msgid "Documentation"
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:51
+#, fuzzy
+msgid "Text Direction"
+msgstr "Kimlik doğrulama"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -838,10 +945,6 @@ msgstr[0] "%d dk."
 msgstr[1] "%d dk."
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Remove Highlight(s)"
-msgstr "Vurgulamaları Kaldır"
-
-#: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Close"
 msgstr "Kapat"
 
@@ -853,34 +956,45 @@ msgstr "Görseli Görüntüle"
 msgid "Play video"
 msgstr "Videoyu Oynat"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:47
+#: assets/templates/bookmarks/components/content_block.jet.html:46
 msgid "Yellow"
 msgstr "Sarı"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:48
+#: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Red"
 msgstr "Kırmızı"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:49
+#: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Blue"
 msgstr "Mavi"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:50
+#: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Green"
 msgstr "Yeşil"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:54
+#: assets/templates/bookmarks/components/content_block.jet.html:50
+msgid "Transparent"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
 msgstr "Vurgula"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:103
+#, fuzzy
+msgid "Note"
+msgstr "hayır"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:78
+#: assets/templates/bookmarks/label.jet.html:43
+msgid "Delete"
+msgstr "Sil"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "Seçimi kopyala"
-
-#: assets/templates/bookmarks/components/filters.jet.html:14
-msgid "Title"
-msgstr "Başlık"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
@@ -896,60 +1010,60 @@ msgstr "Websitesi"
 msgid "Label"
 msgstr "Etiket"
 
-#: assets/templates/bookmarks/components/filters.jet.html:103
+#: assets/templates/bookmarks/components/filters.jet.html:108
 msgid "From date"
 msgstr "Başlangıç tarihi"
 
-#: assets/templates/bookmarks/components/filters.jet.html:109
+#: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "To date"
 msgstr "Bitiş tarihi"
 
-#: assets/templates/bookmarks/components/filters.jet.html:114
+#: assets/templates/bookmarks/components/filters.jet.html:119
 msgid "Type"
 msgstr "Tür"
 
-#: assets/templates/bookmarks/components/filters.jet.html:119
+#: assets/templates/bookmarks/components/filters.jet.html:124
 msgctxt "filter"
 msgid "Progress"
 msgstr "Aşama"
 
-#: assets/templates/bookmarks/components/filters.jet.html:124
+#: assets/templates/bookmarks/components/filters.jet.html:129
 msgid "Is Favorite"
 msgstr "Beğenilen"
 
-#: assets/templates/bookmarks/components/filters.jet.html:128
-#: assets/templates/bookmarks/components/filters.jet.html:137
-#: assets/templates/bookmarks/components/filters.jet.html:147
-#: assets/templates/bookmarks/components/filters.jet.html:157
-#: assets/templates/bookmarks/components/filters.jet.html:167
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:142
+#: assets/templates/bookmarks/components/filters.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:162
+#: assets/templates/bookmarks/components/filters.jet.html:172
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "yes"
 msgstr "evet"
 
-#: assets/templates/bookmarks/components/filters.jet.html:129
-#: assets/templates/bookmarks/components/filters.jet.html:138
-#: assets/templates/bookmarks/components/filters.jet.html:148
-#: assets/templates/bookmarks/components/filters.jet.html:158
-#: assets/templates/bookmarks/components/filters.jet.html:168
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:134
+#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:173
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "no"
 msgstr "hayır"
 
-#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:138
 msgid "Is Archived"
 msgstr "Arşivlenmiş"
 
-#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:148
 msgid "Is Loaded"
 msgstr "Yüklenmiş"
 
-#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:158
 msgid "With Labels"
 msgstr "Etiketlenmiş"
 
-#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:168
 msgid "With Errors"
 msgstr "Hatalı"
 
@@ -961,7 +1075,7 @@ msgstr "Etiketi kaldır"
 msgid "Add a label"
 msgstr "Bir etiket ekle"
 
-#: assets/templates/bookmarks/components/labels_form.jet.html:35
+#: assets/templates/bookmarks/components/labels_form.jet.html:33
 msgid "Add label"
 msgstr "Etiket ekle"
 
@@ -993,27 +1107,93 @@ msgstr "İçeri ve dışarı aktar"
 msgid "Atom Feed"
 msgstr "Atom Akışı"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:24
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current Width"
+msgstr "Mevcut şifre"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Decrease font size"
+msgstr "Oluşturulma tarihi: %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current font size"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Increase font size"
+msgstr "Oluşturulma tarihi: %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Decrease line height"
+msgstr "Satır yüksekliği"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current line height"
+msgstr "Satır yüksekliği"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Increase line height"
+msgstr "Satır yüksekliği"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Justify text"
+msgstr "İki yana hizalı"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Don't justify text"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "With hyphenation"
+msgstr "Tireleme"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Without hyphenation"
+msgstr "Tireleme"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:13
+#, fuzzy
+msgid "Display options"
+msgstr "Sıralama seçenekleri"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
 msgstr "Yazı türü"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:54
+#: assets/templates/bookmarks/components/reader_control.jet.html:56
 msgid "Width"
 msgstr "Genişlik"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:75
+#: assets/templates/bookmarks/components/reader_control.jet.html:81
 msgid "Size"
 msgstr "Boyut"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:96
+#: assets/templates/bookmarks/components/reader_control.jet.html:106
 msgid "Line height"
 msgstr "Satır yüksekliği"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:116
+#: assets/templates/bookmarks/components/reader_control.jet.html:130
 msgid "Justify"
 msgstr "İki yana hizalı"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:141
+#: assets/templates/bookmarks/components/reader_control.jet.html:156
 msgid "Hyphenation"
 msgstr "Tireleme"
 
@@ -1077,11 +1257,7 @@ msgstr ""
 msgid "View log"
 msgstr "Günlüğü görüntüle"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:125
-msgid "Start selecting text in the article to create a new highlight."
-msgstr "Yeni bir vurgulama oluşturmak için yazıda istediğiniz metni seçin."
-
-#: assets/templates/bookmarks/components/sidebar.jet.html:156
+#: assets/templates/bookmarks/components/sidebar.jet.html:127
 msgid "Links"
 msgstr "Bağlantılar"
 
@@ -1181,10 +1357,6 @@ msgstr "Alan"
 msgid "Alias"
 msgstr "Rumuz"
 
-#: assets/templates/bookmarks/import/form-csv.jet.html:50
-msgid "Description"
-msgstr "Açıklama"
-
 # | msgid "Email address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
 msgid "Link address"
@@ -1274,11 +1446,11 @@ msgid "Import your Pocket Articles"
 msgstr "Pocket yazılarınızı içeri aktarın"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
 "  "
 msgstr ""
 "\n"
@@ -1551,8 +1723,8 @@ msgid "Save link"
 msgstr "Bağlantıyı kaydet"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, python-format
-msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+#, fuzzy, python-format
+msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "\"%s\" geçerli bir adres değil. Yer imleriniz arasında %s terimini aramak mı istediniz?"
 
 #: assets/templates/bookmarks/index.jet.html:77
@@ -1616,10 +1788,6 @@ msgstr "Aramayı sıfırla"
 msgid "Create a collection"
 msgstr "Koleksiyon oluştur"
 
-#: assets/templates/bookmarks/label.jet.html:43
-msgid "Delete"
-msgstr "Sil"
-
 #: assets/templates/bookmarks/label.jet.html:56
 msgid "Label will be removed in a few seconds."
 msgstr "Etiket bir kaç saniye içinde silinecek."
@@ -1659,28 +1827,46 @@ msgstr "Sistem Bilgisi"
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "İşte şu anki sistem bilginiz. Bir hata bildirmek isterseniz lütfen bu bilgileri de paylaşın."
 
+#: assets/templates/docs/about.jet.html:42
+msgid "Storage"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:46
+msgid "Database Size:"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:50
+#, fuzzy
+msgid "Bookmarks Disk Usage:"
+msgstr "Yer imi yükleniyor"
+
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Proje"
 
 #: assets/templates/docs/about.jet.html:59
-msgid "Main website"
+#, fuzzy
+msgid "Main website:"
 msgstr "Ana websitesi"
 
 #: assets/templates/docs/about.jet.html:60
-msgid "Sources and issues"
+#, fuzzy
+msgid "Sources and issues:"
 msgstr "Kaynak ve hata bildirimleri"
 
 #: assets/templates/docs/about.jet.html:61
-msgid "How to contribute"
+#, fuzzy
+msgid "How to contribute:"
 msgstr "Nasıl katkıda bulunulur"
 
 #: assets/templates/docs/about.jet.html:62
-msgid "Community Forum"
+#, fuzzy
+msgid "Community Forum:"
 msgstr "Topluluk Forumu"
 
 #: assets/templates/docs/about.jet.html:63
-msgid "Matrix Chat"
+#, fuzzy
+msgid "Matrix Chat:"
 msgstr "Matrix Sohbet Odası"
 
 #: assets/templates/docs/about.jet.html:66
@@ -1792,18 +1978,18 @@ msgstr ""
 "İşte **%s** e-kitabınız.\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "If you are expecting this email, please follow this link to set\n"
 "a new password for your readeck account.\n"
 "\n"
-"%s\n"
+"%[2]s\n"
 msgstr ""
 "\n"
 "Merhaba,\n"
@@ -1817,18 +2003,18 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "However, this email address is not associated with any account and\n"
 "therefore, the attempted password change has failed.\n"
 "\n"
-"If you are a Readeck user on %s and you are\n"
+"If you are a Readeck user on %[1]s and you are\n"
 "expecting this email, please try again using the email address\n"
 "you used when creating your account.\n"
 "\n"
@@ -1849,6 +2035,11 @@ msgstr ""
 "\r\n"
 "Readeck kullanıcısı değilseniz, lütfen bu mesajı görmezden gelin.\n"
 
+#: assets/templates/epub/bookmark.jet.html:62
+#, fuzzy
+msgid "Notes"
+msgstr "Roller"
+
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Hata"
@@ -1865,10 +2056,6 @@ msgstr "Sayfa bulunamadı."
 msgid "An error occurred."
 msgstr "Bir hata oluştu."
 
-#: assets/templates/menu.jet.html:1
-msgid "Change theme"
-msgstr "Tema değiştir"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "Menüyü aç"
@@ -1882,7 +2069,7 @@ msgid "Settings"
 msgstr "Ayarlar"
 
 #: assets/templates/profile/app_list.jet.html:10
-#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:244
 #, fuzzy
 msgid "Applications"
 msgstr "Uygulama"
@@ -1940,20 +2127,27 @@ msgid ""
 "  "
 msgstr ""
 
-#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
-#: internal/profile/views.go:130 internal/profile/views.go:174
-#: internal/profile/views.go:190 internal/profile/views.go:250
-#: internal/profile/views.go:301 internal/profile/views.go:332
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
+#: internal/profile/views.go:113 internal/profile/views.go:167
+#: internal/profile/views.go:243 internal/profile/views.go:259
+#: internal/profile/views.go:319 internal/profile/views.go:370
+#: internal/profile/views.go:401
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
-#: internal/profile/views.go:251
+#: assets/templates/profile/base.jet.html:19
+#: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
+#: internal/profile/views.go:168
+msgid "Security"
+msgstr ""
+
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
+#: internal/profile/views.go:320
 msgid "API Tokens"
 msgstr "API Token'ları"
 
 #: assets/templates/profile/base.jet.html:34
-#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:371
 msgid "Export"
 msgstr "Dışa aktar"
 
@@ -1962,7 +2156,7 @@ msgstr "Dışa aktar"
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:402
 msgid "Import"
 msgstr "İçe aktar"
 
@@ -2052,32 +2246,28 @@ msgstr ""
 msgid "My profile"
 msgstr "Profilim"
 
-#: assets/templates/profile/index.jet.html:16
+#: assets/templates/profile/index.jet.html:17
 #, fuzzy, python-format
 msgid "You are connected as <strong>%s</strong>"
 msgstr "Aramanızda <strong>%d sonuç</strong> bulundu."
 
-#: assets/templates/profile/index.jet.html:18
+#: assets/templates/profile/index.jet.html:19
 msgid "Sign out"
 msgstr "Çıkış yap"
 
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:29
 msgid "Base settings"
 msgstr "Temel ayarlar"
 
-#: assets/templates/profile/index.jet.html:36
+#: assets/templates/profile/index.jet.html:41
 msgid "Email Address"
 msgstr "E-posta Adresi"
 
-#: assets/templates/profile/index.jet.html:41
-msgid "Language"
-msgstr "Dil"
-
-#: assets/templates/profile/index.jet.html:58
+#: assets/templates/profile/index.jet.html:66
 msgid "Email settings"
 msgstr "E-posta ayarları"
 
-#: assets/templates/profile/index.jet.html:59
+#: assets/templates/profile/index.jet.html:67
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -2087,28 +2277,28 @@ msgstr ""
 "    Bu isteğe bağlı parametreler, Readeck e-posta gönderirken kullanılır.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:65
+#: assets/templates/profile/index.jet.html:73
 msgid "Reply To"
 msgstr "Yanıt Adresi"
 
-#: assets/templates/profile/index.jet.html:66
+#: assets/templates/profile/index.jet.html:74
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "Giden e-postalarınıza bu e-posta adresini ekleyin böylece alıcılar yanıtlayabilir."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:79
 msgid "Send EPUB to"
 msgstr "EPUB Gönder"
 
-#: assets/templates/profile/index.jet.html:72
+#: assets/templates/profile/index.jet.html:80
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "E-posta ile e-kitap gönderirken alıcıyı önceden doldurmak için bu adres kullanılır."
 
-#: assets/templates/profile/index.jet.html:79
+#: assets/templates/profile/index.jet.html:87
 #, fuzzy
 msgid "Sending e-books to an Amazon Kindle"
 msgstr "E-kitabı e-posta ile gönder"
 
-#: assets/templates/profile/index.jet.html:80
+#: assets/templates/profile/index.jet.html:88
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -2120,13 +2310,39 @@ msgstr ""
 "          aşağıdaki e-posta adresini onaylamanız gerekir:\n"
 "          "
 
-#: assets/templates/profile/password.jet.html:9
+#: assets/templates/profile/password.jet.html:19
 msgid "Change my password"
 msgstr "Şifremi değiştir"
 
-#: assets/templates/profile/password.jet.html:20
+#: assets/templates/profile/password.jet.html:23
 msgid "Current password"
 msgstr "Mevcut şifre"
+
+#: assets/templates/profile/password.jet.html:46
+msgid "Verification Code (TOTP)"
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:47
+msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:52
+msgid "The verification code is enabled on this account."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:57
+#, fuzzy
+msgid "Remove Verification Code"
+msgstr "Değişiklik yapma"
+
+#: assets/templates/profile/password.jet.html:59
+msgid "Removing your verification code will make your account less secure."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:64
+#, fuzzy
+msgid "Remove"
+msgstr "kaldır"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2268,11 +2484,45 @@ msgstr "Son kullanma: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Bu token birkaç saniye içinde kaldırılacak."
 
+#: assets/templates/profile/totp.jet.html:9
+msgid "Verification Code Setup"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:17
+msgid "Scan this QR code with your app"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:18
+msgid "Scan the QR code below with a two-factor authentication app on your phone."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:25
+msgid "If you can't use the QR code, enter the code below instead."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:29
+#, fuzzy
+msgid "Enter the code from your application."
+msgstr "Cihazınızda görüntülenen kodu girin"
+
+#: assets/templates/profile/totp.jet.html:30
+msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:35
+#, fuzzy
+msgid "Code from your device"
+msgstr "Kullanıcı adınızı onaylayın"
+
+#: assets/templates/profile/totp.jet.html:41
+msgid "Finish"
+msgstr ""
+
 #: internal/admin/views.go:77
 msgid "User created."
 msgstr "Kullanıcı oluşturuldu."
 
-#: internal/admin/views.go:116
+#: internal/admin/views.go:115
 msgid "User updated."
 msgstr "Kullanıcı güncellendi."
 
@@ -2280,14 +2530,19 @@ msgstr "Kullanıcı güncellendi."
 msgid "Invalid user and/or password"
 msgstr "Geçersiz kullanıcı ve/veya şifre"
 
-#: internal/auth/users/forms.go:54
+#: internal/auth/signin/http.go:197 internal/profile/forms.go:296
+#, fuzzy
+msgid "Invalid code"
+msgstr "geçersiz şifre"
+
+#: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 #, fuzzy
 msgctxt "role"
 msgid "no group"
 msgstr "Grup"
 
 # | msgid "Password recovery"
-#: internal/auth/users/forms.go:72
+#: internal/auth/users/forms.go:75
 msgid "password is empty"
 msgstr "şifre boş"
 
@@ -2350,7 +2605,7 @@ msgstr "GoodLinks Dışa Aktarma Dosyası"
 msgid "Empty or invalid import file"
 msgstr "Boş veya geçersiz içe aktarma dosyası"
 
-#: internal/bookmarks/importer/omnivore.go:247
+#: internal/bookmarks/importer/omnivore.go:248
 msgid "Invalid API Key"
 msgstr "Geçersiz API Anahtarı"
 
@@ -2358,95 +2613,109 @@ msgstr "Geçersiz API Anahtarı"
 msgid "Readwise Reader CSV"
 msgstr "Readwise Reader CSV"
 
-#: internal/bookmarks/importer/wallabag.go:257
+#: internal/bookmarks/importer/wallabag.go:255
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
-#: internal/bookmarks/importer/wallabag.go:262
+#: internal/bookmarks/importer/wallabag.go:260
 msgid "Invalid credentials"
 msgstr "Geçersiz kimlik bilgileri"
 
-#: internal/bookmarks/importer/wallabag.go:273
+#: internal/bookmarks/importer/wallabag.go:271
 msgid "No access token found"
 msgstr "Erişim token'ı bulunamadı"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:143
+#: internal/bookmarks/routes/forms_bookmarks.go:191
+#: internal/bookmarks/routes/forms_bookmarks.go:210
 msgid "Unable to process input data"
 msgstr "Girdi verisi işlenemiyor"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:506
+#: internal/bookmarks/routes/forms_bookmarks.go:289
+#, fuzzy
+msgid "invalid language code"
+msgstr "Geçersiz API Anahtarı"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:292
+msgid "Left to right"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:293
+msgid "Right to left"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
 msgstr "Makale"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:507
+#: internal/bookmarks/routes/forms_bookmarks.go:633
 msgid "Picture"
 msgstr "Resim"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:508
+#: internal/bookmarks/routes/forms_bookmarks.go:634
 msgid "Video"
 msgstr "Video"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:515
+#: internal/bookmarks/routes/forms_bookmarks.go:642
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Görüntülenmemiş"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:516
+#: internal/bookmarks/routes/forms_bookmarks.go:643
 msgctxt "status"
 msgid "In-Progress"
 msgstr "Devam Ediyor"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:517
+#: internal/bookmarks/routes/forms_bookmarks.go:644
 msgctxt "status"
 msgid "Completed"
 msgstr "Tamamlandı"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:744
+#: internal/bookmarks/routes/forms_bookmarks.go:871
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Eklenme, en yeniden eskiye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:745
+#: internal/bookmarks/routes/forms_bookmarks.go:872
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Eklenme, eskiden yeniye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:746
+#: internal/bookmarks/routes/forms_bookmarks.go:873
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Yayınlanma, en yeniden eskiye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:747
+#: internal/bookmarks/routes/forms_bookmarks.go:874
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Yayınlanma, eskiden yeniye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:748
+#: internal/bookmarks/routes/forms_bookmarks.go:875
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Başlık, A'dan Z'ye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:749
+#: internal/bookmarks/routes/forms_bookmarks.go:876
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Başlık, Z'den A'ya"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:750
+#: internal/bookmarks/routes/forms_bookmarks.go:877
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Site Adı, A'dan Z'ye"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:751
+#: internal/bookmarks/routes/forms_bookmarks.go:878
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Site Adı, Z'den A'ya"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:752
+#: internal/bookmarks/routes/forms_bookmarks.go:879
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Süre, en kısadan uzuna"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:753
+#: internal/bookmarks/routes/forms_bookmarks.go:880
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Süre, en uzundan kısaya"
@@ -2474,25 +2743,35 @@ msgstr "Koleksiyon e-kitabı - %s"
 msgid "Browse collection: %s"
 msgstr "Koleksiyona göz at: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:95
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "All your Bookmarks"
 msgstr "Tüm Yer İmleriniz"
 
-#: internal/bookmarks/routes/views_bookmarks.go:100
+#: internal/bookmarks/routes/views_bookmarks.go:105
 msgid "Bookmark Search"
 msgstr "Yer İmi Arama"
 
-#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:59
 msgid "Unread Bookmarks"
 msgstr "Okunmamış Yer İmleri"
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:63
 msgid "Archived Bookmarks"
 msgstr "Arşivlenmiş Yer İmleri"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
 msgstr "Favori Yer İmleri"
+
+#: internal/bookmarks/routes/views_bookmarks.go:210
+#, fuzzy
+msgid "Update"
+msgstr "Kullanıcı güncellendi."
+
+#: internal/bookmarks/routes/views_bookmarks.go:319
+#, fuzzy
+msgid "Bookmark updated"
+msgstr "Yer imi başlığı"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2510,39 +2789,52 @@ msgstr "Tüm Yer İmleri"
 msgid "The import file must contain one user only"
 msgstr "İçe aktarma dosyası yalnızca bir kullanıcı içermelidir"
 
-#: internal/profile/forms.go:39
+#: internal/profile/forms.go:41
 msgid "invalid username and/or email"
 msgstr "geçersiz kullanıcı adı ve/veya e-posta"
 
-#: internal/profile/forms.go:40
+#: internal/profile/forms.go:42
 msgid "invalid password"
 msgstr "geçersiz şifre"
 
-#: internal/profile/forms.go:403
+#: internal/profile/forms.go:471
 msgid "username does not match"
 msgstr "kullanıcı adı eşleşmiyor"
 
-#: internal/profile/views.go:82
+#: internal/profile/views.go:84
 msgid "Profile updated."
 msgstr "Profil güncellendi."
 
-#: internal/profile/views.go:118
+#: internal/profile/views.go:138
 msgid "Your password was changed."
 msgstr "Şifreniz değiştirildi."
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:149
+msgid "Your verification code was removed."
+msgstr ""
+
+#: internal/profile/views.go:169
+#, fuzzy
+msgid "Verification Code"
+msgstr "Değişiklik yapma"
+
+#: internal/profile/views.go:197
+msgid "Verification Code is now enabled."
+msgstr ""
+
+#: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
 msgstr "Token'ınız oluşturulurken bir hata oluştu."
 
-#: internal/profile/views.go:211
+#: internal/profile/views.go:280
 msgid "New token created."
 msgstr "Yeni token oluşturuldu."
 
-#: internal/profile/views.go:230
+#: internal/profile/views.go:299
 msgid "Token was updated."
 msgstr "Token güncellendi."
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:388
 msgid "Profile imported."
 msgstr "Profil içe aktarıldı."
 
@@ -2573,11 +2865,21 @@ msgid "must be lower or equal than %d"
 msgstr "%d değerinden küçük veya eşit olmalıdır"
 
 #: pkg/forms/validators.go:347
+#, fuzzy, python-format
+msgid "text must contain at least %d characters"
+msgstr "8 veya daha fazla karakter içermeli"
+
+#: pkg/forms/validators.go:355
+#, fuzzy, python-format
+msgid "text must contain at most %d characters"
+msgstr "8 veya daha fazla karakter içermeli"
+
+#: pkg/forms/validators.go:363
 #, python-format
-msgid "text must contain between %d and %d characters"
+msgid "text must contain %d characters"
 msgstr ""
 
-#: pkg/forms/validators.go:406
+#: pkg/forms/validators.go:443
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v  %s değerlerinden biri değil"
@@ -2922,4 +3224,10 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Menüyü kapat"
+
+#~ msgid "Remove Highlight(s)"
+#~ msgstr "Vurgulamaları Kaldır"
+
+#~ msgid "text must contain between %d and %d characters"
+#~ msgstr ""
 
