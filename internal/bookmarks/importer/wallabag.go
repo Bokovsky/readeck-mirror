@@ -229,6 +229,7 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 		return nil, fmt.Errorf("%w: invalid scheme %s (%s)", ErrIgnore, uri.Scheme, uri)
 	}
 
+	uri.Fragment = ""
 	item.ArticleURL = uri.String()
 
 	return &item, nil
