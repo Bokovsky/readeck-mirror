@@ -13,42 +13,42 @@ SPDX-License-Identifier: AGPL-3.0-only
   {{- yield textField(
     field=.Form.Get("title"),
     required=true,
-    label=gettext("Title:"),
+    label=gettext("Title"),
     class="field-h",
   ) -}}
   {{- yield textAreaField(
     field=.Form.Get("description"),
-    label=gettext("Description:"),
+    label=gettext("Description"),
     rows=5,
     class="field-h",
   ) -}}
   {{- yield textField(
     field=.Form.Get("site_name"),
     required=true,
-    label=gettext("Site Name:"),
+    label=gettext("Site Name"),
     class="field-h",
   ) -}}
   {{- yield textAreaField(
     field=.Form.Get("authors"),
     value=join(.Form.Get("authors").V(), "\n"),
-    label=gettext("Authors:"),
+    label=gettext("Authors"),
     help=gettext("One value per line"),
     rows=3,
     class="field-h",
   ) -}}
   {{- yield dateField(
     field=.Form.Get("published"),
-    label=gettext("Published:"),
+    label=gettext("Published"),
     class="field-h",
   ) -}}
   {{- yield textField(
     field=.Form.Get("lang"),
-    label=gettext("Language:"),
+    label=gettext("Language"),
     class="field-h",
   ) -}}
   {{- yield selectField(
     field=.Form.Get("text_direction"),
-    label=gettext("Text Direction:"),
+    label=gettext("Text Direction"),
     class="field-h",
   ) -}}
 </form>
