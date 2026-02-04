@@ -50,7 +50,7 @@ func StripHeadingAnchors(m *extract.ProcessMessage, next extract.Processor) extr
 				headingElement = el
 			}
 			if isAnchor && headingElement != nil {
-				if !containsSingleIcon(a) {
+				if hasLinkContent(a) {
 					unwrapElement(a)
 				}
 				if aID := dom.GetAttribute(a, "id"); aID != "" && !dom.HasAttribute(headingElement, "id") {
@@ -70,37 +70,52 @@ func StripHeadingAnchors(m *extract.ProcessMessage, next extract.Processor) extr
 	return next
 }
 
-func containsSingleIcon(a *html.Node) bool {
-	child := a.FirstChild
-	if child == nil || child.NextSibling != nil {
-		return false
-	}
-	if child.Type == html.ElementNode {
-		return child.Data == "svg" ||
-			child.Data == "img" ||
-			isHiddenElement(child) ||
-			containsSingleIcon(child)
-	}
-	if child.Type != html.TextNode {
-		return false
+// hasLinkContent reports whether a link element contains any meaningful content that is not a
+// single icon. Meaninful content is any non-space text or an HTML element other than DIV or SPAN.
+func hasLinkContent(a *html.Node) bool {
+	iconCount := 0
+
+	var traverse func(*html.Node) bool
+	traverse = func(n *html.Node) bool {
+		for child := n.FirstChild; child != nil; child = child.NextSibling {
+			switch child.Type {
+			case html.TextNode:
+				for _, r := range child.Data {
+					switch r {
+					// Common section character icons, chain link emoji, paperclip emoji
+					case '#', '¶', '§', 0x1f517, 0x1f4ce:
+						iconCount++
+					case '\u200B':
+						// Ignore zero-width space
+					default:
+						// Font Awesome icons are assigned codepoints in the Unicode "Private Use" category
+						if unicode.Is(unicode.Co, r) {
+							iconCount++
+						} else if !unicode.IsSpace(r) {
+							return false
+						}
+					}
+				}
+			case html.ElementNode:
+				switch child.Data {
+				case "img", "svg":
+					iconCount++
+				case "div", "span":
+					if !isHiddenElement(child) && !traverse(child) {
+						return false
+					}
+				default:
+					if isHiddenElement(child) {
+						continue
+					}
+					return false
+				}
+			}
+		}
+		return true
 	}
 
-	// Check if the link text is a single character or icon
-	var firstRune rune
-	for idx, r := range child.Data {
-		if idx > 0 {
-			return false
-		}
-		firstRune = r
-	}
-	switch firstRune {
-	// Common section character icons, zero-width space for VitePress, chain link emoji, paperclip emoji
-	case '#', '¶', '§', '\u200B', 0x1f517, 0x1f4ce:
-		return true
-	default:
-		// Font Awesome icons are assigned codepoints in the Unicode "Private Use" category
-		return unicode.Is(unicode.Co, firstRune)
-	}
+	return !traverse(a) || iconCount > 1
 }
 
 func isHiddenElement(el *html.Node) bool {
