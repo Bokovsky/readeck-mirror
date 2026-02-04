@@ -8,14 +8,15 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2026-02-04 09:03+0000\n"
+"PO-Revision-Date: 2026-02-04 19:07+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: fr\n"
 "Language-Team: French <https://translate.codeberg.org/projects/readeck/application/fr/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -2297,9 +2298,8 @@ msgstr "Supprimer"
 
 #: assets/templates/profile/password.jet.html:70
 #: assets/templates/profile/totp.jet.html:9
-#, fuzzy
 msgid "Setup Verification Code"
-msgstr "Code de vérification"
+msgstr "Paramétrer le code de vérification"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -3152,4 +3152,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr "Initialisation du code de vérification"
-
