@@ -9,16 +9,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
-"POT-Creation-Date: 2025-11-27 10:52+0100\n"
+"POT-Creation-Date: 2026-02-04 09:09+0100\n"
 "PO-Revision-Date: 2025-11-28 08:10+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
-"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
 "Language: cs_CZ\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"X-Generator: Weblate 5.14\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -63,36 +62,36 @@ msgstr "Chyby"
 msgid "Please check your form for errors."
 msgstr "Zkontrolujte, zda ve formuláři nejsou chyby."
 
-#: assets/templates/_libs/forms.jet.html:227
+#: assets/templates/_libs/forms.jet.html:262
 msgid "The previous"
 msgstr "Předchozí"
 
-#: assets/templates/_libs/forms.jet.html:236
+#: assets/templates/_libs/forms.jet.html:271
 msgid "Day(s)"
 msgstr "Dny"
 
-#: assets/templates/_libs/forms.jet.html:237
+#: assets/templates/_libs/forms.jet.html:272
 msgid "Week(s)"
 msgstr "Týdny"
 
-#: assets/templates/_libs/forms.jet.html:238
+#: assets/templates/_libs/forms.jet.html:273
 msgid "Month(s)"
 msgstr "Měsíce"
 
-#: assets/templates/_libs/forms.jet.html:239
+#: assets/templates/_libs/forms.jet.html:274
 msgid "Year(s)"
 msgstr "Roky"
 
-#: assets/templates/_libs/forms.jet.html:242
+#: assets/templates/_libs/forms.jet.html:277
 msgctxt "word"
 msgid "or"
 msgstr "nebo"
 
-#: assets/templates/_libs/forms.jet.html:272
+#: assets/templates/_libs/forms.jet.html:307
 msgid "Select or drop file"
 msgstr "Vyberte nebo přetáhněte soubor"
 
-#: assets/templates/_libs/forms.jet.html:276
+#: assets/templates/_libs/forms.jet.html:311
 msgid "remove"
 msgstr "odebrat"
 
@@ -122,7 +121,7 @@ msgstr "Další"
 #: assets/templates/admin/user.jet.html:9
 #: assets/templates/admin/user_list.jet.html:9
 #: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
-#: internal/admin/views.go:89 internal/admin/views.go:129
+#: internal/admin/views.go:89 internal/admin/views.go:134
 msgid "Users"
 msgstr "Uživatelé"
 
@@ -131,9 +130,9 @@ msgid "User will be removed in a few seconds"
 msgstr "Uživatel bude za několik sekund odebrán"
 
 #: assets/templates/admin/user.jet.html:19
-#: assets/templates/admin/user_list.jet.html:43
+#: assets/templates/admin/user_list.jet.html:48
 #: assets/templates/bookmarks/collection.jet.html:27
-#: assets/templates/bookmarks/components/card.jet.html:100
+#: assets/templates/bookmarks/components/card.jet.html:99
 #: assets/templates/bookmarks/import/form-browser.jet.html:48
 #: assets/templates/bookmarks/import/form-csv.jet.html:34
 #: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
@@ -154,7 +153,7 @@ msgstr "Storno"
 #: assets/templates/admin/user_create.jet.html:19
 #: assets/templates/auth/onboarding.jet.html:23
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:40
-#: assets/templates/profile/index.jet.html:30
+#: assets/templates/profile/index.jet.html:32
 msgid "Username"
 msgstr "Uživatelské jméno"
 
@@ -172,10 +171,9 @@ msgstr "Skupina"
 
 #: assets/templates/admin/user.jet.html:44
 #: assets/templates/admin/user_create.jet.html:35
-#: assets/templates/auth/login.jet.html:29
+#: assets/templates/auth/login.jet.html:30
 #: assets/templates/auth/onboarding.jet.html:28
 #: assets/templates/bookmarks/import/form-wallabag.jet.html:47
-#: assets/templates/profile/base.jet.html:19 internal/profile/views.go:131
 msgid "Password"
 msgstr "Heslo"
 
@@ -184,10 +182,14 @@ msgid "will not change if empty"
 msgstr "nezmění se, pokud je prázdné"
 
 #: assets/templates/admin/user.jet.html:50
+#: assets/templates/bookmarks/bookmark_update.jet.html:17
 #: assets/templates/bookmarks/collection.jet.html:82
 #: assets/templates/bookmarks/collection_create.jet.html:29
-#: assets/templates/profile/index.jet.html:92
-#: assets/templates/profile/password.jet.html:35
+#: assets/templates/bookmarks/components/content_block.jet.html:71
+#: assets/templates/bookmarks/components/content_block.jet.html:73
+#: assets/templates/bookmarks/components/title_block.jet.html:29
+#: assets/templates/profile/index.jet.html:100
+#: assets/templates/profile/password.jet.html:38
 #: assets/templates/profile/token.jet.html:73
 msgid "Save"
 msgstr "Uložit"
@@ -195,6 +197,29 @@ msgstr "Uložit"
 #: assets/templates/admin/user.jet.html:53
 msgid "Delete this user"
 msgstr "Odstranit tohoto uživatele"
+
+#: assets/templates/admin/user.jet.html:60
+msgid "Last login"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:69
+msgid "Last Activity"
+msgstr ""
+
+#: assets/templates/admin/user.jet.html:75
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_bookmarks.go:208
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "Záložky"
+
+#: assets/templates/admin/user.jet.html:80
+msgid "Disk usage"
+msgstr ""
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -208,23 +233,28 @@ msgstr "Vytvořit uživatele"
 msgid "Add a new user"
 msgstr "Přidat nového uživatele"
 
-#: assets/templates/admin/user_list.jet.html:30
+#: assets/templates/admin/user_list.jet.html:32
 #: assets/templates/profile/token_list.jet.html:44
 #, python-format
 msgid "Created on: %s"
 msgstr "Vytvořen: %s"
 
-#: assets/templates/admin/user_list.jet.html:31
+#: assets/templates/admin/user_list.jet.html:33
 #, python-format
 msgid "Last update: %s"
 msgstr "Poslední aktualizace: %s"
 
-#: assets/templates/admin/user_list.jet.html:38
+#: assets/templates/admin/user_list.jet.html:35
+#, fuzzy, python-format
+msgid "Last login: %s"
+msgstr "Naposledy použito: %s"
+
+#: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
 msgstr "Tento uživatel bude za několik sekund odebrán."
 
 #: assets/templates/auth/login.jet.html:9
-#: assets/templates/auth/login.jet.html:36
+#: assets/templates/auth/login.jet.html:37
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -236,7 +266,7 @@ msgstr "Přihlásit se do Readecku"
 msgid "Username or email address"
 msgstr "Uživatelské jméno nebo e-mailová adresa"
 
-#: assets/templates/auth/login.jet.html:40
+#: assets/templates/auth/login.jet.html:41
 msgid "Forgot your password?"
 msgstr "Neznáte heslo?"
 
@@ -349,7 +379,7 @@ msgstr "Jsme rádi, že vás máme na palubě; ještě jeden krok a můžete za�
 
 #: assets/templates/auth/onboarding.jet.html:31
 #: assets/templates/auth/recover.jet.html:54
-#: assets/templates/profile/password.jet.html:31
+#: assets/templates/profile/password.jet.html:34
 msgid "must be at least 8 characters long"
 msgstr "musí být alespoň 8 znaků dlouhé"
 
@@ -426,7 +456,7 @@ msgstr ""
 "      "
 
 #: assets/templates/auth/recover.jet.html:52
-#: assets/templates/profile/password.jet.html:28
+#: assets/templates/profile/password.jet.html:31
 msgid "New password"
 msgstr "Nové heslo"
 
@@ -441,6 +471,21 @@ msgstr "Vaše heslo bylo změněno."
 #: assets/templates/auth/recover.jet.html:61
 msgid "Go to the sign in page"
 msgstr "Přejít na přihlašovací stránku"
+
+#: assets/templates/auth/totp.jet.html:9
+#, fuzzy
+msgid "Two-factor authentication"
+msgstr "Ověření"
+
+#: assets/templates/auth/totp.jet.html:20
+#, fuzzy
+msgid "Passcode"
+msgstr "Heslo"
+
+#: assets/templates/auth/totp.jet.html:31
+#, fuzzy
+msgid "Verify"
+msgstr "Verze"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -472,15 +517,6 @@ msgstr "Přečtěte si více o zvýrazňování v <a class=\"%s\" href=\"%s\">do
 msgid "Search"
 msgstr "Hledat"
 
-#: assets/templates/bookmarks/base.jet.html:15
-#: assets/templates/bookmarks/bookmark.jet.html:15
-#: assets/templates/menu.jet.html:20
-#: internal/bookmarks/routes/views_import.go:28
-#: internal/bookmarks/routes/views_import.go:37
-#: internal/bookmarks/routes/views_import.go:68
-msgid "Bookmarks"
-msgstr "Záložky"
-
 #: assets/templates/bookmarks/base.jet.html:31
 msgid "All"
 msgstr "Vše"
@@ -498,17 +534,17 @@ msgid "Favorites"
 msgstr "Oblíbené"
 
 #: assets/templates/bookmarks/base.jet.html:48
-#: internal/bookmarks/routes/views_bookmarks.go:110
+#: internal/bookmarks/routes/views_bookmarks.go:115
 msgid "Articles"
 msgstr "Články"
 
 #: assets/templates/bookmarks/base.jet.html:54
-#: internal/bookmarks/routes/views_bookmarks.go:114
+#: internal/bookmarks/routes/views_bookmarks.go:119
 msgid "Videos"
 msgstr "Videa"
 
 #: assets/templates/bookmarks/base.jet.html:60
-#: internal/bookmarks/routes/views_bookmarks.go:112
+#: internal/bookmarks/routes/views_bookmarks.go:117
 msgid "Pictures"
 msgstr "Obrázky"
 
@@ -519,7 +555,7 @@ msgid "Labels"
 msgstr "Štítky"
 
 #: assets/templates/bookmarks/base.jet.html:72
-#: assets/templates/bookmarks/components/sidebar.jet.html:122
+#: assets/templates/bookmarks/components/annotation_list.jet.html:9
 msgid "Highlights"
 msgstr "Zvýrazněné"
 
@@ -555,18 +591,19 @@ msgid "Don't remind me"
 msgstr "Nepřipomínat"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-msgid "Close dialog"
-msgstr "Zavřít dialog"
-
-#: assets/templates/bookmarks/bookmark.jet.html:1
 #: assets/templates/bookmarks/bookmark.jet.html:90
 msgid "Close panel"
 msgstr "Zavřít panel"
 
 #: assets/templates/bookmarks/bookmark.jet.html:1
-#: assets/templates/bookmarks/bookmark.jet.html:126
+#: assets/templates/bookmarks/bookmark.jet.html:135
 msgid "Bookmark information"
 msgstr "Informace o záložkách"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/components/title_block.jet.html:1
+msgid "Close dialog"
+msgstr "Zavřít dialog"
 
 #: assets/templates/bookmarks/bookmark.jet.html:12
 msgid "Bookmark loading"
@@ -575,6 +612,12 @@ msgstr "Načítání záložky"
 #: assets/templates/bookmarks/bookmark.jet.html:43
 msgid "Bookmark is loading"
 msgstr "Záložka se načítá"
+
+#: assets/templates/bookmarks/bookmark.jet.html:116
+#: assets/templates/bookmarks/collection.jet.html:47
+#: assets/templates/bookmarks/collection.jet.html:60
+msgid "Edit"
+msgstr "Upravit"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:7
 #: assets/templates/bookmarks/components/sidebar.jet.html:1
@@ -585,7 +628,7 @@ msgid "no site name"
 msgstr "žádný název stránky"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
-#: assets/templates/bookmarks/bookmark_public.jet.html:102
+#: assets/templates/bookmarks/bookmark_public.jet.html:122
 #: assets/templates/bookmarks/components/sidebar.jet.html:82
 #: assets/templates/emails/bookmark.jet.html:20
 #: assets/templates/epub/bookmark.jet.html:37
@@ -594,7 +637,7 @@ msgid "Published on %s"
 msgstr "Zveřejněno %s"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:12
-#: assets/templates/bookmarks/bookmark_public.jet.html:107
+#: assets/templates/bookmarks/bookmark_public.jet.html:127
 #: assets/templates/bookmarks/components/sidebar.jet.html:87
 #: assets/templates/emails/bookmark.jet.html:23
 #: assets/templates/epub/bookmark.jet.html:40
@@ -618,30 +661,36 @@ msgstr[2] "Asi %d minut čtení"
 msgid "Bookmark not found"
 msgstr "Záložka nenalezena"
 
+#: assets/templates/bookmarks/bookmark_public.jet.html:1
+#: assets/templates/bookmarks/bookmark_public.jet.html:101
+#: assets/templates/menu.jet.html:1
+msgid "Change theme"
+msgstr "Změnit téma"
+
 #: assets/templates/bookmarks/bookmark_public.jet.html:17
 msgid "Shared link"
 msgstr "Sdílený odkaz"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:78
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:80
+#: assets/templates/bookmarks/bookmark_public.jet.html:85
 msgid "Page has expired"
 msgstr "Stránka vypršela"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:115
+#: assets/templates/bookmarks/bookmark_public.jet.html:135
 #, python-format
 msgid "%d min"
 msgstr "%d min"
 
-#: assets/templates/bookmarks/bookmark_public.jet.html:121
-#, python-format
-msgid "Shared by %s with %s"
+#: assets/templates/bookmarks/bookmark_public.jet.html:141
+#, fuzzy, python-format
+msgid "Shared by %[1]s with %[2]s"
 msgstr "Sdílel %s pomocí %s"
 
 # | msgid "Saved with Readeck"
-#: assets/templates/bookmarks/bookmark_public.jet.html:174
+#: assets/templates/bookmarks/bookmark_public.jet.html:194
 #, python-format
 msgid "Saved with %s"
 msgstr "Uloženo s %s"
@@ -661,6 +710,17 @@ msgstr "Sdílet: %s"
 msgid "Share link"
 msgstr "Sdílet odkaz"
 
+#: assets/templates/bookmarks/bookmark_update.jet.html:9
+#, fuzzy
+msgid "Edit bookmark"
+msgstr "Nepřečtené záložky"
+
+# | msgid "Saved with Readeck"
+#: assets/templates/bookmarks/bookmark_update.jet.html:14
+#, fuzzy, python-format
+msgid "Edit: %s"
+msgstr "Uloženo s %s"
+
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
 msgid "Collection %s"
@@ -669,11 +729,6 @@ msgstr "Sbírka %s"
 #: assets/templates/bookmarks/collection.jet.html:26
 msgid "Collection will be removed in a few seconds."
 msgstr "Sbírka bude za několik sekund odebrána."
-
-#: assets/templates/bookmarks/collection.jet.html:47
-#: assets/templates/bookmarks/collection.jet.html:60
-msgid "Edit"
-msgstr "Upravit"
 
 #: assets/templates/bookmarks/collection.jet.html:62
 #: assets/templates/bookmarks/index.jet.html:133
@@ -791,30 +846,79 @@ msgstr "Přidat do oblíbených"
 msgid "This bookmark will be removed in a few seconds."
 msgstr "Tato záložka bude za několik sekund odebrána."
 
-#: assets/templates/bookmarks/components/actions.jet.html:23
+#: assets/templates/bookmarks/components/actions.jet.html:22
 msgid "Undo"
 msgstr "Zpět"
 
-#: assets/templates/bookmarks/components/actions.jet.html:56
+#: assets/templates/bookmarks/components/actions.jet.html:55
 #: assets/templates/bookmarks/components/list_actions.jet.html:79
 msgid "Download EPUB"
 msgstr "Stáhnout EPUB"
 
-#: assets/templates/bookmarks/components/actions.jet.html:59
+#: assets/templates/bookmarks/components/actions.jet.html:58
 msgid "Share by Link"
 msgstr "Sdílet odkazem"
 
-#: assets/templates/bookmarks/components/actions.jet.html:62
+#: assets/templates/bookmarks/components/actions.jet.html:61
 msgid "Send article by Email"
 msgstr "Odeslat článek e-mailem"
 
-#: assets/templates/bookmarks/components/actions.jet.html:64
+#: assets/templates/bookmarks/components/actions.jet.html:63
 msgid "Send e-book by Email"
 msgstr "Odeslat e-knihu e-mailem"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:1
+#, fuzzy
+msgid "Delete highlight"
+msgstr "Zvýraznění"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:12
+msgid "Start selecting text in the article to create a new highlight."
+msgstr "Začněte vybírat text ve článku pro vytvoření nového zvýraznění."
 
 #: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
 msgid "Saved with Readeck"
 msgstr "Uloženo Readeckem"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
+msgstr "Nadpis"
+
+# | msgid "Distribution"
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:21
+#: assets/templates/bookmarks/import/form-csv.jet.html:50
+msgid "Description"
+msgstr "Popis"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:28
+#, fuzzy
+msgid "Site Name"
+msgstr "žádný název stránky"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:34
+#, fuzzy
+msgid "Authors"
+msgstr "Autor"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:35
+msgid "One value per line"
+msgstr ""
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:41
+#, fuzzy, python-format
+msgid "Published"
+msgstr "Zveřejněno %s"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:46
+#: assets/templates/profile/index.jet.html:49
+msgid "Language"
+msgstr "Jazyk"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:51
+#, fuzzy
+msgid "Text Direction"
+msgstr "Ověření"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -835,10 +939,6 @@ msgstr[1] "%d min"
 msgstr[2] "%d min"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:1
-msgid "Remove Highlight(s)"
-msgstr "Odebrat zvýraznění"
-
-#: assets/templates/bookmarks/components/content_block.jet.html:1
 msgid "Close"
 msgstr "Zavřít"
 
@@ -850,34 +950,45 @@ msgstr "Zobrazit obrázek"
 msgid "Play video"
 msgstr "Přehrát video"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:47
+#: assets/templates/bookmarks/components/content_block.jet.html:46
 msgid "Yellow"
 msgstr "Žlutá"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:48
+#: assets/templates/bookmarks/components/content_block.jet.html:47
 msgid "Red"
 msgstr "Červená"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:49
+#: assets/templates/bookmarks/components/content_block.jet.html:48
 msgid "Blue"
 msgstr "Modrá"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:50
+#: assets/templates/bookmarks/components/content_block.jet.html:49
 msgid "Green"
 msgstr "Zelená"
 
-#: assets/templates/bookmarks/components/content_block.jet.html:54
+#: assets/templates/bookmarks/components/content_block.jet.html:50
+msgid "Transparent"
+msgstr ""
+
+#: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
 msgstr "Zvýraznění"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:103
+#, fuzzy
+msgid "Note"
+msgstr "ne"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:78
+#: assets/templates/bookmarks/label.jet.html:43
+msgid "Delete"
+msgstr "Odstranit"
 
 #: assets/templates/bookmarks/components/diagnosis.jet.html:13
 #: assets/templates/docs/about.jet.html:37
 msgid "copy to clipboard"
 msgstr "Kopírovat do schránky"
-
-#: assets/templates/bookmarks/components/filters.jet.html:14
-msgid "Title"
-msgstr "Nadpis"
 
 #: assets/templates/bookmarks/components/filters.jet.html:36
 msgid "Author"
@@ -893,60 +1004,60 @@ msgstr "Stránka"
 msgid "Label"
 msgstr "Štítek"
 
-#: assets/templates/bookmarks/components/filters.jet.html:103
+#: assets/templates/bookmarks/components/filters.jet.html:108
 msgid "From date"
 msgstr "Od data"
 
-#: assets/templates/bookmarks/components/filters.jet.html:109
+#: assets/templates/bookmarks/components/filters.jet.html:114
 msgid "To date"
 msgstr "Do data"
 
-#: assets/templates/bookmarks/components/filters.jet.html:114
+#: assets/templates/bookmarks/components/filters.jet.html:119
 msgid "Type"
 msgstr "Typ"
 
-#: assets/templates/bookmarks/components/filters.jet.html:119
+#: assets/templates/bookmarks/components/filters.jet.html:124
 msgctxt "filter"
 msgid "Progress"
 msgstr "Průběh"
 
-#: assets/templates/bookmarks/components/filters.jet.html:124
+#: assets/templates/bookmarks/components/filters.jet.html:129
 msgid "Is Favorite"
 msgstr "Je oblíbený"
 
-#: assets/templates/bookmarks/components/filters.jet.html:128
-#: assets/templates/bookmarks/components/filters.jet.html:137
-#: assets/templates/bookmarks/components/filters.jet.html:147
-#: assets/templates/bookmarks/components/filters.jet.html:157
-#: assets/templates/bookmarks/components/filters.jet.html:167
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:142
+#: assets/templates/bookmarks/components/filters.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:162
+#: assets/templates/bookmarks/components/filters.jet.html:172
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "yes"
 msgstr "ano"
 
-#: assets/templates/bookmarks/components/filters.jet.html:129
-#: assets/templates/bookmarks/components/filters.jet.html:138
-#: assets/templates/bookmarks/components/filters.jet.html:148
-#: assets/templates/bookmarks/components/filters.jet.html:158
-#: assets/templates/bookmarks/components/filters.jet.html:168
-#: assets/templates/bookmarks/components/reader_control.jet.html:127
-#: assets/templates/bookmarks/components/reader_control.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:134
+#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:173
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
 msgid "no"
 msgstr "ne"
 
-#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:138
 msgid "Is Archived"
 msgstr "Je archivovaný"
 
-#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:148
 msgid "Is Loaded"
 msgstr "Je načteno"
 
-#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:158
 msgid "With Labels"
 msgstr "Se štítky"
 
-#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:168
 msgid "With Errors"
 msgstr "S chybami"
 
@@ -958,7 +1069,7 @@ msgstr "Odebrat štítek"
 msgid "Add a label"
 msgstr "Přidat štítek"
 
-#: assets/templates/bookmarks/components/labels_form.jet.html:35
+#: assets/templates/bookmarks/components/labels_form.jet.html:33
 msgid "Add label"
 msgstr "Přidat štítek"
 
@@ -994,27 +1105,94 @@ msgstr "Import a export"
 msgid "Atom Feed"
 msgstr "Zdroj Atom"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:24
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current Width"
+msgstr "Aktuální heslo"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase width"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Decrease font size"
+msgstr "Vytvořen: %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current font size"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy, python-format
+msgid "Increase font size"
+msgstr "Vytvořen: %s"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Decrease line height"
+msgstr "Výška řádku"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Current line height"
+msgstr "Výška řádku"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Increase line height"
+msgstr "Výška řádku"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Justify text"
+msgstr "Zarovnat do bloku"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Don't justify text"
+msgstr ""
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "With hyphenation"
+msgstr "Dělení slov"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+#, fuzzy
+msgid "Without hyphenation"
+msgstr "Dělení slov"
+
+# | msgid "Options"
+#: assets/templates/bookmarks/components/reader_control.jet.html:13
+#, fuzzy
+msgid "Display options"
+msgstr "Možnosti třídění"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
 msgstr "Font písma"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:54
+#: assets/templates/bookmarks/components/reader_control.jet.html:56
 msgid "Width"
 msgstr "Šířka"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:75
+#: assets/templates/bookmarks/components/reader_control.jet.html:81
 msgid "Size"
 msgstr "Velikost"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:96
+#: assets/templates/bookmarks/components/reader_control.jet.html:106
 msgid "Line height"
 msgstr "Výška řádku"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:116
+#: assets/templates/bookmarks/components/reader_control.jet.html:130
 msgid "Justify"
 msgstr "Zarovnat do bloku"
 
-#: assets/templates/bookmarks/components/reader_control.jet.html:141
+#: assets/templates/bookmarks/components/reader_control.jet.html:156
 msgid "Hyphenation"
 msgstr "Dělení slov"
 
@@ -1081,11 +1259,7 @@ msgstr ""
 msgid "View log"
 msgstr "Zobrazit záznam"
 
-#: assets/templates/bookmarks/components/sidebar.jet.html:125
-msgid "Start selecting text in the article to create a new highlight."
-msgstr "Začněte vybírat text ve článku pro vytvoření nového zvýraznění."
-
-#: assets/templates/bookmarks/components/sidebar.jet.html:156
+#: assets/templates/bookmarks/components/sidebar.jet.html:127
 msgid "Links"
 msgstr "Odkazy"
 
@@ -1191,11 +1365,6 @@ msgstr "Pole"
 msgid "Alias"
 msgstr "Alias"
 
-# | msgid "Distribution"
-#: assets/templates/bookmarks/import/form-csv.jet.html:50
-msgid "Description"
-msgstr "Popis"
-
 # | msgid "Email Address"
 #: assets/templates/bookmarks/import/form-csv.jet.html:57
 msgid "Link address"
@@ -1286,11 +1455,11 @@ msgid "Import your Pocket Articles"
 msgstr "Importovat články z Pocketu"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
 "  "
 msgstr ""
 "\n"
@@ -1568,8 +1737,8 @@ msgid "Save link"
 msgstr "Uložit odkaz"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, python-format
-msgid "\"%s\" is not a valid address. Did you mean to search your bookmarks for %s?"
+#, fuzzy, python-format
+msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "„%s“ není platná adresa. Chtěli jste vyhledat ve svých záložkách %s?"
 
 #: assets/templates/bookmarks/index.jet.html:77
@@ -1639,10 +1808,6 @@ msgstr "Obnovit hledání"
 msgid "Create a collection"
 msgstr "Vytvořit sbírku"
 
-#: assets/templates/bookmarks/label.jet.html:43
-msgid "Delete"
-msgstr "Odstranit"
-
 #: assets/templates/bookmarks/label.jet.html:56
 msgid "Label will be removed in a few seconds."
 msgstr "Štítek bude za několik sekund odebrán."
@@ -1682,28 +1847,46 @@ msgstr "Informace o systému"
 msgid "Here are your current system information. Please include them if you report a bug."
 msgstr "Zde jsou vaše aktuální informace o systému. Uveďte je prosím, pokud hlásíte chybu."
 
+#: assets/templates/docs/about.jet.html:42
+msgid "Storage"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:46
+msgid "Database Size:"
+msgstr ""
+
+#: assets/templates/docs/about.jet.html:50
+#, fuzzy
+msgid "Bookmarks Disk Usage:"
+msgstr "Záložka se načítá"
+
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Projekt"
 
 #: assets/templates/docs/about.jet.html:59
-msgid "Main website"
+#, fuzzy
+msgid "Main website:"
 msgstr "Hlavní stránka"
 
 #: assets/templates/docs/about.jet.html:60
-msgid "Sources and issues"
+#, fuzzy
+msgid "Sources and issues:"
 msgstr "Zdrojové kódy a problémy"
 
 #: assets/templates/docs/about.jet.html:61
-msgid "How to contribute"
+#, fuzzy
+msgid "How to contribute:"
 msgstr "Jak přispět"
 
 #: assets/templates/docs/about.jet.html:62
-msgid "Community Forum"
+#, fuzzy
+msgid "Community Forum:"
 msgstr "Komunitní fórum"
 
 #: assets/templates/docs/about.jet.html:63
-msgid "Matrix Chat"
+#, fuzzy
+msgid "Matrix Chat:"
 msgstr "Chat Matrix"
 
 #: assets/templates/docs/about.jet.html:66
@@ -1815,18 +1998,18 @@ msgstr ""
 "Zde je vaše e-kniha pro: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "If you are expecting this email, please follow this link to set\n"
 "a new password for your readeck account.\n"
 "\n"
-"%s\n"
+"%[2]s\n"
 msgstr ""
 "\n"
 "Ahoj,\n"
@@ -1840,18 +2023,18 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "\n"
 "Hi,\n"
 "\n"
 "You (or someone else) entered this email address when trying to\n"
-"change the password of a Readeck account (%s).\n"
+"change the password of a Readeck account (%[1]s).\n"
 "\n"
 "However, this email address is not associated with any account and\n"
 "therefore, the attempted password change has failed.\n"
 "\n"
-"If you are a Readeck user on %s and you are\n"
+"If you are a Readeck user on %[1]s and you are\n"
 "expecting this email, please try again using the email address\n"
 "you used when creating your account.\n"
 "\n"
@@ -1872,6 +2055,11 @@ msgstr ""
 "\n"
 "Pokud nejste uživatelem Readecku, tuto zprávu ignorujte.\n"
 
+#: assets/templates/epub/bookmark.jet.html:62
+#, fuzzy
+msgid "Notes"
+msgstr "Role"
+
 #: assets/templates/error.jet.html:8
 msgid "Error"
 msgstr "Chyba"
@@ -1888,10 +2076,6 @@ msgstr "Stránka nebyla nalezena."
 msgid "An error occurred."
 msgstr "Vyskytla se chyba."
 
-#: assets/templates/menu.jet.html:1
-msgid "Change theme"
-msgstr "Změnit téma"
-
 #: assets/templates/menu.jet.html:10
 msgid "Open menu"
 msgstr "Otevřít nabídku"
@@ -1905,7 +2089,7 @@ msgid "Settings"
 msgstr "Nastavení"
 
 #: assets/templates/profile/app_list.jet.html:10
-#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:175
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:244
 msgid "Applications"
 msgstr "Aplikace"
 
@@ -1961,20 +2145,27 @@ msgstr ""
 "<a href=\"%s\">dokumentaci API</a>.\n"
 "  "
 
-#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:95
-#: internal/profile/views.go:130 internal/profile/views.go:174
-#: internal/profile/views.go:190 internal/profile/views.go:250
-#: internal/profile/views.go:301 internal/profile/views.go:332
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
+#: internal/profile/views.go:113 internal/profile/views.go:167
+#: internal/profile/views.go:243 internal/profile/views.go:259
+#: internal/profile/views.go:319 internal/profile/views.go:370
+#: internal/profile/views.go:401
 msgid "Profile"
 msgstr "Profil"
 
-#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:191
-#: internal/profile/views.go:251
+#: assets/templates/profile/base.jet.html:19
+#: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
+#: internal/profile/views.go:168
+msgid "Security"
+msgstr ""
+
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
+#: internal/profile/views.go:320
 msgid "API Tokens"
 msgstr "Tokeny API"
 
 #: assets/templates/profile/base.jet.html:34
-#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:302
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:371
 msgid "Export"
 msgstr "Exportovat"
 
@@ -1983,7 +2174,7 @@ msgstr "Exportovat"
 #: assets/templates/profile/import.jet.html:44
 #: internal/bookmarks/routes/views_import.go:29
 #: internal/bookmarks/routes/views_import.go:38
-#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:333
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:402
 msgid "Import"
 msgstr "Importovat"
 
@@ -2072,34 +2263,30 @@ msgstr ""
 msgid "My profile"
 msgstr "Můj profil"
 
-#: assets/templates/profile/index.jet.html:16
+#: assets/templates/profile/index.jet.html:17
 #, python-format
 msgid "You are connected as <strong>%s</strong>"
 msgstr "Jste přihlášen jako <strong>%s</strong>"
 
-#: assets/templates/profile/index.jet.html:18
+#: assets/templates/profile/index.jet.html:19
 msgid "Sign out"
 msgstr "Odhlásit se"
 
 # | msgid "Settings"
-#: assets/templates/profile/index.jet.html:27
+#: assets/templates/profile/index.jet.html:29
 msgid "Base settings"
 msgstr "Základní nastavení"
 
-#: assets/templates/profile/index.jet.html:36
+#: assets/templates/profile/index.jet.html:41
 msgid "Email Address"
 msgstr "E-mailová adresa"
 
-#: assets/templates/profile/index.jet.html:41
-msgid "Language"
-msgstr "Jazyk"
-
 # | msgid "Settings"
-#: assets/templates/profile/index.jet.html:58
+#: assets/templates/profile/index.jet.html:66
 msgid "Email settings"
 msgstr "Nastavení e-mailu"
 
-#: assets/templates/profile/index.jet.html:59
+#: assets/templates/profile/index.jet.html:67
 msgid ""
 "\n"
 "    These, optional, parameters are used when Readeck sends emails.\n"
@@ -2109,27 +2296,27 @@ msgstr ""
 "    Tyto nepovinné parametry se používají, když Readeck odesílá e-maily.\n"
 "    "
 
-#: assets/templates/profile/index.jet.html:65
+#: assets/templates/profile/index.jet.html:73
 msgid "Reply To"
 msgstr "Odpovědět na"
 
-#: assets/templates/profile/index.jet.html:66
+#: assets/templates/profile/index.jet.html:74
 msgid "Add this email address in your outgoing emails so recipients can reply."
 msgstr "Přidejte tuto e-mailovou adresu do odchozích e-mailů, aby příjemci mohli odpovědět."
 
-#: assets/templates/profile/index.jet.html:71
+#: assets/templates/profile/index.jet.html:79
 msgid "Send EPUB to"
 msgstr "Odeslat EPUB na"
 
-#: assets/templates/profile/index.jet.html:72
+#: assets/templates/profile/index.jet.html:80
 msgid "This address is used to prefill the recipient when you send an e-book by email."
 msgstr "Tato adresa se používá k předvyplnění příjemce při odesílání e-knihy e-mailem."
 
-#: assets/templates/profile/index.jet.html:79
+#: assets/templates/profile/index.jet.html:87
 msgid "Sending e-books to an Amazon Kindle"
 msgstr "Odesílání e-knihy do Amazon Kindle"
 
-#: assets/templates/profile/index.jet.html:80
+#: assets/templates/profile/index.jet.html:88
 msgid ""
 "\n"
 "          If you plan to send e-books to a Kindle device, you must approve the\n"
@@ -2141,13 +2328,39 @@ msgstr ""
 "          svého účtu Kindle schválit následující e-mailové adresy:\n"
 "          "
 
-#: assets/templates/profile/password.jet.html:9
+#: assets/templates/profile/password.jet.html:19
 msgid "Change my password"
 msgstr "Změnit mé heslo"
 
-#: assets/templates/profile/password.jet.html:20
+#: assets/templates/profile/password.jet.html:23
 msgid "Current password"
 msgstr "Aktuální heslo"
+
+#: assets/templates/profile/password.jet.html:46
+msgid "Verification Code (TOTP)"
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:47
+msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:52
+msgid "The verification code is enabled on this account."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:57
+#, fuzzy
+msgid "Remove Verification Code"
+msgstr "Úpravy"
+
+#: assets/templates/profile/password.jet.html:59
+msgid "Removing your verification code will make your account less secure."
+msgstr ""
+
+#: assets/templates/profile/password.jet.html:64
+#, fuzzy
+msgid "Remove"
+msgstr "odebrat"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
@@ -2282,11 +2495,45 @@ msgstr "Vyprší: %s"
 msgid "This token will be removed in a few seconds."
 msgstr "Tento token bude za několik sekund odebrán."
 
+#: assets/templates/profile/totp.jet.html:9
+msgid "Verification Code Setup"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:17
+msgid "Scan this QR code with your app"
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:18
+msgid "Scan the QR code below with a two-factor authentication app on your phone."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:25
+msgid "If you can't use the QR code, enter the code below instead."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:29
+#, fuzzy
+msgid "Enter the code from your application."
+msgstr "Zadejte kód, který se zobrazil na Vašem zařízení"
+
+#: assets/templates/profile/totp.jet.html:30
+msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
+msgstr ""
+
+#: assets/templates/profile/totp.jet.html:35
+#, fuzzy
+msgid "Code from your device"
+msgstr "Potvrďte své uživatelské jméno"
+
+#: assets/templates/profile/totp.jet.html:41
+msgid "Finish"
+msgstr ""
+
 #: internal/admin/views.go:77
 msgid "User created."
 msgstr "Uživatel byl vytvořen."
 
-#: internal/admin/views.go:116
+#: internal/admin/views.go:115
 msgid "User updated."
 msgstr "Uživatel byl aktualizován."
 
@@ -2294,13 +2541,18 @@ msgstr "Uživatel byl aktualizován."
 msgid "Invalid user and/or password"
 msgstr "Neplatný uživatel a/nebo heslo"
 
-#: internal/auth/users/forms.go:54
+#: internal/auth/signin/http.go:197 internal/profile/forms.go:296
+#, fuzzy
+msgid "Invalid code"
+msgstr "neplatné heslo"
+
+#: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 msgctxt "role"
 msgid "no group"
 msgstr "žádná skupina"
 
 # | msgid "Password ID"
-#: internal/auth/users/forms.go:72
+#: internal/auth/users/forms.go:75
 msgid "password is empty"
 msgstr "heslo je prázdné"
 
@@ -2356,7 +2608,7 @@ msgstr "Soubor GoodLinks Export"
 msgid "Empty or invalid import file"
 msgstr "Prázdný nebo neplatný soubor importu"
 
-#: internal/bookmarks/importer/omnivore.go:247
+#: internal/bookmarks/importer/omnivore.go:248
 msgid "Invalid API Key"
 msgstr "Neplatný klíč API"
 
@@ -2364,95 +2616,109 @@ msgstr "Neplatný klíč API"
 msgid "Readwise Reader CSV"
 msgstr "CSV z Readwise Reader"
 
-#: internal/bookmarks/importer/wallabag.go:257
+#: internal/bookmarks/importer/wallabag.go:255
 msgid "Invalid URL"
 msgstr "Neplatná URL"
 
-#: internal/bookmarks/importer/wallabag.go:262
+#: internal/bookmarks/importer/wallabag.go:260
 msgid "Invalid credentials"
 msgstr "Neplatné přihlašovací údaje"
 
-#: internal/bookmarks/importer/wallabag.go:273
+#: internal/bookmarks/importer/wallabag.go:271
 msgid "No access token found"
 msgstr "Nebyl nalezen žádný token pro přístup"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:143
+#: internal/bookmarks/routes/forms_bookmarks.go:191
+#: internal/bookmarks/routes/forms_bookmarks.go:210
 msgid "Unable to process input data"
 msgstr "Nelze zpracovat vstupní data"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:506
+#: internal/bookmarks/routes/forms_bookmarks.go:289
+#, fuzzy
+msgid "invalid language code"
+msgstr "Neplatný klíč API"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:292
+msgid "Left to right"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:293
+msgid "Right to left"
+msgstr ""
+
+#: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
 msgstr "Článek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:507
+#: internal/bookmarks/routes/forms_bookmarks.go:633
 msgid "Picture"
 msgstr "Obrázek"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:508
+#: internal/bookmarks/routes/forms_bookmarks.go:634
 msgid "Video"
 msgstr "Video"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:515
+#: internal/bookmarks/routes/forms_bookmarks.go:642
 msgctxt "status"
 msgid "Unviewed"
 msgstr "Nezobrazené"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:516
+#: internal/bookmarks/routes/forms_bookmarks.go:643
 msgctxt "status"
 msgid "In-Progress"
 msgstr "Probíhající"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:517
+#: internal/bookmarks/routes/forms_bookmarks.go:644
 msgctxt "status"
 msgid "Completed"
 msgstr "Dokončené"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:744
+#: internal/bookmarks/routes/forms_bookmarks.go:871
 msgctxt "sort"
 msgid "Added, most recent first"
 msgstr "Přidané, nejnovější první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:745
+#: internal/bookmarks/routes/forms_bookmarks.go:872
 msgctxt "sort"
 msgid "Added, oldest first"
 msgstr "Přidané, nejstarší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:746
+#: internal/bookmarks/routes/forms_bookmarks.go:873
 msgctxt "sort"
 msgid "Published, most recent first"
 msgstr "Zveřejněno, nejnovější první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:747
+#: internal/bookmarks/routes/forms_bookmarks.go:874
 msgctxt "sort"
 msgid "Published, oldest first"
 msgstr "Zveřejněno, nejstarší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:748
+#: internal/bookmarks/routes/forms_bookmarks.go:875
 msgctxt "sort"
 msgid "Title, A to Z"
 msgstr "Nadpis, od A do Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:749
+#: internal/bookmarks/routes/forms_bookmarks.go:876
 msgctxt "sort"
 msgid "Title, Z to A"
 msgstr "Nadpis, od Z do A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:750
+#: internal/bookmarks/routes/forms_bookmarks.go:877
 msgctxt "sort"
 msgid "Site Name, A to Z"
 msgstr "Název stránky, od A do Z"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:751
+#: internal/bookmarks/routes/forms_bookmarks.go:878
 msgctxt "sort"
 msgid "Site Name, Z to A"
 msgstr "Název stránky, od Z do A"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:752
+#: internal/bookmarks/routes/forms_bookmarks.go:879
 msgctxt "sort"
 msgid "Duration, shortest first"
 msgstr "Délka, nejkratší první"
 
-#: internal/bookmarks/routes/forms_bookmarks.go:753
+#: internal/bookmarks/routes/forms_bookmarks.go:880
 msgctxt "sort"
 msgid "Duration, longest first"
 msgstr "Délka, nejdelší první"
@@ -2480,25 +2746,36 @@ msgstr "E-kniha sbírky – %s"
 msgid "Browse collection: %s"
 msgstr "Procházet sbírku: %s"
 
-#: internal/bookmarks/routes/views_bookmarks.go:95
+#: internal/bookmarks/routes/views_bookmarks.go:100
 msgid "All your Bookmarks"
 msgstr "Všechny vaše záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:100
+#: internal/bookmarks/routes/views_bookmarks.go:105
 msgid "Bookmark Search"
 msgstr "Vyhledávání záložek"
 
-#: internal/bookmarks/routes/views_bookmarks.go:104 internal/opds/http.go:59
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:59
 msgid "Unread Bookmarks"
 msgstr "Nepřečtené záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:106 internal/opds/http.go:63
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:63
 msgid "Archived Bookmarks"
 msgstr "Archivované záložky"
 
-#: internal/bookmarks/routes/views_bookmarks.go:108 internal/opds/http.go:67
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:67
 msgid "Favorite Bookmarks"
 msgstr "Oblíbené záložky"
+
+#: internal/bookmarks/routes/views_bookmarks.go:210
+#, fuzzy
+msgid "Update"
+msgstr "Uživatel byl aktualizován."
+
+# | msgid "Bookmark Labels"
+#: internal/bookmarks/routes/views_bookmarks.go:319
+#, fuzzy
+msgid "Bookmark updated"
+msgstr "Název záložky"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2516,39 +2793,52 @@ msgstr "Všechny záložky"
 msgid "The import file must contain one user only"
 msgstr "Importovaný soubor musí obsahovat pouze jednoho uživatele"
 
-#: internal/profile/forms.go:39
+#: internal/profile/forms.go:41
 msgid "invalid username and/or email"
 msgstr "neplatné uživatelské jméno a/nebo e-mail"
 
-#: internal/profile/forms.go:40
+#: internal/profile/forms.go:42
 msgid "invalid password"
 msgstr "neplatné heslo"
 
-#: internal/profile/forms.go:403
+#: internal/profile/forms.go:471
 msgid "username does not match"
 msgstr "uživatelské jméno se neshoduje"
 
-#: internal/profile/views.go:82
+#: internal/profile/views.go:84
 msgid "Profile updated."
 msgstr "Profil byl aktualizován."
 
-#: internal/profile/views.go:118
+#: internal/profile/views.go:138
 msgid "Your password was changed."
 msgstr "Vaše heslo bylo změněno."
 
-#: internal/profile/views.go:206
+#: internal/profile/views.go:149
+msgid "Your verification code was removed."
+msgstr ""
+
+#: internal/profile/views.go:169
+#, fuzzy
+msgid "Verification Code"
+msgstr "Úpravy"
+
+#: internal/profile/views.go:197
+msgid "Verification Code is now enabled."
+msgstr ""
+
+#: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
 msgstr "Při vytváření vašeho tokenu se vyskytla chyba."
 
-#: internal/profile/views.go:211
+#: internal/profile/views.go:280
 msgid "New token created."
 msgstr "Nový token byl vytvořen."
 
-#: internal/profile/views.go:230
+#: internal/profile/views.go:299
 msgid "Token was updated."
 msgstr "Token byl aktualizován."
 
-#: internal/profile/views.go:319
+#: internal/profile/views.go:388
 msgid "Profile imported."
 msgstr "Profil byl importován."
 
@@ -2579,11 +2869,21 @@ msgid "must be lower or equal than %d"
 msgstr "musí být menší nebo rovno %d"
 
 #: pkg/forms/validators.go:347
-#, python-format
-msgid "text must contain between %d and %d characters"
+#, fuzzy, python-format
+msgid "text must contain at least %d characters"
 msgstr "text musí obsahovat mezi %d a %d znaky"
 
-#: pkg/forms/validators.go:406
+#: pkg/forms/validators.go:355
+#, fuzzy, python-format
+msgid "text must contain at most %d characters"
+msgstr "text musí obsahovat mezi %d a %d znaky"
+
+#: pkg/forms/validators.go:363
+#, fuzzy, python-format
+msgid "text must contain %d characters"
+msgstr "text musí obsahovat mezi %d a %d znaky"
+
+#: pkg/forms/validators.go:443
 #, python-format
 msgid "%v is not one of %s"
 msgstr "%v nepatří mezi %s"
@@ -2925,3 +3225,7 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Close image"
 #~ msgstr "Zavřít obrázek"
+
+#~ msgid "Remove Highlight(s)"
+#~ msgstr "Odebrat zvýraznění"
+
