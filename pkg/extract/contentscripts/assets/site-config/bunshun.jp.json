@@ -1,0 +1,42 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | 文春オンライン')"
+  ],
+  "body_selectors": [
+    "//div[@class=\"article-body\"]"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//a[contains(@data-track-category, 'Photolink')]",
+    "//div[contains(@class, 'provide-site')]"
+  ],
+  "strip_id_or_class": [
+    "article-leaks-link",
+    "paid-article-link",
+    "article-series-next-link",
+    "article__summary-list"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[contains(@data-track-category, 'gotoNext')]"
+  ],
+  "replace_strings": [
+    [
+      "ADVERTISEMENT",
+      ""
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://bunshun.jp/articles/-/85246",
+      "contains": []
+    }
+  ]
+}

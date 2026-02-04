@@ -8,6 +8,8 @@
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
+    "//div[@id=\"nl-insert\"]",
+    "//div[div[1][contains(concat(' ', normalize-space(@class), ' '), ' siecl-adlabel ')]]",
     "//div[contains(concat(' ',normalize-space(@class),' '),' essb_links ')]"
   ],
   "strip_id_or_class": null,
@@ -23,6 +25,10 @@
   "tests": [
     {
       "url": "https://siecledigital.fr/2018/08/10/twitter-condamne-france-ufc-que-choisir/",
+      "contains": []
+    },
+    {
+      "url": "https://siecledigital.fr/2026/01/20/cybersecurity-act-leurope-muscle-sa-defense-numerique/",
       "contains": []
     }
   ]
