@@ -2,40 +2,37 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-const fs = require("fs")
-const path = require("path")
-const zlib = require("zlib")
+import fs from "fs"
+import path from "path"
+import {createRequire} from "module"
+import zlib from "zlib"
 
-const {glob} = require("glob")
-const gulp = require("gulp")
-const gulpCheerio = require("gulp-cheerio")
-const gulpHash = require("gulp-hash-filename")
-const gulpEsbuild = require("gulp-esbuild")
-const gulpPostcss = require("gulp-postcss")
-const gulpRename = require("gulp-rename")
-const gulpSass = require("gulp-sass")
-const gulpSourcemaps = require("gulp-sourcemaps")
-const gulpSvgStore = require("gulp-svgstore")
+const require = createRequire(import.meta.url)
 
-const del = async (...args) => {
-  const {deleteSync} = await import("del")
-  return deleteSync(...args)
-}
-const ordered = require("ordered-read-streams")
-const sass = require("sass")
-const through = require("through2")
+import {glob} from "glob"
+import gulp from "gulp"
+import gulpCheerio from "gulp-cheerio"
+import gulpHash from "gulp-hash-filename"
+import gulpEsbuild from "gulp-esbuild"
+import gulpPostcss from "gulp-postcss"
+import gulpRename from "gulp-rename"
+import gulpSass from "gulp-sass"
+import gulpSourcemaps from "gulp-sourcemaps"
+import gulpSvgStore from "gulp-svgstore"
 
-const {stimulusPlugin} = require("esbuild-plugin-stimulus")
+import ordered from "ordered-read-streams"
+import through from "through2"
+import * as sass from "sass"
 
-const fontCatalog = require("./ui/fonts.js")
+import {deleteAsync as del} from "del"
 
-const DEST = path.resolve("../assets/www")
+import {stimulusPlugin} from "esbuild-plugin-stimulus"
 
-function toPosixPath(p) {
-  return process.platform === "win32" ? p.replace(/\\/g, "/") : p
-}
+import fontCatalog from "./ui/fonts.js"
 
 const sassCompiler = gulpSass(sass)
+
+const DEST = path.resolve("../assets/www")
 
 // hashName returns a gulp stream for hashing filenames with the
 // same pattern.
@@ -43,6 +40,10 @@ function hashName() {
   return gulpHash({
     format: "{name}.{hash:8}{ext}",
   })
+}
+
+function toPosixPath(p) {
+  return process.platform === "win32" ? p.replace(/\\/g, "/") : p
 }
 
 // destCompress returns a gulp stream that compresses the current
@@ -441,17 +442,17 @@ function watch_media() {
   )
 }
 
-exports.clean = clean_all
-exports.js = js_bundle
-exports.css = gulp.series(clean_css, css_bundle, css_extra)
-exports.epub = css_extra
-exports.icons = icon_bundle
-exports.copy = copy_files
+export const clean = clean_all
+export const js = js_bundle
+export const css = gulp.series(clean_css, css_bundle, css_extra)
+export const epub = css_extra
+export const icons = icon_bundle
+export const copy = copy_files
 
-exports["watch:css"] = watch_css
-exports["watch:js"] = watch_js
+export {watch_css as "watch:css"}
+export {watch_js as "watch:js"}
 
-exports.dev = gulp.series(
+export const dev = gulp.series(
   full_build,
   gulp.parallel(
     watch_js, //
@@ -460,4 +461,4 @@ exports.dev = gulp.series(
   ),
 )
 
-exports.default = full_build
+export default full_build
