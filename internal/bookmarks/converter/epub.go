@@ -24,8 +24,16 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/epub"
 	"codeberg.org/readeck/readeck/pkg/utils"
+)
+
+type ctxEnableEPUBNotesKey struct{}
+
+// Context helpers.
+var (
+	WithEnableEPUBNotes, getEnableEPUBNotes = ctxr.WithChecker[bool](ctxEnableEPUBNotesKey{})
 )
 
 // EPUBExporter is a content exporter that produces EPUB files.
@@ -213,10 +221,11 @@ func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExpo
 	}
 
 	// Set highlights and notes
+	withNotes, _ := getEnableEPUBNotes(ctx)
 	notes := []string{}
 
 	ctx = dataset.WithAnnotationTag(ctx, "mark", func(a *bookmarks.BookmarkAnnotation, n *html.Node, index, ln int) {
-		if a.Note != "" && index+1 == ln {
+		if withNotes && a.Note != "" && index+1 == ln {
 			notes = append(notes, a.Note)
 			link := dom.CreateElement("a")
 			link.Attr = []html.Attribute{

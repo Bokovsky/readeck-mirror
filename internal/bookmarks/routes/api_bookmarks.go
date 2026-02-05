@@ -172,7 +172,8 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := exporter.IterExport(r.Context(), w, r, seq); err != nil {
+	ctx := converter.WithEnableEPUBNotes(r.Context(), true)
+	if err := exporter.IterExport(ctx, w, r, seq); err != nil {
 		server.Err(w, r, err)
 	}
 }
