@@ -11,21 +11,19 @@ const require = createRequire(import.meta.url)
 
 import {glob} from "glob"
 import gulp from "gulp"
-import gulpCheerio from "gulp-cheerio"
 import gulpHash from "gulp-hash-filename"
 import gulpEsbuild from "gulp-esbuild"
 import gulpPostcss from "gulp-postcss"
 import gulpRename from "gulp-rename"
 import gulpSass from "gulp-sass"
 import gulpSourcemaps from "gulp-sourcemaps"
-import gulpSvgStore from "gulp-svgstore"
 
 import ordered from "ordered-read-streams"
 import through from "through2"
 import * as sass from "sass"
 
+import {IconSet, SVG, cleanupSVG, runSVGO, scaleSVG} from "@iconify/tools"
 import {deleteAsync as del} from "del"
-
 import {stimulusPlugin} from "esbuild-plugin-stimulus"
 
 import fontCatalog from "./ui/fonts.js"
@@ -275,49 +273,81 @@ function css_extra() {
   )
 }
 
-function icon_sprite(src, dst) {
-  // Icons are defined in this file
-  const icons = JSON.parse(fs.readFileSync(src))
+// icon_sprite is a pipeline that converts a JSON icon list to an SVG with a symbol
+// for each icon.
+// Icons can be URLs (with a scheme being the iconify namespace)
+// or a relative (to the JSON file) SVG path.
+function icon_sprite() {
+  return through.obj(function (file, _, done) {
+    if (file.isNull() || file.isStream()) {
+      return done()
+    }
 
-  return gulp
-    .src(Object.values(icons))
-    .pipe(
-      gulpRename((file, f) => {
-        // Set new filename on each entry in order to set
-        // a chosen ID on each symbol.
-        let p = toPosixPath(path.relative(f.cwd, f.path))
-        let id = Object.entries(icons).find((x) => x[1] == p)[0]
-        file.basename = id
-      }),
-    )
-    .pipe(
-      gulpCheerio({
-        // Force viewBox attribute when missing
-        run: ($) => {
-          let e = $("svg")
-          if (e.attr("viewBox") === undefined) {
-            let w = e.attr("width") || "24"
-            let h = e.attr("height") || "24"
-            e.attr("viewBox", `0 0 ${w} ${h}`)
-          }
-        },
-        parserOptions: {xmlMode: true},
-      }),
-    )
-    .pipe(gulpSvgStore())
-    .pipe(gulpRename(dst))
-    .pipe(hashName())
-    .pipe(destCompress("gz"))
-    .pipe(destCompress("br"))
-    .pipe(gulp.dest(DEST))
+    const spec = JSON.parse(file.contents)
+    const store = {}
+    const icons = []
+
+    const base = path.dirname(file.path) + "/"
+
+    // load icons from iconify colletions
+    for (let [id, v] of Object.entries(spec)) {
+      let icon
+
+      const url = new URL(v, "file://" + base)
+      if (url.protocol === "file:") {
+        // load from file
+        icon = new SVG(
+          fs.readFileSync(url.pathname, {encoding: "utf-8"}).toString(),
+        )
+        cleanupSVG(icon)
+        runSVGO(icon)
+      } else {
+        // load from iconify
+        const ns = url.protocol.slice(0, -1)
+
+        if (store[ns] === undefined) {
+          store[ns] = new IconSet(require(`@iconify-json/${ns}`).icons)
+        }
+
+        icon = store[ns].toSVG(url.pathname)
+      }
+
+      const size = url.searchParams.has("size")
+        ? url.searchParams.get("size")
+        : 24
+      scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+
+      icon.$svg.tag = "symbol"
+      icon.$svg.attribs.id = id
+      delete icon.$svg.attribs.xmlns
+      delete icon.$svg.attribs["xmlns:xlink"]
+
+      icons.push(icon.toMinifiedString())
+    }
+
+    // render sprite
+    let res = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    res +=
+      '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n'
+    res += icons.join("\n")
+    res += "\n</svg>\n"
+
+    file.contents = Buffer.from(res)
+    file.extname = ".svg"
+    this.push(file)
+    done()
+  })
 }
 
 // icon_bundle creates the icon bundle files
 function icon_bundle() {
-  return ordered([
-    icon_sprite("./media/icons.json", "img/icons.svg"),
-    icon_sprite("./media/logos.json", "img/logos.svg"),
-  ])
+  return gulp
+    .src(["./media/icons.json", "./media/logos.json"], {encoding: false})
+    .pipe(icon_sprite())
+    .pipe(hashName())
+    .pipe(destCompress("gz"))
+    .pipe(destCompress("br"))
+    .pipe(gulp.dest(path.join(DEST, "img")))
 }
 
 // copy_files copies some files to the destination.
@@ -327,10 +357,12 @@ function copy_files() {
       .src("media/favicons/*", {encoding: false})
       .pipe(hashName())
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
+
     gulp
       .src(["media/logo-text.svg", "media/logo-maskable.svg"], {
         encoding: false,
       })
+      .pipe(optiSVG())
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))
