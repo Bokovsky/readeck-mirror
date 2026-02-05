@@ -7,6 +7,7 @@ package extract
 import (
 	"bytes"
 	"context"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -189,9 +190,15 @@ func (d *Drop) Load(client *http.Client) error {
 	}
 }
 
-// IsHTML returns true when the resource is of type HTML.
+// IsHTML returns true when the MIME type of the resource is one of the known HTML types, and also
+// when it's "application/xml" since that might be an XHTML document.
 func (d *Drop) IsHTML() bool {
-	return d.ContentType == "text/html" || d.ContentType == "application/xhtml+xml"
+	switch d.ContentType {
+	case "text/html", "application/xhtml+xml", "application/xml":
+		return true
+	default:
+		return false
+	}
 }
 
 // IsMedia returns true when the document type is a media type.
@@ -421,18 +428,83 @@ func scanForCharset(r io.Reader) string {
 	}
 }
 
+func scanXML(r io.Reader, isTranscoded bool) (encoding.Encoding, string, bool) {
+	xd := xml.NewDecoder(r)
+
+	var isHTML bool
+	var enc encoding.Encoding
+	var encName string
+
+	// This callback will activate when a processing instruction with "encoding=..." is found.
+	xd.CharsetReader = func(charsetName string, input io.Reader) (io.Reader, error) {
+		if isTranscoded {
+			return input, nil
+		}
+		enc, encName = charset.Lookup(charsetName)
+		return transform.NewReader(input, enc.NewDecoder()), nil
+	}
+
+	// Read XML tokens until the first element.
+	for {
+		t, err := xd.Token()
+		if err != nil {
+			break
+		}
+		if el, ok := t.(xml.StartElement); ok {
+			isHTML = el.Name.Local == "html" && el.Name.Space == "http://www.w3.org/1999/xhtml"
+			break
+		}
+	}
+
+	return enc, encName, isHTML
+}
+
 // HTMLReader wraps r in a reader that automatically transcodes a HTML document from non-UTF-8
 // encoding to UTF-8. The original encoding is either determined from contentType value, or by
 // scanning the initial 1–3kB from the document to look for things like BOM or for the meta charset
 // declaration.
 func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
+	enc := encoding.Nop
+	var encName string
+	certain := false
+
+	mimeType, params, err := mime.ParseMediaType(contentType)
+	if err == nil {
+		if cs, ok := params["charset"]; ok {
+			if e, name := charset.Lookup(cs); e != nil {
+				enc = e
+				encName = name
+				certain = true
+			}
+		}
+	}
+
 	var buf bytes.Buffer
 	if _, err := io.CopyN(&buf, r, 1024); err != nil && err != io.EOF {
 		return nil, "", err
 	}
 
-	// Determine encoding (fast way)
-	enc, encName, certain := charset.DetermineEncoding(buf.Bytes(), contentType)
+	switch mimeType {
+	case "application/xml", "application/xhtml+xml":
+		var xmlReader io.Reader = bytes.NewReader(buf.Bytes())
+		if certain && enc != encoding.Nop {
+			xmlReader = transform.NewReader(xmlReader, enc.NewDecoder())
+		}
+		e, name, isHTML := scanXML(xmlReader, certain)
+		if !isHTML && mimeType == "application/xml" {
+			return nil, "", fmt.Errorf("html tag not found in %s document", mimeType)
+		}
+		if e != nil && !certain {
+			enc = e
+			encName = name
+			certain = true
+		}
+	}
+
+	if !certain {
+		// Determine encoding (fast way)
+		enc, encName, certain = charset.DetermineEncoding(buf.Bytes(), contentType)
+	}
 
 	// When encoding is not 100% certain, we resort to find the charset
 	// parsing part of the received HTML. More than recommended
