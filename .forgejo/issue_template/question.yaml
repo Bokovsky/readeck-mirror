@@ -1,21 +1,16 @@
-name: Enhancement idea 🤩
-about: When you want to share an idea to make Readeck Better
-labels:
-  - enhancement
+name: Question 🙋
+about: When you have a general question or request
+labels: []
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to suggest your idea!
+        For non bug, Readeck usage, related questions, please head to the [forum](https://community.readeck.org/).
 
   - type: textarea
-    id: description
+    id: question
     attributes:
-      label: Your idea
-      description: |
-        Describe your idea and how it would work.
-
-        Screenshots are welcome if they help with your explanations.
+      label: Your question or request
     validations:
       required: true
 

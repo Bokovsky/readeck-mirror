@@ -1,5 +1,5 @@
-name: Extraction error
-about: When a saved page is not well rendered in Readeck 😵
+name: Extraction error 😵
+about: When a saved page is not well rendered in Readeck
 labels:
   - Extraction/Error
 title: "Link not working: "
