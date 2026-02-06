@@ -273,6 +273,23 @@ function css_extra() {
   )
 }
 
+// optiSVG is a pipeline that cleans up and optimize an SVG input.
+function optiSVG() {
+  return through.obj(function (file, _, done) {
+    if (file.isNull() || file.isStream()) {
+      return done()
+    }
+
+    const icon = new SVG(file.contents)
+    cleanupSVG(icon)
+    runSVGO(icon)
+
+    file.contents = Buffer.from(icon.toMinifiedString())
+    this.push(file)
+    done()
+  })
+}
+
 // icon_sprite is a pipeline that converts a JSON icon list to an SVG with a symbol
 // for each icon.
 // Icons can be URLs (with a scheme being the iconify namespace)
