@@ -373,20 +373,4 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 		dom.SetAttribute(img, "srcset", strings.Join(set, ", "))
 		dom.ReplaceChild(node.Parent, img, node)
 	})
-
-	// We should keep images when they're in a figure tag.
-	// Removing the classes and ids on the figure and its children avoids redability
-	// discarding the whole thing.
-	dom.ForEachNode(dom.GetElementsByTagName(top, "figure"), func(node *html.Node, _ int) {
-		if len(dom.QuerySelectorAll(node, "img")) == 0 {
-			return
-		}
-
-		dom.ForEachNode(dom.QuerySelectorAll(node, "*"), func(n *html.Node, _ int) {
-			dom.SetAttribute(n, "class", "")
-			dom.SetAttribute(n, "id", "")
-		})
-		dom.SetAttribute(node, "class", "")
-		dom.SetAttribute(node, "id", "")
-	})
 }
