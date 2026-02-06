@@ -19,8 +19,11 @@
     "@fontsource/merriweather": "^5.2.11",
     "@hotwired/stimulus": "^3.2.2",
     "@hotwired/turbo": "^8.0.23",
-    "@mdi/svg": "^7.4.47",
-    "boxicons": "^2.1.4",
+    "@iconify-json/bx": "^1.2.2",
+    "@iconify-json/bxl": "^1.2.2",
+    "@iconify-json/bxs": "^1.2.2",
+    "@iconify-json/mdi": "^1.2.3",
+    "@iconify/tools": "^5.0.3",
     "cssnano": "^7.1.2",
     "culori": "^4.0.2",
     "del": "^8.0.1",
@@ -31,7 +34,6 @@
     "eslint-plugin-prettier": "^5.5.5",
     "glob": "^11.1.0",
     "gulp": "^5.0.1",
-    "gulp-cheerio": "^1.0.0",
     "gulp-cli": "^3.1.0",
     "gulp-esbuild": "^0.14.1",
     "gulp-hash-filename": "^4.1.0",
@@ -39,7 +41,6 @@
     "gulp-rename": "^2.1.0",
     "gulp-sass": "^6.0.1",
     "gulp-sourcemaps": "^3.0.0",
-    "gulp-svgstore": "^9.0.0",
     "hls.js": "^1.6.15",
     "open-color": "^1.9.1",
     "ordered-read-streams": "^2.0.0",
@@ -52,10 +53,6 @@
     "sass": "^1.97.3",
     "tailwindcss": "^3.4.19",
     "through2": "^4.0.2"
-  },
-  "overrides": {
-    "canvas": ">=2.10.2",
-    "sharp": ">=0.31.1"
   },
   "scripts": {
     "lint": "eslint *.js ./src",
