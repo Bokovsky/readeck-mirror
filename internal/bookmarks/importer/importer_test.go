@@ -928,7 +928,7 @@ func TestWallabag(t *testing.T) {
 			headers := map[string]string{}
 			switch x {
 			case "b":
-				headers["content-type"] = "application/xhtml+xml; charset=utf-8"
+				headers["content-type"] = "application/xhtml xml; charset=utf-8"
 			case "c":
 				headers["content-type"] = "text/html; charset=koi8-r"
 			}
@@ -936,7 +936,7 @@ func TestWallabag(t *testing.T) {
 				"is_archived":     0,
 				"is_starred":      0,
 				"title":           fmt.Sprintf("Article %d/%s", page, x),
-				"url":             fmt.Sprintf("https://example.net/%d/article-%s", page, x),
+				"url":             fmt.Sprintf("https://example.net/%d/article-%s#ignored", page, x),
 				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
 				"created_at":      "2024-01-02 12:23:43",
 				"published_at":    "2022-01-02 12:23:43",
