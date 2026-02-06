@@ -19,6 +19,8 @@
 - Thumbnail and bookmark image size, by [@mislav](https://codeberg.org/mislav)
 - Handling zero-width spaces when stripping heading anchors, by [@mislav](https://codeberg.org/mislav)
 - Speed up fetching bookmark outgoing links, by [@mislav](https://codeberg.org/mislav)
+- Support application/xml documents when they are HTML
+- Keep HTML content from metadata
 
 ### Fixed
 - Back/forward navigation with gestures
@@ -28,8 +30,7 @@
 - Display of SVGs with percentage dimensions, by [@mislav](https://codeberg.org/mislav)
 - Sorting on api/bookmarks/sync
 - Typo in API documentation, by [@clmt](https://codeberg.org/clmt)
-- Always import Wallabag content as UTF-8, by [@mislav](https://codeberg.org/mislav)
-
+- Wallabag import encoding and content type issues, by [@mislav](https://codeberg.org/mislav)
 
 ## [0.21.6]
 ### Fixed
