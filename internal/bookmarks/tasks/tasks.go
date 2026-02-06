@@ -459,8 +459,10 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 				}
 
 				links[i].ContentType, _, _ = mime.ParseMediaType(rsp.Header.Get("content-type"))
-				links[i].IsPage = links[i].ContentType == "text/html" || links[i].ContentType == "application/xhtml+xml"
-				if !links[i].IsPage {
+				switch links[i].ContentType {
+				case "text/html", "application/xhtml+xml", "application/xml":
+					links[i].IsPage = true
+				default:
 					return nil
 				}
 

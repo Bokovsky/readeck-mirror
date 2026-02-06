@@ -6,6 +6,7 @@ package extract_test
 
 import (
 	"errors"
+	"net/http"
 	"net/url"
 	"testing"
 
@@ -48,16 +49,31 @@ func TestDrop(t *testing.T) {
 			"html/ch2.html"))
 	httpmock.RegisterResponder("GET", "/ch3",
 		NewContentResponder(200,
-			map[string]string{"content-type": "application/xhtml+xml; charset=EUC-JP"},
+			map[string]string{"content-type": "text/html; charset=EUC-JP"},
 			"html/ch3.html"))
 	httpmock.RegisterResponder("GET", "/ch3-detect",
 		NewContentResponder(200,
-			map[string]string{"content-type": "application/xhtml+xml"},
+			map[string]string{"content-type": "text/html"},
 			"html/ch3.html"))
+	httpmock.RegisterResponder("GET", "/ch3-xhtml",
+		NewContentResponder(200,
+			map[string]string{"content-type": "application/xhtml+xml; charset=EUC-JP"},
+			"html/ch3.xhtml"))
+	httpmock.RegisterResponder("GET", "/ch3-xhtml-detect",
+		NewContentResponder(200,
+			map[string]string{"content-type": "application/xhtml+xml"},
+			"html/ch3.xhtml"))
+	httpmock.RegisterResponder("GET", "/ch3-xml-detect",
+		NewContentResponder(200,
+			map[string]string{"content-type": "application/xml"},
+			"html/ch3.xhtml"))
 	httpmock.RegisterResponder("GET", "/ch4-detect",
 		NewContentResponder(200,
 			map[string]string{"content-type": "text/html"},
 			"html/ch4.html"))
+	httpmock.RegisterResponder("GET", "/xml",
+		httpmock.NewStringResponder(200, "<message>Hello</message>").
+			HeaderAdd(http.Header{"Content-Type": []string{"application/xml"}}))
 
 	t.Run("errors", func(t *testing.T) {
 		tests := []struct {
@@ -71,6 +87,7 @@ func TestDrop(t *testing.T) {
 			{"ioerror", mustParse("http://x/ioerror"), "HTMLReader error: read error"},
 			{"no type", mustParse("http://x/ch1-notype"), "unsupported content-type: \"\""},
 			{"unsupported", mustParse("http://x/ct-unsupported"), "unsupported content-type: \"application/x-something-weird\""},
+			{"non-XHTML", mustParse("http://x/xml"), "HTMLReader error: html tag not found in application/xml document"},
 		}
 
 		for _, x := range tests {
@@ -186,8 +203,11 @@ func TestDrop(t *testing.T) {
 			{"ch1-nocharset", true, false, "text/html", "utf-8", ""},
 			{"ch2", true, false, "text/html", "iso-8859-15", "grand mammifère"},
 			{"ch2-detect", true, false, "text/html", "windows-1252", "grand mammifère"},
-			{"ch3", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
-			{"ch3-detect", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
+			{"ch3", true, false, "text/html", "euc-jp", "センチメートル"},
+			{"ch3-detect", true, false, "text/html", "euc-jp", "センチメートル"},
+			{"ch3-xhtml", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
+			{"ch3-xhtml-detect", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
+			{"ch3-xml-detect", true, false, "application/xml", "euc-jp", "センチメートル"},
 			{"ch4-detect", true, false, "text/html", "utf-8", ""},
 		}
 
