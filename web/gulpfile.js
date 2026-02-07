@@ -9,7 +9,6 @@ import zlib from "zlib"
 
 const require = createRequire(import.meta.url)
 
-import {glob} from "glob"
 import gulp from "gulp"
 import gulpHash from "gulp-hash-filename"
 import gulpEsbuild from "gulp-esbuild"
@@ -20,6 +19,7 @@ import gulpSourcemaps from "gulp-sourcemaps"
 
 import ordered from "ordered-read-streams"
 import through from "through2"
+import File from "vinyl"
 import * as sass from "sass"
 
 import {IconSet, SVG, cleanupSVG, runSVGO, scaleSVG} from "@iconify/tools"
@@ -122,12 +122,6 @@ function clean_vendor() {
   return cleanFiles("vendor")
 }
 
-// clean_manifest creates an empty manifest.json file.
-function clean_manifest(done) {
-  let dest = path.join(DEST, "manifest.json")
-  fs.writeFile(dest, "{}", done)
-}
-
 // clean delete files in the destination folder
 function clean_all(done) {
   return gulp.series(
@@ -135,7 +129,6 @@ function clean_all(done) {
     clean_css,
     clean_media,
     clean_vendor,
-    clean_manifest,
   )(done)
 }
 
@@ -300,9 +293,17 @@ function icon_sprite() {
       return done()
     }
 
-    const spec = JSON.parse(file.contents)
+    let spec = {}
     const store = {}
     const icons = []
+    const singleSVG = file.extname == ".svg"
+
+    if (singleSVG) {
+      // When the input file is a single SVG, we output a symbol with id=main
+      spec["main"] = file.basename
+    } else {
+      spec = JSON.parse(file.contents)
+    }
 
     const base = path.dirname(file.path) + "/"
 
@@ -329,10 +330,12 @@ function icon_sprite() {
         icon = store[ns].toSVG(url.pathname)
       }
 
-      const size = url.searchParams.has("size")
-        ? url.searchParams.get("size")
-        : 24
-      scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+      if (!singleSVG) {
+        const size = url.searchParams.has("size")
+          ? url.searchParams.get("size")
+          : 24
+        scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+      }
 
       icon.$svg.tag = "symbol"
       icon.$svg.attribs.id = id
@@ -359,7 +362,10 @@ function icon_sprite() {
 // icon_bundle creates the icon bundle files
 function icon_bundle() {
   return gulp
-    .src(["./media/icons.json", "./media/logos.json"], {encoding: false})
+    .src(
+      ["./media/icons.json", "./media/logos.json", "./media/logo-text.svg"],
+      {encoding: false},
+    )
     .pipe(icon_sprite())
     .pipe(hashName())
     .pipe(destCompress("gz"))
@@ -376,7 +382,7 @@ function copy_files() {
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
 
     gulp
-      .src(["media/logo-text.svg", "media/logo-maskable.svg"], {
+      .src(["media/logo-maskable.svg"], {
         encoding: false,
       })
       .pipe(optiSVG())
@@ -407,33 +413,47 @@ function copy_files() {
 // write_manifest generates a manifest.json file in the destination folder.
 // It's a very naive process that lists all the files in the destination
 // folder and creates a mapping for all the files having a hash suffix.
-async function write_manifest(done) {
+function write_manifest() {
+  return gulp
+    .src(path.join(DEST, "**"), {read: false})
+    .pipe(buildManifest())
+    .pipe(gulp.dest(DEST))
+}
+
+function buildManifest() {
   const rxFilename = new RegExp(/^(.+)(\.[a-f0-9]{8}\.)(.+)$/)
   const excluded = [".br", ".gz", ".map"]
-
-  const files = await glob(toPosixPath(path.join(DEST, "**/*")))
-
   let manifest = {}
-  for (let f of files) {
-    let st = await fs.promises.stat(f)
-    if (!st.isFile()) {
-      continue
+
+  function collect(file, _, done) {
+    if (!file.stat.isFile()) {
+      done()
+      return
     }
-    f = toPosixPath(path.relative(DEST, f))
+    const f = toPosixPath(path.relative(DEST, file.path))
     if (f == "manifest.json" || excluded.includes(path.extname(f))) {
-      continue
+      done()
+      return
     }
 
-    let m = f.match(rxFilename)
-    if (!m) {
-      continue
+    const m = f.match(rxFilename)
+    if (!!m) {
+      manifest[`${m[1]}.${m[3]}`] = f
+    } else {
+      manifest[f] = f
     }
 
-    manifest[`${m[1]}.${m[3]}`] = f
+    done()
   }
 
-  let dest = path.join(DEST, "manifest.json")
-  fs.writeFile(dest, JSON.stringify(manifest, null, "  ") + "\n", done)
+  function flush(done) {
+    const f = new File({path: "manifest.json"})
+    f.contents = Buffer.from(JSON.stringify(manifest, null, "  ") + "\n")
+    this.push(f)
+    done(null, f)
+  }
+
+  return through.obj(collect, flush)
 }
 
 // ------------------------------------------------------------------
@@ -491,7 +511,7 @@ function watch_media() {
   )
 }
 
-export const clean = clean_all
+export const clean = gulp.series(clean_all, write_manifest)
 export const js = js_bundle
 export const css = gulp.series(clean_css, css_bundle, css_extra)
 export const epub = css_extra
