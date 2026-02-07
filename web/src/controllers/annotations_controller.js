@@ -33,16 +33,6 @@ export default class extends Controller {
       })
     })
 
-    const x = new ResizeObserver((entries) => {
-      for (let e of entries) {
-        if (getComputedStyle(e.target).display == "none") {
-          return
-        }
-        this.#positionControls()
-      }
-    })
-    x.observe(this.controlsTarget)
-
     selectionendObserver(document, () => {
       this.onSelectText()
     })
