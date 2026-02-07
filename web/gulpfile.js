@@ -300,9 +300,17 @@ function icon_sprite() {
       return done()
     }
 
-    const spec = JSON.parse(file.contents)
+    let spec = {}
     const store = {}
     const icons = []
+    const singleSVG = file.extname == ".svg"
+
+    if (singleSVG) {
+      // When the input file is a single SVG, we output a symbol with id=main
+      spec["main"] = file.basename
+    } else {
+      spec = JSON.parse(file.contents)
+    }
 
     const base = path.dirname(file.path) + "/"
 
@@ -329,10 +337,12 @@ function icon_sprite() {
         icon = store[ns].toSVG(url.pathname)
       }
 
-      const size = url.searchParams.has("size")
-        ? url.searchParams.get("size")
-        : 24
-      scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+      if (!singleSVG) {
+        const size = url.searchParams.has("size")
+          ? url.searchParams.get("size")
+          : 24
+        scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+      }
 
       icon.$svg.tag = "symbol"
       icon.$svg.attribs.id = id
@@ -359,7 +369,10 @@ function icon_sprite() {
 // icon_bundle creates the icon bundle files
 function icon_bundle() {
   return gulp
-    .src(["./media/icons.json", "./media/logos.json"], {encoding: false})
+    .src(
+      ["./media/icons.json", "./media/logos.json", "./media/logo-text.svg"],
+      {encoding: false},
+    )
     .pipe(icon_sprite())
     .pipe(hashName())
     .pipe(destCompress("gz"))
@@ -376,7 +389,7 @@ function copy_files() {
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
 
     gulp
-      .src(["media/logo-text.svg", "media/logo-maskable.svg"], {
+      .src(["media/logo-maskable.svg"], {
         encoding: false,
       })
       .pipe(optiSVG())
