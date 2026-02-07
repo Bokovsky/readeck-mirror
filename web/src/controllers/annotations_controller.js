@@ -627,7 +627,21 @@ function selectionendObserver(node, callback) {
     }
   })
 
-  node.addEventListener("selectionchange", () => {
+  node.addEventListener("pointercancel", () => {
+    pointerIsPressed = false
+    if (selectionResolve) {
+      selectionResolve()
+      selectionResolve = null
+    }
+  })
+
+  node.addEventListener("selectionchange", (evt) => {
+    if (
+      evt.target instanceof HTMLTextAreaElement ||
+      evt.target instanceof HTMLInputElement
+    ) {
+      return
+    }
     if (!pointerIsPressed) {
       Promise.resolve().then(() => {
         callback()
