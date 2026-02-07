@@ -25,4 +25,4 @@ jobs:
           git push github HEAD:release --force
           git push github --tags --force
           
-          echo "✅ Sync completed"
+          echo "✅"
