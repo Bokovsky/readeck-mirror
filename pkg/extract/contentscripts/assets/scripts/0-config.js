@@ -41,13 +41,6 @@ exports.setConfig = function (config) {
       )
       break
 
-    case $.domain == "mediapart.fr":
-      config.bodySelectors.push(
-        "//div[contains(concat(' ',normalize-space(@class),' '),' content-article ')]",
-      )
-      config.stripIdOrClass.push("cookie-consent-banner-content")
-      break
-
     case $.domain == "newyorker.com":
       // 2023-12-18: the new site-config is too restrictive
       config.replaceStrings = []
