@@ -68,7 +68,8 @@ func (wa *wallabagArticle) URL() string {
 
 func (wa *wallabagArticle) Meta() (*BookmarkMeta, error) {
 	res := &BookmarkMeta{
-		Title:      wa.Title,
+		// wallabag allows HTML within title values, but strips tags at render time.
+		Title:      stripHTMLTags(wa.Title),
 		Authors:    wa.PublishedBy,
 		Lang:       wa.Language,
 		Labels:     types.Strings{},
@@ -307,4 +308,21 @@ func (adapter *wallabagAdapter) fetchArticles() error {
 		return io.EOF
 	}
 	return err
+}
+
+// stripHTMLTags parses s as HTML and returns a concatenation of only its text nodes. Any HTML
+// entities will get decoded.
+func stripHTMLTags(s string) string {
+	var sb strings.Builder
+	t := html.NewTokenizerFragment(strings.NewReader(s), "div")
+scanLoop:
+	for {
+		switch t.Next() {
+		case html.ErrorToken:
+			break scanLoop
+		case html.TextToken:
+			sb.WriteString(t.Token().Data)
+		}
+	}
+	return sb.String()
 }

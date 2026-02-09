@@ -937,7 +937,7 @@ func TestWallabag(t *testing.T) {
 			items = append(items, map[string]any{
 				"is_archived":     0,
 				"is_starred":      0,
-				"title":           fmt.Sprintf("Article %d/%s", page, x),
+				"title":           fmt.Sprintf("Article <i>%d&#47;%s</i>", page, x),
 				"url":             fmt.Sprintf("https://example.net/%d/article-%s#ignored", page, x),
 				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
 				"created_at":      "2024-01-02 12:23:43",
