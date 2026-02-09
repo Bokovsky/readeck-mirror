@@ -927,6 +927,8 @@ func TestWallabag(t *testing.T) {
 		for _, x := range []string{"a", "b", "c"} {
 			headers := map[string]string{}
 			switch x {
+			case "a":
+				headers["content-type"] = "application/xml"
 			case "b":
 				headers["content-type"] = "application/xhtml xml; charset=utf-8"
 			case "c":
@@ -997,10 +999,6 @@ func TestWallabag(t *testing.T) {
 			string(resources[0].Data),
 		)
 
-		if x == "b" {
-			require.Equal("application/xhtml+xml; charset=utf-8", resources[0].Header.Get("content-type"))
-		} else {
-			require.Equal("text/html; charset=utf-8", resources[0].Header.Get("content-type"))
-		}
+		require.Equal("text/html; charset=utf-8", resources[0].Header.Get("content-type"))
 	}
 }

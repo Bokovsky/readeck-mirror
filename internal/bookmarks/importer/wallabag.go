@@ -121,11 +121,15 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 		// then think that the page is still in that encoding and transcode the already valid
 		// content into garbage. This strips `charset=...` directives received from Wallabag.
 		ct, _, _ = strings.Cut(ct, ";")
-		if ct == "application/xhtml xml" {
-			// Due to what might be a bug in wallabag, the "+" character is missing.
-			ct = "application/xhtml+xml"
+		switch ct {
+		case "application/xml", "application/xhtml+xml", "application/xhtml xml":
+			// Even if the original document was XHTML, its archived representation within wallabag
+			// is an HTML fragment that should not be parsed as XHTML. This adjusts the MIME type of
+			// the document to better reflect the article content we actually get from wallabag.
+			h.Set("Content-Type", "text/html; charset=utf-8")
+		default:
+			h.Set("Content-Type", ct+"; charset=utf-8")
 		}
-		h.Set("Content-Type", ct+"; charset=utf-8")
 	} else {
 		h.Set("Content-Type", "text/html; charset=utf-8")
 	}
