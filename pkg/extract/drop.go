@@ -461,7 +461,7 @@ func scanXML(r io.Reader, isTranscoded bool) (encoding.Encoding, string, bool) {
 
 // HTMLReader wraps r in a reader that automatically transcodes a HTML document from non-UTF-8
 // encoding to UTF-8. The original encoding is either determined from contentType value, or by
-// scanning the initial 1–3kB from the document to look for things like BOM or for the meta charset
+// scanning the initial 3kB from the document to look for things like BOM or for the meta charset
 // declaration.
 func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
 	enc := encoding.Nop
@@ -480,7 +480,7 @@ func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
 	}
 
 	var buf bytes.Buffer
-	if _, err := io.CopyN(&buf, r, 1024); err != nil && err != io.EOF {
+	if _, err := io.CopyN(&buf, r, 1024*3); err != nil && err != io.EOF {
 		return nil, "", err
 	}
 
@@ -510,9 +510,6 @@ func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
 	// parsing part of the received HTML. More than recommended
 	// by the HTMLWG, since 1024 bytes is often not enough.
 	if !certain {
-		if _, err := io.CopyN(&buf, r, 2048); err != nil && err != io.EOF {
-			return nil, "", err
-		}
 		if cs := scanForCharset(bytes.NewReader(buf.Bytes())); cs != "" {
 			if e, name := charset.Lookup(cs); e != nil {
 				enc = e
