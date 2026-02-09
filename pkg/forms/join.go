@@ -104,6 +104,10 @@ func (f *JoinedForms) IsValid() bool {
 		return true
 	}
 
+	if len(f.errors) > 0 {
+		return false
+	}
+
 	ok := true
 	for _, form := range f.forms {
 		ok = form.IsValid() && ok
