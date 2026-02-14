@@ -3,21 +3,22 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Jorge Santos <kkillermachine@gmail.com>, 2025.
-# henriquetguedes <henriquetguedes@noreply.codeberg.org>, 2025.
+# henriquetguedes <henriquetguedes@noreply.codeberg.org>, 2025, 2026.
 # olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2025-12-15 14:10+0000\n"
+"PO-Revision-Date: 2026-02-05 20:29+0000\n"
 "Last-Translator: henriquetguedes <henriquetguedes@noreply.codeberg.org>\n"
-"Language: pt_PT\n"
 "Language-Team: Portuguese (Portugal) <https://translate.codeberg.org/projects/readeck/application/pt_PT/>\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"Language: pt-PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -200,11 +201,11 @@ msgstr "Apagar este utilizador"
 
 #: assets/templates/admin/user.jet.html:60
 msgid "Last login"
-msgstr ""
+msgstr "Último início de sessão"
 
 #: assets/templates/admin/user.jet.html:69
 msgid "Last Activity"
-msgstr ""
+msgstr "Última Actividade"
 
 #: assets/templates/admin/user.jet.html:75
 #: assets/templates/bookmarks/base.jet.html:15
@@ -219,7 +220,7 @@ msgstr "Marcadores"
 
 #: assets/templates/admin/user.jet.html:80
 msgid "Disk usage"
-msgstr ""
+msgstr "Utilização de disco"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -246,9 +247,9 @@ msgstr "Última atualização: %s"
 
 # | msgid "Created on: %s"
 #: assets/templates/admin/user_list.jet.html:35
-#, fuzzy, python-format
+#, python-format
 msgid "Last login: %s"
-msgstr "Usado pela última vez em: %s"
+msgstr "Sessão iniciada pela última vez em: %s"
 
 #: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
@@ -474,19 +475,16 @@ msgid "Go to the sign in page"
 msgstr "Ir para a página de autenticação"
 
 #: assets/templates/auth/totp.jet.html:9
-#, fuzzy
 msgid "Two-factor authentication"
-msgstr "Autenticação"
+msgstr "Autenticação de dois factores"
 
 #: assets/templates/auth/totp.jet.html:20
-#, fuzzy
 msgid "Passcode"
-msgstr "Palavra-passe"
+msgstr "Código"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "Versão"
+msgstr "Verificar"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -687,9 +685,8 @@ msgstr "%d min"
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
-msgstr "Partilhado por %s com %s"
+msgstr "Partilhado por %[1]s com %[2]s"
 
 # | msgid "Saved with Readeck"
 # | msgid "Saved with"
@@ -714,16 +711,15 @@ msgid "Share link"
 msgstr "Partilhar ligação"
 
 #: assets/templates/bookmarks/bookmark_update.jet.html:9
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Marcadores não lidos"
+msgstr "Editar marcador"
 
 # | msgid "Saved with Readeck"
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_update.jet.html:14
-#, fuzzy, python-format
+#, python-format
 msgid "Edit: %s"
-msgstr "Guardado com %s"
+msgstr "Edição: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
@@ -872,9 +868,8 @@ msgid "Send e-book by Email"
 msgstr "Enviar e-book por e-mail"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:1
-#, fuzzy
 msgid "Delete highlight"
-msgstr "Destaque"
+msgstr "Apagar destaque"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:12
 msgid "Start selecting text in the article to create a new highlight."
@@ -896,23 +891,20 @@ msgid "Description"
 msgstr "Descrição"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:28
-#, fuzzy
 msgid "Site Name"
-msgstr "sem nome de site"
+msgstr "Nome do Site"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:34
-#, fuzzy
 msgid "Authors"
-msgstr "Autor"
+msgstr "Autores"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:35
 msgid "One value per line"
-msgstr ""
+msgstr "Um valor por linha"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy
 msgid "Published"
-msgstr "Publicado em %s"
+msgstr "Publicado"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:46
 #: assets/templates/profile/index.jet.html:49
@@ -920,9 +912,8 @@ msgid "Language"
 msgstr "Idioma"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:51
-#, fuzzy
 msgid "Text Direction"
-msgstr "Autenticação"
+msgstr "Direcção do texto"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -972,7 +963,7 @@ msgstr "Verde"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Transparent"
-msgstr ""
+msgstr "Transparente"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
@@ -980,9 +971,8 @@ msgstr "Destaque"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:63
 #: assets/templates/bookmarks/components/filters.jet.html:103
-#, fuzzy
 msgid "Note"
-msgstr "não"
+msgstr "Nota"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:78
 #: assets/templates/bookmarks/label.jet.html:43
@@ -1111,70 +1101,60 @@ msgstr "Feed Atom"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Decrease width"
-msgstr ""
+msgstr "Diminuir largura"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current Width"
-msgstr "Senha atual"
+msgstr "Largura actual"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Increase width"
-msgstr ""
+msgstr "Aumentar largura"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease font size"
-msgstr "Criado em: %s"
+msgstr "Diminuir tamanho de letra"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Current font size"
-msgstr ""
+msgstr "Tamanho de letra actual"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase font size"
-msgstr "Criado em: %s"
+msgstr "Aumentar tamanho de letra"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease line height"
-msgstr "Altura da linha"
+msgstr "Diminuir altura da linha"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current line height"
-msgstr "Altura da linha"
+msgstr "Altura da linha actual"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase line height"
-msgstr "Altura da linha"
+msgstr "Aumentar altura da linha"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Justify text"
-msgstr "Justificar"
+msgstr "Justificar texto"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Don't justify text"
-msgstr ""
+msgstr "Não justificar o texto"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "With hyphenation"
-msgstr "Hifenização"
+msgstr "Com hifenização"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Without hyphenation"
-msgstr "Hifenização"
+msgstr "Sem hifenização"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/reader_control.jet.html:13
-#, fuzzy
 msgid "Display options"
-msgstr "Opções de ordenação"
+msgstr "Opções de apresentação"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
@@ -1455,7 +1435,6 @@ msgid "Import your Pocket Articles"
 msgstr "Importe os seus artigos do Pocket"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1463,8 +1442,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Pode exportar os seus artigos no Pocket visitando:<br>\n"
-"<a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    Pode exportar os seus artigos do Pocket indo a:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
@@ -1737,9 +1716,8 @@ msgid "Save link"
 msgstr "Guardar ligação"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
-msgstr "\"%s\" não é um endereço válido. Quis procurar nos seus marcadores por %s?"
+msgstr "\"%[1]s\" não é um endereço válido. Quis procurar nos seus marcadores por %[2]s?"
 
 #: assets/templates/bookmarks/index.jet.html:77
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
@@ -1848,45 +1826,39 @@ msgstr "Aqui estão as informações atuais do seu sistema. Por favor inclua-os 
 
 #: assets/templates/docs/about.jet.html:42
 msgid "Storage"
-msgstr ""
+msgstr "Armazenamento"
 
 #: assets/templates/docs/about.jet.html:46
 msgid "Database Size:"
-msgstr ""
+msgstr "Tamanho da base de dados:"
 
 #: assets/templates/docs/about.jet.html:50
-#, fuzzy
 msgid "Bookmarks Disk Usage:"
-msgstr "O marcador está a carregar"
+msgstr "Utilização de disco dos marcadores:"
 
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Projeto"
 
 #: assets/templates/docs/about.jet.html:59
-#, fuzzy
 msgid "Main website:"
-msgstr "Site principal"
+msgstr "Site principal:"
 
 #: assets/templates/docs/about.jet.html:60
-#, fuzzy
 msgid "Sources and issues:"
-msgstr "Fontes e problemas"
+msgstr "Fontes e problemas:"
 
 #: assets/templates/docs/about.jet.html:61
-#, fuzzy
 msgid "How to contribute:"
-msgstr "Como contribuir"
+msgstr "Como contribuir:"
 
 #: assets/templates/docs/about.jet.html:62
-#, fuzzy
 msgid "Community Forum:"
-msgstr "Fórum da comunidade"
+msgstr "Fórum da comunidade:"
 
 #: assets/templates/docs/about.jet.html:63
-#, fuzzy
 msgid "Matrix Chat:"
-msgstr "Chat Matrix"
+msgstr "Chat Matrix:"
 
 #: assets/templates/docs/about.jet.html:66
 msgid "License"
@@ -1997,7 +1969,6 @@ msgstr ""
 "Aqui está o seu ebook para: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2014,15 +1985,14 @@ msgstr ""
 "Olá,\n"
 "\n"
 "Você (ou outra pessoa) introduziu este endereço de e-mail ao tentar\n"
-"alterar a palavra-passe de uma conta Readeck (%s).\n"
+"alterar a palavra-passe de uma conta Readeck (%[1]s).\n"
 "\n"
 "Se está à espera deste e-mail, siga este link para definir\n"
-"uma nova palavra-passe para a sua conta readeck.\n"
+"uma nova palavra-passe para a sua conta Readeck.\n"
 "\n"
-"%s\n"
+"%[2]s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2043,21 +2013,20 @@ msgstr ""
 "Olá,\n"
 "\n"
 "Você (ou outra pessoa) introduziu este endereço de e-mail ao tentar alterar\n"
-"a palavra-passe de uma conta Readeck (%s).\n"
+"a palavra-passe de uma conta Readeck (%[1]s).\n"
 "\n"
-"No entanto, este endereço de e-mail não está associado a nenhuma conta e \n"
+"No entanto, este endereço de e-mail não está associado a nenhuma conta, \n"
 "pelo que a tentativa de alteração da palavra-passe falhou.\n"
 "\n"
-"Se é um utilizador Readeck em %s e está aguardando\n"
+"Se é um utilizador Readeck em %[1]s e está à espera\n"
 "este e-mail, tente novamente utilizando o endereço de e-mail\n"
-"que utilizou ao criar a sua conta.\n"
+"que usou ao criar a sua conta.\n"
 "\n"
 "Se não é utilizador do Readeck, ignore esta mensagem.\n"
 
 #: assets/templates/epub/bookmark.jet.html:62
-#, fuzzy
 msgid "Notes"
-msgstr "Funções"
+msgstr "Notas"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
@@ -2158,7 +2127,7 @@ msgstr "Perfil"
 #: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
 #: internal/profile/views.go:168
 msgid "Security"
-msgstr ""
+msgstr "Segurança"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
 #: internal/profile/views.go:320
@@ -2339,35 +2308,32 @@ msgstr "Senha atual"
 
 #: assets/templates/profile/password.jet.html:46
 msgid "Verification Code (TOTP)"
-msgstr ""
+msgstr "Código de verificação (TOTP)"
 
 #: assets/templates/profile/password.jet.html:47
 msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
-msgstr ""
+msgstr "Um código de verificação é um código de uma utilização gerado por uma aplicação, como o Google Authenticator."
 
 #: assets/templates/profile/password.jet.html:52
 msgid "The verification code is enabled on this account."
-msgstr ""
+msgstr "O código de verificação está activado nesta conta."
 
 #: assets/templates/profile/password.jet.html:57
-#, fuzzy
 msgid "Remove Verification Code"
-msgstr "Modificação"
+msgstr "Remover código de verificação"
 
 #: assets/templates/profile/password.jet.html:59
 msgid "Removing your verification code will make your account less secure."
-msgstr ""
+msgstr "Remover o código de verificação vai tornar a conta menos segura."
 
 #: assets/templates/profile/password.jet.html:64
-#, fuzzy
 msgid "Remove"
-msgstr "remover"
+msgstr "Remover"
 
 #: assets/templates/profile/password.jet.html:70
 #: assets/templates/profile/totp.jet.html:9
-#, fuzzy
 msgid "Setup Verification Code"
-msgstr "Modificação"
+msgstr "Configurar código de verificação"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
@@ -2507,33 +2473,31 @@ msgstr "Este token será removido em poucos segundos."
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
-msgstr ""
+msgstr "Leia este código QR com a sua aplicação"
 
 #: assets/templates/profile/totp.jet.html:18
 msgid "Scan the QR code below with a two-factor authentication app on your phone."
-msgstr ""
+msgstr "Leia o código QR abaixo com uma aplicação de autenticação de dois factores (2FA) no seu telemóvel."
 
 #: assets/templates/profile/totp.jet.html:25
 msgid "If you can't use the QR code, enter the code below instead."
-msgstr ""
+msgstr "Se não puder ler o código QR, insira o código apresentado abaixo."
 
 #: assets/templates/profile/totp.jet.html:29
-#, fuzzy
 msgid "Enter the code from your application."
-msgstr "Introduza o código apresentado no seu dispositivo"
+msgstr "Introduza o código apresentado no seu dispositivo."
 
 #: assets/templates/profile/totp.jet.html:30
 msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
-msgstr ""
+msgstr "Após ler o código QR, a aplicação mostrará um código de seis dígitos que deve inserir abaixo."
 
 #: assets/templates/profile/totp.jet.html:35
-#, fuzzy
 msgid "Code from your device"
-msgstr "Confirme o seu nome de utilizador"
+msgstr "Código do seu dispositivo"
 
 #: assets/templates/profile/totp.jet.html:41
 msgid "Finish"
-msgstr ""
+msgstr "Acabar"
 
 #: internal/admin/views.go:77
 msgid "User created."
@@ -2548,9 +2512,8 @@ msgid "Invalid user and/or password"
 msgstr "Utilizador e/ou palavra-passe inválidos"
 
 #: internal/auth/signin/http.go:197 internal/profile/forms.go:296
-#, fuzzy
 msgid "Invalid code"
-msgstr "senha inválida"
+msgstr "Código inválido"
 
 #: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 msgctxt "role"
@@ -2641,17 +2604,16 @@ msgid "Unable to process input data"
 msgstr "Incapaz de processar dados de entrada"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:289
-#, fuzzy
 msgid "invalid language code"
-msgstr "Chave API inválida"
+msgstr "código de linguagem inválido"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:292
 msgid "Left to right"
-msgstr ""
+msgstr "Esquerda para a direita"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:293
 msgid "Right to left"
-msgstr ""
+msgstr "Direita para a esquerda"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
@@ -2774,15 +2736,13 @@ msgid "Favorite Bookmarks"
 msgstr "Marcadores favoritos"
 
 #: internal/bookmarks/routes/views_bookmarks.go:210
-#, fuzzy
 msgid "Update"
-msgstr "Utilizador atualizado."
+msgstr "Actualizar"
 
 # | msgid "Bookmark Labels"
 #: internal/bookmarks/routes/views_bookmarks.go:319
-#, fuzzy
 msgid "Bookmark updated"
-msgstr "Título do marcador"
+msgstr "Marcador actualizado"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2822,16 +2782,15 @@ msgstr "A sua senha foi alterada."
 
 #: internal/profile/views.go:149
 msgid "Your verification code was removed."
-msgstr ""
+msgstr "O código de verificação foi removido."
 
 #: internal/profile/views.go:169
-#, fuzzy
 msgid "Verification Code"
-msgstr "Modificação"
+msgstr "Código de verificação"
 
 #: internal/profile/views.go:197
 msgid "Verification Code is now enabled."
-msgstr ""
+msgstr "O código de verificação está agora activado."
 
 #: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
@@ -2876,19 +2835,19 @@ msgid "must be lower or equal than %d"
 msgstr "deve ser menor ou igual a %d"
 
 #: pkg/forms/validators.go:347
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at least %d characters"
-msgstr "o texto tem de ter entre %d e %d caracteres"
+msgstr "o texto tem de ter pelo menos %d caracteres"
 
 #: pkg/forms/validators.go:355
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at most %d characters"
-msgstr "o texto tem de ter entre %d e %d caracteres"
+msgstr "o texto tem de ter no máximo %d caracteres"
 
 #: pkg/forms/validators.go:363
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain %d characters"
-msgstr "o texto tem de ter entre %d e %d caracteres"
+msgstr "o texto tem de ter %d caracteres"
 
 #: pkg/forms/validators.go:443
 #, python-format
@@ -3105,7 +3064,7 @@ msgstr "%a %b %e %H:%M:%S %y"
 #, python-format
 msgctxt "datetime"
 msgid "%m/%d/%Y"
-msgstr "%d/%m/%Y"
+msgstr "%m/%d/%Y"
 
 #: pkg/strftime/strftime.go:77
 msgctxt "datetime"
@@ -3230,4 +3189,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr ""
-
