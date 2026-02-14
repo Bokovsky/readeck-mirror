@@ -2,23 +2,25 @@
 # SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-only
-# Anonymous <anonymous@noreply.codeberg.org>, 2025.
-# imposible01 <imposible01@noreply.codeberg.org>, 2025.
+# Anonymous <anonymous@noreply.codeberg.org>, 2025, 2026.
+# imposible01 <imposible01@noreply.codeberg.org>, 2025, 2026.
 # γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
 # olivier <olivier@noreply.codeberg.org>, 2025.
+# Adolfo Jayme Barrientos <fito@noreply.codeberg.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-12-18 21:31+0100\n"
-"PO-Revision-Date: 2025-12-16 09:10+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: es_ES\n"
+"PO-Revision-Date: 2026-02-10 01:29+0000\n"
+"Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: es-ES\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en/bookmark-list.md:1
@@ -35,7 +37,7 @@ msgstr "## Crea un nuevo marcador"
 
 #: en/bookmark-list.md:7
 msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
-msgstr ""
+msgstr "¿Encontraste una página web que te gusta? ¡Genial! Copia el enlace en el campo de texto llamada **nuevo marcador** en la [Lista de marcadores](readeck-instance://bookmarks)."
 
 #: en/bookmark-list.md:9
 msgid "![New Bookmark form](./img/bookmark-new.webp)"
@@ -91,7 +93,7 @@ msgstr "### Navegación"
 
 #: en/bookmark-list.md:36
 msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
-msgstr ""
+msgstr "En la barra lateral encontrará un campo de búsqueda y enlaces que le llevarán a listas de marcadores filtradas."
 
 #: en/bookmark-list.md:38
 msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
@@ -715,4 +717,3 @@ msgstr ""
 #: en/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
 msgstr ""
-
