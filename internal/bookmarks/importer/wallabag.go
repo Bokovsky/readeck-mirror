@@ -237,6 +237,12 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 	uri.Fragment = ""
 	item.ArticleURL = uri.String()
 
+	// For some reason, wallabag stores fetch-related error messages to the same text field where it
+	// stores HTML contents of a successfully fetched article.
+	if strings.HasPrefix(item.Content, "wallabag can't retrieve contents for this article.") {
+		item.Content = ""
+	}
+
 	return &item, nil
 }
 
