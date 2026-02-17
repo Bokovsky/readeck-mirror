@@ -1,19 +1,11 @@
 {
-  "title_selectors": [
-    "//section[@class='titre']/h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//section[@class=\"corps\"]"
+    "//main//header/following-sibling::article"
   ],
-  "date_selectors": [
-    "//span[@class=\"infos\"]/time/@datetime"
-  ],
-  "author_selectors": [
-    "//span[@class=\"infos\"]/span[@class=\"username\"]"
-  ],
-  "strip_selectors": [
-    "//select[@id=\"news_changing_node\"]"
-  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
   "native_ad_selectors": null,
