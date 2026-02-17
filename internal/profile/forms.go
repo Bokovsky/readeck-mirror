@@ -128,14 +128,14 @@ func (f *profileForm) Validate() {
 }
 
 // updateUser updates the given user using the form's values.
-func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err error) {
+func (f *profileForm) updateUser(u *users.User) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
 	resetSeed := false
-	res = make(map[string]interface{})
+	res = make(map[string]any)
 	for _, field := range f.Fields() {
 		if !field.IsBound() || field.IsNil() {
 			continue

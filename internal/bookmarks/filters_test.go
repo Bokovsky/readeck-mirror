@@ -48,10 +48,6 @@ func filterForm() forms.Binder {
 	)
 }
 
-func ptrTo[T any](v T) *T {
-	return &v
-}
-
 func runFiltersFromForm(tests []struct {
 	body     string
 	expected string
@@ -359,8 +355,8 @@ func TestFilters(t *testing.T) {
 			bookmarks.Filters{
 				Title:      "--title--",
 				Type:       types.Strings{"article", "video"},
-				IsMarked:   ptrTo(true),
-				IsArchived: ptrTo(false),
+				IsMarked:   new(true),
+				IsArchived: new(false),
 			},
 			`{
 				"is_valid": true,
@@ -562,9 +558,9 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				IsMarked:   ptrTo(false),
-				IsArchived: ptrTo(true),
-				IsLoaded:   ptrTo(true),
+				IsMarked:   new(false),
+				IsArchived: new(true),
+				IsLoaded:   new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`is_marked` IS 0) AND (`b`.`is_archived` IS 1) AND (`b`.`state` != 2))",
@@ -573,9 +569,9 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				IsMarked:   ptrTo(false),
-				IsArchived: ptrTo(true),
-				IsLoaded:   ptrTo(false),
+				IsMarked:   new(false),
+				IsArchived: new(true),
+				IsLoaded:   new(false),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`is_marked` IS 0) AND (`b`.`is_archived` IS 1) AND NOT((`b`.`state` != 2)))",
@@ -584,7 +580,7 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				HasLabels: ptrTo(true),
+				HasLabels: new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE (json_array_length(CASE  WHEN json_valid(`b`.`labels`) THEN `b`.`labels` ELSE '[]' END) > 0)",
@@ -593,7 +589,7 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				HasErrors: ptrTo(true),
+				HasErrors: new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`state` = 1) OR (json_array_length(CASE  WHEN json_valid(`b`.`errors`) THEN `b`.`errors` ELSE '[]' END) > 0))",

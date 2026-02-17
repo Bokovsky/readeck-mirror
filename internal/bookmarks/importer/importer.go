@@ -296,7 +296,7 @@ func (imp importer) createBookmark(next func() (BookmarkImporter, error)) (*book
 
 	if !created.IsZero() {
 		// Force update of the creation date
-		_ = b.Update(map[string]interface{}{
+		_ = b.Update(map[string]any{
 			"created": created,
 		})
 	}

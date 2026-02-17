@@ -17,7 +17,7 @@ import (
 
 type queryExpect struct {
 	sql  string
-	args []interface{}
+	args []any
 }
 
 var rxSpace = regexp.MustCompile(`\s+`)
@@ -94,7 +94,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND -catchall:\"test\""},
+					[]any{sqliteCatchAll + " AND -catchall:\"test\""},
 				},
 				"postgres": {
 					`
@@ -102,7 +102,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.title || FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"(test)", "(test)"},
+					[]any{"(test)", "(test)"},
 				},
 			},
 		},
@@ -111,7 +111,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND -catchall:\"test 🦊 キツネ\""},
+					[]any{sqliteCatchAll + " AND -catchall:\"test 🦊 キツネ\""},
 				},
 				"postgres": {
 					`
@@ -119,7 +119,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.title || FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"('test 🦊 キツネ')", "('test 🦊 キツネ')"},
+					[]any{"('test 🦊 キツネ')", "('test 🦊 キツネ')"},
 				},
 			},
 		},
@@ -128,7 +128,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND label:\"test\""},
+					[]any{sqliteCatchAll + " AND label:\"test\""},
 				},
 				"postgres": {
 					`
@@ -136,7 +136,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"(test)", "(test)"},
+					[]any{"(test)", "(test)"},
 				},
 			},
 		},
@@ -145,7 +145,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " NOT label:\"test\""},
+					[]any{sqliteCatchAll + " NOT label:\"test\""},
 				},
 				"postgres": {
 					`
@@ -153,7 +153,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"!(test)", "!(test)"},
+					[]any{"!(test)", "!(test)"},
 				},
 			},
 		},
@@ -162,7 +162,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " NOT label:\"L1 L2\""},
+					[]any{sqliteCatchAll + " NOT label:\"L1 L2\""},
 				},
 				"postgres": {
 					`
@@ -170,7 +170,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"!('L1 L2')", "!('L1 L2')"},
+					[]any{"!('L1 L2')", "!('L1 L2')"},
 				},
 			},
 		},
@@ -179,7 +179,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND -catchall:\"foo test\""},
+					[]any{sqliteCatchAll + " AND -catchall:\"foo test\""},
 				},
 				"postgres": {
 					`
@@ -187,7 +187,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.title || FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"('foo test')", "('foo test')"},
+					[]any{"('foo test')", "('foo test')"},
 				},
 			},
 		},
@@ -196,7 +196,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND -catchall:\"foo test\"*"},
+					[]any{sqliteCatchAll + " AND -catchall:\"foo test\"*"},
 				},
 				"postgres": {
 					`
@@ -204,7 +204,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.title || FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"('foo test':*)", "('foo test':*)"},
+					[]any{"('foo test':*)", "('foo test':*)"},
 				},
 			},
 		},
@@ -213,7 +213,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + " AND -catchall:\"foo bar test testing\""},
+					[]any{sqliteCatchAll + " AND -catchall:\"foo bar test testing\""},
 				},
 				"postgres": {
 					`
@@ -221,7 +221,7 @@ func TestSQLBuilder(t *testing.T) {
 					WHERE FTS.title || FTS.label @@ to_tsquery('ts', $1)
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $2)) DESC
 					`,
-					[]interface{}{"('foo bar test testing')", "('foo bar test testing')"},
+					[]any{"('foo bar test testing')", "('foo bar test testing')"},
 				},
 			},
 		},
@@ -230,7 +230,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + ` AND -catchall:"C1" AND -catchall:"C2" AND title:"T1" NOT title:"T2"`},
+					[]any{sqliteCatchAll + ` AND -catchall:"C1" AND -catchall:"C2" AND title:"T1" NOT title:"T2"`},
 				},
 				"postgres": {
 					`
@@ -240,7 +240,7 @@ func TestSQLBuilder(t *testing.T) {
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $3)) DESC,
 					ts_rank_cd(FTS.title, to_tsquery('ts', $4)) DESC
 					`,
-					[]interface{}{"(C1) & (C2)", "(T1) & !(T2)", "(C1) & (C2)", "(T1) & !(T2)"},
+					[]any{"(C1) & (C2)", "(T1) & !(T2)", "(C1) & (C2)", "(T1) & !(T2)"},
 				},
 			},
 		},
@@ -249,7 +249,7 @@ func TestSQLBuilder(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` INNER JOIN `FTS` ON (`FTS`.`rowid` = `T`.`id`) WHERE `FTS` match ? ORDER BY rank ASC",
-					[]interface{}{sqliteCatchAll + ` AND -catchall:"C1"* AND -catchall:"C2" AND title:"T1" NOT title:"T2"*`},
+					[]any{sqliteCatchAll + ` AND -catchall:"C1"* AND -catchall:"C2" AND title:"T1" NOT title:"T2"*`},
 				},
 				"postgres": {
 					`
@@ -259,7 +259,7 @@ func TestSQLBuilder(t *testing.T) {
 					ORDER BY ts_rank_cd(FTS.title || FTS.label, to_tsquery('ts', $3)) DESC,
 					ts_rank_cd(FTS.title, to_tsquery('ts', $4)) DESC
 					`,
-					[]interface{}{"(C1:*) & (C2)", "(T1) & !(T2:*)", "(C1:*) & (C2)", "(T1) & !(T2:*)"},
+					[]any{"(C1:*) & (C2)", "(T1) & !(T2:*)", "(C1:*) & (C2)", "(T1) & !(T2:*)"},
 				},
 			},
 		},

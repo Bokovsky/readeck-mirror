@@ -119,7 +119,7 @@ func (m *Manager) Create(token *Token) error {
 }
 
 // Update updates some bookmark values.
-func (t *Token) Update(v interface{}) error {
+func (t *Token) Update(v any) error {
 	if t.ID == 0 {
 		return errors.New("no ID")
 	}

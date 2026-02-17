@@ -185,7 +185,7 @@ func (arc *Archiver) fetch(ctx context.Context, uri string, headers http.Header)
 
 	// Start resource fetching using a group. Any concurrent call for the same URL
 	// will wait for the first one to finish.
-	result, err, _ := arc.fetchGroup.Do(uri, func() (interface{}, error) {
+	result, err, _ := arc.fetchGroup.Do(uri, func() (any, error) {
 		if err = arc.fetchSemaphore.Acquire(ctx, 1); err != nil {
 			return nil, err
 		}

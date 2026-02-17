@@ -170,17 +170,17 @@ func TestDecode(t *testing.T) {
 		t.Errorf("err: %v", err)
 	}
 
-	container := m["container"].(map[string]interface{})
+	container := m["container"].(map[string]any)
 	if container["@uid"] != "FA6666D9-EC9F-4DA3-9C3D-4B2460A4E1F6" && container["lifetime"] != "2019-10-10T18:00:11" {
 		t.Errorf("container attrs not exists")
 	} else {
-		cats := container["cats"].(map[string]interface{})
-		catsItems := cats["cat"].([]map[string]interface{})
+		cats := container["cats"].(map[string]any)
+		catsItems := cats["cat"].([]map[string]any)
 		if len(catsItems) != 2 {
 			t.Errorf("cats slice != 2")
 		}
 
-		dog := cats["dog"].(map[string]interface{})
+		dog := cats["dog"].(map[string]any)
 
 		if dog["@color"] != "gray" || dog["#text"] != "hello" {
 			t.Errorf("bad value or attr dog")
@@ -192,7 +192,7 @@ func TestDecode(t *testing.T) {
 
 		cat := catsItems[0]
 		if cat["id"] != "" && cat["name"] != "" && cat["age"] != "" {
-			items := cat["items"].(map[string]interface{})["n"].([]string)
+			items := cat["items"].(map[string]any)["n"].([]string)
 			if len(items) != 3 {
 				t.Errorf("items len %v", len(items))
 			}
@@ -213,15 +213,15 @@ func TestWithPrefix(t *testing.T) {
 		t.Errorf("m: %v, err: %v\n", m, err)
 	}
 
-	customer := m["customer"].(map[string]interface{})
+	customer := m["customer"].(map[string]any)
 	if customer["$id"] != "FA6666D9-EC9F-4DA3-9C3D-4B2460A4E1F6" && customer["$lifetime"] != "2019-10-10T18:00:11" {
 		t.Errorf("customer tag attr not found")
 	} else {
-		items := customer["items"].(map[string]interface{})
+		items := customer["items"].(map[string]any)
 		if items["$id"] != "100" || items["$count"] != "3" {
 			t.Errorf("items tag attr not found")
 		} else {
-			list := items["n"].([]map[string]interface{})
+			list := items["n"].([]map[string]any)
 			if len(list) != 3 {
 				t.Errorf("list len %v", len(items))
 			} else if list[1]["$id"] != "20" && list[1]["%"] != "2" {
@@ -254,7 +254,7 @@ func TestWithNameSpace(t *testing.T) {
 		t.Errorf("m: %v, err: %v\n", m, err)
 	}
 
-	rss := m["rss"].(map[string]interface{})["channel"].(map[string]interface{})
+	rss := m["rss"].(map[string]any)["channel"].(map[string]any)
 	if rss["atom:title"] != "Atom Title" {
 		t.Errorf("invalid value for namespace node")
 	}

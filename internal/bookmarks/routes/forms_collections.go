@@ -95,7 +95,7 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 	return c, err
 }
 
-func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[string]interface{}, err error) {
+func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return

@@ -48,7 +48,7 @@ func (sl *httpLogger) NewLogEntry(r *http.Request) middleware.LogEntry {
 
 type httpAttrs []slog.Attr
 
-func (attrs httpAttrs) Write(status, bytes int, _ http.Header, elapsed time.Duration, _ interface{}) {
+func (attrs httpAttrs) Write(status, bytes int, _ http.Header, elapsed time.Duration, _ any) {
 	slog.LogAttrs(context.TODO(), slog.LevelInfo,
 		"http "+strconv.Itoa(status)+" "+http.StatusText(status),
 		append(attrs,
@@ -61,5 +61,5 @@ func (attrs httpAttrs) Write(status, bytes int, _ http.Header, elapsed time.Dura
 	)
 }
 
-func (attrs httpAttrs) Panic(_ interface{}, _ []byte) {
+func (attrs httpAttrs) Panic(_ any, _ []byte) {
 }

@@ -20,7 +20,7 @@ import (
 
 type queryExpect struct {
 	sql  string
-	args []interface{}
+	args []any
 }
 
 func TestFunctions(t *testing.T) {
@@ -126,11 +126,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T`",
-					[]interface{}{},
+					[]any{},
 				},
 				"postgres": {
 					`SELECT * FROM "T"`,
-					[]interface{}{},
+					[]any{},
 				},
 			},
 		},
@@ -139,11 +139,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?))",
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 				"postgres": {
 					`SELECT * FROM "T" WHERE EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."tags") WHEN 'array' THEN "T"."tags" ELSE '[]' END) WHERE ("value" = $1))`,
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 			},
 		},
@@ -152,11 +152,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?))",
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 				"postgres": {
 					`SELECT * FROM "T" WHERE NOT EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."tags") WHEN 'array' THEN "T"."tags" ELSE '[]' END) WHERE ("value" = $1))`,
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 			},
 		},
@@ -165,11 +165,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` LIKE ?))",
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 				"postgres": {
 					`SELECT * FROM "T" WHERE EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."tags") WHEN 'array' THEN "T"."tags" ELSE '[]' END) WHERE ("value" ILIKE $1))`,
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 			},
 		},
@@ -178,11 +178,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` LIKE ?))",
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 				"postgres": {
 					`SELECT * FROM "T" WHERE NOT EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."tags") WHEN 'array' THEN "T"."tags" ELSE '[]' END) WHERE ("value" ILIKE $1))`,
-					[]interface{}{"test"},
+					[]any{"test"},
 				},
 			},
 		},
@@ -191,11 +191,11 @@ func TestStringsFilter(t *testing.T) {
 			map[string]queryExpect{
 				"sqlite3": {
 					"SELECT * FROM `T` WHERE (EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`tags`) WHEN true THEN `T`.`tags` ELSE '[]' END) WHEN 'array' THEN `T`.`tags` ELSE '[]' END) WHERE (`json_each`.`value` = ?)) AND NOT EXISTS (SELECT * FROM json_each(CASE json_type(CASE json_valid(`T`.`labels`) WHEN true THEN `T`.`labels` ELSE '[]' END) WHEN 'array' THEN `T`.`labels` ELSE '[]' END) WHERE (`json_each`.`value` = ?)))",
-					[]interface{}{"test", "test2"},
+					[]any{"test", "test2"},
 				},
 				"postgres": {
 					`SELECT * FROM "T" WHERE (EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."tags") WHEN 'array' THEN "T"."tags" ELSE '[]' END) WHERE ("value" = $1)) AND NOT EXISTS (SELECT "value" FROM jsonb_array_elements_text(CASE jsonb_typeof("T"."labels") WHEN 'array' THEN "T"."labels" ELSE '[]' END) WHERE ("value" = $2)))`,
-					[]interface{}{"test", "test2"},
+					[]any{"test", "test2"},
 				},
 			},
 		},

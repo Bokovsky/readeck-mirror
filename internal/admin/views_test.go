@@ -148,7 +148,7 @@ func TestViews(t *testing.T) {
 			AssertContains("User will be removed in a few seconds"),
 			WithAssert(func(t *testing.T, _ *Response) {
 				assert := require.New(t)
-				evt := map[string]interface{}{}
+				evt := map[string]any{}
 
 				// An event was sent
 				assert.Len(Events().Records("task"), 1)

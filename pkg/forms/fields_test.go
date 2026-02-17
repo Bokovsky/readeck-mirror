@@ -24,10 +24,6 @@ type fieldTest[D any, T any] struct {
 	err   error
 }
 
-func ptrTo[T any](v T) *T {
-	return &v
-}
-
 func (test fieldTest[D, T]) assert(assert *require.Assertions, field forms.Field, err error) {
 	if test.err == nil {
 		assert.True(field.IsBound(), "field is bound")
@@ -112,7 +108,7 @@ func TestTextField(t *testing.T) {
 			str:   "value",
 		},
 		{
-			data:  ptrTo("pointer value"),
+			data:  new("pointer value"),
 			value: "pointer value",
 			v:     "pointer value",
 			str:   "pointer value",
@@ -283,7 +279,7 @@ func TestBooleanField(t *testing.T) {
 			str:   "true",
 		},
 		{
-			data:  ptrTo(false),
+			data:  new(false),
 			value: false,
 			v:     false,
 			str:   "false",
@@ -411,7 +407,7 @@ func TestIntegerField(t *testing.T) {
 			str:   "10",
 		},
 		{
-			data:  ptrTo(-5),
+			data:  new(-5),
 			value: -5,
 			v:     -5,
 			str:   "-5",
@@ -692,7 +688,7 @@ func TestTextListField(t *testing.T) {
 			str:   "value",
 		},
 		{
-			data:  ptrTo([]string{"pointer", "value"}),
+			data:  new([]string{"pointer", "value"}),
 			value: []string{"pointer", "value"},
 			v:     []string{"pointer", "value"},
 			str:   "pointer, value",
@@ -935,7 +931,7 @@ func TestIntegerListField(t *testing.T) {
 			str:   "123",
 		},
 		{
-			data:  ptrTo([]int{1, 2, 3}),
+			data:  new([]int{1, 2, 3}),
 			value: []int{1, 2, 3},
 			v:     []int{1, 2, 3},
 			str:   "1, 2, 3",

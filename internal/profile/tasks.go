@@ -22,7 +22,7 @@ func init() {
 		deleteTokenTask = bus.Tasks().NewTask(
 			"token.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res int
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -35,7 +35,7 @@ func init() {
 	})
 }
 
-func deleteTokenHandler(data interface{}) {
+func deleteTokenHandler(data any) {
 	id := data.(int)
 	logger := slog.With(slog.Int("id", id))
 

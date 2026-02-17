@@ -436,13 +436,13 @@ func (m *BookmarkManager) UserDiskUsage(user *users.User) (count int, size uint6
 }
 
 // Update updates some bookmark values.
-func (b *Bookmark) Update(v interface{}) error {
+func (b *Bookmark) Update(v any) error {
 	if b.ID == 0 {
 		return errors.New("No ID")
 	}
 
 	switch v := v.(type) {
-	case map[string]interface{}:
+	case map[string]any:
 		v["updated"] = time.Now().UTC()
 	default:
 		//
@@ -580,7 +580,7 @@ type BookmarkLink struct {
 }
 
 // Scan loads a BookmarkLinks instance from a column.
-func (l *BookmarkLinks) Scan(value interface{}) error {
+func (l *BookmarkLinks) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
@@ -629,7 +629,7 @@ type BookmarkFile struct {
 }
 
 // Scan loads a BookmarkFiles instance from a column.
-func (f *BookmarkFiles) Scan(value interface{}) error {
+func (f *BookmarkFiles) Scan(value any) error {
 	if value == nil {
 		return nil
 	}

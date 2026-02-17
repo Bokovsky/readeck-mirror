@@ -95,7 +95,7 @@ func (h *viewsRouter) collectionDelete(w http.ResponseWriter, r *http.Request) {
 	c := getCollection(r.Context())
 
 	// This update forces cache invalidation
-	if err := c.Update(map[string]interface{}{}); err != nil {
+	if err := c.Update(map[string]any{}); err != nil {
 		server.Err(w, r, err)
 		return
 	}

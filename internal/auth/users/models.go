@@ -122,7 +122,7 @@ func (m *Manager) Create(user *User) error {
 }
 
 // Update updates some user values.
-func (u *User) Update(v interface{}) error {
+func (u *User) Update(v any) error {
 	if u.ID == 0 {
 		return errors.New("no ID")
 	}

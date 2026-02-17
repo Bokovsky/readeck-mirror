@@ -20,7 +20,7 @@ import (
 	"strings"
 )
 
-var textUnmarshalerType = reflect.TypeOf((*encoding.TextUnmarshaler)(nil)).Elem()
+var textUnmarshalerType = reflect.TypeFor[encoding.TextUnmarshaler]()
 
 // Scanner is a function that scans CSV row to dst, which must be a pointer to
 // a struct type. Scanner must be called on the same type it was created from
@@ -55,7 +55,7 @@ func colIdx(header []string, f reflect.StructField) int {
 // Only exported fields are processed.
 func NewScanner(header []string, dst any) (Scanner, error) { // nolint:gocognit,gocyclo
 	st := reflect.ValueOf(dst)
-	if st.Kind() != reflect.Ptr {
+	if st.Kind() != reflect.Pointer {
 		panic("csvstruct: dst must be a pointer to a struct type")
 	}
 	st = reflect.Indirect(st)

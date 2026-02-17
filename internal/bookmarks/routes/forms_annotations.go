@@ -87,7 +87,7 @@ func (f *annotationForm) addToBookmark(bi *dataset.Bookmark) (*bookmarks.Bookmar
 	b.Annotations.Add(annotation)
 	b.Annotations.Sort(root, dataset.AnnotationTag)
 
-	err = b.Update(map[string]interface{}{
+	err = b.Update(map[string]any{
 		"annotations": b.Annotations,
 	})
 	if err != nil {

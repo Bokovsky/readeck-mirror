@@ -13,7 +13,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 )
 
-type filterMap map[string]interface{}
+type filterMap map[string]any
 
 func (m *filterMap) Scan(value any) error {
 	if value == nil {

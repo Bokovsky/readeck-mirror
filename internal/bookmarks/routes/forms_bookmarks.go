@@ -305,8 +305,8 @@ func newUpdateForm(tr forms.Translator) *updateForm {
 }
 
 // nolint:gocyclo
-func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface{}, err error) {
-	updated = map[string]interface{}{}
+func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]any, err error) {
+	updated = map[string]any{}
 	var deleted *bool
 	labelsChanged := false
 

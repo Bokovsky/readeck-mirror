@@ -37,7 +37,7 @@ type m16BookmarkAnnotation struct {
 }
 
 // Scan loads a BookmarkAnnotations instance from a column.
-func (a *m16BbookmarkAnnotations) Scan(value interface{}) error {
+func (a *m16BbookmarkAnnotations) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
