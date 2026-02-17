@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//article[@role='article']/div[@class='content']"
+    "//section[@data-title=\"Content\"]"
   ],
   "date_selectors": [
     "//meta[@name=\"cXenseParse:recs:publishtime\"]/@content"
@@ -22,7 +22,7 @@
     "layout__region--second",
     "referenced-card",
     "newsletter-widget-subscription-main",
-    "ubscription-newspick",
+    "subscription-newspick",
     "hidden"
   ],
   "strip_image_src": null,

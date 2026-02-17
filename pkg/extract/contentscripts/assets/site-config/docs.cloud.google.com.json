@@ -1,14 +1,18 @@
 {
-  "title_selectors": [
-    "//body//h1"
-  ],
+  "title_selectors": null,
   "body_selectors": [
+    "//main[@id=\"main-content\"]//article",
     "//body//article"
   ],
   "date_selectors": null,
   "author_selectors": null,
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//*[@role=\"navigation\"]"
+  ],
+  "strip_id_or_class": [
+    "devsite-sidebar",
+    "nocontent"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -20,7 +24,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://cloud.google.com/blog/products/gcp/how-to-crunch-your-business-data-from-sheets-in-bigquery",
+      "url": "https://docs.cloud.google.com/chronicle/docs/secops/release-notes",
       "contains": []
     }
   ]

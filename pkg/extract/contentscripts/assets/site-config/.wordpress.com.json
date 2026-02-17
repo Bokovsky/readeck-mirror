@@ -4,7 +4,8 @@
   ],
   "body_selectors": [
     "//div[@id=\"content\"]//div[contains(@class, 'entry-content') or contains(@class, 'entrytext') or @class='main' or @class='entry']",
-    "//div[@id='content']"
+    "//div[@id='content']",
+    "//article//div[@class='entry-content']"
   ],
   "date_selectors": [
     "//div[@id='content']//span[contains(@class, 'entry-date')]",
@@ -41,7 +42,15 @@
   "tests": [
     {
       "url": "https://elisehahn.wordpress.com/2013/09/22/looking-back-to-move-forward-navigating-race-and-racism-in-neoliberal-terrain/",
-      "contains": []
+      "contains": [
+        "On this rather gloomy first day of fall"
+      ]
+    },
+    {
+      "url": "https://bernardrentier.wordpress.com/2025/12/08/prudence-methodologique-et-honnetete-interpretative-des-valeurs-non-negociables/",
+      "contains": [
+        "Le communiqué de presse qui en a été fait a provoqué"
+      ]
     }
   ]
 }
