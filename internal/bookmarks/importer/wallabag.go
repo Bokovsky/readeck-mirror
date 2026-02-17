@@ -68,7 +68,8 @@ func (wa *wallabagArticle) URL() string {
 
 func (wa *wallabagArticle) Meta() (*BookmarkMeta, error) {
 	res := &BookmarkMeta{
-		Title:      wa.Title,
+		// wallabag allows HTML within title values, but strips tags at render time.
+		Title:      stripHTMLTags(wa.Title),
 		Authors:    wa.PublishedBy,
 		Lang:       wa.Language,
 		Labels:     types.Strings{},
@@ -121,11 +122,15 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 		// then think that the page is still in that encoding and transcode the already valid
 		// content into garbage. This strips `charset=...` directives received from Wallabag.
 		ct, _, _ = strings.Cut(ct, ";")
-		if ct == "application/xhtml xml" {
-			// Due to what might be a bug in wallabag, the "+" character is missing.
-			ct = "application/xhtml+xml"
+		switch ct {
+		case "application/xml", "application/xhtml+xml", "application/xhtml xml":
+			// Even if the original document was XHTML, its archived representation within wallabag
+			// is an HTML fragment that should not be parsed as XHTML. This adjusts the MIME type of
+			// the document to better reflect the article content we actually get from wallabag.
+			h.Set("Content-Type", "text/html; charset=utf-8")
+		default:
+			h.Set("Content-Type", ct+"; charset=utf-8")
 		}
-		h.Set("Content-Type", ct+"; charset=utf-8")
 	} else {
 		h.Set("Content-Type", "text/html; charset=utf-8")
 	}
@@ -232,6 +237,12 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 	uri.Fragment = ""
 	item.ArticleURL = uri.String()
 
+	// For some reason, wallabag stores fetch-related error messages to the same text field where it
+	// stores HTML contents of a successfully fetched article.
+	if strings.HasPrefix(item.Content, "wallabag can't retrieve contents for this article.") {
+		item.Content = ""
+	}
+
 	return &item, nil
 }
 
@@ -303,4 +314,21 @@ func (adapter *wallabagAdapter) fetchArticles() error {
 		return io.EOF
 	}
 	return err
+}
+
+// stripHTMLTags parses s as HTML and returns a concatenation of only its text nodes. Any HTML
+// entities will get decoded.
+func stripHTMLTags(s string) string {
+	var sb strings.Builder
+	t := html.NewTokenizerFragment(strings.NewReader(s), "div")
+scanLoop:
+	for {
+		switch t.Next() {
+		case html.ErrorToken:
+			break scanLoop
+		case html.TextToken:
+			sb.WriteString(t.Token().Data)
+		}
+	}
+	return sb.String()
 }
