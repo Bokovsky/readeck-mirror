@@ -23,7 +23,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 )
 
-var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z]+$`)
+var reAssetHashed = regexp.MustCompile(`\.[a-z0-9]{8}\.[a-z0-9]+$`)
 
 // SetupRoutes setup the static asset routes on /assets.
 func SetupRoutes(s *server.Server) {
@@ -140,7 +140,7 @@ func (f *directFileServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// Since all the files in assets/www have a hash fragment, we're just going to
 		// use it for caching.
 		if reAssetHashed.MatchString(name) {
-			w.Header().Set("Cache-Control", `public, max-age=31536000`)
+			w.Header().Set("Cache-Control", "public, max-age=31536000, immutable")
 		}
 
 		if encoding != "" {
