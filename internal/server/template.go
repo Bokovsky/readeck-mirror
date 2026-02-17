@@ -67,7 +67,7 @@ func RenderTemplate(w http.ResponseWriter, r *http.Request,
 // in the same HTTP response.
 func RenderTurboStream(
 	w http.ResponseWriter, r *http.Request,
-	name, action, target string, ctx interface{},
+	name, action, target string, ctx any,
 	attrs map[string]string,
 ) {
 	t, err := views.GetTemplate(name)

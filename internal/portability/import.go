@@ -202,7 +202,7 @@ func (imp *FullImporter) loadTokens(tx *goqu.TxDatabase, data *portableData) (er
 
 		if item.ID, err = insertInto(tx, db.TableToken, item, func(x *tokens.Token) {
 			x.ID = 0
-			x.UserID = ptrTo(imp.users[*x.UserID])
+			x.UserID = new(imp.users[*x.UserID])
 			if !imp.clearData || x.UID == "" {
 				x.UID = base58.NewUUID()
 			}
@@ -230,7 +230,7 @@ func (imp *FullImporter) loadCollections(tx *goqu.TxDatabase, data *portableData
 
 		if item.ID, err = insertInto(tx, db.TableBookmarkCollection, item, func(x *bookmarks.Collection) {
 			x.ID = 0
-			x.UserID = ptrTo(imp.users[*x.UserID])
+			x.UserID = new(imp.users[*x.UserID])
 			if !imp.clearData || x.UID == "" {
 				x.UID = base58.NewUUID()
 			}
@@ -279,7 +279,7 @@ func (imp *FullImporter) loadBookmark(tx *goqu.TxDatabase, item *bookmarkItem) (
 
 	if b.ID, err = insertInto(tx, db.TableBookmark, &b, func(x *bookmarks.Bookmark) {
 		x.ID = 0
-		x.UserID = ptrTo(imp.users[*x.UserID])
+		x.UserID = new(imp.users[*x.UserID])
 		if !imp.clearData || x.UID == "" {
 			x.UID = base58.NewUUID()
 		}

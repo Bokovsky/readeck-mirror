@@ -36,7 +36,7 @@ type BookmarkAnnotation struct {
 }
 
 // Scan loads a BookmarkAnnotations instance from a column.
-func (a *BookmarkAnnotations) Scan(value interface{}) error {
+func (a *BookmarkAnnotations) Scan(value any) error {
 	if value == nil {
 		return nil
 	}

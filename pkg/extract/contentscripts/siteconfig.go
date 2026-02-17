@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"maps"
 	"net/url"
 	"strings"
 
@@ -142,9 +143,7 @@ func (cf *SiteConfig) Merge(src *SiteConfig) {
 	cf.ReplaceStrings = append(cf.ReplaceStrings, src.ReplaceStrings...)
 	cf.Tests = append(cf.Tests, src.Tests...)
 
-	for k, v := range src.HTTPHeaders {
-		cf.HTTPHeaders[k] = v
-	}
+	maps.Copy(cf.HTTPHeaders, src.HTTPHeaders)
 }
 
 // Files returns the files used to create the configuration.

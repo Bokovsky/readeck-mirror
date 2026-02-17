@@ -125,7 +125,7 @@ func (m *ProcessMessage) ResetContent() {
 }
 
 // Cancel fully cancel the extract process.
-func (m *ProcessMessage) Cancel(reason string, args ...interface{}) {
+func (m *ProcessMessage) Cancel(reason string, args ...any) {
 	m.Log().Error("operation canceled", slog.Any("err", fmt.Errorf(reason, args...)))
 	m.canceled = true
 }

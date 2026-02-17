@@ -38,22 +38,22 @@ type Locale struct {
 }
 
 // Gettext returns a translation.
-func (t *Locale) Gettext(str string, vars ...interface{}) string {
+func (t *Locale) Gettext(str string, vars ...any) string {
 	return t.Translator.Get(str, vars...)
 }
 
 // Ngettext returns a pluralized translation.
-func (t *Locale) Ngettext(str, plural string, n int, vars ...interface{}) string {
+func (t *Locale) Ngettext(str, plural string, n int, vars ...any) string {
 	return t.Translator.GetN(str, plural, n, vars...)
 }
 
 // Pgettext returns a contextualized translation.
-func (t *Locale) Pgettext(ctx, str string, vars ...interface{}) string {
+func (t *Locale) Pgettext(ctx, str string, vars ...any) string {
 	return t.Translator.GetC(str, ctx, vars...)
 }
 
 // Npgettext returns a pluralized contextualized translation.
-func (t *Locale) Npgettext(ctx, str, plural string, n int, vars ...interface{}) string {
+func (t *Locale) Npgettext(ctx, str, plural string, n int, vars ...any) string {
 	return t.Translator.GetNC(str, plural, n, ctx, vars...)
 }
 

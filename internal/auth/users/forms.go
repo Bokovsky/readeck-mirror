@@ -165,13 +165,13 @@ func (f *UserForm) CreateUser() (*User, error) {
 
 // UpdateUser performs a user update and returns a mapping of
 // updated fields.
-func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
+func (f *UserForm) UpdateUser(u *User) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
-	res = make(map[string]interface{})
+	res = make(map[string]any)
 	for _, field := range f.Fields() {
 		switch field.Name() {
 		case "password":

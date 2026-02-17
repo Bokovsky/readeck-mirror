@@ -65,7 +65,7 @@ func TestBookmarkCreate(t *testing.T) {
 		assert := require.New(t)
 
 		assert.Len(Events().Records("task"), 1)
-		evt := map[string]interface{}{}
+		evt := map[string]any{}
 		assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
 		assert.Equal("bookmark.create", evt["name"])
 

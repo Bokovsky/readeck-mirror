@@ -25,8 +25,8 @@ func TestIndirect(t *testing.T) {
 	sF := fooType{}
 
 	values := []struct {
-		v      interface{}
-		expect interface{}
+		v      any
+		expect any
 		isNil  bool
 	}{
 		{sV, "test", false},

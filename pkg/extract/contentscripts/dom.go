@@ -17,8 +17,8 @@ import (
 )
 
 var (
-	reflectTypeString    = reflect.TypeOf("")
-	reflectTypeNodeProxy = reflect.TypeOf((*domNodeObj)(nil))
+	reflectTypeString    = reflect.TypeFor[string]()
+	reflectTypeNodeProxy = reflect.TypeFor[*domNodeObj]()
 )
 
 // domModule is the module to manipulate DOM nodes.

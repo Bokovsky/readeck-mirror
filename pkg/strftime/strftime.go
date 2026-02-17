@@ -79,13 +79,13 @@ var (
 
 // Translator describes a type that implements a translation method.
 type Translator interface {
-	Pgettext(string, string, ...interface{}) string
+	Pgettext(string, string, ...any) string
 }
 
 type translatable string
 
 func (t translatable) Translate(ctx string, tr Translator) string {
-	return tr.Pgettext(ctx, string(t))
+	return tr.Pgettext(ctx, "%s", string(t))
 }
 
 func newTranslatable(_, s string) translatable {
@@ -276,7 +276,7 @@ func weekNumber(t time.Time, startsOnMonday bool) int {
 
 type dummyTranslator struct{}
 
-func (t *dummyTranslator) Pgettext(_, s string, args ...interface{}) string {
+func (t *dummyTranslator) Pgettext(_, s string, args ...any) string {
 	if len(args) == 0 {
 		return s
 	}

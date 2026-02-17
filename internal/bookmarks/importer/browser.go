@@ -106,7 +106,7 @@ func (adapter *browserAdapter) Params(form forms.Binder) ([]byte, error) {
 		}
 
 		// Fetch labels from the TAGS attribute when present (pinboard, maybe others)
-		for _, label := range strings.Split(dom.GetAttribute(n, "tags"), ",") {
+		for label := range strings.SplitSeq(dom.GetAttribute(n, "tags"), ",") {
 			if label = strings.TrimSpace(label); label != "" {
 				item.Labels = append(item.Labels, label)
 			}

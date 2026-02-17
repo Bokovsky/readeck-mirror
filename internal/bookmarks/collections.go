@@ -86,13 +86,13 @@ func (m *CollectionManager) Create(collection *Collection) error {
 }
 
 // Update updates some collection values.
-func (c *Collection) Update(v interface{}) error {
+func (c *Collection) Update(v any) error {
 	if c.ID == 0 {
 		return errors.New("no ID")
 	}
 
 	switch v := v.(type) {
-	case map[string]interface{}:
+	case map[string]any:
 		v["updated"] = time.Now().UTC()
 	default:
 		//

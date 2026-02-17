@@ -83,7 +83,7 @@ func init() {
 	bus.OnReady(func() {
 		ExtractPageTask = bus.Tasks().NewTask(
 			"bookmark.create",
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res ExtractParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -97,7 +97,7 @@ func init() {
 		DeleteBookmarkTask = bus.Tasks().NewTask(
 			"bookmark.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res int
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -111,7 +111,7 @@ func init() {
 		DeleteCollectionTask = bus.Tasks().NewTask(
 			"collection.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res int
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -125,7 +125,7 @@ func init() {
 		DeleteLabelTask = bus.Tasks().NewTask(
 			"label.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res LabelDeleteParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -144,7 +144,7 @@ func ExtractPage(params ExtractParams) {
 	extractPageHandler(params)
 }
 
-func deleteBookmarkHandler(data interface{}) {
+func deleteBookmarkHandler(data any) {
 	id := data.(int)
 	logger := slog.With(slog.Int("id", id))
 
@@ -163,7 +163,7 @@ func deleteBookmarkHandler(data interface{}) {
 	logger.Info("bookmark removed")
 }
 
-func deleteCollectionHandler(data interface{}) {
+func deleteCollectionHandler(data any) {
 	id := data.(int)
 	logger := slog.With(slog.Int("id", id))
 
@@ -183,7 +183,7 @@ func deleteCollectionHandler(data interface{}) {
 	logger.Info("collection removed")
 }
 
-func deleteLabelHandler(data interface{}) {
+func deleteLabelHandler(data any) {
 	params := data.(LabelDeleteParams)
 	logger := slog.With(
 		slog.Int("user", params.UserID),
@@ -205,7 +205,7 @@ func deleteLabelHandler(data interface{}) {
 	logger.Info("label removed")
 }
 
-func extractPageHandler(data interface{}) {
+func extractPageHandler(data any) {
 	var b *bookmarks.Bookmark
 	var err error
 

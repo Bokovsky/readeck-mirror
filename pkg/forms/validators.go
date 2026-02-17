@@ -110,7 +110,7 @@ func ApplyValidators[T any](f Field, value any, validators ...Validator) (errs [
 // Validator describes a generic validator.
 // By default, it can be anything but, once attached to a field, relevant
 // interfaces are called during cleanup and validation steps.
-type Validator interface{}
+type Validator any
 
 // ValueCleaner describes a value cleaner.
 type ValueCleaner interface {

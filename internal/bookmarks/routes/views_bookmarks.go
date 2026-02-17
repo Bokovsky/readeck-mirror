@@ -284,7 +284,7 @@ func (h *viewsRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 				}
 				server.RenderTurboStream(w, r,
 					"/bookmarks/components/content_block", "replace",
-					"bookmark-content-"+b.UID, map[string]interface{}{
+					"bookmark-content-"+b.UID, map[string]any{
 						"Item": item,
 						"HTML": buf,
 						"Out":  w,

@@ -163,7 +163,7 @@ func TestViews(t *testing.T) {
 
 				// An event was sent
 				assert.Len(Events().Records("task"), 1)
-				evt := map[string]interface{}{}
+				evt := map[string]any{}
 				assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
 				assert.Equal("token.delete", evt["name"])
 				assert.InDelta(float64(token.ID), evt["id"], 0)
@@ -173,7 +173,7 @@ func TestViews(t *testing.T) {
 				m := Store().Get(task)
 				assert.NotEmpty(m)
 
-				payload := map[string]interface{}{}
+				payload := map[string]any{}
 				assert.NoError(json.Unmarshal([]byte(m), &payload))
 				assert.InDelta(float64(20), payload["delay"], 0)
 			}),

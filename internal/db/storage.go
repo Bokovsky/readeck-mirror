@@ -68,7 +68,7 @@ var (
 
 type logger struct{}
 
-func (l logger) Printf(_ string, v ...interface{}) {
+func (l logger) Printf(_ string, v ...any) {
 	slog.Debug("goqu", slog.Any("q", v))
 }
 
@@ -238,7 +238,7 @@ func applyMigrations() error {
 
 // insertMigration adds an entry in the migration table.
 func insertMigration(tx *goqu.TxDatabase, id int, name string) error {
-	_, err := tx.Insert(goqu.T("migration")).Rows(map[string]interface{}{
+	_, err := tx.Insert(goqu.T("migration")).Rows(map[string]any{
 		"id":      id,
 		"name":    name,
 		"applied": time.Now().UTC(),

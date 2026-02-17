@@ -61,7 +61,7 @@ func NewFiltersFromForm(form forms.Binder) Filters {
 }
 
 // Scan loads a [Filters] instance from a column.
-func (f *Filters) Scan(value interface{}) error {
+func (f *Filters) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
@@ -85,9 +85,8 @@ func (f Filters) Value() (driver.Value, error) {
 
 func (f *Filters) getFields() map[string]reflect.StructField {
 	res := map[string]reflect.StructField{}
-	t := reflect.TypeOf(f).Elem()
-	for i := 0; i < t.NumField(); i++ {
-		sf := t.Field(i)
+	t := reflect.TypeFor[Filters]()
+	for sf := range t.Fields() {
 		if tag := sf.Tag.Get("json"); tag != "" {
 			res[tag] = sf
 		}
@@ -108,7 +107,7 @@ func (f *Filters) applyForm(form forms.Binder) {
 		prop := rv.FieldByName(sf.Name)
 
 		switch {
-		case sf.Type.Kind() == reflect.Ptr:
+		case sf.Type.Kind() == reflect.Pointer:
 			if field.IsNil() {
 				prop.SetZero()
 			} else {
@@ -143,7 +142,7 @@ func (f Filters) UpdateForm(form forms.Binder) {
 
 			k := sf.Type.Kind()
 			switch {
-			case k == reflect.Ptr && prop.IsNil():
+			case k == reflect.Pointer && prop.IsNil():
 				// Nil pointer, the field is nil
 				field.Set(nil)
 			case k == reflect.Slice && prop.IsNil():
