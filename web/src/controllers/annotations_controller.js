@@ -33,16 +33,6 @@ export default class extends Controller {
       })
     })
 
-    const x = new ResizeObserver((entries) => {
-      for (let e of entries) {
-        if (getComputedStyle(e.target).display == "none") {
-          return
-        }
-        this.#positionControls()
-      }
-    })
-    x.observe(this.controlsTarget)
-
     selectionendObserver(document, () => {
       this.onSelectText()
     })
@@ -627,7 +617,21 @@ function selectionendObserver(node, callback) {
     }
   })
 
-  node.addEventListener("selectionchange", () => {
+  node.addEventListener("pointercancel", () => {
+    pointerIsPressed = false
+    if (selectionResolve) {
+      selectionResolve()
+      selectionResolve = null
+    }
+  })
+
+  node.addEventListener("selectionchange", (evt) => {
+    if (
+      evt.target instanceof HTMLTextAreaElement ||
+      evt.target instanceof HTMLInputElement
+    ) {
+      return
+    }
     if (!pointerIsPressed) {
       Promise.resolve().then(() => {
         callback()
