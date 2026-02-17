@@ -85,7 +85,7 @@ type Translator interface {
 type translatable string
 
 func (t translatable) Translate(ctx string, tr Translator) string {
-	return tr.Pgettext(ctx, string(t))
+	return tr.Pgettext(ctx, "%s", string(t))
 }
 
 func newTranslatable(_, s string) translatable {
