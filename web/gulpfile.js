@@ -148,7 +148,7 @@ function js_bundle() {
           minifyIdentifiers: true,
           minifyWhitespace: true,
           logLevel: "warning",
-          plugins: [stimulusPlugin()],
+          plugins: [stimulusPlugin(), disableTurboStart()],
         }),
       )
       .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
@@ -509,6 +509,20 @@ function watch_media() {
       write_manifest,
     ),
   )
+}
+
+function disableTurboStart() {
+  return {
+    name: "disableTurboStart",
+    setup(build) {
+      build.onLoad({filter: /@hotwired\/turbo\/.+\.js$/}, async (args) => {
+        let text = await fs.promises.readFile(args.path, "utf8")
+        return {
+          contents: text.replace(/^start\(\);/m, ""),
+        }
+      })
+    },
+  }
 }
 
 export const clean = gulp.series(clean_all, write_manifest)

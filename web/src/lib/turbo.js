@@ -2,6 +2,26 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+import {session} from "@hotwired/turbo"
+
+// The disableTurboStart esbuild plugin in this project prevents Turbo from auto-starting on import.
+// Instead, start it manually by only enabling components that we use.
+// https://github.com/hotwired/turbo/blob/v8.0.23/src/core/session.js#L52
+//
+// session.pageObserver.start() // avoid setting history.scrollRestoration = "manual"
+session.cacheObserver.start()
+session.linkPrefetchObserver.start()
+session.formLinkClickObserver.start()
+session.linkClickObserver.start()
+session.formSubmitObserver.start()
+session.scrollObserver.start()
+session.streamObserver.start()
+session.frameRedirector.start()
+session.history.start()
+session.preloader.start()
+session.started = true
+session.enabled = true
+
 const cspNonce = document.querySelector(
   'html>head>meta[name="csp-nonce"]',
 ).content
