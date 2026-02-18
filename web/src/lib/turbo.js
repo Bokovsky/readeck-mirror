@@ -76,4 +76,28 @@ document.addEventListener("turbo:submit-end", (evt) => {
   }
 })
 
+let scrollPosition = 0
+
+// Turbo uses `document.body.replaceWith(newBody)` to replace the page with the contents received
+// from the server, but that resets scroll position on WebKit, even with turbo-refresh-scroll being
+// set to "preserve". This manually preserves scroll.
+document.addEventListener("turbo:before-render", () => {
+  scrollPosition = window.scrollY
+})
+document.addEventListener("turbo:render", () => {
+  if (window.scrollY == 0 && scrollPosition > 0) {
+    window.scrollTo({top: scrollPosition})
+    scrollPosition = 0
+  }
+})
+document.addEventListener("turbo:before-frame-render", () => {
+  scrollPosition = window.scrollY
+})
+document.addEventListener("turbo:frame-render", () => {
+  if (window.scrollY == 0 && scrollPosition > 0) {
+    window.scrollTo({top: scrollPosition})
+    scrollPosition = 0
+  }
+})
+
 export {cspNonce, markStaleRefresh}
