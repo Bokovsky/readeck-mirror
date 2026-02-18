@@ -29,14 +29,22 @@ const cspNonce = document.querySelector(
 const staleRefreshKey = "stale-refresh"
 
 function markStaleRefresh() {
-  window.localStorage.setItem(staleRefreshKey, "true")
+  window.localStorage.setItem(staleRefreshKey, requestUri(window.location))
 }
 
-window.addEventListener("pageshow", (event) => {
-  // Bypass browser's bfcache when the user navigate using
-  // the back button and when we have a specific local storage key.
+/**
+ * @param {Location} location
+ * @returns {string}
+ */
+function requestUri(location) {
+  return location.pathname + location.search
+}
 
-  if (window.localStorage.getItem(staleRefreshKey) != "true") {
+// After navigating Back in the browser, check if another page content was marked stale and force
+// reload of the current page to bust the browser's cache.
+window.addEventListener("pageshow", (event) => {
+  const staleUri = window.localStorage.getItem(staleRefreshKey)
+  if (!staleUri || staleUri == requestUri(window.location)) {
     return
   }
   window.localStorage.removeItem(staleRefreshKey)
