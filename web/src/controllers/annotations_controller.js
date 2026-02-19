@@ -429,40 +429,59 @@ class Annotation {
     }
 
     const range = this.selection.getRangeAt(0)
-    if (range.collapsed) {
+    if (range.collapsed || !this.root.contains(range.startContainer)) {
       return
     }
 
-    // Range must be within root element boundaries
-    if (!this.root.contains(range.commonAncestorContainer)) {
-      return
-    }
-
-    // This handles double click on an element (in opposition to selecting text).
-    // Containers can be element and we only want to deal with text nodes.
-    if (range.startContainer.nodeType == Node.ELEMENT_NODE) {
-      walkTextNodes(range.startContainer, (n, i) => {
-        if (i == 0) {
-          range.setStart(n, 0)
-        }
-      })
-    }
-    if (range.endContainer.nodeType == Node.ELEMENT_NODE) {
-      let c = range.endContainer
-      if (range.endOffset == 0) {
-        c = range.endContainer.previousElementSibling
-      }
-      walkTextNodes(c, (n) => {
-        range.setEnd(n, n.textContent.length)
-      })
-    }
-
-    // start and end containers must be text nodes
+    // After triple-clicking an element (as opposed to dragging the pointer) to select text, the
+    // start and/or end container nodes may be elements. We normalize the range to always start and
+    // stop on text nodes.
     if (
-      range.startContainer.nodeType != Node.TEXT_NODE ||
-      range.endContainer.nodeType != Node.TEXT_NODE
+      range.startContainer.nodeType == Node.ELEMENT_NODE &&
+      range.endContainer.nodeType == Node.ELEMENT_NODE &&
+      range.endOffset > 0
     ) {
-      return
+      // This is meant to detect behavior seemingly exclusive to Firefox/Gecko where the start and
+      // end container are both elements and startOffset/endOffset values count child nodes
+      // instead of characters. https://bugzilla.mozilla.org/show_bug.cgi?id=516782
+      const endNode = range.endContainer.childNodes[range.endOffset - 1]
+      const tw = textNodeWalker(endNode)
+      while (tw.nextNode());
+      if (tw.currentNode.nodeType == Node.TEXT_NODE) {
+        range.setEnd(tw.currentNode, tw.currentNode.textContent.length)
+      } else {
+        // No text nodes were found at the node where the selection ends.
+        range.setEnd(endNode, 0)
+      }
+    }
+
+    // In Gecko, startContainer may be an element, in which case we advance the start of the
+    // selection to the first text node it contains.
+    if (range.startContainer.nodeType != Node.TEXT_NODE) {
+      const n = textNodeWalker(
+        range.commonAncestorContainer,
+        range.startContainer,
+      ).nextNode()
+      range.setStart(n, 0)
+    }
+
+    // In Chromium and WebKit, triple-clicking the final element in the article creates a selection
+    // where endContainer is is the next interactive element in DOM order, which might be outside of
+    // the article root element. This normalizes the selection to end at the last text node that is
+    // contained in root.
+    if (
+      range.endContainer.nodeType != Node.TEXT_NODE ||
+      !this.root.contains(range.endContainer)
+    ) {
+      const tw = textNodeWalker(
+        range.commonAncestorContainer,
+        range.endContainer,
+      )
+      let n = tw.previousNode()
+      while (n && !this.root.contains(n)) {
+        n = tw.previousNode()
+      }
+      range.setEnd(n, n.textContent.length)
     }
 
     this.range = range
@@ -588,6 +607,26 @@ function walkTextNodes(node, callback, index) {
     }
     walkTextNodes(child, callback, index)
   }
+}
+
+/**
+ * textNodeWalker creates a TreeWalker scoped to root, starting at currentNode, and configured to
+ * yield only text nodes that aren't whitespace-only.
+ *
+ * @param {Node} root
+ * @param {Node | null} currentNode
+ * @returns {TreeWalker}
+ */
+function textNodeWalker(root, currentNode = null) {
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, (node) =>
+    node.textContent.trim().length > 0
+      ? NodeFilter.FILTER_ACCEPT
+      : NodeFilter.FILTER_SKIP,
+  )
+  if (currentNode) {
+    tw.currentNode = currentNode
+  }
+  return tw
 }
 
 /**
