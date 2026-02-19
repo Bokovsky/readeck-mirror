@@ -3,7 +3,7 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Anonymous <anonymous@noreply.codeberg.org>, 2025.
-# Gusted <postmaster@gusted.xyz>, 2025.
+# Gusted <postmaster@gusted.xyz>, 2025, 2026.
 # γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
 # olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
@@ -11,14 +11,15 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2025-12-16 09:10+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: nl_NL\n"
+"PO-Revision-Date: 2026-02-11 19:29+0000\n"
+"Last-Translator: Gusted <postmaster@gusted.xyz>\n"
 "Language-Team: Dutch <https://translate.codeberg.org/projects/readeck/application/nl/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -201,11 +202,11 @@ msgstr "Gebruiker verwijderen"
 
 #: assets/templates/admin/user.jet.html:60
 msgid "Last login"
-msgstr ""
+msgstr "Laatste login"
 
 #: assets/templates/admin/user.jet.html:69
 msgid "Last Activity"
-msgstr ""
+msgstr "Laatste activiteit"
 
 #: assets/templates/admin/user.jet.html:75
 #: assets/templates/bookmarks/base.jet.html:15
@@ -220,7 +221,7 @@ msgstr "Bladwijzers"
 
 #: assets/templates/admin/user.jet.html:80
 msgid "Disk usage"
-msgstr ""
+msgstr "Schijfgebruik"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -246,9 +247,9 @@ msgid "Last update: %s"
 msgstr "Bijgewerkt op %s"
 
 #: assets/templates/admin/user_list.jet.html:35
-#, fuzzy, python-format
+#, python-format
 msgid "Last login: %s"
-msgstr "Laatst gebruikt op %s"
+msgstr "Laatste login: %s"
 
 #: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
@@ -474,19 +475,16 @@ msgid "Go to the sign in page"
 msgstr "Ga naar inlogpagina"
 
 #: assets/templates/auth/totp.jet.html:9
-#, fuzzy
 msgid "Two-factor authentication"
-msgstr "Verificatie"
+msgstr "Tweefactorauthenticatie"
 
 #: assets/templates/auth/totp.jet.html:20
-#, fuzzy
 msgid "Passcode"
 msgstr "Wachtwoord"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "Versie"
+msgstr "Verifiëren"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -685,9 +683,8 @@ msgid "%d min"
 msgstr "%d min."
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
-msgstr "Met %s gedeeld door %s"
+msgstr "Gedeeld door %[1]s met %[2]s"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_public.jet.html:194
@@ -711,15 +708,14 @@ msgid "Share link"
 msgstr "Link delen"
 
 #: assets/templates/bookmarks/bookmark_update.jet.html:9
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Ongelezen bladwijzers"
+msgstr "Bladwijzer bewerken"
 
 # | msgid "Saved with Readeck"
 #: assets/templates/bookmarks/bookmark_update.jet.html:14
-#, fuzzy, python-format
+#, python-format
 msgid "Edit: %s"
-msgstr "Bewaard met %s"
+msgstr "Bewerken: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
@@ -868,9 +864,8 @@ msgid "Send e-book by Email"
 msgstr "E-boek versturen via e-mail"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:1
-#, fuzzy
 msgid "Delete highlight"
-msgstr "Markeren"
+msgstr "Markering verwijderen"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:12
 msgid "Start selecting text in the article to create a new highlight."
@@ -892,23 +887,20 @@ msgid "Description"
 msgstr "Beschrijving"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:28
-#, fuzzy
 msgid "Site Name"
-msgstr "Geen websitenaam"
+msgstr "Naam van de site"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:34
-#, fuzzy
 msgid "Authors"
-msgstr "Auteur"
+msgstr "Auteurs"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:35
 msgid "One value per line"
-msgstr ""
+msgstr "Eén waarde per regel"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy
 msgid "Published"
-msgstr "Gepubliceerd op %s"
+msgstr "Gepubliceerd"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:46
 #: assets/templates/profile/index.jet.html:49
@@ -916,9 +908,8 @@ msgid "Language"
 msgstr "Taal"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:51
-#, fuzzy
 msgid "Text Direction"
-msgstr "Verificatie"
+msgstr "Tekstrichting"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -967,7 +958,7 @@ msgstr "Groen"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Transparent"
-msgstr ""
+msgstr "Transparant"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
@@ -975,9 +966,8 @@ msgstr "Markeren"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:63
 #: assets/templates/bookmarks/components/filters.jet.html:103
-#, fuzzy
 msgid "Note"
-msgstr "nee"
+msgstr "Opmerking"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:78
 #: assets/templates/bookmarks/label.jet.html:43
@@ -1106,70 +1096,60 @@ msgstr "Atomfeed"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Decrease width"
-msgstr ""
+msgstr "Breedte verkleinen"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current Width"
-msgstr "Huidig wachtwoord"
+msgstr "Huidige breedte"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Increase width"
-msgstr ""
+msgstr "Breedte vergroten"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease font size"
-msgstr "Aangemaakt op %s"
+msgstr "Lettergrootte verkleinen"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Current font size"
-msgstr ""
+msgstr "Huidige lettergrootte"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase font size"
-msgstr "Aangemaakt op %s"
+msgstr "Lettergrootte vergroten"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease line height"
-msgstr "Regelhoogte"
+msgstr "Regelhoogte verkleinen"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current line height"
-msgstr "Regelhoogte"
+msgstr "Huidige regelhoogte"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase line height"
-msgstr "Regelhoogte"
+msgstr "Regelafstand vergroten"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Justify text"
-msgstr "Uitvullen"
+msgstr "Tekst uitvullen"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Don't justify text"
-msgstr ""
+msgstr "Tekst niet uitvullen"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "With hyphenation"
-msgstr "Interpunctie"
+msgstr "Met koppelteken"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Without hyphenation"
-msgstr "Interpunctie"
+msgstr "Zonder koppelteken"
 
 # | msgid "Options"
 #: assets/templates/bookmarks/components/reader_control.jet.html:13
-#, fuzzy
 msgid "Display options"
-msgstr "Sorteeropties"
+msgstr "Weergaveopties"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
@@ -1454,7 +1434,6 @@ msgid "Import your Pocket Articles"
 msgstr "Pocket-artikelen importeren"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1462,8 +1441,8 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    Je kunt Pocket-artikelen importeren door middel van onderstaande link:<br>\n"
-"    <a class=\"%s\" href=\"%s\">%s</a>.\n"
+"    Je kunt je artikelen op Pocket exporteren door naar het volgende adres te gaan:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
 "  "
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
@@ -1736,9 +1715,8 @@ msgid "Save link"
 msgstr "Link bewaren"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
-msgstr "“%s” is geen geldig adres. Bedoelde je “%s”?"
+msgstr "\"%[1]s\" is geen geldig adres. Wilt u in uw bladwijzers zoeken naar %[2]s?"
 
 #: assets/templates/bookmarks/index.jet.html:77
 msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
@@ -1847,45 +1825,39 @@ msgstr "Hier vind je de systeeminformatie. Stuur deze mee bij het melden van een
 
 #: assets/templates/docs/about.jet.html:42
 msgid "Storage"
-msgstr ""
+msgstr "Opslag"
 
 #: assets/templates/docs/about.jet.html:46
 msgid "Database Size:"
-msgstr ""
+msgstr "Databasegrootte:"
 
 #: assets/templates/docs/about.jet.html:50
-#, fuzzy
 msgid "Bookmarks Disk Usage:"
-msgstr "Bezig met laden…"
+msgstr "Bladwijzers Schijfgebruik:"
 
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "Project"
 
 #: assets/templates/docs/about.jet.html:59
-#, fuzzy
 msgid "Main website:"
-msgstr "Officiële website"
+msgstr "Officiële website:"
 
 #: assets/templates/docs/about.jet.html:60
-#, fuzzy
 msgid "Sources and issues:"
-msgstr "Broncode en problemen"
+msgstr "Broncode en problemen:"
 
 #: assets/templates/docs/about.jet.html:61
-#, fuzzy
 msgid "How to contribute:"
-msgstr "Bijdragen"
+msgstr "Hoe kunt u bijdragen:"
 
 #: assets/templates/docs/about.jet.html:62
-#, fuzzy
 msgid "Community Forum:"
-msgstr "Gemeenschapsforum"
+msgstr "Gemeenschapsforum:"
 
 #: assets/templates/docs/about.jet.html:63
-#, fuzzy
 msgid "Matrix Chat:"
-msgstr "Matrix-chat"
+msgstr "Matrix-chat:"
 
 #: assets/templates/docs/about.jet.html:66
 msgid "License"
@@ -1996,7 +1968,6 @@ msgstr ""
 "Hier is je e-boek van: **%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2012,16 +1983,15 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"Je (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
-"het wachtwoord van een Readeck-account (‘%s’) te wijzigen.\n"
+"U (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
+"het wachtwoord van een Readeck-account (%[1]s) te wijzigen.\n"
 "\n"
 "Als je deze e-mail verwachtte, klik dan op de link om een nieuw\n"
 "wachtwoord in te stellen.\n"
 "\n"
-"%s\n"
+"%[2]s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2041,22 +2011,21 @@ msgstr ""
 "\n"
 "Hallo,\n"
 "\n"
-"Je (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
-"het wachtwoord van een Readeck-account (‘%s’) te wijzigen.\n"
+"U (of iemand anders) heeft dit e-mailadres ingevoerd in een poging\n"
+"het wachtwoord van een Readeck-account (%[1]s) te wijzigen.\n"
 "\n"
 "Dit e-mailadres lijkt echter niet gekoppeld aan een account - de\n"
 "wachtwoordwijziging is daarom mislukt.\n"
 "\n"
-"Als je een Readeck-account op %s hebt en deze e-mail verwachtte,\n"
+"Als je een Readeck-account op %[1]s hebt en deze e-mail verwachtte,\n"
 "probeer het dan opnieuw met het e-mailadres dat je bij het\n"
 "registreren gebruikt hebt.\n"
 "\n"
-"Als je geen gebruikmaakt van Readeck, kun je dit bericht negeren.\n"
+"Als je geen gebruikmaakt van Readeck, kunt u dit bericht negeren.\n"
 
 #: assets/templates/epub/bookmark.jet.html:62
-#, fuzzy
 msgid "Notes"
-msgstr "Functies"
+msgstr "Notities"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
@@ -2155,7 +2124,7 @@ msgstr "Profiel"
 #: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
 #: internal/profile/views.go:168
 msgid "Security"
-msgstr ""
+msgstr "Beveiliging"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
 #: internal/profile/views.go:320
@@ -2336,35 +2305,32 @@ msgstr "Huidig wachtwoord"
 
 #: assets/templates/profile/password.jet.html:46
 msgid "Verification Code (TOTP)"
-msgstr ""
+msgstr "Verificatiecode (TOTP)"
 
 #: assets/templates/profile/password.jet.html:47
 msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
-msgstr ""
+msgstr "Een verificatiecode is een eenmalige code die wordt gegenereerd door een applicatie, zoals Google Authenticator."
 
 #: assets/templates/profile/password.jet.html:52
 msgid "The verification code is enabled on this account."
-msgstr ""
+msgstr "De verificatiecode is ingeschakeld voor dit account."
 
 #: assets/templates/profile/password.jet.html:57
-#, fuzzy
 msgid "Remove Verification Code"
-msgstr "Aanpassing"
+msgstr "Verificatiecode verwijderen"
 
 #: assets/templates/profile/password.jet.html:59
 msgid "Removing your verification code will make your account less secure."
-msgstr ""
+msgstr "Als u uw verificatiecode verwijdert, wordt uw account minder veilig."
 
 #: assets/templates/profile/password.jet.html:64
-#, fuzzy
 msgid "Remove"
-msgstr "verwijderen"
+msgstr "Verwijderen"
 
 #: assets/templates/profile/password.jet.html:70
 #: assets/templates/profile/totp.jet.html:9
-#, fuzzy
 msgid "Setup Verification Code"
-msgstr "Aanpassing"
+msgstr "Verificatiecode instellen"
 
 # | msgid "API Token"
 #: assets/templates/profile/token.jet.html:1
@@ -2501,33 +2467,31 @@ msgstr "Deze sleutel wordt over enkele seconden verwijderd."
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
-msgstr ""
+msgstr "Scan deze QR-code met uw app"
 
 #: assets/templates/profile/totp.jet.html:18
 msgid "Scan the QR code below with a two-factor authentication app on your phone."
-msgstr ""
+msgstr "Scan de onderstaande QR-code met een app voor tweefactorauthenticatie op uw telefoon."
 
 #: assets/templates/profile/totp.jet.html:25
 msgid "If you can't use the QR code, enter the code below instead."
-msgstr ""
+msgstr "Als u de QR-code niet kunt gebruiken, voer dan de onderstaande code in."
 
 #: assets/templates/profile/totp.jet.html:29
-#, fuzzy
 msgid "Enter the code from your application."
-msgstr "Voer de code in die op uw apparaat wordt weergegeven"
+msgstr "Voer de code uit uw applicatie in."
 
 #: assets/templates/profile/totp.jet.html:30
 msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
-msgstr ""
+msgstr "Na het scannen van de QR-code geeft de app een zescijferige code weer die u hieronder moet invoeren."
 
 #: assets/templates/profile/totp.jet.html:35
-#, fuzzy
 msgid "Code from your device"
-msgstr "Gebruikersnaam bevestigen"
+msgstr "Code van uw apparaat"
 
 #: assets/templates/profile/totp.jet.html:41
 msgid "Finish"
-msgstr ""
+msgstr "Klaar"
 
 #: internal/admin/views.go:77
 msgid "User created."
@@ -2542,9 +2506,8 @@ msgid "Invalid user and/or password"
 msgstr "Ongeldige gebruikersnaam en/of wachtwoord"
 
 #: internal/auth/signin/http.go:197 internal/profile/forms.go:296
-#, fuzzy
 msgid "Invalid code"
-msgstr "Ongeldig wachtwoord"
+msgstr "Ongeldig code"
 
 #: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 msgctxt "role"
@@ -2634,17 +2597,16 @@ msgid "Unable to process input data"
 msgstr "De invoer kan niet worden verwerkt"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:289
-#, fuzzy
 msgid "invalid language code"
-msgstr "De api-sleutel is ongeldig"
+msgstr "ongeldige taalcode"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:292
 msgid "Left to right"
-msgstr ""
+msgstr "Links naar rechts"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:293
 msgid "Right to left"
-msgstr ""
+msgstr "Rechts naar links"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
@@ -2767,15 +2729,13 @@ msgid "Favorite Bookmarks"
 msgstr "Favoriete bladwijzers"
 
 #: internal/bookmarks/routes/views_bookmarks.go:210
-#, fuzzy
 msgid "Update"
-msgstr "De gebruiker is bijgewerkt."
+msgstr "Bijwerken"
 
 # | msgid "Bookmark Labels"
 #: internal/bookmarks/routes/views_bookmarks.go:319
-#, fuzzy
 msgid "Bookmark updated"
-msgstr "Bladwijzertitel"
+msgstr "Bladwijzer bijgewerkt"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2815,16 +2775,15 @@ msgstr "Het wachtwoord is gewijzigd."
 
 #: internal/profile/views.go:149
 msgid "Your verification code was removed."
-msgstr ""
+msgstr "Uw verificatiecode is verwijderd."
 
 #: internal/profile/views.go:169
-#, fuzzy
 msgid "Verification Code"
-msgstr "Aanpassing"
+msgstr "Verificatiecode"
 
 #: internal/profile/views.go:197
 msgid "Verification Code is now enabled."
-msgstr ""
+msgstr "De verificatiecode is nu ingeschakeld."
 
 #: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
@@ -2869,19 +2828,19 @@ msgid "must be lower or equal than %d"
 msgstr "Moet minder zijn dan of gelijk aan %d"
 
 #: pkg/forms/validators.go:347
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at least %d characters"
-msgstr "tekst moet tussen %d en %d tekens bevatten"
+msgstr "tekst moet ten minste %d tekens bevatten"
 
 #: pkg/forms/validators.go:355
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at most %d characters"
-msgstr "tekst moet tussen %d en %d tekens bevatten"
+msgstr "tekst mag maximaal %d tekens bevatten"
 
 #: pkg/forms/validators.go:363
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain %d characters"
-msgstr "tekst moet tussen %d en %d tekens bevatten"
+msgstr "tekst moet %d tekens bevatten"
 
 #: pkg/forms/validators.go:443
 #, python-format
@@ -3228,4 +3187,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr ""
-

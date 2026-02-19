@@ -3,21 +3,23 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # linsui <user-4173@noreply.codeberg.org>, 2025.
-# Outbreak2096 <outbreak2096@noreply.codeberg.org>, 2025.
-# olivier <olivier@noreply.codeberg.org>, 2025.
+# Outbreak2096 <outbreak2096@noreply.codeberg.org>, 2025, 2026.
+# olivier <olivier@noreply.codeberg.org>, 2025, 2026.
+# linsui <linsui@noreply.codeberg.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CN 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2025-12-04 09:41+0000\n"
+"PO-Revision-Date: 2026-02-11 19:29+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: zh_CN\n"
 "Language-Team: Chinese (Simplified Han script) <https://translate.codeberg.org/projects/readeck/application/zh_Hans/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: zh-CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -200,11 +202,11 @@ msgstr "删除此用户"
 
 #: assets/templates/admin/user.jet.html:60
 msgid "Last login"
-msgstr ""
+msgstr "上次登录"
 
 #: assets/templates/admin/user.jet.html:69
 msgid "Last Activity"
-msgstr ""
+msgstr "上次活动"
 
 #: assets/templates/admin/user.jet.html:75
 #: assets/templates/bookmarks/base.jet.html:15
@@ -219,7 +221,7 @@ msgstr "书签"
 
 #: assets/templates/admin/user.jet.html:80
 msgid "Disk usage"
-msgstr ""
+msgstr "存储用量"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -245,9 +247,9 @@ msgid "Last update: %s"
 msgstr "上次更新：%s"
 
 #: assets/templates/admin/user_list.jet.html:35
-#, fuzzy, python-format
+#, python-format
 msgid "Last login: %s"
-msgstr "上次使用：%s"
+msgstr "上次登录：%s"
 
 #: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
@@ -473,19 +475,16 @@ msgid "Go to the sign in page"
 msgstr "转到登录页面"
 
 #: assets/templates/auth/totp.jet.html:9
-#, fuzzy
 msgid "Two-factor authentication"
-msgstr "身份验证"
+msgstr "双因素身份验证"
 
 #: assets/templates/auth/totp.jet.html:20
-#, fuzzy
 msgid "Passcode"
 msgstr "密码"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "版本"
+msgstr "验证"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -683,9 +682,8 @@ msgid "%d min"
 msgstr "%d 分钟"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
-msgstr "由 %s 与 %s 分享"
+msgstr "由 %[1]s 与 %[2]s 分享"
 
 #: assets/templates/bookmarks/bookmark_public.jet.html:194
 #, python-format
@@ -708,14 +706,13 @@ msgid "Share link"
 msgstr "分享链接"
 
 #: assets/templates/bookmarks/bookmark_update.jet.html:9
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "未读书签"
+msgstr "编辑书签"
 
 #: assets/templates/bookmarks/bookmark_update.jet.html:14
-#, fuzzy, python-format
+#, python-format
 msgid "Edit: %s"
-msgstr "使用 %s 保存"
+msgstr "编辑：%s"
 
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
@@ -864,9 +861,8 @@ msgid "Send e-book by Email"
 msgstr "通过电子邮件发送电子书"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:1
-#, fuzzy
 msgid "Delete highlight"
-msgstr "高亮"
+msgstr "删除高亮"
 
 #: assets/templates/bookmarks/components/annotation_list.jet.html:12
 msgid "Start selecting text in the article to create a new highlight."
@@ -887,23 +883,20 @@ msgid "Description"
 msgstr "描述"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:28
-#, fuzzy
 msgid "Site Name"
-msgstr "没有网站名称"
+msgstr "网站名称"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:34
-#, fuzzy
 msgid "Authors"
 msgstr "作者"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:35
 msgid "One value per line"
-msgstr ""
+msgstr "每行一个值"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy
 msgid "Published"
-msgstr "发布于 %s"
+msgstr "发布"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:46
 #: assets/templates/profile/index.jet.html:49
@@ -911,9 +904,8 @@ msgid "Language"
 msgstr "语言"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:51
-#, fuzzy
 msgid "Text Direction"
-msgstr "身份验证"
+msgstr "文本方向"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -961,7 +953,7 @@ msgstr "绿色"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Transparent"
-msgstr ""
+msgstr "透明"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
@@ -969,9 +961,8 @@ msgstr "高亮"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:63
 #: assets/templates/bookmarks/components/filters.jet.html:103
-#, fuzzy
 msgid "Note"
-msgstr "否"
+msgstr "笔记"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:78
 #: assets/templates/bookmarks/label.jet.html:43
@@ -1097,69 +1088,59 @@ msgstr "Atom 订阅源"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Decrease width"
-msgstr ""
+msgstr "减小宽度"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current Width"
-msgstr "当前密码"
+msgstr "当前宽度"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Increase width"
-msgstr ""
+msgstr "增大宽度"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease font size"
-msgstr "创建时间：%s"
+msgstr "减小字号"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Current font size"
-msgstr ""
+msgstr "当前字号"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase font size"
-msgstr "创建时间：%s"
+msgstr "增大字号"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease line height"
-msgstr "行高"
+msgstr "减小行高"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current line height"
-msgstr "行高"
+msgstr "当前行高"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase line height"
-msgstr "行高"
+msgstr "增大行高"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Justify text"
-msgstr "对齐"
+msgstr "对齐文本"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Don't justify text"
-msgstr ""
+msgstr "不对齐文本"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "With hyphenation"
-msgstr "连字符"
+msgstr "启用连字符"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Without hyphenation"
-msgstr "连字符"
+msgstr "禁用连字符"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:13
-#, fuzzy
 msgid "Display options"
-msgstr "排序选项"
+msgstr "显示选项"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:25
 msgid "Font"
@@ -1439,7 +1420,6 @@ msgid "Import your Pocket Articles"
 msgstr "导入 Pocket 文章"
 
 #: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
-#, fuzzy
 msgid ""
 "\n"
 "    You can export your articles on Pocket by visiting:<br>\n"
@@ -1715,7 +1695,6 @@ msgid "Save link"
 msgstr "保存链接"
 
 #: assets/templates/bookmarks/index.jet.html:53
-#, fuzzy
 msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
 msgstr "“%s”不是有效地址。您的意思是在书签中搜索 %s？"
 
@@ -1825,45 +1804,39 @@ msgstr "这是您当前的系统信息。如果您报告错误，请将其包括
 
 #: assets/templates/docs/about.jet.html:42
 msgid "Storage"
-msgstr ""
+msgstr "存储"
 
 #: assets/templates/docs/about.jet.html:46
 msgid "Database Size:"
-msgstr ""
+msgstr "数据库大小："
 
 #: assets/templates/docs/about.jet.html:50
-#, fuzzy
 msgid "Bookmarks Disk Usage:"
-msgstr "书签正在加载"
+msgstr "书签存储用量："
 
 #: assets/templates/docs/about.jet.html:56
 msgid "Project"
 msgstr "项目"
 
 #: assets/templates/docs/about.jet.html:59
-#, fuzzy
 msgid "Main website:"
-msgstr "主网站"
+msgstr "主网站："
 
 #: assets/templates/docs/about.jet.html:60
-#, fuzzy
 msgid "Sources and issues:"
-msgstr "源代码和问题追踪器"
+msgstr "源代码和问题追踪器："
 
 #: assets/templates/docs/about.jet.html:61
-#, fuzzy
 msgid "How to contribute:"
-msgstr "如何做出贡献"
+msgstr "如何贡献："
 
 #: assets/templates/docs/about.jet.html:62
-#, fuzzy
 msgid "Community Forum:"
-msgstr "社区论坛"
+msgstr "社区论坛："
 
 #: assets/templates/docs/about.jet.html:63
-#, fuzzy
 msgid "Matrix Chat:"
-msgstr "Matrix 聊天室"
+msgstr "Matrix 聊天室："
 
 #: assets/templates/docs/about.jet.html:66
 msgid "License"
@@ -1974,7 +1947,6 @@ msgstr ""
 "这是您的电子书：**%s**\n"
 
 #: assets/templates/emails/recover.jet.md:7
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -1999,7 +1971,6 @@ msgstr ""
 "%s\n"
 
 #: assets/templates/emails/recover.jet.md:19
-#, fuzzy
 msgid ""
 "\n"
 "Hi,\n"
@@ -2032,9 +2003,8 @@ msgstr ""
 "如果您不是 Readeck 用户，请忽略此邮件。\n"
 
 #: assets/templates/epub/bookmark.jet.html:62
-#, fuzzy
 msgid "Notes"
-msgstr "角色"
+msgstr "笔记"
 
 #: assets/templates/error.jet.html:8
 msgid "Error"
@@ -2133,7 +2103,7 @@ msgstr "个人资料"
 #: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
 #: internal/profile/views.go:168
 msgid "Security"
-msgstr ""
+msgstr "安全"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
 #: internal/profile/views.go:320
@@ -2314,35 +2284,32 @@ msgstr "当前密码"
 
 #: assets/templates/profile/password.jet.html:46
 msgid "Verification Code (TOTP)"
-msgstr ""
+msgstr "验证码 (TOTP)"
 
 #: assets/templates/profile/password.jet.html:47
 msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
-msgstr ""
+msgstr "验证码是由 Google 身份验证器等应用生成的一次性代码。"
 
 #: assets/templates/profile/password.jet.html:52
 msgid "The verification code is enabled on this account."
-msgstr ""
+msgstr "此账号已启用验证码。"
 
 #: assets/templates/profile/password.jet.html:57
-#, fuzzy
 msgid "Remove Verification Code"
-msgstr "改进"
+msgstr "移除验证码"
 
 #: assets/templates/profile/password.jet.html:59
 msgid "Removing your verification code will make your account less secure."
-msgstr ""
+msgstr "移除您的验证码会降低您的账号的安全性。"
 
 #: assets/templates/profile/password.jet.html:64
-#, fuzzy
 msgid "Remove"
 msgstr "移除"
 
 #: assets/templates/profile/password.jet.html:70
 #: assets/templates/profile/totp.jet.html:9
-#, fuzzy
 msgid "Setup Verification Code"
-msgstr "改进"
+msgstr "设置验证码"
 
 #: assets/templates/profile/token.jet.html:1
 msgid "copy token"
@@ -2478,33 +2445,31 @@ msgstr "将在几秒钟内移除此令牌。"
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
-msgstr ""
+msgstr "使用您的应用扫描此二维码"
 
 #: assets/templates/profile/totp.jet.html:18
 msgid "Scan the QR code below with a two-factor authentication app on your phone."
-msgstr ""
+msgstr "使用您手机上的双因素身份验证应用扫描下方二维码。"
 
 #: assets/templates/profile/totp.jet.html:25
 msgid "If you can't use the QR code, enter the code below instead."
-msgstr ""
+msgstr "如果您无法使用二维码，请输入下方的代码。"
 
 #: assets/templates/profile/totp.jet.html:29
-#, fuzzy
 msgid "Enter the code from your application."
-msgstr "输入您设备上显示的代码"
+msgstr "输入您设备上显示的代码。"
 
 #: assets/templates/profile/totp.jet.html:30
 msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
-msgstr ""
+msgstr "扫描此二维码后，应用将显示一个六位数字代码，请在下方输入此代码。"
 
 #: assets/templates/profile/totp.jet.html:35
-#, fuzzy
 msgid "Code from your device"
-msgstr "确认您的用户名"
+msgstr "来自您的设备的代码"
 
 #: assets/templates/profile/totp.jet.html:41
 msgid "Finish"
-msgstr ""
+msgstr "完成"
 
 #: internal/admin/views.go:77
 msgid "User created."
@@ -2519,9 +2484,8 @@ msgid "Invalid user and/or password"
 msgstr "用户和/或密码无效"
 
 #: internal/auth/signin/http.go:197 internal/profile/forms.go:296
-#, fuzzy
 msgid "Invalid code"
-msgstr "无效的密码"
+msgstr "无效代码"
 
 #: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
 msgctxt "role"
@@ -2610,17 +2574,16 @@ msgid "Unable to process input data"
 msgstr "无法处理输入数据"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:289
-#, fuzzy
 msgid "invalid language code"
-msgstr "无效的 API 密钥"
+msgstr "无效语言代码"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:292
 msgid "Left to right"
-msgstr ""
+msgstr "从左至右"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:293
 msgid "Right to left"
-msgstr ""
+msgstr "从右至左"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:632
 msgid "Article"
@@ -2743,14 +2706,12 @@ msgid "Favorite Bookmarks"
 msgstr "已收藏书签"
 
 #: internal/bookmarks/routes/views_bookmarks.go:210
-#, fuzzy
 msgid "Update"
-msgstr "用户已更新。"
+msgstr "更新"
 
 #: internal/bookmarks/routes/views_bookmarks.go:319
-#, fuzzy
 msgid "Bookmark updated"
-msgstr "书签标题"
+msgstr "书签已更新"
 
 #: internal/bookmarks/routes/views_collections.go:70
 msgid "Collection updated."
@@ -2790,16 +2751,15 @@ msgstr "您的密码已更改。"
 
 #: internal/profile/views.go:149
 msgid "Your verification code was removed."
-msgstr ""
+msgstr "您的验证码已移除。"
 
 #: internal/profile/views.go:169
-#, fuzzy
 msgid "Verification Code"
-msgstr "改进"
+msgstr "验证码"
 
 #: internal/profile/views.go:197
 msgid "Verification Code is now enabled."
-msgstr ""
+msgstr "验证码已启用。"
 
 #: internal/profile/views.go:275
 msgid "An error occurred while creating your token."
@@ -2844,19 +2804,19 @@ msgid "must be lower or equal than %d"
 msgstr "必须小于或等于 %d"
 
 #: pkg/forms/validators.go:347
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at least %d characters"
-msgstr "文本必须包含 %d 到 %d 个字符"
+msgstr "文本必须包含至少 %d 个字符"
 
 #: pkg/forms/validators.go:355
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain at most %d characters"
-msgstr "文本必须包含 %d 到 %d 个字符"
+msgstr "文本必须包含最多 %d 个字符"
 
 #: pkg/forms/validators.go:363
-#, fuzzy, python-format
+#, python-format
 msgid "text must contain %d characters"
-msgstr "文本必须包含 %d 到 %d 个字符"
+msgstr "文本必须包含 %d 个字符"
 
 #: pkg/forms/validators.go:443
 #, python-format
@@ -3205,4 +3165,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr ""
-
