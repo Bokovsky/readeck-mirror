@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-12-18 21:31+0100\n"
-"PO-Revision-Date: 2026-02-10 01:29+0000\n"
+"PO-Revision-Date: 2026-02-19 10:19+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
 "Language: es-ES\n"
@@ -45,7 +45,7 @@ msgstr "![Formulario de nuevo marcador](./img/bookmark-new.webp)"
 
 #: en/bookmark-list.md:11
 msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
-msgstr ""
+msgstr "Después de unos segundos, tu marcador estará listo. Puedes abrirlo para leerlo o ver su contenido, agregar etiquetas, resaltar texto o exportarlo como un libro electrónico. Para más información, por favor lee la sección [Vista de marcador](./bookmark.md)."
 
 #: en/bookmark-list.md:13
 msgid "## Bookmark type"
@@ -112,10 +112,20 @@ msgid ""
 "- **Favorites** \\\n"
 "  The bookmarks you marked as favorite."
 msgstr ""
+"- **Buscar** \\\n"
+"  Ingresa cualquier término de búsqueda (título, contenido, sitio web...)\n"
+"- **Todo** \\\n"
+"  Todos tus marcadores.\n"
+"- **Sin leer** \\\n"
+"  Los marcadores que no están en el archivo.\n"
+"- **Archivo** \\\n"
+" Los marcadores que están marcados como archivados.\n"
+"- **Favoritos** \\\n"
+"  Los marcadores marcados como favoritos."
 
 #: en/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
+msgstr "Una vez comiences a guardar páginas, verás los siguientes enlaces adicionales:"
 
 #: en/bookmark-list.md:54
 msgid ""
@@ -172,7 +182,7 @@ msgstr ""
 
 #: en/bookmark-list.md:85
 msgid "The action buttons perform the following:"
-msgstr ""
+msgstr "Los botones de acción realizan lo siguiente:"
 
 #: en/bookmark-list.md:87
 msgid ""
@@ -197,11 +207,13 @@ msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
+"![Lista compacta de marcadores](./img/bookmark-list-compact.webp)\n"
+"Lista compacta de marcadores"
 
 #: en/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr ""
+msgstr "## Filtro de marcadores {#filters}"
 
 #: en/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
@@ -212,10 +224,12 @@ msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
 msgstr ""
+"![Lista de filtros de marcador](./img/bookmark-filters.webp)\n"
+"El formulario de filtros"
 
 #: en/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
-msgstr ""
+msgstr "Ingresa cualquier criterio y presiona **Buscar**."
 
 #: en/bookmark-list.md:110
 msgid "### Available filters"
@@ -223,7 +237,7 @@ msgstr "### Filtros disponibles"
 
 #: en/bookmark-list.md:112
 msgid "You can combine the following filters:"
-msgstr ""
+msgstr "Tu puedes combinar los siguientes filtros:"
 
 #: en/bookmark-list.md:114
 msgid ""
@@ -265,13 +279,15 @@ msgstr ""
 
 #: en/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr ""
+msgstr "## Exportar e importar marcadores"
 
 #: en/bookmark-list.md:143
 msgid ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Bookmark list menu"
 msgstr ""
+"![Menú](./img/bookmark-list-menu.webp)\n"
+"Menú de lista de marcadores"
 
 #: en/bookmark-list.md:146
 msgid "### Export bookmarks"
@@ -305,7 +321,7 @@ msgstr ""
 
 #: en/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr ""
+msgstr "La vista de marcador esta dividida en 3 secciones:"
 
 #: en/bookmark.md:10
 msgid ""
@@ -320,7 +336,7 @@ msgstr ""
 
 #: en/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr ""
+msgstr "## Configuración de navegación y presentación"
 
 #: en/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
@@ -335,6 +351,8 @@ msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
+"![Configuración de tipografía de marcador](./img/bookmark-typography.webp)\n"
+"Configuración de tipografía."
 
 #: en/bookmark.md:39
 msgid ""
@@ -344,7 +362,7 @@ msgstr ""
 
 #: en/bookmark.md:43
 msgid "## Change the title"
-msgstr ""
+msgstr "## Cambiar el título"
 
 #: en/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
@@ -409,6 +427,8 @@ msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
+"![Formulario de etiquetas de marcador](./img/bookmark-labels.webp)\n"
+"Agregar nueva etiqueta."
 
 #: en/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
@@ -429,10 +449,12 @@ msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
 msgstr ""
+"![Creación de nuevo resaltado de marcador](./img/bookmark-highlight.webp)\n"
+"Crear nuevo resaltado."
 
 #: en/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr ""
+msgstr "Tus resaltados aparecerán en la barra lateral."
 
 #: en/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
@@ -461,7 +483,7 @@ msgstr ""
 
 #: en/collections.md:14
 msgid "## Create a new collection"
-msgstr ""
+msgstr "## Crear una nueva colección"
 
 #: en/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
@@ -472,10 +494,12 @@ msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
+"![Formulario de nueva colección](./img/collection-new.webp)\n"
+"El formulario de colección"
 
 #: en/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr ""
+msgstr "Ingresa cualquier criterio y presiona **Guardar**."
 
 #: en/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
@@ -483,7 +507,7 @@ msgstr ""
 
 #: en/collections.md:25
 msgid "## Export a collection"
-msgstr ""
+msgstr "## Exportar una colección"
 
 #: en/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
@@ -495,7 +519,7 @@ msgstr ""
 
 #: en/collections.md:32
 msgid "## Delete a collection"
-msgstr ""
+msgstr "## Eliminar una colección"
 
 #: en/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
@@ -567,7 +591,7 @@ msgstr ""
 
 #: en/labels.md:12
 msgid "## Rename a label"
-msgstr ""
+msgstr "## Renombrar una etiqueta"
 
 #: en/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
@@ -629,7 +653,7 @@ msgstr ""
 
 #: en/opds.md:33
 msgid "## Example setup: Koreader"
-msgstr ""
+msgstr "## Ejemplo de configuración: Koreader"
 
 #: en/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
@@ -664,7 +688,7 @@ msgstr ""
 
 #: en/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
-msgstr ""
+msgstr "![Agregar catálogo en Koreader](../img/koreader-3.webp)"
 
 #: en/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
@@ -672,11 +696,11 @@ msgstr ""
 
 #: en/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
-msgstr ""
+msgstr "![Catálogo de Readeck en Koreader](../img/koreader-4.webp)"
 
 #: en/user-profile.md:1
 msgid "# User Profile"
-msgstr ""
+msgstr "# Perfil de usuario"
 
 #: en/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
@@ -684,7 +708,7 @@ msgstr ""
 
 #: en/user-profile.md:5
 msgid "## Edit your profile"
-msgstr ""
+msgstr "## Edita tu perfil"
 
 #: en/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
@@ -692,7 +716,7 @@ msgstr ""
 
 #: en/user-profile.md:9
 msgid "## Change your password"
-msgstr ""
+msgstr "## Cambiar tu contraseña"
 
 #: en/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
@@ -700,7 +724,7 @@ msgstr ""
 
 #: en/user-profile.md:13
 msgid "## API Tokens"
-msgstr ""
+msgstr "## Tokens de API"
 
 #: en/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
