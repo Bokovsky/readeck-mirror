@@ -1,8 +1,16 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
-  "author_selectors": null,
+  "title_selectors": [
+    "//h1[contains(@class, \"article-title\")]"
+  ],
+  "body_selectors": [
+    "//div[contains(@class, \"content-wrapper\")]"
+  ],
+  "date_selectors": [
+    "//div[contains(@class, \"article-header-wrapper\")]//time/@datetime"
+  ],
+  "author_selectors": [
+    "//div[contains(@class, \"article-header-wrapper\")]//a[@class=\"byline-link\"]/text()"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": [
     "tracking-wider"
