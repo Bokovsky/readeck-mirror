@@ -64,5 +64,13 @@ export default class extends Controller {
       },
       {passive: true},
     )
+
+    document.addEventListener("turbo:before-render", (evt) => {
+      if (window.scrollY == 0) return
+      // If we are scrolled down, apply the "down" class to the new body element before it replaces
+      // the old body. This avoids the flash of CSS transition in which the navbar suddenly appears
+      // and then immediately eases out of view on every Turbo re-render.
+      evt.detail.newBody.classList.add(this.downClass)
+    })
   }
 }

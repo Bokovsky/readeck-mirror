@@ -2,6 +2,26 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+import {session} from "@hotwired/turbo"
+
+// The disableTurboStart esbuild plugin in this project prevents Turbo from auto-starting on import.
+// Instead, start it manually by only enabling components that we use.
+// https://github.com/hotwired/turbo/blob/v8.0.23/src/core/session.js#L52
+//
+// session.pageObserver.start() // avoid setting history.scrollRestoration = "manual"
+session.cacheObserver.start()
+session.linkPrefetchObserver.start()
+session.formLinkClickObserver.start()
+session.linkClickObserver.start()
+session.formSubmitObserver.start()
+session.scrollObserver.start()
+session.streamObserver.start()
+session.frameRedirector.start()
+session.history.start()
+session.preloader.start()
+session.started = true
+session.enabled = true
+
 const cspNonce = document.querySelector(
   'html>head>meta[name="csp-nonce"]',
 ).content
@@ -9,14 +29,22 @@ const cspNonce = document.querySelector(
 const staleRefreshKey = "stale-refresh"
 
 function markStaleRefresh() {
-  window.localStorage.setItem(staleRefreshKey, "true")
+  window.localStorage.setItem(staleRefreshKey, requestUri(window.location))
 }
 
-window.addEventListener("pageshow", (event) => {
-  // Bypass browser's bfcache when the user navigate using
-  // the back button and when we have a specific local storage key.
+/**
+ * @param {Location} location
+ * @returns {string}
+ */
+function requestUri(location) {
+  return location.pathname + location.search
+}
 
-  if (window.localStorage.getItem(staleRefreshKey) != "true") {
+// After navigating Back in the browser, check if another page content was marked stale and force
+// reload of the current page to bust the browser's cache.
+window.addEventListener("pageshow", (event) => {
+  const staleUri = window.localStorage.getItem(staleRefreshKey)
+  if (!staleUri || staleUri == requestUri(window.location)) {
     return
   }
   window.localStorage.removeItem(staleRefreshKey)
@@ -53,6 +81,30 @@ document.addEventListener("turbo:submit-end", (evt) => {
     )
   ) {
     markStaleRefresh()
+  }
+})
+
+let scrollPosition = 0
+
+// Turbo uses `document.body.replaceWith(newBody)` to replace the page with the contents received
+// from the server, but that resets scroll position on WebKit, even with turbo-refresh-scroll being
+// set to "preserve". This manually preserves scroll.
+document.addEventListener("turbo:before-render", () => {
+  scrollPosition = window.scrollY
+})
+document.addEventListener("turbo:render", () => {
+  if (window.scrollY == 0 && scrollPosition > 0) {
+    window.scrollTo({top: scrollPosition})
+    scrollPosition = 0
+  }
+})
+document.addEventListener("turbo:before-frame-render", () => {
+  scrollPosition = window.scrollY
+})
+document.addEventListener("turbo:frame-render", () => {
+  if (window.scrollY == 0 && scrollPosition > 0) {
+    window.scrollTo({top: scrollPosition})
+    scrollPosition = 0
   }
 })
 
