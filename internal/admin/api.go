@@ -146,6 +146,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Location", urls.AbsoluteURL(r, ".", u.UID).String())
+	w.Header().Set("User-Id", u.UID)
 	server.TextMsg(w, r, http.StatusCreated, "User created")
 }
 
