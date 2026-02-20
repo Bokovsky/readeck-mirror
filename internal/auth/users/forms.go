@@ -15,7 +15,9 @@ import (
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/glob"
 )
 
 type (
@@ -23,7 +25,14 @@ type (
 )
 
 // rxUsername is the regexp used to validate a username.
-var rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+var rxUsername = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_-]{2,}$`)
+
+// Error definitions.
+var (
+	ErrInvalidUsername  = forms.Gettext(`must contain English letters, digits, "_" and "-" only`)
+	ErrBlockedUsername  = forms.Gettext("username is not available")
+	ErrBlockedEmailAddr = forms.ErrInvalidEmail
+)
 
 // IsValidPassword is the password validation rule.
 var IsValidPassword = forms.TypedValidator(func(v string) bool {
@@ -33,10 +42,41 @@ var IsValidPassword = forms.TypedValidator(func(v string) bool {
 	return len(v) >= 8
 }, errors.New("password must be at least 8 character long"))
 
-// IsValidUsername is the username validation rule.
-var IsValidUsername = forms.TypedValidator(func(v string) bool {
-	return rxUsername.MatchString(v)
-}, errors.New(`must contain English letters, digits, "_" and "-" only`))
+// IsValidUsername is the username validator.
+// A valid username contains at least 3 characters from [a-z0-9_-]
+// and start with a letter.
+var IsValidUsername = forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
+	if f.IsNil() {
+		return nil
+	}
+
+	if !rxUsername.MatchString(v) {
+		return ErrInvalidUsername
+	}
+
+	for _, blocked := range configs.Config.Accounts.UsernameDenyList {
+		if glob.Glob(blocked, v) {
+			return ErrBlockedUsername
+		}
+	}
+
+	return nil
+})
+
+// IsValidUserEmail is the user's email address validator.
+var IsValidUserEmail = forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
+	if err := forms.IsEmail.ValidateValue(f, v); err != nil {
+		return err
+	}
+
+	for _, blocked := range configs.Config.Accounts.EmailDenyList {
+		if glob.Glob(blocked, v) {
+			return ErrBlockedEmailAddr
+		}
+	}
+
+	return nil
+})
 
 // UserForm is the form used for user creation and update.
 type UserForm struct {
@@ -83,7 +123,7 @@ func NewUserForm(tr forms.Translator) *UserForm {
 				True(forms.RequiredOrNil).
 				False(forms.Required),
 			forms.MaxLen(128),
-			forms.IsEmail,
+			IsValidUserEmail,
 		),
 		forms.NewTextField("group",
 			forms.Trim,
@@ -223,7 +263,7 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 	return &ProvisioningForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username", forms.MaxLen(128), IsValidUsername),
-		forms.NewTextField("email", forms.MaxLen(128), forms.IsEmail),
+		forms.NewTextField("email", forms.MaxLen(128), IsValidUserEmail),
 		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
 	)}
 }

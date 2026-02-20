@@ -56,7 +56,7 @@ func newProfileForm(tr forms.Translator) *profileForm {
 		forms.NewTextField("username",
 			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), users.IsValidUsername),
 		forms.NewTextField("email",
-			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), forms.IsEmail),
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), users.IsValidUserEmail),
 		forms.NewTextField("settings_lang",
 			forms.Trim,
 			forms.ChoicesPairs(locales.Available(tag)),
