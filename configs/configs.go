@@ -47,6 +47,7 @@ type config struct {
 	Database     configDB        `json:"database"`
 	Auth         configAuth      `json:"auth"`
 	Email        configEmail     `json:"email"`
+	Accounts     configAccounts  `json:"accounts"`
 	Extractor    configExtractor `json:"extractor"`
 	Bookmarks    configBookmarks `json:"bookmarks"`
 	Worker       configWorker    `json:"worker"`
@@ -111,6 +112,11 @@ type configEmail struct {
 	Insecure    bool            `json:"insecure" env:"MAIL_INSECURE,unset"`
 	From        configEmailAddr `json:"from" env:"MAIL_FROM,unset"`
 	FromNoReply configEmailAddr `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
+}
+
+type configAccounts struct {
+	UsernameDenyList []string `json:"username_denylist"`
+	EmailDenyList    []string `json:"email_denylist"`
 }
 
 type configWorker struct {
