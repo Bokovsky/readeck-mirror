@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2026-02-10 01:29+0000\n"
+"PO-Revision-Date: 2026-02-20 15:29+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/application/es/>\n"
 "Language: es-ES\n"
@@ -623,7 +623,7 @@ msgstr "Editar"
 #: assets/templates/emails/bookmark.jet.html:16
 #: assets/templates/epub/bookmark.jet.html:34
 msgid "no site name"
-msgstr "sin nombre del sitio"
+msgstr "sin nombre del sitio web"
 
 #: assets/templates/bookmarks/bookmark_atom.jet.html:9
 #: assets/templates/bookmarks/bookmark_public.jet.html:122
@@ -888,7 +888,7 @@ msgstr "Descripción"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:28
 msgid "Site Name"
-msgstr "Nombre del sitio"
+msgstr "Nombre del sitio web"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:34
 msgid "Authors"
@@ -986,7 +986,7 @@ msgstr "Autor"
 
 #: assets/templates/bookmarks/components/filters.jet.html:58
 msgid "Site"
-msgstr "Sitio"
+msgstr "Sitio web"
 
 #: assets/templates/bookmarks/components/filters.jet.html:80
 #: assets/templates/bookmarks/import/options.jet.html:10
@@ -2672,7 +2672,7 @@ msgstr "Título, de la Z a la A"
 #: internal/bookmarks/routes/forms_bookmarks.go:877
 msgctxt "sort"
 msgid "Site Name, A to Z"
-msgstr "Nombre del sitio, de la A a la Z"
+msgstr "Nombre del sitio web, de la A a la Z"
 
 #: internal/bookmarks/routes/forms_bookmarks.go:878
 msgctxt "sort"
