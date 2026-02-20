@@ -8,6 +8,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/netip"
 	"net/url"
 	"slices"
 	"strings"
@@ -303,9 +304,23 @@ func TypedValidator[T any](validator func(T) bool, err error) ValueValidator[T] 
 
 // IsEmail performs a rough check of the email address. That is, it
 // only checks for the presence of "@", only once and in the string.
-var IsEmail = TypedValidator(func(v string) bool {
-	return strings.Count(v, "@") == 1 && !strings.HasPrefix(v, "@") && !strings.HasSuffix(v, "@")
-}, ErrInvalidEmail)
+// It also rejects addresses with an ip host.
+var IsEmail = ValueValidatorFunc[string](func(f Field, v string) error {
+	if f.IsNil() {
+		return nil
+	}
+
+	if strings.Count(v, "@") != 1 || strings.HasPrefix(v, "@") || strings.HasSuffix(v, "@") {
+		return ErrInvalidEmail
+	}
+
+	_, host, _ := strings.Cut(v, "@")
+	if _, err := netip.ParseAddr(host); err == nil {
+		return ErrInvalidEmail
+	}
+
+	return nil
+})
 
 // IsURL checks that the input value is a valid URL
 // and matches the given schemes.

@@ -234,6 +234,12 @@ func TestValidators(t *testing.T) {
 		},
 		{
 			f:      forms.NewTextField("", forms.IsEmail),
+			data:   `"test@192.168.0.1"`,
+			expect: "test@192.168.0.1",
+			errors: []error{forms.ErrInvalidEmail},
+		},
+		{
+			f:      forms.NewTextField("", forms.IsEmail),
 			data:   `"@test"`,
 			expect: "@test",
 			errors: []error{forms.ErrInvalidEmail},
