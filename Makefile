@@ -165,13 +165,14 @@ dev:
 # It runs air watching the source files and the assets. It builds and reloads
 # the server on any change.
 .PHONY: serve
+serve: SERVE_CMD ?= serve
 serve:
 	$(GO) run $(AIR_PKG) \
 		--tmp_dir "dist" \
 		--build.log "" \
 		--build.cmd "${MAKE} DATE= build" \
 		--build.bin "dist/readeck" \
-		--build.args_bin "serve" \
+		--build.args_bin "$(SERVE_CMD)" \
 		--build.exclude_dir "" \
 		--build.include_dir "assets,configs,docs/api,docs/assets,locales,internal,pkg" \
 		--build.include_ext "go,html,json,js,mo,tmpl,toml,xsl" \
