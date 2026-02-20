@@ -8,6 +8,7 @@
 - Bookmark properties editor
 - Highlights with annotations
 - User's last login date and time
+- Content-script for nebula.tv, by [@xvello](https://codeberg.org/xvello)
 
 ### Improved
 - Enabled theme toggle for public bookmarks, by [@shom](https://codeberg.org/shom)
@@ -21,6 +22,11 @@
 - Speed up fetching bookmark outgoing links, by [@mislav](https://codeberg.org/mislav)
 - Support application/xml documents when they are HTML
 - Keep HTML content from metadata
+- Mediapart content-script
+- (X)HTML initial scan for charset detection, by [@mislav](https://codeberg.org/mislav)
+
+### Changed
+- updated Go to 1.26.0
 
 ### Fixed
 - Back/forward navigation with gestures
@@ -31,6 +37,10 @@
 - Sorting on api/bookmarks/sync
 - Typo in API documentation, by [@clmt](https://codeberg.org/clmt)
 - Wallabag import encoding and content type issues, by [@mislav](https://codeberg.org/mislav)
+- Raise validation errors before the import process, by [@mislav](https://codeberg.org/mislav)
+- Font immutable caching
+- Restore Safari scroll position on back/forward navigation, by [@mislav](https://codeberg.org/mislav)
+- Added email/send permission in bookmarks:read OAuth scope
 
 ## [0.21.6]
 ### Fixed
