@@ -56,7 +56,9 @@
   "tests": [
     {
       "url": "https://www.apotheke-adhoc.de/nachrichten/detail/panorama/avie-fuer-den-nachfolger/",
-      "contains": []
+      "contains": [
+        "Der gebürtige Saarländer studierte in Berlin Pharmazie"
+      ]
     }
   ]
 }
