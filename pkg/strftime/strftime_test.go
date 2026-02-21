@@ -5,7 +5,6 @@
 package strftime_test
 
 import (
-	"fmt"
 	"strconv"
 	"testing"
 	"time"
@@ -110,11 +109,9 @@ func TestTranslator(t *testing.T) {
 
 type translator map[string]map[string]string
 
-func (t translator) Pgettext(ctx string, s string, args ...any) string {
-	if v, ok := args[0].(string); len(args) == 1 && ok {
-		if r, ok := t[ctx][v]; ok && r != "" {
-			return fmt.Sprintf(s, r)
-		}
+func (t translator) Pgettext(ctx string, s string, _ ...any) string {
+	if r, ok := t[ctx][s]; ok && r != "" {
+		return r
 	}
 	return s
 }

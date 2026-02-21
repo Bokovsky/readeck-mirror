@@ -77,19 +77,33 @@ var (
 	timeRepresentation     = Pgettext("datetime", "%H:%M:%S")
 )
 
-// Translator describes a type that implements a translation method.
-type Translator interface {
+// translator is an interface for type implementing a pgettext method without extra argument.
+type translator interface {
+	Pgettext(string, string) string
+}
+
+// localeTranslator is an interface for types implementing a full pgettext method.
+type localeTranslator interface {
 	Pgettext(string, string, ...any) string
 }
 
 type translatable string
 
-func (t translatable) Translate(ctx string, tr Translator) string {
-	return tr.Pgettext(ctx, "%s", string(t))
+func (t translatable) Translate(ctx string, tr translator) string {
+	return tr.Pgettext(ctx, string(t))
 }
 
 func newTranslatable(_, s string) translatable {
 	return translatable(s)
+}
+
+// gettextWrapper is a wrapper that implements [translator] around a [localeTranslator].
+type gettextWrapper struct {
+	Translator localeTranslator
+}
+
+func (l *gettextWrapper) Pgettext(ctx, s string) string {
+	return l.Translator.Pgettext(ctx, s)
 }
 
 // Pgettext is an alias for newTranslatable so it can be picked up by a locales extractor.
@@ -97,12 +111,12 @@ var Pgettext = newTranslatable
 
 // Formatter is the time formatter.
 type Formatter struct {
-	tr Translator
+	tr translator
 }
 
-// New returns a new Formatter with a given translator.
-func New(tr Translator) *Formatter {
-	return &Formatter{tr: tr}
+// New returns a new [Formatter] with a given translator.
+func New(tr localeTranslator) *Formatter {
+	return &Formatter{&gettextWrapper{tr}}
 }
 
 // Strftime returns a formatted time string.
@@ -276,11 +290,8 @@ func weekNumber(t time.Time, startsOnMonday bool) int {
 
 type dummyTranslator struct{}
 
-func (t *dummyTranslator) Pgettext(_, s string, args ...any) string {
-	if len(args) == 0 {
-		return s
-	}
-	return fmt.Sprintf(s, args...)
+func (t *dummyTranslator) Pgettext(_, s string, _ ...any) string {
+	return s
 }
 
 var defaultFormatter = New(&dummyTranslator{})
