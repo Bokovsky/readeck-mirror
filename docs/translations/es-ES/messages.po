@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-12-18 21:31+0100\n"
-"PO-Revision-Date: 2026-02-19 10:19+0000\n"
+"PO-Revision-Date: 2026-02-20 15:29+0000\n"
 "Last-Translator: imposible01 <imposible01@noreply.codeberg.org>\n"
 "Language-Team: Spanish <https://translate.codeberg.org/projects/readeck/documentation/es/>\n"
 "Language: es-ES\n"
@@ -139,7 +139,7 @@ msgstr ""
 
 #: en/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
+msgstr "Finalmente, verás 3 secciones más que te llevarán a páginas relacionadas a tus marcadores:"
 
 #: en/bookmark-list.md:63
 msgid ""
@@ -263,7 +263,7 @@ msgstr "### Consulta de búsqueda"
 
 #: en/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr ""
+msgstr "Los campos **Buscar**, **Título**, **Autor**, **Sitio web** y **Etiqueta** entienden los términos de búsqueda de la misma manera:"
 
 #: en/bookmark-list.md:133
 msgid ""
@@ -318,6 +318,8 @@ msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
 msgstr ""
+"![La vista de marcador](./img/bookmark-view.webp)\n"
+"La vista de marcador de un artículo."
 
 #: en/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
@@ -332,7 +334,7 @@ msgstr ""
 
 #: en/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr ""
+msgstr "Un marcador mostrará su contenido basado en su tipo. Hay 3 tipos:"
 
 #: en/bookmark.md:30
 msgid "## Navigation and presentation settings"
@@ -374,7 +376,7 @@ msgstr "## Acciones"
 
 #: en/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr ""
+msgstr "Desde la barra lateral del marcador, puedes realizar estas acciones."
 
 #: en/bookmark.md:52
 msgid "### Favorite"
@@ -382,7 +384,7 @@ msgstr "### Favorito"
 
 #: en/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr ""
+msgstr "Cambia el estado de favorito de tu marcador."
 
 #: en/bookmark.md:56
 msgid "### Archive"
@@ -390,7 +392,7 @@ msgstr "### Archivo"
 
 #: en/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr ""
+msgstr "Esto mueve el marcador a los archivos (o lo elimina de allí)."
 
 #: en/bookmark.md:60
 msgid "### Share"
@@ -432,7 +434,7 @@ msgstr ""
 
 #: en/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr ""
+msgstr "Por favor lee la sección [Etiquetas](./labels.md) para más información."
 
 #: en/bookmark.md:82
 msgid "## Highlights"
@@ -503,7 +505,7 @@ msgstr "Ingresa cualquier criterio y presiona **Guardar**."
 
 #: en/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr ""
+msgstr "Por favor diríjase a [filtros de marcador](./bookmark-list.md#filters) para más detalles sobre filtrado."
 
 #: en/collections.md:25
 msgid "## Export a collection"
@@ -511,7 +513,7 @@ msgstr "## Exportar una colección"
 
 #: en/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr ""
+msgstr "En una página de colección, puedes exportar la colección como un archivo."
 
 #: en/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
@@ -523,7 +525,7 @@ msgstr "## Eliminar una colección"
 
 #: en/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr ""
+msgstr "En una página de colección, abrá la caja de **Editar** y presione **Eliminar colección**."
 
 #: en/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
@@ -619,11 +621,11 @@ msgstr ""
 
 #: en/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr ""
+msgstr "Cada sección, excepto Colecciones, proporciona cada marcador como un libro electrónico."
 
 #: en/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr ""
+msgstr "En una sección de colección, puedes descargar toda la colección como un solo libro electrónico."
 
 #: en/opds.md:19
 msgid "## Catalog access"
@@ -650,6 +652,8 @@ msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
+"La URL de tu catálogo OPDS es: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
 
 #: en/opds.md:33
 msgid "## Example setup: Koreader"
@@ -677,7 +681,7 @@ msgstr "![Lista de catálogo de KOReader](../img/koreader-2.webp)"
 
 #: en/opds.md:45
 msgid "In this dialog replace the fields below with:"
-msgstr ""
+msgstr "En este diálogo reemplaza los campos siguientes con:"
 
 #: en/opds.md:47
 msgid ""
@@ -692,7 +696,7 @@ msgstr "![Agregar catálogo en Koreader](../img/koreader-3.webp)"
 
 #: en/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr ""
+msgstr "¡Puedes acceder a tus marcadores desde Koreader!"
 
 #: en/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
