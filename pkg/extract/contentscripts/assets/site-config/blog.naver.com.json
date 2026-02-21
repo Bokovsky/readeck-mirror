@@ -3,7 +3,7 @@
     "//div[contains(concat(' ',normalize-space(@class),' '),' se-title-text ')]"
   ],
   "body_selectors": [
-    "//div[@id='viewTypeSelector']"
+    "//div[contains(@class, 'se-viewer')]"
   ],
   "date_selectors": [
     "//p[contains(concat(' ',normalize-space(@class),' '),' blog_date ')]"

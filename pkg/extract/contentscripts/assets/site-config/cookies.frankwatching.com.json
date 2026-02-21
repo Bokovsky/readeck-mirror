@@ -18,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://cookies.frankwatching.com/?redirect_to=/archive/2018/01/14/airbnb-stapt-met-hotels-in-de-markt-die-ze-zelf-verstoorde/",
+      "url": "https://www.frankwatching.com/archive/2018/01/14/airbnb-stapt-met-hotels-in-de-markt-die-ze-zelf-verstoorde/",
       "contains": [
         "Je kon er op wachten"
       ]
