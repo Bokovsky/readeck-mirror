@@ -5,12 +5,13 @@
 # Anonymous <anonymous@noreply.codeberg.org>, 2025.
 # Joedmin <joedmin@joedmin.cz>, 2025, 2026.
 # olivier <olivier@noreply.codeberg.org>, 2025.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck CZ 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2026-02-05 20:29+0000\n"
+"PO-Revision-Date: 2026-02-23 15:29+0000\n"
 "Last-Translator: Joedmin <joedmin@joedmin.cz>\n"
 "Language-Team: Czech <https://translate.codeberg.org/projects/readeck/application/cs/>\n"
 "Language: cs\n"
@@ -482,9 +483,8 @@ msgid "Passcode"
 msgstr "Přístupový kód"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "Verze"
+msgstr "Ověřit"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -1848,7 +1848,7 @@ msgstr "Hlavní stránka:"
 
 #: assets/templates/docs/about.jet.html:60
 msgid "Sources and issues:"
-msgstr "Zdrojové kódy a problémy:"
+msgstr "Zdrojové kódy a vydání:"
 
 #: assets/templates/docs/about.jet.html:61
 msgid "How to contribute:"
