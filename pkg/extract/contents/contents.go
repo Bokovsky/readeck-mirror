@@ -84,6 +84,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 		// Note: we perform some pre- and post-processing even when readability is disabled.
 		fixNoscriptImages(m.Dom)
+		fixShadowDOMHosts(m.Dom)
 		convertPictureNodes(m.Dom, m)
 
 		var doc *html.Node
@@ -285,6 +286,17 @@ func encloseArticle(top *html.Node) {
 
 func removeEmbeds(top *html.Node) {
 	dom.RemoveNodes(dom.GetAllNodesWithTag(top, "object", "embed", "iframe", "video", "audio"), nil)
+}
+
+// fixShadowDOMHosts unwraps all <template shadowrootmode="open"> elements, allowing their contents
+// to become normal part of the DOM and to survive the readability and sanitization process.
+func fixShadowDOMHosts(top *html.Node) {
+	for tpl := range eachElementByTag(top, "template") {
+		if dom.GetAttribute(tpl, "shadowrootmode") != "open" {
+			continue
+		}
+		unwrapElement(tpl)
+	}
 }
 
 // fixNoscriptImages processes <noscript> tags by replacing them with the <img> tag contain within,

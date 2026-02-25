@@ -24,6 +24,7 @@
 - Keep HTML content from metadata
 - Mediapart content-script
 - (X)HTML initial scan for charset detection, by [@mislav](https://codeberg.org/mislav)
+- Support declarative Shadow DOM, by [@mislav](https://codeberg.org/mislav)
 
 ### Changed
 - updated Go to 1.26.0
