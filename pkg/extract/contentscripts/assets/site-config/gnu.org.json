@@ -1,7 +1,8 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' top-level-extent ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' top-level-extent ')]",
+    "//body"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -19,7 +20,15 @@
   "tests": [
     {
       "url": "https://www.gnu.org/software/bash/manual/bash.html",
-      "contains": []
+      "contains": [
+        "Bash contains features that appear in other popular shells"
+      ]
+    },
+    {
+      "url": "https://www.gnu.org/software/ed/manual/ed_manual.html",
+      "contains": [
+        "It is used to create, display, modify and otherwise manipulate text files"
+      ]
     }
   ]
 }

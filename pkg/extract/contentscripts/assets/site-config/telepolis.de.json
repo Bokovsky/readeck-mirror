@@ -3,7 +3,8 @@
     "//meta[@property='og:title']/@content"
   ],
   "body_selectors": [
-    "//main/article[1]"
+    "//main/article[1]",
+    "//article[contains(@class, 'printversion')]"
   ],
   "date_selectors": [
     "//time/@datetime"

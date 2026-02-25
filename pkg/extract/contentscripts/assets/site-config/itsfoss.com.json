@@ -1,12 +1,16 @@
 {
   "title_selectors": [
-    "//h1"
+    "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//article[contains(@class,'type-post')]/div[@itemprop='text']"
+    "//article[contains(@class,'post')]"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
+  "author_selectors": [
+    "//meta[@name=\"twitter:data1\"]/@content"
+  ],
   "strip_selectors": [
     "//a[@rel='dofollow']",
     "//div[contains(@class,'zem_rp_wrap')]",
@@ -25,7 +29,9 @@
   "tests": [
     {
       "url": "https://itsfoss.com/fix-gvfsd-smb-high-cpu-ubuntu/",
-      "contains": []
+      "contains": [
+        "But this nasty thing continued every time I logged into the system"
+      ]
     }
   ]
 }

@@ -3,9 +3,11 @@
     "//h1"
   ],
   "body_selectors": [
-    "//p[contains(concat(' ',normalize-space(@class),' '), ' intro ')] | //div[contains(concat(' ',normalize-space(@class),' '), ' longText ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '), ' content-area ')]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "//meta[@name=\"date\"]/@content"
+  ],
   "author_selectors": [
     "//meta[@name='author']/@content"
   ],

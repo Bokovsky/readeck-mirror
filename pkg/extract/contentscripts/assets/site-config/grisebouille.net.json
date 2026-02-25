@@ -1,18 +1,21 @@
 {
   "title_selectors": [
-    "//h2[@class=\"post-title\"]"
+    "//meta[@property='og:title']/@content"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' post-content ')]"
+    "//main/div[contains(@class, 'main block')]"
   ],
   "date_selectors": [
-    "substring-before(substring-after(//header[@class='post-header'],'Posted on '),'by')"
+    "//meta[@property=\"article:modified_time\"]/@content"
   ],
   "author_selectors": [
-    "//header[@class=\"post-header\"]//img/@alt"
+    "//meta[@name='author']/@content"
   ],
   "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "datepubli",
+    "article-nav"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -24,7 +27,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://f-droid.org/en/2020/01/16/tracking-the-trackers.html",
+      "url": "https://grisebouille.net/ep42-fais-un-voeu",
       "contains": []
     }
   ]

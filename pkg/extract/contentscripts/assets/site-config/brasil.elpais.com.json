@@ -4,9 +4,7 @@
     "//div[contains(@class, 'cabecera_noticia')]//h1"
   ],
   "body_selectors": [
-    "//div[@class='columna_texto']",
-    "//div[@id='cuerpo_noticia']",
-    "//div[@class='estructura_2col_1zq']//div[@class='margen_n']"
+    "//article[@id='main-content']"
   ],
   "date_selectors": [
     "//meta[@name='DC.date']/@content",

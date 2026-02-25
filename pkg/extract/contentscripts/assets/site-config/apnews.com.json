@@ -1,8 +1,16 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
-  "author_selectors": null,
+  "title_selectors": [
+    "//h1[@class='Page-headline']"
+  ],
+  "body_selectors": [
+    "//div[contains(@class, 'Page-lead')] | //div[contains(@class, 'RichTextStoryBody')]"
+  ],
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
+  "author_selectors": [
+    "substring-after( //div[@class='Page-authors'] , 'By\u0026nbsp;' )"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
