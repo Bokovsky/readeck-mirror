@@ -778,7 +778,7 @@ type orderForm struct {
 
 func newOrderForm(fieldName string, choices map[string]goquexp.Orderable) *orderForm {
 	// Compile a list of choices being pairs of "A" and "-A", "B", "-B",
-	fieldChoices := make(forms.ValueChoices[string], len(choices)*2)
+	fieldChoices := make(forms.ValueChoices[string], 0, len(choices)*2)
 	for k := range choices {
 		fieldChoices = append(fieldChoices, forms.Choice("", k), forms.Choice("", "-"+k))
 	}
