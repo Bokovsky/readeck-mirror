@@ -3,22 +3,23 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # Kropotkin <kropotkin@noreply.codeberg.org>, 2025.
-# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025.
-# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025, 2026.
+# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025, 2026.
 # olivier <olivier@noreply.codeberg.org>, 2025.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck User Documentation 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2025-12-18 21:31+0100\n"
-"PO-Revision-Date: 2025-12-16 09:11+0000\n"
-"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: be_BY\n"
+"PO-Revision-Date: 2026-02-28 18:29+0000\n"
+"Last-Translator: Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Belarusian <https://translate.codeberg.org/projects/readeck/documentation/be/>\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Language: be\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: en/bookmark-list.md:1
@@ -123,7 +124,7 @@ msgstr ""
 
 #: en/bookmark-list.md:52
 msgid "Once you start saving pages, you'll see the following additional links:"
-msgstr ""
+msgstr "Як толькі вы пачняце захоўваць старонкі, вы ўбачыце наступныя дадатковыя спасылкі:"
 
 #: en/bookmark-list.md:54
 msgid ""
@@ -134,10 +135,16 @@ msgid ""
 "- **Pictures** \\\n"
 "  Your picture bookmarks"
 msgstr ""
+"- **Артыкулы** \\\n"
+"  Вашы закладкі артыкулаў\n"
+"- **Відэа** \\\n"
+"  Вашы закладкі відэа\n"
+"- **Малюнкі** \\\n"
+"  Вашы закладкі малюнкаў"
 
 #: en/bookmark-list.md:61
 msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
-msgstr ""
+msgstr "Нарэшце, вы ўбачыце яшчэ 3 раздзелы, якія вядуць на старонкі, звязаныя з закладкамі:"
 
 #: en/bookmark-list.md:63
 msgid ""
@@ -148,24 +155,32 @@ msgid ""
 "- **[Collections](./collections.md)** \\\n"
 "  The list of all your collections"
 msgstr ""
+"- **[Меткі](./labels.md)** \\\n"
+"  Усе меткі вашых закладак\n"
+"- **Вытрымкі** \\\n"
+"  Усе вытрымкі, зробленыя ў вашых закладках\n"
+"- **[Калекцыі](./collections.md)** \\\n"
+"  Спіс усіх вашых калекцый"
 
 #: en/bookmark-list.md:70
 msgid "### Bookmark Cards"
-msgstr ""
+msgstr "### Карткі закладак"
 
 #: en/bookmark-list.md:72
 msgid "Each item on a list is called a Bookmark Card."
-msgstr ""
+msgstr "Кожны пункт у спісе называецца карткай закладкі."
 
 #: en/bookmark-list.md:74
 msgid ""
 "![Bookmark List](./img/bookmark-list.webp)\n"
 "Grid Bookmark List"
 msgstr ""
+"![Спіс закладак](./img/bookmark-list.webp)\n"
+"Спіс закладак сеткай"
 
 #: en/bookmark-list.md:77
 msgid "A card shows:"
-msgstr ""
+msgstr "На картцы напісана:"
 
 #: en/bookmark-list.md:79
 msgid ""
@@ -175,10 +190,15 @@ msgid ""
 "- the **label list**,\n"
 "- **action buttons**"
 msgstr ""
+"- **загаловак**, на які можна націснуць, каб паглядзець ці прачытаць закладку,\n"
+"- **назва сайта**,\n"
+"- прыблізны **час чытання**,\n"
+"- **спіс метак**,\n"
+"- **кнопкі дзеянняў**"
 
 #: en/bookmark-list.md:85
 msgid "The action buttons perform the following:"
-msgstr ""
+msgstr "Кнопкі дзеянняў выконваюць наступнае:"
 
 #: en/bookmark-list.md:87
 msgid ""
@@ -189,47 +209,57 @@ msgid ""
 "- **Delete** \\\n"
 "  This marks the bookmark for deletion (it can be canceled during a few seconds)."
 msgstr ""
+"- **Абранае** \\\n"
+"  Пераключае статус закладкі як абранай.\n"
+"- **Архіў** \\\n"
+"  Перамяшчае закладку ў архіў (або выдаляе яе адтуль).\n"
+"- **Выдаліць** \\\n"
+"  Пазначае закладку для выдалення (гэта можна адмяніць на працягу некалькіх секунд)."
 
 #: en/bookmark-list.md:94
 msgid "### Compact List"
-msgstr ""
+msgstr "### Кампактны спіс"
 
 #: en/bookmark-list.md:96
 msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
-msgstr ""
+msgstr "Калі выгляд сеткі закладак здаецца вам занадта загружаным, можна пераключыцца на кампактны спіс з меншай колькасцю выяў. Націсніце на кнопку побач з загалоўкам, каб перайсці з выгляду сеткі да кампактнага выгляду."
 
 #: en/bookmark-list.md:98
 msgid ""
 "![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
 "Compact Bookmark List"
 msgstr ""
+"![Кампактны спіс закладак](./img/bookmark-list-compact.webp)\n"
+"Кампактны спіс закладак"
 
 #: en/bookmark-list.md:101
 #, python-brace-format
 msgid "## Filter Bookmarks {#filters}"
-msgstr ""
+msgstr "## Фільтраваць закладкі {#filters}"
 
 #: en/bookmark-list.md:103
 msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
-msgstr ""
+msgstr "У спісе закладак вы можаце адфільтраваць вынікі па адным або некалькіх крытэрыях. Націсніце на кнопку «Адфільтраваць спіс» побач з загалоўкам старонкі, каб адкрыць форму фільтрацыі."
 
 #: en/bookmark-list.md:105
 msgid ""
 "![Bookmark list filters](./img/bookmark-filters.webp)\n"
 "The filter form"
 msgstr ""
+"![Фільтры спіса закладак](./img/bookmark-filters.webp)\n"
+"Форма фільтра"
 
 #: en/bookmark-list.md:108
 msgid "Enter any criteria and click on **Search**."
-msgstr ""
+msgstr "Увядзіце любыя крытэрыі і націсніце **Пошук**."
 
 #: en/bookmark-list.md:110
 msgid "### Available filters"
-msgstr ""
+msgstr "### Даступныя фільтры"
 
 #: en/bookmark-list.md:112
 msgid "You can combine the following filters:"
-msgstr ""
+msgstr "Можна спалучаць наступныя фільтры:"
 
 #: en/bookmark-list.md:114
 msgid ""
@@ -248,14 +278,28 @@ msgid ""
 "- **From date**, **To date**\\\n"
 "  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
 msgstr ""
+"- **Пошук**\\\n"
+"  Пошук у тэксце закладкі, яе загалоўку, аўтарах, назве сайта і дамене, а таксама ў метках.\n"
+"- **Загаловак**\\\n"
+"  Пошук толькі ў загалоўку.\n"
+"- **Аўтар**\\\n"
+"  Пошук толькі ў спісе аўтараў.\n"
+"- **Сайт**\\\n"
+"  Пошук у назве сайта і даменным імі.\n"
+"- **Метка**\\\n"
+"  Пошук канкрэтных метак.\n"
+"- **У абраным**, **У архіве**, **Тып**\\\n"
+"  Гэтыя фільтры дазваляюць абмежаваць пошук па любым з гэтых крытэрыяў.\n"
+"- **З даты**, **Па дату**\\\n"
+"  Гэтыя апошнія фільтры дазваляюць абмежаваць перыяд, калі была захавана закладка. Напрыклад, гэта дазваляе атрымаць спіс закладак, захаваных за апошнія 4 тыдні, але не пазней за мінулы тыдзень."
 
 #: en/bookmark-list.md:129
 msgid "### Search query"
-msgstr ""
+msgstr "### Пошукавы запыт"
 
 #: en/bookmark-list.md:131
 msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
-msgstr ""
+msgstr "Палі **Пошук**, **Загаловак**, **Аўтар**, **Сайт** і **Метка** успрымаюць крытэрыі пошуку аднолькава:"
 
 #: en/bookmark-list.md:133
 msgid ""
@@ -264,54 +308,62 @@ msgid ""
 "- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
 "- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
 msgstr ""
+"- `палоханы кот` знойдзе матэрыялы са словамі **палоханы** і **кот**.\n"
+"- `\"палоханы кот\"` знойдзе матэрыялы з дакладнай фразай **палоханы кот**.\n"
+"- `кот*` будзе шукаць усё са словамі, што пачынаюцца на **кот** (кот, коткі, Котлас і г.д.).\n"
+"- `-палоханы кот` будзе шукаць са словам **кот**, але БЕЗ слова **палоханы**."
 
 #: en/bookmark-list.md:139
 msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
-msgstr ""
+msgstr "Пасля выканання пошуку вы можаце захаваць яго ў новую [калекцыю](./collections.md), каб зрабіць яго пастаянным."
 
 #: en/bookmark-list.md:141
 msgid "## Export and Import Bookmarks"
-msgstr ""
+msgstr "## Экспарт і імпарт закладак"
 
 #: en/bookmark-list.md:143
 msgid ""
 "![Menu](./img/bookmark-list-menu.webp)\n"
 "Bookmark list menu"
 msgstr ""
+"![Меню](./img/bookmark-list-menu.webp)\n"
+"Меню спіса закладак"
 
 #: en/bookmark-list.md:146
 msgid "### Export bookmarks"
-msgstr ""
+msgstr "### Экспарт закладак"
 
 #: en/bookmark-list.md:148
 msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
-msgstr ""
+msgstr "Кнопка меню побач з кнопкай фільтраў дазваляе спампаваць EPUB-файл бягучага спіса закладак. Яна экспартуе адну электронную кнігу, якая змяшчае ўсе артыкулы, размеркаваныя па раздзелах."
 
 #: en/bookmark-list.md:150
 msgid "### Import bookmarks"
-msgstr ""
+msgstr "### Імпарт закладак"
 
 #: en/bookmark-list.md:152
 msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
-msgstr ""
+msgstr "У гэтым жа меню вы знойдзеце спасылку [Імпартаваць закладкі](readeck-instance://bookmarks/import). Яна накіруе вас да майстра імпарту, які дазволіць перанесці вашыя існуючыя закладкі з розных крыніц."
 
 #: en/bookmark.md:1
 msgid "# Bookmark View"
-msgstr ""
+msgstr "# Прагляд закладкі"
 
 #: en/bookmark.md:3
 msgid "## The view"
-msgstr ""
+msgstr "## Прагляд"
 
 #: en/bookmark.md:5
 msgid ""
 "![The bookmark view](./img/bookmark-view.webp)\n"
 "The bookmark view of an article."
 msgstr ""
+"![Рэжым прагляду закладкі](./img/bookmark-view.webp)\n"
+"Рэжым прагляду закладкі артыкула."
 
 #: en/bookmark.md:8
 msgid "The bookmark view is divided in 3 sections:"
-msgstr ""
+msgstr "Прагляд закладкі падзелены на 3 секцыі:"
 
 #: en/bookmark.md:10
 msgid ""
@@ -319,134 +371,149 @@ msgid ""
 "- The content,\n"
 "- A sidebar with information, labels, highlights and actions."
 msgstr ""
+"- Зверху — навігацыя і налады адлюстравання,\n"
+"- Змест,\n"
+"- Бакавая панэль з інфармацыяй, меткамі, вытрымкамі і дзеяннямі."
 
 #: en/bookmark.md:15
 msgid "A bookmark renders its content based on its type. There are 3 types:"
-msgstr ""
+msgstr "Закладка адлюстроўвае свой змест у залежнасці ад яе тыпу. Існуе 3 тыпы:"
 
 #: en/bookmark.md:30
 msgid "## Navigation and presentation settings"
-msgstr ""
+msgstr "## Навігацыя і налады адлюстравання"
 
 #: en/bookmark.md:32
 msgid "On top of the bookmark view, a link takes you back to the previous page."
-msgstr ""
+msgstr "У верхняй частцы прагляду закладкі спасылка вяртае вас на папярэднюю старонку."
 
 #: en/bookmark.md:34
 msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
-msgstr ""
+msgstr "Калі закладка змяшчае артыкул, кнопка з іншага боку дазваляе змяніць некаторыя налады тыпаграфікі."
 
 #: en/bookmark.md:36
 msgid ""
 "![Bookmark typography settings](./img/bookmark-typography.webp)\n"
 "Typography settings."
 msgstr ""
+"![Налады тыпаграфікі закладкі](./img/bookmark-typography.webp)\n"
+"Налады тыпаграфікі."
 
 #: en/bookmark.md:39
 msgid ""
 "There you can set the font used for the text, the font size and the line height.\\\n"
 "This settings are automatically saved for you and will apply to any article you read later."
 msgstr ""
+"Там вы можаце задаць шрыфт для тэксту, яго памер і міжрадковы інтэрвал.\\\n"
+"Гэтыя налады захоўваюцца аўтаматычна і будуць прымяняцца да любога артыкула, які вы будзеце чытаць пазней."
 
 #: en/bookmark.md:43
 msgid "## Change the title"
-msgstr ""
+msgstr "## Змяніць загаловак"
 
 #: en/bookmark.md:45
 msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
-msgstr ""
+msgstr "Назва закладкі падцягваецца аўтаматычна пры яе стварэнні. Калі па нейкай прычыне вам трэба іншая назва, вы можаце змяніць яе, клікнуўшы па ёй, а затым націснуўшы на кнопку побач з назвай."
 
 #: en/bookmark.md:48
 msgid "## Actions"
-msgstr ""
+msgstr "## Дзеянні"
 
 #: en/bookmark.md:50
 msgid "On the bookmark sidebar, you can perform actions."
-msgstr ""
+msgstr "На бакавой панэлі закладак можна выконваць розныя дзеянні."
 
 #: en/bookmark.md:52
 msgid "### Favorite"
-msgstr ""
+msgstr "### Абранае"
 
 #: en/bookmark.md:54
 msgid "This toggles the favorite status of the bookmark."
-msgstr ""
+msgstr "Гэта пераключае статус закладкі як абранай."
 
 #: en/bookmark.md:56
 msgid "### Archive"
-msgstr ""
+msgstr "### Архіў"
 
 #: en/bookmark.md:58
 msgid "This moves the bookmark to the archives (or removes it from there)."
-msgstr ""
+msgstr "Гэта перамяшчае закладку ў архіў (або выдаляе яе адтуль)."
 
 #: en/bookmark.md:60
 msgid "### Share"
-msgstr ""
+msgstr "### Падзяліцца"
 
 #: en/bookmark.md:62
 msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
-msgstr ""
+msgstr "Кнопка «Падзяліцца» адкрывае меню, у якім вы можаце стварыць спасылку, калі хочаце падзяліцца артыкулам з кім-небудзь."
 
 #: en/bookmark.md:64
 msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
-msgstr ""
+msgstr "У гэтым жа меню вы можаце экспартаваць сваю закладку (пакуль толькі ў фармаце EPUB), каб прачытаць яе на іншай прыладзе."
 
 #: en/bookmark.md:67
 msgid "### Delete"
-msgstr ""
+msgstr "### Выдаліць"
 
 #: en/bookmark.md:69
 msgid ""
 "This marks the bookmark for deletion.\\\n"
 "No worries if you click on this by mistake! This action can be canceled before actual deletion."
 msgstr ""
+"Гэта пазначае закладку для выдалення.\\\n"
+"Не хвалюйцеся, калі вы націснулі сюды памылкова! Гэта дзеянне можна адмяніць да моманту фактычнага выдалення."
 
 #: en/bookmark.md:73
 msgid "## Labels"
-msgstr ""
+msgstr "## Меткі"
 
 #: en/bookmark.md:75
 msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
-msgstr ""
+msgstr "Вы можаце дадаваць да закладкі колькі заўгодна метак. Каб зрабіць гэта, увядзіце тэкст у поле меткі і націсніце **Дадаць метку**. Няма ніякіх абмежаванняў на тое, што можа быць меткай. Вы нават можаце дадаваць эмодзі, калі яны вам падабаюцца."
 
 #: en/bookmark.md:77
 msgid ""
 "![Bookmark labels form](./img/bookmark-labels.webp)\n"
 "Add a new label."
 msgstr ""
+"![Форма метак для закладак](./img/bookmark-labels.webp)\n"
+"Дадаць нову метку."
 
 #: en/bookmark.md:80
 msgid "Please read the [Labels](./labels.md) section for more information."
-msgstr ""
+msgstr "Калі ласка, прачытайце раздзел [Меткі](./labels.md) для атрымання дадатковай інфармацыі."
 
 #: en/bookmark.md:82
 msgid "## Highlights"
-msgstr ""
+msgstr "## Вытрымкі"
 
 #: en/bookmark.md:84
 msgid ""
 "Found some interesting part in an article? You can highlight it!\\\n"
 "When you select any text in the article, a menu appears that lets you create a new highlight."
 msgstr ""
+"У артыкуле ёсць цікавы кавалак? Зрабіце вытрымку!\n"
+"Для гэтага вылучыце тэкст, і з'явіцца меню з прапановай зрабіць вытрымку."
 
 #: en/bookmark.md:87
 msgid ""
 "![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
 "Create a new highlight."
 msgstr ""
+"![Так робяць вытрымку](./img/bookmark-highlight.webp)\n"
+"Стварэнне вытрымкі."
 
 #: en/bookmark.md:90
 msgid "Your highlights appear in the sidebar."
-msgstr ""
+msgstr "Вашы вытрымкі з’яўляюцца на бакавой панэлі."
 
 #: en/bookmark.md:92
 msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
-msgstr ""
+msgstr "Калі вам трэба выдаліць вытрымку, вы можаце зрабіць гэта праз бакавую панэль або выбраўшы яе непасрэдна ў артыкуле."
 
 #: en/collections.md:1
 msgid "# Collections"
-msgstr ""
+msgstr "# Калекцыі"
 
 #: en/collections.md:3
 msgid ""
@@ -456,6 +523,11 @@ msgid ""
 "it will appear immediately.\n"
 "Here are some examples:"
 msgstr ""
+"Калекцыі дазваляюць лёгка ўпарадкоўваць і экспартаваць вашы закладкі,\n"
+"захоўваючы выбраныя вамі пошукавыя запыты.\n"
+"Калі вы створыце новую закладку, якая адпавядае крытэрыям калекцыі,\n"
+"яна адразу ж там з'явіцца.\n"
+"Вось некалькі прыкладаў:"
 
 #: en/collections.md:9
 msgid ""
@@ -464,52 +536,58 @@ msgid ""
 "- The pictures with the label \"cat\",\n"
 "- The articles that contain \"climate\" in their title."
 msgstr ""
+"- Непрачытаныя артыкулы (без фота і відэа),\n"
+"- Архіваваныя артыкулы з «wikipedia.org»,\n"
+"- Малюнкі з меткай «кот»,\n"
+"- Артыкулы, у загалоўках якіх ёсць слова «клімат»."
 
 #: en/collections.md:14
 msgid "## Create a new collection"
-msgstr ""
+msgstr "## Стварэнне калекцыі"
 
 #: en/collections.md:16
 msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
-msgstr ""
+msgstr "Каб стварыць новую калекцыю, перайдзіце ў [Спіс калекцый](readeck-instance://bookmarks/collections) і націсніце **Стварыць новую калекцыю**."
 
 #: en/collections.md:18
 msgid ""
 "![New Collection form](./img/collection-new.webp)\n"
 "The collection form"
 msgstr ""
+"![Форма новай калекцыі](./img/collection-new.webp)\n"
+"Форма калекцыі"
 
 #: en/collections.md:21
 msgid "Enter any criteria and click on **Save**."
-msgstr ""
+msgstr "Увядзіце любыя крытэрыі і націсніце **Захаваць**."
 
 #: en/collections.md:23
 msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
-msgstr ""
+msgstr "Калі ласка, звярніцеся да [фільтраў закладак](./bookmark-list.md#filters) для атрымання больш падрабязнай інфармацыі аб фільтрацыі."
 
 #: en/collections.md:25
 msgid "## Export a collection"
-msgstr ""
+msgstr "## Экспартаваць калекцыю"
 
 #: en/collections.md:27
 msgid "On a collection page, you can export the full collection to a file."
-msgstr ""
+msgstr "На старонцы калекцыі вы можаце экспартаваць усю калекцыю ў файл."
 
 #: en/collections.md:29
 msgid "For now, only EPUB is available and exports the full collection as a single book."
-msgstr ""
+msgstr "На дадзены момант даступны толькі фармат EPUB, які экспартуе ўсю калекцыю як адну кнігу."
 
 #: en/collections.md:32
 msgid "## Delete a collection"
-msgstr ""
+msgstr "## Выдаліць калекцыю"
 
 #: en/collections.md:34
 msgid "On a collection page, open the **Edit** box and click on **Delete**."
-msgstr ""
+msgstr "На старонцы калекцыі адкрыйце акно **Рэдагаваць** і націсніце **Выдаліць**."
 
 #: en/collections.md:36
 msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
-msgstr ""
+msgstr "Гэтую аперацыю можна адмяніць на працягу некалькіх секунд, калі вы дапусцілі памылку."
 
 #: en/index.md:1
 msgid ""
@@ -526,18 +604,30 @@ msgid ""
 "    - user-profile\n"
 "---"
 msgstr ""
+"---\n"
+"Title: Змест\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
 
 #: en/index.md:14
 msgid "# Readeck Help"
-msgstr ""
+msgstr "# Даведка Readeck"
 
 #: en/index.md:16
 msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
-msgstr ""
+msgstr "Сардэчна запрашаем у Readeck! Тут вы знойдзеце адказы на большасць пытанняў па працы з Readeck, а таксама парады, як зрабіць карыстанне сэрвісам яшчэ больш зручным."
 
 #: en/index.md:18
 msgid "## Contents"
-msgstr ""
+msgstr "## Змест"
 
 #: en/index.md:20
 msgid ""
@@ -548,44 +638,52 @@ msgid ""
 "- [Ebook Catalog](./opds.md)\n"
 "- [User Profile](./user-profile.md)"
 msgstr ""
+"- [Закладкі](./bookmark-list.md)\n"
+"- [Прагляд закладак](./bookmark.md)\n"
+"- [Меткі](./labels.md)\n"
+"- [Калекцыі](./collections.md)\n"
+"- [Каталог электронных кніг](./opds.md)\n"
+"- [Профіль карыстальніка](./user-profile.md)"
 
 #: en/labels.md:1
 msgid "# Labels"
-msgstr ""
+msgstr "# Меткі"
 
 #: en/labels.md:3
 msgid ""
 "You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
 "There is no limit as to what can be a label. You can even add emojis if you like them."
 msgstr ""
+"Вы можаце [дадаваць да закладкі колькі заўгодна метак](./bookmark.md#labels).\\\n"
+"Няма ніякіх абмежаванняў на тое, што можа быць меткамі. Вы нават можаце дадаваць эмодзі, калі яны вам падабаюцца."
 
 #: en/labels.md:6
 msgid "## Label List"
-msgstr ""
+msgstr "## Спіс метак"
 
 #: en/labels.md:8
 msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
-msgstr ""
+msgstr "[Спіс метак](readeck-instance://bookmarks/labels) паказвае ўсе меткі ў вашай калекцыі закладак з лічбай, якая паказвае, колькі закладак маюць тую ці іншую метку."
 
 #: en/labels.md:10
 msgid "When you click on a label, you can list all the bookmarks carrying the label."
-msgstr ""
+msgstr "Калі вы націскаеце на метку, вы можаце праглядзець усе закладкі з гэтай меткай."
 
 #: en/labels.md:12
 msgid "## Rename a label"
-msgstr ""
+msgstr "## Перайменаванне меткі"
 
 #: en/labels.md:14
 msgid "On a given label page, you can click on the page's title (the label) to change its name."
-msgstr ""
+msgstr "На старонцы канкрэтнай меткі вы можаце націснуць на загаловак старонкі (саму метку), каб змяніць яе назву."
 
 #: en/opds.md:1
 msgid "# E-book Catalog"
-msgstr ""
+msgstr "# Каталог электронных кніг"
 
 #: en/opds.md:3
 msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
-msgstr ""
+msgstr "Readeck прапануе каталог усіх вашых закладак у выглядзе электроннай кнігі, арганізаваны ў каталог з наступнай структурай:"
 
 #: en/opds.md:5
 msgid ""
@@ -598,68 +696,82 @@ msgid ""
 "    - Collection E-book\n"
 "    - Browse Collection"
 msgstr ""
+"- Непрачытаныя закладкі\n"
+"- Архіваваныя закладкі\n"
+"- Выбраныя закладкі\n"
+"- Усе закладкі\n"
+"- Калекцыі закладак\n"
+"  - (Назва калекцыі)\n"
+"    - Электронная кніга калекцыі\n"
+"    - Праглядзець калекцыю"
 
 #: en/opds.md:14
 msgid "Each section, except Collections, provides every bookmark as an E-book."
-msgstr ""
+msgstr "Кожны раздзел, акрамя «Калекцый», дазваляе спампаваць кожную закладку як электронную кнігу."
 
 #: en/opds.md:16
 msgid "On a collection's section, you can download the full collection as a single E-book."
-msgstr ""
+msgstr "У раздзеле калекцыі вы можаце спампаваць усю калекцыю цалкам адным файлам."
 
 #: en/opds.md:19
 msgid "## Catalog access"
-msgstr ""
+msgstr "## Доступ да каталога"
 
 #: en/opds.md:21
 msgid ""
 "The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
 "To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
 msgstr ""
+"Доступ да каталога магчымы праз любы дадатак або электронную кнігу з падтрымкай фармату OPDS.\n"
+"Каб атрымаць доступ да каталога, спачатку трэба стварыць [API-токен](readeck-instance://profile/tokens)."
 
 #: en/opds.md:24
 msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
-msgstr ""
+msgstr "**Заўвага**: Прасцей за ўсё спампаваць токен у выглядзе тэкставага файла і перанесці яго на вашу электронную кнігу. Пасля гэтага вы зможаце адкрыць файл і скапіяваць токен."
 
 #: en/opds.md:26
 msgid ""
 "You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
 "Write the token value down and setup your app."
 msgstr ""
+"Вы можаце абмежаваць правы гэтага токена да «Закладкі: Толькі для чытання».\n"
+"Запішыце значэнне токена і наладзьце свой дадатак."
 
 #: en/opds.md:29
 msgid ""
 "The URL of your OPDS catalog is: \\\n"
 "[readeck-instance://opds](readeck-instance://opds)"
 msgstr ""
+"URL-адрас вашага каталога OPDS: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
 
 #: en/opds.md:33
 msgid "## Example setup: Koreader"
-msgstr ""
+msgstr "## Прыклад налады: Koreader"
 
 #: en/opds.md:35
 msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
-msgstr ""
+msgstr "[Koreader](https://koreader.rocks/) — гэта праграма для прагляду дакументаў на прыладах з E Ink. Яна даступная для Kindle, Kobo, PocketBook, Android і дэсктопных версій Linux. Праграма мае вельмі добрую падтрымку OPDS."
 
 #: en/opds.md:37
 msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
-msgstr ""
+msgstr "Як толькі вы атрымаеце API-токен, вы зможаце перайсці ў раздзел OPDS у меню Koreader:"
 
 #: en/opds.md:39
 msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
-msgstr ""
+msgstr "![Меню Koreader](../img/koreader-1.webp)"
 
 #: en/opds.md:41
 msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
-msgstr ""
+msgstr "У гэтым раздзеле адлюстроўваецца спіс загадзя настроеных крыніц OPDS, і вы можаце дадаць сваю, націснуўшы на значок «+» у левым верхнім куце:"
 
 #: en/opds.md:43
 msgid "![Koreader catalog list](../img/koreader-2.webp)"
-msgstr ""
+msgstr "![Спіс каталогаў Koreader](../img/koreader-2.webp)"
 
 #: en/opds.md:45
 msgid "In this dialog replace the fields below with:"
-msgstr ""
+msgstr "У гэтым дыялогавым акне заменіце палі ніжэй на:"
 
 #: en/opds.md:47
 msgid ""
@@ -667,60 +779,62 @@ msgid ""
 "- alice: your username\n"
 "- your API Token in the last field"
 msgstr ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: ваша імя карыстальніка\n"
+"- ваш API-токен у апошнім полі"
 
 #: en/opds.md:51
 msgid "![Koreader add catalog](../img/koreader-3.webp)"
-msgstr ""
+msgstr "![Дадаць каталог Koreader](../img/koreader-3.webp)"
 
 #: en/opds.md:53
 msgid "You can now access your bookmarks from Koreader!"
-msgstr ""
+msgstr "Цяпер вы можаце атрымаць доступ да сваіх закладак з Koreader!"
 
 #: en/opds.md:55
 msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
-msgstr ""
+msgstr "![Каталог Koreader readeck](../img/koreader-4.webp)"
 
 #: en/user-profile.md:1
 msgid "# User Profile"
-msgstr ""
+msgstr "# Профіль карыстальніка"
 
 #: en/user-profile.md:3
 msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
-msgstr ""
+msgstr "Раздзел [Профіль](readeck-instance://profile) у Readeck дазваляе змяняць асабістую інфармацыю, пароль і некаторыя іншыя налады."
 
 #: en/user-profile.md:5
 msgid "## Edit your profile"
-msgstr ""
+msgstr "## Рэдагаванне профілю"
 
 #: en/user-profile.md:7
 msgid "On the main profile page, you can change your username, your email address and choose the app's language."
-msgstr ""
+msgstr "На галоўнай старонцы профілю вы можаце змяніць імя карыстальніка, адрас электроннай пошты і выбраць мову праграмы."
 
 #: en/user-profile.md:9
 msgid "## Change your password"
-msgstr ""
+msgstr "## Змена пароля"
 
 #: en/user-profile.md:11
 msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
-msgstr ""
+msgstr "На старонцы [Пароль](readeck-instance://profile/password) вы можаце змяніць пароль, які выкарыстоўваецца для ўваходу ў Readeck."
 
 #: en/user-profile.md:13
 msgid "## API Tokens"
-msgstr ""
+msgstr "## API-токены"
 
 #: en/user-profile.md:15
 msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
-msgstr ""
+msgstr "API-токен дазваляе атрымаць доступ і выкарыстоўваць [Readeck API](readeck-instance://docs/api) для любых вашых распрацовак. Вы можаце ствараць токены і кіраваць імі ў раздзеле [API-токены](readeck-instance://profile/tokens) вашага профілю карыстальніка."
 
 #: en/user-profile.md:17
 msgid "You can limit what a given token can access through the API and for how long it's valid."
-msgstr ""
+msgstr "Вы можаце абмежаваць доступ пэўнага токена праз API, а таксама вызначыць тэрмін яго дзеяння."
 
 #: en/user-profile.md:19
 msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
-msgstr ""
+msgstr "Калі вам трэба даць доступ да свайго ўліковага запісу Readeck нейкаму сэрвісу ці праграме, вы не зможаце выкарыстаць свае асноўныя імя карыстальніка і пароль — гэта не спрацуе."
 
 #: en/user-profile.md:21
 msgid "Instead, you can give your username and a token of your choice as authentication credentials."
-msgstr ""
-
+msgstr "Замест гэтага вы можаце падаць сваё імя карыстальніка і абраны токен у якасці даных для аўтэнтыфікацыі."

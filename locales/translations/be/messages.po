@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2026-02-17 13:10+0000\n"
+"PO-Revision-Date: 2026-02-28 18:29+0000\n"
 "Last-Translator: Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>\n"
 "Language-Team: Belarusian <https://translate.codeberg.org/projects/readeck/application/be/>\n"
 "Language: be\n"
@@ -509,7 +509,7 @@ msgstr ""
 #: assets/templates/bookmarks/annotation_list.jet.html:23
 #, python-format
 msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
-msgstr "Пачытайце больш пра выдзеленыя элементы ў <a class=\"%s\" href=\"%s\">дакументацыі</a>."
+msgstr "Пачытайце больш пра вытрымкі ў <a class=\"%s\" href=\"%s\">дакументацыі</a>."
 
 #: assets/templates/bookmarks/base.jet.html:1
 #: assets/templates/bookmarks/components/filters.jet.html:9
@@ -530,7 +530,7 @@ msgstr "Архіў"
 
 #: assets/templates/bookmarks/base.jet.html:40
 msgid "Favorites"
-msgstr "Улюбёныя"
+msgstr "Абранае"
 
 #: assets/templates/bookmarks/base.jet.html:48
 #: internal/bookmarks/routes/views_bookmarks.go:115
@@ -989,7 +989,7 @@ msgstr "Сайт"
 #: assets/templates/bookmarks/import/options.jet.html:10
 #: assets/templates/bookmarks/label.jet.html:11
 msgid "Label"
-msgstr "Мэтка"
+msgstr "Метка"
 
 #: assets/templates/bookmarks/components/filters.jet.html:108
 msgid "From date"
