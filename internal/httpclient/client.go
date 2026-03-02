@@ -30,7 +30,7 @@ import (
 
 type ctxProxyURLKey struct{}
 
-const uaString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.3"
+const uaString = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36"
 
 // defaultDialer is our own default net.Dialer with shorter timeout and keepalive.
 var defaultDialer = net.Dialer{
@@ -91,10 +91,11 @@ var defaultHeaders = http.Header{
 	"Accept-Language":           []string{"en-US,en;q=0.8"},
 	"Cache-Control":             []string{"max-age=0"},
 	"Upgrade-Insecure-Requests": []string{"1"},
-	"Sec-CH-UA":                 []string{`"Google Chrome";v="137", "Chromium";v="137"`},
+	"Sec-CH-UA":                 []string{`"Google Chrome";v="144", "Chromium";v="144"`},
 	"Sec-CH-UA-mobile":          []string{"?0"},
 	"Sec-CH-UA-platform":        []string{`"Windows"`},
 	"Sec-Fetch-Site":            []string{"none"},
+	"Sec-Fetch-Mode":            []string{"navigate"},
 }
 
 func proxyMatcher(req *http.Request) (u *url.URL, err error) {
