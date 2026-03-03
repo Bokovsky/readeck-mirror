@@ -3,20 +3,22 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # misketmuskat <misketmuskat@noreply.codeberg.org>, 2025.
-# olivier <olivier@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025, 2026.
+# liilliil <liilliil@noreply.codeberg.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2025-11-17 20:51+0000\n"
+"PO-Revision-Date: 2026-03-03 14:19+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: tr_TR\n"
 "Language-Team: Turkish <https://translate.codeberg.org/projects/readeck/application/tr/>\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -199,11 +201,11 @@ msgstr "Bu kullanıcıyı sil"
 
 #: assets/templates/admin/user.jet.html:60
 msgid "Last login"
-msgstr ""
+msgstr "Son giriş"
 
 #: assets/templates/admin/user.jet.html:69
 msgid "Last Activity"
-msgstr ""
+msgstr "Son Etkinlik"
 
 #: assets/templates/admin/user.jet.html:75
 #: assets/templates/bookmarks/base.jet.html:15
@@ -218,7 +220,7 @@ msgstr "Yer İmleri"
 
 #: assets/templates/admin/user.jet.html:80
 msgid "Disk usage"
-msgstr ""
+msgstr "Disk kullanımı"
 
 #: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
 msgid "New User"
@@ -245,9 +247,9 @@ msgstr "Son güncellenme:%s"
 
 # | msgid "Created on: %s"
 #: assets/templates/admin/user_list.jet.html:35
-#, fuzzy, python-format
+#, python-format
 msgid "Last login: %s"
-msgstr "Son kullanım: %s"
+msgstr "Son giriş: %s"
 
 #: assets/templates/admin/user_list.jet.html:43
 msgid "This user will be removed in a few seconds."
@@ -277,9 +279,8 @@ msgid "Authorization required"
 msgstr "Yetkilendirme gerekli"
 
 #: assets/templates/auth/oauth/device-code.jet.html:13
-#, fuzzy
 msgid "Go back to Readeck"
-msgstr "Readeck'e giriş yap"
+msgstr "Readeck'e geri dön"
 
 #: assets/templates/auth/oauth/device-code.jet.html:28
 #: assets/templates/auth/oauth/device-code.jet.html:47
@@ -292,7 +293,6 @@ msgid "Enter the code displayed on your device"
 msgstr "Cihazınızda görüntülenen kodu girin"
 
 #: assets/templates/auth/oauth/device-code.jet.html:37
-#, fuzzy
 msgid "Next"
 msgstr "Sonraki"
 
@@ -340,14 +340,12 @@ msgstr ""
 "    "
 
 #: assets/templates/auth/oauth/form.jet.html:26
-#, fuzzy
 msgid "Review permissions"
-msgstr "İzinler"
+msgstr "İzinleri incele"
 
 #: assets/templates/auth/oauth/form.jet.html:33
-#, fuzzy
 msgid "Application information"
-msgstr "Uygulama"
+msgstr "Başvuru bilgileri"
 
 #: assets/templates/auth/oauth/form.jet.html:35
 #: assets/templates/bookmarks/collection.jet.html:72
@@ -357,19 +355,16 @@ msgid "Name"
 msgstr "Ad"
 
 #: assets/templates/auth/oauth/form.jet.html:36
-#, fuzzy
 msgid "Website"
-msgstr "Ana websitesi"
+msgstr "Web sitesi"
 
 #: assets/templates/auth/oauth/form.jet.html:37
-#, fuzzy
 msgid "Version"
-msgstr "Sürüm:"
+msgstr "Sürüm"
 
 #: assets/templates/auth/oauth/form.jet.html:42
-#, fuzzy
 msgid "Authorize"
-msgstr "Yazar"
+msgstr "Yetkilendir"
 
 #: assets/templates/auth/oauth/form.jet.html:44
 msgid "Deny"
@@ -481,19 +476,16 @@ msgstr "Oturum açma sayfasına git"
 
 # | msgid "Documentation"
 #: assets/templates/auth/totp.jet.html:9
-#, fuzzy
 msgid "Two-factor authentication"
-msgstr "Kimlik doğrulama"
+msgstr "İki faktörlü kimlik doğrulama"
 
 #: assets/templates/auth/totp.jet.html:20
-#, fuzzy
 msgid "Passcode"
-msgstr "Parola"
+msgstr "Passkod"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "Sürüm:"
+msgstr "Doğrula"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -693,9 +685,8 @@ msgstr "%d . dk."
 
 # | msgid "Shared by %s"
 #: assets/templates/bookmarks/bookmark_public.jet.html:141
-#, fuzzy
 msgid "Shared by %[1]s with %[2]s"
-msgstr "%s tarafından %s kullanılarak paylaşıldı"
+msgstr "%[1]s tarafından %[2]s kullanılarak paylaşıldı"
 
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_public.jet.html:194
@@ -718,15 +709,14 @@ msgid "Share link"
 msgstr "Bağlantıyı paylaş"
 
 #: assets/templates/bookmarks/bookmark_update.jet.html:9
-#, fuzzy
 msgid "Edit bookmark"
-msgstr "Okunmamış Yer İmleri"
+msgstr "Yer imi düzenle"
 
 # | msgid "Saved with"
 #: assets/templates/bookmarks/bookmark_update.jet.html:14
-#, fuzzy, python-format
+#, python-format
 msgid "Edit: %s"
-msgstr "%s kullanılarak kaydedildi"
+msgstr "Düzenle: %s"
 
 #: assets/templates/bookmarks/collection.jet.html:22
 #, python-format
@@ -898,23 +888,20 @@ msgid "Description"
 msgstr "Açıklama"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:28
-#, fuzzy
 msgid "Site Name"
-msgstr "websitesi adı yok"
+msgstr "Site Adı"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:34
-#, fuzzy
 msgid "Authors"
-msgstr "Yazar"
+msgstr "Yazarlar"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:35
 msgid "One value per line"
-msgstr ""
+msgstr "Her satıra bir değer"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:41
-#, fuzzy
 msgid "Published"
-msgstr "%s tarihinde yayınlandı"
+msgstr "Yayınlandı"
 
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:46
 #: assets/templates/profile/index.jet.html:49
@@ -923,9 +910,8 @@ msgstr "Dil"
 
 # | msgid "Documentation"
 #: assets/templates/bookmarks/components/bookmark_update.jet.html:51
-#, fuzzy
 msgid "Text Direction"
-msgstr "Kimlik doğrulama"
+msgstr "Metin Yönü"
 
 #: assets/templates/bookmarks/components/card.jet.html:1
 msgid "Go to original page"
@@ -974,7 +960,7 @@ msgstr "Yeşil"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:50
 msgid "Transparent"
-msgstr ""
+msgstr "Şeffaf"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:55
 msgid "Highlight"
@@ -982,9 +968,8 @@ msgstr "Vurgula"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:63
 #: assets/templates/bookmarks/components/filters.jet.html:103
-#, fuzzy
 msgid "Note"
-msgstr "hayır"
+msgstr "Not"
 
 #: assets/templates/bookmarks/components/content_block.jet.html:78
 #: assets/templates/bookmarks/label.jet.html:43
@@ -1109,45 +1094,39 @@ msgstr "Atom Akışı"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Decrease width"
-msgstr ""
+msgstr "Genişliği azalt"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current Width"
-msgstr "Mevcut şifre"
+msgstr "Mevcut Genişlik"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Increase width"
-msgstr ""
+msgstr "Genişliği artır"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease font size"
-msgstr "Oluşturulma tarihi: %s"
+msgstr "Yazı tipi boyutunu küçült"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Current font size"
-msgstr ""
+msgstr "Mevcut yazı tipi boyutu"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase font size"
-msgstr "Oluşturulma tarihi: %s"
+msgstr "Yazı tipi boyutunu artır"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Decrease line height"
-msgstr "Satır yüksekliği"
+msgstr "Satır yüksekliğini azalt"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Current line height"
-msgstr "Satır yüksekliği"
+msgstr "Mevcut satır yüksekliği"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
-#, fuzzy
 msgid "Increase line height"
-msgstr "Satır yüksekliği"
+msgstr "Satır yüksekliğini artır"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 #, fuzzy
@@ -1156,7 +1135,7 @@ msgstr "İki yana hizalı"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 msgid "Don't justify text"
-msgstr ""
+msgstr "Metni iki yana yaslama"
 
 #: assets/templates/bookmarks/components/reader_control.jet.html:1
 #, fuzzy
@@ -1829,11 +1808,11 @@ msgstr "İşte şu anki sistem bilginiz. Bir hata bildirmek isterseniz lütfen b
 
 #: assets/templates/docs/about.jet.html:42
 msgid "Storage"
-msgstr ""
+msgstr "Depolama"
 
 #: assets/templates/docs/about.jet.html:46
 msgid "Database Size:"
-msgstr ""
+msgstr "Veritabanı Boyutu:"
 
 #: assets/templates/docs/about.jet.html:50
 #, fuzzy
@@ -2088,7 +2067,7 @@ msgstr ""
 
 #: assets/templates/profile/app_list.jet.html:24
 msgid "You have no registered application at the moment."
-msgstr ""
+msgstr "Şu anda kayıtlı bir başvurunuz bulunmamaktadır."
 
 # | msgid "Created on: %s"
 #: assets/templates/profile/app_list.jet.html:46
@@ -2126,6 +2105,10 @@ msgid ""
 "    <a href=\"%s\">API Documentation</a>.\n"
 "  "
 msgstr ""
+"\n"
+"    Bir uygulama geliştirmeyi planlıyorsanız, lütfen\n"
+"    <a href=\"%s\">API Dokümantasyonu</a>'na göz atın.\n"
+"  "
 
 #: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
 #: internal/profile/views.go:113 internal/profile/views.go:167
@@ -2139,7 +2122,7 @@ msgstr "Profil"
 #: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
 #: internal/profile/views.go:168
 msgid "Security"
-msgstr ""
+msgstr "Güvenlik"
 
 #: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
 #: internal/profile/views.go:320
@@ -2320,15 +2303,15 @@ msgstr "Mevcut şifre"
 
 #: assets/templates/profile/password.jet.html:46
 msgid "Verification Code (TOTP)"
-msgstr ""
+msgstr "Doğrulama Kodu (TOTP)"
 
 #: assets/templates/profile/password.jet.html:47
 msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
-msgstr ""
+msgstr "Doğrulama kodu, Google Authenticator gibi bir uygulama tarafından oluşturulan tek kullanımlık bir koddur."
 
 #: assets/templates/profile/password.jet.html:52
 msgid "The verification code is enabled on this account."
-msgstr ""
+msgstr "Bu hesapta doğrulama kodu etkinleştirildi."
 
 #: assets/templates/profile/password.jet.html:57
 #, fuzzy
@@ -2337,7 +2320,7 @@ msgstr "Değişiklik yapma"
 
 #: assets/templates/profile/password.jet.html:59
 msgid "Removing your verification code will make your account less secure."
-msgstr ""
+msgstr "Doğrulama kodunuzu kaldırmak hesabınızı daha az güvenli hale getirecektir."
 
 #: assets/templates/profile/password.jet.html:64
 #, fuzzy
@@ -2465,12 +2448,8 @@ msgid "My API Tokens"
 msgstr "API Token'larım"
 
 #: assets/templates/profile/token_list.jet.html:16
-#, fuzzy
 msgid "An API Token is a key that grants you access to the Readeck API."
-msgstr ""
-"\n"
-"  Bir API Token'ı, size (veya bir tarayıcı eklentisi gibi başka bir araca)\r\n"
-"  Readeck API'sine erişim izni veren bir anahtardır.\n"
+msgstr "API Belirteci, Readeck API'sine erişmenizi sağlayan bir anahtardır."
 
 #: assets/templates/profile/token_list.jet.html:17
 #, python-format
@@ -2492,11 +2471,11 @@ msgstr "Bu token birkaç saniye içinde kaldırılacak."
 
 #: assets/templates/profile/totp.jet.html:17
 msgid "Scan this QR code with your app"
-msgstr ""
+msgstr "Bu QR kodunu uygulamanızla tarayın"
 
 #: assets/templates/profile/totp.jet.html:18
 msgid "Scan the QR code below with a two-factor authentication app on your phone."
-msgstr ""
+msgstr "Telefonunuzdaki iki faktörlü kimlik doğrulama uygulamasıyla aşağıdaki QR kodu tarayın."
 
 #: assets/templates/profile/totp.jet.html:25
 msgid "If you can't use the QR code, enter the code below instead."
@@ -3235,4 +3214,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr ""
-
