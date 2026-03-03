@@ -3,20 +3,22 @@
 #
 # SPDX-License-Identifier: AGPL-3.0-only
 # γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025.
-# olivier <olivier@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025, 2026.
+# liilliil <liilliil@noreply.codeberg.org>, 2026.
 msgid ""
 msgstr ""
 "Project-Id-Version: Readeck 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@readeck.com\n"
 "POT-Creation-Date: 2026-02-04 20:03+0100\n"
-"PO-Revision-Date: 2025-12-16 09:12+0000\n"
+"PO-Revision-Date: 2026-03-03 14:19+0000\n"
 "Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
-"Language: tt_RU\n"
 "Language-Team: Tatar <https://translate.codeberg.org/projects/readeck/application/tt/>\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tt\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 "Generated-By: Babel 2.17.0\n"
 
 #: assets/templates/_layouts/sidemenu.jet.html:29
@@ -471,9 +473,8 @@ msgid "Passcode"
 msgstr "Серсүз"
 
 #: assets/templates/auth/totp.jet.html:31
-#, fuzzy
 msgid "Verify"
-msgstr "Версия"
+msgstr "Тикшерү"
 
 #: assets/templates/bookmarks/annotation_list.jet.html:8
 msgid "Bookmark Highlights"
@@ -2959,4 +2960,3 @@ msgstr "%H:%M:%S"
 
 #~ msgid "Verification Code Setup"
 #~ msgstr ""
-
