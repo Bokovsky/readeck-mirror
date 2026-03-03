@@ -3,6 +3,7 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
+    "//article",
     "//div[contains(concat(' ',normalize-space(@class),' '),' article ')]"
   ],
   "date_selectors": [
@@ -12,6 +13,14 @@
     "//div[@class=\"article-byline detached\"]/ul[@class=\"article-byline-list\"]/li[@class=\"article-author\"]/a"
   ],
   "strip_selectors": [
+    "//svg",
+    "//div[contains(@class, 'Title_headline-container')]",
+    "//div[contains(@class, 'Standard_top-utils')]",
+    "//div[contains(@class, 'Premium_top-utils')]",
+    "//div[contains(@class, 'Standard_left-rail')]",
+    "//div[contains(@class, 'Premium_left-rail')]",
+    "//div[contains(@class, 'Standard_bottom-utils')]",
+    "//div[contains(@class, 'Premium_bottom-utils')]",
     "//article-ideainbrief",
     "//div[@class=\"article-summary\"]/text()"
   ],

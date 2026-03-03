@@ -1,9 +1,7 @@
 {
-  "title_selectors": [
-    "//h1[1]"
-  ],
+  "title_selectors": null,
   "body_selectors": [
-    "//section[@class=\"chapter\"]"
+    "//div[@class=\"content\"]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -20,9 +18,9 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html/monitoring_and_managing_system_status_and_performance/assembly_using-systemd-to-manage-resources-used-by-applications_monitoring-and-managing-system-status-and-performance",
+      "url": "https://learn.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2012/hh191443(v=vs.110)",
       "contains": [
-        "This moves resource management from the process level to the application level"
+        "An async method typically contains"
       ]
     }
   ]

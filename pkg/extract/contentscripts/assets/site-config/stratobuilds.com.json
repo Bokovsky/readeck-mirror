@@ -1,0 +1,49 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' – StratoBuilds |')"
+  ],
+  "body_selectors": [
+    "//section[@id='content']"
+  ],
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'fusion-post-cards')]/parent::div",
+    "//h1[contains(@class, 'fusion-title-heading')]"
+  ],
+  "strip_id_or_class": [
+    "fusion-pagination-tb"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "srcset=\"data:image",
+      "foosrcst=\"data:image"
+    ],
+    [
+      "data-orig-src=\"http",
+      "src=\"http"
+    ],
+    [
+      "src=\"data:image",
+      "foosrc=\"data:image"
+    ]
+  ],
+  "http_headers": {
+    "User-Agent": "Wallabag/2"
+  },
+  "tests": [
+    {
+      "url": "https://stratobuilds.com/project/local-llm-ollama-home-assistant/",
+      "contains": []
+    }
+  ]
+}

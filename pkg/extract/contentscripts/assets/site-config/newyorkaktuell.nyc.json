@@ -1,0 +1,31 @@
+{
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' - New York Aktuell')"
+  ],
+  "body_selectors": null,
+  "date_selectors": null,
+  "author_selectors": [
+    "//*[@class='elementor-author-box__name']"
+  ],
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://newyorkaktuell.nyc/66-glauben-an-positive-auswirkungen-seiner-politik-zohran-mamdani-beginnt-sein-buergermeisteramt-am-1-januar-mit-grossem-vertrauensvorschuss/",
+      "contains": []
+    },
+    {
+      "url": "https://newyorkaktuell.nyc/feed/",
+      "contains": []
+    }
+  ]
+}
