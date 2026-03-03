@@ -1,7 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[contains(@class, 'content-body')]"
+    "//div[contains(@class, 'post-content')]"
   ],
   "date_selectors": null,
   "author_selectors": null,
@@ -18,7 +18,7 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "http://globalgrind.com/2015/04/26/listen-jeremih-featuring-chance-the-rapper-the-social-experiment-planes-remix-new-music/",
+      "url": "https://globalgrind.com/4075715/listen-jeremih-featuring-chance-the-rapper-the-social-experiment-planes-remix-new-music/",
       "contains": [
         "The Chicago rapper has made a name for himself"
       ]
