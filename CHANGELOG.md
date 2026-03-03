@@ -42,6 +42,7 @@
 - Font immutable caching
 - Restore Safari scroll position on back/forward navigation, by [@mislav](https://codeberg.org/mislav)
 - Added email/send permission in bookmarks:read OAuth scope
+- Support SVG images via object embeds, by [@mislav](https://codeberg.org/mislav)
 
 ## [0.21.6]
 ### Fixed

@@ -86,6 +86,7 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 		fixNoscriptImages(m.Dom)
 		fixShadowDOMHosts(m.Dom)
 		convertPictureNodes(m.Dom, m)
+		convertObjectImageEmbeds(m.Dom)
 
 		var doc *html.Node
 		var body *html.Node
@@ -345,6 +346,38 @@ func isSingleImage(node *html.Node) bool {
 	}
 
 	return isSingleImage(children[0])
+}
+
+// convertObjectImageEmbeds converts <object> tags to <img>.
+func convertObjectImageEmbeds(top *html.Node) {
+	for el := range eachElementByTag(top, "object") {
+		img := &html.Node{
+			Type: html.ElementNode,
+			Data: "img",
+		}
+		var mimeType string
+		for _, attr := range el.Attr {
+			switch attr.Key {
+			case "type":
+				mimeType = attr.Val
+			case "data":
+				if attr.Val == "" {
+					continue
+				}
+				img.Attr = append(img.Attr, html.Attribute{
+					Key: "src",
+					Val: attr.Val,
+				})
+			case "width", "height", "data-readeck-width", "data-readeck-height":
+				img.Attr = append(img.Attr, attr)
+			}
+		}
+		if !strings.HasPrefix(mimeType, "image/") {
+			continue
+		}
+		el.Parent.InsertBefore(img, el)
+		el.Parent.RemoveChild(el)
+	}
 }
 
 func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {

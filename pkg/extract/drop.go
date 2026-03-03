@@ -342,6 +342,11 @@ func (d *Drop) fixRelativeURIs(m *ProcessMessage) {
 		dom.SetAttribute(n, "srcset", newSrcSet)
 	})
 
+	dom.ForEachNode(dom.QuerySelectorAll(top, "object[data]"), func(n *html.Node, _ int) {
+		newURI := toAbsoluteURI(dom.GetAttribute(n, "data"), baseURL)
+		dom.SetAttribute(n, "data", newURI)
+	})
+
 	// make fragments to the same document relative
 	dom.ForEachNode(dom.QuerySelectorAll(top, "a[href]"), func(n *html.Node, _ int) {
 		attr := dom.GetAttribute(n, "href")
