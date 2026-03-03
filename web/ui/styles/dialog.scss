@@ -76,11 +76,10 @@
       position: fixed;
       top: theme("spacing.4");
       right: theme("spacing.4");
-      @apply text-white/70 hf:text-white;
+      @apply rounded text-white/70 bg-black/20 hf:text-white;
 
       &:focus-visible {
         outline: none;
-        background-color: transparent;
       }
     }
 
@@ -133,11 +132,10 @@
       position: fixed;
       top: theme("spacing.4");
       right: theme("spacing.4");
-      @apply text-white/70 hf:text-white;
+      @apply rounded text-white/70 bg-black/20 hf:text-white;
 
       &:focus-visible {
         outline: none;
-        background-color: transparent;
       }
     }
   }

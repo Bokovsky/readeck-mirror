@@ -78,6 +78,15 @@
             text-align: justify;
           }
         }
+
+        img,
+        svg {
+          background-color: #fff;
+        }
+
+        button > span > svg {
+          background-color: transparent;
+        }
       }
     }
   }
