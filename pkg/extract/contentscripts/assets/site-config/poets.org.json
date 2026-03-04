@@ -1,12 +1,24 @@
 {
   "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
+  "body_selectors": [
+    "//main//article"
+  ],
+  "date_selectors": [
+    "//meta[@property='og:updated_time']/@content"
+  ],
   "author_selectors": [
     "//main/div/div//div[@itemprop='author']//a"
   ],
-  "strip_selectors": null,
-  "strip_id_or_class": null,
+  "strip_selectors": [
+    "//button",
+    "//a[@data-byline-author-name]/parent::div"
+  ],
+  "strip_id_or_class": [
+    "add-to-anthology-modal",
+    "poem__title",
+    "poem-actions",
+    "field--field_poem_themes"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,
@@ -19,6 +31,10 @@
   "tests": [
     {
       "url": "https://poets.org/poem/queer-trivia-night",
+      "contains": []
+    },
+    {
+      "url": "https://poets.org/poem/i-decide-tell-ghost-cowboy-my-intentions",
       "contains": []
     }
   ]

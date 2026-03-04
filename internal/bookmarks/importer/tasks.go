@@ -44,7 +44,7 @@ func init() {
 	bus.OnReady(func() {
 		ImportBookmarksTask = bus.Tasks().NewTask(
 			"bookmarks.import",
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res ImportParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -56,7 +56,7 @@ func init() {
 		)
 		ImportExtractTask = bus.Tasks().NewTask(
 			"bookmarks.import_extract",
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res tasks.ExtractParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -69,7 +69,7 @@ func init() {
 	})
 }
 
-func importBookmarksHandler(data interface{}) {
+func importBookmarksHandler(data any) {
 	params := data.(ImportParams)
 
 	adapter := LoadAdapter(params.Source)
@@ -111,7 +111,7 @@ func importBookmarksHandler(data interface{}) {
 	})
 }
 
-func importExtractHandler(data interface{}) {
+func importExtractHandler(data any) {
 	params := data.(tasks.ExtractParams)
 	trackID := GetTrackID(params.RequestID)
 
@@ -185,7 +185,7 @@ func NewImportProgress(trackID string) (p ImportProgress, err error) {
 	}
 
 	p.Done, err = db.Q().Select(goqu.C("id")).
-		From(bookmarks.TableName).
+		From(db.TableBookmark).
 		Where(
 			goqu.C("id").In(ids),
 			goqu.C("state").Neq(bookmarks.StateLoading),

@@ -133,6 +133,7 @@ func newRecoverForm(tr forms.Translator) *recoverForm {
 					return step == 0 || step == 1
 				}).
 					True(forms.Required),
+				forms.MaxLen(128),
 			),
 			forms.NewTextField("password",
 				forms.When(func(f forms.Field, _ string) bool {

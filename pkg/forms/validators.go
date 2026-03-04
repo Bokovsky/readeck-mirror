@@ -8,6 +8,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net/netip"
 	"net/url"
 	"slices"
 	"strings"
@@ -110,7 +111,7 @@ func ApplyValidators[T any](f Field, value any, validators ...Validator) (errs [
 // Validator describes a generic validator.
 // By default, it can be anything but, once attached to a field, relevant
 // interfaces are called during cleanup and validation steps.
-type Validator interface{}
+type Validator any
 
 // ValueCleaner describes a value cleaner.
 type ValueCleaner interface {
@@ -303,9 +304,23 @@ func TypedValidator[T any](validator func(T) bool, err error) ValueValidator[T] 
 
 // IsEmail performs a rough check of the email address. That is, it
 // only checks for the presence of "@", only once and in the string.
-var IsEmail = TypedValidator(func(v string) bool {
-	return strings.Count(v, "@") == 1 && !strings.HasPrefix(v, "@") && !strings.HasSuffix(v, "@")
-}, ErrInvalidEmail)
+// It also rejects addresses with an ip host.
+var IsEmail = ValueValidatorFunc[string](func(f Field, v string) error {
+	if f.IsNil() {
+		return nil
+	}
+
+	if strings.Count(v, "@") != 1 || strings.HasPrefix(v, "@") || strings.HasSuffix(v, "@") {
+		return ErrInvalidEmail
+	}
+
+	_, host, _ := strings.Cut(v, "@")
+	if _, err := netip.ParseAddr(host); err == nil {
+		return ErrInvalidEmail
+	}
+
+	return nil
+})
 
 // IsURL checks that the input value is a valid URL
 // and matches the given schemes.
@@ -339,13 +354,50 @@ func Lte(value int) ValueValidator[int] {
 	}, Gettext("must be lower or equal than %d", value))
 }
 
-// StrLen is a string validator that checks if
-// its length is between a min/max boundary.
-func StrLen(minLen, maxLen int) ValueValidator[string] {
+// MinLen is a string validator thats checks
+// if it contains at least n characters.
+func MinLen(n int) ValueValidator[string] {
 	return TypedValidator(func(s string) bool {
-		return len([]rune(s)) >= minLen && len([]rune(s)) <= maxLen
-	}, Gettext("text must contain between %d and %d characters", minLen, maxLen))
+		return len([]rune(s)) >= n
+	}, Gettext("text must contain at least %d characters", n))
 }
+
+// MaxLen is a string validator thats checks
+// if it contains at most n characters.
+func MaxLen(n int) ValueValidator[string] {
+	return TypedValidator(func(s string) bool {
+		return len([]rune(s)) <= n
+	}, Gettext("text must contain at most %d characters", n))
+}
+
+// Len is a string validator thats checks
+// if it contains exactly n characters.
+func Len(n int) ValueValidator[string] {
+	return TypedValidator(func(s string) bool {
+		return len([]rune(s)) == n
+	}, Gettext("text must contain %d characters", n))
+}
+
+// SplitLines works on [ListField] (of string) and populates
+// its values after spliting each line.
+// It will trim spaces on each value.
+var SplitLines = FieldValidatorFunc(func(f Field) error {
+	field, ok := f.(*ListField[string])
+	if !ok {
+		return nil
+	}
+
+	res := []string{}
+	for _, x := range field.V() {
+		for l := range strings.Lines(x) {
+			if strings.TrimSpace(l) != "" {
+				res = append(res, strings.TrimSpace(l))
+			}
+		}
+	}
+	field.value.V = res
+	return nil
+})
 
 // ValueChoice is a key/value pair.
 type ValueChoice[T comparable] struct {

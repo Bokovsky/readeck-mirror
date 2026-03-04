@@ -42,6 +42,8 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(server.WithPermission("profile", "write")).Group(func(r chi.Router) {
 		r.Post("/", v.userProfile)
 		r.Post("/password", v.userPassword)
+		r.Get("/otp", v.userTOTP)
+		r.Post("/otp", v.userTOTP)
 		r.Post("/session", v.userSession)
 		r.Get("/import", v.importData)
 		r.Post("/import", v.importData)
@@ -101,43 +103,110 @@ func (v *profileViews) userProfile(w http.ResponseWriter, r *http.Request) {
 // userPassword handles GET and POST requests on /profile/password.
 func (v *profileViews) userPassword(w http.ResponseWriter, r *http.Request) {
 	tr := server.Locale(r)
-	f := newPasswordForm(tr)
+	user := auth.GetRequestUser(r)
+	f := newChangePasswordForm(tr, user)
+
+	tc := server.TC{
+		"ChangeForm": f,
+	}
+	tc.SetBreadcrumbs([][2]string{
+		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
+		{tr.Gettext("Security")},
+	})
 
 	if r.Method == http.MethodPost {
-		user := auth.GetRequestUser(r)
-		f.setUser(user)
-		forms.Bind(f, r)
-		if f.IsValid() {
-			if err := f.updatePassword(user); err != nil {
-				server.Log(r).Error("", slog.Any("err", err))
-			} else {
-				// Set the new seed in the session.
-				// We needn't save the session since AddFlash does it already.
-				sess := server.GetSession(r)
-				sess.Payload.Seed = user.Seed
-				server.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
-				server.Redirect(w, r, "password")
+		if err := r.ParseForm(); err != nil {
+			server.Err(w, r, err)
+			return
+		}
+
+		switch r.Form.Get("action") {
+		case "change":
+			if user.Locked() {
+				server.Status(w, r, http.StatusForbidden)
 				return
 			}
+			forms.Bind(f, r)
+			if f.IsValid() {
+				if err := f.updatePassword(); err != nil {
+					server.Log(r).Error("", slog.Any("err", err))
+				} else {
+					// Set the new seed in the session.
+					// We needn't save the session since AddFlash does it already.
+					sess := server.GetSession(r)
+					sess.Payload.Seed = user.Seed
+					server.AddFlash(w, r, "success", tr.Gettext("Your password was changed."))
+					server.Redirect(w, r, "password")
+					return
+				}
+			}
+		case "remove-totp":
+			user.TOTPSecret = nil
+			if err := user.Save(); err != nil {
+				server.Err(w, r, err)
+				return
+			}
+			server.AddFlash(w, r, "success", tr.Gettext("Your verification code was removed."))
+			server.Redirect(w, r, "password")
+			return
 		}
+
 		w.WriteHeader(http.StatusUnprocessableEntity)
 	}
 
-	ctx := server.TC{
-		"Form": f,
-	}
-	ctx.SetBreadcrumbs([][2]string{
+	server.RenderTemplate(w, r, 200, "profile/password", tc)
+}
+
+func (v *profileViews) userTOTP(w http.ResponseWriter, r *http.Request) {
+	tr := server.Locale(r)
+	user := auth.GetRequestUser(r)
+	f := newTOTPForm(server.Locale(r), user)
+
+	tc := server.TC{}
+	tc.SetBreadcrumbs([][2]string{
 		{tr.Gettext("Profile"), urls.AbsoluteURL(r, "/profile").String()},
-		{tr.Gettext("Password")},
+		{tr.Gettext("Security"), urls.AbsoluteURL(r, "/profile/password").String()},
+		{tr.Gettext("Verification Code")},
 	})
-	server.RenderTemplate(w, r, 200, "profile/password", ctx)
+	tc["Form"] = f
+
+	status := http.StatusOK
+
+	switch r.Method {
+	case http.MethodGet:
+		f.generate()
+		tc["Code"] = f.code
+
+	case http.MethodPost:
+		forms.Bind(f, r)
+
+		tc["Code"] = f.code
+
+		if !f.IsValid() {
+			status = http.StatusUnprocessableEntity
+			break
+		}
+
+		if err := f.save(); err != nil {
+			server.Err(w, r, err)
+			return
+		}
+
+		sess := server.GetSession(r)
+		sess.Payload.Seed = user.Seed
+		server.AddFlash(w, r, "success", tr.Gettext("Verification Code is now enabled."))
+		server.Redirect(w, r, "/profile/password")
+		return
+	}
+
+	server.RenderTemplate(w, r, status, "profile/totp", tc)
 }
 
 // userSession handles changes of user session preferences.
 // This returns an API response but since it only works with a SessionAuthProvider
 // it makes more sense to have it in the views.
 func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
-	p, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider)
+	_, ok := auth.GetRequestProvider(r).(*server.SessionAuthProvider)
 	if !ok {
 		server.TextMsg(w, r, http.StatusBadRequest, "invalid authentication provider")
 		return
@@ -151,7 +220,7 @@ func (v *profileViews) userSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	sess := p.GetSession(r)
+	sess := server.GetSession(r)
 	updated, err := f.updateSession(sess.Payload)
 	if err != nil {
 		server.Err(w, r, err)

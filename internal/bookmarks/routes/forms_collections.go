@@ -23,7 +23,7 @@ func newCollectionDeleteForm(tr forms.Translator) *collectionDeleteForm {
 	return &collectionDeleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to"),
+		forms.NewTextField("_to", forms.MaxLen(512)),
 	)}
 }
 
@@ -53,7 +53,7 @@ func newCollectionForm(tr forms.Translator, r *http.Request) *collectionForm {
 					return forms.Required(f)
 				}
 				return nil
-			})),
+			}), forms.MaxLen(128)),
 			forms.NewBooleanField("is_pinned"),
 		),
 	)}
@@ -95,7 +95,7 @@ func (f *collectionForm) createCollection(userID int) (*bookmarks.Collection, er
 	return c, err
 }
 
-func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[string]interface{}, err error) {
+func (f *collectionForm) updateCollection(c *bookmarks.Collection) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return

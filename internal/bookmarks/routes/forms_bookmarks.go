@@ -11,6 +11,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"maps"
 	"net/http"
 	"net/url"
 	"slices"
@@ -20,6 +21,7 @@ import (
 	"github.com/doug-martin/goqu/v9"
 	goquexp "github.com/doug-martin/goqu/v9/exp"
 	"github.com/wneessen/go-mail"
+	"golang.org/x/text/language"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/users"
@@ -40,6 +42,11 @@ import (
 
 var validSchemes = []string{"http", "https"}
 
+var (
+	errNoResourceURL     = errors.New("no resource URL")
+	errNoResourceContent = errors.New("No resource content")
+)
+
 const (
 	filtersTitleUnset = iota
 	filtersTitleUnread
@@ -58,6 +65,11 @@ const (
 
 type orderExpressionList []goquexp.OrderedExpression
 
+type multipartResourceInfo struct {
+	URL     string            `json:"url"`
+	Headers map[string]string `json:"headers"`
+}
+
 type createForm struct {
 	*forms.Form
 	userID    int
@@ -65,65 +77,97 @@ type createForm struct {
 	resources []tasks.MultipartResource
 }
 
-func newCreateForm(tr forms.Translator, userID int, requestID string) *createForm {
+func newCreateForm(r *http.Request) *createForm {
 	return &createForm{
 		Form: forms.Must(
-			forms.WithTranslator(context.Background(), tr),
+			forms.WithTranslator(context.Background(), server.Locale(r)),
 			forms.NewTextField("url",
 				forms.Trim,
 				forms.Required,
+				forms.MaxLen(1024),
 				forms.IsURL(validSchemes...),
 			),
-			forms.NewTextField("title", forms.Trim),
+			forms.NewTextField("title", forms.Trim, forms.MaxLen(1024)),
 			forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 			forms.NewDatetimeField("created", forms.Trim),
 			forms.NewBooleanField("feature_find_main"),
+			forms.NewFileField("html"),
 			forms.NewFileListField("resource"),
 		),
-		userID:    userID,
-		requestID: requestID,
+		userID:    auth.GetRequestUser(r).ID,
+		requestID: server.GetReqID(r),
 	}
 }
 
-// newMultipartResource returns a new instance of multipartResource from
-// a [forms.FileOpener]. The input MUST contain a JSON payload on the first line
-// (with the url and headers) and the data on the remaining lines.
-func (f *createForm) newMultipartResource(opener forms.FileOpener) (res tasks.MultipartResource, err error) {
+// LoadMultipartResource loads a [forms.FileOpener] into the provided [tasks.MultipartResource].
+// Unless the resource already has a URL property, the file part MUST provide a Location header
+// with the URL of the resource to load.
+// Alternatively it can be the previously supported format that contains a JSON payload
+// on the first line (with the url and headers) and the data on the remaining lines.
+func LoadMultipartResource(opener forms.FileOpener, res *tasks.MultipartResource) error {
 	var r io.ReadCloser
-	r, err = opener.Open()
+	r, err := opener.Open()
 	if err != nil {
-		return
+		return err
 	}
 	defer r.Close() // nolint:errcheck
+
+	readContent := func(r io.Reader) error {
+		res.Data, err = io.ReadAll(r)
+		if err != nil {
+			return err
+		}
+		if len(res.Data) == 0 {
+			return errNoResourceContent
+		}
+		return nil
+	}
+
+	// Never carry empty headers
+	if res.Header == nil {
+		res.Header = make(http.Header)
+	}
+
+	// URL defined? load the body and return
+	if res.URL != "" {
+		return readContent(r)
+	}
 
 	const bufSize = 256 << 10 // In KiB
 	bio := bufio.NewReaderSize(r, bufSize)
 
-	// Read the first line containing the JSON metadata
-	var line []byte
-	if line, err = bio.ReadBytes('\n'); err != nil {
-		return
-	}
-	if err = json.Unmarshal(line, &res); err != nil {
-		return
+	location := opener.Header().Get("Location")
+	if location == "" {
+		// no location given, it must be a legacy format with a JSON starting line
+		if c, _ := bio.Peek(1); len(c) > 0 && c[0] == '{' {
+			var line []byte
+			if line, err = bio.ReadBytes('\n'); err != nil {
+				return err
+			}
+			info := new(multipartResourceInfo)
+			if err = json.Unmarshal(line, info); err != nil {
+				return err
+			}
+			if info.URL == "" {
+				return errNoResourceURL
+			}
+			res.URL = info.URL
+			for k, v := range info.Headers {
+				res.Header.Set(k, v)
+			}
+			return readContent(bio)
+		}
+
+		return errNoResourceURL
 	}
 
-	if res.URL == "" {
-		err = errors.New("No resource URL")
-		return
-	}
+	// New format, using part headers directly
+	res.URL = location
+	maps.Copy(res.Header, opener.Header())
+	res.Header.Del("Content-Disposition")
+	res.Header.Del("Location")
 
-	// Read the rest (the content)
-	res.Data, err = io.ReadAll(bio)
-	if err != nil {
-		return
-	}
-	if len(res.Data) == 0 {
-		err = errors.New("No resource content")
-		return
-	}
-
-	return
+	return readContent(bio)
 }
 
 func (f *createForm) Validate() {
@@ -131,13 +175,36 @@ func (f *createForm) Validate() {
 		return
 	}
 
+	// Load the html when provided.
+	if !f.Get("html").IsEmpty() {
+		opener := f.Get("html").(forms.TypedField[forms.FileOpener]).V()
+
+		// The html field is exactly a resource for the main page,
+		// set its properties now so we only need to read its content.
+		resource := tasks.MultipartResource{
+			URL: f.Get("url").String(),
+			Header: http.Header{
+				"Content-Type": {"text/html"},
+			},
+		}
+		if err := LoadMultipartResource(opener, &resource); err != nil {
+			f.AddErrors("", forms.Gettext("Unable to process input data"))
+			return
+		}
+
+		f.resources = append(f.resources, resource)
+
+		// This is final and "resource" values are ignored.
+		return
+	}
+
 	// Load all the resources passed in the "resource" field.
 	for _, opener := range f.Get("resource").(forms.TypedField[[]forms.FileOpener]).V() {
-		resource, err := f.newMultipartResource(opener)
+		resource := tasks.MultipartResource{}
+		err := LoadMultipartResource(opener, &resource)
 		if err != nil {
 			if f.Get("url").String() != resource.URL {
-				// As long as the content is not from the requested URL
-				// we can ignore an empty value.
+				// As long as the error is not from the requested URL we can ignore it.
 				continue
 			}
 			f.AddErrors("", forms.Gettext("Unable to process input data"))
@@ -201,34 +268,84 @@ type updateForm struct {
 func newUpdateForm(tr forms.Translator) *updateForm {
 	return &updateForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("title", forms.Trim),
+		forms.NewTextField("title", forms.Trim, forms.RequiredOrNil, forms.MaxLen(1024)),
+		forms.NewTextField("description", forms.Trim),
+		forms.NewTextField("site_name", forms.Trim, forms.RequiredOrNil),
+		forms.NewTextListField("authors", forms.Trim,
+			forms.DiscardEmpty, forms.SplitLines,
+		),
+		forms.NewDatetimeField("published", forms.Trim),
+		forms.NewTextField("lang", forms.Trim, forms.CleanerFunc(func(v any) any {
+			if v, ok := v.(string); ok {
+				return strings.ToLower(v)
+			}
+			return v
+		}), forms.TypedValidator(func(v string) bool {
+			if v == "" {
+				return true
+			}
+			_, err := language.Parse(v)
+			return err == nil
+		}, forms.Gettext("invalid language code"))),
+		forms.NewTextField("text_direction", forms.Choices(
+			forms.Choice("", ""),
+			forms.Choice(tr.Gettext("Left to right"), "ltr"),
+			forms.Choice(tr.Gettext("Right to left"), "rtl"),
+		)),
 		forms.NewBooleanField("is_marked"),
 		forms.NewBooleanField("is_archived"),
 		forms.NewBooleanField("is_deleted"),
 		forms.NewIntegerField("read_progress", forms.Gte(0), forms.Lte(100)),
-		forms.NewTextField("read_anchor", forms.Trim),
+		forms.NewTextField("read_anchor", forms.Trim, forms.MaxLen(256)),
 		forms.NewTextListField("labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("add_labels", forms.Trim, forms.DiscardEmpty),
 		forms.NewTextListField("remove_labels", forms.Trim, forms.DiscardEmpty),
-		forms.NewTextField("_to", forms.Trim),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 
-func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface{}, err error) {
-	updated = map[string]interface{}{}
+// nolint:gocyclo
+func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]any, err error) {
+	updated = map[string]any{}
 	var deleted *bool
 	labelsChanged := false
 
 	for _, field := range f.Fields() {
+		if field.Name() == "published" && field.IsBound() && field.IsEmpty() {
+			b.Published = nil
+			updated["published"] = nil
+			continue
+		}
+
 		if !field.IsBound() || field.IsNil() {
 			continue
 		}
 		switch n := field.Name(); n {
 		case "title":
-			if field.String() != "" {
-				b.Title = utils.NormalizeSpaces(field.String())
-				updated[n] = field.String()
+			b.Title = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "description":
+			b.Description = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "site_name":
+			b.SiteName = utils.NormalizeSpaces(field.String())
+			updated[n] = field.String()
+		case "published":
+			d := field.(*forms.DatetimeField).V()
+			if !d.IsZero() {
+				d = d.UTC()
+				b.Published = &d
+				updated[n] = d
 			}
+		case "lang":
+			b.Lang = field.String()
+			updated[n] = b.Lang
+		case "text_direction":
+			b.TextDirection = field.String()
+			updated[n] = b.TextDirection
+		case "authors":
+			b.Authors = field.(*forms.TextListField).V()
+			updated[n] = b.Authors
 		case "is_marked":
 			b.IsMarked = field.(forms.TypedField[bool]).V()
 			updated[n] = field.Value()
@@ -281,11 +398,20 @@ func (f *updateForm) update(b *bookmarks.Bookmark) (updated map[string]interface
 	}()
 
 	if len(updated) > 0 || deleted != nil {
+		if _, ok := updated["text_direction"]; ok {
+			updated["dir"] = updated["text_direction"]
+			delete(updated, "text_direction")
+		}
+
 		updated["updated"] = time.Now().UTC()
 		if err = b.Update(updated); err != nil {
 			return
 		}
 
+		if _, ok := updated["dir"]; ok {
+			updated["text_direction"] = updated["dir"]
+			delete(updated, "dir")
+		}
 	}
 
 	if deleted != nil {
@@ -306,7 +432,7 @@ func newDeleteForm(tr forms.Translator) *deleteForm {
 	return &deleteForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to", forms.Trim),
+		forms.NewTextField("_to", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 
@@ -345,7 +471,7 @@ func newSyncForm(tr forms.Translator) *syncForm {
 			forms.NewBooleanField("with_html"),
 			forms.NewBooleanField("with_markdown"),
 			forms.NewBooleanField("with_resources"),
-			forms.NewTextField("resource_prefix", forms.Default(".")),
+			forms.NewTextField("resource_prefix", forms.Default("."), forms.MaxLen(128)),
 		),
 	}
 }
@@ -375,7 +501,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 	switch f.Get("type").String() {
 	case "author":
 		return exp.JSONStringsDataset(db.Q().
-			From(goqu.T(bookmarks.TableName).As("b")).
+			From(goqu.T(db.TableBookmark).As("b")).
 			Select(goqu.C("authors").Table("b")),
 			"name",
 		).
@@ -387,7 +513,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 			Prepared(true)
 	case "label":
 		return exp.JSONStringsDataset(db.Q().
-			From(goqu.T(bookmarks.TableName).As("b")).
+			From(goqu.T(db.TableBookmark).As("b")).
 			Select(goqu.C("labels").Table("b")),
 			"name",
 		).
@@ -398,7 +524,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 			).
 			Prepared(true)
 	case "site":
-		d1 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		d1 := db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("domain"),
 			).
@@ -407,7 +533,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 				goqu.C("user_id").Table("b").Eq(user.ID),
 				goqu.I("domain").ILike(q),
 			)
-		d2 := db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		d2 := db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("site_name"),
 			).
@@ -419,7 +545,7 @@ func (f *autocompleteHelperForm) getQuerySet(user *users.User) *goqu.SelectDatas
 
 		return d1.Union(d2).Prepared(true)
 	case "title":
-		return db.Q().From(goqu.T(bookmarks.TableName).As("b")).
+		return db.Q().From(goqu.T(db.TableBookmark).As("b")).
 			Select(
 				goqu.C("title"),
 			).
@@ -511,6 +637,7 @@ func newFilterForm(tr forms.Translator) *filterForm {
 			forms.NewBooleanField("has_errors"),
 			forms.NewBooleanField("has_labels"),
 			forms.NewTextField("labels", forms.Trim),
+			forms.NewTextField("note", forms.Trim),
 			forms.NewTextListField("read_status", forms.Choices(
 				forms.Choice(tr.Pgettext("status", "Unviewed"), filtersReadStatusUnread),
 				forms.Choice(tr.Pgettext("status", "In-Progress"), filtersReadStatusReading),
@@ -547,7 +674,7 @@ func (f *filterForm) Validate() {
 	for _, field := range f.Fields() {
 		var fname string
 		switch n := field.Name(); n {
-		case "title", "author", "site":
+		case "title", "author", "site", "note":
 			fname = n
 		case "labels":
 			fname = "label"
@@ -565,7 +692,7 @@ func (f *filterForm) Validate() {
 	f.sq = f.sq.Dedup()
 
 	// Remove field definition for unallowed fields
-	f.sq = f.sq.Unfield("title", "author", "site", "label")
+	f.sq = f.sq.Unfield("title", "author", "site", "label", "note")
 
 	// Update the specific search fields
 	for _, field := range f.Fields() {
@@ -573,7 +700,7 @@ func (f *filterForm) Validate() {
 		switch n := field.Name(); n {
 		case "search":
 			fname = ""
-		case "title", "author", "site":
+		case "title", "author", "site", "note":
 			fname = n
 		case "labels":
 			fname = "label"
@@ -651,7 +778,7 @@ type orderForm struct {
 
 func newOrderForm(fieldName string, choices map[string]goquexp.Orderable) *orderForm {
 	// Compile a list of choices being pairs of "A" and "-A", "B", "-B",
-	fieldChoices := make(forms.ValueChoices[string], len(choices)*2)
+	fieldChoices := make(forms.ValueChoices[string], 0, len(choices)*2)
 	for k := range choices {
 		fieldChoices = append(fieldChoices, forms.Choice("", k), forms.Choice("", "-"+k))
 	}
@@ -775,6 +902,7 @@ func newShareForm(tr forms.Translator) *shareForm {
 			forms.NewTextField("email",
 				forms.Trim,
 				forms.Required,
+				forms.MaxLen(128),
 				forms.IsEmail,
 			),
 			forms.NewTextField("format",

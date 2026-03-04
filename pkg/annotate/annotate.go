@@ -52,7 +52,7 @@ type AnnotationRange struct {
 // WrapCallback is a function called on each annotation wrapping node.
 // As an annotation can be covered by several wrapping nodes, an index gives the
 // current wrapping position.
-type WrapCallback func(node *html.Node, index int)
+type WrapCallback func(node *html.Node, index, ln int)
 
 type annotationError struct {
 	msg string
@@ -90,7 +90,7 @@ func AddAnnotation(
 	if err != nil {
 		return err
 	}
-	r.Wrap(append(options, func(n *html.Node, _ int) {
+	r.Wrap(append(options, func(n *html.Node, _, _ int) {
 		// Allways set the tag name, regardless of previously applied modifiers
 		n.Data = tagName
 	})...)
@@ -178,6 +178,7 @@ func (a *Annotation) ToRange(validators ...func(*AnnotationRange) error) (r *Ann
 
 // Wrap insert annotation elements around the range text nodes.
 func (r *AnnotationRange) Wrap(options ...WrapCallback) {
+	nbNodes := len(r.textNodes)
 	for i, node := range r.textNodes {
 		ln := len([]rune(node.Data))
 		if i == 0 && r.startOffset == ln {
@@ -201,7 +202,7 @@ func (r *AnnotationRange) Wrap(options ...WrapCallback) {
 		// does not matter.
 		wrapTextNode(node, s, e, func(n *html.Node) {
 			for _, f := range options {
-				f(n, i)
+				f(n, i, nbNodes)
 			}
 		})
 	}

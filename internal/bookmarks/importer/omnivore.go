@@ -129,8 +129,8 @@ func (n *omnivoreAPINode) Resources() []tasks.MultipartResource {
 		{
 			URL:  n.ItemURL,
 			Data: buf.Bytes(),
-			Headers: map[string]string{
-				"Content-Type": "text/html; charset=utf-8",
+			Header: http.Header{
+				"Content-Type": {"text/html; charset=utf-8"},
 			},
 		},
 	}
@@ -146,9 +146,10 @@ func (adapter *omnivoreAPIAdapter) Form() forms.Binder {
 		forms.NewTextField("url",
 			forms.Trim,
 			forms.Required,
+			forms.MaxLen(128),
 			forms.IsURL(allowedSchemes...),
 		),
-		forms.NewTextField("token", forms.Trim, forms.Required),
+		forms.NewTextField("token", forms.Trim, forms.Required, forms.MaxLen(64)),
 	)
 	f.Get("url").Set("https://omnivore.app/")
 

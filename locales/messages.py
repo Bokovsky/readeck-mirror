@@ -15,7 +15,7 @@ import sys
 from argparse import ArgumentParser
 from pathlib import Path
 
-from babel.messages.catalog import Catalog
+from babel.messages.catalog import Catalog, Locale
 from babel.messages.extract import extract_from_file
 from babel.messages.mofile import write_mo
 from babel.messages.pofile import read_po, write_po
@@ -350,14 +350,15 @@ def update(_):
 
     dirs = [x for x in translations.iterdir() if x.is_dir()]
     for p in sorted(dirs):
+        locale = Locale.parse(p.name, sep="-")
         po_file = p / "messages.po"
         if po_file.exists():
             with po_file.open("rb") as fp:
-                catalog = read_po(fp, locale=p.name, domain=po_file.name)
+                catalog = read_po(fp, locale=locale, domain=po_file.name)
         else:
             catalog = Catalog(
                 **CATALOG_OPTIONS,
-                locale=p.name,
+                locale=locale,
                 domain=po_file.name,
             )
 
@@ -393,15 +394,15 @@ def compile(_):
     for po_file in sorted(po_files):
         code = po_file.parent.name
 
-        # Ignore en_US, it's always empty
-        if code == "en_US":
+        # Ignore en, it's always empty
+        if code == "en":
             continue
 
         with po_file.open("rb") as fp:
             catalog = read_po(fp)
 
-        # no need to compile en_US
-        if code == "en_US":
+        # no need to compile en
+        if code == "en":
             continue
 
         # Count translated strings
@@ -436,16 +437,24 @@ def check(_):
     translations = HERE / "translations"
     po_files = translations.glob("*/messages.po")
 
+    def check(catalog: Catalog):
+        for message in catalog._messages.values():
+            if message.fuzzy:
+                continue
+            errors = message.check(catalog=catalog)
+            if errors:
+                yield message, errors
+
     has_errors = False
     for filename in po_files:
         code = filename.parent.name
-        if code == "en_US":
+        if code == "en":
             continue
 
         with filename.open("rb") as fp:
             catalog = read_po(fp)
 
-        errors = list(catalog.check())
+        errors = list(check(catalog))
         if len(errors) == 0:
             print(f"[OK] {code}")
         else:

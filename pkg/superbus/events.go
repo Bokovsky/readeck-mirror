@@ -54,15 +54,13 @@ func NewEagerEventManager() *EagerEventManager {
 
 // Listen listens for new events.
 func (m *EagerEventManager) Listen() {
-	m.wg.Add(1)
-	go func() {
-		defer m.wg.Done()
+	m.wg.Go(func() {
 		for e := range m.ch {
 			if f, ok := m.handlers[e.Name]; ok {
 				f(e)
 			}
 		}
-	}()
+	})
 }
 
 // Stop stops the event listener.
@@ -104,9 +102,7 @@ func NewRedisEventManager(rdc *redis.Client) *RedisEventManager {
 
 // Listen listens for new events.
 func (m *RedisEventManager) Listen() {
-	m.wg.Add(1)
-	go func() {
-		defer m.wg.Done()
+	m.wg.Go(func() {
 		for {
 			select {
 			case <-m.stop:
@@ -133,7 +129,7 @@ func (m *RedisEventManager) Listen() {
 				}
 			}
 		}
-	}()
+	})
 }
 
 // Stop stops the event listener.

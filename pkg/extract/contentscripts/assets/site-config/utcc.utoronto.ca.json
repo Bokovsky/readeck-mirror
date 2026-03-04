@@ -2,8 +2,12 @@
   "title_selectors": [
     "//div[@class='wikitext titlehack']/h2"
   ],
-  "body_selectors": null,
-  "date_selectors": null,
+  "body_selectors": [
+    "//div[@class='maintext']"
+  ],
+  "date_selectors": [
+    "//div[@class='posttitle'][1]"
+  ],
   "author_selectors": null,
   "strip_selectors": null,
   "strip_id_or_class": null,

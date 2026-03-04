@@ -8,177 +8,262 @@ import {request} from "../lib/request"
 export default class extends Controller {
   static targets = [
     "root",
-    "controlls",
-    "controllCreate",
-    "controllUpdate",
-    "controllArrow",
+    "controls",
+    "color",
+    "note",
+    "arrow",
+    "whenNew",
+    "whenOne",
+    "whenMany",
   ]
   static classes = ["hidden"]
   static values = {
     apiUrl: String,
-    canCreate: {type: Boolean, default: false},
-    canUpdate: {type: Boolean, default: false},
+    color: String,
   }
 
   connect() {
-    // Listen for new selections
     this.annotation = null
-    document.addEventListener("selectionchange", async (evt) => {
-      await this.onSelectText(evt)
+    this.payload = null
+    this.currentIDs = []
+
+    this.colorTargets.forEach((e, i) => {
+      e.addEventListener("click", (evt) => {
+        this.colorValue = evt.target.value
+      })
+    })
+
+    selectionendObserver(document, () => {
+      this.onSelectText()
+    })
+
+    // Hide the controls when a click took place outside the controls.
+    document.addEventListener("click", (evt) => {
+      if (
+        this.controlsTarget.classList.contains(this.hiddenClass) ||
+        this.controlsTarget.contains(evt.target)
+      ) {
+        return
+      }
+      setTimeout(() => {
+        if (document.getSelection().isCollapsed) {
+          this.controlsTarget.classList.add(this.hiddenClass)
+        }
+      }, 0)
     })
   }
 
-  canCreateValueChanged(value) {
-    if (value) {
-      this.controllCreateTarget.classList.remove(this.hiddenClass)
-      this.setControllArrowColor(
-        getComputedStyle(this.controllCreateTarget).getPropertyValue(
-          "background-color",
-        ),
-      )
-    } else {
-      this.controllCreateTarget.classList.add(this.hiddenClass)
-    }
-  }
-
-  canUpdateValueChanged(value) {
-    if (value) {
-      this.controllUpdateTarget.classList.remove(this.hiddenClass)
-      this.setControllArrowColor(
-        getComputedStyle(this.controllUpdateTarget).getPropertyValue(
-          "background-color",
-        ),
-      )
-    } else {
-      this.controllUpdateTarget.classList.add(this.hiddenClass)
-    }
-  }
-
-  async onSelectText() {
-    // We must wait for next tick so it won't trigger when the event triggers
-    // from a click on an existing selection.
-    await this.nextTick()
-    this.setupControll()
-
-    this.annotation = new Annotation(this.rootTarget, document.getSelection())
-    if (this.annotation.isValid()) {
-      await this.showControlls(true, false)
-    } else if (this.annotation.coveredAnnotations().length > 0) {
-      await this.showControlls(false, true)
-    } else {
-      await this.hideControlls()
-    }
-  }
-
-  /**
-   * setupControll adds the arrow to the controllsTarget elemet,
-   *
-   * @param {string} position
-   * @returns {Element}
-   */
-  setupControll() {
-    if (!this.hasControllsTarget || this.hasControllArrowTarget) {
+  colorValueChanged(value, previous) {
+    // Initial value
+    if (value === "" && previous === undefined) {
+      this.colorTargets[0].checked = true
+      this.colorValue = this.colorTargets[0].value
       return
     }
 
-    const position =
-      "ontouchstart" in document.documentElement ? "bottom" : "top"
-
-    const arrow = document.createElement("div")
-    arrow.dataset.annotationsTarget = "controllArrow"
-    const bt = "8px solid transparent"
-    const bg = "8px solid var(--arrow-color)"
-
-    arrow.dataset.position = position
-    arrow.style.setProperty("--arrow-color", "rgba(0,0,0,0)")
-    arrow.style.height = 0
-    arrow.style.width = 0
-    arrow.style.borderLeft = bt
-    arrow.style.borderRight = bt
-    if (position == "top") {
-      arrow.style.borderTop = bg
-      this.controllsTarget.appendChild(arrow)
-    } else {
-      arrow.style.borderBottom = bg
-      this.controllsTarget.insertBefore(arrow, this.controllsTarget.firstChild)
+    // When the frame is restored
+    if (value === "" && !!previous) {
+      this.colorTargets.forEach((e) => {
+        if (e.value == previous) {
+          e.checked = true
+          return
+        }
+      })
+      this.colorValue = previous
+      return
     }
   }
 
-  setControllArrowColor(color) {
-    this.controllArrowTarget.style.setProperty("--arrow-color", color)
+  /**
+   * onSelectText is the listener for "selectionchange".
+   */
+  onSelectText() {
+    const selection = document.getSelection()
+    this.annotation = new Annotation(this.rootTarget, selection)
+
+    if (
+      this.annotation.isValid() ||
+      this.annotation.coveredAnnotations().length > 0
+    ) {
+      this.showControls()
+    }
+
+    if (this.annotation.isValid()) {
+      this.payload = {
+        start_selector: this.annotation.startSelector,
+        start_offset: this.annotation.startOffset,
+        end_selector: this.annotation.endSelector,
+        end_offset: this.annotation.endOffset,
+      }
+    }
   }
 
-  /**
-   *
-   * @param {Boolean} canCreate
-   * @param {Boolean} canUpdate
-   */
-  async showControlls(canCreate, canUpdate) {
-    this.canCreateValue = canCreate
-    this.canUpdateValue = canUpdate
-    await this.nextTick()
+  showControls() {
+    this.currentIDs = []
+    this.iterCoveredAnnotations((id) => {
+      this.currentIDs.push(id)
+    })
 
-    const position = this.controllArrowTarget.dataset.position
+    // Show controls
+    this.controlsTarget.classList.remove(this.hiddenClass)
 
-    // Show controlls
-    this.controllsTarget.classList.remove(this.hiddenClass)
+    /**
+     * Hide the controls on Escape.
+     *
+     * @param {KeyboardEvent} evt
+     */
+    const onEsc = (evt) => {
+      if (evt.key == "Escape") {
+        this.controlsTarget.classList.add(this.hiddenClass)
+        document.getSelection().removeAllRanges()
+        document.removeEventListener("keyup", onEsc)
+      }
+    }
 
+    document.addEventListener("keyup", onEsc)
+
+    const covered = this.annotation.coveredAnnotations()
+    const selected = [
+      ...new Set(covered.map((e) => e.dataset.annotationIdValue)),
+    ]
+
+    // Show/hide sub controls
+    switch (selected.length) {
+      case 0:
+        this.#hide(this.whenOneTargets)
+        this.#hide(this.whenManyTargets)
+        this.#show(this.whenNewTargets)
+        break
+      case 1:
+        this.#hide(this.whenNewTargets)
+        this.#hide(this.whenManyTargets)
+        this.#show(this.whenOneTargets)
+        break
+      default:
+        this.#hide(this.whenNewTargets)
+        this.#hide(this.whenOneTargets)
+        this.#show(this.whenManyTargets)
+    }
+
+    // Set color and text when annotation exists
+    switch (selected.length) {
+      case 0:
+        this.noteTarget.value = ""
+        break
+      case 1:
+        // One selected annotation, check if it has a note
+        const e = Array.from(
+          this.rootTarget.querySelectorAll(
+            "rd-annotation[data-annotation-note][title]",
+          ),
+        ).find((e) => e.dataset.annotationIdValue == selected[0])
+
+        // set the note and fall through the next case (sets color)
+        this.noteTarget.value = e !== undefined ? e.getAttribute("title") : ""
+      default:
+        this.colorTargets.forEach((e) => {
+          if (e.value == covered[0].dataset.annotationColor) {
+            e.checked = true
+            this.colorValue = e.value
+            return
+          }
+        })
+    }
+
+    this.#positionControls()
+  }
+
+  #positionControls() {
     // Get root, range and controlls coordinates
     const rangeRect = this.annotation.range.getBoundingClientRect()
     const rootRect = this.findRelativeRoot().getBoundingClientRect()
 
-    // Controlls dimension
-    const h = this.controllsTarget.clientHeight
-    const w = this.controllsTarget.clientWidth
+    switch (getComputedStyle(this.controlsTarget).position) {
+      case "absolute":
+        // Controlls dimension
+        const h = this.controlsTarget.clientHeight
+        const w = this.controlsTarget.clientWidth
 
-    // Range position relative to its root element
-    const rangeTop =
-      position == "top"
-        ? Math.round(rangeRect.top - rootRect.top)
-        : Math.round(rangeRect.top + rangeRect.height - rootRect.top)
-    const rangeLeft = Math.round(rangeRect.left - rootRect.left)
-    const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
+        // Default position
+        let position = "top"
+        if (rangeRect.top - 20 < h) {
+          position = "bottom"
+        }
+        this.controlsTarget.dataset.position = position
 
-    // Set controlls position
-    const y = position == "top" ? Math.round(rangeTop - h) : rangeTop
-    // prettier-ignore
-    const x = Math.floor(
-      Math.max(
-        0,
-        Math.min(
-          rangeCenter - w / 2,
-          rootRect.width - w - 1,
-        ),
-      ),
-    )
+        // Range position relative to its root element
+        const rangeTop =
+          position == "top"
+            ? Math.round(rangeRect.top - rootRect.top)
+            : Math.round(rangeRect.top + rangeRect.height - rootRect.top)
+        const rangeLeft = Math.round(rangeRect.left - rootRect.left)
+        const rangeCenter = Math.round(rangeLeft + rangeRect.width / 2)
 
-    this.controllsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
-    this.controllsTarget.style.left = `${x}px`
+        // Set controlls position
+        const y = position == "top" ? Math.round(rangeTop - h) : rangeTop
+        // prettier-ignore
+        const x = Math.floor(
+          Math.max(
+            0,
+            Math.min(
+              rangeCenter - w / 2,
+              rootRect.width - w - 1,
+            ),
+          ),
+        )
 
-    // Set arrow position
-    if (!this.hasControllArrowTarget) {
+        this.controlsTarget.style.top = `${position == "top" ? y - 4 : y + 4}px`
+        this.controlsTarget.style.left = `${x}px`
+
+        // Set arrow position
+        if (!this.hasArrowTarget) {
+          return
+        }
+        const arrowWidth = this.arrowTarget.offsetWidth
+        // prettier-ignore
+        const arrowX = Math.max(
+          arrowWidth / 2,
+          Math.min(
+            rangeCenter - x - arrowWidth / 2,
+            w - arrowWidth - arrowWidth / 2,
+          ),
+        )
+        this.arrowTarget.style.marginLeft = `${arrowX}px`
+        break
+      case "fixed":
+        // On a fixed position, try not to cover the selection
+        this.controlsTarget.style.bottom = "0"
+        this.controlsTarget.style.top = "unset"
+        if (rangeRect.top > this.controlsTarget.getBoundingClientRect().top) {
+          this.controlsTarget.style.bottom = "unset"
+          this.controlsTarget.style.top = "0"
+        }
+    }
+  }
+
+  /**
+   * @param {NodeListOf<Element>} nodes
+   */
+  #hide(nodes) {
+    nodes.forEach((e) => {
+      e.classList.add(this.hiddenClass)
+    })
+  }
+
+  /**
+   * @param {NodeListOf<Element>} nodes
+   */
+  #show(nodes) {
+    nodes.forEach((e) => {
+      e.classList.remove(this.hiddenClass)
+    })
+  }
+
+  #getNote() {
+    if (!this.hasNoteTarget) {
       return
     }
-    const arrowWidth = this.controllArrowTarget.offsetWidth
-    // prettier-ignore
-    const arrowX = Math.max(
-      arrowWidth / 2,
-      Math.min(
-        rangeCenter - x - arrowWidth / 2,
-        w - arrowWidth - arrowWidth / 2,
-      ),
-    )
-    this.controllArrowTarget.style.marginLeft = `${arrowX}px`
-  }
-
-  async hideControlls() {
-    this.canCreateValue = false
-    this.canUpdateValue = false
-    this.controllsTarget.classList.add(this.hiddenClass)
-  }
-
-  async nextTick() {
-    return await new Promise((resolve) => setTimeout(resolve, 0))
+    return this.noteTarget.value
   }
 
   findRelativeRoot() {
@@ -207,74 +292,72 @@ export default class extends Controller {
   }
 
   /**
-   * save creates a new annotation on the document
-   *
-   * @param {Event} evt received event
+   * create creates a new annotation on the document
    */
-  async save(evt) {
-    const color = evt.currentTarget.value
-    this.annotation.color = color
-
-    if (!this.annotation || !this.annotation.isValid()) {
+  async create() {
+    if (!this.payload) {
       return
+    }
+
+    const body = {
+      ...this.payload,
+      color: this.colorValue,
+      note: this.#getNote(),
     }
 
     await request(this.apiUrlValue, {
       method: "POST",
-      body: {
-        start_selector: this.annotation.startSelector,
-        start_offset: this.annotation.startOffset,
-        end_selector: this.annotation.endSelector,
-        end_offset: this.annotation.endOffset,
-        color: this.annotation.color,
-      },
+      body: body,
     })
     await this.reload()
   }
 
   /**
    * update updates the selected annotations
-   *
-   * @param {Event} evt received event
    */
-  async update(evt) {
-    const color = evt.currentTarget.value
+  async update() {
+    if (this.currentIDs.length == 0) {
+      return
+    }
+
+    // Common body
+    const body = {color: this.colorValue}
+
+    // Can only change the note when there's one updated item
+    if (this.currentIDs.length == 1) {
+      body.note = this.#getNote()
+    }
+
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
 
-    await this.iterCoveredAnnotations(async (id) => {
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {
         method: "PATCH",
-        body: {
-          color: color,
-        },
+        body: body,
       })
-    })
+    }
     await this.reload()
   }
 
   /**
-   * delete removes the selected annotations
+   * removes the selected annotations
    */
   async delete() {
     const baseURL = new URL(`${this.apiUrlValue}/`, document.URL)
-    await this.iterCoveredAnnotations(async (id) => {
+
+    for (let id of this.currentIDs) {
       await request(new URL(id, baseURL), {method: "DELETE"})
-    })
+    }
     await this.reload()
   }
 
   /**
-   * @callback iterCoveredCallback
-   * @param {string} id annotation id
-   */
-
-  /**
-   * iterCoveredAnnotations execute a function on each annotatin in the
+   * iterCoveredAnnotations executes a function on each annotation in the
    * current selection.
    *
-   * @param {iterCoveredCallback} fn
+   * @param {function(string): void} fn
    */
-  async iterCoveredAnnotations(fn) {
+  iterCoveredAnnotations(fn) {
     const ids = new Set()
     this.annotation.coveredAnnotations().forEach((n) => {
       ids.add(n.dataset.annotationIdValue)
@@ -284,16 +367,10 @@ export default class extends Controller {
     }
 
     for (const id of ids) {
-      await fn(id)
+      fn(id)
     }
   }
 }
-
-/**
- * @callback walkTextNodesCallback
- * @param {Node} node
- * @param {int} index
- */
 
 class Annotation {
   /**
@@ -322,16 +399,16 @@ class Annotation {
     /** @type {string} */
     this.startSelector = null
 
-    /** @type {int} */
+    /** @type {Number} */
     this.startOffset = null
 
     /** @type {string} */
     this.endSelector = null
 
-    /** @type {int} */
+    /** @type {Number} */
     this.endOffset = null
 
-    /** @type {string} */
+    /** @type {String} */
     this.color = null
 
     this.init()
@@ -352,40 +429,59 @@ class Annotation {
     }
 
     const range = this.selection.getRangeAt(0)
-    if (range.collapsed) {
+    if (range.collapsed || !this.root.contains(range.startContainer)) {
       return
     }
 
-    // Range must be within root element boundaries
-    if (!this.root.contains(range.commonAncestorContainer)) {
-      return
-    }
-
-    // This handles double click on an element (in opposition to selecting text).
-    // Containers can be element and we only want to deal with text nodes.
-    if (range.startContainer.nodeType == Node.ELEMENT_NODE) {
-      walkTextNodes(range.startContainer, (n, i) => {
-        if (i == 0) {
-          range.setStart(n, 0)
-        }
-      })
-    }
-    if (range.endContainer.nodeType == Node.ELEMENT_NODE) {
-      let c = range.endContainer
-      if (range.endOffset == 0) {
-        c = range.endContainer.previousElementSibling
-      }
-      walkTextNodes(c, (n) => {
-        range.setEnd(n, n.textContent.length)
-      })
-    }
-
-    // start and end containers must be text nodes
+    // After triple-clicking an element (as opposed to dragging the pointer) to select text, the
+    // start and/or end container nodes may be elements. We normalize the range to always start and
+    // stop on text nodes.
     if (
-      range.startContainer.nodeType != Node.TEXT_NODE ||
-      range.endContainer.nodeType != Node.TEXT_NODE
+      range.startContainer.nodeType == Node.ELEMENT_NODE &&
+      range.endContainer.nodeType == Node.ELEMENT_NODE &&
+      range.endOffset > 0
     ) {
-      return
+      // This is meant to detect behavior seemingly exclusive to Firefox/Gecko where the start and
+      // end container are both elements and startOffset/endOffset values count child nodes
+      // instead of characters. https://bugzilla.mozilla.org/show_bug.cgi?id=516782
+      const endNode = range.endContainer.childNodes[range.endOffset - 1]
+      const tw = textNodeWalker(endNode)
+      while (tw.nextNode());
+      if (tw.currentNode.nodeType == Node.TEXT_NODE) {
+        range.setEnd(tw.currentNode, tw.currentNode.textContent.length)
+      } else {
+        // No text nodes were found at the node where the selection ends.
+        range.setEnd(endNode, 0)
+      }
+    }
+
+    // In Gecko, startContainer may be an element, in which case we advance the start of the
+    // selection to the first text node it contains.
+    if (range.startContainer.nodeType != Node.TEXT_NODE) {
+      const n = textNodeWalker(
+        range.commonAncestorContainer,
+        range.startContainer,
+      ).nextNode()
+      range.setStart(n, 0)
+    }
+
+    // In Chromium and WebKit, triple-clicking the final element in the article creates a selection
+    // where endContainer is is the next interactive element in DOM order, which might be outside of
+    // the article root element. This normalizes the selection to end at the last text node that is
+    // contained in root.
+    if (
+      range.endContainer.nodeType != Node.TEXT_NODE ||
+      !this.root.contains(range.endContainer)
+    ) {
+      const tw = textNodeWalker(
+        range.commonAncestorContainer,
+        range.endContainer,
+      )
+      let n = tw.previousNode()
+      while (n && !this.root.contains(n)) {
+        n = tw.previousNode()
+      }
+      range.setEnd(n, n.textContent.length)
     }
 
     this.range = range
@@ -452,8 +548,8 @@ class Annotation {
  *
  * @param {Node} root
  * @param {Node} node
- * @param {int} offset
- * @returns {{selector: string, offset: int}}
+ * @param {Number} offset
+ * @returns {{selector: string, offset: Number}}
  */
 function getSelector(root, node, offset) {
   let p = node.parentElement
@@ -499,8 +595,8 @@ function getSelector(root, node, offset) {
  * found in a given node and its descendants.
  *
  * @param {Node} node
- * @param {walkTextNodesCallback} callback
- * @param {int} [index]
+ * @param {function(Node, Number)} callback
+ * @param {Number} [index]
  */
 function walkTextNodes(node, callback, index) {
   index = index === undefined ? 0 : index
@@ -511,4 +607,83 @@ function walkTextNodes(node, callback, index) {
     }
     walkTextNodes(child, callback, index)
   }
+}
+
+/**
+ * textNodeWalker creates a TreeWalker scoped to root, starting at currentNode, and configured to
+ * yield only text nodes that aren't whitespace-only.
+ *
+ * @param {Node} root
+ * @param {Node | null} currentNode
+ * @returns {TreeWalker}
+ */
+function textNodeWalker(root, currentNode = null) {
+  const tw = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, (node) =>
+    node.textContent.trim().length > 0
+      ? NodeFilter.FILTER_ACCEPT
+      : NodeFilter.FILTER_SKIP,
+  )
+  if (currentNode) {
+    tw.currentNode = currentNode
+  }
+  return tw
+}
+
+/**
+ * selectionendObserver reacts to the "selectionchange" event by triggering the
+ * callback function only after the pointer device is not pressed anymore, at
+ * which point the user has likely completed their text selection.
+ *
+ * @param {Node} node
+ * @param {function(): void} callback
+ */
+function selectionendObserver(node, callback) {
+  /**
+   * @type {function(any): void | null}
+   */
+  let selectionResolve
+  let pointerIsPressed = false
+
+  node.addEventListener("pointerdown", () => {
+    pointerIsPressed = true
+  })
+
+  node.addEventListener("pointerup", () => {
+    pointerIsPressed = false
+    if (selectionResolve) {
+      selectionResolve()
+      selectionResolve = null
+    }
+  })
+
+  node.addEventListener("pointercancel", () => {
+    pointerIsPressed = false
+    if (selectionResolve) {
+      selectionResolve()
+      selectionResolve = null
+    }
+  })
+
+  node.addEventListener("selectionchange", (evt) => {
+    if (
+      evt.target instanceof HTMLTextAreaElement ||
+      evt.target instanceof HTMLInputElement
+    ) {
+      return
+    }
+    if (!pointerIsPressed) {
+      Promise.resolve().then(() => {
+        callback()
+      })
+      return
+    }
+    if (selectionResolve != null) {
+      return
+    }
+    new Promise((resolve) => {
+      selectionResolve = resolve
+    }).then(() => {
+      callback()
+    })
+  })
 }

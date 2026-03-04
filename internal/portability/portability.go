@@ -18,7 +18,7 @@ import (
 
 // Translator describes a type that implements a translation method.
 type translator interface {
-	Gettext(string, ...interface{}) string
+	Gettext(string, ...any) string
 }
 
 type exportInfo struct {
@@ -43,10 +43,6 @@ type exportManifest struct {
 type bookmarkItem struct {
 	UID    string `db:"uid"`
 	UserID int    `db:"user_id"`
-}
-
-func ptrTo[T any](v T) *T {
-	return &v
 }
 
 func marshalItems[T any](ds *goqu.SelectDataset) ([]T, error) {

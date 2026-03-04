@@ -60,7 +60,6 @@ func newProfileAPI(s *server.Server) *profileAPI {
 
 	r.With(server.WithPermission("api:profile", "write")).Group(func(r chi.Router) {
 		r.Patch("/", api.profileUpdate)
-		r.Put("/password", api.passwordUpdate)
 	})
 
 	r.With(server.WithPermission("api:profile:tokens", "delete")).Group(func(r chi.Router) {
@@ -140,25 +139,6 @@ func (api *profileAPI) profileUpdate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	server.Render(w, r, 200, updated)
-}
-
-// passwordUpdate updates the current user's password.
-func (api *profileAPI) passwordUpdate(w http.ResponseWriter, r *http.Request) {
-	f := newPasswordForm(server.Locale(r))
-	forms.Bind(f, r)
-
-	if !f.IsValid() {
-		server.Render(w, r, http.StatusUnprocessableEntity, f)
-		return
-	}
-
-	user := auth.GetRequestUser(r)
-	if err := f.updatePassword(user); err != nil {
-		server.Err(w, r, err)
-		return
-	}
-
-	w.WriteHeader(http.StatusOK)
 }
 
 func (api *profileAPI) withTokenList(t tokenType) func(next http.Handler) http.Handler {

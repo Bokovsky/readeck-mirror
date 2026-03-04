@@ -1,0 +1,3037 @@
+# Esperanto translations for Readeck.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+# Kropotkin <kropotkin@noreply.codeberg.org>, 2025.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025, 2026.
+# Tirifto <tirifto@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025, 2026.
+# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: Readeck 1.0.0\n"
+"Report-Msgid-Bugs-To: translate@readeck.com\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
+"PO-Revision-Date: 2026-03-03 14:19+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: Esperanto <https://translate.codeberg.org/projects/readeck/application/eo/>\n"
+"Language: eo\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: assets/templates/_layouts/sidemenu.jet.html:29
+#: assets/templates/bookmarks/bookmark.jet.html:26
+#: assets/templates/error.jet.html:12
+msgid "Menu"
+msgstr "Menuo"
+
+#: assets/templates/_layouts/sidemenu.jet.html:30
+msgid "Secondary Menu"
+msgstr "Sekundara Menuo"
+
+#: assets/templates/_layouts/sidemenu.jet.html:31
+#: assets/templates/bookmarks/bookmark.jet.html:27
+#: assets/templates/error.jet.html:13
+msgid "Main content"
+msgstr "Ĉefa enhavo"
+
+#: assets/templates/_layouts/sidemenu.jet.html:46
+msgid "Close menu"
+msgstr "Fermi menuon"
+
+#: assets/templates/_libs/common.jet.html:1
+msgid "Quick access menu"
+msgstr "Menuo de rapida aliro"
+
+#: assets/templates/_libs/common.jet.html:1
+msgid "Home Page"
+msgstr "Hejmpaĝo"
+
+#: assets/templates/_libs/forms.jet.html:1
+#: assets/templates/_libs/forms.jet.html:42
+#: assets/templates/bookmarks/import/form-csv.jet.html:55
+msgid "Required"
+msgstr "Postulata"
+
+#: assets/templates/_libs/forms.jet.html:10
+msgid "Errors"
+msgstr "Eraroj"
+
+#: assets/templates/_libs/forms.jet.html:16
+msgid "Please check your form for errors."
+msgstr "Bonvolu kontroli vian formularon por eraroj."
+
+#: assets/templates/_libs/forms.jet.html:262
+msgid "The previous"
+msgstr "La antaŭa"
+
+#: assets/templates/_libs/forms.jet.html:271
+msgid "Day(s)"
+msgstr "Tago(j)"
+
+#: assets/templates/_libs/forms.jet.html:272
+msgid "Week(s)"
+msgstr "Semajno(j)"
+
+#: assets/templates/_libs/forms.jet.html:273
+msgid "Month(s)"
+msgstr "Monato(j)"
+
+#: assets/templates/_libs/forms.jet.html:274
+msgid "Year(s)"
+msgstr "Jaro(j)"
+
+#: assets/templates/_libs/forms.jet.html:277
+msgctxt "word"
+msgid "or"
+msgstr "aŭ"
+
+#: assets/templates/_libs/forms.jet.html:307
+msgid "Select or drop file"
+msgstr "Elektu aŭ faligu dosieron"
+
+#: assets/templates/_libs/forms.jet.html:311
+msgid "remove"
+msgstr "forigi"
+
+#: assets/templates/_libs/pagination.jet.html:1
+msgid "Go to previous page"
+msgstr "Iri al antaŭa paĝo"
+
+#: assets/templates/_libs/pagination.jet.html:1
+#, python-format
+msgid "Go to page %d"
+msgstr "Iru al paĝo %d"
+
+#: assets/templates/_libs/pagination.jet.html:1
+msgid "Go to next page"
+msgstr "Iru al la sekva paĝo"
+
+#: assets/templates/_libs/pagination.jet.html:10
+msgctxt "page"
+msgid "Previous"
+msgstr "Antaŭa"
+
+#: assets/templates/_libs/pagination.jet.html:15
+msgctxt "page"
+msgid "Next"
+msgstr "Sekva"
+
+#: assets/templates/admin/user.jet.html:9
+#: assets/templates/admin/user_list.jet.html:9
+#: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
+#: internal/admin/views.go:89 internal/admin/views.go:134
+msgid "Users"
+msgstr "Uzantoj"
+
+#: assets/templates/admin/user.jet.html:18
+msgid "User will be removed in a few seconds"
+msgstr "Uzanto estos forigita post kelkaj sekundoj"
+
+#: assets/templates/admin/user.jet.html:19
+#: assets/templates/admin/user_list.jet.html:48
+#: assets/templates/bookmarks/collection.jet.html:27
+#: assets/templates/bookmarks/components/card.jet.html:99
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-csv.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-readwise.jet.html:34
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+#: assets/templates/bookmarks/label.jet.html:57
+#: assets/templates/profile/app_list.jet.html:66
+#: assets/templates/profile/token.jet.html:19
+#: assets/templates/profile/token_list.jet.html:63
+msgid "Cancel"
+msgstr "Nuligi"
+
+#: assets/templates/admin/user.jet.html:29
+#: assets/templates/admin/user_create.jet.html:19
+#: assets/templates/auth/onboarding.jet.html:23
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:40
+#: assets/templates/profile/index.jet.html:32
+msgid "Username"
+msgstr "Uzantnomo"
+
+#: assets/templates/admin/user.jet.html:35
+#: assets/templates/admin/user_create.jet.html:25
+#: assets/templates/auth/onboarding.jet.html:36
+#: assets/templates/auth/recover.jet.html:28
+msgid "Email address"
+msgstr "Retpoŝtadreso"
+
+#: assets/templates/admin/user.jet.html:39
+#: assets/templates/admin/user_create.jet.html:30
+msgid "Group"
+msgstr "Grupo"
+
+#: assets/templates/admin/user.jet.html:44
+#: assets/templates/admin/user_create.jet.html:35
+#: assets/templates/auth/login.jet.html:30
+#: assets/templates/auth/onboarding.jet.html:28
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:47
+msgid "Password"
+msgstr "Pasvorto"
+
+#: assets/templates/admin/user.jet.html:47
+msgid "will not change if empty"
+msgstr "ne ŝanĝiĝos se malplena"
+
+#: assets/templates/admin/user.jet.html:50
+#: assets/templates/bookmarks/bookmark_update.jet.html:17
+#: assets/templates/bookmarks/collection.jet.html:82
+#: assets/templates/bookmarks/collection_create.jet.html:29
+#: assets/templates/bookmarks/components/content_block.jet.html:71
+#: assets/templates/bookmarks/components/content_block.jet.html:73
+#: assets/templates/bookmarks/components/title_block.jet.html:29
+#: assets/templates/profile/index.jet.html:100
+#: assets/templates/profile/password.jet.html:38
+#: assets/templates/profile/token.jet.html:73
+msgid "Save"
+msgstr "Konservi"
+
+#: assets/templates/admin/user.jet.html:53
+msgid "Delete this user"
+msgstr "Forigi ĉi tiun uzanton"
+
+#: assets/templates/admin/user.jet.html:60
+msgid "Last login"
+msgstr "Lasta ensaluto"
+
+#: assets/templates/admin/user.jet.html:69
+msgid "Last Activity"
+msgstr "Lasta agado"
+
+#: assets/templates/admin/user.jet.html:75
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_bookmarks.go:208
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "Legosignoj"
+
+#: assets/templates/admin/user.jet.html:80
+msgid "Disk usage"
+msgstr "Diskuzado"
+
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
+msgid "New User"
+msgstr "Nova Uzanto"
+
+#: assets/templates/admin/user_create.jet.html:41
+msgid "Create user"
+msgstr "Krei uzanton"
+
+#: assets/templates/admin/user_list.jet.html:14
+msgid "Add a new user"
+msgstr "Aldoni novan uzanton"
+
+#: assets/templates/admin/user_list.jet.html:32
+#: assets/templates/profile/token_list.jet.html:44
+#, python-format
+msgid "Created on: %s"
+msgstr "Kreita en: %s"
+
+#: assets/templates/admin/user_list.jet.html:33
+#, python-format
+msgid "Last update: %s"
+msgstr "Lasta ĝisdatigo: %s"
+
+#: assets/templates/admin/user_list.jet.html:35
+#, python-format
+msgid "Last login: %s"
+msgstr "Lasta ensaluto: %s"
+
+#: assets/templates/admin/user_list.jet.html:43
+msgid "This user will be removed in a few seconds."
+msgstr "Ĉi tiu uzanto estos forigita post kelkaj sekundoj."
+
+#: assets/templates/auth/login.jet.html:9
+#: assets/templates/auth/login.jet.html:37
+msgid "Sign in"
+msgstr "Ensalutu"
+
+#: assets/templates/auth/login.jet.html:12
+msgid "Sign in to Readeck"
+msgstr "Ensalutu por Readeck"
+
+#: assets/templates/auth/login.jet.html:21
+msgid "Username or email address"
+msgstr "Uzantnomo aŭ retpoŝta adreso"
+
+#: assets/templates/auth/login.jet.html:41
+msgid "Forgot your password?"
+msgstr "Ĉu vi forgesis vian pasvorton?"
+
+#: assets/templates/auth/oauth/auth-code.jet.html:8
+#: assets/templates/auth/oauth/device-code.jet.html:9
+#: assets/templates/auth/oauth/form.jet.html:14
+msgid "Authorization required"
+msgstr "Rajtigo bezonata"
+
+#: assets/templates/auth/oauth/device-code.jet.html:13
+msgid "Go back to Readeck"
+msgstr "Reiru al Readeck"
+
+#: assets/templates/auth/oauth/device-code.jet.html:28
+#: assets/templates/auth/oauth/device-code.jet.html:47
+#: assets/templates/auth/oauth/device-code.jet.html:54
+msgid "Connect a device"
+msgstr "Konekti aparaton"
+
+#: assets/templates/auth/oauth/device-code.jet.html:32
+msgid "Enter the code displayed on your device"
+msgstr "Enigu la kodon montritan sur via aparato"
+
+#: assets/templates/auth/oauth/device-code.jet.html:37
+msgid "Next"
+msgstr "Sekva"
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid "Authorization request was denied."
+msgstr "La peto pri permeso estis rifuzita."
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid " You can now close this page."
+msgstr " Vi nun povas fermi ĉi tiun paĝon."
+
+#: assets/templates/auth/oauth/device-code.jet.html:57
+msgid "Authorization granted. Connecting device..."
+msgstr "Permeso donita. Konektanta aparaton..."
+
+#: assets/templates/auth/oauth/device-code.jet.html:61
+#, python-format
+msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
+msgstr "<a href=\"%s\">Reŝargu ĉi tiun paĝon</a> se ĝi ne refreŝiĝas post kelkaj sekundoj."
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "Device is connected!"
+msgstr "Aparato estas konektita!"
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "You can now close this page."
+msgstr "Vi nun povas fermi ĉi tiun paĝon."
+
+#: assets/templates/auth/oauth/form.jet.html:12
+#, python-format
+msgid "Signed in as: <strong>%s</strong>"
+msgstr "Salutinta kiel: <strong>%s</strong>"
+
+#: assets/templates/auth/oauth/form.jet.html:20
+#, python-format
+msgid ""
+"\n"
+"      <strong>%s</strong> would like permission to access your account.\n"
+"      Only approve this request if you recognize and trust this source.\n"
+"    "
+msgstr ""
+"\n"
+"      <strong>%s</strong> ŝatus permeson por aliri vian konton.\n"
+"      Aprobu ĉi tiun peton nur se vi rekonas kaj fidas ĉi tiun fonton.\n"
+"    "
+
+#: assets/templates/auth/oauth/form.jet.html:26
+msgid "Review permissions"
+msgstr "Kontroli permesojn"
+
+#: assets/templates/auth/oauth/form.jet.html:33
+msgid "Application information"
+msgstr "Informoj pri aplikaĵo"
+
+#: assets/templates/auth/oauth/form.jet.html:35
+#: assets/templates/bookmarks/collection.jet.html:72
+#: assets/templates/bookmarks/collection_create.jet.html:22
+#: assets/templates/profile/token.jet.html:42
+msgid "Name"
+msgstr "Nomo"
+
+#: assets/templates/auth/oauth/form.jet.html:36
+msgid "Website"
+msgstr "Retejo"
+
+#: assets/templates/auth/oauth/form.jet.html:37
+msgid "Version"
+msgstr "Versio"
+
+#: assets/templates/auth/oauth/form.jet.html:42
+msgid "Authorize"
+msgstr "Rajtigi"
+
+#: assets/templates/auth/oauth/form.jet.html:44
+msgid "Deny"
+msgstr "Nei"
+
+#: assets/templates/auth/onboarding.jet.html:9
+#: assets/templates/bookmarks/index.jet.html:75
+msgid "Welcome to Readeck!"
+msgstr "Bonvenon al Readeck!"
+
+#: assets/templates/auth/onboarding.jet.html:15
+msgid "We're delighted to have you on board; one more step and you're good to go."
+msgstr "Ni ĝojas, ke vi alvenis; nur unu plian paŝon kaj vi estos preta komenci."
+
+#: assets/templates/auth/onboarding.jet.html:31
+#: assets/templates/auth/recover.jet.html:54
+#: assets/templates/profile/password.jet.html:34
+msgid "must be at least 8 characters long"
+msgstr "devas esti almenaŭ 8 signoj longaj"
+
+#: assets/templates/auth/onboarding.jet.html:38
+msgid "Please note:"
+msgstr "Bonvolu noti:"
+
+#: assets/templates/auth/onboarding.jet.html:39
+msgid ""
+"\n"
+"  Your email address is optional and will never leave this installation.\n"
+"  It will never be collected, transferred or sold.\n"
+"  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
+"  "
+msgstr ""
+"\n"
+"  Via retpoŝta adreso estas laŭvola kaj neniam forlasos ĉi tiun instalaĵon.\n"
+"  Ĝi neniam estos kolektita, transdonita aŭ vendita.\n"
+"  Ĝi estos uzata <strong>nur</strong> se vi bezonos ĝin, por pasvorta reakiro kaj internaj sciigoj.\n"
+"  "
+
+#: assets/templates/auth/onboarding.jet.html:46
+msgid "Finish installation"
+msgstr "Finu instaladon"
+
+#: assets/templates/auth/recover.jet.html:9
+msgid "Password recovery"
+msgstr "Pasvorta reakiro"
+
+#: assets/templates/auth/recover.jet.html:20
+msgid "No worries, it happens to anyone."
+msgstr "Ne zorgu, ĝi okazas al iu ajn."
+
+#: assets/templates/auth/recover.jet.html:21
+msgid ""
+"\n"
+"        Please provide the email address you used to create\n"
+"        your account and we'll send you a message with a link\n"
+"        to recover your password.\n"
+"      "
+msgstr ""
+"\n"
+"        Bonvolu doni la retpoŝtan adreson, kiun vi uzis por krei\n"
+"        vian konton, kaj ni sendos al vi mesaĝon kun ligilo\n"
+"        por restarigi vian pasvorton.\n"
+"      "
+
+#: assets/templates/auth/recover.jet.html:31
+msgid "Send me a recovery link"
+msgstr "Sendu al mi reprenan ligilon"
+
+#: assets/templates/auth/recover.jet.html:32
+#: assets/templates/auth/recover.jet.html:56
+msgid "Cancel and go back to sign in"
+msgstr "Nuligu kaj reiru por ensaluti"
+
+#: assets/templates/auth/recover.jet.html:36
+msgid "Almost there!"
+msgstr "Preskaŭ finis!"
+
+#: assets/templates/auth/recover.jet.html:37
+#, python-format
+msgid ""
+"\n"
+"        We have sent an email to\n"
+"        <strong>%s</strong>\n"
+"        with further instructions.\n"
+"      "
+msgstr ""
+"\n"
+"        Ni sendis retleteron al\n"
+"        <strong>%s</strong>\n"
+"        kun pliaj instrukcioj.\n"
+"      "
+
+#: assets/templates/auth/recover.jet.html:52
+#: assets/templates/profile/password.jet.html:31
+msgid "New password"
+msgstr "Nova pasvorto"
+
+#: assets/templates/auth/recover.jet.html:55
+msgid "Update your password"
+msgstr "Ĝisdatigu vian pasvorton"
+
+#: assets/templates/auth/recover.jet.html:60
+msgid "Your password has been changed."
+msgstr "Via pasvorto ŝanĝiĝis."
+
+#: assets/templates/auth/recover.jet.html:61
+msgid "Go to the sign in page"
+msgstr "Iri al la saluta paĝo"
+
+#: assets/templates/auth/totp.jet.html:9
+msgid "Two-factor authentication"
+msgstr "Dufaktora aŭtentikigo"
+
+#: assets/templates/auth/totp.jet.html:20
+msgid "Passcode"
+msgstr "Paskodo"
+
+#: assets/templates/auth/totp.jet.html:31
+msgid "Verify"
+msgstr "Kontroli"
+
+#: assets/templates/bookmarks/annotation_list.jet.html:8
+msgid "Bookmark Highlights"
+msgstr "Legosignaj Kulminaĵoj"
+
+#: assets/templates/bookmarks/annotation_list.jet.html:17
+msgid "You don't have any highlights yet."
+msgstr "Vi ankoraŭ ne havas kulminaĵojn."
+
+#: assets/templates/bookmarks/annotation_list.jet.html:18
+msgid ""
+"\n"
+"        Once you start highlighting parts of your saved articles, they will appear on this page\n"
+"        for you to easily find them.\n"
+"      "
+msgstr ""
+"\n"
+"        Post kiam vi komencos kulminaĵi partojn de viaj konservitaj artikoloj, ili aperos sur ĉi tiu paĝo\n"
+"        por ke vi facile trovu ilin.\n"
+"      "
+
+#: assets/templates/bookmarks/annotation_list.jet.html:23
+#, python-format
+msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Legu pli pri kulminaĵoj en la <a class=\"%s\" href=\"%s\">dokumentaro</a>."
+
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "Serĉi"
+
+#: assets/templates/bookmarks/base.jet.html:31
+msgid "All"
+msgstr "Ĉiuj"
+
+#: assets/templates/bookmarks/base.jet.html:34
+msgid "Unread"
+msgstr "Nelegita"
+
+#: assets/templates/bookmarks/base.jet.html:37
+msgid "Archive"
+msgstr "Arkivo"
+
+#: assets/templates/bookmarks/base.jet.html:40
+msgid "Favorites"
+msgstr "Favoratoj"
+
+#: assets/templates/bookmarks/base.jet.html:48
+#: internal/bookmarks/routes/views_bookmarks.go:115
+msgid "Articles"
+msgstr "Artikoloj"
+
+#: assets/templates/bookmarks/base.jet.html:54
+#: internal/bookmarks/routes/views_bookmarks.go:119
+msgid "Videos"
+msgstr "Videoj"
+
+#: assets/templates/bookmarks/base.jet.html:60
+#: internal/bookmarks/routes/views_bookmarks.go:117
+msgid "Pictures"
+msgstr "Bildoj"
+
+#: assets/templates/bookmarks/base.jet.html:70
+#: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:25
+msgid "Labels"
+msgstr "Etikedoj"
+
+#: assets/templates/bookmarks/base.jet.html:72
+#: assets/templates/bookmarks/components/annotation_list.jet.html:9
+msgid "Highlights"
+msgstr "Kulminaĵoj"
+
+#: assets/templates/bookmarks/base.jet.html:74
+#: assets/templates/bookmarks/collection.jet.html:11
+#: assets/templates/bookmarks/collection.jet.html:38
+msgid "Collections"
+msgstr "Kolektoj"
+
+#: assets/templates/bookmarks/base.jet.html:90
+msgid "Did you know?"
+msgstr "Ĉu vi sciis?"
+
+#: assets/templates/bookmarks/base.jet.html:91
+#: assets/templates/bookmarks/index.jet.html:91
+msgid ""
+"\n"
+"            With the Browser Extension, you can save pages, images and selections\n"
+"            directly from your browser!"
+msgstr ""
+"\n"
+"            Per la Retumila Aldonaĵo, vi povas konservi paĝojn, bildojn kaj elektojn\n"
+"            rekte el via retumilo!"
+
+#: assets/templates/bookmarks/base.jet.html:98
+#: assets/templates/bookmarks/components/sidebar.jet.html:24
+#: assets/templates/bookmarks/index.jet.html:98
+msgid "Learn more"
+msgstr "Eksciu pli"
+
+#: assets/templates/bookmarks/base.jet.html:107
+msgid "Don't remind me"
+msgstr "Ne memorigu min"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:90
+msgid "Close panel"
+msgstr "Fermi panelon"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:135
+msgid "Bookmark information"
+msgstr "Legosignaj informoj"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/components/title_block.jet.html:1
+msgid "Close dialog"
+msgstr "Fermi dialogon"
+
+#: assets/templates/bookmarks/bookmark.jet.html:12
+msgid "Bookmark loading"
+msgstr "Legosigno ŝargiĝas"
+
+#: assets/templates/bookmarks/bookmark.jet.html:43
+msgid "Bookmark is loading"
+msgstr "Legosigno ŝargiĝas"
+
+#: assets/templates/bookmarks/bookmark.jet.html:116
+#: assets/templates/bookmarks/collection.jet.html:47
+#: assets/templates/bookmarks/collection.jet.html:60
+msgid "Edit"
+msgstr "Redakti"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:7
+#: assets/templates/bookmarks/components/sidebar.jet.html:1
+#: assets/templates/bookmarks/components/sidebar.jet.html:66
+#: assets/templates/emails/bookmark.jet.html:16
+#: assets/templates/epub/bookmark.jet.html:34
+msgid "no site name"
+msgstr "neniu reteja nomo"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:9
+#: assets/templates/bookmarks/bookmark_public.jet.html:122
+#: assets/templates/bookmarks/components/sidebar.jet.html:82
+#: assets/templates/emails/bookmark.jet.html:20
+#: assets/templates/epub/bookmark.jet.html:37
+#, python-format
+msgid "Published on %s"
+msgstr "Publikigita en %s"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:12
+#: assets/templates/bookmarks/bookmark_public.jet.html:127
+#: assets/templates/bookmarks/components/sidebar.jet.html:87
+#: assets/templates/emails/bookmark.jet.html:23
+#: assets/templates/epub/bookmark.jet.html:40
+#, python-format
+msgid "By %s"
+msgstr "Laŭ %s"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:17
+#: assets/templates/bookmarks/components/sidebar.jet.html:95
+#: assets/templates/emails/bookmark.jet.html:27
+#: assets/templates/epub/bookmark.jet.html:45
+#, python-format
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Proksimume %d-minuta legado"
+msgstr[1] "Proksimume %d-minutoj legado"
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html:9
+#: assets/templates/bookmarks/bookmark_missing.jet.html:14
+msgid "Bookmark not found"
+msgstr "Legosigno ne troviĝis"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:1
+#: assets/templates/bookmarks/bookmark_public.jet.html:101
+#: assets/templates/menu.jet.html:1
+msgid "Change theme"
+msgstr "Ŝanĝi etoson"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:17
+msgid "Shared link"
+msgstr "Komuna ligilo"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
+msgid "Page not found"
+msgstr "Paĝo ne troviĝis"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:85
+msgid "Page has expired"
+msgstr "Paĝo eksvalidiĝis"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:135
+#, python-format
+msgid "%d min"
+msgstr "%d min"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:141
+msgid "Shared by %[1]s with %[2]s"
+msgstr "Kunhavigita de %[1]s kun %[2]s"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:194
+#, python-format
+msgid "Saved with %s"
+msgstr "Konservita per %s"
+
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:8
+msgid "Share by email"
+msgstr "Kunhavigu per retpoŝto"
+
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:18
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:19
+#, python-format
+msgid "Share: %s"
+msgstr "Kunhavigi: %s"
+
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:8
+msgid "Share link"
+msgstr "Kunhavigu ligilon"
+
+#: assets/templates/bookmarks/bookmark_update.jet.html:9
+msgid "Edit bookmark"
+msgstr "Redakti legosignon"
+
+#: assets/templates/bookmarks/bookmark_update.jet.html:14
+#, python-format
+msgid "Edit: %s"
+msgstr "Redakto: %s"
+
+#: assets/templates/bookmarks/collection.jet.html:22
+#, python-format
+msgid "Collection %s"
+msgstr "Kolekto %s"
+
+#: assets/templates/bookmarks/collection.jet.html:26
+msgid "Collection will be removed in a few seconds."
+msgstr "Kolekto estos forigita post kelkaj sekundoj."
+
+#: assets/templates/bookmarks/collection.jet.html:62
+#: assets/templates/bookmarks/index.jet.html:133
+#: assets/templates/bookmarks/index.jet.html:167
+#: assets/templates/bookmarks/index.jet.html:170
+msgid "Filters"
+msgstr "Filtriloj"
+
+#: assets/templates/bookmarks/collection.jet.html:65
+#: assets/templates/bookmarks/index.jet.html:173
+#: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
+#: docs/http.go:308
+msgid "Documentation"
+msgstr "Dokumentaro"
+
+#: assets/templates/bookmarks/collection.jet.html:84
+msgid "Delete collection"
+msgstr "Forigi kolekton"
+
+#: assets/templates/bookmarks/collection_create.jet.html:9
+msgid "New Collection"
+msgstr "Nova Kolekto"
+
+#: assets/templates/bookmarks/collection_list.jet.html:9
+#: internal/opds/http.go:75
+msgid "Bookmark Collections"
+msgstr "Legosignaj Kolektoj"
+
+#: assets/templates/bookmarks/collection_list.jet.html:15
+msgid "Create a new collection"
+msgstr "Krei novan kolekton"
+
+#: assets/templates/bookmarks/collection_list.jet.html:24
+msgid ""
+"\n"
+"          Collections let you easily organize and export your bookmarks\n"
+"          by saving search requests of your choice.\n"
+"          When you create a new bookmark that matches a collection's\n"
+"          criteria, it will appear immediately.\n"
+"          Here are some examples:\n"
+"        "
+msgstr ""
+"\n"
+"          Kolektoj permesas facile organizi kaj eksporti viajn legosignojn\n"
+"          konservante serĉpetojn laŭ via elekto.\n"
+"          Kiam vi kreas novan legosignon, kiu kongruas kun la kriterioj\n"
+"          de kolekto, ĝi aperos tuj.\n"
+"          Jen kelkaj ekzemploj:\n"
+"        "
+
+#: assets/templates/bookmarks/collection_list.jet.html:33
+msgid "The unread articles (no photos or videos)"
+msgstr "La nelegitaj artikoloj (sen fotoj aŭ videoj)"
+
+#: assets/templates/bookmarks/collection_list.jet.html:34
+msgid "The archived articles from \"wikipedia.org\""
+msgstr "La arkivitaj artikoloj el \"wikipedia.org\""
+
+#: assets/templates/bookmarks/collection_list.jet.html:35
+msgid "The pictures with the label \"cat\""
+msgstr "La bildoj kun la etikedo \"kato\""
+
+#: assets/templates/bookmarks/collection_list.jet.html:36
+msgid "The articles that contain \"shelter\" in their title"
+msgstr "La artikoloj, kiuj enhavas vorton \"ŝirmejo\" en sia titolo"
+
+#: assets/templates/bookmarks/collection_list.jet.html:39
+#, python-format
+msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Legu pli pri kolektoj en la <a class=\"%s\" href=\"%s\">dokumentaĵo</a>."
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+msgid "Export and Share"
+msgstr "Eksporti kaj Kunhavigi"
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Delete this bookmark"
+msgstr "Forigu ĉi tiun legosignon"
+
+#: assets/templates/bookmarks/components/actions.jet.html:7
+msgid "Mark as unread"
+msgstr "Marku nelegita"
+
+#: assets/templates/bookmarks/components/actions.jet.html:7
+msgid "Mark as read"
+msgstr "Marki legita"
+
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Remove from archive"
+msgstr "Forigi el arĥivo"
+
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Move to archive"
+msgstr "Movi al arkivo"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Remove from favorites"
+msgstr "Forigi el favoratoj"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Add to favorites"
+msgstr "Aldoni al favoratoj"
+
+#: assets/templates/bookmarks/components/actions.jet.html:15
+#: assets/templates/bookmarks/components/card.jet.html:92
+msgid "This bookmark will be removed in a few seconds."
+msgstr "Ĉi tiu legosigno estos forigita post kelkaj sekundoj."
+
+#: assets/templates/bookmarks/components/actions.jet.html:22
+msgid "Undo"
+msgstr "Malfari"
+
+#: assets/templates/bookmarks/components/actions.jet.html:55
+#: assets/templates/bookmarks/components/list_actions.jet.html:79
+msgid "Download EPUB"
+msgstr "Elŝuti EPUB"
+
+#: assets/templates/bookmarks/components/actions.jet.html:58
+msgid "Share by Link"
+msgstr "Kunhavigi per Ligilo"
+
+#: assets/templates/bookmarks/components/actions.jet.html:61
+msgid "Send article by Email"
+msgstr "Sendi artikolon per retpoŝto"
+
+#: assets/templates/bookmarks/components/actions.jet.html:63
+msgid "Send e-book by Email"
+msgstr "Sendu bitlibron per retpoŝto"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:1
+msgid "Delete highlight"
+msgstr "Forigi kulminaĵo"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:12
+msgid "Start selecting text in the article to create a new highlight."
+msgstr "Komencu elekti tekston en la artikolo por krei novan kulminaĵon."
+
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+msgid "Saved with Readeck"
+msgstr "Konservita per Readeck"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
+msgstr "Titolo"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:21
+#: assets/templates/bookmarks/import/form-csv.jet.html:50
+msgid "Description"
+msgstr "Priskribo"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:28
+msgid "Site Name"
+msgstr "Nomo de la retejo"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:34
+msgid "Authors"
+msgstr "Aŭtoroj"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:35
+msgid "One value per line"
+msgstr "Unu valoro por linio"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:41
+msgid "Published"
+msgstr "Publikigita"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:46
+#: assets/templates/profile/index.jet.html:49
+msgid "Language"
+msgstr "Lingvo"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:51
+msgid "Text Direction"
+msgstr "Tekstodirekto"
+
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Go to original page"
+msgstr "Iru al originala paĝo"
+
+#: assets/templates/bookmarks/components/card.jet.html:33
+msgctxt "bookmark"
+msgid "Loading"
+msgstr "Enlegante"
+
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, python-format
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d min"
+msgstr[1] "%d min"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Close"
+msgstr "Fermi"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Show image"
+msgstr "Montri bildon"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Play video"
+msgstr "Ludi videon"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:46
+msgid "Yellow"
+msgstr "Flava"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:47
+msgid "Red"
+msgstr "Ruĝa"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:48
+msgid "Blue"
+msgstr "Blua"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:49
+msgid "Green"
+msgstr "Verda"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:50
+msgid "Transparent"
+msgstr "Travidebla"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:55
+msgid "Highlight"
+msgstr "Kulminaĵo"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:103
+msgid "Note"
+msgstr "Noto"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:78
+#: assets/templates/bookmarks/label.jet.html:43
+msgid "Delete"
+msgstr "Forigi"
+
+#: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
+msgid "copy to clipboard"
+msgstr "kopii al tondejo"
+
+#: assets/templates/bookmarks/components/filters.jet.html:36
+msgid "Author"
+msgstr "Aŭtoro"
+
+#: assets/templates/bookmarks/components/filters.jet.html:58
+msgid "Site"
+msgstr "Retejo"
+
+#: assets/templates/bookmarks/components/filters.jet.html:80
+#: assets/templates/bookmarks/import/options.jet.html:10
+#: assets/templates/bookmarks/label.jet.html:11
+msgid "Label"
+msgstr "Etikedo"
+
+#: assets/templates/bookmarks/components/filters.jet.html:108
+msgid "From date"
+msgstr "De dato"
+
+#: assets/templates/bookmarks/components/filters.jet.html:114
+msgid "To date"
+msgstr "Ĝis dato"
+
+#: assets/templates/bookmarks/components/filters.jet.html:119
+msgid "Type"
+msgstr "Tipo"
+
+#: assets/templates/bookmarks/components/filters.jet.html:124
+msgctxt "filter"
+msgid "Progress"
+msgstr "Progreso"
+
+#: assets/templates/bookmarks/components/filters.jet.html:129
+msgid "Is Favorite"
+msgstr "Estas Favoriton"
+
+#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:142
+#: assets/templates/bookmarks/components/filters.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:162
+#: assets/templates/bookmarks/components/filters.jet.html:172
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
+msgid "yes"
+msgstr "jes"
+
+#: assets/templates/bookmarks/components/filters.jet.html:134
+#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:173
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
+msgid "no"
+msgstr "ne"
+
+#: assets/templates/bookmarks/components/filters.jet.html:138
+msgid "Is Archived"
+msgstr "Estas Arkivita"
+
+#: assets/templates/bookmarks/components/filters.jet.html:148
+msgid "Is Loaded"
+msgstr "Estas Ŝarĝita"
+
+#: assets/templates/bookmarks/components/filters.jet.html:158
+msgid "With Labels"
+msgstr "Kun Etikedoj"
+
+#: assets/templates/bookmarks/components/filters.jet.html:168
+msgid "With Errors"
+msgstr "Kun Eraroj"
+
+#: assets/templates/bookmarks/components/labels.jet.html:1
+msgid "Remove label"
+msgstr "Forigi etikedon"
+
+#: assets/templates/bookmarks/components/labels_form.jet.html:1
+msgid "Add a label"
+msgstr "Aldoni etikedon"
+
+#: assets/templates/bookmarks/components/labels_form.jet.html:33
+msgid "Add label"
+msgstr "Aldoni etikedon"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Grid view"
+msgstr "Kradvido"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Compact view"
+msgstr "Kompakta vido"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Mosaic view"
+msgstr "Mozaika vido"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Sort bookmarks"
+msgstr "Ordigi legosignojn"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Sort options"
+msgstr "Ordigi elektojn"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Import and export"
+msgstr "Importo kaj eksporto"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:80
+msgid "Atom Feed"
+msgstr "Atom-fluo"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease width"
+msgstr "Malpliigi larĝon"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current Width"
+msgstr "Aktuala larĝo"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase width"
+msgstr "Pliigi larĝon"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease font size"
+msgstr "Malpliigi tiparan grandecon"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current font size"
+msgstr "Aktuala tipara grandeco"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase font size"
+msgstr "Pliigi tiparan grandecon"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease line height"
+msgstr "Malpliigi linispaton"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current line height"
+msgstr "Aktuala linispato"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase line height"
+msgstr "Pliigi linispaton"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Justify text"
+msgstr "Ĝisrandigi tekston"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Don't justify text"
+msgstr "Ne ĝisrandigi tekston"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "With hyphenation"
+msgstr "Kun streketado"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Without hyphenation"
+msgstr "Sen streketado"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:13
+msgid "Display options"
+msgstr "Afisaj opcioj"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:25
+msgid "Font"
+msgstr "Tiparo"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:56
+msgid "Width"
+msgstr "Larĝo"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:81
+msgid "Size"
+msgstr "Grandeco"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:106
+msgid "Line height"
+msgstr "Linialteco"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:130
+msgid "Justify"
+msgstr "Ĝustigu"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:156
+msgid "Hyphenation"
+msgstr "Vortrompado"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:16
+msgid "Sends this bookmark's content in the message."
+msgstr "Sendas la enhavon de ĉi tiu legosigno en la mesaĝo."
+
+#: assets/templates/bookmarks/components/share_email.jet.html:18
+msgid "Sends this bookmark as an attached EPUB file."
+msgstr "Sendas ĉi tiun legosignon kiel aldonitan EPUB-dosieron."
+
+#: assets/templates/bookmarks/components/share_email.jet.html:29
+msgid "Format"
+msgstr "Formato"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:39
+msgid "Send To"
+msgstr "Sendi al"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:44
+msgid "Send message"
+msgstr "Sendi mesaĝon"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:48
+#, python-format
+msgid "The bookmark was sent to %s"
+msgstr "La legosigno estis sendita al %s"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:55
+#: assets/templates/bookmarks/components/share_link.jet.html:28
+msgid "Go back to the bookmark"
+msgstr "Reiru al la legosigno"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:9
+msgid "You can share the following link with your friends."
+msgstr "Vi povas kunhavigi la jenan ligilon kun viaj amikoj."
+
+#: assets/templates/bookmarks/components/share_link.jet.html:10
+#, python-format
+msgid "It expires on %s"
+msgstr "Ĝi eksvalidiĝas je %s"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:24
+msgid "Copy the link"
+msgstr "Kopiu la ligilon"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:13
+msgid "Errors occurred during extraction."
+msgstr "Okazis eraroj dum eltiriĝo."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:19
+msgid ""
+"\n"
+"          Depending on the error, Readeck's browser extension may provide\n"
+"          a workaround."
+msgstr ""
+"\n"
+"          Depende de la eraro, la retumila etendaĵo de Readeck eble proponos\n"
+"          alternativan solvon."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:31
+msgid "View log"
+msgstr "Vidi protokolon"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:127
+msgid "Links"
+msgstr "Ligiloj"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:9
+msgid "Import your Browser's Bookmarks"
+msgstr "Importi la Legosignojn de via Retumilo"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:15
+msgid ""
+"\n"
+"    In your web browser, export your bookmarks as an HTML file.<br>\n"
+"    Upload this file in the form below and Readeck will create and fetch\n"
+"    every bookmark found it the file.\n"
+"  "
+msgstr ""
+"\n"
+"    En via retumilo eksportu viajn legosignojn kiel HTML-dosieron.<br>\n"
+"    Alŝutu ĉi tiun dosieron en la suba formularo kaj Readeck kreos kaj alportos\n"
+"    ĉiun legosignon trovitan en la dosiero.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:22
+msgid "Instructions for Firefox"
+msgstr "Instrukcioj por Firefox"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:23
+msgid "Instructions for Chrome"
+msgstr "Instrukcioj por Chrome"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:26
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:26
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:26
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:41
+#: assets/templates/bookmarks/import/form-readwise.jet.html:26
+#: assets/templates/bookmarks/import/form-text.jet.html:27
+#: assets/templates/profile/import.jet.html:24
+msgid "File"
+msgstr "Dosiero"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:41
+msgid "Convert section titles to labels"
+msgstr "Konvertu sekciajn titolojn al etikedoj"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:43
+msgid "Adds a label on links, based on their section title"
+msgstr "Aldonas etikedon al ligiloj, bazitan sur ilia sekcia titolo"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:47
+#: assets/templates/bookmarks/import/form-csv.jet.html:33
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:33
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:33
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:42
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-readwise.jet.html:33
+#: assets/templates/bookmarks/import/form-text.jet.html:34
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:68
+msgid "Import Bookmarks"
+msgstr "Enporti Legosignojn"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:9
+msgid "Import Links from a CSV File"
+msgstr "Enporti ligilojn el CSV-dosiero"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:15
+msgid ""
+"\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu CSV-dosieron el Instapaper aŭ ajnan CSV-dosieron, kiu akordas kun la sube specifita formo.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:40
+#, python-format
+msgid ""
+"\n"
+"    The uploaded file must contain a first row with the column names. Column names are case\n"
+"    insensitive and, except for <code>%s</code>, every column is optional.\n"
+"  "
+msgstr ""
+"\n"
+"    La alŝutita dosiero devas enhavi unuan vicon kun la kolumnaj nomoj. Kolumnaj nomoj estas sensentemaj al\n"
+"    majuskloj kaj, krom <code>%s</code>, ĉiu kolumno estas laŭvola.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:44
+msgid "Here are the columns you can set:"
+msgstr "Jen la kolumnoj, kiujn vi povas agordi:"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:48
+msgid "Field"
+msgstr "Kampo"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:49
+msgid "Alias"
+msgstr "Alinomo"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:57
+msgid "Link address"
+msgstr "Ligadreso"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:62
+msgid "Bookmark title"
+msgstr "Legosigno-titolo"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:67
+#, python-format
+msgid "Bookmark's archived state; only valid value is \"%s\""
+msgstr "Arkivita stato de legosigno; nura valida valoro estas \"%s\""
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:72
+msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
+msgstr "Krea dato, povas esti UNIX-tempstampo aŭ dato formita laŭ RFC-3339"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:77
+msgid "A JSON encoded list of labels"
+msgstr "JSON-forma listo de etikedoj"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:82
+msgid "Example"
+msgstr "Ekzemplo"
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
+msgid "Import Links from a GoodLinks export file"
+msgstr "Importi Ligilojn el eksporta dosiero de GoodLinks"
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your GoodLinks app.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu JSON-dosieron akiritan de via GoodLinks-aplikaĵo.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
+msgid "Import Bookmarks from a Linkwarden export file"
+msgstr "Importi Legosignojn el eksporta dosiero de Linkwarden"
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your Linkwarden app.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu JSON-dosieron akiritan de via Linkwarden-aplikaĵo.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:63
+msgid "Import your Omnivore Articles"
+msgstr "Importu viajn Omnivore-Artikolojn"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:15
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+"\n"
+"    Por importi viajn artikolojn el Omnivore, vi unue devas krei API-Ŝlosilon en viaj\n"
+"    agordoj de Omnivore kaj enigi ĝin en la suban formularon.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:27
+msgid "Omnivore URL"
+msgstr "URL de Omnivore"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:29
+msgid "URL of your Omnivore homepage"
+msgstr "URL de via Omnivore-hejmpaĝo"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:35
+msgid "API Key"
+msgstr "API-Ŝlosilo"
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:70
+msgid "Import your Pocket Articles"
+msgstr "Importu viajn Pocket-artikolojn"
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
+msgid ""
+"\n"
+"    You can export your articles on Pocket by visiting:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Vi povas eksporti viajn artikolojn en Pocket vizitante:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
+msgid ""
+"\n"
+"    Upload this file in the form below and Readeck will fetch and save\n"
+"    every link found it the file.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu ĉi tiun dosieron en la suba formularo kaj Readeck prenos kaj konservos\n"
+"    ĉiun ligilon trovitan en la dosiero.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
+msgid ""
+"\n"
+"    Please note that Pocket does not allow the article content to be exported.\n"
+"    This could lead to different results in Readeck than what you currently\n"
+"    see in Pocket.\n"
+"  "
+msgstr ""
+"\n"
+"    Bonvolu noti, ke Pocket ne permesas eksporti la artikolan enhavon.\n"
+"    Ĉi tio povus konduki al malsamaj rezultoj en Readeck ol tio, kion vi nuntempe\n"
+"    vidas en Pocket.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:43
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr "Noto: alŝutu la ZIP-dosieron rekte, ne ĝian enhavon"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:9
+msgid "Import Links from Readwise Reader CSV export"
+msgstr "Importi Ligilojn el Readwise Reader CSV-eksporto"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:15
+msgid ""
+"\n"
+"    Upload a CSV file exported from your Readwise Reader account below.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu CSV-dosieron eksportitan el via Readwise Reader-konto sube.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:38
+msgid "Which information is imported"
+msgstr "Kiuj informoj estas importitaj"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:41
+msgid "Article title, URL, and when it was first saved,"
+msgstr "Artikola titolo, URL, kaj kiam ĝi estis unue konservita,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:42
+msgid "The archived state of an article,"
+msgstr "La arkivita stato de artikolo,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:43
+#, python-format
+msgid "\"%s\" as Readeck labels,"
+msgstr "\"%s\" kiel etikedoj de Readeck,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:44
+#, python-format
+msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
+msgstr "Kiam dokumenta etikedo enhavas \"%s\", la legosigno estos aldonita al Favoratoj en Readeck."
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:46
+msgid "What is not imported:"
+msgstr "Kio ne estas importita:"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:48
+msgid "Article reading progress and seen status,"
+msgstr "Artikola lega progreso kaj vidita stato,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:49
+msgid "Articles forwarded to Readwise Reader by email,"
+msgstr "Artikoloj plusenditaj al Readwise Reader per retpoŝto,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:50
+msgid "Uploaded documents such as PDFs or EPUB."
+msgstr "Alŝutitaj dokumentoj kiel PDF-oj aŭ EPUB-oj."
+
+#: assets/templates/bookmarks/import/form-text.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:84
+msgid "Import Links from a Text File"
+msgstr "Importi Ligilojn el Teksta Dosiero"
+
+#: assets/templates/bookmarks/import/form-text.jet.html:15
+msgid ""
+"\n"
+"    Upload a text file that contains one link per line and Readeck will fetch\n"
+"    all of them and save them in your bookmark list.\n"
+"  "
+msgstr ""
+"\n"
+"    Alŝutu tekstodosieron, kiu enhavas unu ligilon po linio, kaj Readeck elprenos\n"
+"    ĉiujn kaj konservos ilin en via legosigna listo.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:91
+msgid "Import your Wallabag Articles"
+msgstr "Importu viajn Wallabag-Artikolojn"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:15
+msgid ""
+"\n"
+"    To import your articles from Wallabag, you must first create an API client\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will give you\n"
+"    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
+"  "
+msgstr ""
+"\n"
+"    Por importi viajn artikolojn el Wallabag, vi devas unue krei API-klienton\n"
+"    en la menuo <strong>API-klientoj-administrado</strong> de Wallabag. Ĉi tio donos al vi\n"
+"    <strong>Klientan ID-on</strong> kaj <strong>Klientan sekreton</strong>.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:21
+msgid ""
+"\n"
+"    You can then enter all the necessary information in the form below.\n"
+"  "
+msgstr ""
+"\n"
+"    Vi povas tiam enigi ĉiujn necesajn informojn en la suba formularo.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:32
+msgid "Wallabag URL"
+msgstr "URL de Wallabag"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:34
+msgid "URL of your Wallabag homepage"
+msgstr "URL de via Wallabag-hejmpaĝo"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:54
+msgid "Client ID"
+msgstr "Klienta ID"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:61
+msgid "Client Secret"
+msgstr "Klienta Sekreto"
+
+#: assets/templates/bookmarks/import/index.jet.html:9
+msgid "Import your Bookmarks"
+msgstr "Importi viajn Legosignojn"
+
+#: assets/templates/bookmarks/import/index.jet.html:25
+msgid ""
+"\n"
+"    Here you can import your existing bookmark collection from various sources into Readeck.\n"
+"  "
+msgstr ""
+"\n"
+"    Ĉi tie vi povas importi vian ekzistantan legosignan kolekton el diversaj fontoj en Readeck.\n"
+"  "
+
+#: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/profile/export.jet.html:35
+#: internal/bookmarks/importer/browser.go:51
+msgid "Browser Bookmarks"
+msgstr "Retumilaj Legosignoj"
+
+#: assets/templates/bookmarks/import/index.jet.html:35
+msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
+msgstr "Importu la Legosignojn de via Retumilo, Pinboard, Instapaper"
+
+#: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/profile/export.jet.html:43
+#: internal/bookmarks/importer/csv.go:55
+msgid "CSV File"
+msgstr "CSV-dosiero"
+
+#: assets/templates/bookmarks/import/index.jet.html:42
+msgid "Import Links from a CSV File and Instapaper"
+msgstr "Importi Ligilojn el CSV-Dosiero kaj Instapaper"
+
+#: assets/templates/bookmarks/import/index.jet.html:49
+msgid "Import your GoodLinks Articles"
+msgstr "Importu viajn GoodLinks-Artikolojn"
+
+#: assets/templates/bookmarks/import/index.jet.html:56
+msgid "Import your Linkwarden Bookmarks"
+msgstr "Importu viajn Linkwarden-legosignojn"
+
+#: assets/templates/bookmarks/import/index.jet.html:77
+msgid "Import your Readwise Reader Library"
+msgstr "Importu vian Readwise Reader Bibliotekon"
+
+#: assets/templates/bookmarks/import/index.jet.html:83
+#: internal/bookmarks/importer/text.go:24
+msgid "Text File"
+msgstr "Tekstdosiero"
+
+#: assets/templates/bookmarks/import/options.jet.html:7
+msgid "Options"
+msgstr "Elektoj"
+
+#: assets/templates/bookmarks/import/options.jet.html:12
+msgid "A label to add to all imported bookmarks"
+msgstr "Etikedo aldonenda al ĉiuj importitaj legosignoj"
+
+#: assets/templates/bookmarks/import/options.jet.html:16
+msgid "Ignore links already in your bookmarks"
+msgstr "Ignoru ligilojn jam en viaj legosignoj"
+
+#: assets/templates/bookmarks/import/options.jet.html:21
+msgid "Archive all links"
+msgstr "Arkivi ĉiujn ligilojn"
+
+#: assets/templates/bookmarks/import/options.jet.html:23
+msgid "Moves all links to archive, regardless of their original status"
+msgstr "Movas ĉiujn ligilojn al arkivo, sendepende de ilia originala stato"
+
+#: assets/templates/bookmarks/import/options.jet.html:27
+msgid "Mark all links as read"
+msgstr "Marki ĉiujn ligilojn kiel legitajn"
+
+#: assets/templates/bookmarks/import/options.jet.html:29
+msgid "Marks all links as read, regardless of their original status"
+msgstr "Markas ĉiujn ligilojn kiel legitajn, sendepende de ilia originala stato"
+
+#: assets/templates/bookmarks/import/progress.jet.html:15
+msgid "Import operation will launch momentarily."
+msgstr "Importa operacio lanĉiĝos post momento."
+
+#: assets/templates/bookmarks/import/progress.jet.html:17
+msgid "Import operation has started!"
+msgstr "Importa operacio komenciĝis!"
+
+#: assets/templates/bookmarks/import/progress.jet.html:21
+msgid "You can keep using Readeck while the import is running."
+msgstr "Vi povas daŭre uzi Readeck dum la importado funkcias."
+
+#: assets/templates/bookmarks/import/progress.jet.html:24
+msgid "Import is finished!"
+msgstr "Importo estas finita!"
+
+#: assets/templates/bookmarks/import/progress.jet.html:25
+#, python-format
+msgid ""
+"\n"
+"      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
+"      "
+msgstr ""
+"\n"
+"      Viaj legosignoj nun haveblas en via <a class=\"%s\" href=\"%s\">legosigna listo</a>.\n"
+"      "
+
+#: assets/templates/bookmarks/index.jet.html:1
+msgid "Bookmark filters"
+msgstr "Legosignaj filtriloj"
+
+#: assets/templates/bookmarks/index.jet.html:32
+msgid "Save a new link"
+msgstr "Konservi novan ligilon"
+
+#: assets/templates/bookmarks/index.jet.html:44
+msgctxt "button"
+msgid "Save link"
+msgstr "Konservi ligilon"
+
+#: assets/templates/bookmarks/index.jet.html:53
+msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
+msgstr "\"%[1]s\" ne estas valida adreso. Ĉu vi volis serĉi en viaj legosignoj por %[2]s?"
+
+#: assets/templates/bookmarks/index.jet.html:77
+msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
+msgstr "Vi ankoraŭ ne havas legosignojn.<br> Kopiu ligilon en la supra kampo kaj komencu konservi."
+
+#: assets/templates/bookmarks/index.jet.html:79
+#, python-format
+msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Legu pli pri legosignoj en la <a class=\"%s\" href=\"%s\">dokumentaro</a>."
+
+#: assets/templates/bookmarks/index.jet.html:89
+msgid "Readeck Browser Extension"
+msgstr "Retumila Kromaĵo de Readeck"
+
+#: assets/templates/bookmarks/index.jet.html:105
+msgid "Import existing bookmarks"
+msgstr "Importi ekzistantajn legosignojn"
+
+#: assets/templates/bookmarks/index.jet.html:107
+msgid ""
+"\n"
+"              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+"              Try Readeck's import tool.\n"
+"            "
+msgstr ""
+"\n"
+"              Ĉu vi ŝatus importi de simila ilo aŭ de dosiero kun ekzistantaj legosignoj?\n"
+"              Provu la importilon de Readeck.\n"
+"            "
+
+#: assets/templates/bookmarks/index.jet.html:114
+msgid "Import links and articles"
+msgstr "Importi ligilojn kaj artikolojn"
+
+#: assets/templates/bookmarks/index.jet.html:141
+msgid "Import bookmarks"
+msgstr "Importi legosignojn"
+
+#: assets/templates/bookmarks/index.jet.html:150
+msgid "Your search query yielded <strong>no results</strong>."
+msgstr "Via serĉdemando donis <strong>neniun rezulton</strong>."
+
+#: assets/templates/bookmarks/index.jet.html:152
+#, python-format
+msgid "Your search query yielded <strong>%d result</strong>."
+msgid_plural "Your search query yielded <strong>%d results</strong>."
+msgstr[0] "Via serĉdemando donis <strong>%d rezulton</strong>."
+msgstr[1] "Via serĉmendo donis <strong>%d rezultojn</strong>."
+
+#: assets/templates/bookmarks/index.jet.html:183
+msgctxt "action"
+msgid "Search"
+msgstr "Serĉi"
+
+#: assets/templates/bookmarks/index.jet.html:185
+msgid "Reset search"
+msgstr "Restarigi serĉon"
+
+#: assets/templates/bookmarks/index.jet.html:188
+msgid "Create a collection"
+msgstr "Krei kolekton"
+
+#: assets/templates/bookmarks/label.jet.html:56
+msgid "Label will be removed in a few seconds."
+msgstr "Etikedo estos forigita post kelkaj sekundoj."
+
+#: assets/templates/bookmarks/labels.jet.html:8
+msgid "Bookmark Labels"
+msgstr "Etikedoj de Legosignoj"
+
+#: assets/templates/bookmarks/labels.jet.html:14
+msgid ""
+"\n"
+"  Labels let your organize your bookmarks the way you want.\n"
+"  You can set anything to a label, including emojis!\n"
+msgstr ""
+"\n"
+"  Etikedoj permesas al vi organizi viajn legosignojn laŭ via plaĉo.\n"
+"  Vi povas atribui ion ajn al etikedo, inkluzive de emojioj!\n"
+
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:270
+msgid "About Readeck"
+msgstr "Pri Readeck"
+
+#: assets/templates/docs/about.jet.html:26
+msgid "Version:"
+msgstr "Versio:"
+
+#: assets/templates/docs/about.jet.html:27
+msgid "Built Date:"
+msgstr "Dato de konstruo:"
+
+#: assets/templates/docs/about.jet.html:30
+msgid "System Information"
+msgstr "Sistema Informo"
+
+#: assets/templates/docs/about.jet.html:33
+msgid "Here are your current system information. Please include them if you report a bug."
+msgstr "Jen viaj aktualaj sistemaj informoj. Bonvolu inkluzivigi ilin se vi raportas eraron."
+
+#: assets/templates/docs/about.jet.html:42
+msgid "Storage"
+msgstr "Stokejo"
+
+#: assets/templates/docs/about.jet.html:46
+msgid "Database Size:"
+msgstr "Grando de la datumbazo:"
+
+#: assets/templates/docs/about.jet.html:50
+msgid "Bookmarks Disk Usage:"
+msgstr "Diskuzado de legosignoj:"
+
+#: assets/templates/docs/about.jet.html:56
+msgid "Project"
+msgstr "Projekto"
+
+#: assets/templates/docs/about.jet.html:59
+msgid "Main website:"
+msgstr "Ĉefa retejo:"
+
+#: assets/templates/docs/about.jet.html:60
+msgid "Sources and issues:"
+msgstr "Fontoj kaj problemoj:"
+
+#: assets/templates/docs/about.jet.html:61
+msgid "How to contribute:"
+msgstr "Kiel kontribui:"
+
+#: assets/templates/docs/about.jet.html:62
+msgid "Community Forum:"
+msgstr "Komunuma Forumo:"
+
+#: assets/templates/docs/about.jet.html:63
+msgid "Matrix Chat:"
+msgstr "Babili en Matrix:"
+
+#: assets/templates/docs/about.jet.html:66
+msgid "License"
+msgstr "Permesilo"
+
+#: assets/templates/docs/about.jet.html:68
+#, python-format
+msgid "Readeck is distributed under the terms of the license \"%s\""
+msgstr "Readeck estas distribuita laŭ la kondiĉoj de la permesilo \"%s\""
+
+#: assets/templates/docs/about.jet.html:72
+msgid "Here's a short summary of the license conditions:"
+msgstr "Jen mallonga resumo de la permesilaj kondiĉoj:"
+
+#: assets/templates/docs/about.jet.html:77
+#: assets/templates/profile/app_list.jet.html:51
+msgid "Permissions"
+msgstr "Permesoj"
+
+#: assets/templates/docs/about.jet.html:78
+msgid "Conditions"
+msgstr "Kondiĉoj"
+
+#: assets/templates/docs/about.jet.html:79
+msgid "Limitations"
+msgstr "Limigoj"
+
+#: assets/templates/docs/about.jet.html:87
+msgid "Commercial use"
+msgstr "Komerca uzo"
+
+#: assets/templates/docs/about.jet.html:90
+msgid "Distribution"
+msgstr "Distribuo"
+
+#: assets/templates/docs/about.jet.html:93
+msgid "Modification"
+msgstr "Modifo"
+
+#: assets/templates/docs/about.jet.html:96
+msgid "Patent use"
+msgstr "Patenta uzo"
+
+#: assets/templates/docs/about.jet.html:99
+msgid "Private use"
+msgstr "Privata uzo"
+
+#: assets/templates/docs/about.jet.html:106
+msgid "Disclose source"
+msgstr "Malkaŝo de la fontkodo"
+
+#: assets/templates/docs/about.jet.html:109
+msgid "License and copyright notice"
+msgstr "Permesilo kaj kopirajta avizo"
+
+#: assets/templates/docs/about.jet.html:112
+msgid "Network use is distribution"
+msgstr "Reta uzo estas distribuo"
+
+#: assets/templates/docs/about.jet.html:115
+msgid "Same license"
+msgstr "Sama permesilo"
+
+#: assets/templates/docs/about.jet.html:118
+msgid "State changes"
+msgstr "Ŝanĝoj de stato"
+
+#: assets/templates/docs/about.jet.html:125
+msgid "Liability"
+msgstr "Respondeco"
+
+#: assets/templates/docs/about.jet.html:128
+msgid "Warranty"
+msgstr "Garantio"
+
+#: assets/templates/docs/about.jet.html:155
+msgid "Third-Party Licenses"
+msgstr "Permesiloj de Tria Partio"
+
+#: assets/templates/docs/about.jet.html:157
+msgid "Readeck includes and/or uses the following open source assets:"
+msgstr "Readeck inkluzivas kaj/aŭ uzas la jenajn malfermitkodajn rimedojn:"
+
+#: assets/templates/docs/api-docs.jet.html:8
+#: assets/templates/docs/base.jet.html:21
+msgid "API Documentation"
+msgstr "API-dokumentaro"
+
+#: assets/templates/docs/base.jet.html:9
+msgid "Readeck Help"
+msgstr "Helpo pri Readeck"
+
+#: assets/templates/docs/base.jet.html:28
+msgid "Changelog"
+msgstr "Protokolo de ŝanĝoj"
+
+#: assets/templates/emails/bookmark_epub.jet.md:6
+#, python-format
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"Here is your ebook for: **%s**\n"
+msgstr ""
+"\n"
+"Saluton,\n"
+"\n"
+"Jen via bitlibro por: **%s**\n"
+
+#: assets/templates/emails/recover.jet.md:7
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"You (or someone else) entered this email address when trying to\n"
+"change the password of a Readeck account (%[1]s).\n"
+"\n"
+"If you are expecting this email, please follow this link to set\n"
+"a new password for your readeck account.\n"
+"\n"
+"%[2]s\n"
+msgstr ""
+"\n"
+"Saluton,\n"
+"\n"
+"Vi (aŭ iu alia) enigis ĉi tiun retpoŝtan adreson provante\n"
+"ŝanĝi la pasvorton de Readeck-konto (%[1]s).\n"
+"\n"
+"Se vi atendas ĉi tiun retpoŝton, bonvolu sekvi ĉi tiun ligilon por agordi\n"
+"novan pasvorton por via Readeck-konto.\n"
+"\n"
+"%[2]s\n"
+
+#: assets/templates/emails/recover.jet.md:19
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"You (or someone else) entered this email address when trying to\n"
+"change the password of a Readeck account (%[1]s).\n"
+"\n"
+"However, this email address is not associated with any account and\n"
+"therefore, the attempted password change has failed.\n"
+"\n"
+"If you are a Readeck user on %[1]s and you are\n"
+"expecting this email, please try again using the email address\n"
+"you used when creating your account.\n"
+"\n"
+"If you are not a Readeck user, please ignore this message.\n"
+msgstr ""
+"\n"
+"Saluton,\n"
+"\n"
+"Vi (aŭ iu alia) enigis ĉi tiun retpoŝtadreson provante\n"
+"ŝanĝi la pasvorton de Readeck-konto (%[1]s).\n"
+"\n"
+"Tamen, ĉi tiu retpoŝtadreso ne estas ligita al iu konto kaj\n"
+"tial, la provita pasvortoŝanĝo malsukcesis.\n"
+"\n"
+"Se vi estas Readeck-uzanto ĉe %[1]s kaj vi atendas ĉi \n"
+"tiun retpoŝton, bonvolu reprovi uzante la retpoŝtan \n"
+"adreson, kiun vi uzis kiam vi kreis vian konton.\n"
+"\n"
+"Se vi ne estas Readeck-uzanto, bonvolu ignori ĉi tiun mesaĝon..\n"
+
+#: assets/templates/epub/bookmark.jet.html:62
+msgid "Notes"
+msgstr "Notoj"
+
+#: assets/templates/error.jet.html:8
+msgid "Error"
+msgstr "Eraro"
+
+#: assets/templates/error.jet.html:22
+msgid "Permission denied."
+msgstr "Permeso rifuzita."
+
+#: assets/templates/error.jet.html:24
+msgid "Page not found."
+msgstr "Paĝo ne trovita."
+
+#: assets/templates/error.jet.html:26
+msgid "An error occurred."
+msgstr "Eraro okazis."
+
+#: assets/templates/menu.jet.html:10
+msgid "Open menu"
+msgstr "Malfermu menuon"
+
+#: assets/templates/menu.jet.html:33
+msgid "Change color theme"
+msgstr "Ŝanĝi koloran temon"
+
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
+msgid "Settings"
+msgstr "Agordoj"
+
+#: assets/templates/profile/app_list.jet.html:10
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:244
+msgid "Applications"
+msgstr "Aplikaĵoj"
+
+#: assets/templates/profile/app_list.jet.html:16
+msgid ""
+"\n"
+"  Applications are registered clients that have permissions to access your Readeck account.\n"
+"  If there are applications you do not recognize here, or an application is misbehaving,\n"
+"  you can revoke its access.\n"
+msgstr ""
+"\n"
+"  Aplikoj estas registritaj klientoj, kiuj havas permesojn aliri vian Readeck-konton.\n"
+"  Se estas aplikoj, kiujn vi ne rekonas ĉi tie, aŭ apliko miskondutas,\n"
+"  vi povas revoki ĝian aliron.\n"
+
+#: assets/templates/profile/app_list.jet.html:24
+msgid "You have no registered application at the moment."
+msgstr "Vi nuntempe ne havas registritan aplikaĵon."
+
+#: assets/templates/profile/app_list.jet.html:46
+#, python-format
+msgid "Authorized on: %s"
+msgstr "Permesita je: %s"
+
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr "Laste uzita je: %s"
+
+#: assets/templates/profile/app_list.jet.html:60
+msgid "This client will be revoked in a few seconds."
+msgstr "Ĉi tiu kliento estos eksvalidigita post kelkaj sekundoj."
+
+#: assets/templates/profile/app_list.jet.html:74
+msgid "Revoke application"
+msgstr "Malvalidigi aplikaĵon"
+
+#: assets/templates/profile/app_list.jet.html:87
+msgid "Developer information"
+msgstr "Informoj por programistoj"
+
+#: assets/templates/profile/app_list.jet.html:88
+#, python-format
+msgid ""
+"\n"
+"    If you plan to build an application, please refer to the\n"
+"    <a href=\"%s\">API Documentation</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Se vi planas konstrui aplikaĵon, bonvolu konsulti la\n"
+"    <a href=\"%s\">API-Dokumentaron</a>.\n"
+"  "
+
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
+#: internal/profile/views.go:113 internal/profile/views.go:167
+#: internal/profile/views.go:243 internal/profile/views.go:259
+#: internal/profile/views.go:319 internal/profile/views.go:370
+#: internal/profile/views.go:401
+msgid "Profile"
+msgstr "Profilo"
+
+#: assets/templates/profile/base.jet.html:19
+#: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
+#: internal/profile/views.go:168
+msgid "Security"
+msgstr "Sekureco"
+
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
+#: internal/profile/views.go:320
+msgid "API Tokens"
+msgstr "API-ĵetonoj"
+
+#: assets/templates/profile/base.jet.html:34
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:371
+msgid "Export"
+msgstr "Eksporto"
+
+#: assets/templates/profile/base.jet.html:37
+#: assets/templates/profile/import.jet.html:9
+#: assets/templates/profile/import.jet.html:44
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:402
+msgid "Import"
+msgstr "Importo"
+
+#: assets/templates/profile/export.jet.html:15
+msgid "Export your Readeck Profile"
+msgstr "Eksporti vian Readeck-Profilon"
+
+#: assets/templates/profile/export.jet.html:19
+msgid ""
+"\n"
+"    This lets you download a zip file containing all your profile's data, including\n"
+"    bookmarks, collections, etc.\n"
+"    "
+msgstr ""
+"\n"
+"    Ĉi tio permesas elŝuti zip-dosieron enhavantan ĉiujn datumojn de via profilo, inkluzive\n"
+"    legosignojn, kolektojn, ktp.\n"
+"    "
+
+#: assets/templates/profile/export.jet.html:24
+msgid "Export Data"
+msgstr "Eksporti Datumojn"
+
+#: assets/templates/profile/export.jet.html:36
+msgid "Bookmark List in Browser Bookmarks Format"
+msgstr "Legosigna Listo en Retumila Legosigna Formato"
+
+#: assets/templates/profile/export.jet.html:44
+msgid "Bookmark List as Comma Separated Values"
+msgstr "Legosigna Listo kiel diskomitaj valoroj (CSV)"
+
+#: assets/templates/profile/export.jet.html:49
+msgid "Export Bookmarks"
+msgstr "Eksporti Legosignojn"
+
+#: assets/templates/profile/export.jet.html:51
+msgid "You can export your bookmark list in the following formats:"
+msgstr "Vi povas eksporti vian legosignan liston en la sekvaj formatoj:"
+
+#: assets/templates/profile/import.jet.html:14
+msgid "Import a Readeck Profile"
+msgstr "Importi Readeck-Profilon"
+
+#: assets/templates/profile/import.jet.html:16
+msgid "Import a file obtained through a previous profile export."
+msgstr "Importu dosieron akiritan per antaŭa profil-eksporto."
+
+#: assets/templates/profile/import.jet.html:30
+msgid "Confirm your user name"
+msgstr "Konfirmu vian uzantnomon"
+
+#: assets/templates/profile/import.jet.html:35
+msgid "Attention"
+msgstr "Atento"
+
+#: assets/templates/profile/import.jet.html:37
+msgid ""
+"\n"
+"      This will empty your current profile and all its data will be\n"
+"      replaced with the file's content.\n"
+"      "
+msgstr ""
+"\n"
+"      Ĉi tio malplenigos vian nunan profilon kaj ĉiuj ĝiaj datumoj estos\n"
+"      anstataŭigitaj per la enhavo de la dosiero.\n"
+"      "
+
+#: assets/templates/profile/import.jet.html:49
+msgid "Import bookmarks from other services"
+msgstr "Importi legosignojn de aliaj servoj"
+
+#: assets/templates/profile/import.jet.html:52
+#, python-format
+msgid ""
+"\n"
+"  If you have bookmarks from another service you can import them in the\n"
+"  <a href=\"%s\">dedicated section</a>.\n"
+"  "
+msgstr ""
+"\n"
+"  Se vi havas legosignojn el alia servo, vi povas importi ilin en la\n"
+"  <a href=\"%s\">dediĉita sekcio</a>.\n"
+"  "
+
+#: assets/templates/profile/index.jet.html:9
+msgid "My profile"
+msgstr "Mia profilo"
+
+#: assets/templates/profile/index.jet.html:17
+#, python-format
+msgid "You are connected as <strong>%s</strong>"
+msgstr "Vi estas konektita kiel <strong>%s</strong>"
+
+#: assets/templates/profile/index.jet.html:19
+msgid "Sign out"
+msgstr "Elsaluti"
+
+#: assets/templates/profile/index.jet.html:29
+msgid "Base settings"
+msgstr "Bazaj agordoj"
+
+#: assets/templates/profile/index.jet.html:41
+msgid "Email Address"
+msgstr "Retpoŝtadreso"
+
+#: assets/templates/profile/index.jet.html:66
+msgid "Email settings"
+msgstr "Retpoŝtaj agordoj"
+
+#: assets/templates/profile/index.jet.html:67
+msgid ""
+"\n"
+"    These, optional, parameters are used when Readeck sends emails.\n"
+"    "
+msgstr ""
+"\n"
+"    Ĉi tiuj, laŭvolaj, parametroj estas uzataj kiam Readeck sendas retleterojn.\n"
+"    "
+
+#: assets/templates/profile/index.jet.html:73
+msgid "Reply To"
+msgstr "Respondi al"
+
+#: assets/templates/profile/index.jet.html:74
+msgid "Add this email address in your outgoing emails so recipients can reply."
+msgstr "Aldonu ĉi tiun retpoŝtan adreson al viaj eliraj retleteroj, por ke la ricevantoj povu respondi."
+
+#: assets/templates/profile/index.jet.html:79
+msgid "Send EPUB to"
+msgstr "Sendi EPUB-dosieron al"
+
+#: assets/templates/profile/index.jet.html:80
+msgid "This address is used to prefill the recipient when you send an e-book by email."
+msgstr "Ĉi tiu adreso estas uzata por antaŭplenigi la ricevanton kiam vi sendas bitlibron per retpoŝto."
+
+#: assets/templates/profile/index.jet.html:87
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "Sendi e-librojn al Amazon Kindle"
+
+#: assets/templates/profile/index.jet.html:88
+msgid ""
+"\n"
+"          If you plan to send e-books to a Kindle device, you must approve the\n"
+"          following email address within your Kindle Account:\n"
+"          "
+msgstr ""
+"\n"
+"          Se vi planas sendi e-librojn al Kindle-aparato, vi devas aprobi la\n"
+"          sekvan retpoŝtan adreson en via Kindle-Konto:\n"
+"          "
+
+#: assets/templates/profile/password.jet.html:19
+msgid "Change my password"
+msgstr "Ŝanĝi mian pasvorton"
+
+#: assets/templates/profile/password.jet.html:23
+msgid "Current password"
+msgstr "Nuna pasvorto"
+
+#: assets/templates/profile/password.jet.html:46
+msgid "Verification Code (TOTP)"
+msgstr "Konfirma kodo (TOTP)"
+
+#: assets/templates/profile/password.jet.html:47
+msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
+msgstr "Konfirma kodo estas unufoja kodo generita de aplikaĵo, kiel ekzemple Google Authenticator."
+
+#: assets/templates/profile/password.jet.html:52
+msgid "The verification code is enabled on this account."
+msgstr "La konfirma kodo estas aktivigita por ĉi tiu konto."
+
+#: assets/templates/profile/password.jet.html:57
+msgid "Remove Verification Code"
+msgstr "Forigi konfirman kodon"
+
+#: assets/templates/profile/password.jet.html:59
+msgid "Removing your verification code will make your account less secure."
+msgstr "Forigo de via konfirma kodo malpliigos la sekurecon de via konto."
+
+#: assets/templates/profile/password.jet.html:64
+msgid "Remove"
+msgstr "Forigi"
+
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+msgid "Setup Verification Code"
+msgstr "Verifika kodo por agordo"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy token"
+msgstr "kopii ĵetonon"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
+msgstr "kopii HTTP-ĉapon"
+
+#: assets/templates/profile/token.jet.html:9
+msgid "API Token"
+msgstr "API-ĵetono"
+
+#: assets/templates/profile/token.jet.html:18
+msgid "Token will be removed in a few seconds."
+msgstr "Ĵetono estos forigita post kelkaj sekundoj."
+
+#: assets/templates/profile/token.jet.html:24
+msgid "Properties"
+msgstr "Propraĵoj"
+
+#: assets/templates/profile/token.jet.html:30
+msgid "Token ID"
+msgstr "ID de ĵetono"
+
+#: assets/templates/profile/token.jet.html:35
+msgid "Last used"
+msgstr "Laste uzita"
+
+#: assets/templates/profile/token.jet.html:36
+msgid "never used"
+msgstr "neniam uzita"
+
+#: assets/templates/profile/token.jet.html:48
+msgid "Enabled"
+msgstr "Ebligita"
+
+#: assets/templates/profile/token.jet.html:54
+msgid "Expires on"
+msgstr "Eksvalidiĝas je"
+
+#: assets/templates/profile/token.jet.html:60
+msgid ""
+"\n"
+"    You can limit the permissions granted to this token by choosing one or more\n"
+"    group of permissions below.<br>\n"
+"    Leave all the choices blank to grant all your permissions to this token.\n"
+"  "
+msgstr ""
+"\n"
+"    Vi povas limigi la permesojn donitajn al ĉi tiu ĵetono elektante unu aŭ plurajn\n"
+"    grupojn de permesoj ĉi-sube.<br>\n"
+"    Lasu ĉiujn elektojn malplenaj por doni ĉiujn viajn permesojn al ĉi tiu ĵetono.\n"
+"  "
+
+#: assets/templates/profile/token.jet.html:68
+msgid "Roles"
+msgstr "Roloj"
+
+#: assets/templates/profile/token.jet.html:76
+msgid "Delete token"
+msgstr "Forigi ĵetonon"
+
+#: assets/templates/profile/token.jet.html:81
+msgid "Authentication"
+msgstr "Aŭtentikigo"
+
+#: assets/templates/profile/token.jet.html:84
+msgid "Your API token"
+msgstr "Via API-ĵetono"
+
+#: assets/templates/profile/token.jet.html:97
+msgid "Download as a text file"
+msgstr "Elŝuti kiel tekstodosieron"
+
+#: assets/templates/profile/token.jet.html:101
+msgid "How to use it"
+msgstr "Kiel uzi ĝin"
+
+#: assets/templates/profile/token.jet.html:103
+msgid "As a Bearer Token"
+msgstr "Kiel Portanto-Ĵetono"
+
+#: assets/templates/profile/token.jet.html:105
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr "Vi povas uzi ĉi tiun ĵetonon donante ĝin kiel HTTP-kapon <strong>Authorization: Bearer</strong>."
+
+#: assets/templates/profile/token.jet.html:107
+msgid "HTTP Header"
+msgstr "HTTP-ĉapo"
+
+#: assets/templates/profile/token.jet.html:118
+msgid "As a password"
+msgstr "Kiel pasvorton"
+
+#: assets/templates/profile/token.jet.html:120
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr "Alternative, vi povas uzi ĉi tiun ĵetonon kiel pasvorton por HTTP Baza Aŭtentigo."
+
+#: assets/templates/profile/token.jet.html:121
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
+msgstr ""
+"Ekzemple, se aplikaĵo akceptas nur uzantnomon kaj pasvorton, vi povas provizi ĉi tiun ĵetonon kiel pasvorton..\n"
+"  La uzantnomo estas ignorata kaj povas esti io ajn, inkluzive de malplena valoro."
+
+#: assets/templates/profile/token_list.jet.html:10
+msgid "My API Tokens"
+msgstr "Miaj API-Ĵetonoj"
+
+#: assets/templates/profile/token_list.jet.html:16
+msgid "An API Token is a key that grants you access to the Readeck API."
+msgstr "API-ĵetono estas ŝlosilo, kiu donas al vi aliron al la API de Readeck."
+
+#: assets/templates/profile/token_list.jet.html:17
+#, python-format
+msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
+msgstr "Bonvolu legi la <a href=\"%s\">API-Dokumentaron</a> se vi planas uzi ĝin."
+
+#: assets/templates/profile/token_list.jet.html:22
+msgid "Create a new API token"
+msgstr "Krei novan API-ĵetonon"
+
+#: assets/templates/profile/token_list.jet.html:46
+#, python-format
+msgid "Expires on: %s"
+msgstr "Eksvalidiĝas je: %s"
+
+#: assets/templates/profile/token_list.jet.html:58
+msgid "This token will be removed in a few seconds."
+msgstr "Ĉi tiu ĵetono estos forigita post kelkaj sekundoj."
+
+#: assets/templates/profile/totp.jet.html:17
+msgid "Scan this QR code with your app"
+msgstr "Skanu ĉi tiun QR-kodon per via aplikaĵo"
+
+#: assets/templates/profile/totp.jet.html:18
+msgid "Scan the QR code below with a two-factor authentication app on your phone."
+msgstr "Skanu la suban QR-kodon per aplikaĵo por dufaza aŭtentigo en via telefono."
+
+#: assets/templates/profile/totp.jet.html:25
+msgid "If you can't use the QR code, enter the code below instead."
+msgstr "Se vi ne povas uzi la QR-kodon, enigu la suban kodon anstataŭe."
+
+#: assets/templates/profile/totp.jet.html:29
+msgid "Enter the code from your application."
+msgstr "Enigu la kodon el via aplikaĵo."
+
+#: assets/templates/profile/totp.jet.html:30
+msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
+msgstr "Post skanado de la QR-kodo, la aplikaĵo montros sesciferan kodon, kiun vi devas enigi sube."
+
+#: assets/templates/profile/totp.jet.html:35
+msgid "Code from your device"
+msgstr "Kodo el via aparato"
+
+#: assets/templates/profile/totp.jet.html:41
+msgid "Finish"
+msgstr "Fini"
+
+#: internal/admin/views.go:77
+msgid "User created."
+msgstr "Uzanto kreita."
+
+#: internal/admin/views.go:115
+msgid "User updated."
+msgstr "Uzanto ĝisdatigita."
+
+#: internal/auth/signin/forms.go:17
+msgid "Invalid user and/or password"
+msgstr "Nevalida uzantnomo kaj/aŭ pasvorto"
+
+#: internal/auth/signin/http.go:197 internal/profile/forms.go:296
+msgid "Invalid code"
+msgstr "Nevalida kodo"
+
+#: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
+msgctxt "role"
+msgid "no group"
+msgstr "neniu grupo"
+
+#: internal/auth/users/forms.go:75
+msgid "password is empty"
+msgstr "pasvorto estas malplena"
+
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "uzanto"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "personaro"
+
+#: internal/auth/users/groups.go:21
+msgctxt "role"
+msgid "admin"
+msgstr "administranto"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
+msgid "Profile : Read Only"
+msgstr "Profilo: Nur por legado"
+
+#: internal/auth/users/groups.go:24
+msgctxt "role"
+msgid "Bookmarks : Read Only"
+msgstr "Legosignoj: Nur por legado"
+
+#: internal/auth/users/groups.go:25
+msgctxt "role"
+msgid "Bookmarks : Write Only"
+msgstr "Legosignoj: Nur por skribado"
+
+#: internal/auth/users/groups.go:26
+msgctxt "role"
+msgid "Admin : Read Only"
+msgstr "Administranto: Nur por legado"
+
+#: internal/auth/users/groups.go:27
+msgctxt "role"
+msgid "Admin : Write Only"
+msgstr "Administranto: Nur por skribado"
+
+#: internal/bookmarks/importer/browser.go:75
+msgid "Unable to read HTML content"
+msgstr "Ne eblas legi HTML-enhavon"
+
+#: internal/bookmarks/importer/goodlinks.go:40
+msgid "GoodLinks Export File"
+msgstr "Eksportdosiero de GoodLinks"
+
+#: internal/bookmarks/importer/importer.go:47
+msgid "Empty or invalid import file"
+msgstr "Malplena aŭ nevalida importa dosiero"
+
+#: internal/bookmarks/importer/omnivore.go:248
+msgid "Invalid API Key"
+msgstr "Nevalida API-Ŝlosilo"
+
+#: internal/bookmarks/importer/readwise.go:61
+msgid "Readwise Reader CSV"
+msgstr "CSV por Readwise Reader"
+
+#: internal/bookmarks/importer/wallabag.go:255
+msgid "Invalid URL"
+msgstr "Nevalida URL"
+
+#: internal/bookmarks/importer/wallabag.go:260
+msgid "Invalid credentials"
+msgstr "Nevalida akreditaĵo"
+
+#: internal/bookmarks/importer/wallabag.go:271
+msgid "No access token found"
+msgstr "Neniu alirĵetono trovita"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:191
+#: internal/bookmarks/routes/forms_bookmarks.go:210
+msgid "Unable to process input data"
+msgstr "Ne eblas trakti enirajn datumojn"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:289
+msgid "invalid language code"
+msgstr "nevalida lingvokodo"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:292
+msgid "Left to right"
+msgstr "De maldekstre dekstren"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:293
+msgid "Right to left"
+msgstr "De dekstre maldekstren"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:632
+msgid "Article"
+msgstr "Artikolo"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:633
+msgid "Picture"
+msgstr "Bildo"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:634
+msgid "Video"
+msgstr "Video"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:642
+msgctxt "status"
+msgid "Unviewed"
+msgstr "Nevidita"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:643
+msgctxt "status"
+msgid "In-Progress"
+msgstr "Progresanta"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:644
+msgctxt "status"
+msgid "Completed"
+msgstr "Finita"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:871
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr "Aldonita, plej nova unue"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:872
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr "Aldonita, plej malnova unue"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:873
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr "Publikigita, plej freŝa unue"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:874
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr "Publikigita, plej malnova unue"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:875
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr "Titolo, A → Z"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:876
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr "Titolo, Z → A"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:877
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr "Reteja Nomo, A → Z"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:878
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr "Reteja Nomo, Z → A"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:879
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr "Daŭro, plej mallonga unue"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:880
+msgctxt "sort"
+msgid "Duration, longest first"
+msgstr "Daŭro, plej longa unue"
+
+#: internal/bookmarks/routes/opds.go:57
+msgid "Readeck Bookmarks"
+msgstr "Legosignoj de Readeck"
+
+#: internal/bookmarks/routes/opds.go:102
+msgid "Readeck Bookmark Collections"
+msgstr "Legosignaj Kolektoj de Readeck"
+
+#: internal/bookmarks/routes/opds.go:139
+#, python-format
+msgid "Readeck Collection: %s"
+msgstr "Kolekto Readeck: %s"
+
+#: internal/bookmarks/routes/opds.go:145
+#, python-format
+msgid "Collection ebook - %s"
+msgstr "Kolekta bitlibro - %s"
+
+#: internal/bookmarks/routes/opds.go:152
+#, python-format
+msgid "Browse collection: %s"
+msgstr "Trarigardi kolekton: %s"
+
+#: internal/bookmarks/routes/views_bookmarks.go:100
+msgid "All your Bookmarks"
+msgstr "Ĉiuj viaj Legosignoj"
+
+#: internal/bookmarks/routes/views_bookmarks.go:105
+msgid "Bookmark Search"
+msgstr "Legosigna Serĉo"
+
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:59
+msgid "Unread Bookmarks"
+msgstr "Nelegitaj Legosignoj"
+
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:63
+msgid "Archived Bookmarks"
+msgstr "Arkivitaj Legosignoj"
+
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:67
+msgid "Favorite Bookmarks"
+msgstr "Favoritaj legosignoj"
+
+#: internal/bookmarks/routes/views_bookmarks.go:210
+msgid "Update"
+msgstr "Ĝisdatigi"
+
+#: internal/bookmarks/routes/views_bookmarks.go:319
+msgid "Bookmark updated"
+msgstr "Legosigno ĝisdatigita"
+
+#: internal/bookmarks/routes/views_collections.go:70
+msgid "Collection updated."
+msgstr "Kolekto ĝisdatigita."
+
+#: internal/bookmarks/routes/views_import.go:30
+msgid "Progress"
+msgstr "Progreso"
+
+#: internal/opds/http.go:71
+msgid "All Bookmarks"
+msgstr "Ĉiuj Legosignoj"
+
+#: internal/portability/import.go:351
+msgid "The import file must contain one user only"
+msgstr "La importa dosiero devas enhavi nur unu uzanton"
+
+#: internal/profile/forms.go:41
+msgid "invalid username and/or email"
+msgstr "nevalida uzantnomo kaj/aŭ retpoŝto"
+
+#: internal/profile/forms.go:42
+msgid "invalid password"
+msgstr "malĝusta pasvorto"
+
+#: internal/profile/forms.go:471
+msgid "username does not match"
+msgstr "La uzantnomo ne akordas"
+
+#: internal/profile/views.go:84
+msgid "Profile updated."
+msgstr "Profilo ĝisdatigita."
+
+#: internal/profile/views.go:138
+msgid "Your password was changed."
+msgstr "Via pasvorto estis ŝanĝita."
+
+#: internal/profile/views.go:149
+msgid "Your verification code was removed."
+msgstr "Via konfirma kodo estis forigita."
+
+#: internal/profile/views.go:169
+msgid "Verification Code"
+msgstr "Konfirma kodo"
+
+#: internal/profile/views.go:197
+msgid "Verification Code is now enabled."
+msgstr "Konfirma kodo nun estas aktiva."
+
+#: internal/profile/views.go:275
+msgid "An error occurred while creating your token."
+msgstr "Eraro okazis dum kreado de via ĵetono."
+
+#: internal/profile/views.go:280
+msgid "New token created."
+msgstr "Nova ĵetono kreita."
+
+#: internal/profile/views.go:299
+msgid "Token was updated."
+msgstr "La ĵetono estis ĝisdatigita."
+
+#: internal/profile/views.go:388
+msgid "Profile imported."
+msgstr "Profilo importita."
+
+#: pkg/forms/forms.go:28
+msgid "an unexpected error has occurred"
+msgstr "neantaŭvidita eraro okazis"
+
+#: pkg/forms/validators.go:18
+msgid "field is required"
+msgstr "kampo estas deviga"
+
+#: pkg/forms/validators.go:20
+msgid "not a valid email address"
+msgstr "ne valida retpoŝtadreso"
+
+#: pkg/forms/validators.go:22
+msgid "invalid URL"
+msgstr "nevalida URL"
+
+#: pkg/forms/validators.go:331
+#, python-format
+msgid "must be greater or equal than %d"
+msgstr "devas esti pli granda aŭ egala al %d"
+
+#: pkg/forms/validators.go:339
+#, python-format
+msgid "must be lower or equal than %d"
+msgstr "devus esti malpli aŭ egala al %d"
+
+#: pkg/forms/validators.go:347
+#, python-format
+msgid "text must contain at least %d characters"
+msgstr "teksto devas enhavi almenaŭ %d signojn"
+
+#: pkg/forms/validators.go:355
+#, python-format
+msgid "text must contain at most %d characters"
+msgstr "teksto devas enhavi maksimume %d signojn"
+
+#: pkg/forms/validators.go:363
+#, python-format
+msgid "text must contain %d characters"
+msgstr "teksto devas enhavi %d signojn"
+
+#: pkg/forms/validators.go:443
+#, python-format
+msgid "%v is not one of %s"
+msgstr "%v ne estas unu el %s"
+
+#: pkg/strftime/strftime.go:23
+msgctxt "datetime_dl"
+msgid "Sunday"
+msgstr "dimanĉo"
+
+#: pkg/strftime/strftime.go:24
+msgctxt "datetime_dl"
+msgid "Monday"
+msgstr "lundo"
+
+#: pkg/strftime/strftime.go:25
+msgctxt "datetime_dl"
+msgid "Tuesday"
+msgstr "mardo"
+
+#: pkg/strftime/strftime.go:26
+msgctxt "datetime_dl"
+msgid "Wednesday"
+msgstr "merkredo"
+
+#: pkg/strftime/strftime.go:27
+msgctxt "datetime_dl"
+msgid "Thursday"
+msgstr "ĵaŭdo"
+
+#: pkg/strftime/strftime.go:28
+msgctxt "datetime_dl"
+msgid "Friday"
+msgstr "vendredo"
+
+#: pkg/strftime/strftime.go:29
+msgctxt "datetime_dl"
+msgid "Saturday"
+msgstr "sabato"
+
+#: pkg/strftime/strftime.go:33
+msgctxt "datetime_ds"
+msgid "Sun"
+msgstr "dim"
+
+#: pkg/strftime/strftime.go:34
+msgctxt "datetime_ds"
+msgid "Mon"
+msgstr "lun"
+
+#: pkg/strftime/strftime.go:35
+msgctxt "datetime_ds"
+msgid "Tue"
+msgstr "mar"
+
+#: pkg/strftime/strftime.go:36
+msgctxt "datetime_ds"
+msgid "Wed"
+msgstr "mer"
+
+#: pkg/strftime/strftime.go:37
+msgctxt "datetime_ds"
+msgid "Thu"
+msgstr "ĵaŭ"
+
+#: pkg/strftime/strftime.go:38
+msgctxt "datetime_ds"
+msgid "Fri"
+msgstr "ven"
+
+#: pkg/strftime/strftime.go:39
+msgctxt "datetime_ds"
+msgid "Sat"
+msgstr "sab"
+
+#: pkg/strftime/strftime.go:43
+msgctxt "datetime_ml"
+msgid "January"
+msgstr "Januaro"
+
+#: pkg/strftime/strftime.go:44
+msgctxt "datetime_ml"
+msgid "February"
+msgstr "Februaro"
+
+#: pkg/strftime/strftime.go:45
+msgctxt "datetime_ml"
+msgid "March"
+msgstr "Marto"
+
+#: pkg/strftime/strftime.go:46
+msgctxt "datetime_ml"
+msgid "April"
+msgstr "Aprilo"
+
+#: pkg/strftime/strftime.go:47
+msgctxt "datetime_ml"
+msgid "May"
+msgstr "Majo"
+
+#: pkg/strftime/strftime.go:48
+msgctxt "datetime_ml"
+msgid "June"
+msgstr "Junio"
+
+#: pkg/strftime/strftime.go:49
+msgctxt "datetime_ml"
+msgid "July"
+msgstr "Julio"
+
+#: pkg/strftime/strftime.go:50
+msgctxt "datetime_ml"
+msgid "August"
+msgstr "Aŭgusto"
+
+#: pkg/strftime/strftime.go:51
+msgctxt "datetime_ml"
+msgid "September"
+msgstr "Septembro"
+
+#: pkg/strftime/strftime.go:52
+msgctxt "datetime_ml"
+msgid "October"
+msgstr "Oktobro"
+
+#: pkg/strftime/strftime.go:53
+msgctxt "datetime_ml"
+msgid "November"
+msgstr "Novembro"
+
+#: pkg/strftime/strftime.go:54
+msgctxt "datetime_ml"
+msgid "December"
+msgstr "Decembro"
+
+#: pkg/strftime/strftime.go:58
+msgctxt "datetime_ms"
+msgid "Jan"
+msgstr "Jan"
+
+#: pkg/strftime/strftime.go:59
+msgctxt "datetime_ms"
+msgid "Feb"
+msgstr "Feb"
+
+#: pkg/strftime/strftime.go:60
+msgctxt "datetime_ms"
+msgid "Mar"
+msgstr "Mar"
+
+#: pkg/strftime/strftime.go:61
+msgctxt "datetime_ms"
+msgid "Apr"
+msgstr "Apr"
+
+#: pkg/strftime/strftime.go:62
+msgctxt "datetime_ms"
+msgid "May"
+msgstr "Maj"
+
+#: pkg/strftime/strftime.go:63
+msgctxt "datetime_ms"
+msgid "Jun"
+msgstr "Jun"
+
+#: pkg/strftime/strftime.go:64
+msgctxt "datetime_ms"
+msgid "Jul"
+msgstr "Jul"
+
+#: pkg/strftime/strftime.go:65
+msgctxt "datetime_ms"
+msgid "Aug"
+msgstr "Aŭg"
+
+#: pkg/strftime/strftime.go:66
+msgctxt "datetime_ms"
+msgid "Sep"
+msgstr "Sep"
+
+#: pkg/strftime/strftime.go:67
+msgctxt "datetime_ms"
+msgid "Oct"
+msgstr "Okt"
+
+#: pkg/strftime/strftime.go:68
+msgctxt "datetime_ms"
+msgid "Nov"
+msgstr "Nov"
+
+#: pkg/strftime/strftime.go:69
+msgctxt "datetime_ms"
+msgid "Dec"
+msgstr "Dec"
+
+#: pkg/strftime/strftime.go:73
+msgctxt "datetime"
+msgid "a.m."
+msgstr "a.t.m."
+
+#: pkg/strftime/strftime.go:74
+msgctxt "datetime"
+msgid "p.m."
+msgstr "p.t.m."
+
+#: pkg/strftime/strftime.go:75
+#, python-format
+msgctxt "datetime"
+msgid "%a %b %e %H:%M:%S %y"
+msgstr "%a %b %e %H:%M:%S %y"
+
+#: pkg/strftime/strftime.go:76
+#, python-format
+msgctxt "datetime"
+msgid "%m/%d/%Y"
+msgstr "%Y-%m-%d"
+
+#: pkg/strftime/strftime.go:77
+msgctxt "datetime"
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#~ msgid "Remove Highlight(s)"
+#~ msgstr "Forigi Elstarigaĵon(j)n"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""

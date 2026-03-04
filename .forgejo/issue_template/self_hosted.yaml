@@ -1,5 +1,5 @@
-name: Self Hosted
-about: When you encounter problems with self-hosting Readeck 🤓
+name: Self Hosted 🤓
+about: When you encounter problems with self-hosting Readeck
 labels:
   - bug
   - self hosted
@@ -31,15 +31,15 @@ body:
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
 
-  - type: checkboxes
+  - type: dropdown
     id: os
     attributes:
       label: OS you installed Readeck on
       options:
-        - label: Linux
-        - label: FreeBSD
-        - label: MacOS
-        - label: Windows
+        - Linux
+        - FreeBSD
+        - MacOS
+        - Windows
 
   - type: checkboxes
     id: terms
@@ -49,3 +49,4 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+    visible: [form]

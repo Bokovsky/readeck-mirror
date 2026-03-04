@@ -121,7 +121,11 @@ func (api *adminAPI) userList(w http.ResponseWriter, r *http.Request) {
 
 func (api *adminAPI) userInfo(w http.ResponseWriter, r *http.Request) {
 	u := getUser(r.Context())
-	item := newUserItem(r.Context(), u)
+	item, err := newExtendedUserItem(r.Context(), u)
+	if err != nil {
+		server.Err(w, r, err)
+		return
+	}
 	item.Settings = u.Settings
 
 	server.Render(w, r, http.StatusOK, item)
@@ -142,6 +146,7 @@ func (api *adminAPI) userCreate(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.Header().Set("Location", urls.AbsoluteURL(r, ".", u.UID).String())
+	w.Header().Set("User-Id", u.UID)
 	server.TextMsg(w, r, http.StatusCreated, "User created")
 }
 
@@ -216,11 +221,12 @@ func newUserList(ctx context.Context, ds *goqu.SelectDataset) (*userList, error)
 type userItem struct {
 	ID        string              `json:"id"`
 	Href      string              `json:"href"`
-	Created   time.Time           `json:"created"`
-	Updated   time.Time           `json:"updated"`
 	Username  string              `json:"username"`
 	Email     string              `json:"email"`
 	Group     string              `json:"group"`
+	Created   time.Time           `json:"created"`
+	Updated   time.Time           `json:"updated"`
+	LastLogin time.Time           `json:"last_login"`
 	Settings  *users.UserSettings `json:"settings,omitempty"`
 	IsDeleted bool                `json:"is_deleted"`
 }
@@ -229,13 +235,41 @@ func newUserItem(ctx context.Context, u *users.User) *userItem {
 	return &userItem{
 		ID:        u.UID,
 		Href:      urls.AbsoluteURLContext(ctx, "/api/admin/users", u.UID).String(),
-		Created:   u.Created,
-		Updated:   u.Updated,
 		Username:  u.Username,
 		Email:     u.Email,
 		Group:     u.Group,
+		Created:   u.Created,
+		Updated:   u.Updated,
+		LastLogin: u.LastLogin,
 		IsDeleted: deleteUserTask.IsRunning(u.ID),
 	}
+}
+
+type extendedUserItem struct {
+	*userItem
+
+	LastActivity      time.Time `json:"last_activity"`
+	BookmarkCount     int       `json:"bookmark_count"`
+	BookmarkDiskUsage uint64    `json:"bookmark_disk_usage"`
+}
+
+func newExtendedUserItem(ctx context.Context, u *users.User) (*extendedUserItem, error) {
+	item := &extendedUserItem{
+		userItem: newUserItem(ctx, u),
+	}
+	var err error
+
+	item.LastActivity, err = u.LastActivity()
+	if err != nil {
+		return nil, err
+	}
+
+	item.BookmarkCount, item.BookmarkDiskUsage, err = bookmarks.Bookmarks.UserDiskUsage(u)
+	if err != nil {
+		return nil, err
+	}
+
+	return item, nil
 }
 
 func deleteUser(u *users.User) error {

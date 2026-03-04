@@ -61,7 +61,7 @@ func (l Link) Write(w http.ResponseWriter) {
 }
 
 // Render converts any value to JSON and sends the response.
-func Render(w http.ResponseWriter, r *http.Request, status int, value interface{}) {
+func Render(w http.ResponseWriter, r *http.Request, status int, value any) {
 	b := &bytes.Buffer{}
 	enc := json.NewEncoder(b)
 	enc.SetEscapeHTML(false)

@@ -12,8 +12,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
+	"mime"
 	"net/http"
-	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -24,7 +24,6 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/net/html"
 	"golang.org/x/sync/errgroup"
 
 	"github.com/doug-martin/goqu/v9"
@@ -40,6 +39,7 @@ import (
 	"codeberg.org/readeck/readeck/pkg/extract/contents"
 	"codeberg.org/readeck/readeck/pkg/extract/contentscripts"
 	"codeberg.org/readeck/readeck/pkg/extract/meta"
+	"codeberg.org/readeck/readeck/pkg/extract/meta/tinymeta"
 	"codeberg.org/readeck/readeck/pkg/superbus"
 	"codeberg.org/readeck/readeck/pkg/utils"
 	"codeberg.org/readeck/readeck/pkg/zipfs"
@@ -59,9 +59,9 @@ var (
 type (
 	// MultipartResource contains information loaded from a form/multipart request body.
 	MultipartResource struct {
-		URL     string            `json:"url"`
-		Headers map[string]string `json:"headers"`
-		Data    []byte            `json:"data"`
+		URL    string      `json:"url"`
+		Header http.Header `json:"headers"`
+		Data   []byte      `json:"data"`
 	}
 
 	// ExtractParams contains the extraction parameters.
@@ -83,7 +83,7 @@ func init() {
 	bus.OnReady(func() {
 		ExtractPageTask = bus.Tasks().NewTask(
 			"bookmark.create",
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res ExtractParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -97,7 +97,7 @@ func init() {
 		DeleteBookmarkTask = bus.Tasks().NewTask(
 			"bookmark.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res int
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -111,7 +111,7 @@ func init() {
 		DeleteCollectionTask = bus.Tasks().NewTask(
 			"collection.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res int
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -125,7 +125,7 @@ func init() {
 		DeleteLabelTask = bus.Tasks().NewTask(
 			"label.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) interface{} {
+			superbus.WithUnmarshall(func(data []byte) any {
 				var res LabelDeleteParams
 				err := json.Unmarshal(data, &res)
 				if err != nil {
@@ -144,7 +144,7 @@ func ExtractPage(params ExtractParams) {
 	extractPageHandler(params)
 }
 
-func deleteBookmarkHandler(data interface{}) {
+func deleteBookmarkHandler(data any) {
 	id := data.(int)
 	logger := slog.With(slog.Int("id", id))
 
@@ -163,7 +163,7 @@ func deleteBookmarkHandler(data interface{}) {
 	logger.Info("bookmark removed")
 }
 
-func deleteCollectionHandler(data interface{}) {
+func deleteCollectionHandler(data any) {
 	id := data.(int)
 	logger := slog.With(slog.Int("id", id))
 
@@ -183,7 +183,7 @@ func deleteCollectionHandler(data interface{}) {
 	logger.Info("collection removed")
 }
 
-func deleteLabelHandler(data interface{}) {
+func deleteLabelHandler(data any) {
 	params := data.(LabelDeleteParams)
 	logger := slog.With(
 		slog.Int("user", params.UserID),
@@ -205,7 +205,7 @@ func deleteLabelHandler(data interface{}) {
 	logger.Info("label removed")
 }
 
-func extractPageHandler(data interface{}) {
+func extractPageHandler(data any) {
 	var b *bookmarks.Bookmark
 	var err error
 
@@ -280,11 +280,7 @@ func extractPageHandler(data interface{}) {
 
 	for _, x := range params.Resources {
 		// Inject resource in client's cache
-		headers := http.Header{}
-		for k, v := range x.Headers {
-			headers.Set(k, v)
-		}
-		httpclient.AddToCache(ex.Client(), x.URL, headers, x.Data)
+		httpclient.AddToCache(ex.Client(), x.URL, x.Header, x.Data)
 	}
 
 	ex.AddProcessors(
@@ -434,47 +430,62 @@ func fetchLinksProcessor(b *bookmarks.Bookmark) extract.Processor {
 			return next
 		}
 
-		g, _ := errgroup.WithContext(context.TODO())
+		var g errgroup.Group
 		g.SetLimit(10)
 		for i := range links {
 			g.Go(func() error {
-				m.Log().Debug("extract link", slog.String("url", links[i].URL))
-				URL, err := url.Parse(links[i].URL)
+				linkURL := links[i].URL
+				logger := m.Log().With(slog.String("url", linkURL))
+
+				header := http.Header{}
+				header.Set("Accept", "text/html,application/xhtml+xml")
+
+				ctx := extract.WithRequestType(context.Background(), extract.PageRequest)
+				ctx = extract.WithRequestHeader(ctx, header)
+
+				logger.Debug("extract link")
+				rsp, err := extract.Fetch(ctx, m.Extractor.Client(), linkURL)
 				if err != nil {
-					return err
+					logger.Warn("extract link fetch error", slog.Any("err", err))
+					return nil
 				}
-				d := extract.NewDrop(URL)
-				err = d.Load(m.Extractor.Client())
-				if err != nil {
-					m.Log().Warn("extract link error",
-						slog.String("url", d.URL.String()),
-						slog.Any("err", err),
-					)
+				if rsp.Body != nil {
+					defer rsp.Body.Close() //nolint:errcheck
 				}
 
-				links[i].ContentType = d.ContentType
-				links[i].IsPage = d.IsHTML()
-
-				if !links[i].IsPage {
+				if rsp.StatusCode/100 != 2 {
+					logger.Warn("extract link fetch error", slog.Int("status", rsp.StatusCode))
 					return nil
 				}
 
-				node, err := html.Parse(bytes.NewReader(d.Body))
-				if err != nil {
-					m.Log().Warn("extract link error",
-						slog.String("url", d.URL.String()),
-						slog.Any("err", err),
-					)
+				links[i].ContentType, _, _ = mime.ParseMediaType(rsp.Header.Get("content-type"))
+				switch links[i].ContentType {
+				case "text/html", "application/xhtml+xml", "application/xml":
+					links[i].IsPage = true
+				default:
 					return nil
 				}
-				meta := meta.ParseMeta(node)
-				title := meta.LookupGet("graph.title", "tiwtter.title", "html.title")
-				m.Log().Debug("link",
-					slog.String("url", d.URL.String()),
-					slog.String("title", title),
-				)
 
-				links[i].Title = title
+				r, _, err := extract.HTMLReader(rsp.Body, rsp.Header.Get("content-type"))
+				if err != nil {
+					logger.Warn("extract link read error", slog.Any("err", err))
+					return nil
+				}
+
+				var pageTitle string
+			scanLoop:
+				for key, value := range tinymeta.Scan(r) {
+					switch key {
+					case "title", "twitter:title":
+						pageTitle = value
+					case "og:title":
+						pageTitle = value
+						break scanLoop
+					}
+				}
+
+				logger.Debug("link", slog.String("title", pageTitle))
+				links[i].Title = pageTitle
 				return nil
 			})
 		}

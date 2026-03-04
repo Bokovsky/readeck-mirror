@@ -1,0 +1,3035 @@
+# Bulgarian translations for Readeck.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+# γλωσσολαλιά <glossolalia@noreply.codeberg.org>, 2025, 2026.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025, 2026.
+# olivier <olivier@noreply.codeberg.org>, 2025, 2026.
+msgid ""
+msgstr ""
+"Project-Id-Version: Readeck 1.0.0\n"
+"Report-Msgid-Bugs-To: translate@readeck.com\n"
+"POT-Creation-Date: 2026-02-04 20:03+0100\n"
+"PO-Revision-Date: 2026-03-03 14:19+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language-Team: Bulgarian <https://translate.codeberg.org/projects/readeck/application/bg/>\n"
+"Language: bg\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: assets/templates/_layouts/sidemenu.jet.html:29
+#: assets/templates/bookmarks/bookmark.jet.html:26
+#: assets/templates/error.jet.html:12
+msgid "Menu"
+msgstr "Меню"
+
+#: assets/templates/_layouts/sidemenu.jet.html:30
+msgid "Secondary Menu"
+msgstr "Вторично меню"
+
+#: assets/templates/_layouts/sidemenu.jet.html:31
+#: assets/templates/bookmarks/bookmark.jet.html:27
+#: assets/templates/error.jet.html:13
+msgid "Main content"
+msgstr "Основно съдържание"
+
+#: assets/templates/_layouts/sidemenu.jet.html:46
+msgid "Close menu"
+msgstr "Затвори менюто"
+
+#: assets/templates/_libs/common.jet.html:1
+msgid "Quick access menu"
+msgstr "Бързо достъпно меню"
+
+#: assets/templates/_libs/common.jet.html:1
+msgid "Home Page"
+msgstr "Начална страница"
+
+#: assets/templates/_libs/forms.jet.html:1
+#: assets/templates/_libs/forms.jet.html:42
+#: assets/templates/bookmarks/import/form-csv.jet.html:55
+msgid "Required"
+msgstr "Задължително"
+
+#: assets/templates/_libs/forms.jet.html:10
+msgid "Errors"
+msgstr "Грешки"
+
+#: assets/templates/_libs/forms.jet.html:16
+msgid "Please check your form for errors."
+msgstr "Моля, проверете формата си за грешки."
+
+#: assets/templates/_libs/forms.jet.html:262
+msgid "The previous"
+msgstr "Предишното"
+
+#: assets/templates/_libs/forms.jet.html:271
+msgid "Day(s)"
+msgstr "Ден(и)"
+
+#: assets/templates/_libs/forms.jet.html:272
+msgid "Week(s)"
+msgstr "Седмица(и)"
+
+#: assets/templates/_libs/forms.jet.html:273
+msgid "Month(s)"
+msgstr "Месец(и)"
+
+#: assets/templates/_libs/forms.jet.html:274
+msgid "Year(s)"
+msgstr "Година(и)"
+
+#: assets/templates/_libs/forms.jet.html:277
+msgctxt "word"
+msgid "or"
+msgstr "или"
+
+#: assets/templates/_libs/forms.jet.html:307
+msgid "Select or drop file"
+msgstr "Изберете или пуснете файл"
+
+#: assets/templates/_libs/forms.jet.html:311
+msgid "remove"
+msgstr "премахване"
+
+#: assets/templates/_libs/pagination.jet.html:1
+msgid "Go to previous page"
+msgstr "Отидете на предишната страница"
+
+#: assets/templates/_libs/pagination.jet.html:1
+#, python-format
+msgid "Go to page %d"
+msgstr "Отидете на страница %d"
+
+#: assets/templates/_libs/pagination.jet.html:1
+msgid "Go to next page"
+msgstr "Отидете на следващата страница"
+
+#: assets/templates/_libs/pagination.jet.html:10
+msgctxt "page"
+msgid "Previous"
+msgstr "Предишна"
+
+#: assets/templates/_libs/pagination.jet.html:15
+msgctxt "page"
+msgid "Next"
+msgstr "Следваща"
+
+#: assets/templates/admin/user.jet.html:9
+#: assets/templates/admin/user_list.jet.html:9
+#: assets/templates/profile/base.jet.html:45 internal/admin/views.go:59
+#: internal/admin/views.go:89 internal/admin/views.go:134
+msgid "Users"
+msgstr "Потребители"
+
+#: assets/templates/admin/user.jet.html:18
+msgid "User will be removed in a few seconds"
+msgstr "Потребителят ще бъде премахнат след няколко секунди"
+
+#: assets/templates/admin/user.jet.html:19
+#: assets/templates/admin/user_list.jet.html:48
+#: assets/templates/bookmarks/collection.jet.html:27
+#: assets/templates/bookmarks/components/card.jet.html:99
+#: assets/templates/bookmarks/import/form-browser.jet.html:48
+#: assets/templates/bookmarks/import/form-csv.jet.html:34
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:34
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:34
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:43
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:50
+#: assets/templates/bookmarks/import/form-readwise.jet.html:34
+#: assets/templates/bookmarks/import/form-text.jet.html:35
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:69
+#: assets/templates/bookmarks/label.jet.html:57
+#: assets/templates/profile/app_list.jet.html:66
+#: assets/templates/profile/token.jet.html:19
+#: assets/templates/profile/token_list.jet.html:63
+msgid "Cancel"
+msgstr "Отказ"
+
+#: assets/templates/admin/user.jet.html:29
+#: assets/templates/admin/user_create.jet.html:19
+#: assets/templates/auth/onboarding.jet.html:23
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:40
+#: assets/templates/profile/index.jet.html:32
+msgid "Username"
+msgstr "Потребителско име"
+
+#: assets/templates/admin/user.jet.html:35
+#: assets/templates/admin/user_create.jet.html:25
+#: assets/templates/auth/onboarding.jet.html:36
+#: assets/templates/auth/recover.jet.html:28
+msgid "Email address"
+msgstr "Имейл адрес"
+
+#: assets/templates/admin/user.jet.html:39
+#: assets/templates/admin/user_create.jet.html:30
+msgid "Group"
+msgstr "Група"
+
+#: assets/templates/admin/user.jet.html:44
+#: assets/templates/admin/user_create.jet.html:35
+#: assets/templates/auth/login.jet.html:30
+#: assets/templates/auth/onboarding.jet.html:28
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:47
+msgid "Password"
+msgstr "Парола"
+
+#: assets/templates/admin/user.jet.html:47
+msgid "will not change if empty"
+msgstr "няма да се промени, ако е празно"
+
+#: assets/templates/admin/user.jet.html:50
+#: assets/templates/bookmarks/bookmark_update.jet.html:17
+#: assets/templates/bookmarks/collection.jet.html:82
+#: assets/templates/bookmarks/collection_create.jet.html:29
+#: assets/templates/bookmarks/components/content_block.jet.html:71
+#: assets/templates/bookmarks/components/content_block.jet.html:73
+#: assets/templates/bookmarks/components/title_block.jet.html:29
+#: assets/templates/profile/index.jet.html:100
+#: assets/templates/profile/password.jet.html:38
+#: assets/templates/profile/token.jet.html:73
+msgid "Save"
+msgstr "Запазване"
+
+#: assets/templates/admin/user.jet.html:53
+msgid "Delete this user"
+msgstr "Изтриване на този потребител"
+
+#: assets/templates/admin/user.jet.html:60
+msgid "Last login"
+msgstr "Последно влизане"
+
+#: assets/templates/admin/user.jet.html:69
+msgid "Last Activity"
+msgstr "Последна активност"
+
+#: assets/templates/admin/user.jet.html:75
+#: assets/templates/bookmarks/base.jet.html:15
+#: assets/templates/bookmarks/bookmark.jet.html:15
+#: assets/templates/menu.jet.html:20
+#: internal/bookmarks/routes/views_bookmarks.go:208
+#: internal/bookmarks/routes/views_import.go:28
+#: internal/bookmarks/routes/views_import.go:37
+#: internal/bookmarks/routes/views_import.go:68
+msgid "Bookmarks"
+msgstr "Отметки"
+
+#: assets/templates/admin/user.jet.html:80
+msgid "Disk usage"
+msgstr "Използване на диска"
+
+#: assets/templates/admin/user_create.jet.html:9 internal/admin/views.go:90
+msgid "New User"
+msgstr "Нов потребител"
+
+#: assets/templates/admin/user_create.jet.html:41
+msgid "Create user"
+msgstr "Създаване на потребител"
+
+#: assets/templates/admin/user_list.jet.html:14
+msgid "Add a new user"
+msgstr "Добавяне на нов потребител"
+
+#: assets/templates/admin/user_list.jet.html:32
+#: assets/templates/profile/token_list.jet.html:44
+#, python-format
+msgid "Created on: %s"
+msgstr "Създадено на: %s"
+
+#: assets/templates/admin/user_list.jet.html:33
+#, python-format
+msgid "Last update: %s"
+msgstr "Последно обновяване: %s"
+
+#: assets/templates/admin/user_list.jet.html:35
+#, python-format
+msgid "Last login: %s"
+msgstr "Последно влизане: %s"
+
+#: assets/templates/admin/user_list.jet.html:43
+msgid "This user will be removed in a few seconds."
+msgstr "Този потребител ще бъде премахнат след няколко секунди."
+
+#: assets/templates/auth/login.jet.html:9
+#: assets/templates/auth/login.jet.html:37
+msgid "Sign in"
+msgstr "Вход"
+
+#: assets/templates/auth/login.jet.html:12
+msgid "Sign in to Readeck"
+msgstr "Вход в Readeck"
+
+#: assets/templates/auth/login.jet.html:21
+msgid "Username or email address"
+msgstr "Потребителско име или имейл адрес"
+
+#: assets/templates/auth/login.jet.html:41
+msgid "Forgot your password?"
+msgstr "Забравили сте паролата си?"
+
+#: assets/templates/auth/oauth/auth-code.jet.html:8
+#: assets/templates/auth/oauth/device-code.jet.html:9
+#: assets/templates/auth/oauth/form.jet.html:14
+msgid "Authorization required"
+msgstr "Изисква се удостоверяване"
+
+#: assets/templates/auth/oauth/device-code.jet.html:13
+msgid "Go back to Readeck"
+msgstr "Върнете се към Readeck"
+
+#: assets/templates/auth/oauth/device-code.jet.html:28
+#: assets/templates/auth/oauth/device-code.jet.html:47
+#: assets/templates/auth/oauth/device-code.jet.html:54
+msgid "Connect a device"
+msgstr "Свързване на устройство"
+
+#: assets/templates/auth/oauth/device-code.jet.html:32
+msgid "Enter the code displayed on your device"
+msgstr "Въведете кода, показан на вашето устройство"
+
+#: assets/templates/auth/oauth/device-code.jet.html:37
+msgid "Next"
+msgstr "Напред"
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid "Authorization request was denied."
+msgstr "Заявката за удостоверяване беше отхвърлена."
+
+#: assets/templates/auth/oauth/device-code.jet.html:49
+msgid " You can now close this page."
+msgstr " Сега можете да затворите тази страница."
+
+#: assets/templates/auth/oauth/device-code.jet.html:57
+msgid "Authorization granted. Connecting device..."
+msgstr "Удостоверяването е одобрено. Свързване на устройство…"
+
+#: assets/templates/auth/oauth/device-code.jet.html:61
+#, python-format
+msgid "<a href=\"%s\">Reload this page</a> if it doesn't refresh after a few seconds."
+msgstr "<a href=\"%s\">Презаредете тази страница</a>, ако не се обнови след няколко секунди."
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "Device is connected!"
+msgstr "Устройството е свързано!"
+
+#: assets/templates/auth/oauth/device-code.jet.html:66
+msgid "You can now close this page."
+msgstr "Сега можете да затворите тази страница."
+
+#: assets/templates/auth/oauth/form.jet.html:12
+#, python-format
+msgid "Signed in as: <strong>%s</strong>"
+msgstr "Влезли сте като: <strong>%s</strong>"
+
+#: assets/templates/auth/oauth/form.jet.html:20
+#, python-format
+msgid ""
+"\n"
+"      <strong>%s</strong> would like permission to access your account.\n"
+"      Only approve this request if you recognize and trust this source.\n"
+"    "
+msgstr ""
+"\n"
+"      <strong>%s</strong> искаразрешение за достъп до вашия акаунт.\n"
+"      Одобрете тази заявка само ако познавате и имате доверие на този източник.\n"
+"    "
+
+#: assets/templates/auth/oauth/form.jet.html:26
+msgid "Review permissions"
+msgstr "Преглед на разрешенията"
+
+#: assets/templates/auth/oauth/form.jet.html:33
+msgid "Application information"
+msgstr "Информация за приложението"
+
+#: assets/templates/auth/oauth/form.jet.html:35
+#: assets/templates/bookmarks/collection.jet.html:72
+#: assets/templates/bookmarks/collection_create.jet.html:22
+#: assets/templates/profile/token.jet.html:42
+msgid "Name"
+msgstr "Име"
+
+#: assets/templates/auth/oauth/form.jet.html:36
+msgid "Website"
+msgstr "Уебсайт"
+
+#: assets/templates/auth/oauth/form.jet.html:37
+msgid "Version"
+msgstr "Версия"
+
+#: assets/templates/auth/oauth/form.jet.html:42
+msgid "Authorize"
+msgstr "Одобряване"
+
+#: assets/templates/auth/oauth/form.jet.html:44
+msgid "Deny"
+msgstr "Отхвърляне"
+
+#: assets/templates/auth/onboarding.jet.html:9
+#: assets/templates/bookmarks/index.jet.html:75
+msgid "Welcome to Readeck!"
+msgstr "Добре дошли в Readeck!"
+
+#: assets/templates/auth/onboarding.jet.html:15
+msgid "We're delighted to have you on board; one more step and you're good to go."
+msgstr "Радваме се, че сте с нас; още една стъпка и сте готови да започнете."
+
+#: assets/templates/auth/onboarding.jet.html:31
+#: assets/templates/auth/recover.jet.html:54
+#: assets/templates/profile/password.jet.html:34
+msgid "must be at least 8 characters long"
+msgstr "трябва да е с дължина поне 8 символа"
+
+#: assets/templates/auth/onboarding.jet.html:38
+msgid "Please note:"
+msgstr "Обърнете внимание:"
+
+#: assets/templates/auth/onboarding.jet.html:39
+msgid ""
+"\n"
+"  Your email address is optional and will never leave this installation.\n"
+"  It will never be collected, transferred or sold.\n"
+"  It will <strong>only</strong> be used, should you need it, for password recovery and internal notifications.\n"
+"  "
+msgstr ""
+"\n"
+"  Вашият имейл адрес е опционален и никога няма да напусне тази инсталация.\n"
+"  Той никога няма да бъде събиран, прехвърлян или продаван.\n"
+"  Ще бъде използван <strong>само</strong> при нужда от възстановяване на паролата и вътрешни уведомления.\n"
+"  "
+
+#: assets/templates/auth/onboarding.jet.html:46
+msgid "Finish installation"
+msgstr "Завършете инсталирането"
+
+#: assets/templates/auth/recover.jet.html:9
+msgid "Password recovery"
+msgstr "Възстановяване на парола"
+
+#: assets/templates/auth/recover.jet.html:20
+msgid "No worries, it happens to anyone."
+msgstr "Няма проблем, случва се на всеки."
+
+#: assets/templates/auth/recover.jet.html:21
+msgid ""
+"\n"
+"        Please provide the email address you used to create\n"
+"        your account and we'll send you a message with a link\n"
+"        to recover your password.\n"
+"      "
+msgstr ""
+"\n"
+"        Моля, предоставете имейл адреса, който сте използвали за създаване\n"
+"        на вашия акаунт, и ще ви изпратим съобщение с връзка\n"
+"        за възстановяване на паролата.\n"
+"      "
+
+#: assets/templates/auth/recover.jet.html:31
+msgid "Send me a recovery link"
+msgstr "Изпратете ми връзка за възстановяване"
+
+#: assets/templates/auth/recover.jet.html:32
+#: assets/templates/auth/recover.jet.html:56
+msgid "Cancel and go back to sign in"
+msgstr "Отказ и връщане към входа"
+
+#: assets/templates/auth/recover.jet.html:36
+msgid "Almost there!"
+msgstr "Почти сте там!"
+
+#: assets/templates/auth/recover.jet.html:37
+#, python-format
+msgid ""
+"\n"
+"        We have sent an email to\n"
+"        <strong>%s</strong>\n"
+"        with further instructions.\n"
+"      "
+msgstr ""
+"\n"
+"        Изпратихме имейл до\n"
+"        <strong>%s</strong>\n"
+"        с допълнителни инструкции.\n"
+"      "
+
+#: assets/templates/auth/recover.jet.html:52
+#: assets/templates/profile/password.jet.html:31
+msgid "New password"
+msgstr "Нова парола"
+
+#: assets/templates/auth/recover.jet.html:55
+msgid "Update your password"
+msgstr "Обновете паролата си"
+
+#: assets/templates/auth/recover.jet.html:60
+msgid "Your password has been changed."
+msgstr "Паролата ви е променена."
+
+#: assets/templates/auth/recover.jet.html:61
+msgid "Go to the sign in page"
+msgstr "Отидете на страницата за вход"
+
+#: assets/templates/auth/totp.jet.html:9
+msgid "Two-factor authentication"
+msgstr "Двуфакторна автентикация"
+
+#: assets/templates/auth/totp.jet.html:20
+msgid "Passcode"
+msgstr "Паскод"
+
+#: assets/templates/auth/totp.jet.html:31
+msgid "Verify"
+msgstr "Потвърди"
+
+#: assets/templates/bookmarks/annotation_list.jet.html:8
+msgid "Bookmark Highlights"
+msgstr "Тезисы от отметки"
+
+#: assets/templates/bookmarks/annotation_list.jet.html:17
+msgid "You don't have any highlights yet."
+msgstr "Все още нямате тезиси."
+
+#: assets/templates/bookmarks/annotation_list.jet.html:18
+msgid ""
+"\n"
+"        Once you start highlighting parts of your saved articles, they will appear on this page\n"
+"        for you to easily find them.\n"
+"      "
+msgstr ""
+"\n"
+"        След като започнете да маркирате части от запазените си статии, те ще се\n"
+"        появят на тази страница, за да можете лесно да ги намерите.\n"
+"      "
+
+#: assets/templates/bookmarks/annotation_list.jet.html:23
+#, python-format
+msgid "Read more about highlights in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Прочетете повече за тезиси в <a class=\"%s\" href=\"%s\">документацията</a>."
+
+#: assets/templates/bookmarks/base.jet.html:1
+#: assets/templates/bookmarks/components/filters.jet.html:9
+msgid "Search"
+msgstr "Търсене"
+
+#: assets/templates/bookmarks/base.jet.html:31
+msgid "All"
+msgstr "Всички"
+
+#: assets/templates/bookmarks/base.jet.html:34
+msgid "Unread"
+msgstr "Непрочетени"
+
+#: assets/templates/bookmarks/base.jet.html:37
+msgid "Archive"
+msgstr "Архив"
+
+#: assets/templates/bookmarks/base.jet.html:40
+msgid "Favorites"
+msgstr "Любими"
+
+#: assets/templates/bookmarks/base.jet.html:48
+#: internal/bookmarks/routes/views_bookmarks.go:115
+msgid "Articles"
+msgstr "Статии"
+
+#: assets/templates/bookmarks/base.jet.html:54
+#: internal/bookmarks/routes/views_bookmarks.go:119
+msgid "Videos"
+msgstr "Видео"
+
+#: assets/templates/bookmarks/base.jet.html:60
+#: internal/bookmarks/routes/views_bookmarks.go:117
+msgid "Pictures"
+msgstr "Снимки"
+
+#: assets/templates/bookmarks/base.jet.html:70
+#: assets/templates/bookmarks/components/sidebar.jet.html:117
+#: assets/templates/bookmarks/label.jet.html:25
+msgid "Labels"
+msgstr "Етикети"
+
+#: assets/templates/bookmarks/base.jet.html:72
+#: assets/templates/bookmarks/components/annotation_list.jet.html:9
+msgid "Highlights"
+msgstr "Тезиси"
+
+#: assets/templates/bookmarks/base.jet.html:74
+#: assets/templates/bookmarks/collection.jet.html:11
+#: assets/templates/bookmarks/collection.jet.html:38
+msgid "Collections"
+msgstr "Колекции"
+
+#: assets/templates/bookmarks/base.jet.html:90
+msgid "Did you know?"
+msgstr "Знаете ли?"
+
+#: assets/templates/bookmarks/base.jet.html:91
+#: assets/templates/bookmarks/index.jet.html:91
+msgid ""
+"\n"
+"            With the Browser Extension, you can save pages, images and selections\n"
+"            directly from your browser!"
+msgstr ""
+"\n"
+"            С разширението за браузър можете да запазвате страници, изображения и селекции\n"
+"            директно от браузъра си!"
+
+#: assets/templates/bookmarks/base.jet.html:98
+#: assets/templates/bookmarks/components/sidebar.jet.html:24
+#: assets/templates/bookmarks/index.jet.html:98
+msgid "Learn more"
+msgstr "Научете повече"
+
+#: assets/templates/bookmarks/base.jet.html:107
+msgid "Don't remind me"
+msgstr "Не ме напомняйте"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:90
+msgid "Close panel"
+msgstr "Затворете панела"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/bookmark.jet.html:135
+msgid "Bookmark information"
+msgstr "Информация за отметката"
+
+#: assets/templates/bookmarks/bookmark.jet.html:1
+#: assets/templates/bookmarks/components/title_block.jet.html:1
+msgid "Close dialog"
+msgstr "Затворете диалога"
+
+#: assets/templates/bookmarks/bookmark.jet.html:12
+msgid "Bookmark loading"
+msgstr "Зареждане на отметката"
+
+#: assets/templates/bookmarks/bookmark.jet.html:43
+msgid "Bookmark is loading"
+msgstr "Отметката се зарежда"
+
+#: assets/templates/bookmarks/bookmark.jet.html:116
+#: assets/templates/bookmarks/collection.jet.html:47
+#: assets/templates/bookmarks/collection.jet.html:60
+msgid "Edit"
+msgstr "Редактиране"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:7
+#: assets/templates/bookmarks/components/sidebar.jet.html:1
+#: assets/templates/bookmarks/components/sidebar.jet.html:66
+#: assets/templates/emails/bookmark.jet.html:16
+#: assets/templates/epub/bookmark.jet.html:34
+msgid "no site name"
+msgstr "няма име на сайта"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:9
+#: assets/templates/bookmarks/bookmark_public.jet.html:122
+#: assets/templates/bookmarks/components/sidebar.jet.html:82
+#: assets/templates/emails/bookmark.jet.html:20
+#: assets/templates/epub/bookmark.jet.html:37
+#, python-format
+msgid "Published on %s"
+msgstr "Публикувано на %s"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:12
+#: assets/templates/bookmarks/bookmark_public.jet.html:127
+#: assets/templates/bookmarks/components/sidebar.jet.html:87
+#: assets/templates/emails/bookmark.jet.html:23
+#: assets/templates/epub/bookmark.jet.html:40
+#, python-format
+msgid "By %s"
+msgstr "От %s"
+
+#: assets/templates/bookmarks/bookmark_atom.jet.html:17
+#: assets/templates/bookmarks/components/sidebar.jet.html:95
+#: assets/templates/emails/bookmark.jet.html:27
+#: assets/templates/epub/bookmark.jet.html:45
+#, python-format
+msgid "About %d minute read"
+msgid_plural "About %d minutes read"
+msgstr[0] "Около %d минути четене"
+msgstr[1] "Около %d минут четене"
+
+#: assets/templates/bookmarks/bookmark_missing.jet.html:9
+#: assets/templates/bookmarks/bookmark_missing.jet.html:14
+msgid "Bookmark not found"
+msgstr "Отметката не е намерена"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:1
+#: assets/templates/bookmarks/bookmark_public.jet.html:101
+#: assets/templates/menu.jet.html:1
+msgid "Change theme"
+msgstr "Промяна на темата"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:17
+msgid "Shared link"
+msgstr "Споделена връзка"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:83
+msgid "Page not found"
+msgstr "Страницата не е намерена"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:85
+msgid "Page has expired"
+msgstr "Страницата е изтекла"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:135
+#, python-format
+msgid "%d min"
+msgstr "%d мин"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:141
+msgid "Shared by %[1]s with %[2]s"
+msgstr "Споделено от %[1]s с %[2]s"
+
+#: assets/templates/bookmarks/bookmark_public.jet.html:194
+#, python-format
+msgid "Saved with %s"
+msgstr "Запазено с %s"
+
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:8
+msgid "Share by email"
+msgstr "Споделяне по имейл"
+
+#: assets/templates/bookmarks/bookmark_share_email.jet.html:18
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:19
+#, python-format
+msgid "Share: %s"
+msgstr "Споделяне: %s"
+
+#: assets/templates/bookmarks/bookmark_share_link.jet.html:8
+msgid "Share link"
+msgstr "Споделяне на връзка"
+
+#: assets/templates/bookmarks/bookmark_update.jet.html:9
+msgid "Edit bookmark"
+msgstr "Редактиране на отметка"
+
+#: assets/templates/bookmarks/bookmark_update.jet.html:14
+#, python-format
+msgid "Edit: %s"
+msgstr "Редакция: %s"
+
+#: assets/templates/bookmarks/collection.jet.html:22
+#, python-format
+msgid "Collection %s"
+msgstr "Колекция %s"
+
+#: assets/templates/bookmarks/collection.jet.html:26
+msgid "Collection will be removed in a few seconds."
+msgstr "Колекцията ще бъде премахната след няколко секунди."
+
+#: assets/templates/bookmarks/collection.jet.html:62
+#: assets/templates/bookmarks/index.jet.html:133
+#: assets/templates/bookmarks/index.jet.html:167
+#: assets/templates/bookmarks/index.jet.html:170
+msgid "Filters"
+msgstr "Филтри"
+
+#: assets/templates/bookmarks/collection.jet.html:65
+#: assets/templates/bookmarks/index.jet.html:173
+#: assets/templates/menu.jet.html:43 docs/http.go:182 docs/http.go:269
+#: docs/http.go:308
+msgid "Documentation"
+msgstr "Документация"
+
+#: assets/templates/bookmarks/collection.jet.html:84
+msgid "Delete collection"
+msgstr "Изтриване на колекцията"
+
+#: assets/templates/bookmarks/collection_create.jet.html:9
+msgid "New Collection"
+msgstr "Нова колекция"
+
+#: assets/templates/bookmarks/collection_list.jet.html:9
+#: internal/opds/http.go:75
+msgid "Bookmark Collections"
+msgstr "Колекции от отметки"
+
+#: assets/templates/bookmarks/collection_list.jet.html:15
+msgid "Create a new collection"
+msgstr "Създаване на нова колекция"
+
+#: assets/templates/bookmarks/collection_list.jet.html:24
+msgid ""
+"\n"
+"          Collections let you easily organize and export your bookmarks\n"
+"          by saving search requests of your choice.\n"
+"          When you create a new bookmark that matches a collection's\n"
+"          criteria, it will appear immediately.\n"
+"          Here are some examples:\n"
+"        "
+msgstr ""
+"\n"
+"          Колекциите ви позволяват лесно да организирате и експортирате отметките си,\n"
+"          като запазвате избрани от вас търсещи заявки.\n"
+"          Когато създадете нова отметка, която отговаря на критериите\n"
+"          на дадена колекция, тя ще се появи незабавно.\n"
+"          Ето няколко примера:\n"
+"        "
+
+#: assets/templates/bookmarks/collection_list.jet.html:33
+msgid "The unread articles (no photos or videos)"
+msgstr "Непрочетените статии (без снимки или видео)"
+
+#: assets/templates/bookmarks/collection_list.jet.html:34
+msgid "The archived articles from \"wikipedia.org\""
+msgstr "Архивираните статии от \"wikipedia.org\""
+
+#: assets/templates/bookmarks/collection_list.jet.html:35
+msgid "The pictures with the label \"cat\""
+msgstr "Снимките с етикет \"котка\""
+
+#: assets/templates/bookmarks/collection_list.jet.html:36
+msgid "The articles that contain \"shelter\" in their title"
+msgstr "Статиите, които съдържат \"убежище\" в заглавието си"
+
+#: assets/templates/bookmarks/collection_list.jet.html:39
+#, python-format
+msgid "Read more about collections in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Прочетете повече за колекциите в <a class=\"%s\" href=\"%s\">документацията</a>."
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+msgid "Export and Share"
+msgstr "Експорт и споделяне"
+
+#: assets/templates/bookmarks/components/actions.jet.html:1
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Delete this bookmark"
+msgstr "Изтриване на тази отметка"
+
+#: assets/templates/bookmarks/components/actions.jet.html:7
+msgid "Mark as unread"
+msgstr "Маркиране като непрочетено"
+
+#: assets/templates/bookmarks/components/actions.jet.html:7
+msgid "Mark as read"
+msgstr "Маркиране като прочетено"
+
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Remove from archive"
+msgstr "Премахване от архива"
+
+#: assets/templates/bookmarks/components/actions.jet.html:8
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:7
+#: assets/templates/bookmarks/components/card.jet.html:9
+msgid "Move to archive"
+msgstr "Преместване в архива"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Remove from favorites"
+msgstr "Премахване от любими"
+
+#: assets/templates/bookmarks/components/actions.jet.html:9
+#: assets/templates/bookmarks/components/bottom_actions.jet.html:8
+#: assets/templates/bookmarks/components/card.jet.html:10
+msgid "Add to favorites"
+msgstr "Добавяне към любими"
+
+#: assets/templates/bookmarks/components/actions.jet.html:15
+#: assets/templates/bookmarks/components/card.jet.html:92
+msgid "This bookmark will be removed in a few seconds."
+msgstr "Тази отметка ще бъде премахната след няколко секунди."
+
+#: assets/templates/bookmarks/components/actions.jet.html:22
+msgid "Undo"
+msgstr "Отмяна"
+
+#: assets/templates/bookmarks/components/actions.jet.html:55
+#: assets/templates/bookmarks/components/list_actions.jet.html:79
+msgid "Download EPUB"
+msgstr "Изтегляне на EPUB"
+
+#: assets/templates/bookmarks/components/actions.jet.html:58
+msgid "Share by Link"
+msgstr "Споделяне чрез връзка"
+
+#: assets/templates/bookmarks/components/actions.jet.html:61
+msgid "Send article by Email"
+msgstr "Изпращане на статия по имейл"
+
+#: assets/templates/bookmarks/components/actions.jet.html:63
+msgid "Send e-book by Email"
+msgstr "Изпращане на е-книга по имейл"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:1
+msgid "Delete highlight"
+msgstr "Изтриване на теза"
+
+#: assets/templates/bookmarks/components/annotation_list.jet.html:12
+msgid "Start selecting text in the article to create a new highlight."
+msgstr "Започнете да избирате текст в статията, за да създадете нова теза."
+
+#: assets/templates/bookmarks/components/bookmark_qrcode.jet.html:8
+msgid "Saved with Readeck"
+msgstr "Запазено с Readeck"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:16
+#: assets/templates/bookmarks/components/filters.jet.html:14
+msgid "Title"
+msgstr "Заглавие"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:21
+#: assets/templates/bookmarks/import/form-csv.jet.html:50
+msgid "Description"
+msgstr "Описание"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:28
+msgid "Site Name"
+msgstr "Име на сайта"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:34
+msgid "Authors"
+msgstr "Автори"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:35
+msgid "One value per line"
+msgstr "По една стойност на ред"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:41
+msgid "Published"
+msgstr "Публикувано"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:46
+#: assets/templates/profile/index.jet.html:49
+msgid "Language"
+msgstr "Език"
+
+#: assets/templates/bookmarks/components/bookmark_update.jet.html:51
+msgid "Text Direction"
+msgstr "Посока на текста"
+
+#: assets/templates/bookmarks/components/card.jet.html:1
+msgid "Go to original page"
+msgstr "Отидете на оригиналната страница"
+
+#: assets/templates/bookmarks/components/card.jet.html:33
+msgctxt "bookmark"
+msgid "Loading"
+msgstr "Зареждане"
+
+#: assets/templates/bookmarks/components/card.jet.html:75
+#, python-format
+msgctxt "abbr"
+msgid "%d min"
+msgid_plural "%d min"
+msgstr[0] "%d мин"
+msgstr[1] "%d мин"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Close"
+msgstr "Затваряне"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Show image"
+msgstr "Показване на изображение"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:1
+msgid "Play video"
+msgstr "Възпроизвеждане на видео"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:46
+msgid "Yellow"
+msgstr "Жълт"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:47
+msgid "Red"
+msgstr "Червен"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:48
+msgid "Blue"
+msgstr "Син"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:49
+msgid "Green"
+msgstr "Зелен"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:50
+msgid "Transparent"
+msgstr "Прозрачен"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:55
+msgid "Highlight"
+msgstr "Теза"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:63
+#: assets/templates/bookmarks/components/filters.jet.html:103
+msgid "Note"
+msgstr "Бележка"
+
+#: assets/templates/bookmarks/components/content_block.jet.html:78
+#: assets/templates/bookmarks/label.jet.html:43
+msgid "Delete"
+msgstr "Изтриване"
+
+#: assets/templates/bookmarks/components/diagnosis.jet.html:13
+#: assets/templates/docs/about.jet.html:37
+msgid "copy to clipboard"
+msgstr "копиране в клипборда"
+
+#: assets/templates/bookmarks/components/filters.jet.html:36
+msgid "Author"
+msgstr "Автор"
+
+#: assets/templates/bookmarks/components/filters.jet.html:58
+msgid "Site"
+msgstr "Сайт"
+
+#: assets/templates/bookmarks/components/filters.jet.html:80
+#: assets/templates/bookmarks/import/options.jet.html:10
+#: assets/templates/bookmarks/label.jet.html:11
+msgid "Label"
+msgstr "Етикет"
+
+#: assets/templates/bookmarks/components/filters.jet.html:108
+msgid "From date"
+msgstr "От дата"
+
+#: assets/templates/bookmarks/components/filters.jet.html:114
+msgid "To date"
+msgstr "До дата"
+
+#: assets/templates/bookmarks/components/filters.jet.html:119
+msgid "Type"
+msgstr "Тип"
+
+#: assets/templates/bookmarks/components/filters.jet.html:124
+msgctxt "filter"
+msgid "Progress"
+msgstr "Напредък"
+
+#: assets/templates/bookmarks/components/filters.jet.html:129
+msgid "Is Favorite"
+msgstr "Е любими"
+
+#: assets/templates/bookmarks/components/filters.jet.html:133
+#: assets/templates/bookmarks/components/filters.jet.html:142
+#: assets/templates/bookmarks/components/filters.jet.html:152
+#: assets/templates/bookmarks/components/filters.jet.html:162
+#: assets/templates/bookmarks/components/filters.jet.html:172
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
+msgid "yes"
+msgstr "да"
+
+#: assets/templates/bookmarks/components/filters.jet.html:134
+#: assets/templates/bookmarks/components/filters.jet.html:143
+#: assets/templates/bookmarks/components/filters.jet.html:153
+#: assets/templates/bookmarks/components/filters.jet.html:163
+#: assets/templates/bookmarks/components/filters.jet.html:173
+#: assets/templates/bookmarks/components/reader_control.jet.html:142
+#: assets/templates/bookmarks/components/reader_control.jet.html:168
+msgid "no"
+msgstr "не"
+
+#: assets/templates/bookmarks/components/filters.jet.html:138
+msgid "Is Archived"
+msgstr "Е архивирано"
+
+#: assets/templates/bookmarks/components/filters.jet.html:148
+msgid "Is Loaded"
+msgstr "Е заредено"
+
+#: assets/templates/bookmarks/components/filters.jet.html:158
+msgid "With Labels"
+msgstr "С етикети"
+
+#: assets/templates/bookmarks/components/filters.jet.html:168
+msgid "With Errors"
+msgstr "С грешки"
+
+#: assets/templates/bookmarks/components/labels.jet.html:1
+msgid "Remove label"
+msgstr "Премахване на етикет"
+
+#: assets/templates/bookmarks/components/labels_form.jet.html:1
+msgid "Add a label"
+msgstr "Добавяне на етикет"
+
+#: assets/templates/bookmarks/components/labels_form.jet.html:33
+msgid "Add label"
+msgstr "Добавяне на етикет"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Grid view"
+msgstr "Изглед в мрежа"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Compact view"
+msgstr "Компактен изглед"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Mosaic view"
+msgstr "Мозайчен изглед"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Sort bookmarks"
+msgstr "Сортиране на отметките"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Sort options"
+msgstr "Опции за сортиране"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:1
+msgid "Import and export"
+msgstr "Импорт и експорт"
+
+#: assets/templates/bookmarks/components/list_actions.jet.html:80
+msgid "Atom Feed"
+msgstr "Atom Feed"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease width"
+msgstr "Намаляване на ширината"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current Width"
+msgstr "Текуща ширина"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase width"
+msgstr "Увеличи ширината"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease font size"
+msgstr "Намаляване на шрифта"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current font size"
+msgstr "Текущ размер на шрифта"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase font size"
+msgstr "Увеличи на шрифта"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Decrease line height"
+msgstr "Намаляване на междуредието"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Current line height"
+msgstr "Текуща височина на реда"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Increase line height"
+msgstr "Увеличи височината на реда"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Justify text"
+msgstr "Двустранно подравняване"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Don't justify text"
+msgstr "Не подравнявай текста двустранно"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "With hyphenation"
+msgstr "С пренасяне"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:1
+msgid "Without hyphenation"
+msgstr "Без пренасяне"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:13
+msgid "Display options"
+msgstr "Настройки на дисплея"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:25
+msgid "Font"
+msgstr "Шрифт"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:56
+msgid "Width"
+msgstr "Ширина"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:81
+msgid "Size"
+msgstr "Размер"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:106
+msgid "Line height"
+msgstr "Височина на реда"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:130
+msgid "Justify"
+msgstr "Подравняване"
+
+#: assets/templates/bookmarks/components/reader_control.jet.html:156
+msgid "Hyphenation"
+msgstr "Хифениране"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:16
+msgid "Sends this bookmark's content in the message."
+msgstr "Изпраща съдържанието на тази отметка в съобщението."
+
+#: assets/templates/bookmarks/components/share_email.jet.html:18
+msgid "Sends this bookmark as an attached EPUB file."
+msgstr "Изпраща тази отметка като прикачен файл EPUB."
+
+#: assets/templates/bookmarks/components/share_email.jet.html:29
+msgid "Format"
+msgstr "Формат"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:39
+msgid "Send To"
+msgstr "Изпращане до"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:44
+msgid "Send message"
+msgstr "Изпращане на съобщение"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:48
+#, python-format
+msgid "The bookmark was sent to %s"
+msgstr "Отметката беше изпратена до %s"
+
+#: assets/templates/bookmarks/components/share_email.jet.html:55
+#: assets/templates/bookmarks/components/share_link.jet.html:28
+msgid "Go back to the bookmark"
+msgstr "Връщане към отметката"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:9
+msgid "You can share the following link with your friends."
+msgstr "Можете да споделите следната връзка с приятели."
+
+#: assets/templates/bookmarks/components/share_link.jet.html:10
+#, python-format
+msgid "It expires on %s"
+msgstr "Изтича на %s"
+
+#: assets/templates/bookmarks/components/share_link.jet.html:24
+msgid "Copy the link"
+msgstr "Копиране на връзката"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:13
+msgid "Errors occurred during extraction."
+msgstr "Възникнаха грешки по време на екстракцията."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:19
+msgid ""
+"\n"
+"          Depending on the error, Readeck's browser extension may provide\n"
+"          a workaround."
+msgstr ""
+"\n"
+"          В зависимост от грешката, браузърното разширение на Readeck може да\n"
+"          предостави решение."
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:31
+msgid "View log"
+msgstr "Преглед на журнала"
+
+#: assets/templates/bookmarks/components/sidebar.jet.html:127
+msgid "Links"
+msgstr "Връзки"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:9
+msgid "Import your Browser's Bookmarks"
+msgstr "Импортирайте отметките на вашия браузър"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:15
+msgid ""
+"\n"
+"    In your web browser, export your bookmarks as an HTML file.<br>\n"
+"    Upload this file in the form below and Readeck will create and fetch\n"
+"    every bookmark found it the file.\n"
+"  "
+msgstr ""
+"\n"
+"    Във вашия уеб браузър експортирайте отметките си като HTML файл.<br>\n"
+"    Качете този файл във формата по-долу и Readeck ще създаде и изтегли\n"
+"    всяка открита отметка във файла.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:22
+msgid "Instructions for Firefox"
+msgstr "Инструкции за Firefox"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:23
+msgid "Instructions for Chrome"
+msgstr "Инструкции за Chrome"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:33
+#: assets/templates/bookmarks/import/form-csv.jet.html:26
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:26
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:26
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:41
+#: assets/templates/bookmarks/import/form-readwise.jet.html:26
+#: assets/templates/bookmarks/import/form-text.jet.html:27
+#: assets/templates/profile/import.jet.html:24
+msgid "File"
+msgstr "Файл"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:41
+msgid "Convert section titles to labels"
+msgstr "Преобразуване на заглавията на раздели в етикети"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:43
+msgid "Adds a label on links, based on their section title"
+msgstr "Добавя етикет на връзки въз основа на заглавието на техния раздел"
+
+#: assets/templates/bookmarks/import/form-browser.jet.html:47
+#: assets/templates/bookmarks/import/form-csv.jet.html:33
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:33
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:33
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:42
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:49
+#: assets/templates/bookmarks/import/form-readwise.jet.html:33
+#: assets/templates/bookmarks/import/form-text.jet.html:34
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:68
+msgid "Import Bookmarks"
+msgstr "Импортиране на отметки"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:9
+msgid "Import Links from a CSV File"
+msgstr "Импортиране на връзки от CSV файл"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:15
+msgid ""
+"\n"
+"    Upload a CSV file from Instapaper or any CSV that matches the format specified below.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете CSV файл от Instapaper или който и да е CSV файл, който отговаря на посочения по-долу формат.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:40
+#, python-format
+msgid ""
+"\n"
+"    The uploaded file must contain a first row with the column names. Column names are case\n"
+"    insensitive and, except for <code>%s</code>, every column is optional.\n"
+"  "
+msgstr ""
+"\n"
+"    Каченият файл трябва да съдържа първи ред с имената на колоните. Имената на колоните не се\n"
+"    различават по малки и главни букви и, с изключение на <code>%s</code>, всяка колона е незадължителна.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:44
+msgid "Here are the columns you can set:"
+msgstr "Ето колоните, които можете да зададете:"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:48
+msgid "Field"
+msgstr "Поле"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:49
+msgid "Alias"
+msgstr "Псевдоним"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:57
+msgid "Link address"
+msgstr "Адрес на връзката"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:62
+msgid "Bookmark title"
+msgstr "Заглавие на отметката"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:67
+#, python-format
+msgid "Bookmark's archived state; only valid value is \"%s\""
+msgstr "Архивирано състояние на отметката; единствената валидна стойност е \"%s\""
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:72
+msgid "Creation date, can be a UNIX timestamp or an RFC-3339 formatted date"
+msgstr "Дата на създаване, може да бъде UNIX времева марка или дата във формат RFC-3339"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:77
+msgid "A JSON encoded list of labels"
+msgstr "JSON кодиран списък с етикети"
+
+#: assets/templates/bookmarks/import/form-csv.jet.html:82
+msgid "Example"
+msgstr "Пример"
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:9
+msgid "Import Links from a GoodLinks export file"
+msgstr "Импортиране на връзки от експортен файл на GoodLinks"
+
+#: assets/templates/bookmarks/import/form-goodlinks.jet.html:15
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your GoodLinks app.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете JSON файл, получен от приложението ви GoodLinks.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:9
+msgid "Import Bookmarks from a Linkwarden export file"
+msgstr "Импортиране на отметки от файл за експорт на Linkwarden"
+
+#: assets/templates/bookmarks/import/form-linkwarden.jet.html:15
+msgid ""
+"\n"
+"    Upload a JSON file obtained from your Linkwarden app.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете JSON файл, получен от вашето приложение Linkwarden.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:63
+msgid "Import your Omnivore Articles"
+msgstr "Импортиране на вашите статии от Omnivore"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:15
+msgid ""
+"\n"
+"    To import your articles from Omnivore, you must first create an API Key in your\n"
+"    Omnivore's settings and enter it in the the form below.\n"
+"  "
+msgstr ""
+"\n"
+"    За да импортирате статиите си от Omnivore, първо трябва да създадете API ключ\n"
+"    в настройките на Omnivore и да го въведете във формата по-долу.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:27
+msgid "Omnivore URL"
+msgstr "URL адрес на Omnivore"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:29
+msgid "URL of your Omnivore homepage"
+msgstr "URL адрес на вашата начална страница на Omnivore"
+
+#: assets/templates/bookmarks/import/form-omnivore.jet.html:35
+msgid "API Key"
+msgstr "API ключ"
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:70
+msgid "Import your Pocket Articles"
+msgstr "Импортиране на вашите статии от Pocket"
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:15
+msgid ""
+"\n"
+"    You can export your articles on Pocket by visiting:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Можете да експортирате статиите си в Pocket, като посетите:<br>\n"
+"    <a class=\"%[1]s\" href=\"%[2]s\">%[2]s</a>.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:21
+msgid ""
+"\n"
+"    Upload this file in the form below and Readeck will fetch and save\n"
+"    every link found it the file.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете този файл във формата по-долу и Readeck ще извлече и запази\n"
+"    всяка връзка, намерена във файла.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:27
+msgid ""
+"\n"
+"    Please note that Pocket does not allow the article content to be exported.\n"
+"    This could lead to different results in Readeck than what you currently\n"
+"    see in Pocket.\n"
+"  "
+msgstr ""
+"\n"
+"    Моля, имайте предвид, че Pocket не позволява експортирането на съдържанието на статиите.\n"
+"    Това може да доведе до различни резултати в Readeck от това, което в момента\n"
+"    виждате в Pocket.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-pocket-file.jet.html:43
+msgid "Note: upload the ZIP file directly, not its contents"
+msgstr "Забележка: качете ZIP файла директно, а не неговото съдържание"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:9
+msgid "Import Links from Readwise Reader CSV export"
+msgstr "Импортиране на връзки от CSV експорт на Readwise Reader"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:15
+msgid ""
+"\n"
+"    Upload a CSV file exported from your Readwise Reader account below.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете CSV файл, експортиран от вашия акаунт в Readwise Reader, по-долу.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:38
+msgid "Which information is imported"
+msgstr "Коя информация се импортира"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:41
+msgid "Article title, URL, and when it was first saved,"
+msgstr "Заглавие на статията, URL адрес и кога е запазена за първи път,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:42
+msgid "The archived state of an article,"
+msgstr "Архивираното състояние на статията,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:43
+#, python-format
+msgid "\"%s\" as Readeck labels,"
+msgstr "\"%s\" като етикети в Readeck,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:44
+#, python-format
+msgid "When a document tag contains \"%s\", the bookmark will be added to Readeck Favorites."
+msgstr "Когато етикет на документ съдържа \"%s\", отметката ще бъде добавена към Любими в Readeck."
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:46
+msgid "What is not imported:"
+msgstr "Какво не се импортира:"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:48
+msgid "Article reading progress and seen status,"
+msgstr "Напредъкът при четене на статии и статус на преглед,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:49
+msgid "Articles forwarded to Readwise Reader by email,"
+msgstr "Статии, изпратени до Readwise Reader по имейл,"
+
+#: assets/templates/bookmarks/import/form-readwise.jet.html:50
+msgid "Uploaded documents such as PDFs or EPUB."
+msgstr "Качени документи като PDF или EPUB."
+
+#: assets/templates/bookmarks/import/form-text.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:84
+msgid "Import Links from a Text File"
+msgstr "Импортиране на връзки от текстов файл"
+
+#: assets/templates/bookmarks/import/form-text.jet.html:15
+msgid ""
+"\n"
+"    Upload a text file that contains one link per line and Readeck will fetch\n"
+"    all of them and save them in your bookmark list.\n"
+"  "
+msgstr ""
+"\n"
+"    Качете текстов файл, който съдържа по една връзка на ред, и Readeck\n"
+"    ще ги извлече всички и ще ги запази във вашия списък с отметки.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:9
+#: assets/templates/bookmarks/import/index.jet.html:91
+msgid "Import your Wallabag Articles"
+msgstr "Импортирайте вашите статии от Wallabag"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:15
+msgid ""
+"\n"
+"    To import your articles from Wallabag, you must first create an API client\n"
+"    in Wallabag's <strong>API clients management</strong> menu. This will give you\n"
+"    a <strong>Client ID</strong> and <strong>Client secret</strong>.\n"
+"  "
+msgstr ""
+"\n"
+"    За да импортирате статиите си от Wallabag, първо трябва да създадете API клиент в менюто\n"
+"    за <strong>управление на API клиенти</strong> на Wallabag. Това ще ви предостави\n"
+"    <strong>Идентификатор на клиент</strong> и <strong>Тайна на клиент</strong>.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:21
+msgid ""
+"\n"
+"    You can then enter all the necessary information in the form below.\n"
+"  "
+msgstr ""
+"\n"
+"    След това можете да въведете цялата необходима информация във формуляра по-долу.\n"
+"  "
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:32
+msgid "Wallabag URL"
+msgstr "URL на Wallabag"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:34
+msgid "URL of your Wallabag homepage"
+msgstr "URL на вашата начална страница на Wallabag"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:54
+msgid "Client ID"
+msgstr "Идентификатор на клиент"
+
+#: assets/templates/bookmarks/import/form-wallabag.jet.html:61
+msgid "Client Secret"
+msgstr "Тайна на клиента"
+
+#: assets/templates/bookmarks/import/index.jet.html:9
+msgid "Import your Bookmarks"
+msgstr "Импортирайте вашите отметки"
+
+#: assets/templates/bookmarks/import/index.jet.html:25
+msgid ""
+"\n"
+"    Here you can import your existing bookmark collection from various sources into Readeck.\n"
+"  "
+msgstr ""
+"\n"
+"    Тук можете да импортирате съществуващата си колекция от отметки от различни източници в Readeck.\n"
+"  "
+
+#: assets/templates/bookmarks/import/index.jet.html:34
+#: assets/templates/profile/export.jet.html:35
+#: internal/bookmarks/importer/browser.go:51
+msgid "Browser Bookmarks"
+msgstr "Отметки на браузъра"
+
+#: assets/templates/bookmarks/import/index.jet.html:35
+msgid "Import your Browser's Bookmarks, Pinboard, Instapaper"
+msgstr "Импортирайте отметките от браузъра си, Pinboard, Instapaper"
+
+#: assets/templates/bookmarks/import/index.jet.html:41
+#: assets/templates/profile/export.jet.html:43
+#: internal/bookmarks/importer/csv.go:55
+msgid "CSV File"
+msgstr "CSV файл"
+
+#: assets/templates/bookmarks/import/index.jet.html:42
+msgid "Import Links from a CSV File and Instapaper"
+msgstr "Импортирайте връзки от CSV файл и Instapaper"
+
+#: assets/templates/bookmarks/import/index.jet.html:49
+msgid "Import your GoodLinks Articles"
+msgstr "Импортирайте статиите си от GoodLinks"
+
+#: assets/templates/bookmarks/import/index.jet.html:56
+msgid "Import your Linkwarden Bookmarks"
+msgstr "Импортирайте отметките си от Linkwarden"
+
+#: assets/templates/bookmarks/import/index.jet.html:77
+msgid "Import your Readwise Reader Library"
+msgstr "Импортирайте библиотеката си от Readwise Reader"
+
+#: assets/templates/bookmarks/import/index.jet.html:83
+#: internal/bookmarks/importer/text.go:24
+msgid "Text File"
+msgstr "Текстов файл"
+
+#: assets/templates/bookmarks/import/options.jet.html:7
+msgid "Options"
+msgstr "Настройки"
+
+#: assets/templates/bookmarks/import/options.jet.html:12
+msgid "A label to add to all imported bookmarks"
+msgstr "Етикет за добавяне към всички импортирани отметки"
+
+#: assets/templates/bookmarks/import/options.jet.html:16
+msgid "Ignore links already in your bookmarks"
+msgstr "Игнорирай връзките, които вече са в отметките ти"
+
+#: assets/templates/bookmarks/import/options.jet.html:21
+msgid "Archive all links"
+msgstr "Архивирай всички връзки"
+
+#: assets/templates/bookmarks/import/options.jet.html:23
+msgid "Moves all links to archive, regardless of their original status"
+msgstr "Премества всички връзки в архива, независимо от първоначалния им статус"
+
+#: assets/templates/bookmarks/import/options.jet.html:27
+msgid "Mark all links as read"
+msgstr "Маркирай всички връзки като прочетени"
+
+#: assets/templates/bookmarks/import/options.jet.html:29
+msgid "Marks all links as read, regardless of their original status"
+msgstr "Маркира всички връзки като прочетени, независимо от първоначалния им статус"
+
+#: assets/templates/bookmarks/import/progress.jet.html:15
+msgid "Import operation will launch momentarily."
+msgstr "Операцията по импортиране ще започне скоро."
+
+#: assets/templates/bookmarks/import/progress.jet.html:17
+msgid "Import operation has started!"
+msgstr "Операцията по импортиране започна!"
+
+#: assets/templates/bookmarks/import/progress.jet.html:21
+msgid "You can keep using Readeck while the import is running."
+msgstr "Можеш да продължиш да използваш Readeck, докато импортирането се извършва."
+
+#: assets/templates/bookmarks/import/progress.jet.html:24
+msgid "Import is finished!"
+msgstr "Импортирането приключи!"
+
+#: assets/templates/bookmarks/import/progress.jet.html:25
+#, python-format
+msgid ""
+"\n"
+"      Your bookmarks are now available in your <a class=\"%s\" href=\"%s\">bookmark list</a>.\n"
+"      "
+msgstr ""
+"\n"
+"      Вашите отметки вече са достъпни във вашия <a class=\"%s\" href=\"%s\">списък с отметки</a>.\n"
+"      "
+
+#: assets/templates/bookmarks/index.jet.html:1
+msgid "Bookmark filters"
+msgstr "Филтри за отметки"
+
+#: assets/templates/bookmarks/index.jet.html:32
+msgid "Save a new link"
+msgstr "Запазване на нов линк"
+
+#: assets/templates/bookmarks/index.jet.html:44
+msgctxt "button"
+msgid "Save link"
+msgstr "Запазване на линк"
+
+#: assets/templates/bookmarks/index.jet.html:53
+msgid "\"%[1]s\" is not a valid address. Did you mean to search your bookmarks for %[2]s?"
+msgstr "\"%[1]s\" не е валиден адрес. Искахте ли да потърсите \"%[2]s\" в отметките си?"
+
+#: assets/templates/bookmarks/index.jet.html:77
+msgid "You don't have any bookmarks yet.<br> Copy a link in the field above and start saving."
+msgstr "Все още нямате отметки.<br> Копирайте линк в полето по-горе и започнете да запазвате."
+
+#: assets/templates/bookmarks/index.jet.html:79
+#, python-format
+msgid "Read more about bookmarks in the <a class=\"%s\" href=\"%s\">documentation</a>."
+msgstr "Научете повече за отметките в <a class=\"%s\" href=\"%s\">документацията</a>."
+
+#: assets/templates/bookmarks/index.jet.html:89
+msgid "Readeck Browser Extension"
+msgstr "Разширение за браузър Readeck"
+
+#: assets/templates/bookmarks/index.jet.html:105
+msgid "Import existing bookmarks"
+msgstr "Импортиране на съществуващи отметки"
+
+#: assets/templates/bookmarks/index.jet.html:107
+msgid ""
+"\n"
+"              Would you like to import from a similar tool or from a file with existing bookmarks?\n"
+"              Try Readeck's import tool.\n"
+"            "
+msgstr ""
+"\n"
+"              Искате ли да импортирате от подобен инструмент или от файл със съществуващи отметки?\n"
+"              Опитайте инструмента за импортиране на Readeck.\n"
+"            "
+
+#: assets/templates/bookmarks/index.jet.html:114
+msgid "Import links and articles"
+msgstr "Импортиране на връзки и статии"
+
+#: assets/templates/bookmarks/index.jet.html:141
+msgid "Import bookmarks"
+msgstr "Импортиране на отметки"
+
+#: assets/templates/bookmarks/index.jet.html:150
+msgid "Your search query yielded <strong>no results</strong>."
+msgstr "Вашата заявка върна <strong>няма резултати</strong>."
+
+#: assets/templates/bookmarks/index.jet.html:152
+#, python-format
+msgid "Your search query yielded <strong>%d result</strong>."
+msgid_plural "Your search query yielded <strong>%d results</strong>."
+msgstr[0] "Вашата заявка за търсене върна <strong>%d резултат</strong>."
+msgstr[1] "Вашата заявка за търсене върна <strong>%d резултата</strong>."
+
+#: assets/templates/bookmarks/index.jet.html:183
+msgctxt "action"
+msgid "Search"
+msgstr "Търсене"
+
+#: assets/templates/bookmarks/index.jet.html:185
+msgid "Reset search"
+msgstr "Нулиране на търсенето"
+
+#: assets/templates/bookmarks/index.jet.html:188
+msgid "Create a collection"
+msgstr "Създаване на колекция"
+
+#: assets/templates/bookmarks/label.jet.html:56
+msgid "Label will be removed in a few seconds."
+msgstr "Етикетът ще бъде премахнат след няколко секунди."
+
+#: assets/templates/bookmarks/labels.jet.html:8
+msgid "Bookmark Labels"
+msgstr "Етикети на отметки"
+
+#: assets/templates/bookmarks/labels.jet.html:14
+msgid ""
+"\n"
+"  Labels let your organize your bookmarks the way you want.\n"
+"  You can set anything to a label, including emojis!\n"
+msgstr ""
+"\n"
+"  Етикетите ви позволяват да организирате отметките си както пожелаете.\n"
+"  Можете да зададете всякакъв етикет, включително и емоджита!\n"
+
+#: assets/templates/docs/about.jet.html:20
+#: assets/templates/docs/base.jet.html:27 docs/http.go:270
+msgid "About Readeck"
+msgstr "Относно Readeck"
+
+#: assets/templates/docs/about.jet.html:26
+msgid "Version:"
+msgstr "Версия:"
+
+#: assets/templates/docs/about.jet.html:27
+msgid "Built Date:"
+msgstr "Дата на компилиране:"
+
+#: assets/templates/docs/about.jet.html:30
+msgid "System Information"
+msgstr "Системна информация"
+
+#: assets/templates/docs/about.jet.html:33
+msgid "Here are your current system information. Please include them if you report a bug."
+msgstr "Това е вашата текуща системна информация. Моля, включете я, ако докладвате за бъг."
+
+#: assets/templates/docs/about.jet.html:42
+msgid "Storage"
+msgstr "Съхранение"
+
+#: assets/templates/docs/about.jet.html:46
+msgid "Database Size:"
+msgstr "Размер на базата данни:"
+
+#: assets/templates/docs/about.jet.html:50
+msgid "Bookmarks Disk Usage:"
+msgstr "Заето дисково пространство от отметки:"
+
+#: assets/templates/docs/about.jet.html:56
+msgid "Project"
+msgstr "Проект"
+
+#: assets/templates/docs/about.jet.html:59
+msgid "Main website:"
+msgstr "Основен уебсайт:"
+
+#: assets/templates/docs/about.jet.html:60
+msgid "Sources and issues:"
+msgstr "Източници и емисии:"
+
+#: assets/templates/docs/about.jet.html:61
+msgid "How to contribute:"
+msgstr "Как да допринесете:"
+
+#: assets/templates/docs/about.jet.html:62
+msgid "Community Forum:"
+msgstr "Форум на общността:"
+
+#: assets/templates/docs/about.jet.html:63
+msgid "Matrix Chat:"
+msgstr "Матрикс чат:"
+
+#: assets/templates/docs/about.jet.html:66
+msgid "License"
+msgstr "Лиценз"
+
+#: assets/templates/docs/about.jet.html:68
+#, python-format
+msgid "Readeck is distributed under the terms of the license \"%s\""
+msgstr "Readeck се разпространява под условията на лиценза \"%s\""
+
+#: assets/templates/docs/about.jet.html:72
+msgid "Here's a short summary of the license conditions:"
+msgstr "Ето кратко резюме на условията на лиценза:"
+
+#: assets/templates/docs/about.jet.html:77
+#: assets/templates/profile/app_list.jet.html:51
+msgid "Permissions"
+msgstr "Разрешения"
+
+#: assets/templates/docs/about.jet.html:78
+msgid "Conditions"
+msgstr "Условия"
+
+#: assets/templates/docs/about.jet.html:79
+msgid "Limitations"
+msgstr "Ограничения"
+
+#: assets/templates/docs/about.jet.html:87
+msgid "Commercial use"
+msgstr "Търговска употреба"
+
+#: assets/templates/docs/about.jet.html:90
+msgid "Distribution"
+msgstr "Разпространение"
+
+#: assets/templates/docs/about.jet.html:93
+msgid "Modification"
+msgstr "Модификация"
+
+#: assets/templates/docs/about.jet.html:96
+msgid "Patent use"
+msgstr "Използване на патенти"
+
+#: assets/templates/docs/about.jet.html:99
+msgid "Private use"
+msgstr "Лична употреба"
+
+#: assets/templates/docs/about.jet.html:106
+msgid "Disclose source"
+msgstr "Разкриване на изходния код"
+
+#: assets/templates/docs/about.jet.html:109
+msgid "License and copyright notice"
+msgstr "Лиценз и известие за авторско право"
+
+#: assets/templates/docs/about.jet.html:112
+msgid "Network use is distribution"
+msgstr "Мрежовото използване се счита за разпространение"
+
+#: assets/templates/docs/about.jet.html:115
+msgid "Same license"
+msgstr "Същият лиценз"
+
+#: assets/templates/docs/about.jet.html:118
+msgid "State changes"
+msgstr "Посочване на промени"
+
+#: assets/templates/docs/about.jet.html:125
+msgid "Liability"
+msgstr "Отговорност"
+
+#: assets/templates/docs/about.jet.html:128
+msgid "Warranty"
+msgstr "Гаранция"
+
+#: assets/templates/docs/about.jet.html:155
+msgid "Third-Party Licenses"
+msgstr "Лицензи на трети страни"
+
+#: assets/templates/docs/about.jet.html:157
+msgid "Readeck includes and/or uses the following open source assets:"
+msgstr "Readeck включва и/или използва следните ресурси с отворен код:"
+
+#: assets/templates/docs/api-docs.jet.html:8
+#: assets/templates/docs/base.jet.html:21
+msgid "API Documentation"
+msgstr "Документация за API"
+
+#: assets/templates/docs/base.jet.html:9
+msgid "Readeck Help"
+msgstr "Помощ за Readeck"
+
+#: assets/templates/docs/base.jet.html:28
+msgid "Changelog"
+msgstr "Списък с промени"
+
+#: assets/templates/emails/bookmark_epub.jet.md:6
+#, python-format
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"Here is your ebook for: **%s**\n"
+msgstr ""
+"\n"
+"Здравейте,\n"
+"\n"
+"Ето вашата електронна книга за: **%s**\n"
+
+#: assets/templates/emails/recover.jet.md:7
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"You (or someone else) entered this email address when trying to\n"
+"change the password of a Readeck account (%[1]s).\n"
+"\n"
+"If you are expecting this email, please follow this link to set\n"
+"a new password for your readeck account.\n"
+"\n"
+"%[2]s\n"
+msgstr ""
+"\n"
+"Здравейте,\n"
+"\n"
+"Вие (или някой друг) въведохте този имейл адрес при опит за\n"
+"промяна на паролата на акаунт в Readeck (%[1]s).\n"
+"\n"
+"Ако очаквате този имейл, моля, последвайте тази връзка, за да зададете\n"
+"нова парола за вашия акаунт в readeck.\n"
+"\n"
+"%[2]s\n"
+
+#: assets/templates/emails/recover.jet.md:19
+msgid ""
+"\n"
+"Hi,\n"
+"\n"
+"You (or someone else) entered this email address when trying to\n"
+"change the password of a Readeck account (%[1]s).\n"
+"\n"
+"However, this email address is not associated with any account and\n"
+"therefore, the attempted password change has failed.\n"
+"\n"
+"If you are a Readeck user on %[1]s and you are\n"
+"expecting this email, please try again using the email address\n"
+"you used when creating your account.\n"
+"\n"
+"If you are not a Readeck user, please ignore this message.\n"
+msgstr ""
+"\n"
+"Здравейте,\n"
+"\n"
+"Вие (или някой друг) сте въвели този имейл адрес при \n"
+"опит за промяна на паролата на акаунт в Readeck (%[1]s).\n"
+"\n"
+"Въпреки това, този имейл адрес не е свързан с нито един акаунт и\n"
+"поради това опитът за смяна на паролата е неуспешен.\n"
+"\n"
+"Ако сте потребител на Readeck в %[1]s и сте очаквали\n"
+"този имейл, моля, опитайте отново с имейл адреса,\n"
+"който сте използвали при създаването на акаунта си.\n"
+"\n"
+"Ако не сте потребител на Readeck, моля, игнорирайте това съобщение.\n"
+
+#: assets/templates/epub/bookmark.jet.html:62
+msgid "Notes"
+msgstr "Бележки"
+
+#: assets/templates/error.jet.html:8
+msgid "Error"
+msgstr "Грешка"
+
+#: assets/templates/error.jet.html:22
+msgid "Permission denied."
+msgstr "Достъпът е отказан."
+
+#: assets/templates/error.jet.html:24
+msgid "Page not found."
+msgstr "Страницата не е намерена."
+
+#: assets/templates/error.jet.html:26
+msgid "An error occurred."
+msgstr "Възникна грешка."
+
+#: assets/templates/menu.jet.html:10
+msgid "Open menu"
+msgstr "Отваряне на менюто"
+
+#: assets/templates/menu.jet.html:33
+msgid "Change color theme"
+msgstr "Промяна на цветовата тема"
+
+#: assets/templates/menu.jet.html:40 assets/templates/profile/base.jet.html:11
+msgid "Settings"
+msgstr "Настройки"
+
+#: assets/templates/profile/app_list.jet.html:10
+#: assets/templates/profile/base.jet.html:23 internal/profile/views.go:244
+msgid "Applications"
+msgstr "Приложения"
+
+#: assets/templates/profile/app_list.jet.html:16
+msgid ""
+"\n"
+"  Applications are registered clients that have permissions to access your Readeck account.\n"
+"  If there are applications you do not recognize here, or an application is misbehaving,\n"
+"  you can revoke its access.\n"
+msgstr ""
+"\n"
+"  Приложенията са регистрирани клиенти, които имат разрешения за достъп до вашия акаунт в Readeck.\n"
+"  Ако тук има приложения, които не разпознавате, или някое приложение се държи\n"
+"  неподходящо, можете да оттеглите достъпа му.\n"
+
+#: assets/templates/profile/app_list.jet.html:24
+msgid "You have no registered application at the moment."
+msgstr "В момента нямате регистрирано приложение."
+
+#: assets/templates/profile/app_list.jet.html:46
+#, python-format
+msgid "Authorized on: %s"
+msgstr "Оторизирано на: %s"
+
+#: assets/templates/profile/app_list.jet.html:48
+#: assets/templates/profile/token_list.jet.html:50
+#, python-format
+msgid "Last used on: %s"
+msgstr "Последно използвано на: %s"
+
+#: assets/templates/profile/app_list.jet.html:60
+msgid "This client will be revoked in a few seconds."
+msgstr "Този клиент ще бъде оттеглен след няколко секунди."
+
+#: assets/templates/profile/app_list.jet.html:74
+msgid "Revoke application"
+msgstr "Оттегляне на приложение"
+
+#: assets/templates/profile/app_list.jet.html:87
+msgid "Developer information"
+msgstr "Информация за разработчика"
+
+#: assets/templates/profile/app_list.jet.html:88
+#, python-format
+msgid ""
+"\n"
+"    If you plan to build an application, please refer to the\n"
+"    <a href=\"%s\">API Documentation</a>.\n"
+"  "
+msgstr ""
+"\n"
+"    Ако планирате да създадете приложение, моля, обърнете се към\n"
+"    <a href=\"%s\">Документацията за API</a>.\n"
+"  "
+
+#: assets/templates/profile/base.jet.html:16 internal/profile/views.go:97
+#: internal/profile/views.go:113 internal/profile/views.go:167
+#: internal/profile/views.go:243 internal/profile/views.go:259
+#: internal/profile/views.go:319 internal/profile/views.go:370
+#: internal/profile/views.go:401
+msgid "Profile"
+msgstr "Профил"
+
+#: assets/templates/profile/base.jet.html:19
+#: assets/templates/profile/password.jet.html:9 internal/profile/views.go:114
+#: internal/profile/views.go:168
+msgid "Security"
+msgstr "Сигурност"
+
+#: assets/templates/profile/base.jet.html:26 internal/profile/views.go:260
+#: internal/profile/views.go:320
+msgid "API Tokens"
+msgstr "API токени"
+
+#: assets/templates/profile/base.jet.html:34
+#: assets/templates/profile/export.jet.html:10 internal/profile/views.go:371
+msgid "Export"
+msgstr "Експорт"
+
+#: assets/templates/profile/base.jet.html:37
+#: assets/templates/profile/import.jet.html:9
+#: assets/templates/profile/import.jet.html:44
+#: internal/bookmarks/routes/views_import.go:29
+#: internal/bookmarks/routes/views_import.go:38
+#: internal/bookmarks/routes/views_import.go:69 internal/profile/views.go:402
+msgid "Import"
+msgstr "Импорт"
+
+#: assets/templates/profile/export.jet.html:15
+msgid "Export your Readeck Profile"
+msgstr "Експортирайте профила си в Readeck"
+
+#: assets/templates/profile/export.jet.html:19
+msgid ""
+"\n"
+"    This lets you download a zip file containing all your profile's data, including\n"
+"    bookmarks, collections, etc.\n"
+"    "
+msgstr ""
+"\n"
+"    Това ви позволява да изтеглите zip файл, съдържащ всички данни на вашия профил,\n"
+"    включително отметки, колекции и др.\n"
+"    "
+
+#: assets/templates/profile/export.jet.html:24
+msgid "Export Data"
+msgstr "Експортиране на данни"
+
+#: assets/templates/profile/export.jet.html:36
+msgid "Bookmark List in Browser Bookmarks Format"
+msgstr "Списък с отметки във формат за отметки на браузъра"
+
+#: assets/templates/profile/export.jet.html:44
+msgid "Bookmark List as Comma Separated Values"
+msgstr "Списък с отметки като CSV"
+
+#: assets/templates/profile/export.jet.html:49
+msgid "Export Bookmarks"
+msgstr "Експортиране на отметки"
+
+#: assets/templates/profile/export.jet.html:51
+msgid "You can export your bookmark list in the following formats:"
+msgstr "Можете да експортирате списъка си с отметки в следните формати:"
+
+#: assets/templates/profile/import.jet.html:14
+msgid "Import a Readeck Profile"
+msgstr "Импортиране на профил в Readeck"
+
+#: assets/templates/profile/import.jet.html:16
+msgid "Import a file obtained through a previous profile export."
+msgstr "Импортирайте файл, получен чрез предишно експортиране на профил."
+
+#: assets/templates/profile/import.jet.html:30
+msgid "Confirm your user name"
+msgstr "Потвърдете потребителското си име"
+
+#: assets/templates/profile/import.jet.html:35
+msgid "Attention"
+msgstr "Внимание"
+
+#: assets/templates/profile/import.jet.html:37
+msgid ""
+"\n"
+"      This will empty your current profile and all its data will be\n"
+"      replaced with the file's content.\n"
+"      "
+msgstr ""
+"\n"
+"      Това ще изчисти текущия ви профил и всичките му данни\n"
+"      ще бъдат заменени със съдържанието на файла.\n"
+"      "
+
+#: assets/templates/profile/import.jet.html:49
+msgid "Import bookmarks from other services"
+msgstr "Импортиране на отметки от други услуги"
+
+#: assets/templates/profile/import.jet.html:52
+#, python-format
+msgid ""
+"\n"
+"  If you have bookmarks from another service you can import them in the\n"
+"  <a href=\"%s\">dedicated section</a>.\n"
+"  "
+msgstr ""
+"\n"
+"  Ако имате отметки от друга услуга, можете да ги импортирате в\n"
+"  <a href=\"%s\">специалния раздел</a>.\n"
+"  "
+
+#: assets/templates/profile/index.jet.html:9
+msgid "My profile"
+msgstr "Моят профил"
+
+#: assets/templates/profile/index.jet.html:17
+#, python-format
+msgid "You are connected as <strong>%s</strong>"
+msgstr "Влезли сте като <strong>%s</strong>"
+
+#: assets/templates/profile/index.jet.html:19
+msgid "Sign out"
+msgstr "Изход"
+
+#: assets/templates/profile/index.jet.html:29
+msgid "Base settings"
+msgstr "Основни настройки"
+
+#: assets/templates/profile/index.jet.html:41
+msgid "Email Address"
+msgstr "Имейл"
+
+#: assets/templates/profile/index.jet.html:66
+msgid "Email settings"
+msgstr "Настройки за имейл"
+
+#: assets/templates/profile/index.jet.html:67
+msgid ""
+"\n"
+"    These, optional, parameters are used when Readeck sends emails.\n"
+"    "
+msgstr ""
+"\n"
+"    Тези незадължителни параметри се използват, когато Readeck изпраща имейли.\n"
+"    "
+
+#: assets/templates/profile/index.jet.html:73
+msgid "Reply To"
+msgstr "Отговор до"
+
+#: assets/templates/profile/index.jet.html:74
+msgid "Add this email address in your outgoing emails so recipients can reply."
+msgstr "Добавете този имейл адрес в изходящите си имейли, за да могат получателите да отговарят."
+
+#: assets/templates/profile/index.jet.html:79
+msgid "Send EPUB to"
+msgstr "Изпрати EPUB до"
+
+#: assets/templates/profile/index.jet.html:80
+msgid "This address is used to prefill the recipient when you send an e-book by email."
+msgstr "Този адрес се използва за предварително попълване на получателя, когато изпращате електронна книга по имейл."
+
+#: assets/templates/profile/index.jet.html:87
+msgid "Sending e-books to an Amazon Kindle"
+msgstr "Изпращане на електронни книги към Amazon Kindle"
+
+#: assets/templates/profile/index.jet.html:88
+msgid ""
+"\n"
+"          If you plan to send e-books to a Kindle device, you must approve the\n"
+"          following email address within your Kindle Account:\n"
+"          "
+msgstr ""
+"\n"
+"          Ако планирате да изпращате електронни книги към устройство Kindle,\n"
+"          трябва да одобрите следния имейл адрес в профила си в Kindle:\n"
+"          "
+
+#: assets/templates/profile/password.jet.html:19
+msgid "Change my password"
+msgstr "Смяна на паролата"
+
+#: assets/templates/profile/password.jet.html:23
+msgid "Current password"
+msgstr "Текуща парола"
+
+#: assets/templates/profile/password.jet.html:46
+msgid "Verification Code (TOTP)"
+msgstr "Код за потвърждение (TOTP)"
+
+#: assets/templates/profile/password.jet.html:47
+msgid "A verification code is a one time code generated by an application, such as Google Authenticator."
+msgstr "Кодът за потвърждение е еднократен код, генериран от приложение, като например Google Authenticator."
+
+#: assets/templates/profile/password.jet.html:52
+msgid "The verification code is enabled on this account."
+msgstr "Кодът за потвърждение е активиран за този акаунт."
+
+#: assets/templates/profile/password.jet.html:57
+msgid "Remove Verification Code"
+msgstr "Премахване на кода за потвърждение"
+
+#: assets/templates/profile/password.jet.html:59
+msgid "Removing your verification code will make your account less secure."
+msgstr "Премахването на кода ви за потвърждение ще направи профила ви по-малко защитен."
+
+#: assets/templates/profile/password.jet.html:64
+msgid "Remove"
+msgstr "Премахване"
+
+#: assets/templates/profile/password.jet.html:70
+#: assets/templates/profile/totp.jet.html:9
+msgid "Setup Verification Code"
+msgstr "Код за потвърждение на настройките"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy token"
+msgstr "копиране на токен"
+
+#: assets/templates/profile/token.jet.html:1
+msgid "copy HTTP header"
+msgstr "копиране на HTTP заглавие"
+
+#: assets/templates/profile/token.jet.html:9
+msgid "API Token"
+msgstr "API Токен"
+
+#: assets/templates/profile/token.jet.html:18
+msgid "Token will be removed in a few seconds."
+msgstr "Токенът ще бъде премахнат след няколко секунди."
+
+#: assets/templates/profile/token.jet.html:24
+msgid "Properties"
+msgstr "Свойства"
+
+#: assets/templates/profile/token.jet.html:30
+msgid "Token ID"
+msgstr "ID на токен"
+
+#: assets/templates/profile/token.jet.html:35
+msgid "Last used"
+msgstr "Последно използван"
+
+#: assets/templates/profile/token.jet.html:36
+msgid "never used"
+msgstr "никога не е използван"
+
+#: assets/templates/profile/token.jet.html:48
+msgid "Enabled"
+msgstr "Активиран"
+
+#: assets/templates/profile/token.jet.html:54
+msgid "Expires on"
+msgstr "Изтича на"
+
+#: assets/templates/profile/token.jet.html:60
+msgid ""
+"\n"
+"    You can limit the permissions granted to this token by choosing one or more\n"
+"    group of permissions below.<br>\n"
+"    Leave all the choices blank to grant all your permissions to this token.\n"
+"  "
+msgstr ""
+"\n"
+"    Можете да ограничите разрешенията, дадени на този токен, като изберете една или повече\n"
+"    групи от разрешения по-долу.<br>\n"
+"    Оставете всички избори празни, за да предоставите всичките си разрешения на този токен.\n"
+"  "
+
+#: assets/templates/profile/token.jet.html:68
+msgid "Roles"
+msgstr "Роли"
+
+#: assets/templates/profile/token.jet.html:76
+msgid "Delete token"
+msgstr "Изтриване на токен"
+
+#: assets/templates/profile/token.jet.html:81
+msgid "Authentication"
+msgstr "Удостоверяване"
+
+#: assets/templates/profile/token.jet.html:84
+msgid "Your API token"
+msgstr "Вашият API токен"
+
+#: assets/templates/profile/token.jet.html:97
+msgid "Download as a text file"
+msgstr "Изтегляне като текстов файл"
+
+#: assets/templates/profile/token.jet.html:101
+msgid "How to use it"
+msgstr "Как да го използвате"
+
+#: assets/templates/profile/token.jet.html:103
+msgid "As a Bearer Token"
+msgstr "Като Bearer Token"
+
+#: assets/templates/profile/token.jet.html:105
+msgid "You can use this token by passing it as an <strong>Authorization: Bearer</strong> HTTP header."
+msgstr "Можете да използвате този токен, като го подадете като <strong>Authorization: Bearer</strong> HTTP заглавие."
+
+#: assets/templates/profile/token.jet.html:107
+msgid "HTTP Header"
+msgstr "HTTP Заглавие"
+
+#: assets/templates/profile/token.jet.html:118
+msgid "As a password"
+msgstr "Като парола"
+
+#: assets/templates/profile/token.jet.html:120
+msgid "Alternatively, you can use this token as a password for HTTP Basic Authentication."
+msgstr "Като алтернатива, можете да използвате този токен като парола за HTTP Basic Authentication."
+
+#: assets/templates/profile/token.jet.html:121
+msgid ""
+"For example, if an application only accepts a username and password, you can provide this token as a password.\n"
+"  The username is ignored and can be anything, including an empty value."
+msgstr ""
+"Например, ако едно приложение приема само потребителско име и парола, можете да предоставите този токен като парола.\n"
+"  Потребителското име се игнорира и може да бъде всякакъв, включително празна стойност."
+
+#: assets/templates/profile/token_list.jet.html:10
+msgid "My API Tokens"
+msgstr "Моите API токени"
+
+#: assets/templates/profile/token_list.jet.html:16
+msgid "An API Token is a key that grants you access to the Readeck API."
+msgstr "API токенът е ключ, който ви дава достъп до Readeck API."
+
+#: assets/templates/profile/token_list.jet.html:17
+#, python-format
+msgid "Please read the <a href=\"%s\">API Documentation</a> if you plan to use it."
+msgstr "Моля, прочетете <a href=\"%s\">API документацията</a>, ако планирате да го използвате."
+
+#: assets/templates/profile/token_list.jet.html:22
+msgid "Create a new API token"
+msgstr "Създаване на нов API токен"
+
+#: assets/templates/profile/token_list.jet.html:46
+#, python-format
+msgid "Expires on: %s"
+msgstr "Изтича на: %s"
+
+#: assets/templates/profile/token_list.jet.html:58
+msgid "This token will be removed in a few seconds."
+msgstr "Този токен ще бъде премахнат след няколко секунди."
+
+#: assets/templates/profile/totp.jet.html:17
+msgid "Scan this QR code with your app"
+msgstr "Сканирайте този QR код с вашето приложение"
+
+#: assets/templates/profile/totp.jet.html:18
+msgid "Scan the QR code below with a two-factor authentication app on your phone."
+msgstr "Сканирайте QR кода по-долу с приложение за двуфакторна автентикация на телефона си."
+
+#: assets/templates/profile/totp.jet.html:25
+msgid "If you can't use the QR code, enter the code below instead."
+msgstr "Ако не можете да използвате QR кода, въведете кода по-долу."
+
+#: assets/templates/profile/totp.jet.html:29
+msgid "Enter the code from your application."
+msgstr "Въведете кода от вашето приложение."
+
+#: assets/templates/profile/totp.jet.html:30
+msgid "After scanning the QR code, the app will display a six-digit code that you need to enter below."
+msgstr "След като сканирате QR кода, приложението ще покаже шестцифрен код, който трябва да въведете по-долу."
+
+#: assets/templates/profile/totp.jet.html:35
+msgid "Code from your device"
+msgstr "Код от вашето устройство"
+
+#: assets/templates/profile/totp.jet.html:41
+msgid "Finish"
+msgstr "Довърши"
+
+#: internal/admin/views.go:77
+msgid "User created."
+msgstr "Потребител създаден."
+
+#: internal/admin/views.go:115
+msgid "User updated."
+msgstr "Потребител актуализиран."
+
+#: internal/auth/signin/forms.go:17
+msgid "Invalid user and/or password"
+msgstr "Невалидно потребителско име и/или парола"
+
+#: internal/auth/signin/http.go:197 internal/profile/forms.go:296
+msgid "Invalid code"
+msgstr "Невалиден код"
+
+#: internal/auth/users/forms.go:56 internal/auth/users/forms.go:219
+msgctxt "role"
+msgid "no group"
+msgstr "няма група"
+
+#: internal/auth/users/forms.go:75
+msgid "password is empty"
+msgstr "паролата е празна"
+
+#: internal/auth/users/groups.go:19
+msgctxt "role"
+msgid "user"
+msgstr "потребител"
+
+#: internal/auth/users/groups.go:20
+msgctxt "role"
+msgid "staff"
+msgstr "персонал"
+
+#: internal/auth/users/groups.go:21
+msgctxt "role"
+msgid "admin"
+msgstr "админ"
+
+#: internal/auth/users/groups.go:23
+msgctxt "role"
+msgid "Profile : Read Only"
+msgstr "Профил: Само за четене"
+
+#: internal/auth/users/groups.go:24
+msgctxt "role"
+msgid "Bookmarks : Read Only"
+msgstr "Отметки: Само за четене"
+
+#: internal/auth/users/groups.go:25
+msgctxt "role"
+msgid "Bookmarks : Write Only"
+msgstr "Отметки: Само за запис"
+
+#: internal/auth/users/groups.go:26
+msgctxt "role"
+msgid "Admin : Read Only"
+msgstr "Админ: Само за четене"
+
+#: internal/auth/users/groups.go:27
+msgctxt "role"
+msgid "Admin : Write Only"
+msgstr "Админ: Само за запис"
+
+#: internal/bookmarks/importer/browser.go:75
+msgid "Unable to read HTML content"
+msgstr "Не може да се прочете HTML съдържание"
+
+#: internal/bookmarks/importer/goodlinks.go:40
+msgid "GoodLinks Export File"
+msgstr "Експортен файл на GoodLinks"
+
+#: internal/bookmarks/importer/importer.go:47
+msgid "Empty or invalid import file"
+msgstr "Празен или невалиден файл за импортиране"
+
+#: internal/bookmarks/importer/omnivore.go:248
+msgid "Invalid API Key"
+msgstr "Невалиден API ключ"
+
+#: internal/bookmarks/importer/readwise.go:61
+msgid "Readwise Reader CSV"
+msgstr "Readwise Reader CSV"
+
+#: internal/bookmarks/importer/wallabag.go:255
+msgid "Invalid URL"
+msgstr "Невалиден URL адрес"
+
+#: internal/bookmarks/importer/wallabag.go:260
+msgid "Invalid credentials"
+msgstr "Невалидни идентификационни данни"
+
+#: internal/bookmarks/importer/wallabag.go:271
+msgid "No access token found"
+msgstr "Не е намерен токен за достъп"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:191
+#: internal/bookmarks/routes/forms_bookmarks.go:210
+msgid "Unable to process input data"
+msgstr "Не може да се обработят входните данни"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:289
+msgid "invalid language code"
+msgstr "невалиден езиков код"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:292
+msgid "Left to right"
+msgstr "От ляво надясно"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:293
+msgid "Right to left"
+msgstr "От дясно на ляво"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:632
+msgid "Article"
+msgstr "Статия"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:633
+msgid "Picture"
+msgstr "Снимка"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:634
+msgid "Video"
+msgstr "Видео"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:642
+msgctxt "status"
+msgid "Unviewed"
+msgstr "Непрегледани"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:643
+msgctxt "status"
+msgid "In-Progress"
+msgstr "В процес"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:644
+msgctxt "status"
+msgid "Completed"
+msgstr "Завършени"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:871
+msgctxt "sort"
+msgid "Added, most recent first"
+msgstr "Добавени, най-новите първо"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:872
+msgctxt "sort"
+msgid "Added, oldest first"
+msgstr "Добавени, най-старите първо"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:873
+msgctxt "sort"
+msgid "Published, most recent first"
+msgstr "Публикувани, най-новите първо"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:874
+msgctxt "sort"
+msgid "Published, oldest first"
+msgstr "Публикувани, най-старите първо"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:875
+msgctxt "sort"
+msgid "Title, A to Z"
+msgstr "Заглавие, А до Я"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:876
+msgctxt "sort"
+msgid "Title, Z to A"
+msgstr "Заглавие, Я до А"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:877
+msgctxt "sort"
+msgid "Site Name, A to Z"
+msgstr "Име на сайта, А до Я"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:878
+msgctxt "sort"
+msgid "Site Name, Z to A"
+msgstr "Име на сайта, Я до А"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:879
+msgctxt "sort"
+msgid "Duration, shortest first"
+msgstr "Продължителност, най-кратките първо"
+
+#: internal/bookmarks/routes/forms_bookmarks.go:880
+msgctxt "sort"
+msgid "Duration, longest first"
+msgstr "Продължителност, най-дългите първо"
+
+#: internal/bookmarks/routes/opds.go:57
+msgid "Readeck Bookmarks"
+msgstr "Отметки на Readeck"
+
+#: internal/bookmarks/routes/opds.go:102
+msgid "Readeck Bookmark Collections"
+msgstr "Колекции от отметки на Readeck"
+
+#: internal/bookmarks/routes/opds.go:139
+#, python-format
+msgid "Readeck Collection: %s"
+msgstr "Колекция на Readeck: %s"
+
+#: internal/bookmarks/routes/opds.go:145
+#, python-format
+msgid "Collection ebook - %s"
+msgstr "Електронна книга от колекция - %s"
+
+#: internal/bookmarks/routes/opds.go:152
+#, python-format
+msgid "Browse collection: %s"
+msgstr "Разглеждане на колекция: %s"
+
+#: internal/bookmarks/routes/views_bookmarks.go:100
+msgid "All your Bookmarks"
+msgstr "Всички ваши отметки"
+
+#: internal/bookmarks/routes/views_bookmarks.go:105
+msgid "Bookmark Search"
+msgstr "Търсене на отметки"
+
+#: internal/bookmarks/routes/views_bookmarks.go:109 internal/opds/http.go:59
+msgid "Unread Bookmarks"
+msgstr "Непрочетени отметки"
+
+#: internal/bookmarks/routes/views_bookmarks.go:111 internal/opds/http.go:63
+msgid "Archived Bookmarks"
+msgstr "Архивирани отметки"
+
+#: internal/bookmarks/routes/views_bookmarks.go:113 internal/opds/http.go:67
+msgid "Favorite Bookmarks"
+msgstr "Любими отметки"
+
+#: internal/bookmarks/routes/views_bookmarks.go:210
+msgid "Update"
+msgstr "Обновяване"
+
+#: internal/bookmarks/routes/views_bookmarks.go:319
+msgid "Bookmark updated"
+msgstr "Отметката е актуализирана"
+
+#: internal/bookmarks/routes/views_collections.go:70
+msgid "Collection updated."
+msgstr "Колекцията е актуализирана."
+
+#: internal/bookmarks/routes/views_import.go:30
+msgid "Progress"
+msgstr "Напредък"
+
+#: internal/opds/http.go:71
+msgid "All Bookmarks"
+msgstr "Всички отметки"
+
+#: internal/portability/import.go:351
+msgid "The import file must contain one user only"
+msgstr "Файлът за импортиране трябва да съдържа само един потребител"
+
+#: internal/profile/forms.go:41
+msgid "invalid username and/or email"
+msgstr "невалидно потребителско име и/или имейл"
+
+#: internal/profile/forms.go:42
+msgid "invalid password"
+msgstr "невалидна парола"
+
+#: internal/profile/forms.go:471
+msgid "username does not match"
+msgstr "потребителското име не съвпада"
+
+#: internal/profile/views.go:84
+msgid "Profile updated."
+msgstr "Профилът е актуализиран."
+
+#: internal/profile/views.go:138
+msgid "Your password was changed."
+msgstr "Вашата парола беше променена."
+
+#: internal/profile/views.go:149
+msgid "Your verification code was removed."
+msgstr "Кодът ви за потвърждение беше премахнат."
+
+#: internal/profile/views.go:169
+msgid "Verification Code"
+msgstr "Код за потвърждение"
+
+#: internal/profile/views.go:197
+msgid "Verification Code is now enabled."
+msgstr "Кодът за потвърждение вече е активиран."
+
+#: internal/profile/views.go:275
+msgid "An error occurred while creating your token."
+msgstr "Възникна грешка при създаването на вашия токен."
+
+#: internal/profile/views.go:280
+msgid "New token created."
+msgstr "Създаден е нов токен."
+
+#: internal/profile/views.go:299
+msgid "Token was updated."
+msgstr "Токенът е актуализиран."
+
+#: internal/profile/views.go:388
+msgid "Profile imported."
+msgstr "Профилът е импортиран."
+
+#: pkg/forms/forms.go:28
+msgid "an unexpected error has occurred"
+msgstr "възникна неочаквана грешка"
+
+#: pkg/forms/validators.go:18
+msgid "field is required"
+msgstr "полето е задължително"
+
+#: pkg/forms/validators.go:20
+msgid "not a valid email address"
+msgstr "невалиден имейл адрес"
+
+#: pkg/forms/validators.go:22
+msgid "invalid URL"
+msgstr "невалиден URL адрес"
+
+#: pkg/forms/validators.go:331
+#, python-format
+msgid "must be greater or equal than %d"
+msgstr "трябва да е по-голямо или равно на %d"
+
+#: pkg/forms/validators.go:339
+#, python-format
+msgid "must be lower or equal than %d"
+msgstr "трябва да е по-малко или равно на %d"
+
+#: pkg/forms/validators.go:347
+#, python-format
+msgid "text must contain at least %d characters"
+msgstr "текстът трябва да съдържа поне %d знака"
+
+#: pkg/forms/validators.go:355
+#, python-format
+msgid "text must contain at most %d characters"
+msgstr "текстът трябва да съдържа най-много %d знака"
+
+#: pkg/forms/validators.go:363
+#, python-format
+msgid "text must contain %d characters"
+msgstr "текстът трябва да съдържа %d знака"
+
+#: pkg/forms/validators.go:443
+#, python-format
+msgid "%v is not one of %s"
+msgstr "'%v не е един от %s'"
+
+#: pkg/strftime/strftime.go:23
+msgctxt "datetime_dl"
+msgid "Sunday"
+msgstr "Неделя"
+
+#: pkg/strftime/strftime.go:24
+msgctxt "datetime_dl"
+msgid "Monday"
+msgstr "Понеделник"
+
+#: pkg/strftime/strftime.go:25
+msgctxt "datetime_dl"
+msgid "Tuesday"
+msgstr "Вторник"
+
+#: pkg/strftime/strftime.go:26
+msgctxt "datetime_dl"
+msgid "Wednesday"
+msgstr "Сряда"
+
+#: pkg/strftime/strftime.go:27
+msgctxt "datetime_dl"
+msgid "Thursday"
+msgstr "Четвъртък"
+
+#: pkg/strftime/strftime.go:28
+msgctxt "datetime_dl"
+msgid "Friday"
+msgstr "Петък"
+
+#: pkg/strftime/strftime.go:29
+msgctxt "datetime_dl"
+msgid "Saturday"
+msgstr "Събота"
+
+#: pkg/strftime/strftime.go:33
+msgctxt "datetime_ds"
+msgid "Sun"
+msgstr "Нед"
+
+#: pkg/strftime/strftime.go:34
+msgctxt "datetime_ds"
+msgid "Mon"
+msgstr "Пон"
+
+#: pkg/strftime/strftime.go:35
+msgctxt "datetime_ds"
+msgid "Tue"
+msgstr "Вто"
+
+#: pkg/strftime/strftime.go:36
+msgctxt "datetime_ds"
+msgid "Wed"
+msgstr "Сря"
+
+#: pkg/strftime/strftime.go:37
+msgctxt "datetime_ds"
+msgid "Thu"
+msgstr "Чет"
+
+#: pkg/strftime/strftime.go:38
+msgctxt "datetime_ds"
+msgid "Fri"
+msgstr "Пет"
+
+#: pkg/strftime/strftime.go:39
+msgctxt "datetime_ds"
+msgid "Sat"
+msgstr "Съб"
+
+#: pkg/strftime/strftime.go:43
+msgctxt "datetime_ml"
+msgid "January"
+msgstr "Януари"
+
+#: pkg/strftime/strftime.go:44
+msgctxt "datetime_ml"
+msgid "February"
+msgstr "Февруари"
+
+#: pkg/strftime/strftime.go:45
+msgctxt "datetime_ml"
+msgid "March"
+msgstr "Март"
+
+#: pkg/strftime/strftime.go:46
+msgctxt "datetime_ml"
+msgid "April"
+msgstr "Април"
+
+#: pkg/strftime/strftime.go:47
+msgctxt "datetime_ml"
+msgid "May"
+msgstr "Май"
+
+#: pkg/strftime/strftime.go:48
+msgctxt "datetime_ml"
+msgid "June"
+msgstr "Юни"
+
+#: pkg/strftime/strftime.go:49
+msgctxt "datetime_ml"
+msgid "July"
+msgstr "Юли"
+
+#: pkg/strftime/strftime.go:50
+msgctxt "datetime_ml"
+msgid "August"
+msgstr "Август"
+
+#: pkg/strftime/strftime.go:51
+msgctxt "datetime_ml"
+msgid "September"
+msgstr "Септември"
+
+#: pkg/strftime/strftime.go:52
+msgctxt "datetime_ml"
+msgid "October"
+msgstr "Октомври"
+
+#: pkg/strftime/strftime.go:53
+msgctxt "datetime_ml"
+msgid "November"
+msgstr "Ноември"
+
+#: pkg/strftime/strftime.go:54
+msgctxt "datetime_ml"
+msgid "December"
+msgstr "Декември"
+
+#: pkg/strftime/strftime.go:58
+msgctxt "datetime_ms"
+msgid "Jan"
+msgstr "Яну"
+
+#: pkg/strftime/strftime.go:59
+msgctxt "datetime_ms"
+msgid "Feb"
+msgstr "Фев"
+
+#: pkg/strftime/strftime.go:60
+msgctxt "datetime_ms"
+msgid "Mar"
+msgstr "Мар"
+
+#: pkg/strftime/strftime.go:61
+msgctxt "datetime_ms"
+msgid "Apr"
+msgstr "Апр"
+
+#: pkg/strftime/strftime.go:62
+msgctxt "datetime_ms"
+msgid "May"
+msgstr "Май"
+
+#: pkg/strftime/strftime.go:63
+msgctxt "datetime_ms"
+msgid "Jun"
+msgstr "Юни"
+
+#: pkg/strftime/strftime.go:64
+msgctxt "datetime_ms"
+msgid "Jul"
+msgstr "Юли"
+
+#: pkg/strftime/strftime.go:65
+msgctxt "datetime_ms"
+msgid "Aug"
+msgstr "Авг"
+
+#: pkg/strftime/strftime.go:66
+msgctxt "datetime_ms"
+msgid "Sep"
+msgstr "Сеп"
+
+#: pkg/strftime/strftime.go:67
+msgctxt "datetime_ms"
+msgid "Oct"
+msgstr "Окт"
+
+#: pkg/strftime/strftime.go:68
+msgctxt "datetime_ms"
+msgid "Nov"
+msgstr "Ное"
+
+#: pkg/strftime/strftime.go:69
+msgctxt "datetime_ms"
+msgid "Dec"
+msgstr "Дек"
+
+#: pkg/strftime/strftime.go:73
+msgctxt "datetime"
+msgid "a.m."
+msgstr "с.у."
+
+#: pkg/strftime/strftime.go:74
+msgctxt "datetime"
+msgid "p.m."
+msgstr "с.о."
+
+#: pkg/strftime/strftime.go:75
+#, python-format
+msgctxt "datetime"
+msgid "%a %b %e %H:%M:%S %y"
+msgstr "%a %b %e %H:%M:%S %y"
+
+#: pkg/strftime/strftime.go:76
+#, python-format
+msgctxt "datetime"
+msgid "%m/%d/%Y"
+msgstr "%d/%m/%Y"
+
+#: pkg/strftime/strftime.go:77
+msgctxt "datetime"
+msgid "%H:%M:%S"
+msgstr "%H:%M:%S"
+
+#~ msgid "Remove Highlight(s)"
+#~ msgstr "Изтриване на тезиси"
+
+#~ msgid "Verification Code Setup"
+#~ msgstr ""

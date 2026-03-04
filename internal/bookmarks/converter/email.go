@@ -45,7 +45,7 @@ func NewHTMLEmailExporter(to string, options ...email.MessageOption) HTMLEmailEx
 }
 
 // Export implements [Exporter].
-// It create an email with a text/plan and text/html version and attaches images
+// It create an email with a text/plain and text/html version and attaches images
 // as inline resources.
 func (e HTMLEmailExporter) Export(ctx context.Context, _ io.Writer, r *http.Request, bookmarkList *dataset.BookmarkList) error {
 	if l := len(bookmarkList.Items); l != 1 {
@@ -125,6 +125,8 @@ func (e HTMLEmailExporter) getTemplateContext(ctx context.Context, b *dataset.Bo
 			return "cid:" + e.cidPrefix + "." + path.Base(name)
 		}
 	})
+	ctx = dataset.WithAnnotationTag(ctx, "mark", nil)
+
 	html, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
 		return nil, err

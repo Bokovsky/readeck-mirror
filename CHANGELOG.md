@@ -1,5 +1,49 @@
 # Changelog
 
+## [Unreleased]
+### Added
+- TOTP support
+- Forwarded authentication
+- mTLS for HTTPS listener
+- Bookmark properties editor
+- Highlights with annotations
+- User's last login date and time
+- Content-script for nebula.tv, by [@xvello](https://codeberg.org/xvello)
+
+### Improved
+- Enabled theme toggle for public bookmarks, by [@shom](https://codeberg.org/shom)
+- Configurable UNIX socket file mode
+- WebP probing and processing, by [@mislav](https://codeberg.org/mislav)
+- Log warning instead of error when JSON-LD can't be parsed
+- Let the PWA use the device orientation, by [@mlfh](https://codeberg.org/mlfh)
+- Fixed positioning of highlight menu on mobile
+- Thumbnail and bookmark image size, by [@mislav](https://codeberg.org/mislav)
+- Handling zero-width spaces when stripping heading anchors, by [@mislav](https://codeberg.org/mislav)
+- Speed up fetching bookmark outgoing links, by [@mislav](https://codeberg.org/mislav)
+- Support application/xml documents when they are HTML
+- Keep HTML content from metadata
+- Mediapart content-script
+- (X)HTML initial scan for charset detection, by [@mislav](https://codeberg.org/mislav)
+- Support declarative Shadow DOM, by [@mislav](https://codeberg.org/mislav)
+
+### Changed
+- updated Go to 1.26.0
+
+### Fixed
+- Back/forward navigation with gestures
+- EPUB mimetype
+- Prevent error log in Fediverse content-script
+- Preserve anchor links with special characters, by [@mislav](https://codeberg.org/mislav)
+- Display of SVGs with percentage dimensions, by [@mislav](https://codeberg.org/mislav)
+- Sorting on api/bookmarks/sync
+- Typo in API documentation, by [@clmt](https://codeberg.org/clmt)
+- Wallabag import encoding and content type issues, by [@mislav](https://codeberg.org/mislav)
+- Raise validation errors before the import process, by [@mislav](https://codeberg.org/mislav)
+- Font immutable caching
+- Restore Safari scroll position on back/forward navigation, by [@mislav](https://codeberg.org/mislav)
+- Added email/send permission in bookmarks:read OAuth scope
+- Support SVG images via object embeds, by [@mislav](https://codeberg.org/mislav)
+
 ## [0.21.6]
 ### Fixed
 - Sorting by date with SQLite
@@ -9,17 +53,17 @@
 - Prevent infinite loop during Wallabag and Omnivore import
 
 ### Improved
-- MathML support, by [@mislav]
+- MathML support, by [@mislav](https://codeberg.org/mislav)
 - Better extracted domain parser
 
 ## [0.21.4] - 2025-12-09
 ### Added
-- Mathjax and Katex support, by [@mislav]
+- Mathjax and Katex support, by [@mislav](https://codeberg.org/mislav)
 
 ### Improved
 - Website icons visibility in dark mode
-- Handle "pt" CSS unit in SVG dimensions, by [@mislav]
-- Keep MathML tags in extracted content, by [@mislav]
+- Handle "pt" CSS unit in SVG dimensions, by [@mislav](https://codeberg.org/mislav)
+- Keep MathML tags in extracted content, by [@mislav](https://codeberg.org/mislav)
 
 ### Fixed
 - Return a 422 with errors on /api/bookmarks when the filters contain errors
@@ -45,7 +89,7 @@
 
 ### Improved
 - Save animated GIFs and convert single-frame GIFs to PNG
-- Github extraction, by [@mislav] and [@linsui]
+- Github extraction, by [@mislav](https://codeberg.org/mislav) and [@linsui](https://codeberg.org/linsui)
 
 ## [0.21.0] - 2025-11-20
 ### Added

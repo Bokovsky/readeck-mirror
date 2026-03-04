@@ -16,6 +16,9 @@ import (
 	"codeberg.org/readeck/readeck/pkg/annotate"
 )
 
+// AnnotationCallback is a function called on each annotation text node.
+type AnnotationCallback func(a *BookmarkAnnotation, n *html.Node, index, ln int)
+
 // BookmarkAnnotations is a mapping of annotations.
 type BookmarkAnnotations []*BookmarkAnnotation
 
@@ -29,10 +32,11 @@ type BookmarkAnnotation struct {
 	Color         string    `json:"color"`
 	Created       time.Time `json:"created"`
 	Text          string    `json:"text"`
+	Note          string    `json:"note"`
 }
 
 // Scan loads a BookmarkAnnotations instance from a column.
-func (a *BookmarkAnnotations) Scan(value interface{}) error {
+func (a *BookmarkAnnotations) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
@@ -71,12 +75,12 @@ func (a *BookmarkAnnotation) AddToNode(root *html.Node, tagName string, options 
 }
 
 // AddToNode adds all annotations to a DOM node (the designated root).
-func (a BookmarkAnnotations) AddToNode(root *html.Node, tagName string, options ...func(string, *html.Node, int, string)) error {
+func (a BookmarkAnnotations) AddToNode(root *html.Node, tagName string, options ...AnnotationCallback) error {
 	for _, annotation := range a {
-		err := annotation.AddToNode(root, tagName, func(n *html.Node, index int) {
+		err := annotation.AddToNode(root, tagName, func(n *html.Node, index, ln int) {
 			for _, f := range options {
 				if f != nil {
-					f(annotation.ID, n, index, annotation.Color)
+					f(annotation, n, index, ln)
 				}
 			}
 		})

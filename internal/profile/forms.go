@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
+	"golang.org/x/text/language"
 
 	"codeberg.org/readeck/readeck/internal/auth"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
@@ -24,6 +25,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/sessions"
 	"codeberg.org/readeck/readeck/locales"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/totp"
 )
 
 type (
@@ -42,15 +44,22 @@ var (
 
 // newProfileForm returns a ProfileForm instance.
 func newProfileForm(tr forms.Translator) *profileForm {
+	var tag language.Tag
+	if tr, ok := tr.(*locales.Locale); ok {
+		tag = tr.Tag
+	} else {
+		tag = language.Make("en")
+	}
+
 	return &profileForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewTextField("username",
-			forms.Trim, forms.RequiredOrNil, users.IsValidUsername),
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), users.IsValidUsername),
 		forms.NewTextField("email",
-			forms.Trim, forms.RequiredOrNil, forms.IsEmail),
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(128), users.IsValidUserEmail),
 		forms.NewTextField("settings_lang",
 			forms.Trim,
-			forms.ChoicesPairs(locales.Available()),
+			forms.ChoicesPairs(locales.Available(tag)),
 		),
 		forms.NewBooleanField("settings_addon_reminder"),
 		forms.NewTextField("settings_email_reply_to",
@@ -61,7 +70,7 @@ func newProfileForm(tr forms.Translator) *profileForm {
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(3),
 		),
 		forms.NewTextField("settings_reader_font",
-			forms.Trim, forms.RequiredOrNil,
+			forms.Trim, forms.RequiredOrNil, forms.MaxLen(64),
 		),
 		forms.NewIntegerField("settings_reader_font_size",
 			forms.RequiredOrNil, forms.Gte(1), forms.Lte(6),
@@ -81,7 +90,7 @@ func (f *profileForm) setUser(u *users.User) {
 
 	f.Get("username").Set(u.Username)
 	f.Get("email").Set(u.Email)
-	f.Get("settings_lang").Set(u.Settings.Lang)
+	f.Get("settings_lang").Set(u.Lang())
 	f.Get("settings_email_reply_to").Set(u.Settings.EmailSettings.ReplyTo)
 	f.Get("settings_email_epub_to").Set(u.Settings.EmailSettings.EpubTo)
 }
@@ -119,14 +128,14 @@ func (f *profileForm) Validate() {
 }
 
 // updateUser updates the given user using the form's values.
-func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err error) {
+func (f *profileForm) updateUser(u *users.User) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
 	resetSeed := false
-	res = make(map[string]interface{})
+	res = make(map[string]any)
 	for _, field := range f.Fields() {
 		if !field.IsBound() || field.IsNil() {
 			continue
@@ -166,11 +175,15 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 			u.Settings.AddonReminder = field.Value().(bool)
 			res["settings"] = u.Settings
 		case n == "email" && field.String() != u.Email:
-			res["email"] = field.String()
-			resetSeed = true
+			if !u.Locked() {
+				res["email"] = field.String()
+				resetSeed = true
+			}
 		case n == "username" && field.String() != u.Username:
-			res["username"] = field.String()
-			resetSeed = true
+			if !u.Locked() {
+				res["username"] = field.String()
+				resetSeed = true
+			}
 		default:
 			res[field.Name()] = field.Value()
 		}
@@ -193,63 +206,118 @@ func (f *profileForm) updateUser(u *users.User) (res map[string]interface{}, err
 	return
 }
 
-// passwordForm is a form to update a user's password.
-type passwordForm struct {
+// changePasswordForm is a form to update a user's password.
+type changePasswordForm struct {
 	*forms.Form
 }
 
-// newPasswordForm returns a PasswordForm instance.
-func newPasswordForm(tr forms.Translator) *passwordForm {
-	return &passwordForm{forms.Must(
-		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("current", forms.ValueValidatorFunc[string](func(f forms.Field, value string) error {
-			// If a user was passed in context, then "current"
-			// is mandatory and must match the current user
-			// password.
-			form := forms.GetForm(f)
-			u, ok := form.Context().Value(ctxUserFormKey{}).(*users.User)
-			if !ok {
+// newChangePasswordForm returns a [changePasswordForm] instance.
+func newChangePasswordForm(tr forms.Translator, user *users.User) *changePasswordForm {
+	ctx := context.WithValue(context.Background(), ctxUserFormKey{}, user)
+	ctx = forms.WithTranslator(ctx, tr)
+
+	return &changePasswordForm{forms.Must(
+		ctx,
+		forms.NewTextField("current",
+			forms.Required,
+			forms.ValueValidatorFunc[string](func(f forms.Field, value string) error {
+				// If a user was passed in context, then "current"
+				// is mandatory and must match the current user
+				// password.
+				user := forms.GetForm(f).Context().Value(ctxUserFormKey{}).(*users.User)
+
+				if !user.CheckPassword(value) {
+					return errInvalidPassword
+				}
+
 				return nil
-			}
-			if errs := forms.ApplyValidators[string](f, value, forms.Required); len(errs) > 0 {
-				return errors.Join(errs...)
-			}
-
-			if !u.CheckPassword(value) {
-				return errInvalidPassword
-			}
-
-			return nil
-		})),
+			})),
 		forms.NewTextField("password",
 			forms.Required, users.IsValidPassword,
 		),
 	)}
 }
 
-// setUser adds a user to the wrapping form's context.
-func (f *passwordForm) setUser(u *users.User) {
-	ctx := context.WithValue(f.Context(), ctxUserFormKey{}, u)
-	f.SetContext(ctx)
-}
-
 // updatePassword performs the user's password update.
-func (f *passwordForm) updatePassword(u *users.User) (err error) {
+func (f *changePasswordForm) updatePassword() (err error) {
 	defer func() {
 		if err != nil {
 			f.AddErrors("", forms.ErrUnexpected)
 		}
 	}()
 
-	if err = u.SetPassword(f.Get("password").String()); err != nil {
+	user := f.Context().Value(ctxUserFormKey{}).(*users.User)
+	if err = user.SetPassword(f.Get("password").String()); err != nil {
 		return
 	}
-	err = u.Update(goqu.Record{
-		"password": u.Password,
-		"seed":     u.SetSeed(),
+	err = user.Update(goqu.Record{
+		"password": user.Password,
+		"seed":     user.SetSeed(),
 		"updated":  time.Now().UTC(),
 	})
 	return
+}
+
+// totpForm manages user's TOTP.
+type totpForm struct {
+	*forms.Form
+	code totp.Code
+}
+
+// newTOTPForm returns a new [totpForm] instance.
+func newTOTPForm(tr forms.Translator, user *users.User) *totpForm {
+	ctx := context.WithValue(context.Background(), ctxUserFormKey{}, user)
+	ctx = forms.WithTranslator(ctx, tr)
+
+	return &totpForm{
+		Form: forms.Must(
+			ctx,
+			forms.NewTextField("secret"),
+			forms.NewTextField("otp", forms.Required, forms.Len(6)),
+		),
+	}
+}
+
+// Validate sets the code from the secret.
+func (f *totpForm) Validate() {
+	if f.Get("secret").IsEmpty() {
+		f.AddErrors("", errors.New("secret missing"))
+		return
+	}
+
+	f.code = totp.NewCode(f.Get("secret").String())
+	if f.IsValid() {
+		ok, err := f.code.Verify(f.Get("otp").String(), time.Now().UTC(), 1)
+		if err != nil {
+			f.AddErrors("", forms.ErrUnexpected)
+			return
+		}
+		if !ok {
+			f.AddErrors("otp", forms.Gettext("Invalid code"))
+		}
+	}
+}
+
+// generate returns creates a new [totp.Code] an sets the secret field.
+func (f *totpForm) generate() {
+	f.code = totp.Generate()
+	f.code.Issuer = "Readeck"
+	f.code.Account = f.Context().Value(ctxUserFormKey{}).(*users.User).Username
+	f.Get("secret").Set(f.code.Secret)
+}
+
+// save performs the user's totp update.
+func (f *totpForm) save() error {
+	user := f.Context().Value(ctxUserFormKey{}).(*users.User)
+	if err := user.SetTOTPCode(&f.code); err != nil {
+		return err
+	}
+
+	return user.Update(goqu.Record{
+		"totp_secret": user.TOTPSecret,
+		"seed":        user.SetSeed(),
+		"updated":     time.Now().UTC(),
+	})
 }
 
 type sessionPrefForm struct {
@@ -315,7 +383,7 @@ func newDeleteTokenForm(tr forms.Translator) *deleteTokenForm {
 	return &deleteTokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
 		forms.NewBooleanField("cancel"),
-		forms.NewTextField("_to"),
+		forms.NewTextField("_to", forms.MaxLen(512)),
 	)}
 }
 
@@ -337,7 +405,7 @@ type tokenForm struct {
 func newTokenForm(tr forms.Translator, user *users.User) *tokenForm {
 	return &tokenForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("application", forms.Trim, forms.Required),
+		forms.NewTextField("application", forms.Trim, forms.Required, forms.MaxLen(128)),
 		forms.NewBooleanField("is_enabled", forms.RequiredOrNil),
 		forms.NewDatetimeField("expires"),
 		forms.NewTextListField("roles", forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", user))),

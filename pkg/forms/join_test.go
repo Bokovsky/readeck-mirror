@@ -6,8 +6,12 @@ package forms_test
 
 import (
 	"context"
+	"errors"
+	"net/http"
+	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -178,4 +182,25 @@ func TestJoin(t *testing.T) {
 			}`,
 		},
 	}))
+
+	t.Run("AddErrors", func(t *testing.T) {
+		ctx := context.Background()
+
+		f1, err := forms.New(ctx)
+		require.NoError(t, err)
+		f2, err := forms.New(ctx)
+		require.NoError(t, err)
+
+		form := forms.Join(ctx, f1, f2)
+		req, err := http.NewRequestWithContext(ctx, "GET", "/path", strings.NewReader(`{}`))
+		req.Header.Set("Content-Type", "application/json")
+		require.NoError(t, err)
+		forms.Bind(form, req)
+
+		assert.True(t, form.IsValid())
+		form.AddErrors("", errors.New("explode"))
+		form.AddErrors("", errors.New("fail"))
+		assert.False(t, form.IsValid())
+		assert.Equal(t, "explode, fail", form.Errors().String())
+	})
 }

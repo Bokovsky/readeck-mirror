@@ -1,12 +1,21 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
+  "title_selectors": [
+    "//meta[@property='og:title']/@content"
+  ],
+  "body_selectors": [
+    "//main/article[1]",
+    "//article[contains(@class, 'printversion')]"
+  ],
+  "date_selectors": [
+    "//time/@datetime"
+  ],
   "author_selectors": [
     "//meta[@name='author']/@content"
   ],
   "strip_selectors": [
+    "//header",
     "//nav",
+    "//div[@data-component=\"RecommendationBox\"]/parent::div",
     "//a-img"
   ],
   "strip_id_or_class": [
@@ -30,6 +39,14 @@
       "div\u003e"
     ],
     [
+      "\"\u003e\u003c/embetty-video\u003e",
+      "\"\u003e\u003c/iframe\u003e\u003c/embetty-video\u003e"
+    ],
+    [
+      "\u003cembetty-video type=\"youtube\" video-id=\"",
+      "\u003cembetty-video type=\"footube\"\u003e\u003ciframe width=\"480\" height=\"360\" src=\"https://www.youtube.com/embed/"
+    ],
+    [
       "class=\"subheading\"",
       "class=\"wb-foo\""
     ]
@@ -38,6 +55,10 @@
   "tests": [
     {
       "url": "https://www.telepolis.de/features/Der-unprovozierte-Krieg-Wenn-Stoltenberg-und-Co-die-Wahrheit-ueber-die-Nato-Erweiterung-sagen-9314024.html",
+      "contains": []
+    },
+    {
+      "url": "https://www.telepolis.de/article/Trump-kuendigt-Freigabe-von-UFO-und-Alien-Akten-an-11184800.html",
       "contains": []
     }
   ]

@@ -31,44 +31,54 @@ SPDX-License-Identifier: AGPL-3.0-only
 
 {{- if .Item.HasArticle -}}
 <turbo-frame id="bookmark-content-{{ .Item.ID }}"
- src="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/article"
+ src="{{ urlFor(`/api/bookmarks`, .Item.ID, `article`) }}"
  disabled
  data-controller="annotations"
  data-action="request:annotation-removed@document->annotations#reload"
- data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}/annotations"
+ data-annotations-api-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID, `annotations`) }}"
  data-annotations-hidden-class="hidden"
 >
 
 <div class="bookmark-article print:max-w-none relative {{ preferences.ReaderWidth().Class }}"
  data-controller="styler">
-  <div class="hidden absolute z-50 font-sans"
-    data-annotations-target="controlls">
-      {{- colors := slice(
-        slice("yellow", gettext("Yellow")),
-        slice("red", gettext("Red")),
-        slice("blue", gettext("Blue")),
-        slice("green", gettext("Green")),
-      ) -}}
-      <div class="flex items-center gap-4 p-3 pl-5 text-white bg-gray-700 dark:bg-gray-300 rounded-full shadow-lg"
-        data-annotations-target="controllCreate">
-        {{- gettext("Highlight") }}
+  <div class="annotator hidden" data-annotations-target="controls">
+    {{- colors := slice(
+      slice("yellow", gettext("Yellow")),
+      slice("red", gettext("Red")),
+      slice("blue", gettext("Blue")),
+      slice("green", gettext("Green")),
+      slice("none", gettext("Transparent")),
+    ) -}}
+    <div class="annotator--arrow" data-annotations-target="arrow"></div>
+    <div class="annotator--content">
+      <div class="annotator--colors">
+        {{ gettext("Highlight") }}:
         {{- range colors -}}
-          <button class="rd-annotation w-5 h-5 rounded-full border hf:opacity-80"
-           value="{{ .[0] }}" title="{{ .[1] }}"
-           data-action="click->annotations#save"></button>
+          <input type="radio" name="color" value="{{ .[0] }}" aria-label="{{ .[1] }}"
+           data-annotations-target="color">
         {{- end -}}
       </div>
-      <div class="flex items-center gap-4 p-3 pl-5 text-white bg-gray-700 dark:bg-gray-300 rounded-full shadow-lg"
-       data-annotations-target="controllUpdate">
-        {{- range colors -}}
-          <button class="rd-annotation w-5 h-5 rounded-full border hf:opacity-80"
-           value="{{ .[0] }}" title="{{ .[1] }}"
-           data-action="click->annotations#update"></button>
-        {{- end -}}
-        <button data-action="click->annotations#delete"
-         class="w-8 h-8 -my-3 -mr-1 bg-red-700 rounded-full border border-red-400 hf:opacity-80"
-         title="{{ gettext(`Remove Highlight(s)`)  }}">{{ yield icon(name="o-trash") }}</button>
+
+      <div class="flex flex-col">
+        <label for="annotation-note" data-annotations-target="whenNew whenOne">{{ gettext("Note") }}:</label>
+        <textarea class="form-textarea select-none" id="annotation-note" name="note"
+         rows="3" cols="45" maxlength="1024"
+         data-annotations-target="note whenNew whenOne"></textarea>
       </div>
+
+      <div class="flex">
+        <button class="btn btn-primary" data-action="click->annotations#create"
+         data-annotations-target="whenNew">{{ gettext("Save") }}</button>
+        <button class="btn btn-primary" data-action="click->annotations#update"
+         data-annotations-target="whenOne whenMany">{{ gettext("Save") }}</button>
+        <button class="btn-outlined btn-danger ml-auto"
+         data-action="click->annotations#delete"
+         data-annotations-target="whenOne whenMany">
+          {{- yield icon(name="o-trash") -}}
+          <span class="sr-only">{{ gettext("Delete") }}</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="
@@ -94,7 +104,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <dialog class="dialog-image font-sans" data-modal-images-target="dialog">
       <form method="dialog">
         <button class="dialog--close" title="{{ gettext(`Close`) }}">
-        {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+        {{ yield icon(name="o-close", svgClass="w-8") }}
         </button>
       </form>
       <div>
@@ -109,11 +119,11 @@ SPDX-License-Identifier: AGPL-3.0-only
           absolute top-0 right-0 p-2 z-10
           text-white bg-black/30 rounded-bl rounded-tr drop-shadow
           block opacity-0
-          group-hfw:opacity-100
+          group-hfw:opacity-100 hfw:bg-black/30 hfw:ring-0
          "
          data-action="click->scroll-progress#skip"
         >
-          {{- yield icon(name="o-expand", class="flex w-6 h-6", svgClass="w-6 h-6") -}}
+          {{- yield icon(name="o-expand", svgClass="h-6") -}}
         </button>
       </span>
     </template>
@@ -122,7 +132,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     <dialog class="dialog-video font-sans" data-modal-videos-target="dialog">
       <form method="dialog">
         <button class="dialog--close" title="{{ gettext(`Close`) }}">
-        {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}
+        {{ yield icon(name="o-close", svgClass="w-8") }}
         </button>
       </form>
       <div>
@@ -138,7 +148,7 @@ SPDX-License-Identifier: AGPL-3.0-only
           decoration-none text-white bg-black/10 rounded-bl rounded-tr drop-shadow
           flex items-center justify-center
           opacity-0
-          group-hfw:opacity-100
+          group-hfw:opacity-100 hfw:bg-black/10 hfw:ring-0
          "
          data-action="click->scroll-progress#skip"
         >

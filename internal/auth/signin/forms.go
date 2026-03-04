@@ -16,32 +16,6 @@ import (
 
 var errInvalidLogin = forms.Gettext("Invalid user and/or password")
 
-type tokenLoginForm struct {
-	*forms.Form
-}
-
-func newTokenLoginForm(tr forms.Translator) *tokenLoginForm {
-	return &tokenLoginForm{forms.Must(
-		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", forms.Trim, forms.Required),
-		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("application", forms.Required),
-		forms.NewTextListField("roles", forms.CleanerFunc(func(v any) any {
-			// Legacy roles conversion
-			roleMap := map[any]string{
-				"scoped_bookmarks_r": "bookmarks:read",
-				"scoped_bookmarks_w": "bookmarks:write",
-				"scoped_admin_r":     "admin:read",
-				"scoped_admin_w":     "admin:write",
-			}
-			if r, ok := roleMap[v]; ok {
-				return r
-			}
-			return v
-		}), forms.ChoicesPairs(users.GroupList(tr, "__token_scope__", nil))),
-	)}
-}
-
 type loginForm struct {
 	*forms.Form
 }
@@ -49,9 +23,9 @@ type loginForm struct {
 func newLoginForm(tr forms.Translator) *loginForm {
 	return &loginForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, forms.MaxLen(128)),
 		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("redirect", forms.Trim),
+		forms.NewTextField("redirect", forms.Trim, forms.MaxLen(512)),
 	)}
 }
 
@@ -68,6 +42,7 @@ func checkUser(f forms.Binder) *users.User {
 		f.AddErrors("", errInvalidLogin)
 		return nil
 	}
+
 	if !user.CheckPassword(f.Get("password").String()) {
 		f.AddErrors("", errInvalidLogin)
 		return nil

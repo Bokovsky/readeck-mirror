@@ -7,6 +7,7 @@ package configs
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"log/slog"
 	"net"
@@ -44,7 +45,9 @@ type config struct {
 	Main         configMain      `json:"main"`
 	Server       configServer    `json:"server"`
 	Database     configDB        `json:"database"`
+	Auth         configAuth      `json:"auth"`
 	Email        configEmail     `json:"email"`
+	Accounts     configAccounts  `json:"accounts"`
 	Extractor    configExtractor `json:"extractor"`
 	Bookmarks    configBookmarks `json:"bookmarks"`
 	Worker       configWorker    `json:"worker"`
@@ -70,7 +73,20 @@ type configServer struct {
 	AllowedHosts   []string      `json:"allowed_hosts" env:"ALLOWED_HOSTS"`
 	CertFile       string        `json:"cert_file" env:"CERT_FILE"`
 	KeyFile        string        `json:"key_file" env:"KEY_FILE"`
+	ClientCAFile   string        `json:"client_ca_file" env:"CLIENT_CA_FILE"`
 	Session        configSession `json:"session"`
+}
+
+type configAuth struct {
+	Forwarded configForwardedAuth
+}
+
+type configForwardedAuth struct {
+	Enabled             bool   `json:"enabled" env:"AUTH_FORWARDED_ENABLED"`
+	ProvisioningEnabled bool   `json:"provisioning" env:"AUTH_FORWARDED_PROVISIONING"`
+	HeaderUser          string `json:"header_user" env:"AUTH_FORWARDED_HEADER_USER"`
+	HeaderEmail         string `json:"header_email" env:"AUTH_FORWARDED_HEADER_EMAIL"`
+	HeaderGroup         string `json:"header_group" env:"AUTH_FORWARDED_HEADER_GROUP"`
 }
 
 type configDB struct {
@@ -96,6 +112,11 @@ type configEmail struct {
 	Insecure    bool            `json:"insecure" env:"MAIL_INSECURE,unset"`
 	From        configEmailAddr `json:"from" env:"MAIL_FROM,unset"`
 	FromNoReply configEmailAddr `json:"from_noreply" env:"MAIL_FROMNOREPLY,unset"`
+}
+
+type configAccounts struct {
+	UsernameDenyList []string `json:"username_denylist"`
+	EmailDenyList    []string `json:"email_denylist"`
 }
 
 type configWorker struct {
@@ -149,6 +170,18 @@ func (c *config) LoadEnv() error {
 		Prefix:                "READECK_",
 		UseFieldNameByDefault: false,
 	})
+}
+
+func (c *config) validate() error {
+	if len(map[string]struct{}{
+		c.Auth.Forwarded.HeaderUser:  {},
+		c.Auth.Forwarded.HeaderEmail: {},
+		c.Auth.Forwarded.HeaderGroup: {},
+	}) != 3 {
+		return errors.New("auth.forwarded: all header names must be different")
+	}
+
+	return nil
 }
 
 func (a *configEmailAddr) parse(s string) (err error) {
@@ -324,6 +357,15 @@ var Config = config{
 	Email: configEmail{
 		Port: 25,
 	},
+	Auth: configAuth{
+		Forwarded: configForwardedAuth{
+			Enabled:             false,
+			HeaderUser:          "Remote-User",
+			HeaderEmail:         "Remote-Email",
+			HeaderGroup:         "Remote-Groups",
+			ProvisioningEnabled: true,
+		},
+	},
 	Bookmarks: configBookmarks{
 		PublicShareTTL: 24,
 	},
@@ -362,7 +404,7 @@ func LoadConfiguration(configPath string) error {
 	}
 
 	InitConfiguration()
-	return nil
+	return Config.validate()
 }
 
 // InitConfiguration applies some default computed values on the configuration.
@@ -396,14 +438,14 @@ func InitConfiguration() {
 	loadKeys()
 
 	// Load the IP ranges
-	trustedProxies = make([]*net.IPNet, len(Config.Server.TrustedProxies))
-	for i, x := range Config.Server.TrustedProxies {
-		trustedProxies[i] = x.IPNet
+	trustedProxies = make([]*net.IPNet, 0, len(Config.Server.TrustedProxies))
+	for _, x := range Config.Server.TrustedProxies {
+		trustedProxies = append(trustedProxies, x.IPNet)
 	}
 
-	extractorDeniedIPs = make([]*net.IPNet, len(Config.Extractor.DeniedIPs))
-	for i, x := range Config.Extractor.DeniedIPs {
-		extractorDeniedIPs[i] = x.IPNet
+	extractorDeniedIPs = make([]*net.IPNet, 0, len(Config.Extractor.DeniedIPs))
+	for _, x := range Config.Extractor.DeniedIPs {
+		extractorDeniedIPs = append(extractorDeniedIPs, x.IPNet)
 	}
 }
 

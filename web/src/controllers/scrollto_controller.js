@@ -11,12 +11,12 @@ export default class extends Controller {
    * @returns
    */
   scroll(event) {
-    if (event.target.tagName.toLowerCase() != "a") {
+    if (event.currentTarget.tagName.toLowerCase() != "a") {
       return
     }
     let url
     try {
-      url = new URL(event.target.href)
+      url = new URL(event.currentTarget.href)
     } catch (e) {
       return
     }

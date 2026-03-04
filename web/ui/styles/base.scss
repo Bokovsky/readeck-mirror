@@ -81,7 +81,8 @@ body.js {
     scrollbar-width: auto;
   }
 
-  *::-webkit-scrollbar {
+  *::-webkit-scrollbar,
+  *::-webkit-scrollbar:xr-overlay {
     width: 4px;
   }
 
@@ -120,7 +121,7 @@ body.js {
 // Generic utilities
 @layer components {
   .link {
-    @apply text-primary hf:text-primary-dark;
+    @apply text-primary hf:text-primary-dark active:text-primary-dark;
 
     @media print {
       @apply text-black underline font-semibold;
@@ -139,7 +140,7 @@ body.js {
     top: -0.09em;
 
     svg {
-      height: 1em;
+      height: auto;
     }
   }
 
@@ -170,53 +171,6 @@ body.js {
       min-width: 2em;
       text-align: left;
       border: 1px solid theme("colors.gray.200");
-    }
-  }
-}
-
-// Annotation styles
-@layer components {
-  rd-annotation,
-  .rd-annotation {
-    background-color: rgb(var(--annotation-bg) / var(--tw-bg-opacity, 1));
-    border-color: var(--annotation-border);
-
-    &[data-annotation-color="yellow"] {
-      --annotation-bg: var(--color-hl-yellow);
-      --annotation-border: rgb(var(--color-hl-yellow-dark));
-    }
-
-    &[data-annotation-color="red"] {
-      --annotation-bg: var(--color-hl-red);
-      --annotation-border: rgb(var(--color-hl-red-dark));
-    }
-
-    &[data-annotation-color="blue"] {
-      --annotation-bg: var(--color-hl-blue);
-      --annotation-border: rgb(var(--color-hl-blue-dark));
-    }
-
-    &[data-annotation-color="green"] {
-      --annotation-bg: var(--color-hl-green);
-      --annotation-border: rgb(var(--color-hl-green-dark));
-    }
-  }
-
-  // Annotation button styles
-  button.rd-annotation {
-    --annotation-border: rgb(var(--color-white) / 0.8);
-
-    &[value="yellow"] {
-      --annotation-bg: var(--color-yellow-700);
-    }
-    &[value="red"] {
-      --annotation-bg: var(--color-red-700);
-    }
-    &[value="blue"] {
-      --annotation-bg: var(--color-blue-700);
-    }
-    &[value="green"] {
-      --annotation-bg: var(--color-green-700);
     }
   }
 }

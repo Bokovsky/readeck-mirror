@@ -12,7 +12,6 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"net/textproto"
 	"net/url"
 	"path"
 	"slices"
@@ -69,7 +68,8 @@ func (wa *wallabagArticle) URL() string {
 
 func (wa *wallabagArticle) Meta() (*BookmarkMeta, error) {
 	res := &BookmarkMeta{
-		Title:      wa.Title,
+		// wallabag allows HTML within title values, but strips tags at render time.
+		Title:      stripHTMLTags(wa.Title),
 		Authors:    wa.PublishedBy,
 		Lang:       wa.Language,
 		Labels:     types.Strings{},
@@ -111,22 +111,35 @@ func (wa *wallabagArticle) Resources() []tasks.MultipartResource {
 	buf := new(bytes.Buffer)
 	html.Render(buf, root)
 
-	if wa.Headers == nil {
-		wa.Headers = map[string]string{"Content-Type": "text/html"}
-	} else if v, ok := wa.Headers["Content-Type"]; ok {
+	h := make(http.Header)
+	for k, v := range wa.Headers {
+		h.Set(k, v)
+	}
+	if ct := h.Get("Content-Type"); ct != "" {
 		// Wallabag stores archived page content as UTF-8 regardless of the original encoding,
 		// but for some reason will also store the original content-type of the page inclusive
 		// of the `charset=...` declaration and include that in API responses. Readeck would
 		// then think that the page is still in that encoding and transcode the already valid
 		// content into garbage. This strips `charset=...` directives received from Wallabag.
-		wa.Headers["Content-Type"], _, _ = strings.Cut(v, ";")
+		ct, _, _ = strings.Cut(ct, ";")
+		switch ct {
+		case "application/xml", "application/xhtml+xml", "application/xhtml xml":
+			// Even if the original document was XHTML, its archived representation within wallabag
+			// is an HTML fragment that should not be parsed as XHTML. This adjusts the MIME type of
+			// the document to better reflect the article content we actually get from wallabag.
+			h.Set("Content-Type", "text/html; charset=utf-8")
+		default:
+			h.Set("Content-Type", ct+"; charset=utf-8")
+		}
+	} else {
+		h.Set("Content-Type", "text/html; charset=utf-8")
 	}
 
 	return []tasks.MultipartResource{
 		{
-			URL:     wa.ArticleURL,
-			Headers: wa.Headers,
-			Data:    buf.Bytes(),
+			URL:    wa.ArticleURL,
+			Header: h,
+			Data:   buf.Bytes(),
 		},
 	}
 }
@@ -141,12 +154,13 @@ func (adapter *wallabagAdapter) Form() forms.Binder {
 		forms.NewTextField("url",
 			forms.Trim,
 			forms.Required,
+			forms.MaxLen(128),
 			forms.IsURL(allowedSchemes...),
 		),
-		forms.NewTextField("username", forms.Trim, forms.Required),
+		forms.NewTextField("username", forms.Trim, forms.Required, forms.MaxLen(256)),
 		forms.NewTextField("password", forms.Required),
-		forms.NewTextField("client_id", forms.Trim, forms.Required),
-		forms.NewTextField("client_secret", forms.Trim, forms.Required),
+		forms.NewTextField("client_id", forms.Trim, forms.Required, forms.MaxLen(256)),
+		forms.NewTextField("client_secret", forms.Trim, forms.Required, forms.MaxLen(256)),
 	)
 }
 
@@ -216,18 +230,18 @@ func (adapter *wallabagAdapter) Next() (BookmarkImporter, error) {
 		return nil, fmt.Errorf("%w: %w", ErrIgnore, err)
 	}
 
-	// Set canonical header keys
-	headers := make(map[string]string)
-	for k, v := range item.Headers {
-		headers[textproto.CanonicalMIMEHeaderKey(k)] = v
-	}
-	item.Headers = headers
-
 	if !slices.Contains(allowedSchemes, uri.Scheme) {
 		return nil, fmt.Errorf("%w: invalid scheme %s (%s)", ErrIgnore, uri.Scheme, uri)
 	}
 
+	uri.Fragment = ""
 	item.ArticleURL = uri.String()
+
+	// For some reason, wallabag stores fetch-related error messages to the same text field where it
+	// stores HTML contents of a successfully fetched article.
+	if strings.HasPrefix(item.Content, "wallabag can't retrieve contents for this article.") {
+		item.Content = ""
+	}
 
 	return &item, nil
 }
@@ -300,4 +314,21 @@ func (adapter *wallabagAdapter) fetchArticles() error {
 		return io.EOF
 	}
 	return err
+}
+
+// stripHTMLTags parses s as HTML and returns a concatenation of only its text nodes. Any HTML
+// entities will get decoded.
+func stripHTMLTags(s string) string {
+	var sb strings.Builder
+	t := html.NewTokenizerFragment(strings.NewReader(s), "div")
+scanLoop:
+	for {
+		switch t.Next() {
+		case html.ErrorToken:
+			break scanLoop
+		case html.TextToken:
+			sb.WriteString(t.Token().Data)
+		}
+	}
+	return sb.String()
 }

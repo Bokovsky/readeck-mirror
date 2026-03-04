@@ -28,6 +28,7 @@ formatters:
       - third_party$
       - builtin$
       - examples$
+      - pkg/img/webp/decode.go
 
 linters:
   default: none
@@ -142,3 +143,4 @@ linters:
       - third_party$
       - builtin$
       - examples$
+      - pkg/img/webp/decode.go

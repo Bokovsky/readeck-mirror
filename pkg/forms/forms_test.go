@@ -35,11 +35,11 @@ var (
 
 type prefixTranslator string
 
-func (tr prefixTranslator) Gettext(s string, vars ...interface{}) string {
+func (tr prefixTranslator) Gettext(s string, vars ...any) string {
 	return fmt.Sprintf("%s:%s", tr, fmt.Sprintf(s, vars...))
 }
 
-func (tr prefixTranslator) Pgettext(ctx string, str string, vars ...interface{}) string {
+func (tr prefixTranslator) Pgettext(ctx string, str string, vars ...any) string {
 	return fmt.Sprintf("%s:%s", ctx, tr.Gettext(str, vars...))
 }
 

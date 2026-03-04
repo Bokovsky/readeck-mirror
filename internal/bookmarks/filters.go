@@ -37,6 +37,7 @@ type Filters struct {
 	Site       string        `json:"site"`
 	Type       types.Strings `json:"type"`
 	Labels     string        `json:"labels"`
+	Note       string        `json:"note"`
 	ReadStatus types.Strings `json:"read_status"`
 	IsMarked   *bool         `json:"is_marked"`
 	IsArchived *bool         `json:"is_archived"`
@@ -60,7 +61,7 @@ func NewFiltersFromForm(form forms.Binder) Filters {
 }
 
 // Scan loads a [Filters] instance from a column.
-func (f *Filters) Scan(value interface{}) error {
+func (f *Filters) Scan(value any) error {
 	if value == nil {
 		return nil
 	}
@@ -84,9 +85,8 @@ func (f Filters) Value() (driver.Value, error) {
 
 func (f *Filters) getFields() map[string]reflect.StructField {
 	res := map[string]reflect.StructField{}
-	t := reflect.TypeOf(f).Elem()
-	for i := 0; i < t.NumField(); i++ {
-		sf := t.Field(i)
+	t := reflect.TypeFor[Filters]()
+	for sf := range t.Fields() {
 		if tag := sf.Tag.Get("json"); tag != "" {
 			res[tag] = sf
 		}
@@ -107,7 +107,7 @@ func (f *Filters) applyForm(form forms.Binder) {
 		prop := rv.FieldByName(sf.Name)
 
 		switch {
-		case sf.Type.Kind() == reflect.Ptr:
+		case sf.Type.Kind() == reflect.Pointer:
 			if field.IsNil() {
 				prop.SetZero()
 			} else {
@@ -142,7 +142,7 @@ func (f Filters) UpdateForm(form forms.Binder) {
 
 			k := sf.Type.Kind()
 			switch {
-			case k == reflect.Ptr && prop.IsNil():
+			case k == reflect.Pointer && prop.IsNil():
 				// Nil pointer, the field is nil
 				field.Set(nil)
 			case k == reflect.Slice && prop.IsNil():
@@ -177,12 +177,13 @@ func (f *Filters) updateValues() {
 	setTerms("author", f.Author)
 	setTerms("site", f.Site)
 	setTerms("label", f.Labels)
+	setTerms("note", f.Note)
 
 	// Remove duplicates from the query
 	f.sq = f.sq.Dedup()
 
 	// Remove field definition for unallowed fields
-	f.sq = f.sq.Unfield("title", "author", "site", "label")
+	f.sq = f.sq.Unfield("title", "author", "site", "label", "note")
 
 	// Then, restore the specific properties
 	updateValues := func(name string, p *string) {
@@ -197,6 +198,7 @@ func (f *Filters) updateValues() {
 	updateValues("author", &f.Author)
 	updateValues("site", &f.Site)
 	updateValues("label", &f.Labels)
+	updateValues("note", &f.Note)
 }
 
 // ToSelectDataSet adds the query parameters to the given [*goqu.SelectDataset]
@@ -330,17 +332,19 @@ var searchConfig = map[string]*searchstring.BuilderConfig{
 			{"author", "author"},
 			{"site", "site"},
 			{"label", "label"},
+			{"note", "note"},
 		},
 	),
 	"postgres": searchstring.NewBuilderConfig(
 		goqu.I("b.id"),
 		goqu.I("bookmark_search.bookmark_id"),
 		[][2]string{
-			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label"`},
+			{"", `bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note`},
 			{"title", "bookmark_search.title"},
 			{"author", "bookmark_search.author"},
 			{"site", "bookmark_search.site"},
 			{"label", "bookmark_search.label"},
+			{"note", "bookmark_search.note"},
 		},
 	),
 }

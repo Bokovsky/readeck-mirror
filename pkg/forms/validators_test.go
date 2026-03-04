@@ -234,6 +234,12 @@ func TestValidators(t *testing.T) {
 		},
 		{
 			f:      forms.NewTextField("", forms.IsEmail),
+			data:   `"test@192.168.0.1"`,
+			expect: "test@192.168.0.1",
+			errors: []error{forms.ErrInvalidEmail},
+		},
+		{
+			f:      forms.NewTextField("", forms.IsEmail),
 			data:   `"@test"`,
 			expect: "@test",
 			errors: []error{forms.ErrInvalidEmail},
@@ -352,28 +358,62 @@ func TestValidators(t *testing.T) {
 		},
 	}))
 
-	t.Run("strLen", runValidatorTests([]fieldValidatorTest{
+	t.Run("maxLen", runValidatorTests([]fieldValidatorTest{
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"abc"`,
 			expect: "abc",
 		},
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"問掃玉光尤向入神間示"`,
 			expect: "問掃玉光尤向入神間示",
 		},
 		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
-			data:   `"a"`,
-			expect: "a",
-			errors: []error{errors.New("text must contain between 2 and 10 characters")},
-		},
-		{
-			f:      forms.NewTextField("test", forms.StrLen(2, 10)),
+			f:      forms.NewTextField("test", forms.MaxLen(10)),
 			data:   `"abcdefghijk"`,
 			expect: "abcdefghijk",
-			errors: []error{errors.New("text must contain between 2 and 10 characters")},
+			errors: []error{errors.New("text must contain at most 10 characters")},
+		},
+	}))
+
+	t.Run("minLen", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"abc"`,
+			expect: "abc",
+			errors: []error{errors.New("text must contain at least 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"問掃玉光尤向入神間"`,
+			expect: "問掃玉光尤向入神間",
+			errors: []error{errors.New("text must contain at least 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.MinLen(10)),
+			data:   `"abcdefghijk"`,
+			expect: "abcdefghijk",
+		},
+	}))
+
+	t.Run("len", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"abc"`,
+			expect: "abc",
+			errors: []error{errors.New("text must contain 10 characters")},
+		},
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"問掃玉光尤向入神間示"`,
+			expect: "問掃玉光尤向入神間示",
+		},
+		{
+			f:      forms.NewTextField("test", forms.Len(10)),
+			data:   `"abcdefghijk"`,
+			expect: "abcdefghijk",
+			errors: []error{errors.New("text must contain 10 characters")},
 		},
 	}))
 
@@ -418,6 +458,34 @@ func TestValidators(t *testing.T) {
 			})
 		}
 	})
+
+	t.Run("split lines", runValidatorTests([]fieldValidatorTest{
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `[]`,
+			expect: []string{},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\nb"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\r\nb"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\n\n\nb\n\n"]`,
+			expect: []string{"a", "b"},
+		},
+		{
+			f:      forms.NewTextListField("", forms.SplitLines),
+			data:   `["a\nb\n", "\nc  \nd"]`,
+			expect: []string{"a", "b", "c", "d"},
+		},
+	}))
 
 	t.Run("choices", runValidatorTests([]fieldValidatorTest{
 		{

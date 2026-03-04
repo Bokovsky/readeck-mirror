@@ -34,7 +34,7 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": [
-    "//div[contains(@class, 'pane-eatsmarter-actionbar')]/div[@class='pane-content']/div[contains(@class, 'actionbar-print')]/div[@class='actionbar-item-action']/a"
+    "//div[contains(@class, 'print-list')]/@data-url"
   ],
   "next_page_link_selectors": null,
   "replace_strings": null,
@@ -49,7 +49,7 @@
     {
       "url": "https://eatsmarter.de/rezepte/thunfisch-wraps-1/druckansicht",
       "contains": [
-        "den Strunk herausschneiden"
+        "Strunk herausschneiden"
       ]
     }
   ]

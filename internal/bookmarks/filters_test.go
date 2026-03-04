@@ -48,10 +48,6 @@ func filterForm() forms.Binder {
 	)
 }
 
-func ptrTo[T any](v T) *T {
-	return &v
-}
-
 func runFiltersFromForm(tests []struct {
 	body     string
 	expected string
@@ -149,6 +145,7 @@ func TestFilters(t *testing.T) {
 				"site": "",
 				"type": null,
 				"labels": "",
+				"note": "",
 				"read_status": null,
 				"is_marked": null,
 				"is_archived": null,
@@ -171,6 +168,7 @@ func TestFilters(t *testing.T) {
 				"site": "",
 				"type": null,
 				"labels": "ABC",
+				"note": "",
 				"read_status": null,
 				"is_marked": null,
 				"is_archived": null,
@@ -194,6 +192,7 @@ func TestFilters(t *testing.T) {
 				"site": "",
 				"type": ["article", "video"],
 				"labels": "",
+				"note": "",
 				"read_status": null,
 				"is_marked": null,
 				"is_archived": null,
@@ -217,6 +216,7 @@ func TestFilters(t *testing.T) {
 				"site": "",
 				"type": null,
 				"labels": "",
+				"note": "",
 				"read_status": null,
 				"is_marked": false,
 				"is_archived": null,
@@ -241,6 +241,7 @@ func TestFilters(t *testing.T) {
 				"site": "",
 				"type": null,
 				"labels": "XYZ ABC",
+				"note": "",
 				"read_status": null,
 				"is_marked": false,
 				"is_archived": null,
@@ -354,8 +355,8 @@ func TestFilters(t *testing.T) {
 			bookmarks.Filters{
 				Title:      "--title--",
 				Type:       types.Strings{"article", "video"},
-				IsMarked:   ptrTo(true),
-				IsArchived: ptrTo(false),
+				IsMarked:   new(true),
+				IsArchived: new(false),
 			},
 			`{
 				"is_valid": true,
@@ -469,7 +470,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" AND title:\"title\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title)')) DESC`,
 			},
 		},
 		{
@@ -478,7 +479,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" NOT title:\"title\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '!(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '!(title)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '!(title)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '!(title)')) DESC`,
 			},
 		},
 		{
@@ -488,7 +489,7 @@ func TestFilters(t *testing.T) {
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` INNER JOIN `bookmark_idx` ON (`bookmark_idx`.`rowid` = `b`.`id`) WHERE `bookmark_idx` match 'catchall:oooooo AND -catchall:\"test\" AND title:\"title\" AND title:\"x\"' ORDER BY rank ASC",
-				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title) & (x)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label", to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title) & (x)')) DESC`,
+				`SELECT "b".* FROM "bookmark" INNER JOIN "bookmark_search" ON ("bookmark_search"."bookmark_id" = "b"."id") WHERE (bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note @@ to_tsquery('ts', '(test)') AND bookmark_search.title @@ to_tsquery('ts', '(title) & (x)')) ORDER BY ts_rank_cd(bookmark_search.title || bookmark_search.description || bookmark_search."text" || bookmark_search.site || bookmark_search."label" || bookmark_search.note, to_tsquery('ts', '(test)')) DESC, ts_rank_cd(bookmark_search.title, to_tsquery('ts', '(title) & (x)')) DESC`,
 			},
 		},
 		{
@@ -557,9 +558,9 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				IsMarked:   ptrTo(false),
-				IsArchived: ptrTo(true),
-				IsLoaded:   ptrTo(true),
+				IsMarked:   new(false),
+				IsArchived: new(true),
+				IsLoaded:   new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`is_marked` IS 0) AND (`b`.`is_archived` IS 1) AND (`b`.`state` != 2))",
@@ -568,9 +569,9 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				IsMarked:   ptrTo(false),
-				IsArchived: ptrTo(true),
-				IsLoaded:   ptrTo(false),
+				IsMarked:   new(false),
+				IsArchived: new(true),
+				IsLoaded:   new(false),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`is_marked` IS 0) AND (`b`.`is_archived` IS 1) AND NOT((`b`.`state` != 2)))",
@@ -579,7 +580,7 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				HasLabels: ptrTo(true),
+				HasLabels: new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE (json_array_length(CASE  WHEN json_valid(`b`.`labels`) THEN `b`.`labels` ELSE '[]' END) > 0)",
@@ -588,7 +589,7 @@ func TestFilters(t *testing.T) {
 		},
 		{
 			bookmarks.Filters{
-				HasErrors: ptrTo(true),
+				HasErrors: new(true),
 			},
 			[2]string{
 				"SELECT `b`.* FROM `bookmark` WHERE ((`b`.`state` = 1) OR (json_array_length(CASE  WHEN json_valid(`b`.`errors`) THEN `b`.`errors` ELSE '[]' END) > 0))",

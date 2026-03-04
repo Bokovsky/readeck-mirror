@@ -3,15 +3,15 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 
 SPDX-License-Identifier: AGPL-3.0-only
 *}
-{{- block icon(name, src, class="svgicon", svgClass="w-4 h-4", viewBox="0 0 100 100", attrs=attrList()) -}}
+{{- block icon(name, src, class="svgicon", svgClass="w-4", w="24", h, attrs=attrList()) -}}
 {{- if !src -}}{{ src="img/icons.svg" }}{{- end -}}
 <span class="{{ class }}" {{ attrs }}><svg xmlns="http://www.w3.org/2000/svg"
-viewbox="{{ viewBox }}" class="inline-block {{ svgClass }}"><use
+viewbox="0 0 {{ w }} {{ h ? h : w }}" width="{{ w }}" height="{{ h ? h : w }}" class="inline-block {{ svgClass }}"><use
 href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 
-{{- block message(type="info", removable=false, delay=0, class="", attrs=attrList()) -}}
-{{- icon := "o-info" -}}
+{{- block message(type="info", icon="o-info", removable=false, delay=0, class="", attrs=attrList()) -}}
+{{- if !icon -}}{{- icon := "o-info" -}}{{- end -}}
 {{- if type == "success" -}}
   {{- icon = "o-check-on" -}}
 {{- else if type == "error" -}}
@@ -22,9 +22,11 @@ href="{{ assetURL(src) }}#{{ name }}"></use></svg></span>
 {{- end -}}
 {{- attrs.Set("data-remover-delay-value", delay) -}}
 <div class="message {{ type }} {{ class }}" {{ attrs }}>
+  {{- if icon != "" -}}
   <div>
     {{- yield icon(name=icon) -}}
   </div>
+  {{- end -}}
   <div class="flex-grow">
     {{- yield content -}}
   </div>

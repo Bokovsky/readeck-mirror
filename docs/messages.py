@@ -15,7 +15,7 @@ from argparse import ArgumentParser
 from operator import itemgetter
 from pathlib import Path
 
-from babel.messages.catalog import Catalog
+from babel.messages.catalog import Catalog, Locale
 from babel.messages.extract import extract_from_file
 from babel.messages.pofile import read_po, write_po
 
@@ -96,7 +96,7 @@ def po2text(catalog: Catalog, destdir: Path):
 def extract(_):
     template = Catalog(**CATALOG_OPTIONS)
 
-    for f in (ROOT / "en-US").rglob("*.md"):
+    for f in (ROOT / "en").rglob("*.md"):
         for lineno, message, comments, context in extract_from_file(
             extract_blocks,
             f,
@@ -130,14 +130,15 @@ def update(_):
 
     dirs = [x for x in translations.iterdir() if x.is_dir()]
     for p in dirs:
+        locale = Locale.parse(p.name, sep="-")
         po_file = p / "messages.po"
         if po_file.exists():
             with po_file.open("rb") as fp:
-                catalog = read_po(fp, locale=p.name, domain=po_file.name)
+                catalog = read_po(fp, locale=locale, domain=po_file.name)
         else:
             catalog = Catalog(
                 **CATALOG_OPTIONS,
-                locale=p.name,
+                locale=locale,
                 domain=po_file.name,
             )
 
@@ -166,7 +167,7 @@ def generate(_):
     for po_file in sorted(po_files):
         code = po_file.parent.name
 
-        if code == "en_US":
+        if code == "en":
             continue
 
         # Write markdown files
@@ -194,7 +195,7 @@ def generate(_):
             print("[-] {:8} {}".format(code, count_info))
             continue
 
-        destdir = HERE / "src" / str(catalog.locale_identifier).replace("_", "-")
+        destdir = HERE / "src" / po_file.parent.name
         os.makedirs(destdir, exist_ok=True)
 
         nb_files = 0
@@ -211,7 +212,7 @@ def check(_):
     has_errors = False
     for filename in po_files:
         code = filename.parent.name
-        if code == "en_US":
+        if code == "en":
             continue
 
         with filename.open("rb") as fp:

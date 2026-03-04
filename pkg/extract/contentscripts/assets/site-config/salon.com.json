@@ -3,7 +3,7 @@
     "//meta[@property='og:title']/@content"
   ],
   "body_selectors": [
-    "(//div[contains(@class, \"articleInner\")]//img[contains(@src, 'media.salon.com') and contains(@src, '460x')])[1] | //div[contains(@class, \"articleContent\") or contains(@class, \"writerMeta\")]"
+    "//section[contains(@class, \"article__content\")]"
   ],
   "date_selectors": [
     "//span[contains(@class, \"toLocalTime\")]"

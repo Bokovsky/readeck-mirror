@@ -7,6 +7,7 @@ package extract
 import (
 	"bytes"
 	"context"
+	"encoding/xml"
 	"errors"
 	"fmt"
 	"io"
@@ -25,6 +26,7 @@ import (
 	"github.com/go-shiori/dom"
 
 	"golang.org/x/net/html"
+	"golang.org/x/net/html/atom"
 	"golang.org/x/net/html/charset"
 	"golang.org/x/net/idna"
 	"golang.org/x/net/publicsuffix"
@@ -184,13 +186,19 @@ func (d *Drop) Load(client *http.Client) error {
 	case strings.HasPrefix(d.ContentType, "image/"):
 		return d.loadImage(rsp)
 	default:
-		return fmt.Errorf("unsupported content-type: %q", d.ContentType)
+		return fmt.Errorf("unsupported content-type: %q", rsp.Header.Get("content-type"))
 	}
 }
 
-// IsHTML returns true when the resource is of type HTML.
+// IsHTML returns true when the MIME type of the resource is one of the known HTML types, and also
+// when it's "application/xml" since that might be an XHTML document.
 func (d *Drop) IsHTML() bool {
-	return d.ContentType == "text/html" || d.ContentType == "application/xhtml+xml"
+	switch d.ContentType {
+	case "text/html", "application/xhtml+xml", "application/xml":
+		return true
+	default:
+		return false
+	}
 }
 
 // IsMedia returns true when the document type is a media type.
@@ -240,31 +248,14 @@ func (d *Drop) AddAuthors(values ...string) {
 // loadBody loads the document body and try to convert
 // it to UTF-8 when encoding is different.
 func (d *Drop) loadBody(rsp *http.Response) error {
-	var err error
+	r, encName, err := HTMLReader(rsp.Body, rsp.Header.Get("content-type"))
+	if err != nil {
+		return fmt.Errorf("HTMLReader error: %w", err)
+	}
+
 	var body []byte
-
-	if body, err = io.ReadAll(rsp.Body); err != nil {
+	if body, err = io.ReadAll(r); err != nil {
 		return err
-	}
-
-	// Determine encoding (fast way)
-	enc, encName, certain := charset.DetermineEncoding(body, rsp.Header.Get("content-type"))
-
-	// When encoding is not 100% certain, we resort to find the charset
-	// parsing part of the received HTML. More than recommended
-	// by the HTMLWG, since 1024 bytes is often not enough.
-	if !certain {
-		lr := io.LimitReader(bytes.NewReader(body), 1024*3)
-		ctHeader := scanForCharset(lr)
-
-		if ctHeader != "" {
-			enc, encName, _ = charset.DetermineEncoding(body, ctHeader)
-		}
-	}
-
-	if enc != encoding.Nop {
-		r := transform.NewReader(bytes.NewReader(body), enc.NewDecoder())
-		body, _ = io.ReadAll(r)
 	}
 
 	// Eventually set the original charset and UTF8 body
@@ -284,11 +275,9 @@ func (d *Drop) loadTextPlain(rsp *http.Response) error {
 
 	title := strings.TrimSuffix(path.Base(d.URL.Path), path.Ext(d.URL.Path))
 	title = rxTitleSpaces.ReplaceAllLiteralString(title, " ")
-	d.Body = []byte(
-		fmt.Sprintf("<html><head><title>%s</title><body><pre>%s",
-			title,
-			string(d.Body),
-		),
+	d.Body = fmt.Appendf(nil, "<html><head><title>%s</title><body><pre>%s",
+		title,
+		string(d.Body),
 	)
 	d.ContentType = "text/html"
 
@@ -353,6 +342,11 @@ func (d *Drop) fixRelativeURIs(m *ProcessMessage) {
 		dom.SetAttribute(n, "srcset", newSrcSet)
 	})
 
+	dom.ForEachNode(dom.QuerySelectorAll(top, "object[data]"), func(n *html.Node, _ int) {
+		newURI := toAbsoluteURI(dom.GetAttribute(n, "data"), baseURL)
+		dom.SetAttribute(n, "data", newURI)
+	})
+
 	// make fragments to the same document relative
 	dom.ForEachNode(dom.QuerySelectorAll(top, "a[href]"), func(n *html.Node, _ int) {
 		attr := dom.GetAttribute(n, "href")
@@ -367,6 +361,9 @@ func (d *Drop) fixRelativeURIs(m *ProcessMessage) {
 			return
 		}
 		if fragment := uri.Fragment; fragment != "" {
+			if uri.RawFragment != "" {
+				fragment = uri.RawFragment
+			}
 			uri.Fragment = ""
 			tmp := new(url.URL)
 			*tmp = *baseURL
@@ -397,36 +394,138 @@ func toAbsoluteURI(uri string, base *url.URL) string {
 	return base.ResolveReference(tmp).String()
 }
 
+// scanForCharset scans HTML tags from r until it finds the name of the character set declared in
+// either the "charset" attribute or by a "http-equiv" tag.
 func scanForCharset(r io.Reader) string {
 	z := html.NewTokenizer(r)
-
-	getAttrs := func(t html.Token) map[string]string {
-		res := map[string]string{}
-		for _, x := range t.Attr {
-			res[x.Key] = x.Val
-		}
-		return res
-	}
-
 	for {
 		switch z.Next() {
 		case html.ErrorToken:
 			return ""
 		case html.StartTagToken, html.SelfClosingTagToken:
 			t := z.Token()
-			if t.DataAtom.String() == "meta" {
-				attrs := getAttrs(t)
-				if v, ok := attrs["charset"]; ok {
-					return "text/html; charset=" + v
+			if t.DataAtom != atom.Meta {
+				continue
+			}
+			isContentType := false
+			var metaContent string
+			for _, attr := range t.Attr {
+				switch attr.Key {
+				case "charset":
+					return attr.Val
+				case "content":
+					metaContent = attr.Val
+				case "http-equiv":
+					isContentType = strings.EqualFold(attr.Val, "content-type")
 				}
-				if v, ok := attrs["name"]; ok && v == "http-equiv" {
-					if v, ok := attrs["content"]; ok {
-						return v
-					}
+			}
+			if !isContentType || metaContent == "" {
+				continue
+			}
+			if _, params, err := mime.ParseMediaType(metaContent); err == nil {
+				if cs, ok := params["charset"]; ok {
+					return cs
 				}
 			}
 		}
 	}
+}
+
+func scanXML(r io.Reader, isTranscoded bool) (encoding.Encoding, string, bool) {
+	xd := xml.NewDecoder(r)
+
+	var isHTML bool
+	var enc encoding.Encoding
+	var encName string
+
+	// This callback will activate when a processing instruction with "encoding=..." is found.
+	xd.CharsetReader = func(charsetName string, input io.Reader) (io.Reader, error) {
+		if isTranscoded {
+			return input, nil
+		}
+		enc, encName = charset.Lookup(charsetName)
+		return transform.NewReader(input, enc.NewDecoder()), nil
+	}
+
+	// Read XML tokens until the first element.
+	for {
+		t, err := xd.Token()
+		if err != nil {
+			break
+		}
+		if el, ok := t.(xml.StartElement); ok {
+			isHTML = el.Name.Local == "html" && el.Name.Space == "http://www.w3.org/1999/xhtml"
+			break
+		}
+	}
+
+	return enc, encName, isHTML
+}
+
+// HTMLReader wraps r in a reader that automatically transcodes a HTML document from non-UTF-8
+// encoding to UTF-8. The original encoding is either determined from contentType value, or by
+// scanning the initial 3kB from the document to look for things like BOM or for the meta charset
+// declaration.
+func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
+	enc := encoding.Nop
+	var encName string
+	certain := false
+
+	mimeType, params, err := mime.ParseMediaType(contentType)
+	if err == nil {
+		if cs, ok := params["charset"]; ok {
+			if e, name := charset.Lookup(cs); e != nil {
+				enc = e
+				encName = name
+				certain = true
+			}
+		}
+	}
+
+	var buf bytes.Buffer
+	if _, err := io.CopyN(&buf, r, 1024*3); err != nil && err != io.EOF {
+		return nil, "", err
+	}
+
+	switch mimeType {
+	case "application/xml", "application/xhtml+xml":
+		var xmlReader io.Reader = bytes.NewReader(buf.Bytes())
+		if certain && enc != encoding.Nop {
+			xmlReader = transform.NewReader(xmlReader, enc.NewDecoder())
+		}
+		e, name, isHTML := scanXML(xmlReader, certain)
+		if !isHTML && mimeType == "application/xml" {
+			return nil, "", fmt.Errorf("html tag not found in %s document", mimeType)
+		}
+		if e != nil && !certain {
+			enc = e
+			encName = name
+			certain = true
+		}
+	}
+
+	if !certain {
+		// Determine encoding (fast way)
+		enc, encName, certain = charset.DetermineEncoding(buf.Bytes(), contentType)
+	}
+
+	// When encoding is not 100% certain, we resort to find the charset
+	// parsing part of the received HTML. More than recommended
+	// by the HTMLWG, since 1024 bytes is often not enough.
+	if !certain {
+		if cs := scanForCharset(bytes.NewReader(buf.Bytes())); cs != "" {
+			if e, name := charset.Lookup(cs); e != nil {
+				enc = e
+				encName = name
+			}
+		}
+	}
+
+	newReader := io.MultiReader(&buf, r)
+	if enc != encoding.Nop {
+		newReader = transform.NewReader(newReader, enc.NewDecoder())
+	}
+	return newReader, encName, nil
 }
 
 // DropProperties contains the raw properties of an extracted page.

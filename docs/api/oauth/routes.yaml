@@ -132,6 +132,7 @@ routes:
               properties:
                 token:
                   type: string
+                  maxLength: 64
                   description: Access token to revoke
 
       responses:

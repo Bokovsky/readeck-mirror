@@ -2,143 +2,141 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-.dialog {
-  position: fixed;
-  z-index: 50;
-  margin: 0;
+@layer components {
+  .dialog {
+    --dialog-spacing: 0px;
 
-  --dialog-spacing: 0px;
-  width: calc(100% - var(--dialog-spacing));
-  max-width: calc(100% - var(--dialog-spacing));
-  height: calc(100vh - var(--dialog-spacing));
-  max-height: calc(100vh - var(--dialog-spacing));
-  @screen lg {
-    --dialog-spacing: theme("spacing.16");
-    left: 50%;
-    margin-left: calc(-50% + var(--dialog-spacing) / 2);
-    top: 50%;
-    margin-top: calc(-50vh + var(--dialog-spacing) / 2);
-    @apply rounded-lg shadow-lg shadow-black;
+    @apply font-sans text-base bg-app-bg text-app-fg;
+    overscroll-behavior: contain;
+    width: 100%;
+    max-width: calc(100% - var(--dialog-spacing) * 2);
+    max-height: calc(100vh - var(--dialog-spacing) * 2);
+
+    @screen lg {
+      --dialog-spacing: theme("spacing.16");
+      @apply rounded-lg shadow-lg shadow-black;
+    }
+
+    @at-root body:has(&[open]) {
+      @apply overflow-hidden;
+    }
+
+    &::backdrop {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+    }
   }
 
-  @at-root body:has(&:open) {
-    @apply overflow-hidden;
-  }
-
-  @apply bg-app-bg text-app-fg;
-
-  &:open {
-    display: flex;
-    flex-direction: column;
-  }
-
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.6);
-  }
-
-  & &--top {
-    @apply bg-gray-200 text-gray-50 sticky top-0;
-    @apply p-2;
-    @apply flex;
-    z-index: 60;
+  .dialog--top {
+    @apply bg-gray-100 text-gray-50;
+    @apply p-2 flex;
+    @apply border-b;
 
     @screen lg {
       @apply rounded-t-lg;
     }
   }
 
-  & &--top &--close {
+  .dialog--top .dialog--close {
     @apply ml-auto;
     @apply text-gray-700 hf:text-gray-900;
   }
 
-  & &--content {
+  .dialog--content {
     @apply p-4 overflow-auto;
   }
-}
 
-.dialog-image {
-  position: fixed;
-  z-index: 50;
-  margin: 0;
-  overscroll-behavior: contain;
-
-  width: 100%;
-  max-width: 100%;
-  height: 100vh;
-  max-height: 100vh;
-  background: rgba(0, 0, 0, 0.9);
-
-  @at-root body:has(&:open) {
-    @apply overflow-hidden;
+  .dialog--footer {
+    @apply bg-gray-100;
+    @apply p-2 flex;
+    @apply border-t;
   }
 
-  .dialog--close {
-    position: fixed;
-    top: theme("spacing.4");
-    right: theme("spacing.4");
-    @apply text-white/70 hf:text-white;
-
-    &:focus-visible {
-      outline: none;
-      background-color: transparent;
-    }
-  }
-
-  & > div {
-    @apply flex items-center;
-    min-height: 100vh;
-    img {
-      display: block;
-      max-width: 100%;
-      margin: 0 auto;
-    }
-  }
-}
-
-.dialog-video {
-  --dialog-spacing: 0px;
-  position: fixed;
-  z-index: 50;
-  width: auto;
-  max-height: calc(100dvh - var(--dialog-spacing));
-  margin: auto;
-  background-color: #000;
-
-  @apply rounded-md shadow-lg shadow-black;
-
-  @screen lg {
-    --dialog-spacing: theme("spacing.20");
-  }
-
-  @at-root body:has(&:open) {
-    @apply overflow-hidden;
-  }
-
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.8);
-  }
-
-  & > form {
-    position: absolute;
-    top: 0;
-  }
-
-  & > div,
-  & > div > iframe {
+  .dialog-image {
+    @apply font-sans text-base bg-app-bg text-app-fg;
+    overscroll-behavior: contain;
     width: 100%;
-    height: 100%;
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+
+    @at-root body:has(&[open]) {
+      @apply overflow-hidden;
+    }
+
+    .dialog--close {
+      position: fixed;
+      top: theme("spacing.4");
+      right: theme("spacing.4");
+      @apply rounded text-white/70 bg-black/20 hf:text-white;
+
+      &:focus-visible {
+        outline: none;
+      }
+    }
+
+    & > div {
+      @apply flex items-center;
+      min-height: 100vh;
+      img {
+        display: block;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+    }
   }
 
-  .dialog--close {
-    position: fixed;
-    top: theme("spacing.4");
-    right: theme("spacing.4");
-    @apply text-white/70 hf:text-white;
+  .dialog-video {
+    --dialog-spacing: 0px;
 
-    &:focus-visible {
-      outline: none;
-      background-color: transparent;
+    @apply font-sans text-base bg-app-bg text-app-fg;
+    width: 100%;
+    max-height: calc(100dvh - var(--dialog-spacing));
+    margin: auto;
+    background-color: #000;
+
+    @apply rounded-md shadow-lg shadow-black;
+
+    @screen lg {
+      --dialog-spacing: theme("spacing.20");
+    }
+
+    @at-root body:has(&[open]) {
+      @apply overflow-hidden;
+    }
+
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    & > form {
+      position: absolute;
+      top: 0;
+    }
+
+    & > div,
+    & > div > iframe {
+      width: 100%;
+      height: 100%;
+    }
+
+    .dialog--close {
+      position: fixed;
+      top: theme("spacing.4");
+      right: theme("spacing.4");
+      @apply rounded text-white/70 bg-black/20 hf:text-white;
+
+      &:focus-visible {
+        outline: none;
+      }
     }
   }
 }

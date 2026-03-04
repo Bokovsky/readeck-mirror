@@ -51,13 +51,6 @@ func (api *apiRouter) bookmarkInfo(w http.ResponseWriter, r *http.Request) {
 	}
 	item.Errors = b.Errors
 
-	if server.IsTurboRequest(r) {
-		server.RenderTurboStream(w, r,
-			"/bookmarks/components/card", "replace",
-			"bookmark-card-"+b.UID, item, nil)
-		return
-	}
-
 	server.Render(w, r, http.StatusOK, item)
 }
 
@@ -75,18 +68,19 @@ func (api *apiRouter) bookmarkArticle(w http.ResponseWriter, r *http.Request) {
 	if server.IsTurboRequest(r) {
 		server.RenderTurboStream(w, r,
 			"/bookmarks/components/content_block", "replace",
-			"bookmark-content-"+b.UID, map[string]interface{}{
+			"bookmark-content-"+b.UID, map[string]any{
 				"Item": bi,
 				"HTML": buf,
 				"Out":  w,
 			},
-			nil,
+			map[string]string{"method": "morph"},
 		)
 		server.RenderTurboStream(w, r,
-			"/bookmarks/components/sidebar", "replace",
-			"bookmark-sidebar-"+b.UID, map[string]interface{}{
+			"/bookmarks/components/annotation_list", "replace",
+			"bookmark-annotation-list-"+b.UID, map[string]any{
 				"Item": bi,
-			}, nil,
+			},
+			map[string]string{"method": "morph"},
 		)
 		return
 	}
@@ -121,7 +115,7 @@ func (api *apiRouter) bookmarkListFeed(w http.ResponseWriter, r *http.Request) {
 		}
 	})
 
-	if _, ok := auth.GetRequestProvider(r).(*auth.SessionAuthProvider); ok {
+	if _, ok := auth.GetRequestProvider(r).(*server.SessionAuthProvider); ok {
 		// Add an XSL stylesheet.
 		ctx = converter.WithAtomStylesheet(ctx, urls.PathOnly(urls.AbsoluteURL(r, "/assets/feed.xsl")))
 
@@ -178,14 +172,15 @@ func (api *apiRouter) bookmarkExport(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := exporter.IterExport(r.Context(), w, r, seq); err != nil {
+	ctx := converter.WithEnableEPUBNotes(r.Context(), true)
+	if err := exporter.IterExport(ctx, w, r, seq); err != nil {
 		server.Err(w, r, err)
 	}
 }
 
 // bookmarkCreate creates a new bookmark.
 func (api *apiRouter) bookmarkCreate(w http.ResponseWriter, r *http.Request) {
-	f := newCreateForm(server.Locale(r), auth.GetRequestUser(r).ID, server.GetReqID(r))
+	f := newCreateForm(r)
 	forms.Bind(f, r)
 
 	if !f.IsValid() {
@@ -232,47 +227,13 @@ func (api *apiRouter) bookmarkUpdate(w http.ResponseWriter, r *http.Request) {
 
 	updated["href"] = urls.AbsoluteURL(r).String()
 
-	// On a turbo request, we'll return the updated components.
 	if server.IsTurboRequest(r) {
-		item := dataset.NewBookmark(r.Context(), b)
-
-		_, withTitle := updated["title"]
-		_, withLabels := updated["labels"]
-		_, withMarked := updated["is_marked"]
-		_, withArchived := updated["is_archived"]
-		_, withDeleted := updated["is_deleted"]
-		_, withProgress := updated["read_progress"]
-
-		if withTitle {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/title_form", "replace",
-				"bookmark-title-"+b.UID, item, nil)
-		}
-		if withLabels {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/labels", "replace",
-				"bookmark-label-list-"+b.UID, item, nil)
-		}
-		if withMarked || withArchived || withDeleted || withProgress {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/actions", "replace",
-				"bookmark-actions-"+b.UID, item, nil)
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/card", "replace",
-				"bookmark-card-"+b.UID, item, nil)
-		}
-		if withMarked || withArchived {
-			server.RenderTurboStream(w, r,
-				"/bookmarks/components/bottom_actions", "replace",
-				"bookmark-bottom-actions-"+b.UID, item, nil)
-		}
+		// We don't want to render any content on a turbo request.
+		w.WriteHeader(http.StatusOK)
 		return
 	}
 
-	w.Header().Add(
-		"Location",
-		updated["href"].(string),
-	)
+	w.Header().Add("Location", updated["href"].(string))
 	server.Render(w, r, http.StatusOK, updated)
 }
 
@@ -471,6 +432,9 @@ func (api *apiRouter) annotationUpdate(w http.ResponseWriter, r *http.Request) {
 
 	annotation := b.Annotations.Get(id)
 	annotation.Color = f.Get("color").String()
+	if !f.Get("note").IsNil() {
+		annotation.Note = f.Get("note").String()
+	}
 	update := map[string]any{
 		"annotations": b.Annotations,
 	}
@@ -693,7 +657,8 @@ func (api *apiRouter) withBookmarkListSelectDataset(next http.Handler) http.Hand
 				"b.id", "b.uid", "b.created", "b.updated", "b.published", "b.state",
 				"b.url", "b.title", "b.domain", "b.site", "b.site_name", "b.authors",
 				"b.lang", "b.dir", "b.type", "b.is_marked", "b.is_archived", "b.read_progress",
-				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files").
+				"b.labels", "b.description", "b.word_count", "b.duration", "b.file_path", "b.files",
+				"b.annotations").
 			Where(
 				goqu.C("user_id").Table("b").Eq(auth.GetRequestUser(r).ID),
 			)

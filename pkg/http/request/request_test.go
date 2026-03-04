@@ -141,6 +141,24 @@ func TestXForwarded(t *testing.T) {
 			"128.66.1.1",
 			"http://localhost/abc?test=1",
 		},
+		{
+			"@",
+			"",
+			"",
+			"",
+			"<nil>",
+			"<nil>",
+			"http://localhost/abc?test=1",
+		},
+		{
+			"@",
+			"203.0.113.1, 192.168.2.1, ::1",
+			"example.net",
+			"https",
+			"<nil>",
+			"203.0.113.1",
+			"https://example.net/abc?test=1",
+		},
 	}
 
 	for i, test := range tests {
@@ -273,6 +291,24 @@ func TestBaseURL(t *testing.T) {
 			"",
 			"128.66.1.1",
 			"128.66.1.1",
+			"https://example.com/abc?test=1",
+		},
+		{
+			"@",
+			"",
+			"",
+			"",
+			"<nil>",
+			"<nil>",
+			"https://example.com/abc?test=1",
+		},
+		{
+			"@",
+			"203.0.113.1, 192.168.2.1, ::1",
+			"example.net",
+			"https",
+			"<nil>",
+			"203.0.113.1",
 			"https://example.com/abc?test=1",
 		},
 	}

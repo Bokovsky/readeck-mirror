@@ -1,0 +1,49 @@
+{
+  "title_selectors": [
+    "//h1[contains(@class, 'StoryTitle')]"
+  ],
+  "body_selectors": [
+    "//header[contains(@class, 'StoryHeader')] | //h2[contains(@class, 'StoryChapo')] | //p[contains(@class, 'StoryText')]"
+  ],
+  "date_selectors": [
+    "//ul[contains(@class, 'StoryDate')]"
+  ],
+  "author_selectors": [
+    "//a[contains(@class, 'StoryAuthor')]"
+  ],
+  "strip_selectors": [
+    "//img[contains(@alt, 'Icon payant')]",
+    "//div[contains(@class, 'AdContainer')]"
+  ],
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"container",
+      "\u003cdiv class=\"foocontainer"
+    ],
+    [
+      "id=\"content\"",
+      "id=\"foocontent\""
+    ]
+  ],
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
+  },
+  "tests": [
+    {
+      "url": "https://www.lavenir.net/regions/brabantwallon/braine-l-alleud/2026/02/13/un-quadragenaire-decede-dans-lincendie-de-son-appartement-a-braine-lalleud-IIBTHQGWKRHMFKXMC647N3FD3M/",
+      "contains": []
+    },
+    {
+      "url": "https://www.lavenir.net/regions/brabantwallon/genappe/2026/02/19/un-vol-de-bijoux-elucide-trop-tard-aucune-peine-mais-la-genappienne-devra-payer-87-000-a-la-victime-de-lasne-B4W4V7RPL5EMBCYVMXWUOAUIR4/",
+      "contains": []
+    }
+  ]
+}

@@ -40,9 +40,9 @@
   "http_headers": null,
   "tests": [
     {
-      "url": "https://www.tagesschau.de/ausland/kim-trump-us-reaktionen-101.html",
+      "url": "https://www.tagesschau.de/ausland/trump-kim-interview-101.html",
       "contains": [
-        "Es waren ein paar Schritte für Donald Trump"
+        "Ich war in der Tat überrascht"
       ]
     }
   ]

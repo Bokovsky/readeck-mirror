@@ -4,8 +4,6 @@ name: Readeck Dependencies
 run-name: ${{ github.actor }} dependencies updater
 on:
   workflow_dispatch:
-  schedule:
-    - cron: "0 5 * * *"
 
 jobs:
   update:
@@ -22,8 +20,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - env:
           API_TOKEN: ${{ secrets.API_TOKEN }}

@@ -16,7 +16,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   data-controller="turbo-refresh"
   data-turbo-refresh-interval-value="2"
   data-turbo-refresh-on-value="[data-loading]"
-  data-turbo-refresh-src-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
+  data-turbo-refresh-src-value="{{ urlFor(`/bookmarks`, .ID, `card`) }}"
   {{ end }}
   {{- if .IsDeleted }}
   data-bookmark-deleted="true"
@@ -70,7 +70,7 @@ SPDX-License-Identifier: AGPL-3.0-only
     </div>
     <div class="bookmark-card--meta">
       <strong title="{{ .SiteName }}"
-        dir="{{ default(.TextDirection, `ltr`) }}">{{ shortText(.SiteName, 50) }}</strong>
+       dir="{{ default(.TextDirection, `ltr`) }}">{{ shortText(.SiteName, 50) }}</strong>
       {{- if .ReadingTime > 0 -}}
         <span> •&nbsp;{{npgettext("abbr", "%d min", "%d min", .ReadingTime, .ReadingTime)}}</span>
       {{- end -}}
@@ -91,29 +91,27 @@ SPDX-License-Identifier: AGPL-3.0-only
       <span>
         {{ gettext("This bookmark will be removed in a few seconds.") }}
       </span>
-      <form action="{{ _url }}" method="post">
+      <form action="{{ _url }}/update" method="post">
         <input type="hidden" name="cancel" value="1" />
         <input type="hidden" name="_to" value="{{ currentPath }}" />
         <button type="submit" name="is_deleted" value="0"
-          data-controller="turbo-form"
-          data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-          data-turbo-form-method-value="patch">{{ yield icon(name="o-undo") }} {{ gettext("Cancel") }}</button>
+         data-controller="turbo-form">
+          {{- yield icon(name="o-undo") }} {{ gettext("Cancel") -}}
+        </button>
       </form>
     </div>
   {{- else -}}
     <div class="bookmark-card--actions">
-        <form action="{{ _url }}" method="post"
-         data-controller="turbo-form turbo-reload"
-         data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-         data-turbo-form-method-value="patch">
+        <form action="{{ _url }}/update" method="post"
+         data-controller="turbo-form turbo-reload">
           <input type="hidden" name="_to" value="{{ currentPath }}" />
           {{- if .Loaded -}}
             <button name="is_marked" value="{{ .IsMarked ? 0 : 1 }}"
-              title="{{ textFav }}">
+             title="{{ textFav }}">
               {{ yield icon(name=(.IsMarked ? "o-favorite-on" : "o-favorite-off")) }}
             </button>
             <button name="is_archived" value="{{ .IsArchived ? 0 : 1 }}"
-              title="{{ textArch }}">
+             title="{{ textArch }}">
               {{ yield icon(name=(.IsArchived ? "o-archive-on" : "o-archive-off")) }}
             </button>
           {{- end -}}
@@ -122,12 +120,10 @@ SPDX-License-Identifier: AGPL-3.0-only
           </a>
         </form>
 
-      <form action="{{ urlFor(`/bookmarks`, .ID, `delete`) }}" method="post">
+      <form action="{{ _url }}/update" method="post">
         <input type="hidden" name="_to" value="{{ currentPath }}" />
         <button name="is_deleted" value="1"
          data-controller="turbo-form"
-         data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
-         data-turbo-form-method-value="patch"
          title="{{ gettext(`Delete this bookmark`) }}">
           {{ yield icon(name="o-trash") }}
         </button>

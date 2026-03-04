@@ -46,8 +46,8 @@ SPDX-License-Identifier: AGPL-3.0-only
        <form class="hidden"
         data-controller="request"
         data-request-turbo-value="1"
-        data-request-url-value="{{ urlFor(`/api/bookmarks`, .Item.ID) }}"
-        data-request-method-value="patch"
+        data-request-url-value="{{ urlFor(`/bookmarks`, .Item.ID, `update`) }}"
+        data-request-method-value="post"
         data-scroll-progress-target="trigger"
         data-action="scroll-progress:progress->request#fetch"
       >
@@ -106,7 +106,16 @@ SPDX-License-Identifier: AGPL-3.0-only
                 {{- yield icon(name="o-chevron-l", class="inline-block", svgClass="w-6 h-6") -}}
               </a>
             </div>
+
             <div class="flex-grow"></div>
+            <a href="{{ urlFor(`/bookmarks`, .Item.UID, `update`) }}"
+              data-controller="dialog"
+              data-dialog-select-value="#bookmark-update-dialog"
+              data-action="scroll-progress#skip dialog#open:prevent">
+              {{- yield icon(name="o-pencil", class="inline-block", svgClass="w-6 h-6") -}}
+              <span class="sr-only">{{- gettext("Edit") -}}</span>
+            </a>
+
             {{- if .Item.HasArticle -}}
               {{- include "./components/reader_control" -}}
             {{- end -}}
@@ -134,12 +143,7 @@ SPDX-License-Identifier: AGPL-3.0-only
         {* title and description *}
         <div class="bookmark-header mt-4 print:mt-2 print:max-w-none mb-8 {{ preferences.ReaderWidth().Class }} {{ preferences.ReaderFont().Class }}"
          data-controller="styler">
-          {{ include "./components/title_form" .Item }}
-
-          {{- if !empty(.Item.Description) && empty(.Item.OmitDescription) -}}
-            <p class="mt-2 text-lg leading-tight text-justify italic"
-               dir="{{ default(.Item.TextDirection, `ltr`) }}">{{ .Item.Description }}</p>
-          {{- end -}}
+          {{ include "./components/title_block" }}
         </div>
 
         {* content *}
@@ -156,7 +160,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   </turbo-frame>
 </div>
 
-<dialog class="dialog font-sans" id="debug-info">
+<dialog class="dialog" id="debug-info">
   <form class="dialog--top" method="dialog">
     <button class="dialog--close" title="{{ gettext(`Close dialog`) }}">
     {{ yield icon(name="o-close", class="", svgClass="h-8 w-8") }}

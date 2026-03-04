@@ -1,8 +1,16 @@
 {
-  "title_selectors": null,
-  "body_selectors": null,
-  "date_selectors": null,
-  "author_selectors": null,
+  "title_selectors": [
+    "//h1[@class='Page-headline']"
+  ],
+  "body_selectors": [
+    "//div[contains(@class, 'Page-lead')] | //div[contains(@class, 'RichTextStoryBody')]"
+  ],
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
+  "author_selectors": [
+    "substring-after( //div[@class='Page-authors'] , 'By\u0026nbsp;' )"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": null,
   "strip_image_src": null,
@@ -20,7 +28,7 @@
     {
       "url": "https://apnews.com/article/israel-west-bank-gaza-middle-east-israel-palestinian-conflict-7974cc0c03897b8b21e5fc2f8c7d8a79",
       "contains": [
-        "Israeli airstrike on the Gaza City refugee camp was the deadliest"
+        "Israel slammed the Gaza Strip with airstrikes, in a dramatic escalation that included bombing the home of a senior Hamas leader"
       ]
     }
   ]

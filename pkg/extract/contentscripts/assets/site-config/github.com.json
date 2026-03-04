@@ -6,7 +6,8 @@
   "body_selectors": [
     "//div[@id='wiki-body']",
     "//*[@itemprop='text'][ancestor::*[@itemscope][1][@itemtype='http://schema.org/SoftwareSourceCode']]",
-    "//article[1]"
+    "//article[1]",
+    "//div[@data-test-selector='body-content']"
   ],
   "date_selectors": [
     "//*[@data-testid='latest-commit-details']//relative-time/@datetime"
@@ -31,6 +32,10 @@
   "tests": [
     {
       "url": "https://github.com/wallabag/wallabag",
+      "contains": []
+    },
+    {
+      "url": "https://github.com/wallabag/wallabag/releases/tag/2.6.14",
       "contains": []
     },
     {

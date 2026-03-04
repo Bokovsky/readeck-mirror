@@ -120,7 +120,7 @@ func newPocketBookmarkItem(e *pocketEntry) (*pocketBookmarkItem, error) {
 		res.Title = title
 	}
 
-	for _, label := range strings.Split(e.Tags, "|") {
+	for label := range strings.SplitSeq(e.Tags, "|") {
 		if label = strings.TrimSpace(label); label != "" {
 			res.Labels = append(res.Labels, label)
 		}

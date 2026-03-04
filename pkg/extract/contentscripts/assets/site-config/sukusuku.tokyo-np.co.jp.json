@@ -1,0 +1,27 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//section[@class=\"main_article_body\"]"
+  ],
+  "date_selectors": [
+    "//header[@class=\"main_article_header\"]//time/@datetime"
+  ],
+  "author_selectors": null,
+  "strip_selectors": null,
+  "strip_id_or_class": null,
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://sukusuku.tokyo-np.co.jp/hoiku/107987/",
+      "contains": []
+    }
+  ]
+}

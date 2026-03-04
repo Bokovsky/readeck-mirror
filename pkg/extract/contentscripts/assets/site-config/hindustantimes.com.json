@@ -3,12 +3,14 @@
     "//meta[@property=\"og:title\"]/@content"
   ],
   "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' fullStory ')]"
+    "//div[contains(concat(' ',normalize-space(@class),' '),' taboola-readmore ')]"
   ],
   "date_selectors": [
     "//meta[@property=\"article:published_time\"]/@content"
   ],
-  "author_selectors": null,
+  "author_selectors": [
+    "//small[@class=\"byLineAuthor\"]"
+  ],
   "strip_selectors": [
     "//div[contains(concat(' ',normalize-space(@class),' '),' subscribe ')]"
   ],

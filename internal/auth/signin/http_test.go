@@ -8,9 +8,14 @@ import (
 	"net/http"
 	"net/url"
 	"testing"
+	"time"
 
+	"github.com/doug-martin/goqu/v9"
 	"github.com/stretchr/testify/require"
 
+	"codeberg.org/readeck/readeck/pkg/totp"
+
+	"codeberg.org/readeck/readeck/internal/auth/users"
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
 
@@ -74,6 +79,25 @@ func TestSignin(t *testing.T) {
 		}
 	})
 
+	t.Run("last_login update", func(t *testing.T) {
+		client := app.Client()
+		now := time.Now().UTC()
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/login"),
+			WithBody(url.Values{
+				"username": {"user"},
+				"password": {"user"},
+			}),
+			AssertStatus(303),
+			WithAssert(func(t *testing.T, _ *Response) {
+				user, _ := users.Users.GetOne(goqu.C("username").Eq("user"))
+				require.True(t, user.LastLogin.After(now))
+			}),
+		)
+	})
+
 	t.Run("logout view", func(t *testing.T) {
 		client := app.Client()
 		client.RT(t,
@@ -109,5 +133,137 @@ func TestSignin(t *testing.T) {
 			AssertStatus(303),
 			AssertRedirect("/login"),
 		)
+	})
+
+	t.Run("totp ok", func(t *testing.T) {
+		code := totp.Generate()
+
+		require.NoError(t, app.Users["user"].User.SetTOTPCode(&code))
+		require.NoError(t, app.Users["user"].User.Save())
+
+		defer func() {
+			app.Users["user"].User.TOTPSecret = nil
+			require.NoError(t, app.Users["user"].Reset())
+		}()
+
+		client := app.Client()
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/login"),
+			WithBody(url.Values{
+				"username": {"user"},
+				"password": {"user"},
+			}),
+			AssertStatus(303),
+			AssertRedirect("/login/mfa"),
+		)
+
+		client.RT(t,
+			WithTarget(client.History[0].Response.Redirect),
+			AssertStatus(200),
+			AssertContains("Two-factor authentication"),
+		)
+
+		otp, err := code.OTP(time.Now().UTC())
+		require.NoError(t, err)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget(client.History.PrevURL()),
+			WithBody(url.Values{"code": {otp}}),
+			AssertStatus(303),
+			AssertRedirect(`^/$`),
+		)
+
+		// client is now logged-in
+		client.RT(t,
+			WithTarget("/profile"),
+			AssertStatus(200),
+		)
+	})
+
+	t.Run("totp ko", func(t *testing.T) {
+		code := totp.Generate()
+
+		tests := []struct {
+			name   string
+			code   func() (string, error)
+			assert []TestOption
+		}{
+			{
+				"too late",
+				func() (string, error) { return code.OTP(time.Now().UTC().Add(2 * time.Minute)) },
+				[]TestOption{
+					AssertStatus(422),
+					AssertContains("Invalid code"),
+				},
+			},
+			{
+				"wrong code",
+				func() (string, error) { return totp.Generate().OTP(time.Now().UTC()) },
+				[]TestOption{
+					AssertStatus(422),
+					AssertContains("Invalid code"),
+				},
+			},
+			{
+				"no code",
+				func() (string, error) { return "", nil },
+				[]TestOption{
+					AssertStatus(422),
+					AssertContains("field is required"),
+				},
+			},
+			{
+				"code too short",
+				func() (string, error) { return "1111", nil },
+				[]TestOption{
+					AssertStatus(422),
+					AssertContains("text must contain 6 characters"),
+				},
+			},
+		}
+
+		for _, test := range tests {
+			t.Run(test.name, func(t *testing.T) {
+				require.NoError(t, app.Users["user"].User.SetTOTPCode(&code))
+				require.NoError(t, app.Users["user"].User.Save())
+
+				defer func() {
+					app.Users["user"].User.TOTPSecret = nil
+					require.NoError(t, app.Users["user"].Reset())
+				}()
+
+				client := app.Client()
+				client.RT(t,
+					WithMethod(http.MethodPost),
+					WithTarget("/login"),
+					WithBody(url.Values{
+						"username": {"user"},
+						"password": {"user"},
+					}),
+					AssertStatus(303),
+					AssertRedirect("/login/mfa"),
+				)
+
+				otp, err := test.code()
+				require.NoError(t, err)
+
+				client.RT(t,
+					append([]TestOption{
+						WithMethod(http.MethodPost),
+						WithTarget(client.History[0].Response.Redirect),
+						WithBody(url.Values{"code": {otp}}),
+					}, test.assert...)...,
+				)
+
+				client.RT(t,
+					WithTarget("/profile"),
+					AssertStatus(303),
+					AssertRedirect("/login"),
+				)
+			})
+		}
 	})
 }

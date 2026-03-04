@@ -96,7 +96,7 @@ func (api *apiRouter) bookmaksImportStatus(w http.ResponseWriter, r *http.Reques
 	if server.IsTurboRequest(r) {
 		server.RenderTurboStream(w, r,
 			"/bookmarks/import/progress", "replace",
-			"import-progress-"+trackID, map[string]interface{}{
+			"import-progress-"+trackID, map[string]any{
 				"TrackID":  trackID,
 				"Running":  importer.ImportBookmarksTask.IsRunning(trackID),
 				"Progress": p,
@@ -106,7 +106,7 @@ func (api *apiRouter) bookmaksImportStatus(w http.ResponseWriter, r *http.Reques
 		return
 	}
 
-	server.Render(w, r, http.StatusOK, map[string]interface{}{
+	server.Render(w, r, http.StatusOK, map[string]any{
 		"scheduled": importer.ImportBookmarksTask.IsRunning(trackID),
 		"progress":  p,
 	})

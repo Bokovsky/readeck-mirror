@@ -12,13 +12,13 @@ body:
   - type: textarea
     id: what
     attributes:
-      label: Summary?
+      label: Summary
       description: |
         Tell us what your contribution does, the problem it solves or the new feature it brings.
     validations:
       required: true
 
-  - type: checkboxes
+  - type: dropdown
     id: noai
     attributes:
       label: Did you write it yourself?
@@ -26,17 +26,18 @@ body:
         Any AI made (even partially) contribution will be rejected.
         It's OK to ask humans for help though 🙂
       options:
-        - label: I didn't use any AI tool to produce this contribution.
-          required: true
+        - I didn't use any AI tool to produce this contribution.
+    validations:
+      required: true
 
-  - type: checkboxes
+  - type: dropdown
     id: tests
     attributes:
       label: Did you add tests?
       description: |
         When relevant, did you add tests to your contribution?
       options:
-        - label: I added tests to my contribution
+        - I added tests to my contribution
 
   - type: dropdown
     id: test_run
@@ -59,3 +60,4 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+    visible: [form]

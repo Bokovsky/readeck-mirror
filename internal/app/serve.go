@@ -6,9 +6,12 @@ package app
 
 import (
 	"context"
+	"crypto/tls"
+	"crypto/x509"
 	"errors"
 	"flag"
 	"fmt"
+	"io/fs"
 	"log/slog"
 	"net"
 	"net/http"
@@ -65,7 +68,7 @@ func init() {
 	})
 }
 
-func runServer(_ context.Context, args []string) error {
+func runServer(_ context.Context, args []string) error { // nolint:gocognit,gocyclo
 	var flags serveFlags
 	if err := flags.Flags().Parse(args); err != nil {
 		if errors.Is(err, flag.ErrHelp) {
@@ -144,8 +147,13 @@ func runServer(_ context.Context, args []string) error {
 	go func() {
 		var ln net.Listener
 		host := configs.Config.Server.Host
-		if listenPath, ok := strings.CutPrefix(host, "unix:"); ok {
-			unixAddr, err := net.ResolveUnixAddr("unix", listenPath)
+		if strings.HasPrefix(host, "unix:") {
+			socketURL, err := url.Parse(host)
+			if err != nil {
+				fatal("invalid UNIX socket URL", err)
+			}
+
+			unixAddr, err := net.ResolveUnixAddr("unix", socketURL.Path)
 			if err != nil {
 				fatal("failed to parse listen address "+host, err)
 			}
@@ -154,6 +162,15 @@ func runServer(_ context.Context, args []string) error {
 			if err != nil {
 				fatal("failed to listen on "+host, err)
 			}
+
+			mode := fs.FileMode(0666) // nolint:gofumpt
+			if m, err := strconv.ParseUint(socketURL.Query().Get("mode"), 0, 32); err == nil {
+				mode = fs.FileMode(m)
+			}
+			if err = os.Chmod(socketURL.Path, mode); err != nil {
+				fatal("failed to set mode on "+socketURL.Path, err)
+			}
+
 			listenURL = &url.URL{Scheme: "unix", Opaque: unixAddr.Name}
 		} else {
 			srv.Addr = net.JoinHostPort(
@@ -169,11 +186,43 @@ func runServer(_ context.Context, args []string) error {
 			listenURL = &url.URL{Scheme: "tcp", Host: srv.Addr}
 		}
 
-		ready <- true
 		var err error
 		if configs.Config.Server.CertFile != "" && configs.Config.Server.KeyFile != "" {
+			// Set a certificate and keys when given
+			srv.TLSConfig = &tls.Config{
+				MinVersion: tls.VersionTLS12,
+			}
+			srv.TLSConfig.Certificates = make([]tls.Certificate, 1)
+			srv.TLSConfig.Certificates[0], err = tls.LoadX509KeyPair(
+				configs.Config.Server.CertFile,
+				configs.Config.Server.KeyFile,
+			)
+			if err != nil {
+				fatal("cannot configure TLS", err)
+			}
+
+			// If a CA file is present, it's for mTLS.
+			// We don't set ClientAuth to [tls.RequireAndVerifyClientCert] and
+			// it's up to any midleware or authentication provider to require
+			// a client certificate.
+			if configs.Config.Server.ClientCAFile != "" {
+				caPem, err := os.ReadFile(configs.Config.Server.ClientCAFile)
+				if err != nil {
+					fatal("cannot load CA certificate", err)
+				}
+				p := x509.NewCertPool()
+				if !p.AppendCertsFromPEM(caPem) {
+					fatal("cannot load CA certificate", errors.New("could not parse"))
+				}
+				srv.TLSConfig.ClientCAs = p
+				srv.TLSConfig.ClientAuth = tls.VerifyClientCertIfGiven
+			}
+		}
+
+		ready <- true
+		if srv.TLSConfig != nil {
 			serverURL.Scheme = "https"
-			err = srv.ServeTLS(ln, configs.Config.Server.CertFile, configs.Config.Server.KeyFile)
+			err = srv.ServeTLS(ln, "", "")
 		} else {
 			// Wrap http/2 h2c
 			h2 := &http2.Server{}

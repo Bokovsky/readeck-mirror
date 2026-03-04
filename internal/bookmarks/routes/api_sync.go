@@ -49,7 +49,7 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 		)
 		ds = ds.Union(
 			db.Q().
-				From(goqu.T(bookmarks.TableNameRemoved).As("r")).
+				From(goqu.T(db.TableBookmarkRemoved).As("r")).
 				Select(
 					goqu.C("uid").Table("r"),
 					goqu.C("deleted").Table("r").As("time"),
@@ -63,7 +63,7 @@ func (api *apiRouter) bookmarkSyncList(w http.ResponseWriter, r *http.Request) {
 		)
 	}
 
-	ds = ds.Order(exp.DateTime(goqu.C("time")).Desc())
+	ds = ds.Order(goqu.C("time").Desc())
 
 	bl, err := dataset.NewBookmarkSyncList(r.Context(), ds)
 	if err != nil {

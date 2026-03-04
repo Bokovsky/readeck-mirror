@@ -1,10 +1,16 @@
 {
-  "title_selectors": null,
-  "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' ea-article-body-content ')]"
+  "title_selectors": [
+    "substring-before(//meta[@property='og:title']/@content , ' | Euractiv')"
   ],
-  "date_selectors": null,
-  "author_selectors": null,
+  "body_selectors": [
+    "//main[@id='main-content']//article[contains(@class, 'c-news-detail')]/div"
+  ],
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/ld+json\"], '\"datePublished\":\"'), '\",\"dateModified\"')"
+  ],
+  "author_selectors": [
+    "//a[@rel='author']"
+  ],
   "strip_selectors": null,
   "strip_id_or_class": [
     "ea-own-embed"
@@ -17,7 +23,10 @@
   "single_page_link_selectors": null,
   "next_page_link_selectors": null,
   "replace_strings": null,
-  "http_headers": null,
+  "http_headers": {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:148.0) Gecko/20100101 Firefox/148.0",
+    "cookie": "pll_language=en"
+  },
   "tests": [
     {
       "url": "https://www.euractiv.com/section/economy-jobs/video/unlocking-the-benefits-of-diversity-in-the-workplace/",

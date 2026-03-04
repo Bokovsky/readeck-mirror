@@ -1,5 +1,5 @@
-name: Bug Report
-about: When something goes wrong and it doesn't fit the other categories 😣
+name: Bug Report 🐞
+about: When something goes wrong and it doesn't fit the other categories
 labels:
   - bug
 body:
@@ -25,15 +25,16 @@ body:
       label: What outcome was expected?
       description: What should have been the right outcome?
 
-  - type: checkboxes
+  - type: dropdown
     id: browsers
     attributes:
       label: When relevant, what browsers are you seeing the problem on?
+      multiple: true
       options:
-        - label: Firefox
-        - label: Chrome
-        - label: Safari
-        - label: Microsoft Edge
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
 
   - type: textarea
     id: logs
@@ -50,3 +51,4 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+    visible: [form]

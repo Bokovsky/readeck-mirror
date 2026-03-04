@@ -926,14 +926,19 @@ func TestWallabag(t *testing.T) {
 		items := []map[string]any{}
 		for _, x := range []string{"a", "b", "c"} {
 			headers := map[string]string{}
-			if x == "c" {
+			switch x {
+			case "a":
+				headers["content-type"] = "application/xml"
+			case "b":
+				headers["content-type"] = "application/xhtml xml; charset=utf-8"
+			case "c":
 				headers["content-type"] = "text/html; charset=koi8-r"
 			}
 			items = append(items, map[string]any{
 				"is_archived":     0,
 				"is_starred":      0,
-				"title":           fmt.Sprintf("Article %d/%s", page, x),
-				"url":             fmt.Sprintf("https://example.net/%d/article-%s", page, x),
+				"title":           fmt.Sprintf("Article <i>%d&#47;%s</i>", page, x),
+				"url":             fmt.Sprintf("https://example.net/%d/article-%s#ignored", page, x),
 				"content":         fmt.Sprintf("<p>some content %d - %s</p>", page, x),
 				"created_at":      "2024-01-02 12:23:43",
 				"published_at":    "2022-01-02 12:23:43",
@@ -994,10 +999,6 @@ func TestWallabag(t *testing.T) {
 			string(resources[0].Data),
 		)
 
-		for key, value := range resources[0].Headers {
-			if strings.EqualFold(key, "content-type") {
-				require.NotContains(value, "charset=")
-			}
-		}
+		require.Equal("text/html; charset=utf-8", resources[0].Header.Get("content-type"))
 	}
 }

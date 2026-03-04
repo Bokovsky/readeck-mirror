@@ -29,6 +29,10 @@
     &:active {
       background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 1px, transparent 2px);
       background-color: rgb(var(--btn-color));
+
+      @screen touch {
+        background-color: rgb(var(--btn-color-hover));
+      }
     }
   }
 
@@ -53,6 +57,11 @@
       color: rgb(var(--btn-color));
       border-color: rgb(var(--btn-color));
       background: transparent;
+
+      @screen touch {
+        color: rgb(var(--btn-color-invert));
+        background-color: rgb(var(--btn-color-hover));
+      }
     }
   }
 

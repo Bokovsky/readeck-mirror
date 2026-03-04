@@ -11,18 +11,29 @@ import (
 	"io"
 	"net/http"
 	"path"
+	"strconv"
 	"strings"
 	"time"
 
+	"github.com/go-shiori/dom"
 	"github.com/google/uuid"
+	"golang.org/x/net/html"
 
 	"codeberg.org/readeck/readeck/assets"
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/dataset"
 	"codeberg.org/readeck/readeck/internal/server"
 	"codeberg.org/readeck/readeck/internal/server/urls"
+	"codeberg.org/readeck/readeck/pkg/ctxr"
 	"codeberg.org/readeck/readeck/pkg/epub"
 	"codeberg.org/readeck/readeck/pkg/utils"
+)
+
+type ctxEnableEPUBNotesKey struct{}
+
+// Context helpers.
+var (
+	WithEnableEPUBNotes, getEnableEPUBNotes = ctxr.WithChecker[bool](ctxEnableEPUBNotesKey{})
 )
 
 // EPUBExporter is a content exporter that produces EPUB files.
@@ -209,6 +220,24 @@ func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExpo
 		}
 	}
 
+	// Set highlights and notes
+	withNotes, _ := getEnableEPUBNotes(ctx)
+	notes := []string{}
+
+	ctx = dataset.WithAnnotationTag(ctx, "mark", func(a *bookmarks.BookmarkAnnotation, n *html.Node, index, ln int) {
+		if withNotes && a.Note != "" && index+1 == ln {
+			notes = append(notes, a.Note)
+			link := dom.CreateElement("a")
+			link.Attr = []html.Attribute{
+				{Key: "id", Val: "noteref" + strconv.Itoa(len(notes))},
+				{Key: "href", Val: "#note" + strconv.Itoa(len(notes))},
+				{Namespace: "epub", Key: "type", Val: "noteref"},
+			}
+			dom.AppendChild(link, dom.CreateTextNode(strconv.Itoa(len(notes))))
+			n.Parent.InsertBefore(link, n.NextSibling)
+		}
+	})
+
 	buf := new(bytes.Buffer)
 	html, err := e.GetArticle(ctx, b.Bookmark)
 	if err != nil {
@@ -223,6 +252,7 @@ func (m *epubMaker) addBookmark(ctx context.Context, r *http.Request, e EPUBExpo
 		"Item":      b,
 		"ItemURL":   urls.AbsoluteURL(r, "/bookmarks", b.UID).String(),
 		"Resources": resources,
+		"Notes":     notes,
 	}
 	if err := tpl.Execute(buf, server.TemplateVars(r), tc); err != nil {
 		return err

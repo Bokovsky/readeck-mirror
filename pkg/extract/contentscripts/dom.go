@@ -17,8 +17,8 @@ import (
 )
 
 var (
-	reflectTypeString    = reflect.TypeOf("")
-	reflectTypeNodeProxy = reflect.TypeOf((*domNodeObj)(nil))
+	reflectTypeString    = reflect.TypeFor[string]()
+	reflectTypeNodeProxy = reflect.TypeFor[*domNodeObj]()
 )
 
 // domModule is the module to manipulate DOM nodes.
@@ -606,7 +606,7 @@ func (m *domModule) createNodePrototype() *goja.Object { //nolint:gocognit,gocyc
 		name := call.Argument(0).String()
 		value := call.Argument(1).String()
 
-		if name != "" && value != "" {
+		if name != "" {
 			dom.SetAttribute(np.node, name, value)
 		}
 

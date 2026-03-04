@@ -1,0 +1,839 @@
+# eo_XX translations for Readeck User Documentation.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+# Kropotkin <kropotkin@noreply.codeberg.org>, 2025.
+# Кнⷫѧⷷ̈зⷮьⷬ Кропоткинъ <kropotkin@noreply.codeberg.org>, 2025.
+# Tirifto <tirifto@noreply.codeberg.org>, 2025.
+# olivier <olivier@noreply.codeberg.org>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Readeck User Documentation 1.0.0\n"
+"Report-Msgid-Bugs-To: translate@readeck.com\n"
+"POT-Creation-Date: 2025-12-18 21:31+0100\n"
+"PO-Revision-Date: 2025-12-16 09:11+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language: eo_XX\n"
+"Language-Team: Esperanto <https://translate.codeberg.org/projects/readeck/documentation/eo/>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: en/bookmark-list.md:1
+msgid "# Bookmarks"
+msgstr "# Legosignoj"
+
+#: en/bookmark-list.md:3
+msgid "Bookmarks are where you save the web content you like."
+msgstr "Legosignoj estas kie vi konservas la retan enhavon, kiun vi ŝatas."
+
+#: en/bookmark-list.md:5
+msgid "## Create a new Bookmark"
+msgstr "## Krei novan Legosignon"
+
+#: en/bookmark-list.md:7
+msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
+msgstr "Ĉu vi trovis retpaĝon, kiu plaĉas al vi? Bonege! Kopiu ĝian ligilon en la tekstokampon nomitan **nova legosigno** en la [Legosigna Listo](readeck-instance://bookmarks)."
+
+#: en/bookmark-list.md:9
+msgid "![New Bookmark form](./img/bookmark-new.webp)"
+msgstr "![Nova legosigno-formularo](./img/bookmark-new.webp)"
+
+#: en/bookmark-list.md:11
+msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
+msgstr "Post kelkaj sekundoj, via legosigno estos preta. Vi tiam povos malfermi ĝin por legi aŭ spekti ĝian enhavon, aldoni etikedojn, reliefigi tekston aŭ eksporti e-libron. Por pliaj informoj, bonvolu legi la sekcion [Vido de Legosigno](./bookmark.md)."
+
+#: en/bookmark-list.md:13
+msgid "## Bookmark type"
+msgstr "## Legosigno-tipo"
+
+#: en/bookmark-list.md:15
+msgid "Readeck recognizes 3 different types of web content:"
+msgstr "Readeck rekonas 3 malsamajn tipojn de reta enhavo:"
+
+#: en/bookmark-list.md:17 en/bookmark.md:17
+msgid "### Article"
+msgstr "### Artikolo"
+
+#: en/bookmark-list.md:19 en/bookmark.md:19
+msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
+msgstr "Artikolo estas paĝo el kiu la teksta enhavo estis eltirita. Ĝi aperas kiel legebla versio de sia enhavo."
+
+#: en/bookmark-list.md:21 en/bookmark.md:21
+msgid "### Picture"
+msgstr "### Bildo"
+
+#: en/bookmark-list.md:23 en/bookmark.md:23
+msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
+msgstr "Bildo estas paĝo kiu estis rekonita kiel bildujo (ekz. ligilo al Unsplash). Ĝi bildigas la konservitan bildon."
+
+#: en/bookmark-list.md:25 en/bookmark.md:25
+msgid "### Video"
+msgstr "### Video"
+
+#: en/bookmark-list.md:27 en/bookmark.md:27
+msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
+msgstr "Video estas paĝo identigita kiel videoujo (ekz. ligilo al Youtube aŭ Vimeo). Ĝi prezentas videoludilon. Bonvolu noti, ke videoj estas ludataj de siaj respektivaj foraj serviloj."
+
+#: en/bookmark-list.md:30
+msgid "## Bookmark List"
+msgstr "## Legosigna Listo"
+
+#: en/bookmark-list.md:32
+msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
+msgstr "La [legosigna listo](readeck-instance://bookmarks) estas kie vi trovos ĉiujn viajn konservitajn legosignojn."
+
+#: en/bookmark-list.md:34
+msgid "### Navigation"
+msgstr "### Navigado"
+
+#: en/bookmark-list.md:36
+msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
+msgstr "En la flanka kolumno, vi trovos serĉkampon kaj ligilojn, kiuj kondukos vin al filtritaj legosignaj listoj."
+
+#: en/bookmark-list.md:38
+msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
+msgstr "![Flankbreto de legosignolisto](./img/bookmark-sidebar.webp)"
+
+#: en/bookmark-list.md:40
+msgid ""
+"- **Search** \\\n"
+"  Enter any search term (title, content, website...)\n"
+"- **All** \\\n"
+"  All your bookmarks.\n"
+"- **Unread** \\\n"
+"  The bookmarks that are not in the archive.\n"
+"- **Archive** \\\n"
+"  The bookmarks you marked as archived.\n"
+"- **Favorites** \\\n"
+"  The bookmarks you marked as favorite."
+msgstr ""
+"- **Serĉi** \\\n"
+"  Enigu ajnan serĉvorton (titolo, enhavo, retejo...)\n"
+"- **Ĉiuj** \\\n"
+"  Ĉiuj viaj legosignoj.\n"
+"- **Nelegitaj** \\\n"
+"  La legosignoj kiuj ne estas en la arkivo.\n"
+"- **Arkivo** \\\n"
+"  La legosignoj kiujn vi markis kiel arkivitaj.\n"
+"- **Plej ŝatataj** \\\n"
+"  La legosignoj kiujn vi markis kiel plej ŝatataj."
+
+#: en/bookmark-list.md:52
+msgid "Once you start saving pages, you'll see the following additional links:"
+msgstr "Post kiam vi komencos konservi paĝojn, vi vidos la jenajn aldonajn ligilojn:"
+
+#: en/bookmark-list.md:54
+msgid ""
+"- **Articles** \\\n"
+"  Your article bookmarks\n"
+"- **Videos** \\\n"
+"  Your video bookmarks\n"
+"- **Pictures** \\\n"
+"  Your picture bookmarks"
+msgstr ""
+"- **Artikoloj**\n"
+"  Viaj artikolaj legosignoj\n"
+"- **Videoj**\n"
+"  Viaj videaj legosignoj\n"
+"- **Bildoj**\n"
+"  Viaj bildaj legosignoj"
+
+#: en/bookmark-list.md:61
+msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
+msgstr "Fine, vi vidos 3 pliajn sekciojn, kiuj kondukas vin al paĝoj rilataj al legosignoj:"
+
+#: en/bookmark-list.md:63
+msgid ""
+"- **[Labels](./labels.md)** \\\n"
+"  All your bookmark labels\n"
+"- **Highlights** \\\n"
+"  All the highlights created on your bookmarks\n"
+"- **[Collections](./collections.md)** \\\n"
+"  The list of all your collections"
+msgstr ""
+"- **[Etikedoj](./labels.md)**\n"
+"  Ĉiuj viaj legosignaj etikedoj\n"
+"- **Kulminaĵoj**\n"
+"  Ĉiuj kulminaĵoj kreitaj sur viaj legosignoj\n"
+"- **[Kolektoj](./collections.md)**\n"
+"  La listo de ĉiuj viaj kolektoj"
+
+#: en/bookmark-list.md:70
+msgid "### Bookmark Cards"
+msgstr "### Legosignaj Kartoj"
+
+#: en/bookmark-list.md:72
+msgid "Each item on a list is called a Bookmark Card."
+msgstr "Ĉiu listero en listo nomiĝas Legosigna Karto."
+
+#: en/bookmark-list.md:74
+msgid ""
+"![Bookmark List](./img/bookmark-list.webp)\n"
+"Grid Bookmark List"
+msgstr ""
+"![Bookmark List](./img/bookmark-list.webp)\n"
+"Krad-legosigna Listo"
+
+#: en/bookmark-list.md:77
+msgid "A card shows:"
+msgstr "Karto montras:"
+
+#: en/bookmark-list.md:79
+msgid ""
+"- the **title** on which you can click to watch or read the bookmark,\n"
+"- the **site name**,\n"
+"- the estimated **reading time**,\n"
+"- the **label list**,\n"
+"- **action buttons**"
+msgstr ""
+"- la **titolo** sur kiu vi povas klaki por spekti aŭ legi la legosignon,\n"
+"- la **retejo-nomo**,\n"
+"- la taksita **legotempo**,\n"
+"- la **etikedlisto**,\n"
+"- **agobutonoj**"
+
+#: en/bookmark-list.md:85
+msgid "The action buttons perform the following:"
+msgstr "La agbutonoj plenumas la jenon:"
+
+#: en/bookmark-list.md:87
+msgid ""
+"- **Favorite** \\\n"
+"  This toggles the favorite status of the bookmark.\n"
+"- **Archive** \\\n"
+"  This moves the bookmark to the archives (or removes it from there).\n"
+"- **Delete** \\\n"
+"  This marks the bookmark for deletion (it can be canceled during a few seconds)."
+msgstr ""
+"- **Preferata**\n"
+"  Ĉi tio ŝaltas la preferatan statuson de la legosigno.\n"
+"- **Arkivi**\n"
+"  Ĉi tio movas la legosignon al la arkivoj (aŭ forigas ĝin de tie).\n"
+"- **Forigi**\n"
+"  Ĉi tio markas la legosignon por forigo (ĝi povas esti nuligita dum kelkaj sekundoj)."
+
+#: en/bookmark-list.md:94
+msgid "### Compact List"
+msgstr "### Kompakta Listo"
+
+#: en/bookmark-list.md:96
+msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
+msgstr "Se la krada vido de legosignoj ŝajnas al vi tro ŝarĝita, vi povas ŝanĝi al pli kompakta listo kun malpli da bildoj. Alklaku la butonon apud la titolo por ŝanĝi de la krada vido al la kompakta vido."
+
+#: en/bookmark-list.md:98
+msgid ""
+"![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
+"Compact Bookmark List"
+msgstr ""
+"![Kompakta Legosigna Listo](./img/bookmark-list-compact.webp)\n"
+"Kompakta Legosigna Listo"
+
+#: en/bookmark-list.md:101
+#, python-brace-format
+msgid "## Filter Bookmarks {#filters}"
+msgstr "## Filtri Legosignojn {#filters}"
+
+#: en/bookmark-list.md:103
+msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
+msgstr "En la legosigna listo, vi povas filtri viajn rezultojn laŭ unu aŭ pluraj kriterioj. Alklaku la butonon \"Filtri liston\" apud la paĝotitolo por malfermi la filtran formularon."
+
+#: en/bookmark-list.md:105
+msgid ""
+"![Bookmark list filters](./img/bookmark-filters.webp)\n"
+"The filter form"
+msgstr ""
+"![Filtriloj de legosignolisto](./img/bookmark-filters.webp)\n"
+"La filtrila formularo"
+
+#: en/bookmark-list.md:108
+msgid "Enter any criteria and click on **Search**."
+msgstr "Enigu iun ajn kriterion kaj alklaku **Serĉi**."
+
+#: en/bookmark-list.md:110
+msgid "### Available filters"
+msgstr "### Disponeblaj filtriloj"
+
+#: en/bookmark-list.md:112
+msgid "You can combine the following filters:"
+msgstr "Vi povas kombini la jenajn filtrilojn:"
+
+#: en/bookmark-list.md:114
+msgid ""
+"- **Search**\\\n"
+"  Search in the bookmark's text, its title, its authors, its site name and domain and the labels.\n"
+"- **Title**\\\n"
+"  Search in the title only.\n"
+"- **Author**\\\n"
+"  Search in the author list only.\n"
+"- **Site**\\\n"
+"  Search in the site title and the site domain name.\n"
+"- **Label**\\\n"
+"  Search for specific labels.\n"
+"- **Is Favorite**, **Is Archived**, **Type**\\\n"
+"  This filters let you restrict your search to any of these criteria.\n"
+"- **From date**, **To date**\\\n"
+"  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
+msgstr ""
+"- **Serĉi**\n"
+"  Serĉu en la teksto de la legosigno, ĝia titolo, ĝiaj aŭtoroj, ĝia retejo-nomo kaj domajno kaj la etikedoj.\n"
+"- **Titolo**\n"
+"  Serĉu nur en la titolo.\n"
+"- **Aŭtoro**\n"
+"  Serĉu nur en la listo de aŭtoroj.\n"
+"- **Retejo**\n"
+"  Serĉu en la retejo-titolo kaj la retejo-retnomo.\n"
+"- **Etikedo**\n"
+"  Serĉu specifajn etikedojn.\n"
+"- **Ĉu Favorato**, **Ĉu Arkivita**, **Tipo**\n"
+"  Ĉi tiuj filtriloj permesas vin limigi vian serĉon al iu ajn el ĉi tiuj kriterioj.\n"
+"- **De dato**, **Al dato**\n"
+"  Ĉi tiuj lastaj filtriloj permesas vin limigi de kiam kaj ĝis kiam la legosigno estis konservita. Ekzemple, ĉi tio permesas vin retrovi la liston de legosignoj konservitaj dum la pasintaj 4 semajnoj sed ne post la lasta semajno."
+
+#: en/bookmark-list.md:129
+msgid "### Search query"
+msgstr "### Serĉdemando"
+
+#: en/bookmark-list.md:131
+msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
+msgstr "La kampoj **Serĉo**, **Titolo**, **Aŭtoro**, **Retejo** kaj **Etikedo** komprenas serĉkriteriojn same:"
+
+#: en/bookmark-list.md:133
+msgid ""
+"- `startled cat` will find the content with the words **startled** and **cat**\n"
+"- `\"startled cat\"` will find the content with the exact words **startled cat** together.\n"
+"- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
+"- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
+msgstr ""
+"- `surprizita kato` trovos la enhavon kun la vortoj **surprizita** kaj **kato**\n"
+"- `\"surprizita kato\"` trovos la enhavon kun la precizaj vortoj **surprizita kato** kune.\n"
+"- `kato*` trovos la enhavon kun la vortoj komenciĝantaj per **kato** (kato, katodo kaj katoliko estus trafo).\n"
+"- `-surprizita kato` trovos la enhavon kun la vorto **kato** kaj SEN la vorto **surprizita**."
+
+#: en/bookmark-list.md:139
+msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
+msgstr "Post kiam vi faris serĉon, vi povas konservi ĝin en novan [kolekton](./collections.md) por fari ĝin daŭra."
+
+#: en/bookmark-list.md:141
+msgid "## Export and Import Bookmarks"
+msgstr "## Eksporti kaj Importi Legosignojn"
+
+#: en/bookmark-list.md:143
+msgid ""
+"![Menu](./img/bookmark-list-menu.webp)\n"
+"Bookmark list menu"
+msgstr ""
+"![Menuo](./img/bookmark-list-menu.webp)\n"
+"Menuo de legosignolisto"
+
+#: en/bookmark-list.md:146
+msgid "### Export bookmarks"
+msgstr "### Eksporti legosignojn"
+
+#: en/bookmark-list.md:148
+msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
+msgstr "La menubutono apud la filtrila butono permesas elŝuti EPUB-dosieron de la nuna listo de legosignoj. Ĝi eksportas unu e-libron enhavantan ĉiujn artikolojn organizitajn en ĉapitrojn."
+
+#: en/bookmark-list.md:150
+msgid "### Import bookmarks"
+msgstr "### Importi legosignojn"
+
+#: en/bookmark-list.md:152
+msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
+msgstr "En la sama menuo, vi trovos ligilon [Importi legosignojn](readeck-instance://bookmarks/import). Ĝi kondukos vin al importa sorĉisto, kiu permesas al vi importi viajn ekzistantajn legosignojn el diversaj fontoj."
+
+#: en/bookmark.md:1
+msgid "# Bookmark View"
+msgstr "# Legosigna Vido"
+
+#: en/bookmark.md:3
+msgid "## The view"
+msgstr "## La vido"
+
+#: en/bookmark.md:5
+msgid ""
+"![The bookmark view](./img/bookmark-view.webp)\n"
+"The bookmark view of an article."
+msgstr ""
+"![La legosigna vido](./img/bookmark-view.webp)\n"
+"La legosigna vido de artikolo."
+
+#: en/bookmark.md:8
+msgid "The bookmark view is divided in 3 sections:"
+msgstr "La legosigna vido estas dividita en 3 sekciojn:"
+
+#: en/bookmark.md:10
+msgid ""
+"- On top, the navigation and presentation settings,\n"
+"- The content,\n"
+"- A sidebar with information, labels, highlights and actions."
+msgstr ""
+"- Supre, la navigaciaj kaj prezentaj agordoj,\n"
+"- La enhavo,\n"
+"- Flankbreto kun informoj, etikedoj, elstaraĵoj kaj agoj."
+
+#: en/bookmark.md:15
+msgid "A bookmark renders its content based on its type. There are 3 types:"
+msgstr "Legosigno redonas sian enhavon laŭ sia tipo. Ekzistas 3 tipoj:"
+
+#: en/bookmark.md:30
+msgid "## Navigation and presentation settings"
+msgstr "## Navigaciaj kaj prezentaj agordoj"
+
+#: en/bookmark.md:32
+msgid "On top of the bookmark view, a link takes you back to the previous page."
+msgstr "Super la legosigna vido, ligilo rekondukas vin al la antaŭa paĝo."
+
+#: en/bookmark.md:34
+msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
+msgstr "Se la legosigno enhavas artikolon, butono aliflanke permesas al vi ŝanĝi kelkajn tipografiajn agordojn."
+
+#: en/bookmark.md:36
+msgid ""
+"![Bookmark typography settings](./img/bookmark-typography.webp)\n"
+"Typography settings."
+msgstr ""
+"![Agordoj de tipografio por legosigno](./img/bookmark-typography.webp)\n"
+"Agordoj de tipografio."
+
+#: en/bookmark.md:39
+msgid ""
+"There you can set the font used for the text, the font size and the line height.\\\n"
+"This settings are automatically saved for you and will apply to any article you read later."
+msgstr ""
+"Tie vi povas agordi la tiparon uzatan por la teksto, la tipargrandon kaj la linialton.\\\n"
+"Ĉi tiuj agordoj estas aŭtomate konservitaj por vi kaj aplikiĝos al ĉiu artikolo, kiun vi legos poste."
+
+#: en/bookmark.md:43
+msgid "## Change the title"
+msgstr "## Ŝanĝu la titolon"
+
+#: en/bookmark.md:45
+msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
+msgstr "La titolo de la legosigno estas aŭtomate prenita kiam vi kreas ĝin. Se, pro iu kialo, vi bezonas ion alian, vi povas ŝanĝi ĝin alklakante ĝin kaj poste alklakante la butonon ĉe la titola flanko."
+
+#: en/bookmark.md:48
+msgid "## Actions"
+msgstr "## Agoj"
+
+#: en/bookmark.md:50
+msgid "On the bookmark sidebar, you can perform actions."
+msgstr "Sur la flanka kolumno de legosignoj, vi povas fari agojn."
+
+#: en/bookmark.md:52
+msgid "### Favorite"
+msgstr "### Favorato"
+
+#: en/bookmark.md:54
+msgid "This toggles the favorite status of the bookmark."
+msgstr "Ĉi tio ŝanĝas la favoratan statuson de la legosigno."
+
+#: en/bookmark.md:56
+msgid "### Archive"
+msgstr "### Arkivo"
+
+#: en/bookmark.md:58
+msgid "This moves the bookmark to the archives (or removes it from there)."
+msgstr "Ĉi tio movas la legosignon al la arkivoj (aŭ forigas ĝin de tie)."
+
+#: en/bookmark.md:60
+msgid "### Share"
+msgstr "### Kunhavigi"
+
+#: en/bookmark.md:62
+msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
+msgstr "La kundivida butono malfermas menuon, el kiu vi povas krei ligilon, se vi volas kunhavigi artikolon kun iu."
+
+#: en/bookmark.md:64
+msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
+msgstr "En la sama menuo, vi povas eksporti vian legosignon (nur EPUB nuntempe) por legi ĝin sur alia aparato."
+
+#: en/bookmark.md:67
+msgid "### Delete"
+msgstr "### Forigi"
+
+#: en/bookmark.md:69
+msgid ""
+"This marks the bookmark for deletion.\\\n"
+"No worries if you click on this by mistake! This action can be canceled before actual deletion."
+msgstr ""
+"Ĉi tio markas la legosignon por forigo.\\\n"
+"Ne zorgu, se vi klakas ĉi tion erare! Ĉi tiu ago povas esti nuligita antaŭ la efektiva forigo."
+
+#: en/bookmark.md:73
+msgid "## Labels"
+msgstr "## Etikedoj"
+
+#: en/bookmark.md:75
+msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr "Vi povas aldoni tiom da etikedoj kiom vi volas al legosigno. Por fari tion, enigu tekston en la etikedan kampon kaj alklaku **Aldoni etikedon**. Ne ekzistas limo pri tio, kio povas esti etikedo. Vi eĉ povas aldoni bildosignojn, se vi ŝatas ilin."
+
+#: en/bookmark.md:77
+msgid ""
+"![Bookmark labels form](./img/bookmark-labels.webp)\n"
+"Add a new label."
+msgstr ""
+"![Formularo por etikedoj de legosignoj](./img/bookmark-labels.webp)\n"
+"Aldonu novan etikedon."
+
+#: en/bookmark.md:80
+msgid "Please read the [Labels](./labels.md) section for more information."
+msgstr "Bonvolu legi la sekcion [Etikedoj](./labels.md) por pliaj informoj."
+
+#: en/bookmark.md:82
+msgid "## Highlights"
+msgstr "## Kulminaĵoj"
+
+#: en/bookmark.md:84
+msgid ""
+"Found some interesting part in an article? You can highlight it!\\\n"
+"When you select any text in the article, a menu appears that lets you create a new highlight."
+msgstr ""
+"Ĉu vi trovis interesan parton en artikolo? Vi povas reliefigi ĝin!\\\n"
+"Kiam vi elektas ajnan tekston en la artikolo, aperas menuo kiu permesas vin krei novan kulminaĵo."
+
+#: en/bookmark.md:87
+msgid ""
+"![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
+"Create a new highlight."
+msgstr ""
+"![Kreado de legosigna kulminaĵo](./img/bookmark-highlight.webp)\n"
+"Kreu novan kulminaĵon."
+
+#: en/bookmark.md:90
+msgid "Your highlights appear in the sidebar."
+msgstr "Viaj kulminaĵoj aperas en la flanka kolumno."
+
+#: en/bookmark.md:92
+msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
+msgstr "Kiam vi bezonas forigi kulminaĵon, vi povas fari tion el la flanka kolumno aŭ elektante ĝin en la artikolo."
+
+#: en/collections.md:1
+msgid "# Collections"
+msgstr "# Kolektoj"
+
+#: en/collections.md:3
+msgid ""
+"Collections let you easily organize and export your bookmarks\n"
+"by saving search requests of your choice.\n"
+"When you create a new bookmark that matches a collection's criteria,\n"
+"it will appear immediately.\n"
+"Here are some examples:"
+msgstr ""
+"Kolektoj permesas facile organizi kaj eksporti viajn legosignojn\n"
+"konservante serĉpetojn laŭ via elekto.\n"
+"Kiam vi kreas novan legosignon, kiu kongruas kun la kriterioj de kolekto,\n"
+"ĝi aperos tuj.\n"
+"Jen kelkaj ekzemploj:"
+
+#: en/collections.md:9
+msgid ""
+"- The unread articles (no picture or videos),\n"
+"- The archived articles from \"wikipedia.org\",\n"
+"- The pictures with the label \"cat\",\n"
+"- The articles that contain \"climate\" in their title."
+msgstr ""
+"- La nelegitaj artikoloj (sen bildoj aŭ videoj),\n"
+"- La arkivitaj artikoloj el \"wikipedia.org\",\n"
+"- La bildoj kun la etikedo \"kato\",\n"
+"- La artikoloj kiuj enhavas \"klimato\" en sia titolo."
+
+#: en/collections.md:14
+msgid "## Create a new collection"
+msgstr "## Krei novan kolekton"
+
+#: en/collections.md:16
+msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
+msgstr "Por krei novan kolekton, iru al la [Kolektolisto](readeck-instance://bookmarks/collections) kaj alklaku **Krei novan kolekton**."
+
+#: en/collections.md:18
+msgid ""
+"![New Collection form](./img/collection-new.webp)\n"
+"The collection form"
+msgstr ""
+"![Nova Kolekta formularo](./img/collection-new.webp)\n"
+"La kolekta formularo"
+
+#: en/collections.md:21
+msgid "Enter any criteria and click on **Save**."
+msgstr "Enigu iun ajn kriterion kaj alklaku **Konservi**."
+
+#: en/collections.md:23
+msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
+msgstr "Bonvolu konsulti [legosignajn filtrojn](./bookmark-list.md#filters) por pliaj detaloj pri filtrado."
+
+#: en/collections.md:25
+msgid "## Export a collection"
+msgstr "## Eksporti kolekton"
+
+#: en/collections.md:27
+msgid "On a collection page, you can export the full collection to a file."
+msgstr "Sur kolekta paĝo, vi povas eksporti la tutan kolekton al dosiero."
+
+#: en/collections.md:29
+msgid "For now, only EPUB is available and exports the full collection as a single book."
+msgstr "Nuntempe, nur EPUB estas disponebla kaj eksportas la tutan kolekton kiel unu libron."
+
+#: en/collections.md:32
+msgid "## Delete a collection"
+msgstr "## Forigi kolekton"
+
+#: en/collections.md:34
+msgid "On a collection page, open the **Edit** box and click on **Delete**."
+msgstr "Sur kolekta paĝo, malfermu la skatolon **Redakti** kaj alklaku **Forigi**."
+
+#: en/collections.md:36
+msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
+msgstr "Ĉi tiu operacio povas esti nuligita dum kelkaj sekundoj, se vi eraris."
+
+#: en/index.md:1
+msgid ""
+"---\n"
+"Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+msgstr ""
+"---\n"
+"Titolo: Enhavtabelo\n"
+"# !! GRAVE: NE TRADUKU LA SUBAN PARTON\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+
+#: en/index.md:14
+msgid "# Readeck Help"
+msgstr "# Helpo je Readeck"
+
+#: en/index.md:16
+msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
+msgstr "Bonvenon al Readeck! Ĉi tie vi trovos respondojn al la plej multaj el viaj demandoj pri Readeck kaj kelkajn konsiletojn por plibonigi vian sperton eĉ pli."
+
+#: en/index.md:18
+msgid "## Contents"
+msgstr "## Enhavo"
+
+#: en/index.md:20
+msgid ""
+"- [Bookmarks](./bookmark-list.md)\n"
+"- [Bookmark View](./bookmark.md)\n"
+"- [Labels](./labels.md)\n"
+"- [Collections](./collections.md)\n"
+"- [Ebook Catalog](./opds.md)\n"
+"- [User Profile](./user-profile.md)"
+msgstr ""
+"- [Legosignoj](./bookmark-list.md)\n"
+"- [Vido de Legosigno](./bookmark.md)\n"
+"- [Etikedoj](./labels.md)\n"
+"- [Kolektoj](./collections.md)\n"
+"- [Katalogo de E-libroj](./opds.md)\n"
+"- [Uzanto-profilo](./user-profile.md)"
+
+#: en/labels.md:1
+msgid "# Labels"
+msgstr "# Etikedoj"
+
+#: en/labels.md:3
+msgid ""
+"You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
+"There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr ""
+"Vi povas [aldoni tiom da etikedoj kiom vi volas al legosigno](./bookmark.md#labels).\\\n"
+"Ne ekzistas limo pri tio, kio povas esti etikedo. Vi eĉ povas aldoni bildosignojn se vi ŝatas ilin."
+
+#: en/labels.md:6
+msgid "## Label List"
+msgstr "## Etikedlisto"
+
+#: en/labels.md:8
+msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
+msgstr "La [Etikedlisto](readeck-instance://bookmarks/labels) montras ĉiujn etikedojn en via legosigna kolekto, kun nombro indikanta kiom da legosignoj portas donitan etikedon."
+
+#: en/labels.md:10
+msgid "When you click on a label, you can list all the bookmarks carrying the label."
+msgstr "Kiam vi klakas sur etikedo, vi povas listigi ĉiujn legosignojn portantajn tiun etikedon."
+
+#: en/labels.md:12
+msgid "## Rename a label"
+msgstr "## Alinomi etikedon"
+
+#: en/labels.md:14
+msgid "On a given label page, you can click on the page's title (the label) to change its name."
+msgstr "Sur donita etikedpaĝo, vi povas klaki la titolon de la paĝo (la etikedon) por ŝanĝi ĝian nomon."
+
+#: en/opds.md:1
+msgid "# E-book Catalog"
+msgstr "# Katalogo de Bitlibroj"
+
+#: en/opds.md:3
+msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
+msgstr "Readeck provizas bitlibro-katalogon de ĉiuj viaj legosignoj, organizitaj en katalogo kun la suba strukturo:"
+
+#: en/opds.md:5
+msgid ""
+"- Unread Bookmarks\n"
+"- Archived Bookmarks\n"
+"- Favorite Bookmarks\n"
+"- All Bookmarks\n"
+"- Bookmark Collections\n"
+"  - (Collection Name)\n"
+"    - Collection E-book\n"
+"    - Browse Collection"
+msgstr ""
+"- Nelegitaj Legosignoj\n"
+"- Arkivitaj Legosignoj\n"
+"- Favorataj Legosignoj\n"
+"- Ĉiuj Legosignoj\n"
+"- Legosignaj Kolektoj\n"
+"  - (Kolektonomo)\n"
+"    - Kolekta Bitlibro\n"
+"    - Trarigardi Kolekton"
+
+#: en/opds.md:14
+msgid "Each section, except Collections, provides every bookmark as an E-book."
+msgstr "Ĉiu sekcio, krom Kolektoj, provizas ĉiun legosignon kiel bitlibron."
+
+#: en/opds.md:16
+msgid "On a collection's section, you can download the full collection as a single E-book."
+msgstr "En la sekcio de kolekto, vi povas elŝuti la tutan kolekton kiel ununuran bitlibron."
+
+#: en/opds.md:19
+msgid "## Catalog access"
+msgstr "## Kataloga aliro"
+
+#: en/opds.md:21
+msgid ""
+"The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
+"To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
+msgstr ""
+"La katalogo estas alirebla per iu ajn aplikaĵo aŭ bitlegilo subtenanta la formaton OPDS.\n"
+"Por doni aliron al la katalogo, vi unue devas krei [API-ĵetonon](readeck-instance://profile/tokens)."
+
+#: en/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr "**Noto**: Estas pli facile elŝuti la ĵetonon kiel tekstodosieron kaj transdoni ĝin al via bitlegilo. Vi tiam povas malfermi la dosieron kaj kopii la ĵetonon."
+
+#: en/opds.md:26
+msgid ""
+"You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
+"Write the token value down and setup your app."
+msgstr ""
+"Vi povas limigi la permeson de ĉi tiu ĵetono al \"Legosignoj: Nur Legi\".\n"
+"Skribu la ĵetonvaloron kaj agordu vian aplikaĵon."
+
+#: en/opds.md:29
+msgid ""
+"The URL of your OPDS catalog is: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+msgstr ""
+"La URL de via OPDS-katalogo estas: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+
+#: en/opds.md:33
+msgid "## Example setup: Koreader"
+msgstr "## Ekzempla agordo: Koreader"
+
+#: en/opds.md:35
+msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
+msgstr "[Koreader](https://koreader.rocks/) estas dokumentlegilo por bitink-aparatoj. Ĝi estas havebla por Kindle, Kobo, PocketBook, Android kaj labortabla Linukso. Ĝi havas tre bonan OPDS-subtenon."
+
+#: en/opds.md:37
+msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
+msgstr "Post kiam vi havas API-ĵetonon, vi povas aliri la OPDS-sekcion en la serĉa menuo de Koreader:"
+
+#: en/opds.md:39
+msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
+msgstr "![La serĉmenuo de Koreader](../img/koreader-1.webp)"
+
+#: en/opds.md:41
+msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
+msgstr "Ĉi tiu sekcio montras liston de antaŭagorditaj OPDS-fontoj kaj vi povas aldoni la viajn premante la simbolon \"+\" en la supra maldekstra angulo:"
+
+#: en/opds.md:43
+msgid "![Koreader catalog list](../img/koreader-2.webp)"
+msgstr "![Kataloga listo de Koreader](../img/koreader-2.webp)"
+
+#: en/opds.md:45
+msgid "In this dialog replace the fields below with:"
+msgstr "En ĉi tiu dialogo anstataŭigu la subajn kampojn per:"
+
+#: en/opds.md:47
+msgid ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: your username\n"
+"- your API Token in the last field"
+msgstr ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: via uzantnomo\n"
+"- via API-ĵetono en la lasta kampo"
+
+#: en/opds.md:51
+msgid "![Koreader add catalog](../img/koreader-3.webp)"
+msgstr "![Koreader aldoni katalogon](../img/koreader-3.webp)"
+
+#: en/opds.md:53
+msgid "You can now access your bookmarks from Koreader!"
+msgstr "Vi nun povas aliri viajn legosignojn el Koreader!"
+
+#: en/opds.md:55
+msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
+msgstr "![Katalogo de Readeck en Koreader](../img/koreader-4.webp)"
+
+#: en/user-profile.md:1
+msgid "# User Profile"
+msgstr "# Uzantprofilo"
+
+#: en/user-profile.md:3
+msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
+msgstr "La [Profila sekcio](readeck-instance://profile) de Readeck permesas al vi ŝanĝi viajn personajn informojn, vian pasvorton kaj kelkajn aliajn agordojn."
+
+#: en/user-profile.md:5
+msgid "## Edit your profile"
+msgstr "## Redaktu vian profilon"
+
+#: en/user-profile.md:7
+msgid "On the main profile page, you can change your username, your email address and choose the app's language."
+msgstr "Sur la ĉefa profila paĝo, vi povas ŝanĝi vian uzantnomon, vian retpoŝtadreson kaj elekti la lingvon de la aplikaĵo."
+
+#: en/user-profile.md:9
+msgid "## Change your password"
+msgstr "## Ŝanĝu vian pasvorton"
+
+#: en/user-profile.md:11
+msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
+msgstr "Sur la paĝo [Pasvorto](readeck-instance://profile/password), vi povas ŝanĝi la pasvorton, kiun vi uzas por konektiĝi al Readeck."
+
+#: en/user-profile.md:13
+msgid "## API Tokens"
+msgstr "## API-Ĵetonoj"
+
+#: en/user-profile.md:15
+msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
+msgstr "API-ĵetono permesas al vi aliri kaj uzi la [Readeck API](readeck-instance://docs/api) por ĉio, kion vi volas konstrui. Vi povas krei kaj administri ĵetonojn en la sekcio [API-Ĵetonoj](readeck-instance://profile/tokens) de via uzantprofilo."
+
+#: en/user-profile.md:17
+msgid "You can limit what a given token can access through the API and for how long it's valid."
+msgstr "Vi povas limigi tion, kion donita ĵetono povas aliri per la API kaj por kiom longe ĝi validas."
+
+#: en/user-profile.md:19
+msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
+msgstr "Se vi bezonas doni aliron al via Readeck-konto al servo aŭ aplikaĵo, vi ne povas provizi viajn ĉefajn uzantnomon kaj pasvorton; tio ne funkcios."
+
+#: en/user-profile.md:21
+msgid "Instead, you can give your username and a token of your choice as authentication credentials."
+msgstr "Anstataŭe, vi povas doni vian uzantnomon kaj elektitan ĵetonon kiel aŭtentikigajn datumojn."
+

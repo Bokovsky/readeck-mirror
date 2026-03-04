@@ -9,16 +9,18 @@ CREATE TABLE migration (
 );
 
 CREATE TABLE IF NOT EXISTS user (
-    id       integer  PRIMARY KEY AUTOINCREMENT,
-    uid      text     UNIQUE NOT NULL,
-    created  datetime NOT NULL,
-    updated  datetime NOT NULL,
-    username text     UNIQUE NOT NULL,
-    email    text     UNIQUE NOT NULL,
-    password text     NOT NULL,
-    `group`  text     NOT NULL DEFAULT "user",
-    settings json     NOT NULL DEFAULT "{}",
-    seed     integer  NOT NULL DEFAULT 0
+    id          integer  PRIMARY KEY AUTOINCREMENT,
+    uid         text     UNIQUE NOT NULL,
+    created     datetime NOT NULL,
+    updated     datetime NOT NULL,
+    last_login  datetime NOT NULL,
+    username    text     UNIQUE NOT NULL,
+    email       text     UNIQUE NOT NULL,
+    password    text     NOT NULL,
+    `group`     text     NOT NULL DEFAULT "user",
+    settings    json     NOT NULL DEFAULT "{}",
+    seed        integer  NOT NULL DEFAULT 0,
+    totp_secret blob     NULL
 );
 
 CREATE TABLE IF NOT EXISTS token (
@@ -102,59 +104,6 @@ CREATE TABLE IF NOT EXISTS bookmark_removed (
 
 CREATE INDEX bookmark_removed_deleted_idx ON "bookmark_removed" (deleted DESC);
 
-CREATE VIRTUAL TABLE IF NOT EXISTS bookmark_idx USING fts5(
-    tokenize='unicode61 remove_diacritics 2',
-    content='bookmark',
-    content_rowid='id',
-    catchall,
-    title,
-    description,
-    text,
-    site,
-    author,
-    label
-);
-
-INSERT INTO bookmark_idx(bookmark_idx, rank) VALUES ('rank', 'bm25(0, 12.0, 6.0, 5.0, 2.0, 4.0)');
-
-DROP TRIGGER IF EXISTS bookmark_ai;
-CREATE TRIGGER bookmark_ai AFTER INSERT ON bookmark BEGIN
-    INSERT INTO bookmark_idx (
-        rowid, catchall, title, description, text, site, author, label
-    ) VALUES (
-        new.id, 'oooooo', new.title, new.description, new.text, new.site_name || ' ' || new.site || ' ' || new.domain, new.authors, new.labels
-    );
-END;
-
-DROP TRIGGER IF EXISTS bookmark_au;
-CREATE TRIGGER bookmark_au AFTER UPDATE ON bookmark BEGIN
-    INSERT INTO bookmark_idx(
-        bookmark_idx, rowid, catchall, title, description, text, site, author, label
-    ) VALUES (
-        'delete', old.id, 'oooooo', old.title, old.description, old.text, old.site, old.authors, old.labels
-    );
-    INSERT INTO bookmark_idx (
-        rowid, catchall, title, description, text, site, author, label
-    ) VALUES (
-        new.id, 'oooooo', new.title, new.description, new.text, new.site_name || ' ' || new.site || ' ' || new.domain, new.authors, new.labels
-    );
-END;
-
-DROP TRIGGER IF EXISTS bookmark_ad;
-CREATE TRIGGER IF NOT EXISTS bookmark_ad AFTER DELETE ON bookmark BEGIN
-    INSERT INTO bookmark_idx(
-        bookmark_idx, rowid, catchall, title, description, text, site, author, label
-    ) VALUES (
-        'delete', old.id, 'oooooo', old.title, old.description, old.text, old.site, old.authors, old.labels
-    );
-
-    INSERT INTO bookmark_removed(
-        uid, user_id, deleted
-    ) VALUES (
-        old.uid, old.user_id, datetime('now', 'subsec')
-    );
-END;
-
 CREATE TABLE IF NOT EXISTS bookmark_collection (
     id          integer  PRIMARY KEY AUTOINCREMENT,
     uid         text     UNIQUE NOT NULL,
@@ -167,3 +116,106 @@ CREATE TABLE IF NOT EXISTS bookmark_collection (
 
     CONSTRAINT fk_bookmark_collection_user FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );
+
+--
+-- Full text search configuration
+--
+
+-- We use an intermediate view so we can easily index JSON fields
+CREATE VIEW bookmark_index_view (
+    id,
+    title,
+    description,
+    "text",
+    site,
+    author,
+    label,
+    note
+)
+AS SELECT
+    id,
+    title,
+    description,
+    "text",
+    site_name || ' ' || site || ' ' || domain AS site,
+    (
+        SELECT group_concat(x.value, ' ')
+        FROM json_each(
+            CASE json_type(CASE json_valid(authors) WHEN TRUE THEN authors ELSE '0' END)
+            WHEN 'array' THEN authors ELSE '[]' END
+        ) AS x
+    ) AS author,
+    (
+      SELECT group_concat(x.value, ' ')
+      FROM json_each(
+          CASE json_type(CASE json_valid(labels) WHEN TRUE THEN labels ELSE '0' END)
+          WHEN 'array' THEN labels ELSE '[]' END
+      ) AS x
+    ) AS label,
+    (
+      SELECT group_concat(json_extract(x.value, '$.note'), ' ')
+      FROM json_each(
+          CASE json_type(CASE json_valid(annotations) WHEN TRUE THEN annotations ELSE '0' END)
+          WHEN 'array' THEN annotations
+          ELSE '[]' END
+      ) AS x
+      WHERE json_extract(x.value, '$.note') != ''
+    ) AS note
+FROM bookmark;
+
+
+-- FTS virtual table. It's a content-less table on which we can
+-- perform update and delete.
+CREATE VIRTUAL TABLE IF NOT EXISTS bookmark_idx USING fts5(
+    tokenize='unicode61 remove_diacritics 2',
+    content='',
+    contentless_delete=1,
+    catchall,
+    title,
+    description,
+    "text",
+    site,
+    author,
+    label,
+    note
+);
+
+-- Ranking configuration
+INSERT INTO bookmark_idx(bookmark_idx, rank) VALUES ('rank', 'bm25(0, 12.0, 6.0, 5.0, 2.0, 4.0, 6.0, 10.0)');
+
+-- On bookmark creation, insert the values in the index.
+DROP TRIGGER IF EXISTS bookmark_ai;
+CREATE TRIGGER bookmark_ai AFTER INSERT ON bookmark
+BEGIN
+    INSERT INTO bookmark_idx (rowid, catchall, title, description, "text", site, author, label, note)
+    SELECT id, 'oooooo', title, description, "text", site, author, label, note
+    FROM bookmark_index_view
+    WHERE id = new.id;
+END;
+
+-- On bookmark update, remove the previous index and insert the new values.
+DROP TRIGGER IF EXISTS bookmark_au;
+CREATE TRIGGER bookmark_au AFTER UPDATE ON bookmark
+BEGIN
+    DELETE FROM bookmark_idx WHERE rowid = old.id;
+
+    INSERT INTO bookmark_idx (rowid, catchall, title, description, "text", site, author, label, note)
+    SELECT id, 'oooooo', title, description, "text", site, author, label, note
+    FROM bookmark_index_view
+    WHERE id = new.id;
+END;
+
+-- On bookmark deletion, remove index values.
+DROP TRIGGER IF EXISTS bookmark_ad;
+CREATE TRIGGER IF NOT EXISTS bookmark_ad AFTER DELETE ON bookmark
+BEGIN
+    DELETE FROM bookmark_idx WHERE rowid = old.id;
+
+    INSERT INTO bookmark_removed(
+        uid, user_id, deleted
+    ) VALUES (
+        old.uid, old.user_id, datetime('now', 'subsec')
+    );
+END;
+
+

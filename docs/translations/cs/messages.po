@@ -1,0 +1,857 @@
+# Czech (Czechia) translations for Readeck User Documentation.
+# SPDX-FileCopyrightText: © 2025 Readeck <translate@readeck.com>
+#
+# SPDX-License-Identifier: AGPL-3.0-only
+# olivier <olivier@noreply.codeberg.org>, 2025.
+# Anonymous <anonymous@noreply.codeberg.org>, 2025.
+# Joedmin <joedmin@joedmin.cz>, 2025.
+msgid ""
+msgstr ""
+"Project-Id-Version: Readeck User Documentation 1.0.0\n"
+"Report-Msgid-Bugs-To: translate@readeck.com\n"
+"POT-Creation-Date: 2025-12-18 21:31+0100\n"
+"PO-Revision-Date: 2025-12-16 09:12+0000\n"
+"Last-Translator: olivier <olivier@noreply.codeberg.org>\n"
+"Language: cs_CZ\n"
+"Language-Team: Czech <https://translate.codeberg.org/projects/readeck/documentation/cs/>\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: en/bookmark-list.md:1
+msgid "# Bookmarks"
+msgstr "# Záložky"
+
+#: en/bookmark-list.md:3
+msgid "Bookmarks are where you save the web content you like."
+msgstr "Záložky jsou místem, kam si ukládáte svůj oblíbený webový obsah."
+
+#: en/bookmark-list.md:5
+msgid "## Create a new Bookmark"
+msgstr "## Vytvoření nové záložky"
+
+#: en/bookmark-list.md:7
+msgid "Found a web page you like? Great! Copy its link into the text field named **new bookmark** on the [Bookmark List](readeck-instance://bookmarks)."
+msgstr "Našli jste webovou stránku, která se vám líbí? Skvělé! Zkopírujte její odkaz do textového pole s názvem **nová záložka** na [Seznamu záložek](readeck-instance://bookmarks)."
+
+#: en/bookmark-list.md:9
+msgid "![New Bookmark form](./img/bookmark-new.webp)"
+msgstr "![Formulář Nová záložka](./img/bookmark-new.webp)"
+
+#: en/bookmark-list.md:11
+msgid "After a few seconds, your bookmark will be ready. You can then open it to read or watch its content, add labels, highlight text or export an ebook. For more information, please read the [Bookmark View](./bookmark.md) section."
+msgstr "Vaše záložka bude připravena za několik sekund. Poté ji můžete otevřít a číst nebo sledovat její obsah, přidávat štítky, zvýrazňovat text nebo exportovat e-knihu. Další informace naleznete v části [Zobrazení záložky](./bookmark.md)."
+
+#: en/bookmark-list.md:13
+msgid "## Bookmark type"
+msgstr "## Typ záložky"
+
+#: en/bookmark-list.md:15
+msgid "Readeck recognizes 3 different types of web content:"
+msgstr "Readeck rozpoznává 3 různé typy webového obsahu:"
+
+#: en/bookmark-list.md:17 en/bookmark.md:17
+msgid "### Article"
+msgstr "### Článek"
+
+#: en/bookmark-list.md:19 en/bookmark.md:19
+msgid "An article is a page from which the text content was extracted. It renders as a readable version of its content."
+msgstr "Článek je stránka, ze které byl extrahován textový obsah. Vykresluje se jako čitelná verze jejího obsahu."
+
+#: en/bookmark-list.md:21 en/bookmark.md:21
+msgid "### Picture"
+msgstr "### Obrázek"
+
+#: en/bookmark-list.md:23 en/bookmark.md:23
+msgid "A picture is a page that was recognized as a picture container (ie. a link to Unsplash). It renders the stored picture."
+msgstr "Obrázek je stránka, která byla rozpoznána jako kontejner obrázku (např. odkaz na Unsplash). Vykreslí se uložený obrázek."
+
+#: en/bookmark-list.md:25 en/bookmark.md:25
+msgid "### Video"
+msgstr "### Video"
+
+#: en/bookmark-list.md:27 en/bookmark.md:27
+msgid "A video is a page that was identified as a video container (ie. a link to Youtube or Vimeo). It renders a video player. Please note that videos are played from their respective remote servers."
+msgstr "Video je stránka, která byla rozpoznána jako kontejner videa (např. odkaz na Youtube nebo Vimeo). Vykreslí přehrávač videa. Mějte na paměti, že videa se přehrávají z příslušných vzdálených serverů."
+
+#: en/bookmark-list.md:30
+msgid "## Bookmark List"
+msgstr "## Seznam záložek"
+
+#: en/bookmark-list.md:32
+msgid "The [bookmark list](readeck-instance://bookmarks) is where you'll find all your saved bookmarks."
+msgstr "[Seznam záložek](readeck-instance://bookmarks) je místo, kde naleznete všechny své uložené záložky."
+
+#: en/bookmark-list.md:34
+msgid "### Navigation"
+msgstr "### Navigace"
+
+#: en/bookmark-list.md:36
+msgid "On the sidebar, you'll find a search field and links that will take you to filtered bookmark lists."
+msgstr "Na postranním panelu naleznete vyhledávací pole a odkazy, které vás přenesou na filtrované seznamy záložek."
+
+#: en/bookmark-list.md:38
+msgid "![Bookmark list sidebar](./img/bookmark-sidebar.webp)"
+msgstr "![Postranní panel seznamu záložek](./img/bookmark-sidebar.webp)"
+
+#: en/bookmark-list.md:40
+msgid ""
+"- **Search** \\\n"
+"  Enter any search term (title, content, website...)\n"
+"- **All** \\\n"
+"  All your bookmarks.\n"
+"- **Unread** \\\n"
+"  The bookmarks that are not in the archive.\n"
+"- **Archive** \\\n"
+"  The bookmarks you marked as archived.\n"
+"- **Favorites** \\\n"
+"  The bookmarks you marked as favorite."
+msgstr ""
+"- **Vyhledávání** \\\n"
+"  Zadejte libovolný vyhledávací výraz (název, obsah, webovou stránku…).\n"
+"- **Vše** \\\n"
+"  Všechny vaše záložky.\n"
+"- **Nepřečtené** \\\n"
+"  Záložky, které nejsou v archivu.\n"
+"- **Archiv** \\\n"
+"  Záložky, které jste označili jako archivované.\n"
+"- **Oblíbené** \\\n"
+"  Záložky, které jste označili jako oblíbené."
+
+#: en/bookmark-list.md:52
+msgid "Once you start saving pages, you'll see the following additional links:"
+msgstr "Jakmile začnete ukládat stránky, zobrazí se následující další odkazy:"
+
+#: en/bookmark-list.md:54
+msgid ""
+"- **Articles** \\\n"
+"  Your article bookmarks\n"
+"- **Videos** \\\n"
+"  Your video bookmarks\n"
+"- **Pictures** \\\n"
+"  Your picture bookmarks"
+msgstr ""
+"- **Články** \\\n"
+"  Vaše záložky článků\n"
+"- **Videa** \\\n"
+"  Vaše záložky videí\n"
+"- **Obrázky** \\\n"
+"  Vaše záložky obrázků"
+
+#: en/bookmark-list.md:61
+msgid "Finally, you'll see 3 more sections that take you to bookmark related pages:"
+msgstr "Nakonec uvidíte další 3 sekce, které vás přenesou na stránek souvisejícími se záložkami:"
+
+#: en/bookmark-list.md:63
+msgid ""
+"- **[Labels](./labels.md)** \\\n"
+"  All your bookmark labels\n"
+"- **Highlights** \\\n"
+"  All the highlights created on your bookmarks\n"
+"- **[Collections](./collections.md)** \\\n"
+"  The list of all your collections"
+msgstr ""
+"- **[Štítky](./labels.md)** \\\n"
+"  Všechny vaše štítky záložek\n"
+"- **Zvýraznění** \\\n"
+"  Všechna zvýraznění vytvořená ve vašich záložkách\n"
+"- **[Sbírky](./collections.md)** \\\n"
+"  Seznam všech vašich sbírek"
+
+#: en/bookmark-list.md:70
+msgid "### Bookmark Cards"
+msgstr "### Karty záložek"
+
+#: en/bookmark-list.md:72
+msgid "Each item on a list is called a Bookmark Card."
+msgstr "Každá položka seznamu se nazývá Karta záložky."
+
+#: en/bookmark-list.md:74
+msgid ""
+"![Bookmark List](./img/bookmark-list.webp)\n"
+"Grid Bookmark List"
+msgstr ""
+"![Seznam záložek](./img/bookmark-list.webp)\n"
+"Seznam záložek v mřížce"
+
+#: en/bookmark-list.md:77
+msgid "A card shows:"
+msgstr "Karta zobrazuje:"
+
+#: en/bookmark-list.md:79
+msgid ""
+"- the **title** on which you can click to watch or read the bookmark,\n"
+"- the **site name**,\n"
+"- the estimated **reading time**,\n"
+"- the **label list**,\n"
+"- **action buttons**"
+msgstr ""
+"- **název**, na který můžete kliknout a záložku sledovat nebo číst,\n"
+"- **název stránky**,\n"
+"- předpokládanou **dobu čtení**,\n"
+"- **seznam štítků**,\n"
+"- **akční tlačítka**"
+
+#: en/bookmark-list.md:85
+msgid "The action buttons perform the following:"
+msgstr "Akční tlačítka provádějí následující:"
+
+#: en/bookmark-list.md:87
+msgid ""
+"- **Favorite** \\\n"
+"  This toggles the favorite status of the bookmark.\n"
+"- **Archive** \\\n"
+"  This moves the bookmark to the archives (or removes it from there).\n"
+"- **Delete** \\\n"
+"  This marks the bookmark for deletion (it can be canceled during a few seconds)."
+msgstr ""
+"- **Oblíbené** \\\n"
+"  Přepíná stav oblíbenosti záložky.\n"
+"- **Archivovat** \\\n"
+"  Přesune záložku do archivu (nebo ji z něj odebere).\n"
+"- **Odstranit** \\\n"
+"  Označí záložku k odstranění (lze to zrušit během několika sekund)."
+
+#: en/bookmark-list.md:94
+msgid "### Compact List"
+msgstr "### Kompaktní seznam"
+
+#: en/bookmark-list.md:96
+msgid "If you find the bookmark grid view too busy, you can switch to a more compact list with less images. Click on the button next to the title to switch from the grid view to the compact view."
+msgstr "Pokud se vám zobrazení mřížky záložek zdá příliš přeplněné, můžete přepnout na kompaktnější seznam s menším počtem obrázků. Kliknutím na tlačítko vedle názvu přepnete ze zobrazení mřížky na kompaktní zobrazení."
+
+#: en/bookmark-list.md:98
+msgid ""
+"![Bookmark Compact List](./img/bookmark-list-compact.webp)\n"
+"Compact Bookmark List"
+msgstr ""
+"![Kompaktní Seznam záložek](./img/bookmark-list-compact.webp)\n"
+"Kompaktní Seznam záložek"
+
+#: en/bookmark-list.md:101
+#, python-brace-format
+msgid "## Filter Bookmarks {#filters}"
+msgstr "## Filtrování záložek {#filters}"
+
+#: en/bookmark-list.md:103
+msgid "On the bookmark list, you can filter your results based on one or several criteria. Click on the button \"Filter list\" next to the page title to open the filtering form."
+msgstr "V seznamu záložek můžete filtrovat výsledky na základě jednoho nebo několika kritérií. Kliknutím na tlačítko „Filtrovat seznam“ vedle názvu stránky otevřete formulář pro filtrování."
+
+#: en/bookmark-list.md:105
+msgid ""
+"![Bookmark list filters](./img/bookmark-filters.webp)\n"
+"The filter form"
+msgstr ""
+"![Filtry seznamu záložek](./img/bookmark-filters.webp)\n"
+"Formulář pro filtrování"
+
+#: en/bookmark-list.md:108
+msgid "Enter any criteria and click on **Search**."
+msgstr "Zadejte libovolná kritéria a klikněte na **Vyhledat**."
+
+#: en/bookmark-list.md:110
+msgid "### Available filters"
+msgstr "### Dostupné filtry"
+
+#: en/bookmark-list.md:112
+msgid "You can combine the following filters:"
+msgstr "Můžete kombinovat následující filtry:"
+
+#: en/bookmark-list.md:114
+msgid ""
+"- **Search**\\\n"
+"  Search in the bookmark's text, its title, its authors, its site name and domain and the labels.\n"
+"- **Title**\\\n"
+"  Search in the title only.\n"
+"- **Author**\\\n"
+"  Search in the author list only.\n"
+"- **Site**\\\n"
+"  Search in the site title and the site domain name.\n"
+"- **Label**\\\n"
+"  Search for specific labels.\n"
+"- **Is Favorite**, **Is Archived**, **Type**\\\n"
+"  This filters let you restrict your search to any of these criteria.\n"
+"- **From date**, **To date**\\\n"
+"  This last filters let you restrict from when and to when the bookmark was saved. For example, this lets you retrieve the bookmark list saved during the past 4 weeks but not after the last week."
+msgstr ""
+"- **Vyhledávání**\\\n"
+"  Vyhledávání v textu záložky, jejím názvu, autorech, názvu a doméně webu a štítcích.\n"
+"- **Název**\\\n"
+"  Vyhledávání pouze v názvu.\n"
+"- **Autor**\\\n"
+"  Vyhledávání pouze v seznamu autorů.\n"
+"- **Stránka**\\\n"
+"  Vyhledávání v názvu stránky a názvu domény stránky.\n"
+"- **Štítek**\\\n"
+"  Vyhledávání konkrétních štítků.\n"
+"- **Je oblíbený**, **Je archivovaný**, **Typ**\\\n"
+"  Tyto filtry umožňují omezit vyhledávání na některé z těchto kritérií.\n"
+"- **Od data**, **Do data**\\\n"
+"  Tyto poslední filtry umožňují omezit datum od kdy a do kdy byla záložka uložena. To vám například umožní vyhledat seznam záložek uložených během posledních 4 týdnů, ale ne po posledním týdnu."
+
+#: en/bookmark-list.md:129
+msgid "### Search query"
+msgstr "### Vyhledávací dotaz"
+
+#: en/bookmark-list.md:131
+msgid "The **Search**, **Title**, **Author**, **Site** and **Label** fields understand search criteria the same way:"
+msgstr "Pole **Vyhledávání**, **Název**, **Autor**, **Stránka** a **Štítek** chápou kritéria vyhledávání stejným způsobem:"
+
+#: en/bookmark-list.md:133
+msgid ""
+"- `startled cat` will find the content with the words **startled** and **cat**\n"
+"- `\"startled cat\"` will find the content with the exact words **startled cat** together.\n"
+"- `cat*` will find the content with the words starting with **cat** (cat, catnip and caterpillar would be a match).\n"
+"- `-startled cat` will find the content with the word **cat** but NOT the word **startled**."
+msgstr ""
+"- `vyplašená kočka` najde obsah se slovy **vyplašená** a **kočka**.\n"
+"- `\"vyplašená kočka\"` najde obsah s přesnými slovy **vyplašená kočka** dohromady.\n"
+"- `koč*` najde obsah se slovy začínajícími na **koč** (kočka, kočičí a kočár by se shodovaly).\n"
+"- `-vyplašená kočka` najde obsah se slovem **kočka**, ale NE se slovem **vyplašená**."
+
+#: en/bookmark-list.md:139
+msgid "After you performed a search, you can save it into a new [collection](./collections.md) to make it permanent."
+msgstr "Po provedení vyhledávání ho můžete uložit do nové [sbírky](./collections.md), aby bylo trvalé."
+
+#: en/bookmark-list.md:141
+msgid "## Export and Import Bookmarks"
+msgstr "## Export a import záložek"
+
+#: en/bookmark-list.md:143
+msgid ""
+"![Menu](./img/bookmark-list-menu.webp)\n"
+"Bookmark list menu"
+msgstr ""
+"![Nabídka](./img/bookmark-list-menu.webp)\n"
+"Nabídka seznamu záložek"
+
+#: en/bookmark-list.md:146
+msgid "### Export bookmarks"
+msgstr "### Export záložek"
+
+#: en/bookmark-list.md:148
+msgid "The menu button next to the filters button let you download an EPUB file of the current list of bookmarks. It exports one e-book containing all the articles organized in chapters."
+msgstr "Tlačítko nabídky vedle tlačítka filtrů umožňuje stáhnout soubor EPUB aktuálního seznamu záložek. Exportuje jednu e-knihu obsahující všechny články uspořádané do kapitol."
+
+#: en/bookmark-list.md:150
+msgid "### Import bookmarks"
+msgstr "### Import záložek"
+
+#: en/bookmark-list.md:152
+msgid "In the same menu, you'll find a [Import bookmarks](readeck-instance://bookmarks/import) link. It will take you to an import wizard that lets you import your existing bookmarks from various sources."
+msgstr "Ve stejné nabídce naleznete odkaz [Importovat záložky](readeck-instance://bookmarks/import). Přesměruje vás na průvodce importem, který vám umožní importovat stávající záložky z různých zdrojů."
+
+#: en/bookmark.md:1
+msgid "# Bookmark View"
+msgstr "# Zobrazení záložky"
+
+#: en/bookmark.md:3
+msgid "## The view"
+msgstr "## Zobrazení"
+
+#: en/bookmark.md:5
+msgid ""
+"![The bookmark view](./img/bookmark-view.webp)\n"
+"The bookmark view of an article."
+msgstr ""
+"![Zobrazení záložky](./img/bookmark-view.webp)\n"
+"Zobrazení záložky článku."
+
+#: en/bookmark.md:8
+msgid "The bookmark view is divided in 3 sections:"
+msgstr "Zobrazení záložek je rozděleno na 3 části:"
+
+#: en/bookmark.md:10
+msgid ""
+"- On top, the navigation and presentation settings,\n"
+"- The content,\n"
+"- A sidebar with information, labels, highlights and actions."
+msgstr ""
+"- Nahoře je navigace a nastavení prezentace,\n"
+"- Obsah,\n"
+"- Postranní panel s informacemi, štítky, zvýrazněními a akcemi."
+
+#: en/bookmark.md:15
+msgid "A bookmark renders its content based on its type. There are 3 types:"
+msgstr "Záložka vykresluje svůj obsah na základě svého typu. Existují 3 typy:"
+
+#: en/bookmark.md:30
+msgid "## Navigation and presentation settings"
+msgstr "## Navigace a nastavení prezentace"
+
+#: en/bookmark.md:32
+msgid "On top of the bookmark view, a link takes you back to the previous page."
+msgstr "V horní části zobrazení záložky je odkaz, který vás přenese zpět na předchozí stránku."
+
+#: en/bookmark.md:34
+msgid "If the bookmark contains an article, a button on the other side lets you change some typography settings."
+msgstr "Pokud záložka obsahuje článek, tlačítko na druhé straně umožňuje změnit některá nastavení typografie."
+
+#: en/bookmark.md:36
+msgid ""
+"![Bookmark typography settings](./img/bookmark-typography.webp)\n"
+"Typography settings."
+msgstr ""
+"![Nastavení typografie záložky](./img/bookmark-typography.webp)\n"
+"Nastavení typografie."
+
+#: en/bookmark.md:39
+msgid ""
+"There you can set the font used for the text, the font size and the line height.\\\n"
+"This settings are automatically saved for you and will apply to any article you read later."
+msgstr ""
+"Zde můžete nastavit písmo použité pro text, velikost písma a výšku řádku.\\\n"
+"Tato nastavení se pro vás automaticky uloží a budou platit pro všechny články, které budete později číst."
+
+#: en/bookmark.md:43
+msgid "## Change the title"
+msgstr "## Změna nadpisu"
+
+#: en/bookmark.md:45
+msgid "The bookmark's title is automatically grabbed when you create it. If, for some reason, you need something else, you can change it by clicking on it and then click the button on the title side."
+msgstr "Nadpis záložky je automaticky získán při jejím vytvoření. Pokud z nějakého důvodu potřebujete něco jiného, můžete ho změnit tak, že na něj kliknete a poté kliknete na tlačítko na straně nadpisu."
+
+#: en/bookmark.md:48
+msgid "## Actions"
+msgstr "## Akce"
+
+#: en/bookmark.md:50
+msgid "On the bookmark sidebar, you can perform actions."
+msgstr "Na postranním panelu záložky můžete provádět akce."
+
+#: en/bookmark.md:52
+msgid "### Favorite"
+msgstr "### Oblíbenost"
+
+#: en/bookmark.md:54
+msgid "This toggles the favorite status of the bookmark."
+msgstr "Toto přepne stav oblíbenosti záložky."
+
+#: en/bookmark.md:56
+msgid "### Archive"
+msgstr "### Archivace"
+
+#: en/bookmark.md:58
+msgid "This moves the bookmark to the archives (or removes it from there)."
+msgstr "Toto přesune záložku do archivu (nebo ji z něj odebere)."
+
+#: en/bookmark.md:60
+msgid "### Share"
+msgstr "### Sdílet"
+
+#: en/bookmark.md:62
+msgid "The share button opens a menu from which you can create a link if you want to share an article with someone."
+msgstr "Tlačítko sdílení otevře nabídku, ze které můžete vytvořit odkaz, pokud chcete článek s někým sdílet."
+
+#: en/bookmark.md:64
+msgid "On the same menu, you can export your bookmark (only EPUB for now) to read it on a different device."
+msgstr "Ve stejné nabídce můžete záložku exportovat (zatím pouze do EPUB) a číst ji na jiném zařízení."
+
+#: en/bookmark.md:67
+msgid "### Delete"
+msgstr "### Odstranit"
+
+#: en/bookmark.md:69
+msgid ""
+"This marks the bookmark for deletion.\\\n"
+"No worries if you click on this by mistake! This action can be canceled before actual deletion."
+msgstr ""
+"Toto označí záložku k odstranění.\\\n"
+"Nemusíte se bát, že byste na to omylem kliknuli! Tuto akci lze zrušit ještě před skutečným odstraněním."
+
+#: en/bookmark.md:73
+msgid "## Labels"
+msgstr "## Štítky"
+
+#: en/bookmark.md:75
+msgid "You can add as many labels as you want to a bookmark. To do so, enter some text in the label field and click on **Add label**. There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr "K záložce můžete přidat libovolný počet štítků. To provedete tak, že do pole pro štítek zadáte nějaký text a kliknete na **Přidat štítek**. Neexistuje žádné omezení, co může být štítkem. Můžete přidat i emotikony, pokud se vám líbí."
+
+#: en/bookmark.md:77
+msgid ""
+"![Bookmark labels form](./img/bookmark-labels.webp)\n"
+"Add a new label."
+msgstr ""
+"![Formulář štítků záložek](./img/bookmark-labels.webp)\n"
+"Přidání nového štítku."
+
+#: en/bookmark.md:80
+msgid "Please read the [Labels](./labels.md) section for more information."
+msgstr "Prosím přečtěte si [Štítky](./labels.md)."
+
+#: en/bookmark.md:82
+msgid "## Highlights"
+msgstr "## Zvýraznění"
+
+#: en/bookmark.md:84
+msgid ""
+"Found some interesting part in an article? You can highlight it!\\\n"
+"When you select any text in the article, a menu appears that lets you create a new highlight."
+msgstr ""
+"Našli jste v článku nějakou zajímavou část? Můžete ji zvýraznit!\\\n"
+"Když vyberete libovolný text v článku, zobrazí se nabídka, která vám umožní vytvořit nové zvýraznění."
+
+#: en/bookmark.md:87
+msgid ""
+"![Bookmark highlight creation](./img/bookmark-highlight.webp)\n"
+"Create a new highlight."
+msgstr ""
+"![Vytvoření zvýraznění záložky](./img/bookmark-highlight.webp)\n"
+"Vytvoření nového zvýraznění."
+
+#: en/bookmark.md:90
+msgid "Your highlights appear in the sidebar."
+msgstr "Vaše zvýraznění se zobrazí v postranním panelu."
+
+#: en/bookmark.md:92
+msgid "When you need to remove an highlight, you can do it from the sidebar or by selecting it in the article."
+msgstr "Když potřebujete zvýraznění odebrat, můžete to provést z postranního panelu nebo jeho výběrem v článku."
+
+#: en/collections.md:1
+msgid "# Collections"
+msgstr "# Sbírky"
+
+#: en/collections.md:3
+msgid ""
+"Collections let you easily organize and export your bookmarks\n"
+"by saving search requests of your choice.\n"
+"When you create a new bookmark that matches a collection's criteria,\n"
+"it will appear immediately.\n"
+"Here are some examples:"
+msgstr ""
+"Sbírky umožňují snadné uspořádání a export záložek\n"
+"uložením vybraných vyhledávacích dotazů.\n"
+"Nově vytvořené záložky, odpovídající kritériím\n"
+"sbírky, se okamžitě zobrazí.\n"
+"Zde je několik příkladů:"
+
+#: en/collections.md:9
+msgid ""
+"- The unread articles (no picture or videos),\n"
+"- The archived articles from \"wikipedia.org\",\n"
+"- The pictures with the label \"cat\",\n"
+"- The articles that contain \"climate\" in their title."
+msgstr ""
+"- Nepřečtené články (bez obrázků a videí),\n"
+"- Archivované články z „wikipedia.org“\n"
+"- Obrázky se štítkem „kočka“,\n"
+"- Články, které obsahují v názvu slovo „klima“."
+
+#: en/collections.md:14
+msgid "## Create a new collection"
+msgstr "## Vytvoření nové sbírky"
+
+#: en/collections.md:16
+msgid "To create a new collection, go to the [Collection List](readeck-instance://bookmarks/collections) and click on **Create a new collection**."
+msgstr "Pro vytvoření nové sbírky přejděte do [Seznamu sbírek](readeck-instance://bookmarks/collections) a klikněte na **Vytvořit novou sbírku**."
+
+#: en/collections.md:18
+msgid ""
+"![New Collection form](./img/collection-new.webp)\n"
+"The collection form"
+msgstr ""
+"![Formulář Nová sbírka](./img/collection-new.webp)\n"
+"Formulář sbírky"
+
+#: en/collections.md:21
+msgid "Enter any criteria and click on **Save**."
+msgstr "Zadejte libovolná kritéria a klikněte na **Uložit**."
+
+#: en/collections.md:23
+msgid "Please refer to [bookmark filters](./bookmark-list.md#filters) for more details about filtering."
+msgstr "Další podrobnosti o filtrování naleznete v části [filtry záložek](./bookmark-list.md#filters)."
+
+#: en/collections.md:25
+msgid "## Export a collection"
+msgstr "## Export sbírky"
+
+#: en/collections.md:27
+msgid "On a collection page, you can export the full collection to a file."
+msgstr "Na stránce sbírky můžete celou sbírku exportovat do souboru."
+
+#: en/collections.md:29
+msgid "For now, only EPUB is available and exports the full collection as a single book."
+msgstr "Prozatím je k dispozici pouze formát EPUB, který exportuje celou sbírku jako jednu knihu."
+
+#: en/collections.md:32
+msgid "## Delete a collection"
+msgstr "## Odstranění sbírky"
+
+#: en/collections.md:34
+msgid "On a collection page, open the **Edit** box and click on **Delete**."
+msgstr "Na stránce sbírky otevřete pole **Upravit** a klikněte na **Odstranit**."
+
+#: en/collections.md:36
+msgid "This operation can be cancelled during a few seconds, in case you made a mistake."
+msgstr "Tuto operaci lze během několika sekund zrušit pro případ, že jste se spletli."
+
+#: en/index.md:1
+msgid ""
+"---\n"
+"Title: Table of Contents\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+msgstr ""
+"---\n"
+"Title: Obsah\n"
+"# !! IMPORTANT: DO NOT TRANSLATE THE PART BELOW\n"
+"TOC:\n"
+"    - \"\"\n"
+"    - bookmark-list\n"
+"    - bookmark\n"
+"    - labels\n"
+"    - collections\n"
+"    - opds\n"
+"    - user-profile\n"
+"---"
+
+#: en/index.md:14
+msgid "# Readeck Help"
+msgstr "# Nápověda Readecku"
+
+#: en/index.md:16
+msgid "Welcome to Readeck! Here you'll find the answers to most of your questions regarding Readeck and some tips to improve your experience even more."
+msgstr "Vítejte na Readecku! Zde naleznete odpovědi na většinu vašich otázek týkajících se Readecku a několik tipů, jak ještě více zlepšit váš zážitek."
+
+#: en/index.md:18
+msgid "## Contents"
+msgstr "## Obsah"
+
+#: en/index.md:20
+msgid ""
+"- [Bookmarks](./bookmark-list.md)\n"
+"- [Bookmark View](./bookmark.md)\n"
+"- [Labels](./labels.md)\n"
+"- [Collections](./collections.md)\n"
+"- [Ebook Catalog](./opds.md)\n"
+"- [User Profile](./user-profile.md)"
+msgstr ""
+"- [Záložky](./bookmark-list.md)\n"
+"- [Zobrazení záložky](./bookmark.md)\n"
+"- [Štítky](./labels.md)\n"
+"- [Sbírky](./collections.md)\n"
+"- [Katalog e-knih](./opds.md)\n"
+"- [Uživatelský profil](./user-profile.md)"
+
+#: en/labels.md:1
+msgid "# Labels"
+msgstr "# Štítky"
+
+#: en/labels.md:3
+msgid ""
+"You can [add as many labels as you want to a bookmark](./bookmark.md#labels).\\\n"
+"There is no limit as to what can be a label. You can even add emojis if you like them."
+msgstr ""
+"K záložce můžete [přidat libovolný počet štítků](./bookmark.md#labels).\\\n"
+"Není žádné omezení, co může být štítkem. Můžete přidat i emotikony, pokud se vám líbí."
+
+#: en/labels.md:6
+msgid "## Label List"
+msgstr "## Seznam štítků"
+
+#: en/labels.md:8
+msgid "The [Label List](readeck-instance://bookmarks/labels) shows all the labels in your bookmark collection, with a number indicating how many bookmarks carry a given label."
+msgstr "[Seznam štítků](readeck-instance://bookmarks/labels) zobrazuje všechny štítky ve vaší sbírce záložek, přičemž číslo udává, kolik záložek nese daný štítek."
+
+#: en/labels.md:10
+msgid "When you click on a label, you can list all the bookmarks carrying the label."
+msgstr "Po kliknutí na štítek se zobrazí seznam všech záložek, které daný štítek nesou."
+
+#: en/labels.md:12
+msgid "## Rename a label"
+msgstr "## Přejmenování štítku"
+
+#: en/labels.md:14
+msgid "On a given label page, you can click on the page's title (the label) to change its name."
+msgstr "Na stránce s daným štítkem můžete kliknutím na název stránky (štítek) změnit jeho název."
+
+#: en/opds.md:1
+msgid "# E-book Catalog"
+msgstr "# Katalog e-knih"
+
+#: en/opds.md:3
+msgid "Readeck provides an E-book Catalog of all your bookmarks, organized in a catalog with the structure below:"
+msgstr "Readeck poskytuje Katalog e-knih všech vašich záložek uspořádaných do katalogu s níže uvedenou strukturou:"
+
+#: en/opds.md:5
+msgid ""
+"- Unread Bookmarks\n"
+"- Archived Bookmarks\n"
+"- Favorite Bookmarks\n"
+"- All Bookmarks\n"
+"- Bookmark Collections\n"
+"  - (Collection Name)\n"
+"    - Collection E-book\n"
+"    - Browse Collection"
+msgstr ""
+"- Nepřečtené záložky\n"
+"- Archivované záložky\n"
+"- Oblíbené záložky\n"
+"- Všechny záložky\n"
+"- Sbírky záložek\n"
+"  - (Název sbírky)\n"
+"    - E-kniha sbírky\n"
+"    - Procházet sbírku"
+
+#: en/opds.md:14
+msgid "Each section, except Collections, provides every bookmark as an E-book."
+msgstr "V každé sekci, kromě Sbírek, je každá záložka k dispozici jako e-kniha."
+
+#: en/opds.md:16
+msgid "On a collection's section, you can download the full collection as a single E-book."
+msgstr "V sekci sbírky si můžete stáhnout celou sbírku jako jednu e-knihu."
+
+#: en/opds.md:19
+msgid "## Catalog access"
+msgstr "## Přístup ke katalogu"
+
+#: en/opds.md:21
+msgid ""
+"The catalog can be accessed by any app or e-reader supporting the OPDS format.\n"
+"To give access to the catalog, you must first create an [API Token](readeck-instance://profile/tokens)."
+msgstr ""
+"Ke katalogu lze přistupovat pomocí jakékoliv aplikace nebo elektronické čtečky podporující formát OPDS.\n"
+"Pro poskytnutí přístupu ke katalogu musíte nejprve vytvořit [token API](readeck-instance://profile/tokens)."
+
+#: en/opds.md:24
+msgid "**Note**: It's easier to download the token as a text file and transfer it to your e-reader. You can then open the file and copy the token."
+msgstr "**Poznámka **: Token je snažší stáhnout jako textový soubor a přenést jej do čtečky elektronických knih. Poté můžete soubor otevřít a token zkopírovat."
+
+#: en/opds.md:26
+msgid ""
+"You can restrict the permission of this token to \"Bookmarks : Read Only\".\n"
+"Write the token value down and setup your app."
+msgstr ""
+"Můžete omezit oprávnění tohoto tokenu na „Záložky : Pouze pro čtení“.\n"
+"Zapište si token a nastavte si Vaši aplikaci."
+
+#: en/opds.md:29
+msgid ""
+"The URL of your OPDS catalog is: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+msgstr ""
+"Adresa URL vašeho katalogu OPDS je následující: \\\n"
+"[readeck-instance://opds](readeck-instance://opds)"
+
+#: en/opds.md:33
+msgid "## Example setup: Koreader"
+msgstr "## Příklad nastavení: KOReader"
+
+#: en/opds.md:35
+msgid "[Koreader](https://koreader.rocks/) is a document viewer for E Ink devices. It's available for Kindle, Kobo, PocketBook, Android and desktop Linux. It has a very good OPDS support."
+msgstr "[KOReader](https://koreader.rocks/) je prohlížeč dokumentů pro zařízení s elektronickým inkoustrem. Je dostupný pro Kindle, Kobo, PocketBook, Android a desktopový Linux. Má velmi dobrou podporu OPDS."
+
+#: en/opds.md:37
+msgid "Once you have an API Token, you can access the OPDS section in Koreader's lookup menu:"
+msgstr "Po získání API tokenu můžete přistupovat k sekci OPDS ve vyhledávací nabídce v KOReaderu:"
+
+#: en/opds.md:39
+msgid "![Koreader's lookup menu](../img/koreader-1.webp)"
+msgstr "[Vyhledávací nabídka v KOReaderu](../img/koreader-1.webp)"
+
+#: en/opds.md:41
+msgid "This section shows a list of preconfigured OPDS sources and you can add yours by pressing the \"+\" icon on the top left corner:"
+msgstr "Tato sekce zobrazuje seznam předkonfigurovaných zdrojů OPDS a svůj můžete přidat stisknutím ikony „+“ v levém horním rohu:"
+
+#: en/opds.md:43
+msgid "![Koreader catalog list](../img/koreader-2.webp)"
+msgstr "![Seznam katalogů v KOReaderu](../img/koreader-2.webp)"
+
+#: en/opds.md:45
+msgid "In this dialog replace the fields below with:"
+msgstr "V tomto dialogovém okně nahraďte níže uvedená pole následujícími údaji:"
+
+#: en/opds.md:47
+msgid ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: your username\n"
+"- your API Token in the last field"
+msgstr ""
+"- https://readeck.example.com : `readeck-instance://opds`\n"
+"- alice: Vasše uživatelské jméno\n"
+"- Váš API token v posledním poli"
+
+#: en/opds.md:51
+msgid "![Koreader add catalog](../img/koreader-3.webp)"
+msgstr "![Přidání katalogu v KOReaderu](../img/koreader-3.webp)"
+
+#: en/opds.md:53
+msgid "You can now access your bookmarks from Koreader!"
+msgstr "Nyní můžete přistupovat ke svým záložkám z KOReaderu!"
+
+#: en/opds.md:55
+msgid "![Koreader readeck catalog](../img/koreader-4.webp)"
+msgstr "![Katalog Readecku v KORederu](../img/koreader-4.webp)"
+
+#: en/user-profile.md:1
+msgid "# User Profile"
+msgstr "# Profil uživatele"
+
+#: en/user-profile.md:3
+msgid "The [Profile section](readeck-instance://profile) of Readeck lets you change your personal information, you password and some other settings."
+msgstr "V [sekci Profil](readeck-instance://profile) Readecku můžete změnit své osobní údaje, heslo a některá další nastavení."
+
+#: en/user-profile.md:5
+msgid "## Edit your profile"
+msgstr "## Úprava profilu"
+
+#: en/user-profile.md:7
+msgid "On the main profile page, you can change your username, your email address and choose the app's language."
+msgstr "Na hlavní stránce profilu můžete změnit své uživatelské jméno, e-mailovou adresu a zvolit jazyk aplikace."
+
+#: en/user-profile.md:9
+msgid "## Change your password"
+msgstr "## Změna hesla"
+
+#: en/user-profile.md:11
+msgid "On the [Password](readeck-instance://profile/password) page, you can change the password you use to connect to Readeck."
+msgstr "Na stránce [Heslo](readeck-instance://profile/password) můžete změnit heslo, které používáte pro připojení k Readecku."
+
+#: en/user-profile.md:13
+msgid "## API Tokens"
+msgstr "## Tokeny API"
+
+#: en/user-profile.md:15
+msgid "An API Token lets you access and use the [Readeck API](readeck-instance://docs/api) for anything you'd like to build. You can create and manage tokens on the [API Tokens](readeck-instance://profile/tokens) section of your user profile."
+msgstr "Token API vám umožní přístup k rozhraní [API Readecku](readeck-instance://docs/api) a jeho použití pro cokoliv, co chcete vytvořit. Tokeny můžete vytvářet a spravovat v sekci [Tokeny API](readeck-instance://profile/tokens) svého uživatelského profilu."
+
+#: en/user-profile.md:17
+msgid "You can limit what a given token can access through the API and for how long it's valid."
+msgstr "Prostřednictvím rozhraní API můžete omezit, k čemu má daný token přístup a jak dlouho je platný."
+
+#: en/user-profile.md:19
+msgid "If you need to grant access to your Readeck account to a service or an app, you can't provide you main username and password; it won't work."
+msgstr "Pokud potřebujete udělit přístup ke svému účtu Readeck nějaké službě nebo aplikaci, nemůžete poskytnout své hlavní uživatelské jméno a heslo; nebude to fungovat."
+
+#: en/user-profile.md:21
+msgid "Instead, you can give your username and a token of your choice as authentication credentials."
+msgstr "Místo toho můžete jako ověřovací údaje zadat své uživatelské jméno a token podle vlastního výběru."
+
+#~ msgid "## Application Passwords"
+#~ msgstr "## Hesla aplikací"
+
+#~ msgid "What you can do is create an [Application Password](readeck-instance://profile/credentials)."
+#~ msgstr "Můžete však vytvořit [Heslo aplikace](readeck-instance://profile/credentials)."
+
+#~ msgid "You can limit what a given password can access through the API."
+#~ msgstr "Můžete omezit, k čemu má dané heslo přístup prostřednictvím rozhraní API."
+
+#~ msgid "Once you created an application password, you can use it to access the [Readeck API](readeck-instance://docs/api) or export services."
+#~ msgstr "Jakmile vytvoříte heslo aplikace, můžete ho použít pro přístup k [API Readecku](readeck-instance://docs/api) nebo službám exportu."
+
+#~ msgid "See the [Ebook Catalog](./opds.md) help page for a real life example."
+#~ msgstr "Reálný příklad naleznete na stránce nápovědy [Katalog e-knih](./opds.md)."
+
+#~ msgid "**Note**: although you can use an application password to access the API, it is recommended to use an API Token when possible."
+#~ msgstr "**Poznámka**: Ačkoliv můžete pro přístup k rozhraní API použít heslo aplikace, doporučuje se používat token API, pokud je to možné."
+

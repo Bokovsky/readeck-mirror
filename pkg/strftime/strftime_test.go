@@ -109,7 +109,7 @@ func TestTranslator(t *testing.T) {
 
 type translator map[string]map[string]string
 
-func (t translator) Pgettext(ctx string, s string, _ ...interface{}) string {
+func (t translator) Pgettext(ctx string, s string, _ ...any) string {
 	if r, ok := t[ctx][s]; ok && r != "" {
 		return r
 	}

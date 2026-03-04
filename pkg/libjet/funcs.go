@@ -51,7 +51,7 @@ func (m *orderedMap) Range() (k reflect.Value, v reflect.Value, done bool) {
 	return
 }
 
-var strType = reflect.TypeOf("")
+var strType = reflect.TypeFor[string]()
 
 var funcMap = map[string]jet.Func{
 	"string": func(a jet.Arguments) reflect.Value {
@@ -194,8 +194,8 @@ func FuncMap() map[string]jet.Func {
 }
 
 // VarMap returns the jet global variable map.
-func VarMap() map[string]interface{} {
-	return map[string]interface{}{
+func VarMap() map[string]any {
+	return map[string]any{
 		"unsafeWrite": func(src io.Reader) jet.RendererFunc {
 			return func(r *jet.Runtime) {
 				io.Copy(r.Writer, src) //nolint:errcheck
@@ -213,11 +213,11 @@ func AddFuncToSet(set *jet.Set, key string) {
 
 // Indirect returns the underlying value of a reflect.Value.
 // It resolves pointers and indicates if the value is nil.
-func Indirect(val reflect.Value) (interface{}, bool) {
+func Indirect(val reflect.Value) (any, bool) {
 	switch val.Kind() {
 	case reflect.Invalid:
 		return nil, true
-	case reflect.Ptr, reflect.Interface:
+	case reflect.Pointer, reflect.Interface:
 		if val.IsNil() {
 			return nil, true
 		}
@@ -246,7 +246,7 @@ func IsEmpty(v reflect.Value) bool {
 		return v.Float() == 0
 	case reflect.Invalid:
 		return true
-	case reflect.Interface, reflect.Ptr:
+	case reflect.Interface, reflect.Pointer:
 		if v.IsNil() {
 			return true
 		}

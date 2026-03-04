@@ -63,7 +63,7 @@ schemas:
         description: Language Code
       text_direction:
         type: string
-        enum: [rtl, ltr]
+        enum: [ltr, rtl]
         description: |
           Direction of the article's text. It can be empty when it's unknown.
       document_type:
@@ -222,6 +222,7 @@ schemas:
         default: false
       resource_prefix:
         type: string
+        maxLength: 128
         default: "."
         description: |
           A prefix added to resource URLs in HTML parts.
@@ -280,9 +281,11 @@ schemas:
     properties:
       url:
         type: string
+        maxLength: 1024
         description: URL to fetch
       title:
         type: string
+        maxLength: 1024
         description: Title of the bookmark
       labels:
         type: array
@@ -296,12 +299,43 @@ schemas:
           Creation date
 
           This is optional and defaults to the current time.
+      html:
+        type: string
+        format: binary
+        description: |
+          The page's HTML source code. When provided, its value is used and Readeck doesn't
+          fetch the remote page.\
+          **Can't be used alongside the `resource` parameter**
 
   bookmarkUpdate:
     properties:
       title:
         type: string
+        maxLength: 1024
         description: New bookmark's title
+      description:
+        type: string
+        description: Bookmark's description
+      site_name:
+        type: string
+        description: Bookmark's site name
+      authors:
+        type: array
+        items:
+          type: string
+        description: Bookmark's author list
+      published:
+        type: [string, "null"]
+        format: date-time
+        description: Bookmark's publication date
+      lang:
+        type: string
+        description: Language Code
+      text_direction:
+        type: string
+        enum: [ltr, rtl]
+        description: |
+          Direction of the article's text.
       is_marked:
         type: boolean
         description: Favortie state
@@ -319,6 +353,7 @@ schemas:
         description: Reading progress percentage
       read_anchor:
         type: string
+        maxLength: 256
         description: CSS selector of the last seen element
       labels:
         type: array
@@ -394,6 +429,7 @@ schemas:
       email:
         type: string
         format: email
+        maxLength: 128
       format:
         type: string
         enum: ["html", "epub"]
@@ -491,25 +527,31 @@ schemas:
     properties:
       start_selector:
         type: string
+        maxLength: 256
         description: Start element's XPath selector
       start_offset:
         type: integer
+        minimum: 0
         description: Start element's text offset
       end_selector:
         type: string
+        maxLength: 256
         description: End element's XPath selector
       end_offset:
         type: integer
+        minimum: 0
         description: End element's text offset
       color:
-        type: color
+        type: string
+        maxLength: 32
         description: Annotation color
 
   annotationUpdate:
     required: [color]
     properties:
       color:
-        type: color
+        type: string
+        maxLength: 32
         description: Annotation color
 
   collectionSummary:
@@ -592,6 +634,7 @@ schemas:
     properties:
       name:
         type: string
+        maxLength: 128
         description: Collection's name
       is_pinned:
         type: boolean
@@ -648,6 +691,7 @@ schemas:
     properties:
       label:
         type: string
+        maxLength: 128
         description: Label to add to all imported bookmarks.
       ignore_duplicates:
         type: boolean
@@ -670,16 +714,20 @@ schemas:
       url:
         type: string
         format: uri
+        maxLength: 128
         description: Your Wallabag instance's URL
       username:
         type: string
+        maxLength: 256
         description: Your Wallabag username
       password:
         type: string
         description: Your Wallabag password
       client_id:
         type: string
+        maxLength: 256
         description: API Client ID
       client_secret:
         type: string
+        maxLength: 256
         description: API Client Secret

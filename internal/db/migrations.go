@@ -103,4 +103,7 @@ var migrationList = []migrationEntry{
 	newMigrationEntry(21, "token_roles", migrations.M21tokenRoles),
 	newMigrationEntry(23, "oauth2", migrations.M23oauth),
 	newMigrationEntry(24, "user_uid_fix", migrations.M24useruidFix),
+	newMigrationEntry(25, "user_totp_secret", applyMigrationFile("25_totp.sql")),
+	newMigrationEntry(26, "user_last_login", applyMigrationFile("26_user_last_login.sql")),
+	newMigrationEntry(27, "annotation_fts", applyMigrationFile("27_annotation_fts.sql")),
 }

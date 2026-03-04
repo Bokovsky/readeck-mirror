@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"io"
 	"iter"
+	"maps"
 	"mime"
 	"net/http"
 	"net/url"
@@ -332,9 +333,7 @@ func formMarshalJSON(f Binder) ([]byte, error) {
 		Errors:  f.Errors(),
 		Fields:  map[string]Field{},
 	}
-	for name, field := range f.Fields() {
-		res.Fields[name] = field
-	}
+	maps.Insert(res.Fields, f.Fields())
 
 	return json.Marshal(res)
 }

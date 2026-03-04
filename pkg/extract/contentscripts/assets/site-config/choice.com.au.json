@@ -1,11 +1,15 @@
 {
-  "title_selectors": null,
-  "body_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' l-content ')]"
+  "title_selectors": [
+    "//h1"
   ],
-  "date_selectors": null,
+  "body_selectors": [
+    "//main"
+  ],
+  "date_selectors": [
+    "//meta[@property=\"article:published_time\"]/@content"
+  ],
   "author_selectors": [
-    "//div[contains(concat(' ',normalize-space(@class),' '),' tile-personprofileauthor-title ')]//a"
+    "//span[@class='author-name']"
   ],
   "strip_selectors": null,
   "strip_id_or_class": [
@@ -13,7 +17,10 @@
     "hero-block--header",
     "title",
     "relevant-linklist--column",
-    "popular-article"
+    "popular-article",
+    "choice-callout",
+    "jp-relatedposts",
+    "sharedaddy"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -28,7 +35,7 @@
     {
       "url": "https://www.choice.com.au/babies-and-kids/baby-clothes-and-nappies/nappies/articles/kimberly-clark-denies-claims-huggies-ultra-dry-nappies-are-unsafe",
       "contains": [
-        "It's been a rough few months for Huggies"
+        "It’s been a rough few months for Huggies"
       ]
     }
   ]

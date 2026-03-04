@@ -84,7 +84,9 @@ func Readability(options ...func(*readability.Parser)) extract.Processor {
 
 		// Note: we perform some pre- and post-processing even when readability is disabled.
 		fixNoscriptImages(m.Dom)
+		fixShadowDOMHosts(m.Dom)
 		convertPictureNodes(m.Dom, m)
+		convertObjectImageEmbeds(m.Dom)
 
 		var doc *html.Node
 		var body *html.Node
@@ -287,6 +289,17 @@ func removeEmbeds(top *html.Node) {
 	dom.RemoveNodes(dom.GetAllNodesWithTag(top, "object", "embed", "iframe", "video", "audio"), nil)
 }
 
+// fixShadowDOMHosts unwraps all <template shadowrootmode="open"> elements, allowing their contents
+// to become normal part of the DOM and to survive the readability and sanitization process.
+func fixShadowDOMHosts(top *html.Node) {
+	for tpl := range eachElementByTag(top, "template") {
+		if dom.GetAttribute(tpl, "shadowrootmode") != "open" {
+			continue
+		}
+		unwrapElement(tpl)
+	}
+}
+
 // fixNoscriptImages processes <noscript> tags by replacing them with the <img> tag contain within,
 // but only when the <noscript> tag doesn't immediately follow another <img> tag. go-readability
 // also does this, but since convertPictureNodes runs before readability, we need this explicit step
@@ -335,6 +348,38 @@ func isSingleImage(node *html.Node) bool {
 	return isSingleImage(children[0])
 }
 
+// convertObjectImageEmbeds converts <object> tags to <img>.
+func convertObjectImageEmbeds(top *html.Node) {
+	for el := range eachElementByTag(top, "object") {
+		img := &html.Node{
+			Type: html.ElementNode,
+			Data: "img",
+		}
+		var mimeType string
+		for _, attr := range el.Attr {
+			switch attr.Key {
+			case "type":
+				mimeType = attr.Val
+			case "data":
+				if attr.Val == "" {
+					continue
+				}
+				img.Attr = append(img.Attr, html.Attribute{
+					Key: "src",
+					Val: attr.Val,
+				})
+			case "width", "height", "data-readeck-width", "data-readeck-height":
+				img.Attr = append(img.Attr, attr)
+			}
+		}
+		if !strings.HasPrefix(mimeType, "image/") {
+			continue
+		}
+		el.Parent.InsertBefore(img, el)
+		el.Parent.RemoveChild(el)
+	}
+}
+
 func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 	dom.ForEachNode(dom.GetElementsByTagName(top, "picture"), func(node *html.Node, _ int) {
 		// A picture tag contains zero or more <source> elements
@@ -372,21 +417,5 @@ func convertPictureNodes(top *html.Node, _ *extract.ProcessMessage) {
 		// element.
 		dom.SetAttribute(img, "srcset", strings.Join(set, ", "))
 		dom.ReplaceChild(node.Parent, img, node)
-	})
-
-	// We should keep images when they're in a figure tag.
-	// Removing the classes and ids on the figure and its children avoids redability
-	// discarding the whole thing.
-	dom.ForEachNode(dom.GetElementsByTagName(top, "figure"), func(node *html.Node, _ int) {
-		if len(dom.QuerySelectorAll(node, "img")) == 0 {
-			return
-		}
-
-		dom.ForEachNode(dom.QuerySelectorAll(node, "*"), func(n *html.Node, _ int) {
-			dom.SetAttribute(n, "class", "")
-			dom.SetAttribute(n, "id", "")
-		})
-		dom.SetAttribute(node, "class", "")
-		dom.SetAttribute(node, "id", "")
 	})
 }

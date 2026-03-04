@@ -7,13 +7,17 @@ package users
 import (
 	"context"
 	"errors"
+	"fmt"
+	"net/url"
 	"regexp"
 	"strings"
 	"time"
 
 	"github.com/doug-martin/goqu/v9"
 
+	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/pkg/forms"
+	"codeberg.org/readeck/readeck/pkg/glob"
 )
 
 type (
@@ -21,7 +25,14 @@ type (
 )
 
 // rxUsername is the regexp used to validate a username.
-var rxUsername = regexp.MustCompile(`^[a-zA-Z0-9_-]+$`)
+var rxUsername = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_-]{2,}$`)
+
+// Error definitions.
+var (
+	ErrInvalidUsername  = forms.Gettext(`must contain English letters, digits, "_" and "-" only`)
+	ErrBlockedUsername  = forms.Gettext("username is not available")
+	ErrBlockedEmailAddr = forms.ErrInvalidEmail
+)
 
 // IsValidPassword is the password validation rule.
 var IsValidPassword = forms.TypedValidator(func(v string) bool {
@@ -31,10 +42,41 @@ var IsValidPassword = forms.TypedValidator(func(v string) bool {
 	return len(v) >= 8
 }, errors.New("password must be at least 8 character long"))
 
-// IsValidUsername is the username validation rule.
-var IsValidUsername = forms.TypedValidator(func(v string) bool {
-	return rxUsername.MatchString(v)
-}, errors.New(`must contain English letters, digits, "_" and "-" only`))
+// IsValidUsername is the username validator.
+// A valid username contains at least 3 characters from [a-z0-9_-]
+// and start with a letter.
+var IsValidUsername = forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
+	if f.IsNil() {
+		return nil
+	}
+
+	if !rxUsername.MatchString(v) {
+		return ErrInvalidUsername
+	}
+
+	for _, blocked := range configs.Config.Accounts.UsernameDenyList {
+		if glob.Glob(blocked, v) {
+			return ErrBlockedUsername
+		}
+	}
+
+	return nil
+})
+
+// IsValidUserEmail is the user's email address validator.
+var IsValidUserEmail = forms.ValueValidatorFunc[string](func(f forms.Field, v string) error {
+	if err := forms.IsEmail.ValidateValue(f, v); err != nil {
+		return err
+	}
+
+	for _, blocked := range configs.Config.Accounts.EmailDenyList {
+		if glob.Glob(blocked, v) {
+			return ErrBlockedEmailAddr
+		}
+	}
+
+	return nil
+})
 
 // UserForm is the form used for user creation and update.
 type UserForm struct {
@@ -62,6 +104,7 @@ func NewUserForm(tr forms.Translator) *UserForm {
 			hasUser().
 				True(forms.RequiredOrNil).
 				False(forms.Required),
+			forms.MaxLen(128),
 			IsValidUsername,
 		),
 		forms.NewTextField("password",
@@ -79,7 +122,8 @@ func NewUserForm(tr forms.Translator) *UserForm {
 			hasUser().
 				True(forms.RequiredOrNil).
 				False(forms.Required),
-			forms.IsEmail,
+			forms.MaxLen(128),
+			IsValidUserEmail,
 		),
 		forms.NewTextField("group",
 			forms.Trim,
@@ -161,13 +205,13 @@ func (f *UserForm) CreateUser() (*User, error) {
 
 // UpdateUser performs a user update and returns a mapping of
 // updated fields.
-func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
+func (f *UserForm) UpdateUser(u *User) (res map[string]any, err error) {
 	if !f.IsBound() {
 		err = errors.New("form is not bound")
 		return
 	}
 
-	res = make(map[string]interface{})
+	res = make(map[string]any)
 	for _, field := range f.Fields() {
 		switch field.Name() {
 		case "password":
@@ -201,4 +245,91 @@ func (f *UserForm) UpdateUser(u *User) (res map[string]interface{}, err error) {
 	res["id"] = u.ID
 	delete(res, "seed")
 	return
+}
+
+// ProvisioningForm is the form used for retrieving an existing or new user
+// based on its username and email address.
+type ProvisioningForm struct {
+	*forms.Form
+}
+
+// NewProvisioningForm returns a new [NewProvisioningForm].
+func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
+	availableGroups := [][2]string{
+		{"none", tr.Pgettext("role", "no group")},
+	}
+	availableGroups = append(availableGroups, GroupList(tr, "__group__", nil)...)
+
+	return &ProvisioningForm{forms.Must(
+		forms.WithTranslator(context.Background(), tr),
+		forms.NewTextField("username", forms.MaxLen(128), IsValidUsername),
+		forms.NewTextField("email", forms.MaxLen(128), IsValidUserEmail),
+		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
+	)}
+}
+
+// LoadUser loads a user based on its username or email.
+// When it exists, there must be only one result for the tupple username + email.
+// If the user needs an update, a non empty [goqu.Record] is returned so any process
+// calling this method can perform the update.
+// When the user doesn't exist, the returned [User] has an ID 0 and can be immediately
+// created with [Users.Create]. It already contains a generated password.
+func (f *ProvisioningForm) LoadUser(username, email, group string) (*User, goqu.Record, error) {
+	values := url.Values{"username": {username}, "email": {email}}
+	if group != "" {
+		values.Set("group", group)
+	}
+
+	forms.BindValues(f, values)
+
+	if !f.IsValid() {
+		if len(f.Errors()) > 0 {
+			return nil, nil, f.Errors()
+		}
+		for _, field := range f.Fields() {
+			if len(field.Errors()) > 0 {
+				return nil, nil, forms.Errors{fmt.Errorf("%s: %s", field.Name(), field.Errors())}
+			}
+		}
+	}
+
+	res := []*User{}
+	err := Users.Query().Where(
+		goqu.Or(
+			goqu.C("username").Eq(username),
+			goqu.C("email").Eq(email),
+		),
+	).ScanStructs(&res)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	if len(res) > 1 {
+		return nil, nil, fmt.Errorf("more than one user is associated with %s and %s", username, email)
+	}
+
+	user := new(User)
+	rec := goqu.Record{}
+	if len(res) == 0 {
+		if group == "" {
+			group = "user"
+		}
+		user.Username = username
+		user.Email = email
+		user.Group = group
+		user.Password = MakePassword(64)
+	} else {
+		user = res[0]
+		if user.Username != username {
+			rec["username"] = username
+		}
+		if user.Email != email {
+			rec["email"] = email
+		}
+		if group != "" && user.Group != group {
+			rec["group"] = group
+		}
+	}
+
+	return user, rec, nil
 }

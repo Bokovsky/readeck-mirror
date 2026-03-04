@@ -4,10 +4,8 @@ SPDX-FileCopyrightText: © 2021 Olivier Meunier <olivier@neokraft.net>
 SPDX-License-Identifier: AGPL-3.0-only
 *}
 <turbo-frame id="bookmark-labels-{{ .ID }}" class="group block mb-4">
-<form action="{{ urlFor(`/bookmarks`, .ID) }}" method="post"
- data-controller="turbo-form"
- data-turbo-form-action-value="{{ urlFor(`/api/bookmarks`, .ID) }}"
- data-turbo-form-method-value="patch">
+<form action="{{ urlFor(`/bookmarks`, .ID, `update`) }}" method="post"
+ data-controller="turbo-form">
   <input type="hidden" name="_to" value="{{ currentPath }}" />
   <button type="submit" class="hidden"></button>
   <div>

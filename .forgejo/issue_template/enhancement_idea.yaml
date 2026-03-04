@@ -1,5 +1,5 @@
-name: Enhancement idea
-about: When you want to share an idea to make Readeck Better 🤩
+name: Enhancement idea 🤩
+about: When you want to share an idea to make Readeck Better
 labels:
   - enhancement
 body:
@@ -27,3 +27,4 @@ body:
       options:
         - label: I agree to follow this project's Code of Conduct
           required: true
+    visible: [form]

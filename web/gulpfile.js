@@ -2,40 +2,35 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-const fs = require("fs")
-const path = require("path")
-const zlib = require("zlib")
+import fs from "fs"
+import path from "path"
+import {createRequire} from "module"
+import zlib from "zlib"
 
-const {glob} = require("glob")
-const gulp = require("gulp")
-const gulpCheerio = require("gulp-cheerio")
-const gulpHash = require("gulp-hash-filename")
-const gulpEsbuild = require("gulp-esbuild")
-const gulpPostcss = require("gulp-postcss")
-const gulpRename = require("gulp-rename")
-const gulpSass = require("gulp-sass")
-const gulpSourcemaps = require("gulp-sourcemaps")
-const gulpSvgStore = require("gulp-svgstore")
+const require = createRequire(import.meta.url)
 
-const del = async (...args) => {
-  const {deleteSync} = await import("del")
-  return deleteSync(...args)
-}
-const ordered = require("ordered-read-streams")
-const sass = require("sass")
-const through = require("through2")
+import gulp from "gulp"
+import gulpHash from "gulp-hash-filename"
+import gulpEsbuild from "gulp-esbuild"
+import gulpPostcss from "gulp-postcss"
+import gulpRename from "gulp-rename"
+import gulpSass from "gulp-sass"
+import gulpSourcemaps from "gulp-sourcemaps"
 
-const {stimulusPlugin} = require("esbuild-plugin-stimulus")
+import ordered from "ordered-read-streams"
+import through from "through2"
+import File from "vinyl"
+import * as sass from "sass"
 
-const fontCatalog = require("./ui/fonts.js")
+import {IconSet, SVG, cleanupSVG, runSVGO, scaleSVG} from "@iconify/tools"
+import {deleteAsync as del} from "del"
+import {stimulusPlugin} from "esbuild-plugin-stimulus"
 
-const DEST = path.resolve("../assets/www")
-
-function toPosixPath(p) {
-  return process.platform === "win32" ? p.replace(/\\/g, "/") : p
-}
+import fontCatalog from "./ui/fonts.js"
 
 const sassCompiler = gulpSass(sass)
+
+const DEST = path.resolve("../assets/www")
 
 // hashName returns a gulp stream for hashing filenames with the
 // same pattern.
@@ -43,6 +38,10 @@ function hashName() {
   return gulpHash({
     format: "{name}.{hash:8}{ext}",
   })
+}
+
+function toPosixPath(p) {
+  return process.platform === "win32" ? p.replace(/\\/g, "/") : p
 }
 
 // destCompress returns a gulp stream that compresses the current
@@ -123,12 +122,6 @@ function clean_vendor() {
   return cleanFiles("vendor")
 }
 
-// clean_manifest creates an empty manifest.json file.
-function clean_manifest(done) {
-  let dest = path.join(DEST, "manifest.json")
-  fs.writeFile(dest, "{}", done)
-}
-
 // clean delete files in the destination folder
 function clean_all(done) {
   return gulp.series(
@@ -136,7 +129,6 @@ function clean_all(done) {
     clean_css,
     clean_media,
     clean_vendor,
-    clean_manifest,
   )(done)
 }
 
@@ -156,7 +148,7 @@ function js_bundle() {
           minifyIdentifiers: true,
           minifyWhitespace: true,
           logLevel: "warning",
-          plugins: [stimulusPlugin()],
+          plugins: [stimulusPlugin(), disableTurboStart()],
         }),
       )
       .pipe(gulpSourcemaps.init({loadMaps: true})) // This extracts the inline sourcemap
@@ -199,6 +191,7 @@ function css_bundle() {
     require("tailwindcss"),
     require("./ui/plugins/responsive-units.js"),
     require("./ui/plugins/trim-fonts.js"),
+    require("./ui/plugins/hover-media-query.js"),
     require("postcss-copy")({
       basePath: fontCatalog.basePath(),
       dest: DEST,
@@ -273,49 +266,111 @@ function css_extra() {
   )
 }
 
-function icon_sprite(src, dst) {
-  // Icons are defined in this file
-  const icons = JSON.parse(fs.readFileSync(src))
+// optiSVG is a pipeline that cleans up and optimize an SVG input.
+function optiSVG() {
+  return through.obj(function (file, _, done) {
+    if (file.isNull() || file.isStream()) {
+      return done()
+    }
 
-  return gulp
-    .src(Object.values(icons))
-    .pipe(
-      gulpRename((file, f) => {
-        // Set new filename on each entry in order to set
-        // a chosen ID on each symbol.
-        let p = toPosixPath(path.relative(f.cwd, f.path))
-        let id = Object.entries(icons).find((x) => x[1] == p)[0]
-        file.basename = id
-      }),
-    )
-    .pipe(
-      gulpCheerio({
-        // Force viewBox attribute when missing
-        run: ($) => {
-          let e = $("svg")
-          if (e.attr("viewBox") === undefined) {
-            let w = e.attr("width") || "24"
-            let h = e.attr("height") || "24"
-            e.attr("viewBox", `0 0 ${w} ${h}`)
-          }
-        },
-        parserOptions: {xmlMode: true},
-      }),
-    )
-    .pipe(gulpSvgStore())
-    .pipe(gulpRename(dst))
-    .pipe(hashName())
-    .pipe(destCompress("gz"))
-    .pipe(destCompress("br"))
-    .pipe(gulp.dest(DEST))
+    const icon = new SVG(file.contents)
+    cleanupSVG(icon)
+    runSVGO(icon)
+
+    file.contents = Buffer.from(icon.toMinifiedString())
+    this.push(file)
+    done()
+  })
+}
+
+// icon_sprite is a pipeline that converts a JSON icon list to an SVG with a symbol
+// for each icon.
+// Icons can be URLs (with a scheme being the iconify namespace)
+// or a relative (to the JSON file) SVG path.
+function icon_sprite() {
+  return through.obj(function (file, _, done) {
+    if (file.isNull() || file.isStream()) {
+      return done()
+    }
+
+    let spec = {}
+    const store = {}
+    const icons = []
+    const singleSVG = file.extname == ".svg"
+
+    if (singleSVG) {
+      // When the input file is a single SVG, we output a symbol with id=main
+      spec["main"] = file.basename
+    } else {
+      spec = JSON.parse(file.contents)
+    }
+
+    const base = path.dirname(file.path) + "/"
+
+    // load icons from iconify colletions
+    for (let [id, v] of Object.entries(spec)) {
+      let icon
+
+      const url = new URL(v, "file://" + base)
+      if (url.protocol === "file:") {
+        // load from file
+        icon = new SVG(
+          fs.readFileSync(url.pathname, {encoding: "utf-8"}).toString(),
+        )
+        cleanupSVG(icon)
+        runSVGO(icon)
+      } else {
+        // load from iconify
+        const ns = url.protocol.slice(0, -1)
+
+        if (store[ns] === undefined) {
+          store[ns] = new IconSet(require(`@iconify-json/${ns}`).icons)
+        }
+
+        icon = store[ns].toSVG(url.pathname)
+      }
+
+      if (!singleSVG) {
+        const size = url.searchParams.has("size")
+          ? url.searchParams.get("size")
+          : 24
+        scaleSVG(icon, size / Math.max(icon.viewBox.height, icon.viewBox.width))
+      }
+
+      icon.$svg.tag = "symbol"
+      icon.$svg.attribs.id = id
+      delete icon.$svg.attribs.xmlns
+      delete icon.$svg.attribs["xmlns:xlink"]
+
+      icons.push(icon.toMinifiedString())
+    }
+
+    // render sprite
+    let res = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    res +=
+      '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">\n'
+    res += icons.join("\n")
+    res += "\n</svg>\n"
+
+    file.contents = Buffer.from(res)
+    file.extname = ".svg"
+    this.push(file)
+    done()
+  })
 }
 
 // icon_bundle creates the icon bundle files
 function icon_bundle() {
-  return ordered([
-    icon_sprite("./media/icons.json", "img/icons.svg"),
-    icon_sprite("./media/logos.json", "img/logos.svg"),
-  ])
+  return gulp
+    .src(
+      ["./media/icons.json", "./media/logos.json", "./media/logo-text.svg"],
+      {encoding: false},
+    )
+    .pipe(icon_sprite())
+    .pipe(hashName())
+    .pipe(destCompress("gz"))
+    .pipe(destCompress("br"))
+    .pipe(gulp.dest(path.join(DEST, "img")))
 }
 
 // copy_files copies some files to the destination.
@@ -325,10 +380,12 @@ function copy_files() {
       .src("media/favicons/*", {encoding: false})
       .pipe(hashName())
       .pipe(gulp.dest(path.join(DEST, "img/fi"))),
+
     gulp
-      .src(["media/logo-text.svg", "media/logo-maskable.svg"], {
+      .src(["media/logo-maskable.svg"], {
         encoding: false,
       })
+      .pipe(optiSVG())
       .pipe(hashName())
       .pipe(destCompress("gz"))
       .pipe(destCompress("br"))
@@ -356,33 +413,47 @@ function copy_files() {
 // write_manifest generates a manifest.json file in the destination folder.
 // It's a very naive process that lists all the files in the destination
 // folder and creates a mapping for all the files having a hash suffix.
-async function write_manifest(done) {
+function write_manifest() {
+  return gulp
+    .src(path.join(DEST, "**"), {read: false})
+    .pipe(buildManifest())
+    .pipe(gulp.dest(DEST))
+}
+
+function buildManifest() {
   const rxFilename = new RegExp(/^(.+)(\.[a-f0-9]{8}\.)(.+)$/)
   const excluded = [".br", ".gz", ".map"]
-
-  const files = await glob(toPosixPath(path.join(DEST, "**/*")))
-
   let manifest = {}
-  for (let f of files) {
-    let st = await fs.promises.stat(f)
-    if (!st.isFile()) {
-      continue
+
+  function collect(file, _, done) {
+    if (!file.stat.isFile()) {
+      done()
+      return
     }
-    f = toPosixPath(path.relative(DEST, f))
+    const f = toPosixPath(path.relative(DEST, file.path))
     if (f == "manifest.json" || excluded.includes(path.extname(f))) {
-      continue
+      done()
+      return
     }
 
-    let m = f.match(rxFilename)
-    if (!m) {
-      continue
+    const m = f.match(rxFilename)
+    if (!!m) {
+      manifest[`${m[1]}.${m[3]}`] = f
+    } else {
+      manifest[f] = f
     }
 
-    manifest[`${m[1]}.${m[3]}`] = f
+    done()
   }
 
-  let dest = path.join(DEST, "manifest.json")
-  fs.writeFile(dest, JSON.stringify(manifest, null, "  ") + "\n", done)
+  function flush(done) {
+    const f = new File({path: "manifest.json"})
+    f.contents = Buffer.from(JSON.stringify(manifest, null, "  ") + "\n")
+    this.push(f)
+    done(null, f)
+  }
+
+  return through.obj(collect, flush)
 }
 
 // ------------------------------------------------------------------
@@ -440,17 +511,31 @@ function watch_media() {
   )
 }
 
-exports.clean = clean_all
-exports.js = js_bundle
-exports.css = gulp.series(clean_css, css_bundle, css_extra)
-exports.epub = css_extra
-exports.icons = icon_bundle
-exports.copy = copy_files
+function disableTurboStart() {
+  return {
+    name: "disableTurboStart",
+    setup(build) {
+      build.onLoad({filter: /@hotwired\/turbo\/.+\.js$/}, async (args) => {
+        let text = await fs.promises.readFile(args.path, "utf8")
+        return {
+          contents: text.replace(/^start\(\);/m, ""),
+        }
+      })
+    },
+  }
+}
 
-exports["watch:css"] = watch_css
-exports["watch:js"] = watch_js
+export const clean = gulp.series(clean_all, write_manifest)
+export const js = js_bundle
+export const css = gulp.series(clean_css, css_bundle, css_extra)
+export const epub = css_extra
+export const icons = icon_bundle
+export const copy = copy_files
 
-exports.dev = gulp.series(
+export {watch_css as "watch:css"}
+export {watch_js as "watch:js"}
+
+export const dev = gulp.series(
   full_build,
   gulp.parallel(
     watch_js, //
@@ -459,4 +544,4 @@ exports.dev = gulp.series(
   ),
 )
 
-exports.default = full_build
+export default full_build

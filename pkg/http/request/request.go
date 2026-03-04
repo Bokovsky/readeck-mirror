@@ -131,7 +131,7 @@ func InitRequest(trustedProxies ...*net.IPNet) func(next http.Handler) http.Hand
 
 			// Set the real remote IP
 			if isTrusted {
-				for _, ip := range forwarded.ParseXForwardedFor(r.Header) {
+				for ip := range forwarded.ParseXForwardedFor(r.Header) {
 					if isTrustedProxy(trustedProxies, ip) {
 						continue
 					}
@@ -189,6 +189,11 @@ func isHTTP(u *url.URL) bool {
 }
 
 func isTrustedProxy(p []*net.IPNet, ip net.IP) bool {
+	if ip == nil {
+		// socket connection
+		return true
+	}
+
 	return slices.ContainsFunc(p, func(cidr *net.IPNet) bool {
 		return cidr.Contains(ip)
 	})

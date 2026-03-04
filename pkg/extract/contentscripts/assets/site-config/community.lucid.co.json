@@ -6,7 +6,6 @@
   "date_selectors": null,
   "author_selectors": null,
   "strip_selectors": [
-    "//section[contains(concat(' ',normalize-space(@class),' '),' callout ')]",
     "//*[contains(concat(' ',normalize-space(@class),' '),' is-hidden ')]"
   ],
   "strip_id_or_class": null,

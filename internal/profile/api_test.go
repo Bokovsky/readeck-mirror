@@ -146,42 +146,6 @@ func TestAPI(t *testing.T) {
 			}
 		}`),
 	)
-
-	client.RT(t,
-		WithMethod(http.MethodPut),
-		WithTarget("/api/profile/password"),
-		WithBody(map[string]any{
-			"password": "newpassword",
-		}),
-		AssertStatus(200),
-	)
-
-	client.RT(t,
-		WithMethod(http.MethodPut),
-		WithTarget("/api/profile/password"),
-		WithBody(map[string]any{
-			"password": "  ",
-		}),
-		AssertStatus(422),
-		AssertJSON(`{
-			"is_valid":false,
-			"errors":null,
-			"fields":{
-				"current":{
-					"is_null": true,
-					"is_bound": false,
-					"value": "",
-					"errors":null
-				},
-				"password":{
-					"is_null": false,
-					"is_bound": true,
-					"value":"  ",
-					"errors":["password must be at least 8 character long"]
-				}
-			}
-		}`),
-	)
 }
 
 func TestAPIDeleteToken(t *testing.T) {

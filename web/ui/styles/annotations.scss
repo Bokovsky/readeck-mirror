@@ -1,0 +1,172 @@
+// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+@layer components {
+  .rd-annotation,
+  rd-annotation {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    background-color: rgb(var(--annotation-bg) / var(--tw-bg-opacity, 1));
+    border-color: rgb(var(--annotation-border));
+
+    &[data-annotation-note] {
+      display: inline-block;
+      content: " ";
+      border-bottom-width: 0;
+      width: 1em;
+      height: 1em;
+      line-height: 1;
+      vertical-align: sub;
+      background-color: rgb(var(--annotation-border));
+      mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8l8-8V5a2 2 0 0 0-2-2zm-7 16v-7h7l-7 7z"></path></svg>');
+      mask-position: left center;
+      mask-repeat: no-repeat;
+      mask-size: 0.9em;
+    }
+
+    &[data-annotation-color="none"] {
+      --annotation-bg: var(--color-hl-none);
+      --annotation-border: var(--color-hl-none-dark);
+    }
+
+    &[data-annotation-color="yellow"] {
+      --annotation-bg: var(--color-hl-yellow);
+      --annotation-border: var(--color-hl-yellow-dark);
+    }
+
+    &[data-annotation-color="red"] {
+      --annotation-bg: var(--color-hl-red);
+      --annotation-border: var(--color-hl-red-dark);
+    }
+
+    &[data-annotation-color="blue"] {
+      --annotation-bg: var(--color-hl-blue);
+      --annotation-border: var(--color-hl-blue-dark);
+    }
+
+    &[data-annotation-color="green"] {
+      --annotation-bg: var(--color-hl-green);
+      --annotation-border: var(--color-hl-green-dark);
+    }
+  }
+
+  .annotator {
+    --arrow-color: theme("colors.gray.100");
+
+    position: absolute;
+    z-index: 50;
+    display: inline-flex;
+    flex-direction: column;
+    margin: 0;
+    max-width: 100%;
+    background-color: transparent;
+    user-select: none;
+    width: 30rem;
+
+    @screen touch {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+
+      @-moz-document url-prefix() {
+        @at-root body:has(& textarea:focus) {
+          height: 100%;
+          overflow-y: hidden;
+        }
+      }
+    }
+
+    filter: drop-shadow(0px 0px 1px theme("colors.gray.700"))
+      drop-shadow(0 12px 8px rgb(var(--color-shadow) / 0.1))
+      drop-shadow(0 4px 5px rgb(var(--color-shadow) / 0.8));
+
+    &--content {
+      @apply font-sans text-base text-app-fg bg-gray-100 rounded-lg;
+      @apply flex flex-col gap-2;
+      @apply p-2;
+
+      @screen touch {
+        @apply rounded-none p-4;
+      }
+    }
+
+    &--colors {
+      @apply flex items-center gap-2;
+    }
+
+    &--arrow {
+      height: 0;
+      width: 0;
+      border-right: 8px solid transparent;
+      border-left: 8px solid transparent;
+
+      @screen touch {
+        display: none;
+      }
+    }
+
+    &[data-position="bottom"] &--arrow {
+      border-bottom: 8px solid var(--arrow-color);
+    }
+
+    &[data-position="top"] &--arrow {
+      border-top: 8px solid var(--arrow-color);
+      order: 2;
+    }
+
+    input[type="radio"] {
+      --bg-color: none;
+
+      appearance: none;
+      position: relative;
+      padding: 0;
+      border-radius: 100%;
+      border-width: 2px;
+      border-color: rgb(var(--color-app-fg) / 0.2);
+      background-color: var(--bg-color);
+      @apply w-6 h-6;
+
+      &[value="none"] {
+        --bg-color: rgb(var(--color-hl-none-box));
+      }
+      &[value="yellow"] {
+        --bg-color: rgb(var(--color-hl-yellow-box));
+      }
+      &[value="red"] {
+        --bg-color: rgb(var(--color-hl-red-box));
+      }
+      &[value="blue"] {
+        --bg-color: rgb(var(--color-hl-blue-box));
+      }
+      &[value="green"] {
+        --bg-color: rgb(var(--color-hl-green-box));
+      }
+
+      &:checked {
+        border-color: rgb(var(--color-app-fg));
+
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: -2px;
+          left: -2px;
+          @apply w-6 h-6 rounded-full;
+          mask-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"/></svg>');
+          mask-size: 50% 50%;
+          mask-repeat: no-repeat;
+          mask-position: center;
+          background-color: theme("colors.app.fg");
+        }
+      }
+    }
+
+    textarea {
+      max-width: 100%;
+      overscroll-behavior-y: contain;
+    }
+  }
+}

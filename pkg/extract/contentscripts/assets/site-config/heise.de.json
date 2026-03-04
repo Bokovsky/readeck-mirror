@@ -40,7 +40,8 @@
     "//div/section[@data-component='TeaserList']/ancestor::div[1]",
     "//a-opt-in",
     "//a-collapse",
-    "//div[@class=\"ff-a-img\"]//img[not(@data-ff-replacement)]"
+    "//div[@class=\"ff-a-img\"]//img[not(@data-ff-replacement)]",
+    "//img[contains(@src, 'image/svg+xml')]"
   ],
   "strip_id_or_class": [
     "comments",

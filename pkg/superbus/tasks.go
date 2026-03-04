@@ -19,8 +19,8 @@ import (
 type (
 	// Operation is the event sent when we launch a task.
 	Operation struct {
-		Name string      `json:"name"`
-		ID   interface{} `json:"id"`
+		Name string `json:"name"`
+		ID   any    `json:"id"`
 	}
 
 	// Payload is the stored content of a task.
@@ -58,8 +58,8 @@ type (
 		tm             *TaskManager
 		name           string
 		delay          int
-		unmarshallData func(data []byte) interface{}
-		taskHandler    func(data interface{})
+		unmarshallData func(data []byte) any
+		taskHandler    func(data any)
 	}
 )
 
@@ -167,7 +167,7 @@ func (tm *TaskManager) onTask(e Event) {
 }
 
 // getOperationKey returns the store key for an operation.
-func (tm *TaskManager) getOperationKey(name string, id interface{}) string {
+func (tm *TaskManager) getOperationKey(name string, id any) string {
 	return fmt.Sprintf("%s:%s:%v", tm.keyPrefix, name, id)
 }
 
@@ -215,7 +215,7 @@ func (tm *TaskManager) Stop() {
 }
 
 // Launch sends a task order for later launch.
-func (tm *TaskManager) Launch(name string, id interface{}, delay int, data interface{}) error {
+func (tm *TaskManager) Launch(name string, id any, delay int, data any) error {
 	t := Operation{
 		Name: name,
 		ID:   id,
@@ -265,7 +265,7 @@ func (tm *TaskManager) NewTask(name string, options ...TaskOption) Task {
 		o(&t)
 	}
 	tm.Register(t.name, func(_ *Operation, p *Payload) {
-		var data interface{} = p.Data
+		var data any = p.Data
 		if t.unmarshallData != nil {
 			data = t.unmarshallData(p.Data)
 		}
@@ -276,14 +276,14 @@ func (tm *TaskManager) NewTask(name string, options ...TaskOption) Task {
 }
 
 // WithTaskHandler adds the given handler to the task.
-func WithTaskHandler(f func(data interface{})) TaskOption {
+func WithTaskHandler(f func(data any)) TaskOption {
 	return func(t *Task) {
 		t.taskHandler = f
 	}
 }
 
 // WithUnmarshall registers a function that is responsible for payload decoding.
-func WithUnmarshall(f func(data []byte) interface{}) TaskOption {
+func WithUnmarshall(f func(data []byte) any) TaskOption {
 	return func(t *Task) {
 		t.unmarshallData = f
 	}
@@ -296,20 +296,25 @@ func WithTaskDelay(d int) TaskOption {
 	}
 }
 
+// Unmarshal returns a decoded task's payload.
+func (t Task) Unmarshal(data []byte) any {
+	return t.unmarshallData(data)
+}
+
 // Run launches the task.
-func (t Task) Run(id interface{}, data interface{}) error {
+func (t Task) Run(id any, data any) error {
 	t.Log().Info("starting task", slog.Any("id", id))
 	return t.tm.Launch(t.name, id, t.delay, data)
 }
 
 // Cancel removes the task's payload, effectively canceling it.
-func (t Task) Cancel(id interface{}) error {
+func (t Task) Cancel(id any) error {
 	t.Log().Info("canceling task", slog.Any("id", id))
 	return t.tm.store.Del(t.tm.getOperationKey(t.name, id))
 }
 
 // IsRunning returns true if the task is currently running or in the queue.
-func (t Task) IsRunning(id interface{}) bool {
+func (t Task) IsRunning(id any) bool {
 	return t.tm.store.Get(t.tm.getOperationKey(t.name, id)) != ""
 }
 

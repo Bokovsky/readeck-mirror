@@ -35,10 +35,11 @@ func init() {
 
 type userFlags struct {
 	appFlags
-	User     string
-	Password string
-	Email    string
-	Group    string
+	User       string
+	Password   string
+	Email      string
+	Group      string
+	RemoveTOTP bool
 }
 
 func (f *userFlags) Flags() *flag.FlagSet {
@@ -60,6 +61,7 @@ Examples:
 
 	fs.StringVar(&f.User, "user", "", "username")
 	fs.StringVar(&f.User, "u", "", "username (shorthand)")
+	fs.BoolVar(&f.RemoveTOTP, "remove-totp", false, "remove TOTP for this user")
 
 	return fs
 }
@@ -160,6 +162,14 @@ func (f *userFlags) setEmail(user *users.User) {
 	}
 }
 
+func (f *userFlags) removeTOTP(user *users.User) {
+	if !f.RemoveTOTP || user.ID == 0 {
+		return
+	}
+
+	user.TOTPSecret = nil
+}
+
 func (f *userFlags) passwordPrompt() (string, error) {
 	fmt.Print("Enter Password: ")
 	p1, err := term.ReadPassword(int(syscall.Stdin))
@@ -235,10 +245,11 @@ func runUser(_ context.Context, args []string) (err error) {
 
 	flags.setGroup(user)
 	flags.setEmail(user)
+	flags.removeTOTP(user)
 
 	msg := "created"
 	if user.ID == 0 {
-		_, err = db.Q().Insert(users.TableName).Rows(user).Prepared(true).Executor().Exec()
+		_, err = db.Q().Insert(db.TableUser).Rows(user).Prepared(true).Executor().Exec()
 	} else {
 		err = user.Save()
 		msg = "updated"

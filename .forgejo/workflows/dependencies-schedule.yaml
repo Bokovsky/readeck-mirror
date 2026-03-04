@@ -1,0 +1,31 @@
+---
+
+name: Readeck Dependencies
+run-name: ${{ github.actor }} dependencies updater
+on:
+  schedule:
+    - cron: "0 5 * * *"
+
+jobs:
+  update:
+    runs-on: docker
+    container:
+      image: codeberg.org/readeck/readeck-ci:latest
+      volumes:
+        - readeck-ci:/workspace
+      env:
+        HOME: /workspace
+        GOPATH: /workspace/go
+        GOCACHE: /workspace/.cache/go-build
+        GOLANGCI_LINT_CACHE: /workspace/.cache/golangci-lint
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release
+
+      - env:
+          API_TOKEN: ${{ secrets.API_TOKEN }}
+          API_USER: ${{ secrets.API_USER }}
+        run: |
+          uv run tools/update-dependencies.py

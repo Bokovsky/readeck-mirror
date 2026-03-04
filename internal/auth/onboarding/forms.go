@@ -18,8 +18,8 @@ type onboardingForm struct {
 func newOnboardingForm(tr forms.Translator) *onboardingForm {
 	return &onboardingForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
-		forms.NewTextField("username", forms.Trim, forms.Required, users.IsValidUsername),
-		forms.NewTextField("email", forms.Trim, forms.Skip, forms.IsEmail),
+		forms.NewTextField("username", forms.Trim, forms.Required, forms.MaxLen(128), users.IsValidUsername),
+		forms.NewTextField("email", forms.Trim, forms.Skip, forms.MaxLen(128), users.IsValidUserEmail),
 		forms.NewTextField("password", forms.Required, users.IsValidPassword),
 	)}
 }

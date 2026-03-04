@@ -126,6 +126,33 @@ func TestInitRequest(t *testing.T) {
 			"test.local",
 			"http",
 		},
+		{
+			"@",
+			"",
+			"",
+			"",
+			"<nil>",
+			"test.local",
+			"http",
+		},
+		{
+			"@",
+			"203.0.113.1, 192.168.2.1, ::1",
+			"example.net",
+			"https",
+			"203.0.113.1",
+			"example.net",
+			"https",
+		},
+		{
+			"@",
+			"203.0.113.1, 192.168.2.1, ::1",
+			"example.net",
+			"",
+			"203.0.113.1",
+			"example.net",
+			"https",
+		},
 	}
 
 	for i, test := range tests {

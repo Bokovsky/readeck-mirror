@@ -1,0 +1,25 @@
+name: Question 🙋
+about: When you have a general question or request
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For non bug, Readeck usage, related questions, please head to the [forum](https://community.readeck.org/).
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question or request
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our [Code of Conduct](https://codeberg.org/readeck/readeck/src/branch/main/CODE_OF_CONDUCT.md).
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
+    visible: [form]

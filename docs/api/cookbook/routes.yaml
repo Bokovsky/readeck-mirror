@@ -122,16 +122,22 @@ withExtractResponse:
           type: string
           description: HTML after extraction
 
+schemas:
+  cookbookExtractParams:
+    properties:
+      url:
+        type: string
+        format: uri
+        maxLength: 1024
+        description: URL to extract
+      html:
+        type: string
+        format: binary
+        description: HTML content of the resource at url
+
 routes:
   /cookbook/extract:
     parameters:
-      - name: url
-        in: query
-        required: true
-        schema:
-          type: string
-          format: uri
-        description: URL to extract
       - name: Accept
         in: header
         required: false
@@ -155,6 +161,16 @@ routes:
         - `text/html` returns an HTML response with all the media included as base64 encoded
           URLs.
 
+      parameters:
+        - name: url
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uri
+            maxLength: 1024
+          description: URL to extract
+
       responses:
         $merge:
           - "#.withExtractResponse"
@@ -176,24 +192,21 @@ routes:
           URLs.
 
         To pass the entire contents of a page together with its url, send this request with
-        the `Content-Type: text/html` header and the page contents as the request body. This
-        way, the article fetcher can use that instead of having to fetch the page at url.
+        the `html` field in the request body. This way, the article fetcher can use that instead
+        of having to fetch the page at url.
 
-      parameters:
-        - name: Content-Type
-          in: header
-          required: false
-          schema:
-            type: string
-            enum: ["text/html"]
+        You can send this request as `application/json`, `application/x-www-form-urlencoded` or
+        `multipart/form-data`.
 
       requestBody:
         required: false
         content:
-          text/html:
+          application/json:
             schema:
-              type: string
-              description: Optional HTML content of the resource at url
+              $ref: "#/components/schemas/cookbookExtractParams"
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/cookbookExtractParams"
 
       responses:
         $merge:

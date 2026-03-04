@@ -25,8 +25,8 @@ func GetTranslator(ctx context.Context) Translator {
 
 // Translator describes a type that implements a translation method.
 type Translator interface {
-	Gettext(string, ...interface{}) string
-	Pgettext(ctx, str string, vars ...interface{}) string
+	Gettext(string, ...any) string
+	Pgettext(ctx, str string, vars ...any) string
 }
 
 // FormError is a form's or field's error that contains an error message
@@ -34,7 +34,7 @@ type Translator interface {
 type FormError struct {
 	ctx  string
 	err  error
-	args []interface{}
+	args []any
 }
 
 // Error returns the untranslated error.
@@ -62,11 +62,11 @@ func (p FormError) Translate(tr Translator) string {
 }
 
 // newError returns a new FormError.
-func newError(msg string, args ...interface{}) FormError {
+func newError(msg string, args ...any) FormError {
 	return FormError{err: errors.New(msg), args: args}
 }
 
-func newErrorCtx(ctx string, msg string, args ...interface{}) FormError {
+func newErrorCtx(ctx string, msg string, args ...any) FormError {
 	return FormError{ctx: ctx, err: errors.New(msg), args: args}
 }
 

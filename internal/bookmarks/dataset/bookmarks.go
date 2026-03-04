@@ -180,9 +180,7 @@ type Bookmark struct {
 	WordCount       int                           `json:"word_count,omitempty"`
 	ReadingTime     int                           `json:"reading_time,omitempty"`
 
-	AnnotationTag      string                                                 `json:"-"`
-	AnnotationCallback func(id string, n *html.Node, index int, color string) `json:"-"`
-
+	context        context.Context
 	mediaURL       *url.URL
 	videoPlayerURL *url.URL
 }
@@ -228,20 +226,9 @@ func NewBookmark(ctx context.Context, b *bookmarks.Bookmark) *Bookmark {
 		Annotations:   b.Annotations,
 		Resources:     make(map[string]*BookmarkFile),
 		Links:         b.Links,
-
-		AnnotationTag: "rd-annotation",
-		AnnotationCallback: func(id string, n *html.Node, index int, color string) {
-			if index == 0 {
-				dom.SetAttribute(n, "id", "annotation-"+id)
-			}
-			if color == "" {
-				color = "yellow"
-			}
-			dom.SetAttribute(n, "data-annotation-id-value", id)
-			dom.SetAttribute(n, "data-annotation-color", color)
-		},
 	}
 
+	res.context = ctx
 	res.mediaURL = urls.AbsoluteURLContext(ctx, "/bm", b.FilePath)
 	res.videoPlayerURL = urls.AbsoluteURLContext(ctx, "/videoplayer")
 
@@ -308,15 +295,17 @@ func (bi Bookmark) MediaURL(name string) string {
 // GetArticle calls [HTMLConverter.GetArticle]
 // with URL replacer and annotation tag properly setup.
 func (bi Bookmark) GetArticle() (*strings.Reader, error) {
-	ctx := context.Background()
+	ctx := bi.context
 
 	// Set resource URL replacer, for images
 	ctx = WithURLReplacer(ctx, func(_ *bookmarks.Bookmark) func(name string) string {
 		return bi.MediaURL
 	})
 
-	// Set annotation tag and callback
-	ctx = WithAnnotationTag(ctx, bi.AnnotationTag, bi.AnnotationCallback)
+	// Set default annotation tag and callback
+	if tag, _ := getAnnotationTag(ctx); tag == "" {
+		ctx = WithAnnotationTag(ctx, AnnotationTag, AnnotationCallback(true))
+	}
 
 	// Get article from converter
 	return HTMLConverter{}.GetArticle(
