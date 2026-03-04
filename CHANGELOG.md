@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.22.0] - 2026-03-04
 ### Added
 - TOTP support
 - Forwarded authentication
@@ -44,7 +44,7 @@
 - Added email/send permission in bookmarks:read OAuth scope
 - Support SVG images via object embeds, by [@mislav](https://codeberg.org/mislav)
 
-## [0.21.6]
+## [0.21.6] - 2026-01-15
 ### Fixed
 - Sorting by date with SQLite
 
