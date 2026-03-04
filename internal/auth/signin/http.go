@@ -191,6 +191,10 @@ func (h *authHandler) mfa(w http.ResponseWriter, r *http.Request) {
 					redir = "/"
 				}
 
+				_ = user.Update(goqu.Record{
+					"last_login": time.Now().UTC(),
+				})
+
 				server.Redirect(w, r, redir)
 				return
 			}
