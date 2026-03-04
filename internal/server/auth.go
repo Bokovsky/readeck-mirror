@@ -41,6 +41,9 @@ var (
 
 	_ auth.Provider       = (*SessionAuthProvider)(nil)
 	_ auth.LoggerProvider = (*SessionAuthProvider)(nil)
+
+	_ auth.Provider       = (*ForwardedAuthProvider)(nil)
+	_ auth.LoggerProvider = (*ForwardedAuthProvider)(nil)
 )
 
 // TokenAuthProvider handles authentication using a bearer token
@@ -283,8 +286,7 @@ func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
 		f := users.NewProvisioningForm(Locale(r))
 		user, update, err := f.LoadUser(username, email, group)
 		if err != nil {
-			var fe forms.Errors
-			if errors.As(err, &fe) {
+			if fe, ok := errors.AsType[forms.Errors](err); ok {
 				Status(w, r, http.StatusForbidden)
 				p.Log(r).Error("forwarded auth", slog.Any("err", fe))
 			} else {
@@ -311,17 +313,25 @@ func (p *ForwardedAuthProvider) Handler(next http.Handler) http.Handler {
 		} else if len(update) > 0 {
 			// When user is known, we might need to update them.
 			update["updated"] = time.Now().UTC()
-			if err = user.Update(update); err != nil {
-				Err(w, r, err)
-				return
-			}
 		}
 
 		// Load any existing session
 		sess, _ := sessions.New(SessionHandler(), r)
 		if !sess.IsNew && sess.Payload.User == user.ID {
 			// The session exists and is for the same user, we can stop here.
+			if err = user.Update(update); err != nil {
+				Err(w, r, err)
+				return
+			}
+
 			next.ServeHTTP(w, r)
+			return
+		}
+
+		// Update user with provided update info and last_login
+		update["last_login"] = time.Now().UTC()
+		if err = user.Update(update); err != nil {
+			Err(w, r, err)
 			return
 		}
 

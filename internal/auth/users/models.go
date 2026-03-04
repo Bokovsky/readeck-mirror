@@ -127,6 +127,10 @@ func (u *User) Update(v any) error {
 		return errors.New("no ID")
 	}
 
+	if v, ok := v.(goqu.Record); ok && len(v) == 0 {
+		return nil
+	}
+
 	_, err := db.Q().Update(db.TableUser).Prepared(true).
 		Set(v).
 		Where(goqu.C("id").Eq(u.ID)).

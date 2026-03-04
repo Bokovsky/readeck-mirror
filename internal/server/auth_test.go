@@ -432,5 +432,4 @@ func TestForwardedAuth(t *testing.T) {
 			test.assert(require.New(t), rsp)
 		})
 	}
-	// })
 }
