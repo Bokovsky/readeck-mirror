@@ -24,6 +24,7 @@ import (
 
 const (
 	gzipEtagSuffix = "-gzip"
+	zstdEtagSuffix = "-zstd"
 )
 
 var acceptOffers = []string{
@@ -146,10 +147,12 @@ func CannonicalPaths(next http.Handler) http.Handler {
 	})
 }
 
-// CompressResponse returns a gzipped response for some content types.
+// CompressResponse returns a gzip or zstd compressed response for some content types.
 // It uses gzhttp that provides a BREACH mittigation.
 func CompressResponse(next http.Handler) http.Handler {
 	w, err := gzhttp.NewWrapper(
+		gzhttp.EnableZstd(true),
+		gzhttp.ZstdCompressionLevel(2),
 		gzhttp.CompressionLevel(5),
 		gzhttp.ContentTypes([]string{
 			"application/json", "application/atom+xml",
