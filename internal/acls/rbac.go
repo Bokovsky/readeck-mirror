@@ -1,113 +1,113 @@
-// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2026 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
+// Package acls provides the RBAC policy for Readeck.
 package acls
 
 import (
-	"bufio"
-	"errors"
-	"fmt"
-	"io"
+	"iter"
 	"path"
 	"slices"
 	"strings"
+	"sync"
 )
 
-// Permission is a triplet of a path, object and action.
-type Permission struct {
-	Path   string
-	Object string
-	Action string
+// Permissions is a mapping of path to a pair of object and action.
+type Permissions map[string][2]string
+
+// Group is the representation of a role from configuration.
+type Group struct {
+	Name    string   `json:"name"`
+	Parents []string `json:"parents"`
+	Grants  []string `json:"grants"`
 }
 
-func newPermission(p, obj, act string) *Permission {
-	return &Permission{Path: p, Object: obj, Action: act}
-}
-
-// Role is a group of permissions that inherits from its parents.
+// Role is the resolved role contained in [Policy].
 type Role struct {
-	Name        string
-	Permissions map[string]struct{}
-	Parents     map[string]*Role
+	permissions Set
+	groups      Set
 }
 
-func newRole(name string) *Role {
-	return &Role{
-		Name:        name,
-		Permissions: map[string]struct{}{},
-		Parents:     map[string]*Role{},
+// Policy is a map of [Role]s.
+type Policy struct {
+	m sync.Map
+}
+
+// zeroRole is returned when calling [Policy.Get] with a non existing role.
+var zeroRole = new(Role)
+
+// resolvePermissions recursively resolves all permissions of a role and
+// returns them as a list.
+func (policy *Policy) resolvePermissions(name string) []string {
+	res := &Set{}
+	role := policy.Get(name)
+	for _, g := range role.groups.Items() {
+		res.Add(policy.resolvePermissions(g)...)
 	}
-}
+	res.Add(role.permissions.Items()...)
 
-func (r Role) addPermission(p *Permission) {
-	r.Permissions[p.Object+":"+p.Action] = struct{}{}
-}
-
-// HasPermission returns true when obj and act are present in the
-// role's permission list or in one of its parents.
-func (r Role) HasPermission(obj, act string) bool {
-	if _, ok := r.Permissions[obj+":"+act]; ok {
-		return true
-	}
-	for _, p := range r.Parents {
-		if p.HasPermission(obj, act) {
-			return true
+	for _, v := range res.Items() {
+		if x, ok := strings.CutPrefix(v, "!"); ok {
+			res.Del(v, x)
 		}
 	}
 
-	return false
+	return res.Items()
 }
 
-// ListPermissions returns all the role's permissions.
-func (r Role) ListPermissions() []string {
-	perms := []string{}
-	for k := range r.Permissions {
-		perms = append(perms, k)
-	}
-
-	for _, p := range r.Parents {
-		perms = append(perms, p.ListPermissions()...)
-	}
-
-	slices.Sort(perms)
-	perms = slices.Compact(perms)
-
-	return perms
+// Set add a new [Role] to the policy.
+func (policy *Policy) Set(key string, role *Role) {
+	policy.m.Store(key, role)
 }
 
-// Policy is a list of [Role]s.
-type Policy map[string]*Role
+// Get returns a [Role] for the given name. If the name does not exist,
+// an empty role is returned so you can still perform chained queries.
+func (policy *Policy) Get(key string) *Role {
+	if r, ok := policy.m.Load(key); ok {
+		return r.(*Role)
+	}
+	return zeroRole
+}
+
+// Keys returns all the policy's role names.
+func (policy *Policy) Keys() iter.Seq[string] {
+	return func(yield func(string) bool) {
+		policy.m.Range(func(key, _ any) bool {
+			return yield(key.(string))
+		})
+	}
+}
 
 // Enforce returns true when a subject (the role's name)
 // contains obj and act permission.
-func (p Policy) Enforce(sub, obj, act string) bool {
-	if r, ok := p[sub]; ok {
-		return r.HasPermission(obj, act)
-	}
-	return false
+func (policy *Policy) Enforce(sub, obj, act string) bool {
+	return policy.Get(sub).Contains(obj, act)
 }
 
-// GetPermissions returns the given permissions of roles, including
-// permissions inherited from their parent roles.
-func (p Policy) GetPermissions(roles ...string) []string {
-	perms := []string{}
-	for _, r := range roles {
-		if role, ok := p[r]; ok {
-			perms = append(perms, role.ListPermissions()...)
+// GetPermissions returns all the permissions granted to one or several roles.
+func (policy *Policy) GetPermissions(roles ...string) (res []string) {
+	switch len(roles) {
+	case 0:
+		return res
+	case 1:
+		// direct shortcut, no allocation
+		return policy.Get(roles[0]).permissions.Items()
+	default:
+		for _, r := range roles {
+			res = append(res, policy.Get(r).permissions.Items()...)
 		}
-	}
 
-	slices.Sort(perms)
-	perms = slices.Compact(perms)
-	return perms
+		slices.Sort(res)
+		return slices.Compact(res)
+	}
 }
 
 // ListGroups returns the groups with "parent" as a direct parent group.
-func (p Policy) ListGroups(parent string) []string {
+func (policy *Policy) ListGroups(parent string) []string {
 	res := []string{}
-	for name, r := range p {
-		if _, ok := r.Parents[parent]; ok {
+	for name := range policy.Keys() {
+		if policy.Get(name).groups.Contains(parent) {
 			res = append(res, name)
 		}
 	}
@@ -117,103 +117,59 @@ func (p Policy) ListGroups(parent string) []string {
 }
 
 // InGroup returns true if permissions from src group are all in dest group.
-func (p Policy) InGroup(src, dest string) bool {
-	srcPermissions := p.GetPermissions(src)
-	dstPermissions := p.GetPermissions(dest)
-
-	dmap := map[string]struct{}{}
-	for _, x := range dstPermissions {
-		dmap[x] = struct{}{}
-	}
-
-	i := 0
-	for _, x := range srcPermissions {
-		if _, ok := dmap[x]; !ok {
-			return false
-		}
-		i++
-	}
-
-	return i > 0
+func (policy *Policy) InGroup(src, dest string) bool {
+	return slices.Compare(policy.GetPermissions(src), policy.GetPermissions(dest)) >= 0
 }
 
 // DeletePermission remove a permission from the policy.
-func (p Policy) DeletePermission(obj, act string) {
-	for _, r := range p {
-		delete(r.Permissions, obj+":"+act)
+func (policy *Policy) DeletePermission(obj, act string) {
+	for name := range policy.Keys() {
+		policy.Get(name).Delete(obj, act)
 	}
 }
 
-// LoadPolicy loads a policy from an [io.Reader].
-func LoadPolicy(r io.Reader) (Policy, error) {
-	br := bufio.NewReader(r)
-	permissions := []*Permission{}
-	groups := [][2]string{}
-
-	for {
-		b, err := br.ReadSlice('\n')
-		if err != nil {
-			if errors.Is(err, io.EOF) {
-				break
-			}
-			return nil, err
-		}
-		line := strings.TrimSpace(string(b))
-		if line == "" || line[0] == '#' {
-			continue
-		}
-
-		fields := []string{}
-		for f := range strings.SplitSeq(line, ",") {
-			fields = append(fields, strings.TrimSpace(f))
-		}
-
-		if len(fields) == 0 {
-			continue
-		}
-
-		switch fields[0] {
-		case "p":
-			if len(fields) != 4 {
-				return nil, fmt.Errorf("invalid permission definition: %s", line)
-			}
-			permissions = append(permissions, newPermission(fields[1], fields[2], fields[3]))
-		case "g":
-			if len(fields) != 3 {
-				return nil, fmt.Errorf("invalid group definition: %s", line)
-			}
-			groups = append(groups, [2]string(fields[1:3]))
-		}
-
-	}
-
-	policy := Policy{}
-
-	// First, create all the roles
+// NewPolicy returns a new [Policy] from [Permissions] and a list of [Group].
+func NewPolicy(permissions Permissions, groups ...Group) *Policy {
+	policy := &Policy{}
 	for _, g := range groups {
-		if _, ok := policy[g[0]]; !ok {
-			policy[g[0]] = newRole(g[0])
-		}
+		// add initial permissions
+		plist := make([]string, 0, len(permissions))
 
-		if !strings.HasPrefix(g[1], "/") {
-			policy[g[1]] = newRole(g[0])
-		}
-	}
+		for _, grant := range g.Grants {
+			negate := false
+			prefix := ""
+			grant, negate = strings.CutPrefix(grant, "!")
+			if negate {
+				prefix = "!"
+			}
 
-	// Add permissions and parents to roles
-	for _, g := range groups {
-		role := g[0]
-		subj := g[1]
-		if strings.HasPrefix(subj, "/") {
-			for _, p := range permissions {
-				if ok, _ := path.Match(subj, p.Path); ok {
-					policy[role].addPermission(p)
+			for p, v := range permissions {
+				if ok, _ := path.Match(grant, p); ok {
+					plist = append(plist, prefix+v[0]+":"+v[1])
 				}
 			}
-		} else {
-			policy[role].Parents[subj] = policy[subj]
 		}
+
+		role := &Role{}
+		role.groups.Add(g.Parents...)
+		role.permissions.Add(plist...)
+		policy.Set(g.Name, role)
 	}
 
-	return policy, nil
+	// Resolve all permissions
+	for name := range policy.Keys() {
+		policy.Get(name).permissions.Replace(policy.resolvePermissions(name)...)
+	}
+
+	return policy
+}
+
+// Contains returns true if obj:act exists in the role.
+func (role *Role) Contains(obj, act string) bool {
+	return role.permissions.Contains(obj + ":" + act)
+}
+
+// Delete removes obj:act from the role.
+func (role *Role) Delete(obj, act string) {
+	role.permissions.Del(obj + ":" + act)
 }
