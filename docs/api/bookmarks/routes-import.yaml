@@ -77,6 +77,19 @@ routes:
       description: |
         This route creates bookmarks from a GoodLinks export file.
 
+  /bookmarks/import/pinboard:
+    post:
+      tags: [bookmark import]
+      $merge:
+        - "traits.yaml#.authenticated"
+        - "traits.yaml#.validator"
+        - "traits.yaml#.deferred"
+        - "#.withMultipartImport"
+
+      summary: Import Pinboard bookmarks.
+      description: |
+        This route creates bookmarks from a Pinboard JSON backup file.
+
   /bookmarks/import/linkwarden:
     post:
       tags: [bookmark import]

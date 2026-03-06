@@ -2,6 +2,7 @@
   "o-bookmarks":    "bxs:bookmarks",
   "o-csv":          "bxs:spreadsheet",
   "o-goodlink":     "bxs:star",
+  "o-pinboard":     "img/logo-pinboard.svg",
   "o-linkwarden":   "img/logo-linkwarden.svg",
   "o-omnivore":     "img/logo-omnivore.svg",
   "o-pocket":       "bxl:pocket",

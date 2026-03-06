@@ -29,6 +29,7 @@ const (
 	importBrowser    = "browser"
 	importCSV        = "csv"
 	importGoodLinks  = "goodlinks"
+	importPinboard   = "pinboard"
 	importLinkwarden = "linkwarden"
 	importOmnivore   = "omnivore"
 	importPocketFile = "pocket-file"
@@ -139,6 +140,8 @@ func LoadAdapter(name string) ImportLoader {
 		return newCsvAdapter()
 	case importGoodLinks:
 		return newGoodlinksAdapter()
+	case importPinboard:
+		return newPinboardAdapter()
 	case importLinkwarden:
 		return newLinkwardenAdapter()
 	case importOmnivore:
