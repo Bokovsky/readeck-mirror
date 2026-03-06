@@ -24,8 +24,9 @@ var defaultResolved = map[string][]string{
 		"api:bookmarks:collections:read",
 		"api:bookmarks:collections:write",
 		"api:bookmarks:export",
-		"api:bookmarks:import:write",
+		"api:bookmarks:import",
 		"api:bookmarks:read",
+		"api:bookmarks:share",
 		"api:bookmarks:write",
 		"api:cookbook:read",
 		"api:opds:read",
@@ -37,12 +38,15 @@ var defaultResolved = map[string][]string{
 		"bookmarks:collections:read",
 		"bookmarks:collections:write",
 		"bookmarks:export",
-		"bookmarks:import:write",
+		"bookmarks:import",
 		"bookmarks:read",
+		"bookmarks:share",
 		"bookmarks:write",
 		"cookbook:read",
 		"docs:read",
 		"email:send",
+		"profile:export",
+		"profile:import",
 		"profile:read",
 		"profile:tokens:read",
 		"profile:tokens:write",
@@ -68,6 +72,7 @@ var defaultResolved = map[string][]string{
 		"api:bookmarks:collections:read",
 		"api:bookmarks:export",
 		"api:bookmarks:read",
+		"api:bookmarks:share",
 		"api:opds:read",
 		"api:profile:info",
 		"api:profile:tokens:delete",
@@ -89,8 +94,9 @@ var defaultResolved = map[string][]string{
 		"api:bookmarks:collections:read",
 		"api:bookmarks:collections:write",
 		"api:bookmarks:export",
-		"api:bookmarks:import:write",
+		"api:bookmarks:import",
 		"api:bookmarks:read",
+		"api:bookmarks:share",
 		"api:bookmarks:write",
 		"api:opds:read",
 		"api:profile:info",
@@ -101,11 +107,14 @@ var defaultResolved = map[string][]string{
 		"bookmarks:collections:read",
 		"bookmarks:collections:write",
 		"bookmarks:export",
-		"bookmarks:import:write",
+		"bookmarks:import",
 		"bookmarks:read",
+		"bookmarks:share",
 		"bookmarks:write",
 		"docs:read",
 		"email:send",
+		"profile:export",
+		"profile:import",
 		"profile:read",
 		"profile:tokens:read",
 		"profile:tokens:write",
@@ -116,8 +125,9 @@ var defaultResolved = map[string][]string{
 		"api:bookmarks:collections:read",
 		"api:bookmarks:collections:write",
 		"api:bookmarks:export",
-		"api:bookmarks:import:write",
+		"api:bookmarks:import",
 		"api:bookmarks:read",
+		"api:bookmarks:share",
 		"api:bookmarks:write",
 		"api:opds:read",
 		"api:profile:info",
@@ -128,11 +138,14 @@ var defaultResolved = map[string][]string{
 		"bookmarks:collections:read",
 		"bookmarks:collections:write",
 		"bookmarks:export",
-		"bookmarks:import:write",
+		"bookmarks:import",
 		"bookmarks:read",
+		"bookmarks:share",
 		"bookmarks:write",
 		"docs:read",
 		"email:send",
+		"profile:export",
+		"profile:import",
 		"profile:read",
 		"profile:tokens:read",
 		"profile:tokens:write",
@@ -166,27 +179,27 @@ func TestDefaultGroups(t *testing.T) {
 	acls.Load()
 	defer acls.Clear()
 
-	require.Equal(t, []string{"admin", "staff", "user"}, acls.ListGroups("__group__"))
+	require.Equal(t, []string{"admin", "staff", "user"}, acls.ListGroups("@group"))
 	require.Equal(t, []string{
 		"admin:read",
 		"admin:write",
 		"bookmarks:read",
 		"bookmarks:write",
 		"profile:read",
-	}, acls.ListGroups("__token_scope__"))
+	}, acls.ListGroups("@token_scope"))
 
 	require.Equal(t, []string{
 		"bookmarks:read",
 		"bookmarks:write",
 		"profile:read",
-	}, acls.ListGroups("__oauth_scope__"))
+	}, acls.ListGroups("@oauth_scope"))
 }
 
 func TestExtraPolicy(t *testing.T) {
 	acls.Load(acls.Group{
 		Name: "test",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"user",
 		},
 		Grants: []string{
@@ -206,8 +219,9 @@ func TestExtraPolicy(t *testing.T) {
 		"api:bookmarks:collections:read",
 		"api:bookmarks:collections:write",
 		"api:bookmarks:export",
-		"api:bookmarks:import:write",
+		"api:bookmarks:import",
 		"api:bookmarks:read",
+		"api:bookmarks:share",
 		"api:bookmarks:write",
 		"api:profile:info",
 		"api:profile:read",
@@ -217,11 +231,14 @@ func TestExtraPolicy(t *testing.T) {
 		"bookmarks:collections:read",
 		"bookmarks:collections:write",
 		"bookmarks:export",
-		"bookmarks:import:write",
+		"bookmarks:import",
 		"bookmarks:read",
+		"bookmarks:share",
 		"bookmarks:write",
 		"docs:read",
 		"email:send",
+		"profile:export",
+		"profile:import",
 		"profile:read",
 		"profile:tokens:read",
 		"profile:tokens:write",
@@ -230,7 +247,7 @@ func TestExtraPolicy(t *testing.T) {
 
 	require.Equal(t, expected, permissions)
 
-	require.Equal(t, []string{"admin", "staff", "test", "user"}, acls.ListGroups("__group__"))
+	require.Equal(t, []string{"admin", "staff", "test", "user"}, acls.ListGroups("@group"))
 
 	require.True(t, acls.Enforce("user", "api:opds", "read"))
 	require.False(t, acls.Enforce("test", "api:opds", "read"))

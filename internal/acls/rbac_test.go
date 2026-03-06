@@ -41,8 +41,8 @@ func basePolicy() (acls.Permissions, []acls.Group) {
 			"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
 			"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
 			"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
-			"/api/bookmarks/import/write":      {"api:bookmarks:import", "write"},
-			"/web/bookmarks/import/write":      {"bookmarks:import", "write"},
+			"/api/bookmarks/import":            {"api:bookmarks", "import"},
+			"/web/bookmarks/import":            {"bookmarks", "import"},
 			"/api/opds/read":                   {"api:opds", "read"},
 		}, []acls.Group{
 			{
@@ -61,7 +61,7 @@ func basePolicy() (acls.Permissions, []acls.Group) {
 			{
 				Name: "user",
 				Parents: []string{
-					"__group__",
+					"@group",
 					"api_common",
 				},
 				Grants: []string{
@@ -81,7 +81,7 @@ func basePolicy() (acls.Permissions, []acls.Group) {
 			{
 				Name: "staff",
 				Parents: []string{
-					"__group__",
+					"@group",
 					"user",
 				},
 				Grants: []string{
@@ -91,7 +91,7 @@ func basePolicy() (acls.Permissions, []acls.Group) {
 			{
 				Name: "admin",
 				Parents: []string{
-					"__group__",
+					"@group",
 					"staff",
 				},
 				Grants: []string{
@@ -300,7 +300,7 @@ func TestListGroups(t *testing.T) {
 		expected []string
 	}{
 		{
-			"__group__",
+			"@group",
 			[]string{"admin", "staff", "user"},
 		},
 		{
@@ -418,6 +418,6 @@ func BenchmarkListGroups(b *testing.B) {
 	policy := acls.NewPolicy(permissions, groups...)
 
 	for b.Loop() {
-		policy.ListGroups("__group__")
+		policy.ListGroups("@group")
 	}
 }

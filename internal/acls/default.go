@@ -29,11 +29,13 @@ var defaultPermissions = Permissions{
 	"/web/docs/read": {"docs", "read"},
 
 	// User profile
-	"/api/profile/info":  {"api:profile", "info"},
-	"/api/profile/read":  {"api:profile", "read"},
-	"/api/profile/write": {"api:profile", "write"},
-	"/web/profile/read":  {"profile", "read"},
-	"/web/profile/write": {"profile", "write"},
+	"/api/profile/info":   {"api:profile", "info"},
+	"/api/profile/read":   {"api:profile", "read"},
+	"/api/profile/write":  {"api:profile", "write"},
+	"/web/profile/read":   {"profile", "read"},
+	"/web/profile/write":  {"profile", "write"},
+	"/web/profile/export": {"profile", "export"},
+	"/web/profile/import": {"profile", "import"},
 
 	// API Tokens
 	"/api/profile/tokens/read":   {"api:profile:tokens", "read"},
@@ -45,19 +47,19 @@ var defaultPermissions = Permissions{
 	"/api/bookmarks/read":   {"api:bookmarks", "read"},
 	"/api/bookmarks/write":  {"api:bookmarks", "write"},
 	"/api/bookmarks/export": {"api:bookmarks", "export"},
+	"/api/bookmarks/import": {"api:bookmarks", "import"},
+	"/api/bookmarks/share":  {"api:bookmarks", "share"},
 	"/web/bookmarks/read":   {"bookmarks", "read"},
 	"/web/bookmarks/write":  {"bookmarks", "write"},
 	"/web/bookmarks/export": {"bookmarks", "export"},
+	"/web/bookmarks/import": {"bookmarks", "import"},
+	"/web/bookmarks/share":  {"bookmarks", "share"},
 
 	// Bookmark collections
 	"/api/bookmarks/collections/read":  {"api:bookmarks:collections", "read"},
 	"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
 	"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
 	"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
-
-	// Bookmarks import
-	"/api/bookmarks/import/write": {"api:bookmarks:import", "write"},
-	"/web/bookmarks/import/write": {"bookmarks:import", "write"},
 
 	// OPDS catalog
 	"/api/opds/read": {"api:opds", "read"},
@@ -82,7 +84,7 @@ var defaultGroups = []Group{
 		// Group "user"
 		Name: "user",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"api_common",
 		},
 		Grants: []string{
@@ -93,10 +95,10 @@ var defaultGroups = []Group{
 			"/*/bookmarks/read",
 			"/*/bookmarks/write",
 			"/*/bookmarks/export",
+			"/*/bookmarks/import",
 			"/*/bookmarks/share",
 			"/*/bookmarks/collections/read",
 			"/*/bookmarks/collections/write",
-			"/*/bookmarks/import/write",
 			"/api/opds/*",
 		},
 	},
@@ -104,7 +106,7 @@ var defaultGroups = []Group{
 		// Group "staff"
 		Name: "staff",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"user",
 		},
 		Grants: []string{
@@ -115,7 +117,7 @@ var defaultGroups = []Group{
 		// Group "admin"
 		Name: "admin",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"staff",
 		},
 		Grants: []string{
@@ -129,8 +131,8 @@ var defaultGroups = []Group{
 		// Profile
 		Name: "profile:read",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -141,13 +143,14 @@ var defaultGroups = []Group{
 		// Bookmarks read only
 		Name: "bookmarks:read",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
 			"/email/send",
 			"/api/bookmarks/read",
+			"/api/bookmarks/share",
 			"/api/bookmarks/export",
 			"/api/bookmarks/collections/read",
 			"/api/opds/read",
@@ -158,8 +161,8 @@ var defaultGroups = []Group{
 		// Bookmarks write only
 		Name: "bookmarks:write",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -171,7 +174,7 @@ var defaultGroups = []Group{
 		// Admin read only
 		Name: "admin:read",
 		Parents: []string{
-			"__token_scope__",
+			"@token_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -183,7 +186,7 @@ var defaultGroups = []Group{
 		// Admin write only
 		Name: "admin:write",
 		Parents: []string{
-			"__token_scope__",
+			"@token_scope",
 			"api_common",
 		},
 		Grants: []string{

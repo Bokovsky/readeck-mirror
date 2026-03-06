@@ -133,7 +133,7 @@ func newAuthorizationForm(tr forms.Translator, user *users.User) *authorizationF
 		newScopeField("scope",
 			forms.Trim,
 			forms.Required,
-			forms.ChoicesPairs(users.GroupList(tr, "__oauth_scope__", user)),
+			forms.ChoicesPairs(users.GroupList(tr, "@oauth_scope", user)),
 		),
 		forms.NewTextField("state", forms.Trim, forms.MaxLen(64)),
 		forms.NewTextField("code_challenge", forms.Required, forms.MaxLen(256)),
@@ -190,7 +190,7 @@ func newDeviceForm(tr forms.Translator) *deviceForm {
 		newScopeField("scope",
 			forms.Trim,
 			forms.Required,
-			forms.ChoicesPairs(users.GroupList(tr, "__oauth_scope__", nil)),
+			forms.ChoicesPairs(users.GroupList(tr, "@oauth_scope", nil)),
 		),
 	)}
 }

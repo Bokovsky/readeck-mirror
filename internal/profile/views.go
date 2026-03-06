@@ -35,6 +35,8 @@ func newProfileViews(api *profileAPI) *profileViews {
 	r.With(server.WithPermission("profile", "read")).Group(func(r chi.Router) {
 		r.Get("/", v.userProfile)
 		r.Get("/password", v.userPassword)
+	})
+	r.With(server.WithPermission("profile", "export")).Group(func(r chi.Router) {
 		r.Get("/export", v.exportData)
 		r.Post("/export", v.exportData)
 	})
@@ -45,6 +47,8 @@ func newProfileViews(api *profileAPI) *profileViews {
 		r.Get("/otp", v.userTOTP)
 		r.Post("/otp", v.userTOTP)
 		r.Post("/session", v.userSession)
+	})
+	r.With(server.WithPermission("profile", "import")).Group(func(r chi.Router) {
 		r.Get("/import", v.importData)
 		r.Post("/import", v.importData)
 	})

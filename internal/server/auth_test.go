@@ -19,6 +19,7 @@ import (
 	"codeberg.org/readeck/readeck/configs"
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
 	"codeberg.org/readeck/readeck/internal/auth/users"
+	"codeberg.org/readeck/readeck/internal/db/types"
 	"codeberg.org/readeck/readeck/pkg/base58"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
@@ -147,6 +148,80 @@ func TestTokenAuth(t *testing.T) {
 
 			rsp := client.Request(t, req)
 			test.assert(require.New(t), rsp)
+		})
+	}
+}
+
+func TestTokenScopes(t *testing.T) {
+	app := NewTestApp(t)
+	defer app.Close(t)
+
+	tUserAdminScope := &tokens.Token{
+		UserID:      &(app.Users["user"].User.ID),
+		Application: "test",
+		IsEnabled:   true,
+		Roles:       types.Strings{"admin:read"},
+	}
+	require.NoError(t, tokens.Tokens.Create(tUserAdminScope))
+	tokenUserAdminScope, err := configs.Keys.TokenKey().Encode(tUserAdminScope.UID)
+	require.NoError(t, err)
+
+	tAdminAdminScope := &tokens.Token{
+		UserID:      &(app.Users["admin"].User.ID),
+		Application: "test",
+		IsEnabled:   true,
+		Roles:       types.Strings{"admin:read"},
+	}
+	require.NoError(t, tokens.Tokens.Create(tAdminAdminScope))
+	tokenAdminAdminScope, err := configs.Keys.TokenKey().Encode(tAdminAdminScope.UID)
+	require.NoError(t, err)
+
+	client := app.Client()
+
+	tests := []struct {
+		name   string
+		token  string
+		method string
+		path   string
+		status int
+	}{
+		{
+			name:   "user profile",
+			token:  tokenUserAdminScope,
+			method: "GET",
+			path:   "/api/profile",
+			status: 200,
+		},
+		{
+			name:   "user with admin scope",
+			token:  tokenUserAdminScope,
+			method: "GET",
+			path:   "/api/admin/users",
+			status: 403,
+		},
+		{
+			name:   "admin with admin scope",
+			token:  tokenAdminAdminScope,
+			method: "GET",
+			path:   "/api/admin/users",
+			status: 200,
+		},
+		{
+			name:   "admin no write",
+			token:  tokenAdminAdminScope,
+			method: "POST",
+			path:   "/api/admin/users",
+			status: 403,
+		},
+	}
+
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			req, err := client.NewRequest(test.method, test.path, nil)
+			require.NoError(t, err)
+			req.Header.Set("Authorization", "Bearer "+test.token)
+			rsp := client.Request(t, req)
+			require.Equal(t, test.status, rsp.StatusCode)
 		})
 	}
 }
