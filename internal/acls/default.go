@@ -84,7 +84,7 @@ var defaultGroups = []Group{
 		// Group "user"
 		Name: "user",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"api_common",
 		},
 		Grants: []string{
@@ -106,7 +106,7 @@ var defaultGroups = []Group{
 		// Group "staff"
 		Name: "staff",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"user",
 		},
 		Grants: []string{
@@ -117,7 +117,7 @@ var defaultGroups = []Group{
 		// Group "admin"
 		Name: "admin",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"staff",
 		},
 		Grants: []string{
@@ -131,8 +131,8 @@ var defaultGroups = []Group{
 		// Profile
 		Name: "profile:read",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -143,8 +143,8 @@ var defaultGroups = []Group{
 		// Bookmarks read only
 		Name: "bookmarks:read",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -161,8 +161,8 @@ var defaultGroups = []Group{
 		// Bookmarks write only
 		Name: "bookmarks:write",
 		Parents: []string{
-			"__token_scope__",
-			"__oauth_scope__",
+			"@token_scope",
+			"@oauth_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -174,7 +174,7 @@ var defaultGroups = []Group{
 		// Admin read only
 		Name: "admin:read",
 		Parents: []string{
-			"__token_scope__",
+			"@token_scope",
 			"api_common",
 		},
 		Grants: []string{
@@ -186,7 +186,7 @@ var defaultGroups = []Group{
 		// Admin write only
 		Name: "admin:write",
 		Parents: []string{
-			"__token_scope__",
+			"@token_scope",
 			"api_common",
 		},
 		Grants: []string{

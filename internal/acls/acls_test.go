@@ -179,27 +179,27 @@ func TestDefaultGroups(t *testing.T) {
 	acls.Load()
 	defer acls.Clear()
 
-	require.Equal(t, []string{"admin", "staff", "user"}, acls.ListGroups("__group__"))
+	require.Equal(t, []string{"admin", "staff", "user"}, acls.ListGroups("@group"))
 	require.Equal(t, []string{
 		"admin:read",
 		"admin:write",
 		"bookmarks:read",
 		"bookmarks:write",
 		"profile:read",
-	}, acls.ListGroups("__token_scope__"))
+	}, acls.ListGroups("@token_scope"))
 
 	require.Equal(t, []string{
 		"bookmarks:read",
 		"bookmarks:write",
 		"profile:read",
-	}, acls.ListGroups("__oauth_scope__"))
+	}, acls.ListGroups("@oauth_scope"))
 }
 
 func TestExtraPolicy(t *testing.T) {
 	acls.Load(acls.Group{
 		Name: "test",
 		Parents: []string{
-			"__group__",
+			"@group",
 			"user",
 		},
 		Grants: []string{
@@ -247,7 +247,7 @@ func TestExtraPolicy(t *testing.T) {
 
 	require.Equal(t, expected, permissions)
 
-	require.Equal(t, []string{"admin", "staff", "test", "user"}, acls.ListGroups("__group__"))
+	require.Equal(t, []string{"admin", "staff", "test", "user"}, acls.ListGroups("@group"))
 
 	require.True(t, acls.Enforce("user", "api:opds", "read"))
 	require.False(t, acls.Enforce("test", "api:opds", "read"))

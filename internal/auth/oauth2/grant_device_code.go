@@ -186,7 +186,7 @@ func (h *deviceViewRouter) authorizeHandler(w http.ResponseWriter, r *http.Reque
 			tc["Step"] = "pending"
 			tc["Client"] = client
 
-			availableScopes := users.GroupList(server.Locale(r), "__oauth_scope__", auth.GetRequestUser(r))
+			availableScopes := users.GroupList(server.Locale(r), "@oauth_scope", auth.GetRequestUser(r))
 			tc["Scopes"] = []string{}
 			for _, x := range availableScopes {
 				if slices.Contains(req.Scopes, x[0]) {

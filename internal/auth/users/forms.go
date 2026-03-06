@@ -95,7 +95,7 @@ func NewUserForm(tr forms.Translator) *UserForm {
 	availableGroups := [][2]string{
 		{"none", tr.Pgettext("role", "no group")},
 	}
-	availableGroups = append(availableGroups, GroupList(tr, "__group__", nil)...)
+	availableGroups = append(availableGroups, GroupList(tr, "@group", nil)...)
 
 	return &UserForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
@@ -258,7 +258,7 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 	availableGroups := [][2]string{
 		{"none", tr.Pgettext("role", "no group")},
 	}
-	availableGroups = append(availableGroups, GroupList(tr, "__group__", nil)...)
+	availableGroups = append(availableGroups, GroupList(tr, "@group", nil)...)
 
 	return &ProvisioningForm{forms.Must(
 		forms.WithTranslator(context.Background(), tr),
