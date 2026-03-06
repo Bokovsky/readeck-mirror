@@ -63,6 +63,9 @@ generate: web-build docs-build
 # Setup prepares the environment
 .PHONY: setup
 setup:
+	@echo "GOVERSION: $(shell go env GOVERSION)"
+	@echo "GOOS: $(shell go env GOOS)"
+	@echo "GOARCH: $(shell go env GOARCH)"
 	$(GO) mod download
 	${MAKE} -C web setup
 
@@ -98,7 +101,7 @@ web-build:
 .PHONY: test
 test: docs-build
 	test -f assets/www/manifest.json || echo "{}" > assets/www/manifest.json
-	$(GO) test \
+	GOTOOLCHAIN=$(shell go env GOVERSION) $(GO) test \
 		-tags "$(BUILD_TAGS)" \
 		-ldflags="$(VERSION_FLAGS) $(LDFLAGS)" \
 		-cover ./...

@@ -1,0 +1,22 @@
+[{
+    "href": "https://codeberg.org/readeck/readeck#under-the-hood",
+    "description": "readeck/readeck: Readeck is a simple web application that lets you save the precious readable content of web pages you like and want to keep forever. - Codeberg.org",
+    "extended": "a longer free-form text",
+    "meta": "c30f7efff6071f05e5573f46c8cfc004",
+    "hash": "fc12f5720177a7b5aca9264e6c2a321c",
+    "time": "2026-03-01T13:28:24Z",
+    "shared": "yes",
+    "toread": "yes",
+    "tags": ""
+},
+{
+    "href": "https://www.enisa.europa.eu/publications/the-enisa-cybersecurity-exercise-methodology",
+    "description": "The ENISA Cybersecurity Exercise Methodology | ENISA",
+    "extended": "",
+    "meta": "a527d396932e74ac1f95ffa10c084098",
+    "hash": "298cbc0a67d98362b4788f3e58c7ff3d",
+    "time": "2026-02-28T12:47:30Z",
+    "shared": "yes",
+    "toread": "no",
+    "tags": "security foo bar"
+}]

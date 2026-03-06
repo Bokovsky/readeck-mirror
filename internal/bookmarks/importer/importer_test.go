@@ -422,6 +422,60 @@ func TestGoodLinks(t *testing.T) {
 	})
 }
 
+func TestPinboard(t *testing.T) {
+	testFileAdapter(t, "pinboard", []fileTest{
+		{
+			dataFile("  "),
+			"Empty or invalid import file",
+			"[]",
+		},
+		{
+			fixtureFile("pinboard.json"),
+			"",
+			`[
+				{
+					"URL": "https://codeberg.org/readeck/readeck#under-the-hood",
+					"Meta": {
+						"Title": "readeck/readeck: Readeck is a simple web application that lets you save the precious readable content of web pages you like and want to keep forever. - Codeberg.org",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "a longer free-form text",
+						"Embed": "",
+						"Labels": [],
+						"IsArchived": false,
+						"IsMarked": false,
+						"Created": "2026-03-01T13:28:24Z"
+					}
+				},
+				{
+					"URL": "https://www.enisa.europa.eu/publications/the-enisa-cybersecurity-exercise-methodology",
+					"Meta": {
+						"Title": "The ENISA Cybersecurity Exercise Methodology | ENISA",
+						"Published": "0001-01-01T00:00:00Z",
+						"Authors": null,
+						"Lang": "",
+						"TextDirection": "",
+						"DocumentType": "",
+						"Description": "",
+						"Embed": "",
+						"Labels": [
+							"security",
+							"foo",
+							"bar"
+						],
+						"IsArchived": true,
+						"IsMarked": false,
+						"Created": "2026-02-28T12:47:30Z"
+					}
+				}
+			]`,
+		},
+	})
+}
+
 func TestLinkwarden(t *testing.T) {
 	testFileAdapter(t, "linkwarden", []fileTest{
 		{

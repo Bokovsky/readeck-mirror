@@ -179,7 +179,11 @@ func checkIfModifiedSince(w http.ResponseWriter, r *http.Request) checkResult {
 }
 
 func checkIfMatch(w http.ResponseWriter, r *http.Request) checkResult {
-	rh := strings.TrimSuffix(r.Header.Get("If-None-Match"), gzipEtagSuffix)
+	rh, ok := strings.CutSuffix(r.Header.Get("If-None-Match"), zstdEtagSuffix)
+	if !ok {
+		rh, _ = strings.CutSuffix(rh, gzipEtagSuffix)
+	}
+
 	if rh == "" {
 		return checkNone
 	}
