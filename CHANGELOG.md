@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+### Addded
+- Pinboard import adapter, by [@jlecour](https://codeberg.org/jlecour)
+
+### Improved
+- ACLs system
+
+### Changed
+- updated Go to 1.26.1
+
+### Fixed
+- Markup error in "about" page
+- HTTP cache for zstd responses
+
 ## [0.22.0] - 2026-03-04
 ### Added
 - TOTP support
