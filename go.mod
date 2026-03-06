@@ -1,19 +1,19 @@
 module codeberg.org/readeck/readeck
 
-go 1.26.0
+go 1.26.1
 
 require (
 	codeberg.org/readeck/go-readability/v2 v2.1.1
 	github.com/CloudyKit/jet/v6 v6.3.1
 	github.com/JohannesKaufmann/html-to-markdown/v2 v2.5.0
-	github.com/antchfx/htmlquery v1.3.5
+	github.com/antchfx/htmlquery v1.3.6
 	github.com/antchfx/xmlquery v1.5.0
 	github.com/anthonynsimon/bild v0.14.0
 	github.com/araddon/dateparse v0.0.0-20210429162001-6b43995a97de
 	github.com/aymerick/douceur v0.2.0
 	github.com/caarlos0/env/v11 v11.4.0
 	github.com/cristalhq/acmd v0.12.0
-	github.com/dop251/goja v0.0.0-20260226184354-913bd86fb70c
+	github.com/dop251/goja v0.0.0-20260305124333-6a7976c22267
 	github.com/dop251/goja_nodejs v0.0.0-20260212111938-1f56ff5bcf14
 	github.com/doug-martin/goqu/v9 v9.19.0
 	github.com/gabriel-vasile/mimetype v1.4.13
@@ -96,5 +96,3 @@ require (
 	modernc.org/mathutil v1.7.1 // indirect
 	modernc.org/memory v1.11.0 // indirect
 )
-
-replace github.com/antchfx/htmlquery v1.3.5 => github.com/mislav/htmlquery v1.3.5-0.20251120154755-ff4291f46397

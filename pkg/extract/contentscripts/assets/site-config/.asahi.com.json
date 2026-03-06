@@ -1,0 +1,59 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//div[contains(concat(' ',normalize-space(@class),' '),' article-body ')]"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@class=\"article-header-author__name\"]"
+  ],
+  "strip_selectors": [
+    "//a[@class=\"article-body-guide\"]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' m-acc ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' m-pagination ')]",
+    "//div[contains(concat(' ',normalize-space(@class),' '),' --leafs ')]"
+  ],
+  "strip_id_or_class": [
+    "article-tags",
+    "article-index",
+    "article-book"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@class=\"article-body-guide\"]"
+  ],
+  "replace_strings": [
+    [
+      "\u003ci\u003e",
+      ""
+    ],
+    [
+      "\u003c/i\u003e",
+      ""
+    ],
+    [
+      "\u003ch2",
+      "\u003ch3"
+    ],
+    [
+      "\u003c/h2\u003e",
+      "\u003c/h3\u003e"
+    ]
+  ],
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://dot.asahi.com/aerakids/articles/-/274073",
+      "contains": []
+    },
+    {
+      "url": "https://dot.asahi.com/aerakids/articles/-/274981?page=1",
+      "contains": []
+    }
+  ]
+}
