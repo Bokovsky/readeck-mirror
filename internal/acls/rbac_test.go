@@ -41,8 +41,8 @@ func basePolicy() (acls.Permissions, []acls.Group) {
 			"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
 			"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
 			"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
-			"/api/bookmarks/import/write":      {"api:bookmarks:import", "write"},
-			"/web/bookmarks/import/write":      {"bookmarks:import", "write"},
+			"/api/bookmarks/import":            {"api:bookmarks", "import"},
+			"/web/bookmarks/import":            {"bookmarks", "import"},
 			"/api/opds/read":                   {"api:opds", "read"},
 		}, []acls.Group{
 			{

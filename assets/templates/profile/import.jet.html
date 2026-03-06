@@ -46,13 +46,15 @@ SPDX-License-Identifier: AGPL-3.0-only
   </div>
 </form>
 
-<h2 class="title text-h3">{{ gettext("Import bookmarks from other services") }}</h2>
+{{- if hasPermission("bookmarks", "import") -}}
+  <h2 class="title text-h3">{{ gettext("Import bookmarks from other services") }}</h2>
 
-<div class="prose">
-  <p>{{ gettext(`
-  If you have bookmarks from another service you can import them in the
-  <a href="%s">dedicated section</a>.
-  `, urlFor(`/bookmarks/import`)) | raw }}</p>
-</div>
+  <div class="prose">
+    <p>{{ gettext(`
+    If you have bookmarks from another service you can import them in the
+    <a href="%s">dedicated section</a>.
+    `, urlFor(`/bookmarks/import`)) | raw }}</p>
+  </div>
+{{- end -}}
 
 {{ end }}

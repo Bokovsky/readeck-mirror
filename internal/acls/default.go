@@ -29,11 +29,13 @@ var defaultPermissions = Permissions{
 	"/web/docs/read": {"docs", "read"},
 
 	// User profile
-	"/api/profile/info":  {"api:profile", "info"},
-	"/api/profile/read":  {"api:profile", "read"},
-	"/api/profile/write": {"api:profile", "write"},
-	"/web/profile/read":  {"profile", "read"},
-	"/web/profile/write": {"profile", "write"},
+	"/api/profile/info":   {"api:profile", "info"},
+	"/api/profile/read":   {"api:profile", "read"},
+	"/api/profile/write":  {"api:profile", "write"},
+	"/web/profile/read":   {"profile", "read"},
+	"/web/profile/write":  {"profile", "write"},
+	"/web/profile/export": {"profile", "export"},
+	"/web/profile/import": {"profile", "import"},
 
 	// API Tokens
 	"/api/profile/tokens/read":   {"api:profile:tokens", "read"},
@@ -45,19 +47,19 @@ var defaultPermissions = Permissions{
 	"/api/bookmarks/read":   {"api:bookmarks", "read"},
 	"/api/bookmarks/write":  {"api:bookmarks", "write"},
 	"/api/bookmarks/export": {"api:bookmarks", "export"},
+	"/api/bookmarks/import": {"api:bookmarks", "import"},
+	"/api/bookmarks/share":  {"api:bookmarks", "share"},
 	"/web/bookmarks/read":   {"bookmarks", "read"},
 	"/web/bookmarks/write":  {"bookmarks", "write"},
 	"/web/bookmarks/export": {"bookmarks", "export"},
+	"/web/bookmarks/import": {"bookmarks", "import"},
+	"/web/bookmarks/share":  {"bookmarks", "share"},
 
 	// Bookmark collections
 	"/api/bookmarks/collections/read":  {"api:bookmarks:collections", "read"},
 	"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
 	"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
 	"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
-
-	// Bookmarks import
-	"/api/bookmarks/import/write": {"api:bookmarks:import", "write"},
-	"/web/bookmarks/import/write": {"bookmarks:import", "write"},
 
 	// OPDS catalog
 	"/api/opds/read": {"api:opds", "read"},
@@ -93,10 +95,10 @@ var defaultGroups = []Group{
 			"/*/bookmarks/read",
 			"/*/bookmarks/write",
 			"/*/bookmarks/export",
+			"/*/bookmarks/import",
 			"/*/bookmarks/share",
 			"/*/bookmarks/collections/read",
 			"/*/bookmarks/collections/write",
-			"/*/bookmarks/import/write",
 			"/api/opds/*",
 		},
 	},
@@ -148,6 +150,7 @@ var defaultGroups = []Group{
 		Grants: []string{
 			"/email/send",
 			"/api/bookmarks/read",
+			"/api/bookmarks/share",
 			"/api/bookmarks/export",
 			"/api/bookmarks/collections/read",
 			"/api/opds/read",

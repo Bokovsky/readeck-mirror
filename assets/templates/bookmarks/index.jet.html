@@ -99,22 +99,24 @@ SPDX-License-Identifier: AGPL-3.0-only
             </a></p>
           </div>
 
-          <div class="flex flex-col">
-            <h3 class="title text-xl">
-              {{- yield icon(name="o-import", class="text-yellow-600", svgClass="h-6 w-6") }}
-              {{ gettext("Import existing bookmarks") -}}
-            </h3>
-            <p class="mb-4 grow">{{ gettext(`
-              Would you like to import from a similar tool or from a file with existing bookmarks?
-              Try Readeck's import tool.
-            `) }}</p>
-            <p class="flex justify-start">
-              <a class="btn btn-primary btn-outlined rounded-full py-2 px-4"
-               href="{{ urlFor(`/bookmarks/import`) }}">
-                {{- gettext("Import links and articles") -}}
-              </a>
-            </p>
-          </div>
+          {{- if hasPermission("bookmarks", "import") -}}
+            <div class="flex flex-col">
+              <h3 class="title text-xl">
+                {{- yield icon(name="o-import", class="text-yellow-600", svgClass="h-6 w-6") }}
+                {{ gettext("Import existing bookmarks") -}}
+              </h3>
+              <p class="mb-4 grow">{{ gettext(`
+                Would you like to import from a similar tool or from a file with existing bookmarks?
+                Try Readeck's import tool.
+              `) }}</p>
+              <p class="flex justify-start">
+                <a class="btn btn-primary btn-outlined rounded-full py-2 px-4"
+                href="{{ urlFor(`/bookmarks/import`) }}">
+                  {{- gettext("Import links and articles") -}}
+                </a>
+              </p>
+            </div>
+          {{- end -}}
         </div>
       </div>
     </div>
@@ -134,11 +136,13 @@ SPDX-License-Identifier: AGPL-3.0-only
           </button>
         </form>
 
-        {{- if hasPermission("api:bookmarks", "export") && hasPermission("api:bookmarks:import", "write") -}}
+        {{- if hasPermission("bookmarks", "export") || hasPermission("bookmarks", "import") -}}
           {{ sortParam := isset(.CurrentOrder) ? .CurrentOrder : "" }}
           {{- yield export_menu(params=`?` + .Filters.GetQueryString(), sortParam=sortParam) content -}}
-            <li><a class="link" href="{{ urlFor(`/bookmarks/import`) }}">
-              {{- yield icon(name="o-import") }} {{ gettext("Import bookmarks") }}</a></li>
+            {{- if hasPermission("bookmarks", "import") -}}
+              <li><a class="link" href="{{ urlFor(`/bookmarks/import`) }}">
+                {{- yield icon(name="o-import") }} {{ gettext("Import bookmarks") }}</a></li>
+            {{- end -}}
           {{- end -}}
         {{- end -}}
       {{- end -}}

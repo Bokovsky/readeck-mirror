@@ -70,7 +70,7 @@ func newAPIRouter() *apiRouter {
 			r.Get("/", api.bookmarkInfo)
 			r.Get("/article", api.bookmarkArticle)
 			r.Get("/annotations", api.bookmarkAnnotations)
-			r.With(server.WithPermission("api:bookmarks", "export")).Route(
+			r.With(server.WithPermission("api:bookmarks", "share")).Route(
 				"/share", func(r chi.Router) {
 					r.With(
 						api.withShareLink,
@@ -156,7 +156,7 @@ func newAPIRouter() *apiRouter {
 
 	// Import API
 	r.Route("/import", func(r chi.Router) {
-		r.With(server.WithPermission("api:bookmarks:import", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("api:bookmarks", "import")).Group(func(r chi.Router) {
 			r.Get("/{trackID:[a-zA-Z0-9]{18,22}}", api.bookmaksImportStatus)
 			r.Post("/{source}", api.bookmarksImport)
 		})
@@ -191,7 +191,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 				r.Get("/", h.bookmarkInfo)
 				r.Get("/card", h.bookmarkCard)
 				r.Get("/diagnosis", h.diagnosis)
-				r.With(server.WithPermission("bookmarks", "export")).Route(
+				r.With(server.WithPermission("bookmarks", "share")).Route(
 					"/share", func(r chi.Router) {
 						r.With(
 							api.withShareLink,
@@ -270,7 +270,7 @@ func newViewsRouter(api *apiRouter) *viewsRouter {
 
 	// Import views
 	r.Route("/import", func(r chi.Router) {
-		r.With(server.WithPermission("bookmarks:import", "write")).Group(func(r chi.Router) {
+		r.With(server.WithPermission("bookmarks", "import")).Group(func(r chi.Router) {
 			r.With(h.withBaseContext).Group(func(r chi.Router) {
 				r.Get("/", h.bookmarksImportMain)
 				r.Get("/{trackID:[a-zA-Z0-9]{18,22}}", h.bookmarksImportMain)
