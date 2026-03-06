@@ -23,6 +23,8 @@ import (
 	"github.com/araddon/dateparse"
 	"github.com/caarlos0/env/v11"
 	"github.com/komkom/toml"
+
+	"codeberg.org/readeck/readeck/internal/acls"
 )
 
 var (
@@ -138,8 +140,8 @@ type configMetrics struct {
 }
 
 type configCustomize struct {
-	ExtraPermissions string `json:"extra_permissions"`
-	ExtraTemplates   string `json:"extra_templates"`
+	ExtraPermissions []acls.Group `json:"extra_permissions"`
+	ExtraTemplates   string       `json:"extra_templates"`
 }
 
 type configEmailAddr struct {

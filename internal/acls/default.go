@@ -1,0 +1,193 @@
+// SPDX-FileCopyrightText: © 2026 Olivier Meunier <olivier@neokraft.net>
+//
+// SPDX-License-Identifier: AGPL-3.0-only
+
+package acls
+
+// This is Readeck default permission policy.
+
+var defaultPolicy *Policy
+
+var defaultPermissions = Permissions{
+	// System routes
+	"/system/read": {"system", "read"},
+
+	// Email sending
+	"/email/send": {"email", "send"},
+
+	// Admin
+	"/api/admin/read":  {"api:admin:users", "read"},
+	"/api/admin/write": {"api:admin:users", "write"},
+	"/web/admin/read":  {"admin:users", "read"},
+	"/web/admin/write": {"admin:users", "write"},
+
+	// Cookbook
+	"/api/cookbook/read": {"api:cookbook", "read"},
+	"/web/cookbook/read": {"cookbook", "read"},
+
+	// Documentation
+	"/web/docs/read": {"docs", "read"},
+
+	// User profile
+	"/api/profile/info":  {"api:profile", "info"},
+	"/api/profile/read":  {"api:profile", "read"},
+	"/api/profile/write": {"api:profile", "write"},
+	"/web/profile/read":  {"profile", "read"},
+	"/web/profile/write": {"profile", "write"},
+
+	// API Tokens
+	"/api/profile/tokens/read":   {"api:profile:tokens", "read"},
+	"/api/profile/tokens/delete": {"api:profile:tokens", "delete"},
+	"/web/profile/tokens/read":   {"profile:tokens", "read"},
+	"/web/profile/tokens/write":  {"profile:tokens", "write"},
+
+	// Bookmarks
+	"/api/bookmarks/read":   {"api:bookmarks", "read"},
+	"/api/bookmarks/write":  {"api:bookmarks", "write"},
+	"/api/bookmarks/export": {"api:bookmarks", "export"},
+	"/web/bookmarks/read":   {"bookmarks", "read"},
+	"/web/bookmarks/write":  {"bookmarks", "write"},
+	"/web/bookmarks/export": {"bookmarks", "export"},
+
+	// Bookmark collections
+	"/api/bookmarks/collections/read":  {"api:bookmarks:collections", "read"},
+	"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
+	"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
+	"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
+
+	// Bookmarks import
+	"/api/bookmarks/import/write": {"api:bookmarks:import", "write"},
+	"/web/bookmarks/import/write": {"bookmarks:import", "write"},
+
+	// OPDS catalog
+	"/api/opds/read": {"api:opds", "read"},
+}
+
+var defaultGroups = []Group{
+	{
+		// Empty group, for unauthenticated users
+		Grants: []string{
+			"/email/send",
+		},
+	},
+	{
+		// These are needed for any groups or scope
+		Name: "api_common",
+		Grants: []string{
+			"/api/profile/info",
+			"/api/profile/tokens/delete",
+		},
+	},
+	{
+		// Group "user"
+		Name: "user",
+		Parents: []string{
+			"__group__",
+			"api_common",
+		},
+		Grants: []string{
+			"/email/send",
+			"/*/docs/read",
+			"/*/profile/*",
+			"/*/profile/tokens/*",
+			"/*/bookmarks/read",
+			"/*/bookmarks/write",
+			"/*/bookmarks/export",
+			"/*/bookmarks/share",
+			"/*/bookmarks/collections/read",
+			"/*/bookmarks/collections/write",
+			"/*/bookmarks/import/write",
+			"/api/opds/*",
+		},
+	},
+	{
+		// Group "staff"
+		Name: "staff",
+		Parents: []string{
+			"__group__",
+			"user",
+		},
+		Grants: []string{
+			"/system/*",
+		},
+	},
+	{
+		// Group "admin"
+		Name: "admin",
+		Parents: []string{
+			"__group__",
+			"staff",
+		},
+		Grants: []string{
+			"/*/admin/*",
+			"/*/cookbook/*",
+		},
+	},
+
+	// Scoped groups, used by API tokens
+	{
+		// Profile
+		Name: "profile:read",
+		Parents: []string{
+			"__token_scope__",
+			"__oauth_scope__",
+			"api_common",
+		},
+		Grants: []string{
+			"/api/profile/read",
+		},
+	},
+	{
+		// Bookmarks read only
+		Name: "bookmarks:read",
+		Parents: []string{
+			"__token_scope__",
+			"__oauth_scope__",
+			"api_common",
+		},
+		Grants: []string{
+			"/email/send",
+			"/api/bookmarks/read",
+			"/api/bookmarks/export",
+			"/api/bookmarks/collections/read",
+			"/api/opds/read",
+			"/web/bookmarks/read",
+		},
+	},
+	{
+		// Bookmarks write only
+		Name: "bookmarks:write",
+		Parents: []string{
+			"__token_scope__",
+			"__oauth_scope__",
+			"api_common",
+		},
+		Grants: []string{
+			"/api/bookmarks/write",
+			"/api/bookmarks/collections/write",
+		},
+	},
+	{
+		// Admin read only
+		Name: "admin:read",
+		Parents: []string{
+			"__token_scope__",
+			"api_common",
+		},
+		Grants: []string{
+			"/api/admin/read",
+			"/system/read",
+		},
+	},
+	{
+		// Admin write only
+		Name: "admin:write",
+		Parents: []string{
+			"__token_scope__",
+			"api_common",
+		},
+		Grants: []string{
+			"/api/admin/write",
+		},
+	},
+}

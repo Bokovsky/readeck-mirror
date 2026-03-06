@@ -1,101 +1,162 @@
-// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2026 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-package acls
+package acls_test
 
 import (
-	"bytes"
 	"fmt"
-	"io"
 	"strings"
 	"testing"
 
+	"codeberg.org/readeck/readeck/internal/acls"
 	"github.com/stretchr/testify/require"
 )
 
-func basePolicy() io.Reader {
-	return bytes.NewBuffer([]byte(`
-p, /system/read,    system, read
-p, /email/send,     email, send
-p, /api/admin/read,     api:admin:users,    read
-p, /api/admin/write,    api:admin:users,    write
-p, /web/admin/read,     admin:users,        read
-p, /web/admin/write,    admin:users,        write
-p, /api/cookbook/read,  api:cookbook,   read
-p, /web/cookbook/read,  cookbook,       read
-p, /web/docs/read,      docs,           read
-p, /api/profile/read,   api:profile,    read
-p, /api/profile/write,  api:profile,    write
-p, /web/profile/read,   profile,        read
-p, /web/profile/write,  profile,        write
-p, /api/profile/tokens/delete,  api:profile:tokens, delete
-p, /web/profile/tokens/read,    profile:tokens,     read
-p, /web/profile/tokens/write,   profile:tokens,     write
-p, /api/bookmarks/read,     api:bookmarks,  read
-p, /api/bookmarks/write,    api:bookmarks,  write
-p, /api/bookmarks/export,   api:bookmarks,  export
-p, /web/bookmarks/read,     bookmarks,      read
-p, /web/bookmarks/write,    bookmarks,      write
-p, /web/bookmarks/export,   bookmarks,      export
-p, /api/bookmarks/collections/read,     api:bookmarks:collections,  read
-p, /api/bookmarks/collections/write,    api:bookmarks:collections,  write
-p, /web/bookmarks/collections/read,     bookmarks:collections,      read
-p, /web/bookmarks/collections/write,    bookmarks:collections,      write
-p, /api/bookmarks/import/write,  api:bookmarks:import,  write
-p, /web/bookmarks/import/write,  bookmarks:import,      write
-p, /api/opds/read,  api:opds,   read
-
-# groups
-g, api_common, /api/profile/read
-g, api_common, /api/profile/tokens/delete
-g,, /email/send
-g, user, __group__
-g, user, api_common
-g, user, /email/send
-g, user, /*/docs/read
-g, user, /*/profile/*
-g, user, /*/profile/tokens/*
-g, user, /*/bookmarks/read
-g, user, /*/bookmarks/write
-g, user, /*/bookmarks/export
-g, user, /*/bookmarks/collections/read
-g, user, /*/bookmarks/collections/write
-g, user, /*/bookmarks/import/write
-g, user, /api/opds/*
-g, staff, __group__
-g, staff, user
-g, staff, /system/*
-g, admin, __group__
-g, admin, staff
-g, admin, /*/admin/*
-g, admin, /*/cookbook/*
-
-# scopes
-g, bookmarks:read, __token__
-g, bookmarks:read, __oauth__
-g, bookmarks:read, api_common
-g, bookmarks:read, /api/bookmarks/read
-g, bookmarks:read, /api/bookmarks/export
-g, bookmarks:read, /api/bookmarks/collections/read
-g, bookmarks:read, /api/opds/read
-g, bookmarks:read, /web/bookmarks/read
-
-g, bookmarks:write, __token__
-g, bookmarks:write, __oauth__
-g, bookmarks:write, api_common
-g, bookmarks:write, /api/bookmarks/write
-g, bookmarks:write, /api/bookmarks/collections/write
-
-g, admin:read, __token__
-g, admin:read, api_common
-g, admin:read, /api/admin/read
-g, admin:read, /system/read
-
-g, admin:write, __token__
-g, admin:write, api_common
-g, admin:write, /api/admin/write
-`))
+func basePolicy() (acls.Permissions, []acls.Group) {
+	return acls.Permissions{
+			"/system/read":                     {"system", "read"},
+			"/email/send":                      {"email", "send"},
+			"/api/admin/read":                  {"api:admin:users", "read"},
+			"/api/admin/write":                 {"api:admin:users", "write"},
+			"/web/admin/read":                  {"admin:users", "read"},
+			"/web/admin/write":                 {"admin:users", "write"},
+			"/api/cookbook/read":               {"api:cookbook", "read"},
+			"/web/cookbook/read":               {"cookbook", "read"},
+			"/web/docs/read":                   {"docs", "read"},
+			"/api/profile/read":                {"api:profile", "read"},
+			"/api/profile/write":               {"api:profile", "write"},
+			"/web/profile/read":                {"profile", "read"},
+			"/web/profile/write":               {"profile", "write"},
+			"/api/profile/tokens/delete":       {"api:profile:tokens", "delete"},
+			"/web/profile/tokens/read":         {"profile:tokens", "read"},
+			"/web/profile/tokens/write":        {"profile:tokens", "write"},
+			"/api/bookmarks/read":              {"api:bookmarks", "read"},
+			"/api/bookmarks/write":             {"api:bookmarks", "write"},
+			"/api/bookmarks/export":            {"api:bookmarks", "export"},
+			"/web/bookmarks/read":              {"bookmarks", "read"},
+			"/web/bookmarks/write":             {"bookmarks", "write"},
+			"/web/bookmarks/export":            {"bookmarks", "export"},
+			"/api/bookmarks/collections/read":  {"api:bookmarks:collections", "read"},
+			"/api/bookmarks/collections/write": {"api:bookmarks:collections", "write"},
+			"/web/bookmarks/collections/read":  {"bookmarks:collections", "read"},
+			"/web/bookmarks/collections/write": {"bookmarks:collections", "write"},
+			"/api/bookmarks/import/write":      {"api:bookmarks:import", "write"},
+			"/web/bookmarks/import/write":      {"bookmarks:import", "write"},
+			"/api/opds/read":                   {"api:opds", "read"},
+		}, []acls.Group{
+			{
+				Name: "",
+				Grants: []string{
+					"/email/send",
+				},
+			},
+			{
+				Name: "api_common",
+				Grants: []string{
+					"/api/profile/read",
+					"/api/profile/tokens/delete",
+				},
+			},
+			{
+				Name: "user",
+				Parents: []string{
+					"__group__",
+					"api_common",
+				},
+				Grants: []string{
+					"/email/send",
+					"/*/docs/read",
+					"/*/profile/*",
+					"/*/profile/tokens/*",
+					"/*/bookmarks/read",
+					"/*/bookmarks/write",
+					"/*/bookmarks/export",
+					"/*/bookmarks/collections/read",
+					"/*/bookmarks/collections/write",
+					"/*/bookmarks/import/write",
+					"/api/opds/*",
+				},
+			},
+			{
+				Name: "staff",
+				Parents: []string{
+					"__group__",
+					"user",
+				},
+				Grants: []string{
+					"/system/*",
+				},
+			},
+			{
+				Name: "admin",
+				Parents: []string{
+					"__group__",
+					"staff",
+				},
+				Grants: []string{
+					"/*/admin/*",
+					"/*/cookbook/*",
+				},
+			},
+			{
+				Name: "bookmarks:read",
+				Parents: []string{
+					"__token__",
+					"__oauth__",
+					"api_common",
+				},
+				Grants: []string{
+					"/api/bookmarks/read",
+					"/api/bookmarks/export",
+					"/api/bookmarks/collections/read",
+					"/api/opds/read",
+					"/web/bookmarks/read",
+				},
+			},
+			{
+				Name: "bookmarks:write",
+				Parents: []string{
+					"__token__",
+					"__oauth__",
+					"api_common",
+				},
+				Grants: []string{
+					"/api/bookmarks/write",
+					"/api/bookmarks/collections/write",
+				},
+			},
+			{
+				Name: "admin:read",
+				Parents: []string{
+					"__token__",
+					"api_common",
+				},
+				Grants: []string{
+					"/api/admin/read",
+					"/system/read",
+				},
+			},
+			{
+				Name: "admin:write",
+				Parents: []string{
+					"__token__",
+					"api_common",
+				},
+				Grants: []string{
+					"/api/admin/write",
+				},
+			},
+			{
+				Name: "less",
+				Parents: []string{
+					"user",
+				},
+				Grants: []string{
+					"!/api/opds/*",
+				},
+			},
+		}
 }
 
 func TestCheckPermission(t *testing.T) {
@@ -146,10 +207,13 @@ func TestCheckPermission(t *testing.T) {
 		{"", "email", "send", true},
 
 		{"unknown", "email", "send", false},
+
+		{"user", "api:opds", "read", true},
+		{"less", "api:opds", "read", false},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%s-%s-%s", test.Group, test.Obj, test.Act), func(t *testing.T) {
@@ -186,12 +250,16 @@ func TestGetPermissions(t *testing.T) {
 		},
 		{
 			[]string{"unknown"},
+			nil,
+		},
+		{
 			[]string{},
+			nil,
 		},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		t.Run(strings.Join(test.Groups, ","), func(t *testing.T) {
@@ -215,8 +283,8 @@ func TestInGroup(t *testing.T) {
 		{"admin:read", "admin", true},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%s in %s", test.Src, test.Dest), func(t *testing.T) {
@@ -245,8 +313,8 @@ func TestListGroups(t *testing.T) {
 		},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		t.Run(test.parent, func(t *testing.T) {
@@ -256,26 +324,11 @@ func TestListGroups(t *testing.T) {
 	}
 }
 
-func TestLoad(t *testing.T) {
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
-
-	for name, role := range policy {
-		println(">>", name)
-		for g := range role.Parents {
-			println("  G:", g)
-		}
-		for _, p := range role.ListPermissions() {
-			println("   -", p)
-		}
-	}
-}
-
 func TestDeletePermission(t *testing.T) {
 	assert := require.New(t)
 
-	policy, err := LoadPolicy(basePolicy())
-	assert.NoError(err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	assert.True(policy.Enforce("user", "email", "send"))
 	assert.True(policy.Enforce("", "email", "send"))
@@ -302,8 +355,8 @@ func BenchmarkCheckPermission(b *testing.B) {
 		{"", "email", "send"},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(b, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		b.Run(fmt.Sprintf("%s-%s-%s", test.Group, test.Obj, test.Act), func(b *testing.B) {
@@ -323,8 +376,8 @@ func BenchmarkGetPermissions(b *testing.B) {
 		{"user", "bookmarks:write"},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(b, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		b.Run(strings.Join(test, ","), func(b *testing.B) {
@@ -348,8 +401,8 @@ func BenchmarkInGroup(t *testing.B) {
 		{"admin:read", "admin"},
 	}
 
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(t, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("%s in %s", test.Src, test.Dest), func(b *testing.B) {
@@ -361,8 +414,8 @@ func BenchmarkInGroup(t *testing.B) {
 }
 
 func BenchmarkListGroups(b *testing.B) {
-	policy, err := LoadPolicy(basePolicy())
-	require.NoError(b, err)
+	permissions, groups := basePolicy()
+	policy := acls.NewPolicy(permissions, groups...)
 
 	for b.Loop() {
 		policy.ListGroups("__group__")

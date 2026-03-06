@@ -157,9 +157,7 @@ func InitApp() {
 	}
 
 	// Init ACLs
-	if err = acls.Load(strings.NewReader(configs.Config.Customize.ExtraPermissions)); err != nil {
-		fatal("can't initialize ACLs", err)
-	}
+	acls.Load(configs.Config.Customize.ExtraPermissions...)
 
 	// Init email sending
 	email.InitSender()

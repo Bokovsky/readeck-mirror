@@ -1,53 +1,47 @@
-// SPDX-FileCopyrightText: © 2025 Olivier Meunier <olivier@neokraft.net>
+// SPDX-FileCopyrightText: © 2026 Olivier Meunier <olivier@neokraft.net>
 //
 // SPDX-License-Identifier: AGPL-3.0-only
 
-// Package acls provides the RBAC policy for Readeck.
 package acls
 
-import (
-	"embed"
-	"io"
-)
+import "iter"
 
-//go:embed config/*
-var confFiles embed.FS
+// Load loads the default [Policy] with optionnal extra groups.
+func Load(groups ...Group) {
+	defaultPolicy = NewPolicy(defaultPermissions, append(defaultGroups, groups...)...)
+}
 
-var policy Policy
+// Clear empties the default policy (for tests).
+func Clear() {
+	defaultPolicy = &Policy{}
+}
 
-// Load loads the default [Policy] using the assets.
-func Load(policies ...io.Reader) (err error) {
-	fd, err := confFiles.Open("config/policy.conf")
-	if err != nil {
-		return err
-	}
-	defer fd.Close() // nolint:errcheck
-
-	policy, err = LoadPolicy(io.MultiReader(append([]io.Reader{fd}, policies...)...))
-	return err
+// Roles returns the default policy role list.
+func Roles() iter.Seq[string] {
+	return defaultPolicy.Keys()
 }
 
 // Enforce calls [Policy.Enforce] on the default policy.
 func Enforce(sub, obj, act string) bool {
-	return policy.Enforce(sub, obj, act)
+	return defaultPolicy.Enforce(sub, obj, act)
 }
 
 // GetPermissions calls [Policy.GetPermissions] on the default policy.
 func GetPermissions(roles ...string) []string {
-	return policy.GetPermissions(roles...)
+	return defaultPolicy.GetPermissions(roles...)
 }
 
 // ListGroups calls [Policy.ListGroups] on the default policy.
 func ListGroups(parent string) []string {
-	return policy.ListGroups(parent)
+	return defaultPolicy.ListGroups(parent)
 }
 
 // InGroup calls [Policy.InGroup] on the default policy.
 func InGroup(src, dest string) bool {
-	return policy.InGroup(src, dest)
+	return defaultPolicy.InGroup(src, dest)
 }
 
 // DeletePermission calls [Policy.DeletePermission] on the default policy.
 func DeletePermission(obj, act string) {
-	policy.DeletePermission(obj, act)
+	defaultPolicy.DeletePermission(obj, act)
 }
