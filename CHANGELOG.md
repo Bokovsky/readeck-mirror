@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.22.1] - 2026-03-06
 ### Addded
 - Pinboard import adapter, by [@jlecour](https://codeberg.org/jlecour)
 
