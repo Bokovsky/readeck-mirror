@@ -207,6 +207,10 @@ func TestGetters(t *testing.T) {
 		doc.body.firstChild.replaceWith(n, "more test", 123)
 		doc.body.innerHTML == "<div>test</div>more test<hr/>"
 		`,
+		`
+		n = new DOMParser().parseFromString("<p>test</p>", "text/html")
+		n.body.innerHTML == "<p>test</p>"
+		`,
 	}
 
 	for i, test := range tests {
@@ -234,6 +238,7 @@ func TestGetters(t *testing.T) {
 			}
 
 			_ = runtime.Set("doc", m.newNodeValue(node))
+			_ = runtime.Set("DOMParser", newDomParser(runtime))
 
 			v, err := runtime.RunString(test)
 			if err != nil {

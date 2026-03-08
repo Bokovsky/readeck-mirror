@@ -190,9 +190,9 @@ This function transforms an escaped URL to its non escaped version.
  */
 function decodeXML(input)
 ```
+**Deprecated**, use `DOMParser` instead.
 
 This function decodes an XML text into an object than can be serialized into JSON or filtered.
-
 
 ### requests
 
@@ -435,3 +435,14 @@ read only -
 
 #### `Node.setAttribute(name: string, value: string): undefined`
 [MDN Reference](https://developer.mozilla.org/docs/Web/API/Element/setAttribute)
+
+
+### `DOMParser`
+
+[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser)
+
+#### `DOMParser.parseFromString(input, mimeType)`
+
+[MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString)
+
+**Note**: unlike its browser counterpart, the mimeType has no effect and this method always returns a Node instance.
