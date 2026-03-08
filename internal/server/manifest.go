@@ -45,6 +45,12 @@ func manifestRoutes() http.Handler {
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		topURL := urls.AbsoluteURL(r, "/")
 
+		WriteLastModified(w, r, nil)
+		WriteEtag(w, r, nil)
+		if HandleCaching(w, r) {
+			return
+		}
+
 		w.Header().Set("Content-Type", "application/manifest+json; charset=utf-8")
 		Render(w, r, http.StatusOK, webManifest{
 			Name:                      fmt.Sprintf("Readeck (%s)", r.URL.Hostname()),
