@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.22.2] - 2026-03-08
 ### Added
 - DOMParser for Content Scripts
 
