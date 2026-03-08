@@ -36,7 +36,13 @@ func registerExported(vm *Runtime) (err error) {
 	if err = vm.Set("unescapeURL", unescapeURL); err != nil {
 		return
 	}
-	if err = vm.Set("decodeXML", decodeXML); err != nil {
+	if err = vm.Set("decodeXML", func(src []byte) (map[string]any, error) {
+		vm.GetLogger().Warn("decodeXML is deprecated and will be removed in the next release")
+		return decodeXML(src)
+	}); err != nil {
+		return
+	}
+	if err = vm.Set("DOMParser", newDomParser(vm.Runtime)); err != nil {
 		return
 	}
 	if err = vm.Set("escapeHTML", html.EscapeString); err != nil {

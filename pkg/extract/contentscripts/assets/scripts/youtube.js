@@ -18,7 +18,9 @@ exports.setConfig = function (config) {
 }
 
 exports.processMeta = function () {
+  /** @type {string} */
   const videoID = ($.properties["json-ld"] || []).find(
+    // @ts-ignore
     (x) => x["@type"] == "VideoObject" && !!x.identifier,
   ).identifier
   if (!videoID) {
@@ -40,7 +42,7 @@ exports.processMeta = function () {
   // Get more information
   const lengthSeconds = info.videoDetails?.lengthSeconds
   if (lengthSeconds) {
-    $.meta["x.duration"] = lengthSeconds
+    $.meta["x.duration"] = [lengthSeconds]
   }
 
   // Get transcript
@@ -57,18 +59,20 @@ exports.processMeta = function () {
   }
 }
 
+/**
+ *
+ * @param {string} videoID Video ID
+ * @returns {VideoInfo}
+ */
 function getVideoInfo(videoID) {
   let rsp = requests.post(
-    "https://youtubei.googleapis.com/youtubei/v1/player",
+    "https://www.youtube.com/youtubei/v1/player",
     JSON.stringify({
       context: {
         client: {
           hl: "en",
-          clientName: "WEB",
-          clientVersion: "2.20210721.00.00",
-          mainAppWebInfo: {
-            graftUrl: "/watch?v=" + videoID,
-          },
+          clientName: "ANDROID",
+          clientVersion: "20.10.38",
         },
       },
       videoId: videoID,
@@ -81,6 +85,11 @@ function getVideoInfo(videoID) {
   return rsp.json()
 }
 
+/**
+ *
+ * @param {VideoInfo} info
+ * @returns
+ */
 function getTranscript(info) {
   const langPriority = ["en", undefined, null, ""]
 
@@ -88,7 +97,7 @@ function getTranscript(info) {
   let captions =
     info.captions?.playerCaptionsTracklistRenderer?.captionTracks || []
   captions = captions.map((x) => {
-    x.auto = x.kind == "asr"
+    x.auto = x.kind == "asr" ? 1 : 0
     return x
   })
 
@@ -127,13 +136,20 @@ function getTranscript(info) {
   const rsp = requests.get(track.baseUrl)
   rsp.raiseForStatus()
 
-  return (decodeXML(rsp.text()).transcript?.text || [])
-    .map((x) => {
-      return x["#text"]
+  const doc = new DOMParser().parseFromString(rsp.text(), "text/html")
+  return doc
+    .querySelectorAll("p")
+    .map((n) => {
+      return n.textContent.trim()
     })
     .filter((x) => x)
 }
 
+/**
+ *
+ * @param {string} text Text to convert
+ * @returns {string}
+ */
 function convertDescription(text) {
   text = text.replace(/\n\n/g, "</p><p>")
   text = text.replace(/\n/g, "<br>\n")
@@ -145,3 +161,26 @@ function convertDescription(text) {
 
   return `<p class="main">${text}</p>`
 }
+
+/**
+ * @typedef {{
+ *  videoDetails?: {
+ *    shortDescription: string,
+ *    lengthSeconds: string,
+ *  },
+ *  captions?: {
+ *    playerCaptionsTracklistRenderer?: {
+ *      captionTracks: Array<{
+ *        kind?: string,
+ *        auto?: number,
+ *        languageCode: string,
+ *        baseUrl: string,
+ *      }>,
+ *      audioTracks: Array<{
+ *        hasDefaultTrack: boolean,
+ *        defaultCaptionTrackIndex: number,
+ *      }>
+ *    }
+ * }
+ * }} VideoInfo
+ */

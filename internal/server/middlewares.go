@@ -22,11 +22,6 @@ import (
 	"codeberg.org/readeck/readeck/pkg/http/accept"
 )
 
-const (
-	gzipEtagSuffix = "-gzip"
-	zstdEtagSuffix = "-zstd"
-)
-
 var acceptOffers = []string{
 	"text/plain",
 	"text/html",
@@ -159,7 +154,7 @@ func CompressResponse(next http.Handler) http.Handler {
 			"text/html", "text/plain", "text/vnd.turbo-stream.html",
 			"image/svg+xml",
 		}),
-		gzhttp.SuffixETag(gzipEtagSuffix),
+		gzhttp.SuffixETag("-gzip"),
 		gzhttp.MinSize(1024),
 		gzhttp.RandomJitter(32, 0, false),
 	)

@@ -179,10 +179,10 @@ func checkIfModifiedSince(w http.ResponseWriter, r *http.Request) checkResult {
 }
 
 func checkIfMatch(w http.ResponseWriter, r *http.Request) checkResult {
-	rh, ok := strings.CutSuffix(r.Header.Get("If-None-Match"), zstdEtagSuffix)
-	if !ok {
-		rh, _ = strings.CutSuffix(rh, gzipEtagSuffix)
-	}
+	// [CompressResponse] adds a "-gzip" or "-zstd" suffix.
+	// Since we control the Etag, and it's always an hex string,
+	// we can safely keep the prefix to perform the check.
+	rh, _, _ := strings.Cut(r.Header.Get("If-None-Match"), "-")
 
 	if rh == "" {
 		return checkNone
