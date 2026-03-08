@@ -18,7 +18,9 @@ exports.setConfig = function (config) {
 }
 
 exports.processMeta = function () {
+  /** @type {string} */
   const videoID = ($.properties["json-ld"] || []).find(
+    // @ts-ignore
     (x) => x["@type"] == "VideoObject" && !!x.identifier,
   ).identifier
   if (!videoID) {
@@ -40,7 +42,7 @@ exports.processMeta = function () {
   // Get more information
   const lengthSeconds = info.videoDetails?.lengthSeconds
   if (lengthSeconds) {
-    $.meta["x.duration"] = lengthSeconds
+    $.meta["x.duration"] = [lengthSeconds]
   }
 
   // Get transcript
@@ -57,6 +59,11 @@ exports.processMeta = function () {
   }
 }
 
+/**
+ *
+ * @param {string} videoID Video ID
+ * @returns {VideoInfo}
+ */
 function getVideoInfo(videoID) {
   let rsp = requests.post(
     "https://www.youtube.com/youtubei/v1/player",
@@ -78,6 +85,11 @@ function getVideoInfo(videoID) {
   return rsp.json()
 }
 
+/**
+ *
+ * @param {VideoInfo} info
+ * @returns
+ */
 function getTranscript(info) {
   const langPriority = ["en", undefined, null, ""]
 
@@ -85,7 +97,7 @@ function getTranscript(info) {
   let captions =
     info.captions?.playerCaptionsTracklistRenderer?.captionTracks || []
   captions = captions.map((x) => {
-    x.auto = x.kind == "asr"
+    x.auto = x.kind == "asr" ? 1 : 0
     return x
   })
 
@@ -133,6 +145,11 @@ function getTranscript(info) {
     .filter((x) => x)
 }
 
+/**
+ *
+ * @param {string} text Text to convert
+ * @returns {string}
+ */
 function convertDescription(text) {
   text = text.replace(/\n\n/g, "</p><p>")
   text = text.replace(/\n/g, "<br>\n")
@@ -144,3 +161,26 @@ function convertDescription(text) {
 
   return `<p class="main">${text}</p>`
 }
+
+/**
+ * @typedef {{
+ *  videoDetails?: {
+ *    shortDescription: string,
+ *    lengthSeconds: string,
+ *  },
+ *  captions?: {
+ *    playerCaptionsTracklistRenderer?: {
+ *      captionTracks: Array<{
+ *        kind?: string,
+ *        auto?: number,
+ *        languageCode: string,
+ *        baseUrl: string,
+ *      }>,
+ *      audioTracks: Array<{
+ *        hasDefaultTrack: boolean,
+ *        defaultCaptionTrackIndex: number,
+ *      }>
+ *    }
+ * }
+ * }} VideoInfo
+ */
