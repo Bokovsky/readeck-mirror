@@ -59,16 +59,13 @@ exports.processMeta = function () {
 
 function getVideoInfo(videoID) {
   let rsp = requests.post(
-    "https://youtubei.googleapis.com/youtubei/v1/player",
+    "https://www.youtube.com/youtubei/v1/player",
     JSON.stringify({
       context: {
         client: {
           hl: "en",
-          clientName: "WEB",
-          clientVersion: "2.20210721.00.00",
-          mainAppWebInfo: {
-            graftUrl: "/watch?v=" + videoID,
-          },
+          clientName: "ANDROID",
+          clientVersion: "20.10.38",
         },
       },
       videoId: videoID,
@@ -127,9 +124,11 @@ function getTranscript(info) {
   const rsp = requests.get(track.baseUrl)
   rsp.raiseForStatus()
 
-  return (decodeXML(rsp.text()).transcript?.text || [])
-    .map((x) => {
-      return x["#text"]
+  const doc = new DOMParser().parseFromString(rsp.text(), "text/html")
+  return doc
+    .querySelectorAll("p")
+    .map((n) => {
+      return n.textContent.trim()
     })
     .filter((x) => x)
 }
