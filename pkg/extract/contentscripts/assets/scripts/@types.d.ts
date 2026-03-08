@@ -8,14 +8,18 @@ declare global {
   var console: console.Console
 
   var unescapeURL: contentScript.unescapeURL
-  var decodeXML: contentScript.decodeXML
   var escapeHTML: contentScript.escapeHTML
   var unescapeHTML: contentScript.unescapeHTML
+
+  /** @deprecated use DOMParser */
+  var decodeXML: contentScript.decodeXML
 
   var URL = url.URL
   var URLSearchParams = url.URLSearchParams
 
   type Config = contentScript.Config
+
+  var DOMParser = dom.DOMParser
   type Node = dom.Node
 }
 
@@ -235,6 +239,29 @@ declare namespace http {
 }
 
 declare namespace dom {
+  interface DOMParser {
+    /**
+     * The parseFromString() method of the DOMParser interface parses an input containing either
+     * HTML or XML, returning a Node with the type given in the contentType property.
+     *
+     * Note: unlike its browser counterpart, the mimeType has no effect and this method always
+     * returns a Node instance.
+     *
+     * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser/parseFromString)
+     */
+    parseFromString(input: string, mimeType: string): Node
+  }
+
+  declare var DOMParser: {
+    prototype: DOMParser
+    /**
+     * Creates a new DOMParser object.
+     *
+     * [MDN Reference](https://developer.mozilla.org/en-US/docs/Web/API/DOMParser)
+     */
+    new (): DOMParser
+  }
+
   type Attribute = {
     name: string
     value: string

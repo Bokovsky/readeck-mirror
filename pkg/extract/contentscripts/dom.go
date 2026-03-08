@@ -615,3 +615,32 @@ func (m *domModule) createNodePrototype() *goja.Object { //nolint:gocognit,gocyc
 
 	return p
 }
+
+func newDomParser(vm *goja.Runtime) goja.Value {
+	return vm.ToValue(func(_ goja.ConstructorCall) *goja.Object {
+		o := vm.NewObject()
+		p := vm.NewObject()
+
+		err := p.Set("parseFromString", vm.ToValue(func(call goja.FunctionCall) goja.Value {
+			if len(call.Arguments) != 2 {
+				return goja.Undefined()
+			}
+
+			node, err := html.Parse(strings.NewReader(call.Argument(0).String()))
+			if err != nil {
+				panic(vm.ToValue(err))
+			}
+			return newDomModule(vm).newNodeValue(node)
+		}))
+		if err != nil {
+			panic(vm.ToValue(err))
+		}
+
+		if err = o.SetPrototype(p); err != nil {
+			panic(vm.ToValue(err))
+		}
+
+		res := vm.ToValue(o).(*goja.Object)
+		return res
+	})
+}
