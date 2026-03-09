@@ -5,7 +5,6 @@
 package profile_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -18,6 +17,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 	"codeberg.org/readeck/readeck/pkg/totp"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
@@ -163,19 +163,19 @@ func TestViews(t *testing.T) {
 
 				// An event was sent
 				assert.Len(Events().Records("task"), 1)
-				evt := map[string]any{}
-				assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
-				assert.Equal("token.delete", evt["name"])
-				assert.InDelta(float64(token.ID), evt["id"], 0)
+				var evt superbus.Operation
+				assert.NoError(superbus.Unmarshal(Events().Records("task")[0], &evt))
+				assert.Equal("token.delete", evt.Name)
+				assert.InDelta(float64(token.ID), evt.ID, 0)
 
 				// There's a task in the store
 				task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
 				m := Store().Get(task)
 				assert.NotEmpty(m)
 
-				payload := map[string]any{}
-				assert.NoError(json.Unmarshal([]byte(m), &payload))
-				assert.InDelta(float64(20), payload["delay"], 0)
+				var payload superbus.Payload
+				assert.NoError(superbus.Unmarshal([]byte(m), &payload))
+				assert.InDelta(float64(20), payload.Delay, 0)
 			}),
 		)
 

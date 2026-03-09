@@ -15,16 +15,16 @@ func SetJSON(key string, value any, expiration time.Duration) error {
 	if err != nil {
 		return err
 	}
-	return store.Set(key, string(data), expiration)
+	return store.Set(key, data, expiration)
 }
 
 // GetJSON retrieves a value as a JSON string. It returns [ErrNotExists]
 // when the value was not in the store already.
 func GetJSON(key string, value any) error {
 	data := store.Get(key)
-	if data == "" {
+	if data == nil {
 		return nil
 	}
 
-	return json.Unmarshal([]byte(data), value)
+	return json.Unmarshal(data, value)
 }

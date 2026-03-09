@@ -5,7 +5,6 @@
 package admin
 
 import (
-	"encoding/json"
 	"log/slog"
 
 	"github.com/doug-martin/goqu/v9"
@@ -22,14 +21,7 @@ func init() {
 		deleteUserTask = bus.Tasks().NewTask(
 			"user.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res int
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[int],
 			superbus.WithTaskHandler(deleteUserHandler),
 		)
 	})

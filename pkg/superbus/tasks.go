@@ -6,7 +6,6 @@
 package superbus
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
 	"log/slog"
@@ -102,7 +101,7 @@ func WithOperationPrefix(p string) TaskManagerOption {
 // onTask is the task's event handler.
 func (tm *TaskManager) onTask(e Event) {
 	var op Operation
-	if err := json.Unmarshal(e.Value, &op); err != nil {
+	if err := Unmarshal(e.Value, &op); err != nil {
 		slog.Error("", slog.Any("err", err))
 		return
 	}
@@ -174,11 +173,11 @@ func (tm *TaskManager) getOperationKey(name string, id any) string {
 // getPayload returns the operation's payload after retrieving it from the store.
 func (tm *TaskManager) getPayload(op *Operation) (payload Payload, err error) {
 	data := tm.store.Get(tm.getOperationKey(op.Name, op.ID))
-	if data == "" {
+	if data == nil {
 		err = errors.New("payload not found")
 		return
 	}
-	err = json.Unmarshal([]byte(data), &payload)
+	err = Unmarshal([]byte(data), &payload)
 	return
 }
 
@@ -227,21 +226,21 @@ func (tm *TaskManager) Launch(name string, id any, delay int, data any) error {
 		Delay: delay,
 	}
 	var err error
-	if payload.Data, err = json.Marshal(data); err != nil {
+	if payload.Data, err = Marshal(data); err != nil {
 		return err
 	}
 
-	p, err := json.Marshal(payload)
+	p, err := Marshal(payload)
 	if err != nil {
 		return err
 	}
-	err = tm.store.Set(tm.getOperationKey(name, id), string(p), time.Duration(delay)+time.Second*30)
+	err = tm.store.Set(tm.getOperationKey(name, id), p, time.Duration(delay)+time.Second*30)
 	if err != nil {
 		return err
 	}
 
 	// Send the event
-	e, _ := json.Marshal(t)
+	e, _ := Marshal(t)
 	return tm.em.Push("task", e)
 }
 
@@ -283,9 +282,13 @@ func WithTaskHandler(f func(data any)) TaskOption {
 }
 
 // WithUnmarshall registers a function that is responsible for payload decoding.
-func WithUnmarshall(f func(data []byte) any) TaskOption {
-	return func(t *Task) {
-		t.unmarshallData = f
+func WithUnmarshall[T any](t *Task) {
+	t.unmarshallData = func(data []byte) any {
+		var res T
+		if err := Unmarshal(data, &res); err != nil {
+			panic(err)
+		}
+		return res
 	}
 }
 
@@ -315,7 +318,7 @@ func (t Task) Cancel(id any) error {
 
 // IsRunning returns true if the task is currently running or in the queue.
 func (t Task) IsRunning(id any) bool {
-	return t.tm.store.Get(t.tm.getOperationKey(t.name, id)) != ""
+	return t.tm.store.Get(t.tm.getOperationKey(t.name, id)) != nil
 }
 
 // Log returns a log entry for the task.
