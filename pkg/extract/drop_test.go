@@ -5,12 +5,16 @@
 package extract_test
 
 import (
+	"bytes"
 	"errors"
+	"fmt"
+	"io"
 	"net/http"
 	"net/url"
 	"testing"
 
 	"github.com/jarcoal/httpmock"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/pkg/extract"
@@ -29,6 +33,21 @@ func TestDrop(t *testing.T) {
 		NewContentResponder(200,
 			map[string]string{"content-type": "application/x-something-weird"},
 			"html/ex1.html"))
+	httpmock.RegisterResponder("GET", "/ch-default", func(req *http.Request) (*http.Response, error) {
+		var buf bytes.Buffer
+		// To avoid this response being confidently detected as UTF-8 by HTMLReader, make sure that
+		// there is at least 3 kB padding before the first Unicode character.
+		for i := 0; i < 3; i++ {
+			fmt.Fprintf(&buf, "<!-- % 1024s -->\n", "")
+		}
+		fmt.Fprint(&buf, "<p>Otters 🦦 are playful animals.</p>\n")
+		return &http.Response{
+			Request:    req,
+			StatusCode: 200,
+			Header:     http.Header{"Content-Type": {"text/html"}},
+			Body:       io.NopCloser(&buf),
+		}, nil
+	})
 	httpmock.RegisterResponder("GET", "/ch1",
 		NewContentResponder(200,
 			map[string]string{"content-type": "text/html; charset=UTF-8"},
@@ -42,10 +61,6 @@ func TestDrop(t *testing.T) {
 	httpmock.RegisterResponder("GET", "/ch2",
 		NewContentResponder(200,
 			map[string]string{"content-type": "text/html; charset=ISO-8859-15"},
-			"html/ch2.html"))
-	httpmock.RegisterResponder("GET", "/ch2-detect",
-		NewContentResponder(200,
-			map[string]string{"content-type": "text/html"},
 			"html/ch2.html"))
 	httpmock.RegisterResponder("GET", "/ch3",
 		NewContentResponder(200,
@@ -202,7 +217,7 @@ func TestDrop(t *testing.T) {
 			{"ch1", true, false, "text/html", "utf-8", ""},
 			{"ch1-nocharset", true, false, "text/html", "utf-8", ""},
 			{"ch2", true, false, "text/html", "iso-8859-15", "grand mammifère"},
-			{"ch2-detect", true, false, "text/html", "windows-1252", "grand mammifère"},
+			{"ch-default", true, false, "text/html", "utf-8", "Otters 🦦 are playful"},
 			{"ch3", true, false, "text/html", "euc-jp", "センチメートル"},
 			{"ch3-detect", true, false, "text/html", "euc-jp", "センチメートル"},
 			{"ch3-xhtml", true, false, "application/xhtml+xml", "euc-jp", "センチメートル"},
@@ -213,19 +228,18 @@ func TestDrop(t *testing.T) {
 
 		for _, x := range tests {
 			t.Run(x.path, func(t *testing.T) {
-				assert := require.New(t)
 				d := extract.NewDrop(mustParse("http://x/" + x.path))
 
 				err := d.Load(nil)
-				assert.NoError(err)
-				assert.Equal("x", d.Site)
-				assert.Equal(x.isHTML, d.IsHTML())
-				assert.Equal(x.isMedia, d.IsMedia())
-				assert.Equal(x.contentType, d.ContentType)
-				assert.Equal(x.charset, d.Charset)
+				require.NoError(t, err)
+				assert.Equal(t, "x", d.Site)
+				assert.Equal(t, x.isHTML, d.IsHTML())
+				assert.Equal(t, x.isMedia, d.IsMedia())
+				assert.Equal(t, x.contentType, d.ContentType)
+				assert.Equal(t, x.charset, d.Charset)
 
 				if x.contains != "" {
-					assert.Contains(string(d.Body), x.contains)
+					assert.Contains(t, string(d.Body), x.contains)
 				}
 			})
 		}

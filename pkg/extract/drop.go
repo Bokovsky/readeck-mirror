@@ -517,11 +517,18 @@ func HTMLReader(r io.Reader, contentType string) (io.Reader, string, error) {
 			if e, name := charset.Lookup(cs); e != nil {
 				enc = e
 				encName = name
+				certain = true
 			}
 		}
 	}
 
 	newReader := io.MultiReader(&buf, r)
+	// No explicit encoding marker detected. Assume that page contents is already UTF-8 and that it
+	// doesn't need to get transcoded.
+	if !certain {
+		return newReader, "utf-8", nil
+	}
+
 	if enc != encoding.Nop {
 		newReader = transform.NewReader(newReader, enc.NewDecoder())
 	}
