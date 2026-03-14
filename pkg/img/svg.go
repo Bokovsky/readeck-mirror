@@ -5,7 +5,6 @@
 package img
 
 import (
-	"fmt"
 	"image"
 	"io"
 	"math"
@@ -255,9 +254,19 @@ func svgNumberToInt(v string) int {
 type svgTagCleaner func(*xmlquery.Node) bool
 
 func svgTagCleanup(node *xmlquery.Node) bool {
-	for _, x := range node.Attr {
-		if _, ok := allowedSVGAttributes[xmlName{x.NamespaceURI, x.Name.Local}]; !ok {
-			node.RemoveAttr(fmt.Sprintf("%s:%s", x.Name.Space, x.Name.Local))
+	for i := len(node.Attr) - 1; i >= 0; i-- {
+		attrName := node.Attr[i].Name.Local
+		attrNamespaceURI := node.Attr[i].NamespaceURI
+		if attrNamespaceURI == "" {
+			switch attrName {
+			case "id", "xmlns":
+				continue
+			default:
+				attrNamespaceURI = node.NamespaceURI
+			}
+		}
+		if _, ok := allowedSVGAttributes[xmlName{attrNamespaceURI, attrName}]; !ok {
+			node.Attr = append(node.Attr[:i], node.Attr[i+1:]...)
 		}
 	}
 	return true
