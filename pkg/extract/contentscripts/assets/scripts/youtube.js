@@ -19,11 +19,18 @@ exports.setConfig = function (config) {
 
 exports.processMeta = function () {
   /** @type {string} */
-  const videoID = ($.properties["json-ld"] || []).find(
+  let videoID = ($.properties["json-ld"] || []).find(
     // @ts-ignore
     (x) => x["@type"] == "VideoObject" && !!x.identifier,
-  ).identifier
+  )?.identifier
+
+  if (!videoID && $.meta["graph.url"]?.length) {
+    const videoURL = new URL($.meta["graph.url"][0], $.url)
+    videoID = videoURL.searchParams.get("v")
+  }
+
   if (!videoID) {
+    console.warn("could not determine video ID")
     return
   }
 
