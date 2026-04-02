@@ -20,7 +20,8 @@
   "next_page_link_selectors": null,
   "replace_strings": null,
   "http_headers": {
-    "User-Agent": "PHP/8.4"
+    "User-Agent": "PHP/8.4",
+    "cookie": "authId=1; pws=functional|analytics|content_recommendation|targeted_advertising|social_media; pwv=1"
   },
   "tests": [
     {

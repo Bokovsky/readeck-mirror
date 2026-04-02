@@ -9,8 +9,13 @@
     "//noscript"
   ],
   "strip_id_or_class": [
-    "c-native-newsletterbox",
+    "bplr-cogwheel-back-item",
+    "bplr-cogwheel-item-screen",
+    "bplr-cogwheel-screen",
+    "c-consent-overlay",
     "c-crosslinks",
+    "c-native-newsletterbox",
+    "c-suggestNews-container",
     "tg-crosslinks"
   ],
   "strip_image_src": null,
@@ -22,7 +27,12 @@
   "next_page_link_selectors": [
     "//link[@rel='next']"
   ],
-  "replace_strings": null,
+  "replace_strings": [
+    [
+      "\u003cdiv class=\"embed-content-wrapper\"\u003e\u003c/div\u003e",
+      "\u003cdiv class=\"replaced-embed-content\"\u003e✱ Um eingebetten Inhalt zu sehen, gehen sie zur Originalseite\u003c/div\u003e"
+    ]
+  ],
   "http_headers": {
     "cookie": "_sp_v1_consent=1!0:-1:-1:-1:-1:-1; t3n_consent=8",
     "user-agent": "PHP/7.4"
