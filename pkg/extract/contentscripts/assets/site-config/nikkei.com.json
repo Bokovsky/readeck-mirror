@@ -6,13 +6,16 @@
     "//section[@class='container_campx13']",
     "//main/article[1]/section[1]"
   ],
-  "date_selectors": null,
+  "date_selectors": [
+    "substring-before(substring-after(//script[@type=\"application/json\"], '\"datePublished\":\"'), '\",\"')"
+  ],
   "author_selectors": null,
   "strip_selectors": [
-    "//div[@data-rn-inview-track=\"article-link\"]",
-    "//div[@class=\"container_cck592u\"]"
+    "//div[@data-rn-inview-track=\"article-link\"]"
   ],
-  "strip_id_or_class": null,
+  "strip_id_or_class": [
+    "container_cck592u"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

@@ -1,6 +1,7 @@
 {
   "title_selectors": null,
   "body_selectors": [
+    "//main[@id='main-content']//div[contains(@class, 'masthead')] | //main[@id='main-content']//article",
     "//main[@id='main-content']/article[1]/div[1]",
     "//div[@id='articleImage' or @id='frame_fd1fade'] | //span[@id='article-text'] | //div[@class='pageNavigation']",
     "//article[@itemtype=\"http://schema.org/NewsArticle\"]",
@@ -28,14 +29,20 @@
     "//p[contains(@class, '_promo-box_')]",
     "//div[@data-testid=\"SocialIcon\"]",
     "//div[@data-testid=\"AuthorBio\"]",
-    "//a[contains(@href, '/about-us/trust-principles')]/parent::*"
+    "//a[contains(@href, '/about-us/trust-principles')]/parent::*",
+    "//div[contains(@class, 'article-module__read-next')]"
   ],
   "strip_id_or_class": [
     "article-meta",
     "related-items",
     "related-container",
     "share-in-article-container",
-    "meta-container"
+    "meta-container",
+    "hidden-md-up",
+    "carousel-indicators",
+    "foocrsl-indicators",
+    "hidden-sm-up",
+    "other-stories-container"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -46,6 +53,14 @@
   "next_page_link_selectors": null,
   "replace_strings": [
     [
+      "class=\"carousel",
+      "class=\"foocrsl"
+    ],
+    [
+      "carousel-item",
+      "crslitm"
+    ],
+    [
       "\u003cnoscript\u003e",
       "\u003c!-- noscript --\u003e"
     ],
@@ -55,7 +70,8 @@
     ]
   ],
   "http_headers": {
-    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:143.0) Gecko/20100101 Firefox/143.0"
+    "referer": "https://www.reuters.com/",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:145.0) Gecko/20100101 Firefox/145.0"
   },
   "tests": [
     {

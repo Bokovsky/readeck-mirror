@@ -1,0 +1,42 @@
+{
+  "title_selectors": null,
+  "body_selectors": [
+    "//article"
+  ],
+  "date_selectors": null,
+  "author_selectors": null,
+  "strip_selectors": [
+    "//div[contains(@class, 'InlineAdWrapper')]",
+    "//div[contains(@class, 'inlineRelatedArticles')]",
+    "//div[contains(@class, 'hidden')]",
+    "//div[contains(@class, 'HeaderTopContainer')]",
+    "//div[contains(@class, 'keylines')]",
+    "//nav"
+  ],
+  "strip_id_or_class": [
+    "related-articles",
+    "paywall-portal-article-footer",
+    "wc-newsletter-puff",
+    "inline-article-ad",
+    "article__quizle-sidebar",
+    "article-promoted-content",
+    "article-share-buttons",
+    "article-previous-next",
+    "comments-container"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": null,
+  "tests": [
+    {
+      "url": "https://www.thetimes.com/article/c1ee434c-86c8-11ec-9c9e-c5f8451b2970",
+      "contains": []
+    }
+  ]
+}

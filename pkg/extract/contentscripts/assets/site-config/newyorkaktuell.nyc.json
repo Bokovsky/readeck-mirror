@@ -2,7 +2,9 @@
   "title_selectors": [
     "substring-before(//meta[@property='og:title']/@content , ' - New York Aktuell')"
   ],
-  "body_selectors": null,
+  "body_selectors": [
+    "//div[contains(@data-widget_type, 'theme-post-content')]"
+  ],
   "date_selectors": null,
   "author_selectors": [
     "//*[@class='elementor-author-box__name']"
