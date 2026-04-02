@@ -29,6 +29,7 @@ SPDX-License-Identifier: AGPL-3.0-only
   ) }}
 
   <button class="btn btn-default block mt-6 w-full rounded-md" type="submit">{{ gettext("Verify") }}</button>
+  <p class="mt-4 text-center"><a href="{{ urlFor(`/login`) }}" class="link">{{ gettext("Cancel and go back to sign in") }}</a></p>
 </form>
 
 {{ end }}
