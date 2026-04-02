@@ -24,9 +24,9 @@ exports.setConfig = function (config) {
  */
 exports.documentLoaded = function (document) {
   // https://codeberg.org/readeck/readeck/issues/1068
-  document.querySelectorAll(".dropcap-wrapper>span").forEach((n) => {
+  document.querySelectorAll(".dropcap-wrapper span").forEach((n) => {
     if (n.hasAttribute("aria-hidden")) {
-      n.parentNode.removeChild(n)
+      n.parentNode?.removeChild(n)
       return
     }
     if (n.hasAttribute("class")) {
