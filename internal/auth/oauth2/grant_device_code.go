@@ -83,12 +83,12 @@ type deviceAuthorizationRequest struct {
 }
 
 func (r *deviceAuthorizationRequest) store(code userCode) error {
-	return bus.SetJSON("oauth:device-code:"+string(code), r, r.Expires.Sub(time.Now().UTC()))
+	return bus.Set("oauth:device-code:"+string(code), r, r.Expires.Sub(time.Now().UTC()))
 }
 
 func loadDeviceAuthorizationRequest(code userCode) (*deviceAuthorizationRequest, error) {
 	r := &deviceAuthorizationRequest{}
-	if err := bus.GetJSON("oauth:device-code:"+string(code), r); err != nil {
+	if err := bus.Get("oauth:device-code:"+string(code), r); err != nil {
 		return nil, errServerError.withError(err)
 	}
 	return r, nil
