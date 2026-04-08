@@ -545,7 +545,7 @@ func RT(options ...TestOption) *RequestTest {
 	}
 
 	if rt.Name == "" {
-		rt.Name = rt.Method + "[" + rt.Target + "]"
+		rt.Name = rt.Method + "_" + strings.ReplaceAll(strings.Trim(rt.Target, "/"), "/", "_")
 	}
 
 	return rt
