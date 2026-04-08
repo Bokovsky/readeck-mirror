@@ -1,6 +1,6 @@
 module codeberg.org/readeck/readeck
 
-go 1.26.1
+go 1.26.2
 
 require (
 	codeberg.org/readeck/go-readability/v2 v2.1.1
@@ -29,7 +29,7 @@ require (
 	github.com/komkom/toml v0.1.2
 	github.com/leonelquinteros/gotext v1.7.2
 	github.com/mangoumbrella/goldmark-figure v1.4.0
-	github.com/mattn/go-sqlite3 v1.14.38
+	github.com/mattn/go-sqlite3 v1.14.41
 	github.com/phsym/console-slog v0.3.1
 	github.com/pmezard/go-difflib v1.0.0
 	github.com/prometheus/client_golang v1.23.2
@@ -49,7 +49,7 @@ require (
 	golang.org/x/term v0.41.0
 	golang.org/x/text v0.35.0
 	gopkg.in/yaml.v3 v3.0.1
-	modernc.org/sqlite v1.48.0
+	modernc.org/sqlite v1.48.1
 )
 
 require (
@@ -85,7 +85,7 @@ require (
 	github.com/sergeymakinen/go-bmp v1.0.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.4 // indirect
-	golang.org/x/sys v0.42.0 // indirect
+	golang.org/x/sys v0.43.0 // indirect
 	google.golang.org/protobuf v1.36.11 // indirect
 	gopkg.in/hlandau/easymetric.v1 v1.0.0 // indirect
 	gopkg.in/hlandau/measurable.v1 v1.0.1 // indirect
