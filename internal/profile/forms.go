@@ -99,6 +99,14 @@ func (f *profileForm) setUser(u *users.User) {
 func (f *profileForm) Validate() {
 	u, _ := f.Context().Value(ctxUserFormKey{}).(*users.User)
 
+	// A username can be an email address only if both match
+	username := f.Get("username").String()
+	email := f.Get("email").String()
+	if strings.ContainsRune(username, '@') && username != email {
+		f.AddErrors("username", users.ErrInvalidUsername)
+		return
+	}
+
 	for _, field := range f.Fields() {
 		if !field.IsBound() || field.IsNil() {
 			continue

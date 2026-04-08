@@ -70,6 +70,62 @@ func TestAPI(t *testing.T) {
 		WithMethod(http.MethodPatch),
 		WithTarget("/api/profile"),
 		WithBody(map[string]any{
+			"username": " newuser@localhost",
+			"email":    " newuser@localhost ",
+		}),
+		AssertStatus(200),
+		AssertJSON(`{
+			"id": "<<PRESENCE>>",
+			"email": "newuser@localhost",
+			"updated": "<<PRESENCE>>",
+			"username":"newuser@localhost"
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{
+			"username": " newuser@example.org",
+			"email":    " newuser@localhost ",
+		}),
+		AssertStatus(422),
+		AssertJSON(`{
+			"is_valid":false,
+			"errors":null,
+			"fields":{
+				"email":{
+					"is_null": false,
+					"is_bound": true,
+					"value": "newuser@localhost",
+					"errors":null
+				},
+				"username":{
+					"is_null": false,
+					"is_bound": true,
+					"value":"newuser@example.org",
+					"errors":[
+						"username is not valid"
+					]
+				},
+				"settings_lang": "<<PRESENCE>>",
+				"settings_addon_reminder": "<<PRESENCE>>",
+				"settings_reader_width": "<<PRESENCE>>",
+				"settings_reader_font": "<<PRESENCE>>",
+				"settings_reader_font_size": "<<PRESENCE>>",
+				"settings_reader_line_height": "<<PRESENCE>>",
+				"settings_reader_justify": "<<PRESENCE>>",
+				"settings_reader_hyphenation": "<<PRESENCE>>",
+				"settings_email_epub_to": "<<PRESENCE>>",
+				"settings_email_reply_to": "<<PRESENCE>>"
+			}
+		}`),
+	)
+
+	client.RT(t,
+		WithMethod(http.MethodPatch),
+		WithTarget("/api/profile"),
+		WithBody(map[string]any{
 			"username": " ",
 		}),
 		AssertStatus(422),
@@ -130,7 +186,7 @@ func TestAPI(t *testing.T) {
 					"is_bound": true,
 					"value":"user@localhost",
 					"errors":[
-						"must contain English letters, digits, \"_\" and \"-\" only"
+						"username is not valid"
 					]
 				},
 				"settings_lang": "<<PRESENCE>>",

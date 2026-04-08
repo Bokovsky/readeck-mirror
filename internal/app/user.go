@@ -24,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/pkg/base58"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 func init() {
@@ -80,6 +81,10 @@ Examples:
 }
 
 func (f *userFlags) setPassword(user *users.User) (err error) {
+	if f.DryRun {
+		return
+	}
+
 	if f.Password == "" && user.ID > 0 {
 		return
 	}
@@ -271,11 +276,6 @@ func runUser(_ context.Context, args []string) (err error) {
 		res.Message = fmt.Sprintf(`User "%s" successfully updated`, user.Username)
 	}
 
-	if flags.DryRun {
-		flags.output(res)
-		return nil
-	}
-
 	if err = flags.setPassword(user); err != nil {
 		return err
 	}
@@ -283,6 +283,34 @@ func runUser(_ context.Context, args []string) (err error) {
 	flags.setGroup(user)
 	flags.setEmail(user)
 	flags.removeTOTP(user)
+
+	// Check username
+	field := forms.NewTextField("", users.IsValidUsername)
+	field.Set(user.Username)
+	if !field.IsValid() {
+		return field.Errors()
+	}
+
+	// Check email address
+	field = forms.NewTextField("", users.IsValidUserEmail)
+	field.Set(user.Email)
+	if !field.IsValid() {
+		return field.Errors()
+	}
+
+	// Allow username as email address
+	if strings.ContainsRune(user.Username, '@') && user.Username != user.Email {
+		return users.ErrInvalidUsername
+	}
+
+	if flags.DryRun {
+		flags.output(res)
+		return nil
+	}
+
+	if strings.ContainsRune(user.Username, '@') && user.Username != user.Email {
+		return users.ErrInvalidUsername
+	}
 
 	if user.ID == 0 {
 		_, err = db.Q().Insert(db.TableUser).Rows(user).Prepared(true).Executor().Exec()
