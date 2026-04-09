@@ -34,7 +34,7 @@ type oauthClient struct {
 
 func loadClient(id string, grantType string) (*oauthClient, error) {
 	c := &oauthClient{}
-	if err := bus.GetJSON("oauth:client:"+id, c); err != nil {
+	if err := bus.Get("oauth:client:"+id, c); err != nil {
 		return nil, errServerError.withError(err)
 	}
 	if c.ID == "" {
@@ -49,7 +49,7 @@ func loadClient(id string, grantType string) (*oauthClient, error) {
 }
 
 func (c *oauthClient) store() error {
-	return bus.SetJSON("oauth:client:"+c.ID, c, clientTTL)
+	return bus.Set("oauth:client:"+c.ID, c, clientTTL)
 }
 
 func (c *oauthClient) remove() error {

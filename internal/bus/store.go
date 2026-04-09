@@ -5,26 +5,27 @@
 package bus
 
 import (
-	"encoding/json"
 	"time"
+
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
-// SetJSON stores a value as a JSON string.
-func SetJSON(key string, value any, expiration time.Duration) error {
-	data, err := json.Marshal(value)
+// Set stores a value as a JSON string.
+func Set(key string, value any, expiration time.Duration) error {
+	data, err := superbus.Marshal(value)
 	if err != nil {
 		return err
 	}
-	return store.Set(key, string(data), expiration)
+	return store.Set(key, data, expiration)
 }
 
-// GetJSON retrieves a value as a JSON string. It returns [ErrNotExists]
+// Get retrieves a value as a JSON string. It returns [ErrNotExists]
 // when the value was not in the store already.
-func GetJSON(key string, value any) error {
+func Get(key string, value any) error {
 	data := store.Get(key)
-	if data == "" {
+	if data == nil {
 		return nil
 	}
 
-	return json.Unmarshal([]byte(data), value)
+	return superbus.Unmarshal(data, value)
 }

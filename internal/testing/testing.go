@@ -716,12 +716,12 @@ func (r *Response) AssertJSON(t *testing.T, expected string) {
 // GetTaskPayload returns a decoded task payload.
 func GetTaskPayload[T any](t *testing.T, name string, task superbus.Task) T {
 	data := Store().Get(name)
-	if data == "" {
+	if data == nil {
 		t.Fatal("empty task data")
 	}
 
-	p := superbus.Payload{}
-	if err := json.Unmarshal([]byte(data), &p); err != nil {
+	var p superbus.Payload
+	if err := superbus.Unmarshal(data, &p); err != nil {
 		t.Fatal(err)
 	}
 

@@ -13,10 +13,15 @@ import (
 	"github.com/redis/go-redis/v9"
 )
 
+var (
+	_ Store = (*RedisStore)(nil)
+	_ Store = (*MemStore)(nil)
+)
+
 // Store is a very basic key/value store.
 type Store interface {
-	Get(string) string
-	Set(string, string, time.Duration) error
+	Get(string) []byte
+	Set(string, []byte, time.Duration) error
 	Del(string) error
 }
 
@@ -42,17 +47,17 @@ func (s *RedisStore) key(key string) string {
 
 // Get returns a value for the given key. Returns an empty string when the
 // value does not exist.
-func (s *RedisStore) Get(key string) string {
-	res, err := s.rdb.Get(context.Background(), s.key(key)).Result()
+func (s *RedisStore) Get(key string) []byte {
+	res, err := s.rdb.Get(context.Background(), s.key(key)).Bytes()
 	if err == redis.Nil {
-		return ""
+		return nil
 	}
 
 	return res
 }
 
 // Set insert or replace the value for the given key.
-func (s *RedisStore) Set(key, value string, expiration time.Duration) error {
+func (s *RedisStore) Set(key string, value []byte, expiration time.Duration) error {
 	_, err := s.rdb.Set(context.Background(), s.key(key), value, expiration).Result()
 	return err
 }
@@ -66,28 +71,28 @@ func (s *RedisStore) Del(key string) error {
 // MemStore is a KvStore implementation using a simple in memory map.
 type MemStore struct {
 	sync.RWMutex
-	data   map[string]string
+	data   map[string][]byte
 	timers map[string]*time.Timer
 }
 
 // NewMemStore returns a MemStore instance.
 func NewMemStore() *MemStore {
 	return &MemStore{
-		data:   make(map[string]string),
+		data:   make(map[string][]byte),
 		timers: make(map[string]*time.Timer),
 	}
 }
 
 // Get returns a value for the given key. Returns an empty string when the
 // value does not exist.
-func (s *MemStore) Get(key string) string {
+func (s *MemStore) Get(key string) []byte {
 	s.RLock()
 	defer s.RUnlock()
 	return s.data[key]
 }
 
 // Set insert or replace the value for the given key.
-func (s *MemStore) Set(key, value string, expiration time.Duration) error {
+func (s *MemStore) Set(key string, value []byte, expiration time.Duration) error {
 	s.Lock()
 	defer s.Unlock()
 	s.data[key] = value
@@ -131,6 +136,6 @@ func (s *MemStore) Del(key string) error {
 func (s *MemStore) Clear() {
 	s.Lock()
 	defer s.Unlock()
-	s.data = make(map[string]string)
+	s.data = make(map[string][]byte)
 	s.timers = make(map[string]*time.Timer)
 }
