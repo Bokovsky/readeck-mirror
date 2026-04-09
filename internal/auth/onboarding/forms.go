@@ -6,6 +6,7 @@ package onboarding
 
 import (
 	"context"
+	"strings"
 
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/pkg/forms"
@@ -22,6 +23,17 @@ func newOnboardingForm(tr forms.Translator) *onboardingForm {
 		forms.NewTextField("email", forms.Trim, forms.Skip, forms.MaxLen(128), users.IsValidUserEmail),
 		forms.NewTextField("password", forms.Required, users.IsValidPassword),
 	)}
+}
+
+func (f *onboardingForm) Validate() {
+	username := f.Get("username").String()
+	email := f.Get("email").String()
+
+	// A username can be an email address only if both match
+	if strings.ContainsRune(username, '@') && username != email {
+		f.AddErrors("username", users.ErrInvalidUsername)
+		return
+	}
 }
 
 func (f *onboardingForm) createUser(language string) (*users.User, error) {

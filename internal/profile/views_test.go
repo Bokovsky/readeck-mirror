@@ -44,8 +44,29 @@ func TestViews(t *testing.T) {
 				"email":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letters"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget(client.History.PrevURL()),
+			WithBody(url.Values{
+				"username": {"user@example.org"},
+				"email":    {"user@localhost"},
+			}),
+			AssertStatus(422),
+			AssertContains("username is not valid"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget(client.History.PrevURL()),
+			WithBody(url.Values{
+				"username": {"user@localhost"},
+			}),
+			AssertStatus(303),
+			AssertRedirect("/profile"),
 		)
 
 		client.RT(t,

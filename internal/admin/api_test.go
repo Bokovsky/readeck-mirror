@@ -239,7 +239,7 @@ func TestAPI(t *testing.T) {
 						"is_null": false,
 						"value": "test3@localhost",
 						"errors":[
-							"must contain English letters, digits, \"_\" and \"-\" only"
+							"username is not valid"
 						]
 					}
 				}
@@ -336,8 +336,63 @@ func TestAPI(t *testing.T) {
 			WithMethod(http.MethodPost),
 			WithTarget("/api/admin/users"),
 			WithBody(map[string]any{
+				"username": "test2@example.org",
+				"email":    "test2@localhost",
+				"group":    "user",
+				"password": "1234",
+			}),
+			AssertStatus(422),
+			AssertJSON(`{
+				"is_valid": false,
+				"errors": null,
+				"fields": {
+					"email": {
+						"is_bound": true,
+						"is_null": false,
+						"value": "test2@localhost",
+						"errors": null
+					},
+					"group": {
+						"is_bound": true,
+						"is_null": false,
+						"value": "user",
+						"errors": null
+					},
+					"password": {
+						"is_bound": true,
+						"is_null": false,
+						"value": "1234",
+						"errors": null
+					},
+					"username": {
+						"is_bound": true,
+						"is_null": false,
+						"value": "test2@example.org",
+						"errors": ["username is not valid"]
+					}
+				}
+			}`),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/api/admin/users"),
+			WithBody(map[string]any{
 				"username": "test2",
 				"email":    "test2@localhost",
+				"group":    "user",
+				"password": "1234",
+			}),
+			AssertStatus(201),
+			AssertJSON(`{"status":201,"message":"User created"}`),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/api/admin/users"),
+			WithBody(map[string]any{
+				"username": "test-eq@localhost",
+				"email":    "test-eq@localhost",
 				"group":    "user",
 				"password": "1234",
 			}),
@@ -392,7 +447,7 @@ func TestAPI(t *testing.T) {
 						"is_bound":true,
 						"value":"test3@localhost",
 						"errors":[
-							"must contain English letters, digits, \"_\" and \"-\" only"
+							"username is not valid"
 						]
 					}
 				}

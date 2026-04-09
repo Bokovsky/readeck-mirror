@@ -65,8 +65,34 @@ func TestViews(t *testing.T) {
 				"group":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letters"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test2@example.org"},
+				"password": {"1234"},
+				"email":    {"test2@localhost"},
+				"group":    {"user"},
+			}),
+			AssertStatus(422),
+			AssertContains("username is not valid"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test-eq@localhost"},
+				"password": {"1234"},
+				"email":    {"test-eq@localhost"},
+				"group":    {"user"},
+			}),
+			AssertStatus(303),
+			AssertRedirect(`^/admin/users/\w+$`),
 		)
 
 		client.RT(t,
@@ -115,7 +141,7 @@ func TestViews(t *testing.T) {
 				"group":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letter"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
 		)
 

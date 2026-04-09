@@ -9,9 +9,9 @@ import (
 	"errors"
 	"fmt"
 	"net/url"
-	"regexp"
 	"strings"
 	"time"
+	"unicode"
 
 	"github.com/doug-martin/goqu/v9"
 
@@ -24,12 +24,9 @@ type (
 	ctxUserFormKey struct{}
 )
 
-// rxUsername is the regexp used to validate a username.
-var rxUsername = regexp.MustCompile(`^[a-zA-Z][a-zA-Z0-9_-]{2,}$`)
-
 // Error definitions.
 var (
-	ErrInvalidUsername  = forms.Gettext(`must contain English letters, digits, "_" and "-" only`)
+	ErrInvalidUsername  = forms.Gettext(`username is not valid`)
 	ErrBlockedUsername  = forms.Gettext("username is not available")
 	ErrBlockedEmailAddr = forms.ErrInvalidEmail
 )
@@ -50,8 +47,14 @@ var IsValidUsername = forms.ValueValidatorFunc[string](func(f forms.Field, v str
 		return nil
 	}
 
-	if !rxUsername.MatchString(v) {
+	if len(v) < 3 {
 		return ErrInvalidUsername
+	}
+
+	for _, x := range v {
+		if unicode.Is(unicode.C, x) || unicode.Is(unicode.Space, x) {
+			return ErrInvalidUsername
+		}
 	}
 
 	for _, blocked := range configs.Config.Accounts.UsernameDenyList {
@@ -161,6 +164,16 @@ func (f *UserForm) Bind() {
 func (f *UserForm) Validate() {
 	u, _ := f.Context().Value(ctxUserFormKey{}).(*User)
 
+	// A username can be an email address only if both match
+	// TODO: when forms/v2 lands, make this part of a shared BaseUserForm
+	// used by all user forms (admin, profile, onboarding)
+	username := f.Get("username").String()
+	email := f.Get("email").String()
+	if strings.ContainsRune(username, '@') && username != email {
+		f.AddErrors("username", ErrInvalidUsername)
+		return
+	}
+
 	userQuery := Users.Query().
 		Where(goqu.C("username").Eq(f.Get("username").String()))
 	emailQuery := Users.Query().
@@ -266,6 +279,17 @@ func NewProvisioningForm(tr forms.Translator) *ProvisioningForm {
 		forms.NewTextField("email", forms.MaxLen(128), IsValidUserEmail),
 		forms.NewTextField("group", forms.RequiredOrNil, forms.ChoicesPairs(availableGroups)),
 	)}
+}
+
+// Validate performs extra form validations.
+func (f *ProvisioningForm) Validate() {
+	// A username can be an email address only if both match
+	username := f.Get("username").String()
+	email := f.Get("email").String()
+	if strings.ContainsRune(username, '@') && username != email {
+		f.AddErrors("username", ErrInvalidUsername)
+		return
+	}
 }
 
 // LoadUser loads a user based on its username or email.
