@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+### Improved
+- New internal data exchange format (CBOR)
+- Default to UTF-8 when loading page without character set information, by [@mislav](https://codeberg.org/mislav)
+- Dry-run and JSON output options in user command
+- Youtube content-script, by [@mislav](https://codeberg.org/mislav)
+
+### Fixed
+- Mediapart content-script
+
 ## [0.22.2] - 2026-03-08
 ### Added
 - DOMParser for Content Scripts
