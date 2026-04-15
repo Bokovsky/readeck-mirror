@@ -350,7 +350,7 @@ func TestClean(t *testing.T) {
 			`
 			<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 			<!-- Created with Inkscape (http://www.inkscape.org/) -->
-			<svg xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  xmlns="http://www.w3.org/2000/svg" version="1.1"
+			<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  xmlns="http://www.w3.org/2000/svg" version="1.1"
 			 width="512" height="512" id="svg2">
 			<title>Mostly harmless</title>
 			<metadata id="metadata7">Some metadata</metadata>
@@ -375,6 +375,25 @@ func TestClean(t *testing.T) {
 			</text>
 			</svg>
 			`,
+		},
+		{
+			`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+			<!-- Created with Inkscape (http://www.inkscape.org/) -->
+			<svg version="1.1" inkscape:version="1.2" sodipodi:docname="github_breaks_user_rights_logo.svg" inkscape:export-filename="github_breaks_user_rights_logo.png" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+				<sodipodi:namedview id="namedview2246" inkscape:showpageshadow="2" />
+				<defs id="defs2241" />
+				<g inkscape:label="Layer 1" id="layer1">
+					<path d="m 55" sodipodi:nodetypes="cccc" />
+				</g>
+			</svg>`,
+			`<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+			<!-- Created with Inkscape (http://www.inkscape.org/) -->
+			<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+				<defs id="defs2241"></defs>
+				<g id="layer1">
+					<path d="m 55"></path>
+				</g>
+			</svg>`,
 		},
 	}
 
