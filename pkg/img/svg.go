@@ -9,6 +9,7 @@ import (
 	"io"
 	"math"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -254,43 +255,39 @@ func svgNumberToInt(v string) int {
 type svgTagCleaner func(*xmlquery.Node) bool
 
 func svgTagCleanup(node *xmlquery.Node) bool {
-	for i := len(node.Attr) - 1; i >= 0; i-- {
-		attrName := node.Attr[i].Name.Local
-		attrNamespaceURI := node.Attr[i].NamespaceURI
+	node.Attr = slices.DeleteFunc(node.Attr, func(attr xmlquery.Attr) bool {
+		attrName := attr.Name.Local
+		attrNamespaceURI := attr.NamespaceURI
 		if attrNamespaceURI == "" {
 			switch attrName {
 			case "id", "xmlns":
-				continue
+				return false
 			default:
 				attrNamespaceURI = node.NamespaceURI
 			}
 		}
-		if _, ok := allowedSVGAttributes[xmlName{attrNamespaceURI, attrName}]; !ok {
-			node.Attr = append(node.Attr[:i], node.Attr[i+1:]...)
-		}
-	}
+
+		_, ok := allowedSVGAttributes[xmlName{attrNamespaceURI, attrName}]
+		return !ok
+	})
 	return true
 }
 
 func svgUseTagCleanup(node *xmlquery.Node) bool {
 	svgTagCleanup(node)
-
-	attrs := []xmlquery.Attr{}
 	hasValidHref := false
 
-	for _, x := range node.Attr {
-		if x.Name.Local == "href" && (x.Name.Space == "" || x.NamespaceURI == xlinkNS) {
+	node.Attr = slices.DeleteFunc(node.Attr, func(attr xmlquery.Attr) bool {
+		if attr.Name.Local == "href" && (attr.Name.Space == "" || attr.NamespaceURI == xlinkNS) {
 			// Remove href and xlink:href attributes that don't refer to internal IDs
-			if strings.HasPrefix(x.Value, "#") {
-				attrs = append(attrs, x)
+			if strings.HasPrefix(attr.Value, "#") {
 				hasValidHref = true
+				return false
 			}
-			continue
+			return true
 		}
-		attrs = append(attrs, x)
-	}
-
-	node.Attr = attrs
+		return false
+	})
 
 	return hasValidHref
 }
