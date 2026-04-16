@@ -30,7 +30,8 @@
     "//div[@data-testid=\"SocialIcon\"]",
     "//div[@data-testid=\"AuthorBio\"]",
     "//a[contains(@href, '/about-us/trust-principles')]/parent::*",
-    "//div[contains(@class, 'article-module__read-next')]"
+    "//div[contains(@class, 'article-module__read-next')]",
+    "//*[@aria-hidden=\"true\"]"
   ],
   "strip_id_or_class": [
     "article-meta",
