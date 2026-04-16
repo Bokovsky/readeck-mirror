@@ -71,7 +71,7 @@ func (c *recoverCode) String() string {
 // save saves the recover code in the K/V store using the code
 // as a key.
 func (c *recoverCode) save(prefix string, ttl time.Duration) error {
-	return bus.SetJSON(prefix+"_"+c.key(), c, ttl)
+	return bus.Set(prefix+"_"+c.key(), c, ttl)
 }
 
 // load retrieves the [recoverCode] from the K/V store
@@ -87,7 +87,7 @@ func (c *recoverCode) load(prefix string, code string) error {
 		return errors.New("invalid code size")
 	}
 
-	if err = bus.GetJSON(
+	if err = bus.Get(
 		prefix+"_"+base64.RawURLEncoding.EncodeToString(data[0:rCodeSize]),
 		c,
 	); err != nil {

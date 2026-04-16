@@ -5,14 +5,17 @@
 package superbus
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
 	"log/slog"
 	"sync"
 	"time"
 
 	"github.com/redis/go-redis/v9"
+)
+
+var (
+	_ EventManager = (*RedisEventManager)(nil)
+	_ EventManager = (*EagerEventManager)(nil)
 )
 
 // Event is an event sent to the wire. It contains a name and a value that can be unmarshalled later.
@@ -119,7 +122,7 @@ func (m *RedisEventManager) Listen() {
 
 				evt := result[1]
 				e := Event{}
-				if err := json.Unmarshal([]byte(evt), &e); err != nil {
+				if err := Unmarshal([]byte(evt), &e); err != nil {
 					slog.Error("loading event", slog.Any("err", err))
 					continue
 				}
@@ -141,14 +144,12 @@ func (m *RedisEventManager) Stop() {
 // Push sends an event to the event channel.
 func (m *RedisEventManager) Push(name string, value []byte) error {
 	e := Event{Name: name, Value: value}
-	b := new(bytes.Buffer)
-	enc := json.NewEncoder(b)
-	enc.SetEscapeHTML(false)
-	if err := enc.Encode(e); err != nil {
+	data, err := Marshal(e)
+	if err != nil {
 		return err
 	}
 
-	_, err := m.rdc.RPush(context.Background(), m.listName, b.String()).Result()
+	_, err = m.rdc.RPush(context.Background(), m.listName, data).Result()
 	return err
 }
 

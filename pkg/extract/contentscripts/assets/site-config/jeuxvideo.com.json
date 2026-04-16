@@ -1,17 +1,17 @@
 {
   "title_selectors": null,
   "body_selectors": [
-    "//div[@class='corps-news text-enrichi-default']",
-    "//div[@class='corps-article text-enrichi-default']",
-    "//div[@class='corps-video text-enrichi-default']"
+    "//article | //div[contains(@class, 'layout__contentBefore')] | //div[contains(@class, 'layout__contentMainMedia')]"
   ],
   "date_selectors": null,
-  "author_selectors": null,
-  "strip_selectors": [
-    "//div[@class='bloc-contact-auteur']",
-    "//div[@class='liens-avis-lecteur']"
+  "author_selectors": [
+    "//div[@class='userSignature__name']"
   ],
-  "strip_id_or_class": null,
+  "strip_selectors": null,
+  "strip_id_or_class": [
+    "articleHeader",
+    "userSignature"
+  ],
   "strip_image_src": null,
   "native_ad_selectors": null,
   "tidy": false,

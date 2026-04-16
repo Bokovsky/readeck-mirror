@@ -83,56 +83,28 @@ func init() {
 	bus.OnReady(func() {
 		ExtractPageTask = bus.Tasks().NewTask(
 			"bookmark.create",
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res ExtractParams
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[ExtractParams],
 			superbus.WithTaskHandler(extractPageHandler),
 		)
 
 		DeleteBookmarkTask = bus.Tasks().NewTask(
 			"bookmark.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res int
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[int],
 			superbus.WithTaskHandler(deleteBookmarkHandler),
 		)
 
 		DeleteCollectionTask = bus.Tasks().NewTask(
 			"collection.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res int
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[int],
 			superbus.WithTaskHandler(deleteCollectionHandler),
 		)
 
 		DeleteLabelTask = bus.Tasks().NewTask(
 			"label.delete",
 			superbus.WithTaskDelay(20),
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res LabelDeleteParams
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[LabelDeleteParams],
 			superbus.WithTaskHandler(deleteLabelHandler),
 		)
 	})

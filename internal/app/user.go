@@ -6,6 +6,7 @@ package app
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
@@ -23,6 +24,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/auth/users"
 	"codeberg.org/readeck/readeck/internal/db"
 	"codeberg.org/readeck/readeck/pkg/base58"
+	"codeberg.org/readeck/readeck/pkg/forms"
 )
 
 func init() {
@@ -33,17 +35,29 @@ func init() {
 	})
 }
 
+type userResult struct {
+	Exists  bool   `json:"exists"`
+	Status  string `json:"status"`
+	Message string `json:"message"`
+}
+
 type userFlags struct {
 	appFlags
 	User       string
 	Password   string
 	Email      string
 	Group      string
+	DryRun     bool
 	RemoveTOTP bool
+	JSON       bool
 }
 
 func (f *userFlags) Flags() *flag.FlagSet {
 	fs := f.appFlags.Flags()
+	fs.BoolVar(&f.DryRun, "dry-run", false, "do not perform actions")
+	fs.BoolVar(&f.DryRun, "n", false, "dry-run (shorthand)")
+	fs.BoolVar(&f.JSON, "json", false, "output result in JSON")
+
 	fs.StringVar(&f.Email, "email", "", "email address")
 	fs.StringVar(&f.Group, "group", "", "group")
 	fs.StringVar(&f.Password, "password", "", strings.TrimSpace(`
@@ -67,6 +81,10 @@ Examples:
 }
 
 func (f *userFlags) setPassword(user *users.User) (err error) {
+	if f.DryRun {
+		return
+	}
+
 	if f.Password == "" && user.ID > 0 {
 		return
 	}
@@ -201,6 +219,14 @@ func (f *userFlags) passwordFromEnv(varName string) (string, error) {
 	return password, nil
 }
 
+func (f *userFlags) output(res *userResult) {
+	if f.JSON {
+		json.NewEncoder(os.Stdout).Encode(res) //nolint:errcheck
+		return
+	}
+	fmt.Printf("⭐ %s\n", res.Message)
+}
+
 func runUser(_ context.Context, args []string) (err error) {
 	var flags userFlags
 	if err = flags.Flags().Parse(args); err != nil {
@@ -239,6 +265,17 @@ func runUser(_ context.Context, args []string) (err error) {
 		}
 	}
 
+	res := &userResult{}
+
+	if user.ID == 0 {
+		res.Status = "create"
+		res.Message = fmt.Sprintf(`User "%s" successfully created`, user.Username)
+	} else {
+		res.Exists = true
+		res.Status = "update"
+		res.Message = fmt.Sprintf(`User "%s" successfully updated`, user.Username)
+	}
+
 	if err = flags.setPassword(user); err != nil {
 		return err
 	}
@@ -247,16 +284,42 @@ func runUser(_ context.Context, args []string) (err error) {
 	flags.setEmail(user)
 	flags.removeTOTP(user)
 
-	msg := "created"
+	// Check username
+	field := forms.NewTextField("", users.IsValidUsername)
+	field.Set(user.Username)
+	if !field.IsValid() {
+		return field.Errors()
+	}
+
+	// Check email address
+	field = forms.NewTextField("", users.IsValidUserEmail)
+	field.Set(user.Email)
+	if !field.IsValid() {
+		return field.Errors()
+	}
+
+	// Allow username as email address
+	if strings.ContainsRune(user.Username, '@') && user.Username != user.Email {
+		return users.ErrInvalidUsername
+	}
+
+	if flags.DryRun {
+		flags.output(res)
+		return nil
+	}
+
+	if strings.ContainsRune(user.Username, '@') && user.Username != user.Email {
+		return users.ErrInvalidUsername
+	}
+
 	if user.ID == 0 {
 		_, err = db.Q().Insert(db.TableUser).Rows(user).Prepared(true).Executor().Exec()
 	} else {
 		err = user.Save()
-		msg = "updated"
 	}
 
 	if err == nil {
-		fmt.Printf("⭐ User \"%s\" successfully %s.\n", user.Username, msg)
+		flags.output(res)
 	}
 
 	return err

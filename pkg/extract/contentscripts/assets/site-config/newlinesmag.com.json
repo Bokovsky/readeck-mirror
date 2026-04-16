@@ -1,0 +1,53 @@
+{
+  "title_selectors": [
+    "//meta[@property='og:title']/@content"
+  ],
+  "body_selectors": [
+    "//article[contains(concat(' ',normalize-space(@class),' '),' running-note-detail ')]",
+    "//div[@class='single_post']"
+  ],
+  "date_selectors": null,
+  "author_selectors": [
+    "//a[@rel='author']/text()"
+  ],
+  "strip_selectors": [
+    "//footer",
+    "//button",
+    "//div[contains(@class, 'single_post__top container')]/h1",
+    "//a[contains(@href, '/become-a-member/')]/ancestor::p[1]"
+  ],
+  "strip_id_or_class": [
+    "nav-next",
+    "nav-previous",
+    "js-running-notes-sidebar",
+    "share_links",
+    "running-note-detail__date",
+    "running-note-detail__navigation",
+    "meta",
+    "single_post__meta",
+    "single_post__author_date flex_start__mob",
+    "single_post__shrs",
+    "single_post__tags"
+  ],
+  "strip_image_src": null,
+  "native_ad_selectors": null,
+  "tidy": false,
+  "prune": false,
+  "autodetect_on_failure": true,
+  "single_page_link_selectors": null,
+  "next_page_link_selectors": null,
+  "replace_strings": null,
+  "http_headers": {
+    "User-Agent": "Wallabag/2"
+  },
+  "tests": [
+    {
+      "url": "https://newlinesmag.com/running-notes/kashmiris-drawing-on-historical-ties-to-persia-are-donating-their-life-savings-to-iran/",
+      "contains": []
+    },
+    {
+      "url": "https://newlinesmag.com/first-person/how-a-house-in-mount-lebanons-zabbougha-survived-wars-famine-and-loss/",
+      "contains": []
+    }
+  ]
+}

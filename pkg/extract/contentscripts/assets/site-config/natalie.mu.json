@@ -13,7 +13,10 @@
   "strip_id_or_class": [
     "NA_article_embed_article_title",
     "NA_accordion",
-    "NA_article_item"
+    "NA_article_item",
+    "PP_nextpage",
+    "PP_column",
+    "PP_profile"
   ],
   "strip_image_src": null,
   "native_ad_selectors": null,
@@ -21,12 +24,18 @@
   "prune": false,
   "autodetect_on_failure": true,
   "single_page_link_selectors": null,
-  "next_page_link_selectors": null,
+  "next_page_link_selectors": [
+    "//a[@title=\"次のページ\"]"
+  ],
   "replace_strings": null,
   "http_headers": null,
   "tests": [
     {
       "url": "https://natalie.mu/eiga/news/652778",
+      "contains": []
+    },
+    {
+      "url": "https://natalie.mu/music/pp/dreamscometrue08",
       "contains": []
     }
   ]

@@ -303,6 +303,18 @@ func TestForwardedAuth(t *testing.T) {
 			},
 		},
 		{
+			name: "authorized username eq email",
+			req: func(r *http.Request) {
+				r.Header.Set("Remote-User", "user@localhost")
+				r.Header.Set("Remote-Email", "user@localhost")
+				r.Header.Set("Remote-Groups", "user")
+				r.RemoteAddr = "[::1]:1234"
+			},
+			assert: func(assert *require.Assertions, rsp *Response) {
+				assert.Equal(200, rsp.StatusCode)
+			},
+		},
+		{
 			name: "unauthorized ip4",
 			req: func(r *http.Request) {
 				r.Header.Set("Remote-User", "user")
@@ -329,7 +341,19 @@ func TestForwardedAuth(t *testing.T) {
 		{
 			name: "invalid username",
 			req: func(r *http.Request) {
-				r.Header.Set("Remote-User", "user@localhost")
+				r.Header.Set("Remote-User", "user\u00AD\test")
+				r.Header.Set("Remote-Email", "user@localhost")
+				r.Header.Set("Remote-Groups", "user")
+				r.RemoteAddr = "127.0.0.1:1234"
+			},
+			assert: func(assert *require.Assertions, rsp *Response) {
+				assert.Equal(403, rsp.StatusCode)
+			},
+		},
+		{
+			name: "invalid username as email",
+			req: func(r *http.Request) {
+				r.Header.Set("Remote-User", "user@example.org")
 				r.Header.Set("Remote-Email", "user@localhost")
 				r.Header.Set("Remote-Groups", "user")
 				r.RemoteAddr = "127.0.0.1:1234"

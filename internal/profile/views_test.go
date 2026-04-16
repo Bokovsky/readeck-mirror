@@ -5,7 +5,6 @@
 package profile_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -18,6 +17,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"codeberg.org/readeck/readeck/internal/auth/tokens"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 	"codeberg.org/readeck/readeck/pkg/totp"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
@@ -44,8 +44,29 @@ func TestViews(t *testing.T) {
 				"email":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letters"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget(client.History.PrevURL()),
+			WithBody(url.Values{
+				"username": {"user@example.org"},
+				"email":    {"user@localhost"},
+			}),
+			AssertStatus(422),
+			AssertContains("username is not valid"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget(client.History.PrevURL()),
+			WithBody(url.Values{
+				"username": {"user@localhost"},
+			}),
+			AssertStatus(303),
+			AssertRedirect("/profile"),
 		)
 
 		client.RT(t,
@@ -163,19 +184,19 @@ func TestViews(t *testing.T) {
 
 				// An event was sent
 				assert.Len(Events().Records("task"), 1)
-				evt := map[string]any{}
-				assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
-				assert.Equal("token.delete", evt["name"])
-				assert.InDelta(float64(token.ID), evt["id"], 0)
+				var evt superbus.Operation
+				assert.NoError(superbus.Unmarshal(Events().Records("task")[0], &evt))
+				assert.Equal("token.delete", evt.Name)
+				assert.InDelta(float64(token.ID), evt.ID, 0)
 
 				// There's a task in the store
 				task := fmt.Sprintf("tasks:token.delete:%d", token.ID)
 				m := Store().Get(task)
 				assert.NotEmpty(m)
 
-				payload := map[string]any{}
-				assert.NoError(json.Unmarshal([]byte(m), &payload))
-				assert.InDelta(float64(20), payload["delay"], 0)
+				var payload superbus.Payload
+				assert.NoError(superbus.Unmarshal([]byte(m), &payload))
+				assert.InDelta(float64(20), payload.Delay, 0)
 			}),
 		)
 

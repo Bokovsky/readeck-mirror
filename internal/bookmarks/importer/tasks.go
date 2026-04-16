@@ -5,7 +5,6 @@
 package importer
 
 import (
-	"encoding/json"
 	"fmt"
 	"log/slog"
 
@@ -44,26 +43,12 @@ func init() {
 	bus.OnReady(func() {
 		ImportBookmarksTask = bus.Tasks().NewTask(
 			"bookmarks.import",
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res ImportParams
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[ImportParams],
 			superbus.WithTaskHandler(importBookmarksHandler),
 		)
 		ImportExtractTask = bus.Tasks().NewTask(
 			"bookmarks.import_extract",
-			superbus.WithUnmarshall(func(data []byte) any {
-				var res tasks.ExtractParams
-				err := json.Unmarshal(data, &res)
-				if err != nil {
-					panic(err)
-				}
-				return res
-			}),
+			superbus.WithUnmarshall[tasks.ExtractParams],
 			superbus.WithTaskHandler(importExtractHandler),
 		)
 	})
@@ -141,19 +126,19 @@ func getStoreProgressList(trackID string) (ids []int) {
 	ids = []int{}
 	data := bus.Store().Get("bookmark_import_" + trackID)
 
-	if data == "" {
+	if data == nil {
 		return
 	}
-	_ = json.Unmarshal([]byte(data), &ids)
+	_ = superbus.Unmarshal([]byte(data), &ids)
 	return
 }
 
 func setStoreProgressList(trackID string, ids []int) error {
-	data, err := json.Marshal(ids)
+	data, err := superbus.Marshal(ids)
 	if err != nil {
 		return err
 	}
-	return bus.Store().Set("bookmark_import_"+trackID, string(data), 0)
+	return bus.Store().Set("bookmark_import_"+trackID, data, 0)
 }
 
 func clearStoreProgressList(trackID string) error {

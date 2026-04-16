@@ -5,7 +5,6 @@
 package admin_test
 
 import (
-	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/url"
@@ -14,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
+	"codeberg.org/readeck/readeck/pkg/superbus"
 )
 
 func TestViews(t *testing.T) {
@@ -65,8 +65,34 @@ func TestViews(t *testing.T) {
 				"group":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letters"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test2@example.org"},
+				"password": {"1234"},
+				"email":    {"test2@localhost"},
+				"group":    {"user"},
+			}),
+			AssertStatus(422),
+			AssertContains("username is not valid"),
+		)
+
+		client.RT(t,
+			WithMethod(http.MethodPost),
+			WithTarget("/admin/users/add"),
+			WithBody(url.Values{
+				"username": {"test-eq@localhost"},
+				"password": {"1234"},
+				"email":    {"test-eq@localhost"},
+				"group":    {"user"},
+			}),
+			AssertStatus(303),
+			AssertRedirect(`^/admin/users/\w+$`),
 		)
 
 		client.RT(t,
@@ -115,7 +141,7 @@ func TestViews(t *testing.T) {
 				"group":    {"user"},
 			}),
 			AssertStatus(422),
-			AssertContains("must contain English letter"),
+			AssertContains("username is not valid"),
 			AssertContains("not a valid email address"),
 		)
 
@@ -148,13 +174,13 @@ func TestViews(t *testing.T) {
 			AssertContains("User will be removed in a few seconds"),
 			WithAssert(func(t *testing.T, _ *Response) {
 				assert := require.New(t)
-				evt := map[string]any{}
+				var evt superbus.Operation
 
 				// An event was sent
 				assert.Len(Events().Records("task"), 1)
-				assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
-				assert.Equal("user.delete", evt["name"])
-				assert.InEpsilon(float64(u1.User.ID), evt["id"], 0)
+				assert.NoError(superbus.Unmarshal(Events().Records("task")[0], &evt))
+				assert.Equal("user.delete", evt.Name)
+				assert.InEpsilon(float64(u1.User.ID), evt.ID, 0)
 
 				// There's a task in the store
 				task := fmt.Sprintf("tasks:user.delete:%d", u1.User.ID)

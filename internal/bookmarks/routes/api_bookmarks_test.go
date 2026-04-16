@@ -22,6 +22,7 @@ import (
 	"codeberg.org/readeck/readeck/internal/bookmarks"
 	"codeberg.org/readeck/readeck/internal/bookmarks/tasks"
 	"codeberg.org/readeck/readeck/pkg/ctxr"
+	"codeberg.org/readeck/readeck/pkg/superbus"
 
 	. "codeberg.org/readeck/readeck/internal/testing" //revive:disable:dot-imports
 )
@@ -65,13 +66,13 @@ func TestBookmarkCreate(t *testing.T) {
 		assert := require.New(t)
 
 		assert.Len(Events().Records("task"), 1)
-		evt := map[string]any{}
-		assert.NoError(json.Unmarshal(Events().Records("task")[0], &evt))
-		assert.Equal("bookmark.create", evt["name"])
+		var evt superbus.Operation
+		assert.NoError(superbus.Unmarshal(Events().Records("task")[0], &evt))
+		assert.Equal("bookmark.create", evt.Name)
 
 		params := GetTaskPayload[tasks.ExtractParams](
 			t,
-			fmt.Sprintf("tasks:bookmark.create:%v", evt["id"]),
+			fmt.Sprintf("tasks:bookmark.create:%v", evt.ID),
 			tasks.ExtractPageTask,
 		)
 

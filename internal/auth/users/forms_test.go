@@ -81,18 +81,50 @@ func TestValidators(t *testing.T) {
 			data: "abc",
 		},
 		{
+			f:    forms.NewTextField("", users.IsValidUsername),
+			data: "alice@example.org",
+		},
+		{
 			f:      forms.NewTextField("", users.IsValidUsername),
-			data:   `"invalid@example.org"`,
+			data:   "al ice",
 			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:      forms.NewTextField("", users.IsValidUsername),
+			data:   "al\nice",
+			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:      forms.NewTextField("", users.IsValidUsername),
+			data:   "al\u3000ice",
+			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:      forms.NewTextField("", users.IsValidUsername),
+			data:   "Al\u200Bice",
+			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:      forms.NewTextField("", users.IsValidUsername),
+			data:   "Al\x1dice",
+			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:      forms.NewTextField("", users.IsValidUsername),
+			data:   "Al\u00ADice",
+			errors: []error{users.ErrInvalidUsername},
+		},
+		{
+			f:    forms.NewTextField("", users.IsValidUsername),
+			data: "ålice",
 		},
 		{
 			f:    forms.NewTextField("", users.IsValidUsername),
 			data: "alice",
 		},
 		{
-			f:      forms.NewTextField("", users.IsValidUsername),
-			data:   "1alice",
-			errors: []error{users.ErrInvalidUsername},
+			f:    forms.NewTextField("", users.IsValidUsername),
+			data: "1alice",
 		},
 		{
 			f:      forms.NewTextField("", users.IsValidUsername),
