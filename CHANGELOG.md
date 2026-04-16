@@ -9,6 +9,7 @@
 
 ### Fixed
 - Mediapart content-script
+- SVG attribute sanitizer, by [@mislav](https://codeberg.org/mislav)
 
 ## [0.22.2] - 2026-03-08
 ### Added
